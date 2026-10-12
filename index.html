@@ -181,11 +181,13 @@ details.sec ul{margin:0;padding:0 16px 16px 50px;display:flex;flex-direction:col
 .pyr strong{font-family:var(--f-display)}
 .pyr span{font-size:.85rem;opacity:.95}
 /* flashcards */
-.card{perspective:1400px;cursor:pointer}
-.card-in{position:relative;transition:transform .45s;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;display:grid}
-.card.flip .card-in{transform:rotateY(180deg)}
-.face{grid-area:1/1;min-height:330px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border-radius:22px;padding:22px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);border-top:6px solid var(--cc,var(--accent));-webkit-transform:rotateY(0deg);transform:rotateY(0deg)}
-.face.back{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
+.card{cursor:pointer}
+.card-in{display:flex;flex-direction:column;gap:12px}
+.face{background:var(--surface);border-radius:22px;padding:22px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);border-top:6px solid var(--cc,var(--accent))}
+.card:not(.flip) .face:first-child{min-height:300px}
+.card.flip .hint{display:none}
+.face.ans{border:2px solid var(--cc,var(--accent));background:color-mix(in srgb,var(--cc,var(--accent)) 7%,var(--surface));animation:reveal .25s ease-out}
+@keyframes reveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .face .q{font-family:var(--f-display);font-size:1.4rem;font-weight:700;line-height:1.2}
 .face .hint{margin-top:auto;font-size:.85rem;color:var(--muted)}
 .face ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
@@ -216,7 +218,7 @@ input[type=date]::-webkit-date-and-time-value{text-align:left}
 #lb img{max-width:100%;max-height:78vh;border-radius:12px;background:#fff}
 #lb p{color:#fff;text-align:center;max-width:520px}
 #lb button{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:16px;background:rgba(255,255,255,.15);color:#fff}
-@media (prefers-reduced-motion: reduce){.card-in,.bar i,details.sec .chev{transition:none}.btn:active,.chip:active,.item:active,.opt:active{transform:none}}
+@media (prefers-reduced-motion: reduce){.face.ans{animation:none}.bar i,details.sec .chev{transition:none}.btn:active,.chip:active,.item:active,.opt:active{transform:none}}
 </style>
 </head>
 <body>
@@ -1047,16 +1049,16 @@ function showCard(){
   const c=deck[di],t=byId[c.topic],s=st(c)||{b:0};
   h(`<div class="top"><button class="back" data-go="cartes" aria-label="Quitter la série">‹</button><div style="flex:1;min-width:0" class="stack" ><div class="row" style="justify-content:space-between;gap:4px"><span class="eyebrow">${di+1} / ${deck.length}</span><span class="dots" aria-label="niveau ${s.b} sur 4">${"●".repeat(s.b)}${"○".repeat(4-s.b)}</span></div><div class="bar"><i style="width:${100*di/deck.length}%"></i></div></div></div>
   <div class="stack" style="--cc:${CATC[t.cat]}">
-   <div class="card" id="card" role="button" tabindex="0" aria-label="Retourner la carte"><div class="card-in">
-     <div class="face">${c.img?`<div class="eyebrow">Photo du livret</div><img src="${c.img.src}" alt=""><div class="q">Quelle pathologie ?</div>`:`<div class="eyebrow">${esc(t.t)}</div><div class="q">${c.sec?`<span style="color:var(--cc)">${LETTERS[c.sec]} ·</span> `:""}${esc(c.q)}</div>`}<div class="hint">Réponds à voix haute, puis touche la carte.</div></div>
-     <div class="face back">${c.img?`<div class="eyebrow">Réponse</div><div class="q">${esc(t.t)}</div><p>${md(c.img.c)}</p>`:`<div class="eyebrow">${esc(t.t)} · ${esc(c.q)}</div>${c.a.length>1?`<ul>${c.a.map(x=>`<li>${md(x)}</li>`).join("")}</ul>`:`<p style="font-size:1.15rem">${md(c.a[0])}</p>`}`}</div>
+   <div class="card" id="card" role="button" tabindex="0" aria-label="Voir la réponse"><div class="card-in">
+     <div class="face">${c.img?`<div class="eyebrow">Photo du livret</div><img src="${c.img.src}" alt=""><div class="q">Quelle pathologie ?</div>`:`<div class="eyebrow">${esc(t.t)}</div><div class="q">${c.sec?`<span style="color:var(--cc)">${LETTERS[c.sec]} ·</span> `:""}${esc(c.q)}</div>`}<div class="hint">Réponds à voix haute, puis touche la carte pour voir la réponse.</div></div>
+     <div class="face ans" id="ans" hidden>${c.img?`<div class="eyebrow">Réponse</div><div class="q">${esc(t.t)}</div><p>${md(c.img.c)}</p>`:`<div class="eyebrow">Réponse</div>${c.a.length>1?`<ul>${c.a.map(x=>`<li>${md(x)}</li>`).join("")}</ul>`:`<p style="font-size:1.15rem">${md(c.a[0])}</p>`}`}</div>
    </div></div>
    <div class="grid2" id="judge" hidden><button class="btn bad" id="ko">À revoir</button><button class="btn good" id="ok">Je savais</button></div>
    <button class="btn block" id="reveal">Voir la réponse</button>
   </div>`);
   const card=document.getElementById("card");
-  const flip=()=>{card.classList.add("flip");document.getElementById("judge").hidden=false;document.getElementById("reveal").hidden=true};
-  card.onclick=()=>{if(card.classList.contains("flip"))card.classList.remove("flip");else flip()};
+  const flip=()=>{if(card.classList.contains("flip"))return;card.classList.add("flip");const ans=document.getElementById("ans");ans.hidden=false;document.getElementById("judge").hidden=false;document.getElementById("reveal").hidden=true;try{document.getElementById("judge").scrollIntoView({behavior:"smooth",block:"nearest"})}catch(e){}};
+  card.onclick=flip;
   card.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip()}};
   document.getElementById("reveal").onclick=flip;
   document.getElementById("ok").onclick=()=>{grade(c,true);sess.ok++;di++;showCard()};
