@@ -90,7 +90,7 @@ button,input,select,textarea{font:inherit}
 .kpi:last-child{border-bottom:0}
 .kpi strong{font-family:var(--f-display);font-variant-numeric:tabular-nums}
 .countdown{display:flex;align-items:center;gap:14px}
-.countdown .big{color:var(--accent)}
+.countdown .big{color:var(--accent);white-space:nowrap;flex:none}
 .cats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cat-tile{border:0;text-align:left;border-radius:var(--r);padding:14px;color:#fff;cursor:pointer;min-height:92px;display:flex;flex-direction:column;justify-content:space-between;font-weight:700;background:var(--cc)}
 .cat-tile span{font-size:.8rem;font-weight:500;opacity:.92}
@@ -218,6 +218,16 @@ input[type=date]::-webkit-date-and-time-value{text-align:left}
 #lb img{max-width:100%;max-height:78vh;border-radius:12px;background:#fff}
 #lb p{color:#fff;text-align:center;max-width:520px}
 #lb button{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:16px;background:rgba(255,255,255,.15);color:#fff}
+.datesel{display:grid;grid-template-columns:1fr 1.7fr 1.2fr;gap:8px}
+.datesel select{padding:12px 6px;font-size:17px;-webkit-appearance:none;appearance:none;text-align:center;text-align-last:center}
+.plist{display:flex;flex-direction:column}
+.prow{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding:8px 0}
+.prow:last-child{border-bottom:0}
+.chk{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--surface);color:transparent;flex:none;display:grid;place-items:center;cursor:pointer;padding:0}
+.chk.on{background:var(--good);border-color:var(--good);color:#fff}
+.item.pitem{padding:0;border:0}
+.oraltxt{padding:0 16px 16px;display:flex;flex-direction:column;gap:8px}
+.oraltxt p{line-height:1.55}
 @media (prefers-reduced-motion: reduce){.face.ans{animation:none}.bar i,details.sec .chev{transition:none}.btn:active,.chip:active,.item:active,.opt:active{transform:none}}
 </style>
 </head>
@@ -765,6 +775,33 @@ const EXTRA = {
    {type:"letters",title:"3 scores de sévérité",items:[["P","PASI : étendue + intensité"],["B","BSA : surface atteinte"],["D","DLQI : qualité de vie"]]}
   ]}
 };
+// Phrases prêtes à dire à l'oral : définition d'introduction + conclusion
+const ORAL = {
+ gelures:{def:"La gelure est une lésion localisée due au froid sous 0 °C ; l’engelure est due à une exposition prolongée entre 0 et 10 °C, favorisée par le vent et l’humidité.",concl:"En conclusion, la gelure peut aller jusqu’à la nécrose et l’amputation, alors que l’engelure guérit sans séquelle en une à trois semaines. Le pédicure-podologue a surtout un rôle de prévention : protection contre le froid et l’humidité, chaussage adapté et repérage des sujets à risque."},
+ raynaud:{def:"Le phénomène de Raynaud est un vasospasme épisodique des extrémités, déclenché surtout par le froid, qui arrête de façon transitoire la circulation artérielle des doigts.",concl:"En conclusion, le Raynaud primaire, le plus fréquent, est bénin, mais il faut savoir repérer un Raynaud secondaire, asymétrique et douloureux, qui expose aux ulcérations. Le pédicure-podologue participe à l’éducation du patient : se protéger du froid, éviter le tabac et la caféine."},
+ varices:{def:"Les varices sont des dilatations permanentes et tortueuses des veines superficielles, liées à une insuffisance valvulaire ; elles s’accompagnent souvent d’un œdème de stase des membres inférieurs.",concl:"En conclusion, c’est une maladie chronique évolutive, classée par la CEAP, qui peut se compliquer d’ulcères. Le pédicure-podologue a un rôle de dépistage précoce et d’éducation : marche, surélévation des jambes, contention, et orientation vers le médecin ou le phlébologue."},
+ tumeurs:{def:"Une tumeur est une prolifération anormale de cellules issues d’une même cellule ; elle peut être bénigne ou maligne et toucher la peau ou l’appareil unguéal.",concl:"En conclusion, seul l’examen anatomopathologique affirme le diagnostic, et le dépistage précoce du mélanome est la seule chance de guérison. Le pédicure-podologue doit repérer une lésion suspecte grâce à la règle ABCDE, surtout une lésion d’un seul doigt ou orteil, et orienter rapidement vers le dermatologue."},
+ antifongiques:{def:"Les antifongiques sont des médicaments qui éliminent ou stoppent la progression des champignons : dermatophytes, levures et moisissures.",concl:"En conclusion, il existe quatre familles d’antifongiques, utilisés en local ou par voie orale selon l’atteinte, avec des traitements longs. Le pédicure-podologue assure les soins associés, favorise l’observance et donne les conseils d’hygiène pour éviter les récidives."},
+ onychomycoses:{def:"L’onychomycose est une infection de l’ongle par des champignons parasites ; elle représente la moitié des consultations pour pathologie unguéale.",concl:"En conclusion, c’est une pathologie fréquente, au traitement long et aux récidives nombreuses. Le pédicure-podologue intervient par le débridement de l’ongle, le prélèvement si besoin et surtout la prévention : séchage, chaussettes en coton, alternance et décontamination des chaussures."},
+ hematome:{def:"L’hématome sous-unguéal est une accumulation de sang entre la tablette et le lit de l’ongle, le plus souvent après un choc direct ou des microtraumatismes répétés.",concl:"En conclusion, c’est une pathologie bénigne, mais il faut toujours éliminer un mélanome sous-unguéal. Le pédicure-podologue soulage un hématome récent par forage dans les 48 heures et prévient les récidives par des conseils de chaussage et de coupe d’ongle."},
+ ains:{def:"Les anti-inflammatoires non stéroïdiens sont des médicaments antalgiques, anti-inflammatoires et antipyrétiques, utilisés par voie orale ou en gel.",concl:"En conclusion, le pédicure-podologue ne prescrit pas les AINS, mais il doit connaître leurs indications, contre-indications et effets indésirables pour conseiller le patient et adapter ses soins, en particulier chez le diabétique."},
+ onychodys:{def:"Les onychodystrophies sont des troubles de la croissance de l’ongle, congénitaux ou acquis, qui modifient sa forme, son épaisseur ou sa surface, comme l’onychosis et l’onychogryphose.",concl:"En conclusion, devant un ongle épaissi il faut toujours faire le diagnostic différentiel avec une onychomycose. Le pédicure-podologue traite par la coupe, le fraisage et l’orthonyxie, et conseille un chaussage adapté."},
+ dyschromies:{def:"Les dyschromies sont des modifications de la couleur de l’ongle, brune, blanche, jaune ou verte, d’origine traumatique, infectieuse ou générale.",concl:"En conclusion, la couleur oriente le diagnostic, mais toute mélanonychie suspecte doit faire éliminer un mélanome et orienter en urgence vers le dermatologue. Le pédicure-podologue assure l’hygiène, le conseil de chaussage et des soins réguliers."},
+ mycoses:{def:"Les mycoses cutanées sont des infections superficielles de la peau par des champignons microscopiques, favorisées par la chaleur, l’humidité et la macération.",concl:"En conclusion, ce sont des infections fréquentes et bénignes mais souvent récidivantes. Le pédicure-podologue a un rôle essentiel de prévention : séchage des espaces entre les orteils, chaussettes changées chaque jour et chaussures aérées."},
+ verrues:{def:"Les verrues plantaires sont des lésions bénignes de la plante du pied dues au papillomavirus humain, contagieuses et auto-inoculables.",concl:"En conclusion, la plupart guérissent spontanément, mais les récidives sont fréquentes. Le pédicure-podologue soulage par le débridement et les traitements locaux, et conseille de porter des chaussures dans les lieux publics humides."},
+ sudoraux:{def:"Les troubles sudoraux regroupent l’hyperhidrose, une transpiration excessive, et la bromhidrose, une sueur d’odeur fétide due à sa décomposition par des bactéries et des levures.",concl:"En conclusion, ces troubles pèsent sur la qualité de vie et favorisent les mycoses. Le pédicure-podologue éduque à l’hygiène, conseille les antitranspirants et oriente vers le médecin en cas d’hyperhidrose secondaire."},
+ dyshidrose:{def:"La dyshidrose est une forme d’eczéma des mains et des pieds, chronique et récidivante, faite de petites vésicules très prurigineuses.",concl:"En conclusion, c’est une pathologie bénigne mais gênante, dont l’évolution dépend des facteurs déclenchants identifiés. Le pédicure-podologue conseille l’hygiène et l’hydratation, et fait traiter rapidement l’hyperhidrose et les mycoses associées."},
+ mpp:{def:"Le mal perforant plantaire est un ulcère neuropathique indolore de la plante du pied, complication grave du diabète et première cause d’amputation non traumatique.",concl:"En conclusion, la prise en charge repose sur la mise en décharge et une équipe pluridisciplinaire. Le pédicure-podologue est en première ligne pour la prévention : examen annuel des pieds, test au monofilament, soins des hyperkératoses, orthèses et éducation du patient diabétique."},
+ smp:{def:"Le syndrome mains-pieds est une réaction inflammatoire des paumes et des plantes provoquée par certains traitements anticancéreux, chimiothérapies et thérapies ciblées.",concl:"En conclusion, il est réversible mais peut obliger à réduire ou arrêter le traitement du cancer. Le pédicure-podologue intervient avant et pendant le traitement : bilan, soins doux des hyperkératoses, décharge, conseils d’hydratation et de chaussage."},
+ phlyctenes:{def:"Les phlyctènes, ou ampoules, sont des soulèvements de l’épiderme remplis de liquide séreux, le plus souvent causés par des frottements répétés.",concl:"En conclusion, c’est une lésion bénigne qui cicatrise en quelques jours, à surveiller de près chez le diabétique et l’artéritique. Le pédicure-podologue la soigne et prévient les récidives par le chaussage, des chaussettes sans couture et la préparation des pieds avant l’effort."},
+ aomi:{def:"L’artériopathie oblitérante des membres inférieurs est un rétrécissement ou une occlusion des artères des jambes, dû à l’athérosclérose, qui entraîne une ischémie.",concl:"En conclusion, l’AOMI est un marqueur du risque cardiovasculaire global, avec un pronostic sombre. Le pédicure-podologue participe au dépistage par la palpation des pouls et l’IPS, et à la prévention des plaies, surtout chez le diabétique."},
+ erysipele:{def:"L’érysipèle est une infection bactérienne aiguë de la peau et du tissu sous-cutané, non nécrosante, due au streptocoque, qui touche surtout la jambe.",concl:"En conclusion, un traitement antibiotique rapide permet une bonne évolution, mais les récidives sont fréquentes. Le pédicure-podologue traite les portes d’entrée, notamment les intertrigos, et apprend au patient à consulter vite en cas de rougeur ou de fièvre."},
+ phlebite:{def:"La phlébite, ou thrombose veineuse profonde, est la formation d’un caillot dans une veine profonde, le plus souvent du membre inférieur, avec un risque d’embolie pulmonaire.",concl:"En conclusion, c’est une urgence potentiellement grave, traitée par anticoagulants. Le pédicure-podologue doit reconnaître une jambe douloureuse, gonflée et chaude d’un seul côté, et orienter immédiatement vers le médecin."},
+ hyperkeratoses:{def:"Les hyperkératoses sont des épaississements de la couche cornée en réaction à des pressions ou des frottements excessifs : cors, durillons et callosités.",concl:"En conclusion, c’est le premier motif de consultation en pédicurie. Le pédicure-podologue traite la lésion au bistouri mais surtout sa cause, par les orthèses, les orthoplasties et les conseils de chaussage, pour éviter les récidives."},
+ antiseptiques:{def:"Les antiseptiques sont des produits qui éliminent ou inactivent momentanément les micro-organismes sur les tissus vivants ; on les classe en majeurs, intermédiaires et mineurs.",concl:"En conclusion, le choix de l’antiseptique dépend de la pathologie et des contre-indications. Le pédicure-podologue respecte les règles d’utilisation : jamais de mélange d’antiseptiques, date d’ouverture notée et les cinq étapes de l’antisepsie."},
+ eczema:{def:"L’eczéma est une dermatose inflammatoire fréquente et non contagieuse, faite de lésions rouges, vésiculeuses et prurigineuses, qui évolue par poussées.",concl:"En conclusion, l’évolution est le plus souvent favorable avec un traitement adapté et l’éviction de l’allergène. Le pédicure-podologue conseille l’hydratation et une hygiène douce, et oriente vers le dermatologue en cas de poussée ou de surinfection."},
+ psoriasis:{def:"Le psoriasis est une dermatose inflammatoire chronique et non contagieuse, faite de plaques rouges et squameuses, qui touche 2 à 3 % de la population.",concl:"En conclusion, il n’existe pas de guérison définitive, mais les traitements contrôlent les poussées. Le pédicure-podologue prend en charge l’atteinte des ongles et des pieds, et aide le patient à limiter les facteurs déclenchants."}
+};
 
 </script>
 <script>
@@ -786,6 +823,15 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){$app.innerHTML=html;window.scrollTo(0,0)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
+const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const pad=n=>String(n).padStart(2,"0");
+let editDate=false;
+const strip=s=>String(s).replace(/\*\*/g,"").replace(/\*/g,"").trim();
+const endDot=s=>/[.!?)]$/.test(s)?s:s+".";
+const lcFirst=s=>/^[A-ZÀ-Ý][a-zà-ÿ’' ]/.test(s)?s[0].toLowerCase()+s.slice(1):s;
+function introText(t){const o=ORAL[t.id];return "Bonjour. Je vais vous présenter : "+lcFirst(t.t)+". "+(o?o.def:endDot(strip(t.s.i[0])))+" Je suivrai le plan suivant : étiologie et facteurs de risque, physiopathologie, signes cliniques, diagnostic, traitement et prise en charge, pronostic, puis prévention et dépistage."}
+function conclText(t){const o=ORAL[t.id];return o?o.concl:""}
+function examDays(){if(!S.exam)return null;const n=Math.round((new Date(S.exam+"T12:00:00")-new Date(new Date().toDateString()+" 12:00:00"))/864e5);return isNaN(n)?null:n}
 
 // ---------- state (stored on this phone) ----------
 const KEY="podo:v2", INT=[0,1,2,4,8];
@@ -820,6 +866,16 @@ function grade(c,ok){
   S.cards[c.id]=s; const d=today(); S.days[d]=(S.days[d]||0)+1; save();
 }
 function streak(){let n=0,d=today();if(!S.days[d])d--;while(S.days[d]){n++;d--}return n}
+function dailyPlan(){
+  const d=today(),n=examDays();
+  if(S.plan&&S.plan.day===d&&Array.isArray(S.plan.ids))return S.plan;
+  const todo=TOPICS.filter(t=>mastery(t.id)<70).sort((a,b)=>mastery(a.id)-mastery(b.id)||TOPICS.indexOf(a)-TOPICS.indexOf(b));
+  let ids=[],final=false;
+  if(n!==null&&n<0){ids=[]}
+  else if(n!==null&&n<=2){final=true}
+  else{let k=n===null?3:Math.ceil(todo.length/Math.max(1,n-2));k=Math.min(6,Math.max(2,k));ids=todo.slice(0,k).map(t=>t.id);if(!ids.length)ids=shuffle(TOPICS).slice(0,3).map(t=>t.id)}
+  S.plan={day:d,ids,done:[],final};persist();return S.plan;
+}
 
 // ---------- small components ----------
 const ICONS={
@@ -891,6 +947,13 @@ function speakTopic(t,btn){
   btn.classList.add("on");btn.textContent="Arrêter la lecture";
 }
 
+function speakAll(btn){
+  const label="Écouter les "+TOPICS.length+" phrases mémo";
+  if(btn.classList.contains("on")){stopSpeak();btn.classList.remove("on");btn.textContent=label;return}
+  stopSpeak();let voice=null;try{voice=speechSynthesis.getVoices().find(v=>/^fr/i.test(v.lang))||null}catch(e){}
+  TOPICS.forEach((t,i)=>{const u=new SpeechSynthesisUtterance(t.t+". "+plain(t.memo)+". "+t.key.map(plain).join(". "));u.lang="fr-FR";if(voice)u.voice=voice;u.onstart=()=>{if(btn.isConnected)btn.textContent="Arrêter · "+t.t};if(i===TOPICS.length-1)u.onend=()=>{btn.classList.remove("on");btn.textContent=label};speechSynthesis.speak(u)});
+  btn.classList.add("on");btn.textContent="Arrêter la lecture";
+}
 // ================= VIEWS =================
 const VIEWS={};
 
@@ -898,15 +961,20 @@ VIEWS.home=()=>{
   const g=globalMastery(), due=CARDS.filter(isDue).length, fresh=CARDS.filter(c=>!st(c)).length;
   const weak=TOPICS.slice().sort((a,b)=>mastery(a.id)-mastery(b.id)).slice(0,3);
   let cd="";
-  if(S.exam){
-    const n=Math.round((new Date(S.exam+"T12:00:00")-new Date(new Date().toDateString()+" 12:00:00"))/864e5);
+  const nd=examDays();
+  if(S.exam&&!editDate&&nd!==null&&nd>=0){
     const dd=new Date(S.exam+"T12:00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
-    cd=n>=0?`<div class="panel countdown"><span class="big">${n===0?"J":"J-"+n}</span><div><strong>${n===0?"C’est aujourd’hui, tu vas gérer.":"avant ton oral"}</strong><div class="muted small">${esc(dd)} · <button class="chip" id="chgdate" style="min-height:30px;padding:3px 10px">Modifier</button></div></div></div>`:"";
+    cd=`<div class="panel countdown"><span class="big">${nd===0?"J":"J-"+nd}</span><div><strong>${nd===0?"C’est aujourd’hui, tu vas gérer.":"avant ton oral"}</strong><div class="muted small">${esc(dd)} · <button class="chip" id="chgdate" style="min-height:30px;padding:3px 10px">Modifier</button></div></div></div>`;
+  } else {
+    const now=new Date(), base=S.exam?new Date(S.exam+"T12:00:00"):new Date(now.getTime()+14*864e5), y0=now.getFullYear();
+    cd=`<div class="panel stack" style="gap:10px"><div class="eyebrow">Date de ton oral</div>
+      <div class="datesel"><select id="dD" aria-label="Jour">${Array.from({length:31},(_,i)=>`<option value="${i+1}" ${base.getDate()===i+1?"selected":""}>${i+1}</option>`).join("")}</select><select id="dM" aria-label="Mois">${MOIS.map((m,i)=>`<option value="${i+1}" ${base.getMonth()===i?"selected":""}>${m}</option>`).join("")}</select><select id="dY" aria-label="Année">${[y0,y0+1].map(y=>`<option value="${y}" ${base.getFullYear()===y?"selected":""}>${y}</option>`).join("")}</select></div>
+      <button class="btn primary" id="savedate">Enregistrer la date</button><p class="muted small" id="datemsg">Pour le compte à rebours et ton programme de révision jour par jour.</p></div>`;
   }
-  if(!cd) cd=`<div class="panel stack" style="gap:10px"><label for="examdate" class="eyebrow">Date de ton oral</label><input type="date" id="examdate" value="${esc(S.exam)}"><p class="muted small">Pour afficher le compte à rebours.</p></div>`;
   h(`<div class="stack">
    <div class="pagehead"><div class="eyebrow">Oral 2025 · Pédicurie-podologie</div><h1>Mes révisions</h1></div>
    ${cd}
+   ${planPanel()}
    <div class="panel stack">
      <div class="today">${ringSvg(g,"des cartes maîtrisées")}
        <div class="kpis">
@@ -927,7 +995,7 @@ VIEWS.home=()=>{
    <div class="list">${weak.map(topicItem).join("")}</div>
    <h2 style="margin-top:6px">Ma méthode</h2>
    <div class="list">
-     ${[["fiches","Lire la fiche","Phrase mémo, schémas, 5 points clés, puis le plan détaillé."],["fiches","Cacher les mots-clés","Dans une fiche, cache les mots surlignés et retrouve-les de tête."],["cartes","Cartes du jour","Les cartes ratées reviennent le jour même, les sues dans 1, 2, 4 puis 8 jours."],["oral","Oral blanc","Tirage au sort, 5 min de préparation, puis tu te corriges."]].map(([g2,a,b],i)=>`<button class="item" data-go="${g2}"><span class="th mono" style="--cc:var(--accent);width:40px;height:40px">${i+1}</span><div class="txt"><span>${a}</span><span class="muted small" style="font-weight:400">${b}</span></div></button>`).join("")}
+     ${[["fiches","Lire la fiche","Phrase mémo, schémas, 5 points clés, puis le plan détaillé."],["fiches","Cacher les mots-clés","Dans une fiche, cache les mots surlignés et retrouve-les de tête."],["cartes","Cartes du jour","Les cartes ratées reviennent le jour même, les sues dans 1, 2, 4 puis 8 jours."],["oral","Oral blanc","Tirage au sort, 5 min de préparation, 7 min de présentation, 3 min de questions du jury."]].map(([g2,a,b],i)=>`<button class="item" data-go="${g2}"><span class="th mono" style="--cc:var(--accent);width:40px;height:40px">${i+1}</span><div class="txt"><span>${a}</span><span class="muted small" style="font-weight:400">${b}</span></div></button>`).join("")}
    </div>
    <h2 style="margin-top:6px">Sauvegarde</h2>
    <div class="panel stack">
@@ -940,8 +1008,13 @@ VIEWS.home=()=>{
    </div>
    <p class="muted small">Sur iPhone : ouvre ce lien dans Safari, touche Partager puis « Sur l’écran d’accueil ». Tout le contenu (photos comprises) est dans la page : une fois ouverte, elle marche sans réseau.</p>
   </div>`);
-  const ed=document.getElementById("examdate"); if(ed) ed.onchange=()=>{S.exam=ed.value;save();VIEWS.home()};
-  const cg=document.getElementById("chgdate"); if(cg) cg.onclick=()=>{S.exam="";save();VIEWS.home()};
+  const sd=document.getElementById("savedate"); if(sd) sd.onclick=()=>{
+    const D=+document.getElementById("dD").value,M=+document.getElementById("dM").value,Y=+document.getElementById("dY").value,dt=new Date(Y,M-1,D,12);
+    const msg=document.getElementById("datemsg");
+    if(dt.getMonth()!==M-1){msg.textContent="Cette date n’existe pas : vérifie le jour.";return}
+    if(dt<new Date(new Date().toDateString())){msg.textContent="Cette date est déjà passée : choisis la date de ton oral.";return}
+    S.exam=Y+"-"+pad(M)+"-"+pad(D);S.plan=null;editDate=false;save();VIEWS.home()};
+  const cg=document.getElementById("chgdate"); if(cg) cg.onclick=()=>{editDate=true;VIEWS.home()};
   document.getElementById("exp").onclick=exportCode;
   document.getElementById("imp").onclick=()=>{const b=document.getElementById("impbox");b.hidden=!b.hidden};
   document.getElementById("impgo").onclick=importCode;
@@ -949,6 +1022,19 @@ VIEWS.home=()=>{
   rs.onclick=()=>{ if(rs.dataset.armed){S=Object.assign(blank(),{exam:S.exam});save();VIEWS.home()} else {rs.dataset.armed="1";rs.textContent="Touche encore pour tout effacer";rs.style.borderColor="var(--bad)";rs.style.color="var(--bad)"} };
 };
 
+function planPanel(){
+  const n=examDays(),P=dailyPlan();
+  if(n!==null&&n<0)return "";
+  if(P.final)return `<div class="panel stack"><div class="eyebrow">Programme du jour</div><h2>${n===0?"Jour J":"Dernière ligne droite"}</h2><p>${n===0?"Relis seulement tes phrases mémo et le plan, puis reste calme. Tu es prêt·e.":"Pas de nouveau sujet. Fais tes cartes du jour et 2 oraux blancs sur des sujets tirés au sort."}</p><div class="grid2"><button class="btn primary" data-start="jour">Cartes du jour</button><button class="btn" data-go="oral">Oral blanc</button></div></div>`;
+  const todo=TOPICS.filter(t=>mastery(t.id)<70).length;
+  const sub=n===null?"Indique la date de ton oral pour un programme calculé jusqu’au jour J.":(todo?`${plural(todo,"sujet")} encore à maîtriser, ${plural(n,"jour")} avant l’oral.`:"Tout est maîtrisé : entretiens tes acquis avec ces sujets.");
+  const done=P.ids.filter(id=>P.done.includes(id)).length;
+  return `<div class="panel stack"><div class="row" style="justify-content:space-between"><div class="eyebrow">Programme du jour</div><span class="small muted" id="pcount">${done}/${P.ids.length} faits</span></div>
+   <p class="small muted">${sub}</p>
+   <div class="plist">${P.ids.map(id=>{const t=byId[id],ok=P.done.includes(id);return `<div class="prow" style="--cc:${CATC[t.cat]}"><button class="chk ${ok?"on":""}" data-chk="${id}" aria-label="Sujet fait" aria-pressed="${ok}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></button><button class="item pitem" data-fiche="${id}">${thumb(t)}<div class="txt"><span>${esc(t.t)}</span><div class="minibar"><i style="width:${mastery(id)}%"></i></div></div></button></div>`}).join("")}</div>
+   <button class="btn primary block" data-start="prog">Cartes du programme</button>
+   <p class="small muted">Pour chaque sujet : lis la fiche, puis fais ses cartes. Coche quand c’est fait.</p></div>`;
+}
 function exportCode(){
   let code="";try{code=btoa(unescape(encodeURIComponent(JSON.stringify(S))))}catch(e){}
   const ta=document.getElementById("expta"), msg=document.getElementById("bkmsg");
@@ -967,8 +1053,10 @@ VIEWS.fiches=(cat)=>{
   h(`<div class="stack">
    <div class="pagehead"><div class="eyebrow">${TOPICS.length} sujets du livret</div><h1>Fiches</h1></div>
    <input class="search" id="q" type="search" placeholder="Chercher : verrue, ongle, Raynaud…" aria-label="Chercher un sujet">
+   ${canSpeak?`<button class="chip" id="listenall" style="align-self:flex-start">Écouter les ${TOPICS.length} phrases mémo</button>`:""}
    <div id="res" class="stack"></div>
   </div>`);
+  const la=document.getElementById("listenall"); if(la) la.onclick=()=>speakAll(la);
   const draw=(q)=>{
     const n=q.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
     const match=t=>!n||(t.t+" "+t.memo+" "+t.key.join(" ")).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().includes(n);
@@ -995,6 +1083,7 @@ VIEWS.fiche=(id)=>{
     ${t.img.length?`<div class="stack" style="gap:8px"><div class="eyebrow">Photos du livret · touche pour agrandir</div><div class="gal">${t.img.map((im,i)=>`<figure data-img="${i}"><img src="${im.src}" alt="${esc(im.c)}" class="${im.q?"":"doc"}" loading="lazy"><figcaption>${esc(im.c)}</figcaption></figure>`).join("")}</div></div>`:""}
     <div class="row" style="justify-content:space-between"><div class="eyebrow">Le plan détaillé</div><button class="chip" id="openall">Tout ouvrir</button></div>
     ${PLAN.map(([k,l])=>t.s[k]?`<details class="sec"><summary><span class="sumrow"><span class="L">${LETTERS[k]}</span>${l}<span class="chev">›</span></span></summary><ul>${t.s[k].map(x=>`<li>${md(x)}</li>`).join("")}</ul></details>`:"").join("")}
+    ${oralHelp(t)}
     <div class="grid2"><button class="btn primary" data-cards="${t.id}">Cartes de ce sujet</button><button class="btn" data-oral="${t.id}">Oral sur ce sujet</button></div>
    </div>`);
   const f=document.getElementById("fiche");
@@ -1005,10 +1094,13 @@ VIEWS.fiche=(id)=>{
   document.getElementById("openall").onclick=e=>{const ds=[...f.querySelectorAll("details.sec")];const open=!ds.every(d=>d.open);ds.forEach(d=>d.open=open);e.target.textContent=open?"Tout fermer":"Tout ouvrir"};
 };
 
+const oralHelp=t=>`<details class="sec"><summary><span class="sumrow"><span class="L" style="background:var(--cc,var(--accent))">“</span>Intro et conclusion à dire<span class="chev">›</span></span></summary><div class="oraltxt"><div class="eyebrow">Introduction (exemple à adapter)</div><p>${esc(introText(t))}</p><div class="eyebrow">Conclusion</div><p>${esc(conclText(t))}</p></div></details>`;
 // ---------- cartes ----------
 let deck=[],di=0,deckTopic="all",deckMode="jour",sess={ok:0,ko:0};
+const poolOf=()=>deckTopic==="all"?CARDS:deckTopic==="prog"?CARDS.filter(c=>((S.plan&&S.plan.ids)||[]).includes(c.topic)):cardsOf(deckTopic);
 function buildDeck(){
-  const pool=deckTopic==="all"?CARDS:cardsOf(deckTopic);
+  const pool=poolOf();
+  if(deckTopic==="prog"){const due=shuffle(pool.filter(isDue));const fresh=pool.filter(c=>!st(c));const rest=shuffle(pool.filter(c=>st(c)&&!isDue(c)&&st(c).b<2));return due.concat(fresh,rest).slice(0,30)}
   let p;
   if(deckMode==="jour"){const due=shuffle(pool.filter(isDue)).sort((a,b)=>st(a).d-st(b).d);const fresh=shuffle(pool.filter(c=>!st(c)));p=due.concat(fresh)}
   else if(deckMode==="photos") p=shuffle(pool.filter(c=>c.img));
@@ -1018,9 +1110,10 @@ function buildDeck(){
 }
 VIEWS.cartes=(topic)=>{
   if(topic){deckTopic=topic;deckMode="hasard"}
-  const pool=deckTopic==="all"?CARDS:cardsOf(deckTopic);
+  if(deckTopic==="prog"&&!(S.plan&&S.plan.ids&&S.plan.ids.length))deckTopic="all";
+  const pool=poolOf();
   const due=pool.filter(isDue).length, fresh=pool.filter(c=>!st(c)).length, mast=pool.filter(c=>(st(c)||{b:0}).b>=2).length;
-  const opts=`<option value="all">Tous les sujets</option>`+Object.entries(CATS).map(([c,l])=>`<optgroup label="${l}">${TOPICS.filter(t=>t.cat===c).map(t=>`<option value="${t.id}" ${deckTopic===t.id?"selected":""}>${esc(t.t)}</option>`).join("")}</optgroup>`).join("");
+  const opts=(S.plan&&S.plan.ids&&S.plan.ids.length?`<option value="prog" ${deckTopic==="prog"?"selected":""}>Programme du jour</option>`:"")+`<option value="all" ${deckTopic==="all"?"selected":""}>Tous les sujets</option>`+Object.entries(CATS).map(([c,l])=>`<optgroup label="${l}">${TOPICS.filter(t=>t.cat===c).map(t=>`<option value="${t.id}" ${deckTopic===t.id?"selected":""}>${esc(t.t)}</option>`).join("")}</optgroup>`).join("");
   const n=buildDeck().length;
   h(`<div class="stack">
     <div class="pagehead"><div class="eyebrow">${CARDS.length} cartes dont ${CARDS.filter(c=>c.img).length} photos</div><h1>Cartes mémoire</h1></div>
@@ -1032,7 +1125,7 @@ VIEWS.cartes=(topic)=>{
     <div class="stack" style="gap:6px"><span class="eyebrow">Type de série</span><div class="row">
       ${[["jour","Du jour"],["hasard","Au hasard"],["photos","Photos"],["plan","Parties du plan"]].map(([k,l])=>`<button class="chip ${deckMode===k?"on":""}" data-mode="${k}">${l}</button>`).join("")}</div></div>
     <button class="btn primary block" id="start" ${n?"":"disabled"}>${n?`Commencer (${plural(n,"carte")})`:"Rien à revoir ici pour aujourd’hui"}</button>
-    ${deckTopic!=="all"?`<button class="btn block" data-fiche="${deckTopic}">Relire la fiche</button>`:""}
+    ${deckTopic!=="all"&&deckTopic!=="prog"?`<button class="btn block" data-fiche="${deckTopic}">Relire la fiche</button>`:""}
     <p class="muted small">« Du jour » montre d’abord les cartes à revoir, puis des nouvelles. Une carte sue revient dans 1, 2, 4 puis 8 jours ; une carte ratée revient tout de suite.</p>
   </div>`);
   document.getElementById("dtopic").onchange=e=>{deckTopic=e.target.value;VIEWS.cartes()};
@@ -1042,6 +1135,7 @@ VIEWS.cartes=(topic)=>{
 function startDeck(){deck=buildDeck();di=0;sess={ok:0,ko:0};if(!deck.length){deckMode="hasard";deck=buildDeck()}showCard()}
 function showCard(){
   if(di>=deck.length){
+    if(S.plan&&Array.isArray(S.plan.done)){const ids=deckTopic==="prog"?S.plan.ids:(S.plan.ids.includes(deckTopic)?[deckTopic]:[]);let ch=false;ids.forEach(id=>{if(!S.plan.done.includes(id)){S.plan.done.push(id);ch=true}});if(ch)save()}
     return h(`<div class="stack"><div class="pagehead"><div class="eyebrow">Série terminée</div><h1>${sess.ok>=sess.ko?"Bien joué":"Ça rentre petit à petit"}</h1></div>
     <div class="grid2"><div class="panel"><div class="big" style="color:var(--good)">${sess.ok}</div><div class="muted">sues</div></div><div class="panel"><div class="big" style="color:var(--bad)">${sess.ko}</div><div class="muted">ratées puis revues</div></div></div>
     <button class="btn primary block" id="again">Encore une série</button><button class="btn block" data-go="home">Accueil</button></div>`),document.getElementById("again").onclick=startDeck;
@@ -1123,8 +1217,9 @@ VIEWS.oral=(forced)=>{
    <div class="panel"><ol class="chain" style="--cc:var(--accent)">
      <li><span class="n">1</span><p>Tirage au sort parmi les ${TOPICS.length} sujets.</p></li>
      <li><span class="n">2</span><p><b>5 minutes</b> de préparation.</p></li>
-     <li><span class="n">3</span><p>Présentation à voix haute en suivant le plan (environ 10 min, 15 min au total).</p></li>
-     <li><span class="n">4</span><p>Tu te corriges partie par partie.</p></li></ol></div>
+     <li><span class="n">3</span><p>Présentation à voix haute en suivant le plan (<b>7 minutes</b>).</p></li>
+     <li><span class="n">4</span><p>Questions du jury (<b>3 minutes</b>).</p></li>
+     <li><span class="n">5</span><p>Tu te corriges partie par partie.</p></li></ol></div>
    <button class="btn primary block" id="draw">Tirer un sujet au sort</button>
    ${hist.length?`<h2 style="margin-top:6px">Mes derniers oraux</h2><div class="list">${hist.map(o=>{const t=byId[o.id];return t?`<button class="item" data-fiche="${t.id}" style="--cc:${CATC[t.cat]}">${thumb(t)}<div class="txt"><span>${esc(t.t)}</span><span class="muted small" style="font-weight:400">${new Date(o.d).toLocaleDateString("fr-FR",{day:"numeric",month:"short"})}</span></div><strong style="font-family:var(--f-display)">${o.ok}/${o.n}</strong></button>`:""}).join("")}</div>`:""}
   </div>`);
@@ -1139,6 +1234,7 @@ function drawTopic(forced){
     <div class="pagehead"><div class="eyebrow">Ton sujet</div><h1>${esc(t.t)}</h1></div>
     <div class="panel stack" style="align-items:center"><div class="eyebrow">Préparation</div><div class="timer" id="tm">5:00</div></div>
     <div class="memo"><div class="eyebrow">Ton plan</div>${planStrip()}<p class="muted small">Note 2 ou 3 mots-clés par lettre sur ton brouillon.</p></div>
+    ${oralHelp(t)}
     <button class="btn primary block" id="go">Je commence l’oral</button>
     <button class="btn block" id="redraw">Tirer un autre sujet</button>
   </div>`);
@@ -1149,12 +1245,24 @@ function drawTopic(forced){
 function speakOral(t){
   h(`<div class="stack" style="--cc:${CATC[t.cat]}">
     <div class="pagehead"><div class="eyebrow">Présentation</div><h1>${esc(t.t)}</h1></div>
-    <div class="panel stack" style="align-items:center"><div class="eyebrow">Temps de parole</div><div class="timer" id="tm">10:00</div></div>
+    <div class="panel stack" style="align-items:center"><div class="eyebrow">Temps de parole</div><div class="timer" id="tm">7:00</div></div>
     <div class="memo">${planStrip()}</div>
     <p class="muted">Parle à voix haute comme devant le jury.</p>
-    <button class="btn primary block" id="end">J’ai fini, je me corrige</button>
+    <button class="btn primary block" id="end">J’ai fini : questions du jury</button>
   </div>`);
-  keepAwake();countdown(document.getElementById("tm"),600);
+  keepAwake();countdown(document.getElementById("tm"),420);
+  document.getElementById("end").onclick=()=>{stopTimer();jury(t)};
+}
+function jury(t){
+  const qs=shuffle(t.cards).slice(0,2);
+  h(`<div class="stack" style="--cc:${CATC[t.cat]}">
+    <div class="pagehead"><div class="eyebrow">Questions du jury</div><h1>${esc(t.t)}</h1></div>
+    <div class="panel stack" style="align-items:center"><div class="eyebrow">Temps</div><div class="timer" id="tm">3:00</div></div>
+    ${qs.map((q,i)=>`<div class="panel stack"><div class="eyebrow">Question ${i+1}</div><p class="clue">${esc(q[0])}</p><button class="chip" data-jr="${i}" style="align-self:flex-start">Voir la réponse attendue</button><p id="jr${i}" hidden>${md(q[1])}</p></div>`).join("")}
+    <button class="btn primary block" id="end">Passer à la correction</button>
+  </div>`);
+  keepAwake();countdown(document.getElementById("tm"),180);
+  $app.querySelectorAll("[data-jr]").forEach(b=>b.onclick=()=>{document.getElementById("jr"+b.dataset.jr).hidden=false;b.hidden=true});
   document.getElementById("end").onclick=()=>{stopTimer();correct(t)};
 }
 function correct(t){
@@ -1224,12 +1332,13 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 
 // ---------- global clicks ----------
 $app.addEventListener("click",e=>{
+  const ck=e.target.closest("[data-chk]");if(ck){const P=S.plan;if(P){const id=ck.dataset.chk,i=P.done.indexOf(id);if(i>=0)P.done.splice(i,1);else P.done.push(id);save();ck.classList.toggle("on",i<0);ck.setAttribute("aria-pressed",String(i<0));const pc=document.getElementById("pcount");if(pc)pc.textContent=P.ids.filter(x=>P.done.includes(x)).length+"/"+P.ids.length+" faits"}return}
   const g=e.target.closest("[data-go]");if(g){go(g.dataset.go);return}
   const f=e.target.closest("[data-fiche]");if(f){go("fiche",f.dataset.fiche);return}
   const c=e.target.closest("[data-cards]");if(c){go("cartes",c.dataset.cards);return}
   const o=e.target.closest("[data-oral]");if(o){go("oral",o.dataset.oral);return}
   const k=e.target.closest("[data-cat]");if(k){go("fiches",k.dataset.cat);return}
-  const s=e.target.closest("[data-start]");if(s){deckTopic="all";deckMode="jour";current="cartes";drawTabs();startDeck();return}
+  const s=e.target.closest("[data-start]");if(s){deckTopic=s.dataset.start==="prog"?"prog":"all";deckMode="jour";current="cartes";drawTabs();startDeck();return}
 });
 
 let start=["home",null];
