@@ -4,6 +4,7 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 
 **Pédicurie**
 - 24 fiches illustrées (photos du livret ou schémas dessinés), phrase mémo, 5 points clés, plan détaillé en frise.
+- Contenu aligné sur le **livret d’oral 2025** : le plan détaillé reprend tout le livret partie par partie, et chaque fiche contient le texte original du livret, mot pour mot (section « Livret »).
 - **Mon oral** : 9 étapes dans l’ordre de l’oral (intro → conclusion), chacune en 3 niveaux : lire, texte à trous (mots cachés différents à chaque fois), de tête. Texte complet à lire ou écouter, récitation complète, oral blanc chronométré avec enregistrement de sa voix.
 - **Entraînement varié** : 12 exercices mélangés (récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express). Une étape n’est maîtrisée à 100 % que retrouvée de tête sur au moins 3 jours différents.
 
