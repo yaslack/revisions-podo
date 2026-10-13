@@ -310,6 +310,20 @@ textarea{min-height:90px;font-size:16px;font-family:ui-monospace,Menlo,monospace
 .nchip{display:inline-block;background:color-mix(in srgb,var(--nc) 16%,var(--surface));color:var(--nc);border-radius:8px;padding:2px 8px;font-weight:700;font-size:.9rem}
 .palp{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .palp li{display:flex;flex-direction:column;gap:2px;border-left:3px solid var(--cc,var(--accent));padding-left:12px}
+/* choix de la matière */
+.subjbar{display:flex;align-items:center;justify-content:space-between;padding-top:14px}
+.subj{border:0;width:100%;text-align:left;border-radius:26px;padding:20px;color:#fff;cursor:pointer;display:flex;flex-direction:column;gap:14px;box-shadow:0 18px 36px -24px rgba(0,0,0,.5);font:inherit}
+.subj.pedi{background:linear-gradient(140deg,var(--hero1),var(--hero2))}
+.subj.anat,.hh.anat{background:linear-gradient(140deg,#A8561A,#D9873A)}
+.hh.anat{box-shadow:0 20px 40px -24px #A8561A}
+.hh.anat .hh-cta{color:#8A4512}
+.subj-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.subj-name{font-family:var(--f-display);font-weight:800;font-size:2rem;line-height:1.05}
+.subj-sub{font-size:.92rem;opacity:.92;margin-top:4px}
+.subj-stats{display:flex;gap:8px;flex-wrap:wrap}
+.subj-stats span{background:rgba(255,255,255,.17);border-radius:12px;padding:7px 11px;font-size:.85rem}
+.subj-stats b{background:none;padding:0;font-family:var(--f-display)}
+.subj:active{transform:scale(.98)}
 /* visionneuse photo */
 #lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
 #lb img{max-width:100%;max-height:78vh;border-radius:14px;background:#fff}
@@ -1445,7 +1459,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){$app.innerHTML=html;window.scrollTo(0,0)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="11";
+const APP_VERSION="12";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -1492,7 +1506,7 @@ function persist(){const j=JSON.stringify(S);try{localStorage.setItem(KEY,j)}cat
 async function restoreBackup(){
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{})}catch(e){}
   const j=await idbGet();let b=null;try{b=j?JSON.parse(j):null}catch(e){}
-  if(b&&b.cards&&(b.u||0)>(S.u||0)){S=Object.assign(blank(),b);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(["home","fiches","cartes","quiz","oral"].includes(lastView[0]))VIEWS[lastView[0]](lastView[1]||undefined)}
+  if(b&&b.cards&&(b.u||0)>(S.u||0)){S=Object.assign(blank(),b);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(["home","matieres","fiches","anat","cartes","quiz","oral"].includes(lastView[0]))VIEWS[lastView[0]](lastView[1]||undefined)}
   else if((S.u||0)>((b&&b.u)||0))idbPut(JSON.stringify(S));
 }
 window.addEventListener("pagehide",()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}idbPut(JSON.stringify(S))});
@@ -1544,14 +1558,19 @@ const ICONS={
  oral:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>'
 };
 ICONS.anat='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4.5a2.2 2.2 0 0 0-3.4 2.6 2.2 2.2 0 0 0 1.7 3.5l6.6 6.6a2.2 2.2 0 0 0 3.5 1.7 2.2 2.2 0 0 0 2.6-3.4 2.2 2.2 0 0 0-1.7-3.5L11.2 5.5a2.2 2.2 0 0 0-2.7-1z"/></svg>';
-const TABS=[["home","Accueil"],["fiches","Pédicurie"],["anat","Anatomie"],["cartes","Cartes"],["quiz","Quiz"],["oral","Oral"]];
+const TABSET={pedi:[["home","Accueil"],["fiches","Fiches"],["cartes","Cartes"],["quiz","Quiz"],["oral","Oral"]],anat:[["home","Accueil"],["anat","Fiches"],["cartes","Cartes"],["quiz","Quiz"]]};
+const tabsNow=()=>TABSET[S.subj==="anat"?"anat":"pedi"].concat(S.subj==="anat"&&typeof VIEWS.pratique==="function"?[["pratique","Pratique"]]:[]);
 let current="home", lastView=["home",null];
-function drawTabs(){$tabs.innerHTML=TABS.map(([k,l])=>`<button class="tab ${k===current?"on":""}" data-tab="${k}" aria-label="${l}">${ICONS[k]}${l}</button>`).join("")}
+function drawTabs(){const T=tabsNow();document.querySelector("nav.tabs").hidden=current==="matieres";$tabs.style.gridTemplateColumns="repeat("+T.length+",1fr)";$tabs.innerHTML=T.map(([k,l])=>`<button class="tab ${k===current?"on":""}" data-tab="${k}" aria-label="${l}">${ICONS[k==="anat"?"fiches":k]||ICONS.anat}${l}</button>`).join("")}
 $tabs.addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(b)go(b.dataset.tab)});
 function go(view,arg){
   stopTimer(); stopSpeak(); stopRec();
   $gs.hidden=true;
-  current=view==="fiche"&&byId[arg]&&byId[arg].cat==="anat"?"anat":(view==="fiche"||view==="lexique")?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":view; drawTabs();
+  // chaque vue appartient à une matière : les onglets suivent
+  const PEDI_V=["fiches","lexique","oral","apprendre","texte","entrainement"],ANAT_V=["anat","pratique","examen","anattrain","legende"];
+  const ns=view==="fiche"&&byId[arg]?(byId[arg].cat==="anat"?"anat":"pedi"):PEDI_V.includes(view)?"pedi":ANAT_V.includes(view)?"anat":null;
+  if(ns&&ns!==S.subj){S.subj=ns;persist()}
+  current=view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende")?"pratique":view; drawTabs();
   lastView=[view,arg||null];
   VIEWS[view](arg);
   try{sessionStorage.setItem("podo:view",JSON.stringify(lastView))}catch(e){}
@@ -1627,7 +1646,8 @@ function speakAll(btn){
 const VIEWS={};
 
 VIEWS.home=()=>{
-  const g=globalMastery(), due=CARDS.filter(isDue).length, fresh=CARDS.filter(c=>!st(c)).length;
+  if(subj()==="anat")return anatHome();
+  const SC=subjCards(), g=subjMastery(), due=SC.filter(isDue).length, fresh=SC.filter(c=>!st(c)).length;
   const weak=TOPICS.slice().sort((a,b)=>mastery(a.id)-mastery(b.id)).slice(0,3);
   const nd=examDays(), dateSet=!!(S.exam&&!editDate&&nd!==null&&nd>=0), stk=streak();
   const dd=dateSet?new Date(S.exam+"T12:00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}):"";
@@ -1638,8 +1658,8 @@ VIEWS.home=()=>{
       <div class="datesel"><select id="dD" aria-label="Jour">${Array.from({length:31},(_,i)=>`<option value="${i+1}" ${base.getDate()===i+1?"selected":""}>${i+1}</option>`).join("")}</select><select id="dM" aria-label="Mois">${MOIS.map((m,i)=>`<option value="${i+1}" ${base.getMonth()===i?"selected":""}>${m}</option>`).join("")}</select><select id="dY" aria-label="Année">${[y0,y0+1].map(y=>`<option value="${y}" ${base.getFullYear()===y?"selected":""}>${y}</option>`).join("")}</select></div>
       <button class="btn primary" id="savedate">Enregistrer la date</button><p class="muted small" id="datemsg">Pour le compte à rebours et ton programme de révision jour par jour.</p></div>`;
   }
-  const standalone=(navigator.standalone===true)||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);
-  h(`<div class="stack">
+    h(`<div class="stack">
+   <div class="subjbar"><button class="chip" data-go="matieres">‹ Matières</button><span class="eyebrow">Pédicurie</span></div>
    <section class="hh">
      <div class="hh-top"><div style="min-width:0"><div class="hh-eyebrow">Oral de pédicurie-podologie</div><div class="hh-title">${dateSet?(nd===0?"Jour J":"J-"+nd):"Mes révisions"}</div><div class="hh-sub">${dateSet?(nd===0?"C’est aujourd’hui, tu vas gérer.":esc(dd))+` <button class="hh-link" id="chgdate">Modifier</button>`:"Ajoute la date de ton oral juste en dessous."}</div></div>${ringSvg(g,"des cartes maîtrisées",true)}</div>
      <div class="hh-stats"><div><strong>${due}</strong><span>à revoir</span></div><div><strong>${fresh}</strong><span>nouvelles</span></div><div><strong>${stk}</strong><span>${stk>1?"jours d’affilée":"jour d’affilée"}</span></div></div>
@@ -1652,15 +1672,40 @@ VIEWS.home=()=>{
    <div class="panel stack">${planStrip()}<p class="mnemo"><b>I</b>l <b>E</b>st <b>P</b>lutôt <b>S</b>imple <b>D</b>e <b>T</b>out <b>P</b>résenter <b>P</b>roprement</p></div>
    <h2>Pédicurie : les 4 familles</h2>
    <div class="cats">${Object.entries(CATS).map(([c,l])=>`<button class="cat-tile" style="--cc:${CATC[c]}" data-cat="${c}">${l}<span>${plural(TOPICS.filter(t=>t.cat===c).length,"sujet")} · ${CATDESC[c]}</span></button>`).join("")}</div>
-   <h2>Anatomie</h2>
-   <button class="cat-tile wide" style="--cc:var(--c-anat)" data-go="anat">Anatomie palpatoire du membre inférieur<span>${ANAT.length} fiches · os, muscles, nerfs, pouls, amplitudes en degrés · ${Math.round(100*CARDS.filter(c=>c.topic.startsWith("a-")&&(st(c)||{b:0}).b>=2).length/Math.max(1,CARDS.filter(c=>c.topic.startsWith("a-")).length))} % maîtrisé</span></button>
    <h2>À travailler en priorité</h2>
    <div class="list">${weak.map(topicItem).join("")}</div>
    <h2>Ma méthode</h2>
    <div class="list">
      ${[["fiches","Lire la fiche","Phrase mémo, schémas, 5 points clés, puis le plan détaillé."],["fiches","Cacher les mots-clés","Dans une fiche, cache les mots surlignés et retrouve-les de tête."],["cartes","Cartes du jour","Les cartes ratées reviennent le jour même, les sues dans 1, 2, 4 puis 8 jours."],["oral","Oral blanc","Tirage au sort, 5 min de préparation, 7 min de présentation, 3 min de questions du jury."]].map(([g2,a2,b2],i)=>`<button class="item" data-go="${g2}"><span class="th mono" style="--cc:var(--accent);width:40px;height:40px;border-radius:12px">${i+1}</span><div class="txt"><span>${a2}</span><span class="muted small" style="font-weight:400">${b2}</span></div><span class="muted" aria-hidden="true">›</span></button>`).join("")}
    </div>
-   <h2>Sauvegarde</h2>
+   <button class="btn block" data-go="matieres">Changer de matière · réglages et sauvegarde</button>
+  </div>`);
+  const sd=document.getElementById("savedate"); if(sd) sd.onclick=()=>{
+    const D=+document.getElementById("dD").value,M=+document.getElementById("dM").value,Y=+document.getElementById("dY").value,dt=new Date(Y,M-1,D,12);
+    const msg=document.getElementById("datemsg");
+    if(dt.getMonth()!==M-1){msg.textContent="Cette date n’existe pas : vérifie le jour.";return}
+    if(dt<new Date(new Date().toDateString())){msg.textContent="Cette date est déjà passée : choisis la date de ton oral.";return}
+    S.exam=Y+"-"+pad(M)+"-"+pad(D);S.plan=null;editDate=false;save();VIEWS.home()};
+  const cg=document.getElementById("chgdate"); if(cg) cg.onclick=()=>{editDate=true;VIEWS.home()};
+};
+
+// ---------- choix de la matière ----------
+const subj=()=>S.subj==="anat"?"anat":"pedi";
+const inSubj=c=>(byId[c.topic].cat==="anat")===(subj()==="anat");
+const subjCards=()=>CARDS.filter(inSubj);
+const masteryOf=cs=>Math.round(100*cs.filter(c=>(st(c)||{b:0}).b>=2).length/Math.max(1,cs.length));
+const subjMastery=()=>masteryOf(subjCards());
+VIEWS.matieres=()=>{
+  const pc=CARDS.filter(c=>byId[c.topic].cat!=="anat"), ac=CARDS.filter(c=>byId[c.topic].cat==="anat");
+  const nd=examDays(), stk=streak();
+  const standalone=(navigator.standalone===true)||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);
+  h(`<div class="stack">
+   <div class="pagehead"><div class="eyebrow">${stk?plural(stk,"jour")+" de révision d’affilée":"Bonne révision"}</div><h1>Que veux-tu réviser ?</h1></div>
+   <button class="subj pedi" data-subj="pedi"><div class="subj-top"><div><div class="subj-name">Pédicurie</div><div class="subj-sub">L’oral : ${TOPICS.length} sujets${nd!==null&&nd>=0?" · "+(nd===0?"c’est aujourd’hui":"J-"+nd):""}</div></div>${ringSvg(masteryOf(pc),"des cartes de pédicurie maîtrisées",true)}</div>
+     <div class="subj-stats"><span><b>${oralReady()}/${TOPICS.length}</b> sujets prêts</span><span><b>${pc.filter(isDue).length}</b> cartes à revoir</span></div></button>
+   <button class="subj anat" data-subj="anat"><div class="subj-top"><div><div class="subj-name">Anatomie</div><div class="subj-sub">Palpatoire : de la hanche au pied</div></div>${ringSvg(masteryOf(ac),"des cartes d’anatomie maîtrisées",true)}</div>
+     <div class="subj-stats"><span><b>${ANAT.length}</b> fiches</span><span><b>${ac.filter(isDue).length}</b> cartes à revoir</span></div></button>
+   <h2>Réglages</h2>
    <div class="panel stack">
      ${hasProgress()&&(!S.bk||today()-S.bk>=14)?`<p class="small" style="color:var(--s3);font-weight:650">Ta progression est enregistrée sur ce téléphone. Par sécurité, copie ton code de sauvegarde dans tes Notes une fois toutes les 2 semaines (si tu changes de téléphone ou effaces Safari).</p>`:""}
      <div class="status" id="cloudst">${cloudText()}</div>
@@ -1674,22 +1719,32 @@ VIEWS.home=()=>{
    <button class="btn block" id="share">Partager l’appli à un ami de la classe</button>
    <p class="small muted" id="sharemsg" style="text-align:center;margin-top:-6px">Chacun garde sa propre progression sur son téléphone.</p>
   </div>`);
-  const sd=document.getElementById("savedate"); if(sd) sd.onclick=()=>{
-    const D=+document.getElementById("dD").value,M=+document.getElementById("dM").value,Y=+document.getElementById("dY").value,dt=new Date(Y,M-1,D,12);
-    const msg=document.getElementById("datemsg");
-    if(dt.getMonth()!==M-1){msg.textContent="Cette date n’existe pas : vérifie le jour.";return}
-    if(dt<new Date(new Date().toDateString())){msg.textContent="Cette date est déjà passée : choisis la date de ton oral.";return}
-    S.exam=Y+"-"+pad(M)+"-"+pad(D);S.plan=null;editDate=false;save();VIEWS.home()};
-  const cg=document.getElementById("chgdate"); if(cg) cg.onclick=()=>{editDate=true;VIEWS.home()};
+  $app.querySelectorAll("[data-subj]").forEach(b=>b.onclick=()=>{S.subj=b.dataset.subj;persist();go("home")});
   document.getElementById("exp").onclick=exportCode;
   document.getElementById("imp").onclick=()=>{const b=document.getElementById("impbox");b.hidden=!b.hidden};
   document.getElementById("impgo").onclick=importCode;
   const rs=document.getElementById("reset");
-  rs.onclick=()=>{ if(rs.dataset.armed){S=Object.assign(blank(),{exam:S.exam});save();VIEWS.home()} else {rs.dataset.armed="1";rs.textContent="Touche encore pour tout effacer";rs.style.background="var(--bad)";rs.style.color="#fff"} };
+  rs.onclick=()=>{ if(rs.dataset.armed){S=Object.assign(blank(),{exam:S.exam});save();VIEWS.matieres()} else {rs.dataset.armed="1";rs.textContent="Touche encore pour tout effacer";rs.style.background="var(--bad)";rs.style.color="#fff"} };
   const sh=document.getElementById("share"); if(sh) sh.onclick=async()=>{const url=location.origin+location.pathname;const m=document.getElementById("sharemsg");try{if(navigator.share){await navigator.share({title:"Révisions Oral Pédicurie",text:"L’appli pour réviser l’oral de pédicurie et l’anatomie :",url});return}}catch(e){if(e&&e.name==="AbortError")return}try{await navigator.clipboard.writeText(url);m.textContent="Lien copié : "+url}catch(e){m.textContent=url}};
   const cu=document.getElementById("chkupd"); if(cu) cu.onclick=async()=>{cu.textContent="Vérification…";const v=await latestVersion();if(v===null){cu.textContent="Pas de réseau";return}if(v===APP_VERSION){cu.textContent="Déjà à jour ✓";return}cu.textContent="Mise à jour…";doUpdate(v)};
 };
-
+function anatHome(){
+  const SC=subjCards(), due=SC.filter(isDue).length, fresh=SC.filter(c=>!st(c)).length, stk=streak();
+  h(`<div class="stack">
+   <div class="subjbar"><button class="chip" data-go="matieres">‹ Matières</button><span class="eyebrow">Anatomie</span></div>
+   <section class="hh anat">
+     <div class="hh-top"><div style="min-width:0"><div class="hh-eyebrow">Anatomie palpatoire</div><div class="hh-title">Membre inférieur</div><div class="hh-sub">De la hanche au pied : os, muscles, nerfs, pouls, amplitudes.</div></div>${ringSvg(subjMastery(),"des cartes d’anatomie maîtrisées",true)}</div>
+     <div class="hh-stats"><div><strong>${due}</strong><span>à revoir</span></div><div><strong>${fresh}</strong><span>nouvelles</span></div><div><strong>${stk}</strong><span>${stk>1?"jours d’affilée":"jour d’affilée"}</span></div></div>
+     <button class="btn block hh-cta" data-start="jour">Réviser maintenant</button>
+   </section>
+   <div class="grid2"><button class="btn" id="aquiz">Quiz anatomie</button><button class="btn" data-fiche="a-amplitudes">Toutes les amplitudes</button></div>
+   ${typeof anatPratiqueTiles==="function"?anatPratiqueTiles():""}
+   ${PALP_METHOD}
+   ${Object.entries(AREG).map(([r,l])=>`<div class="stack" style="gap:8px"><div class="eyebrow cathead" style="--cc:${CATC.anat}">${l}</div><div class="list">${ANAT.filter(t=>t.reg===r).map(topicItem).join("")}</div></div>`).join("")}
+   <button class="btn block" data-go="matieres">Changer de matière · réglages et sauvegarde</button>
+  </div>`);
+  document.getElementById("aquiz").onclick=startAnatQuiz;
+}
 function planPanel(){
   const n=examDays(),P=dailyPlan();
   if(n!==null&&n<0)return "";
@@ -2055,19 +2110,20 @@ function anatFiche(t){
   const oa=document.getElementById("openall");if(oa)oa.onclick=e=>{const ds=[...f.querySelectorAll("details.sec")];const open=!ds.every(d=>d.open);ds.forEach(d=>d.open=open);e.target.textContent=open?"Tout fermer":"Tout ouvrir"};
   document.getElementById("aq1").onclick=startAnatQuiz;
 }
+const PALP_METHOD=`<details class="sec"><summary><span class="sumrow"><span class="L">✋</span>Méthode pour l’anatomie palpatoire<span class="chev">›</span></span></summary><ul>
+     <li>Installe le sujet <b>détendu</b>, le segment soutenu : un muscle contracté cache les os.</li>
+     <li>Palpe avec la <b>pulpe</b> des doigts (pas le bout), en appuyant progressivement.</li>
+     <li>Pars toujours d’un <b>repère osseux sûr</b> (malléole, patella, EIAS) puis glisse vers ce que tu cherches.</li>
+     <li>Pour trouver un tendon, fais <b>contracter contre résistance</b> : il saille sous les doigts.</li>
+     <li>Compare avec l’<b>autre côté</b> et dis à voix haute ce que tu touches (os, tendon, muscle, pouls).</li>
+     <li>Pour les amplitudes : position de référence = <b>0°</b>, goniomètre centré sur l’axe, actif puis passif.</li></ul></details>`;
 function startAnatQuiz(){quizMode="anat";current="quiz";drawTabs();lastView=["quiz",null];qz=makeQuiz();qi=0;qok=0;showQ()}
 VIEWS.anat=()=>{
   h(`<div class="stack">
    <div class="pagehead"><div class="eyebrow">Membre inférieur · de la hanche au pied</div><h1>Anatomie</h1></div>
    <input class="search" id="aq" type="search" placeholder="Chercher : tibial, malléole, L5, pouls…" aria-label="Chercher en anatomie">
    <div class="grid2"><button class="btn primary" data-cards="anat">Cartes d’anatomie</button><button class="btn" id="aquiz">Quiz anatomie</button></div>
-   <details class="sec"><summary><span class="sumrow"><span class="L">✋</span>Méthode pour l’anatomie palpatoire<span class="chev">›</span></span></summary><ul>
-     <li>Installe le sujet <b>détendu</b>, le segment soutenu : un muscle contracté cache les os.</li>
-     <li>Palpe avec la <b>pulpe</b> des doigts (pas le bout), en appuyant progressivement.</li>
-     <li>Pars toujours d’un <b>repère osseux sûr</b> (malléole, patella, EIAS) puis glisse vers ce que tu cherches.</li>
-     <li>Pour trouver un tendon, fais <b>contracter contre résistance</b> : il saille sous les doigts.</li>
-     <li>Compare avec l’<b>autre côté</b> et dis à voix haute ce que tu touches (os, tendon, muscle, pouls).</li>
-     <li>Pour les amplitudes : position de référence = <b>0°</b>, goniomètre centré sur l’axe, actif puis passif.</li></ul></details>
+   ${PALP_METHOD}
    <div id="ares" class="stack"></div>
   </div>`);
   const draw=q=>{
@@ -2081,7 +2137,7 @@ VIEWS.anat=()=>{
 };
 // ---------- cartes ----------
 let deck=[],di=0,deckTopic="all",deckMode="jour",sess={ok:0,ko:0};
-const poolOf=()=>deckTopic==="all"?CARDS:deckTopic==="anat"?CARDS.filter(c=>byId[c.topic].cat==="anat"):deckTopic==="pedi"?CARDS.filter(c=>byId[c.topic].cat!=="anat"):deckTopic==="prog"?CARDS.filter(c=>((S.plan&&S.plan.ids)||[]).includes(c.topic)):cardsOf(deckTopic);
+const poolOf=()=>deckTopic==="all"?subjCards():deckTopic==="prog"?CARDS.filter(c=>((S.plan&&S.plan.ids)||[]).includes(c.topic)):cardsOf(deckTopic);
 function buildDeck(){
   const pool=poolOf();
   if(deckTopic==="prog"){const due=shuffle(pool.filter(isDue));const fresh=pool.filter(c=>!st(c));const rest=shuffle(pool.filter(c=>st(c)&&!isDue(c)&&st(c).b<2));return due.concat(fresh,rest).slice(0,30)}
@@ -2093,21 +2149,26 @@ function buildDeck(){
   return p.slice(0,20);
 }
 VIEWS.cartes=(topic)=>{
-  if(topic){deckTopic=topic;deckMode=(topic==="anat"||topic==="pedi")?"jour":"hasard"}
+  if(topic==="anat"||topic==="pedi"){if(S.subj!==topic){S.subj=topic;persist();drawTabs()}deckTopic="all";deckMode="jour"}
+  else if(topic){deckTopic=topic;deckMode="hasard"}
+  if(byId[deckTopic]&&!inSubj({topic:deckTopic}))deckTopic="all";
+  if(deckTopic==="prog"&&subj()==="anat")deckTopic="all";
+  if(subj()==="anat"&&(deckMode==="photos"||deckMode==="plan"))deckMode="jour";
   if(deckTopic==="prog"&&!(S.plan&&S.plan.ids&&S.plan.ids.length))deckTopic="all";
   const pool=poolOf();
   const due=pool.filter(isDue).length, fresh=pool.filter(c=>!st(c)).length, mast=pool.filter(c=>(st(c)||{b:0}).b>=2).length;
-  const opts=(S.plan&&S.plan.ids&&S.plan.ids.length?`<option value="prog" ${deckTopic==="prog"?"selected":""}>Programme du jour</option>`:"")+`<option value="all" ${deckTopic==="all"?"selected":""}>Tout (pédicurie + anatomie)</option><option value="pedi" ${deckTopic==="pedi"?"selected":""}>Toute la pédicurie</option><option value="anat" ${deckTopic==="anat"?"selected":""}>Toute l’anatomie</option>`+Object.entries(CATS).map(([c,l])=>`<optgroup label="${l}">${TOPICS.filter(t=>t.cat===c).map(t=>`<option value="${t.id}" ${deckTopic===t.id?"selected":""}>${esc(t.t)}</option>`).join("")}</optgroup>`).join("")+`<optgroup label="Anatomie">${ANAT.map(t=>`<option value="${t.id}" ${deckTopic===t.id?"selected":""}>${esc(t.t)}</option>`).join("")}</optgroup>`;
+  const opts=subj()==="anat"?`<option value="all" ${deckTopic==="all"?"selected":""}>Toute l’anatomie</option>`+Object.entries(AREG).map(([r,l])=>`<optgroup label="${l}">${ANAT.filter(t=>t.reg===r).map(t=>`<option value="${t.id}" ${deckTopic===t.id?"selected":""}>${esc(t.t)}</option>`).join("")}</optgroup>`).join("")
+    :(S.plan&&S.plan.ids&&S.plan.ids.length?`<option value="prog" ${deckTopic==="prog"?"selected":""}>Programme du jour</option>`:"")+`<option value="all" ${deckTopic==="all"?"selected":""}>Toute la pédicurie</option>`+Object.entries(CATS).map(([c,l])=>`<optgroup label="${l}">${TOPICS.filter(t=>t.cat===c).map(t=>`<option value="${t.id}" ${deckTopic===t.id?"selected":""}>${esc(t.t)}</option>`).join("")}</optgroup>`).join("");
   const n=buildDeck().length;
   h(`<div class="stack">
-    <div class="pagehead"><div class="eyebrow">${CARDS.length} cartes dont ${CARDS.filter(c=>c.img).length} photos</div><h1>Cartes mémoire</h1></div>
+    <div class="pagehead"><div class="eyebrow">${subj()==="anat"?"Anatomie":"Pédicurie"} · ${subjCards().length} cartes</div><h1>Cartes mémoire</h1></div>
     <div class="panel"><div class="grid2" style="grid-template-columns:repeat(3,1fr);text-align:center">
       <div><div class="big" style="font-size:1.9rem">${due}</div><div class="muted small">à revoir</div></div>
       <div><div class="big" style="font-size:1.9rem">${fresh}</div><div class="muted small">nouvelles</div></div>
       <div><div class="big" style="font-size:1.9rem;color:var(--good)">${mast}</div><div class="muted small">maîtrisées</div></div></div></div>
     <label class="stack" style="gap:6px" for="dtopic"><span class="eyebrow">Sujet</span></label><select id="dtopic">${opts}</select>
     <div class="stack" style="gap:6px"><span class="eyebrow">Type de série</span><div class="row">
-      ${[["jour","Du jour"],["hasard","Au hasard"],["photos","Photos"],["plan","Parties du plan"]].map(([k,l])=>`<button class="chip ${deckMode===k?"on":""}" data-mode="${k}">${l}</button>`).join("")}</div></div>
+      ${(subj()==="anat"?[["jour","Du jour"],["hasard","Au hasard"]].concat(CARDS.some(c=>c.sch)?[["photos","Schémas muets"]]:[]):[["jour","Du jour"],["hasard","Au hasard"],["photos","Photos"],["plan","Parties du plan"]]).map(([k,l])=>`<button class="chip ${deckMode===k?"on":""}" data-mode="${k}">${l}</button>`).join("")}</div></div>
     <button class="btn primary block" id="start" ${n?"":"disabled"}>${n?`Commencer (${plural(n,"carte")})`:"Rien à revoir ici pour aujourd’hui"}</button>
     ${byId[deckTopic]?`<button class="btn block" data-fiche="${deckTopic}">Relire la fiche</button>`:""}
     <p class="muted small">« Du jour » montre d’abord les cartes à revoir, puis des nouvelles. Une carte sue revient dans 1, 2, 4 puis 8 jours ; une carte ratée revient tout de suite.</p>
@@ -2171,7 +2232,7 @@ function makeQuiz(){
   if(quizMode==="anat")return shuffle(anatQuestions()).slice(0,10);
   const clues=[],photos=[];
   TOPICS.forEach(t=>{t.key.forEach(k=>clues.push({clue:k,ans:t.id}));clues.push({clue:t.memo,ans:t.id,memo:true});t.img.filter(i=>i.q).forEach(im=>photos.push({img:im,ans:t.id}))});
-  let pool=quizMode==="clues"?shuffle(clues):quizMode==="photos"?shuffle(photos):shuffle(shuffle(clues).slice(0,5).concat(shuffle(photos).slice(0,3),shuffle(anatQuestions()).slice(0,2)));
+  let pool=quizMode==="clues"?shuffle(clues):quizMode==="photos"?shuffle(photos):shuffle(shuffle(clues).slice(0,6).concat(shuffle(photos).slice(0,4)));
   return pool.slice(0,10).map(q=>{
     if(q.opts)return q;
     const t=byId[q.ans];
@@ -2180,10 +2241,13 @@ function makeQuiz(){
   });
 }
 VIEWS.quiz=()=>{
+  const AQM=typeof ANAT_QMODES!=="undefined"?ANAT_QMODES:[["anat","Mélange"]];
+  if(subj()==="anat"&&!AQM.some(m=>m[0]===quizMode))quizMode="anat";
+  if(subj()==="pedi"&&!["mix","clues","photos"].includes(quizMode))quizMode="mix";
   h(`<div class="stack">
-    <div class="pagehead"><div class="eyebrow">10 questions</div><h1>Quiz</h1></div>
-    <p class="muted">${quizMode==="anat"?"Nerfs, actions des muscles, amplitudes et repères à palper.":"Un indice ou une photo s’affiche : trouve la pathologie. Les réponses changent de place à chaque fois."}</p>
-    <div class="row">${[["mix","Mélange"],["clues","Indices"],["photos","Photos"],["anat","Anatomie"]].map(([k,l])=>`<button class="chip ${quizMode===k?"on":""}" data-qm="${k}">${l}</button>`).join("")}</div>
+    <div class="pagehead"><div class="eyebrow">${subj()==="anat"?"Anatomie":"Pédicurie"} · 10 questions</div><h1>Quiz</h1></div>
+    <p class="muted">${subj()==="anat"?"Nerfs, actions des muscles, amplitudes et repères à palper.":"Un indice ou une photo s’affiche : trouve la pathologie. Les réponses changent de place à chaque fois."}</p>
+    <div class="row">${(subj()==="anat"?AQM:[["mix","Mélange"],["clues","Indices"],["photos","Photos"]]).map(([k,l])=>`<button class="chip ${quizMode===k?"on":""}" data-qm="${k}">${l}</button>`).join("")}</div>
     ${S.quiz.n?`<div class="panel"><span class="big" style="font-size:2rem">${Math.round(100*S.quiz.ok/S.quiz.n)} %</span> <span class="muted">de bonnes réponses sur ${S.quiz.n} questions</span></div>`:""}
     <button class="btn primary block" id="qs">Lancer le quiz</button></div>`);
   $app.querySelectorAll("[data-qm]").forEach(b=>b.onclick=()=>{quizMode=b.dataset.qm;VIEWS.quiz()});
@@ -2192,7 +2256,7 @@ VIEWS.quiz=()=>{
 function showQ(){
   if(qi>=qz.length){
     h(`<div class="stack"><div class="pagehead"><div class="eyebrow">Résultat</div><h1>${qok} / ${qz.length}</h1></div><p class="muted">${qok>=8?"Très solide.":qok>=5?"Pas mal. Relis les fiches des questions ratées.":"Repasse par les fiches et les cartes, puis réessaie."}</p>
-    <button class="btn primary block" id="again">Rejouer (nouvelles questions)</button><button class="btn block" data-go="${quizMode==="anat"?"anat":"home"}">${quizMode==="anat"?"Retour à l’anatomie":"Accueil"}</button></div>`);
+    <button class="btn primary block" id="again">Rejouer (nouvelles questions)</button><button class="btn block" data-go="home">Accueil</button></div>`);
     document.getElementById("again").onclick=()=>{qz=makeQuiz();qi=0;qok=0;showQ()};return;
   }
   const q=qz[qi],tt=byId[q.topic];
@@ -2361,11 +2425,12 @@ $app.addEventListener("click",e=>{
   const tx=e.target.closest("[data-texte]");if(tx){go("texte",tx.dataset.texte);return}
   const o=e.target.closest("[data-oral]");if(o){go("oral",o.dataset.oral);return}
   const k=e.target.closest("[data-cat]");if(k){go("fiches",k.dataset.cat);return}
-  const s=e.target.closest("[data-start]");if(s){deckTopic=s.dataset.start==="prog"?"prog":"all";deckMode="jour";current="cartes";drawTabs();startDeck();return}
+  const s=e.target.closest("[data-start]");if(s){deckTopic=s.dataset.start==="prog"?"prog":"all";deckMode="jour";current="cartes";drawTabs();lastView=["cartes",null];startDeck();return}
+  const sj=e.target.closest("[data-subj]");if(sj&&current!=="matieres"){S.subj=sj.dataset.subj;persist();go("home");return}
 });
 
-let start=["home",null];
-try{const s=JSON.parse(sessionStorage.getItem("podo:view"));if(s&&VIEWS[s[0]]&&s[0]!=="oral"&&s[0]!=="entrainement")start=s}catch(e){}
+let start=["matieres",null];
+try{const s=JSON.parse(sessionStorage.getItem("podo:view"));if(s&&VIEWS[s[0]]&&!["oral","entrainement","examen","anattrain"].includes(s[0]))start=s}catch(e){}
 go(start[0],start[1]||undefined);
 restoreBackup().then(cloudInit);
 })();
