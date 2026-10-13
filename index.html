@@ -842,6 +842,31 @@ html.calm *,html.calm *::before,html.calm *::after{animation:none!important;tran
  .favb.on .star{animation:pop .45s var(--ease-spring)}
 }
 @keyframes colUp{from{transform:scaleY(0)}}
+
+/* ================= v24 : modèle 3D ================= */
+.v3wrap{position:relative;height:min(62vh,560px);border-radius:var(--r);overflow:hidden;background:radial-gradient(120% 90% at 50% 20%,#FBF8F3,#E9E1D6);box-shadow:var(--shadow);touch-action:none}
+.v3wrap canvas{display:block;width:100%;height:100%;touch-action:none}
+.v3load{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#5E6466;font-weight:650;font-size:.92rem;text-align:center;padding:20px}
+.v3spin{width:34px;height:34px;border-radius:50%;border:3px solid rgba(0,0,0,.1);border-top-color:var(--accent);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.v3views{position:absolute;left:8px;right:8px;bottom:8px;display:flex;gap:4px;justify-content:center;flex-wrap:wrap}
+.v3views button{border:0;border-radius:999px;padding:7px 11px;font-weight:700;font-size:.8rem;background:rgba(255,255,255,.86);color:#26292B;box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.v3tip{position:absolute;left:50%;top:12px;transform:translateX(-50%);padding:8px 14px;border-radius:999px;font-weight:800;font-size:.9rem;color:#fff;box-shadow:0 6px 16px -6px rgba(0,0,0,.4);max-width:90%;text-align:center}
+.v3tip.ok{background:var(--good)}.v3tip.ko{background:var(--bad)}
+.v3card{background:var(--surface);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;min-height:84px}
+.v3name{font-family:var(--f-display);font-weight:800;font-size:1.25rem}
+.v3layers{display:flex;flex-wrap:wrap;gap:6px}
+.v3l{border:0;display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 12px;font-weight:700;font-size:.84rem;background:var(--surface2);color:var(--muted);cursor:pointer}
+.v3l i{width:11px;height:11px;border-radius:50%;opacity:.45}
+.v3l.on{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line),var(--shadow)}
+.v3l.on i{opacity:1}
+.v3cta{border:0;width:100%;display:flex;align-items:center;gap:14px;text-align:left;border-radius:var(--r);padding:16px;cursor:pointer;color:#fff;font:inherit;background:linear-gradient(135deg,#2A2140,#4B2E5E 55%,#8A3B4C);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 16px 30px -18px #4B2E5E}
+.v3cta-t{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+.v3cta-t .eyebrow{color:rgba(255,255,255,.75)}
+.v3cta-t strong{font-family:var(--f-display);font-size:1.2rem}
+.v3cta-t span:last-child{font-size:.84rem;opacity:.9;line-height:1.35}
+.v3cta-i{flex:none;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.3rem;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.ptile.wide3d{grid-column:1/-1;min-height:84px;background:linear-gradient(135deg,#2A2140,#4B2E5E 55%,#8A3B4C)}
 </style>
 </head>
 <body>
@@ -1738,7 +1763,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){if(typeof CLEAN!=="undefined"){CLEAN.forEach(f=>{try{f()}catch(e){}});CLEAN=[]}$app.innerHTML=html;window.scrollTo(0,0);enhance($app)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="23";
+const APP_VERSION="24";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -1851,7 +1876,7 @@ const TABSET={pedi:[["home","Accueil"],["fiches","Fiches"],["cartes","Cartes"],[
 const tabsNow=()=>TABSET[S.subj==="anat"?"anat":"pedi"].concat(S.subj==="anat"&&typeof VIEWS.pratique==="function"?[["pratique","Pratique"]]:[]);
 let current="home", lastView=["home",null];
 // ---------- motion design : transitions de page, titres animés, onglets, petits effets ----------
-const DEPTH={lecture:3,stats:2,matieres:0,home:1,fiches:1,anat:1,cartes:1,quiz:1,oral:1,pratique:1,lexique:2,fiche:2,legende:2,examen:2,anattrain:2,recap:2,entrainement:2,apprendre:3,texte:3};
+const DEPTH={v3d:2,lecture:3,stats:2,matieres:0,home:1,fiches:1,anat:1,cartes:1,quiz:1,oral:1,pratique:1,lexique:2,fiche:2,legende:2,examen:2,anattrain:2,recap:2,entrainement:2,apprendre:3,texte:3};
 const SCR={};let NAVFX=false,HERO=[];
 // Safari (iPhone) : les View Transitions y font encore des sauts d’affichage, on garde la transition maison
 const IS_WEBKIT=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)||(/Safari\//.test(navigator.userAgent)&&!/Chrome|Chromium|Edg|Android/.test(navigator.userAgent));
@@ -2056,6 +2081,101 @@ function viewLecture(id){
 }
 const siriBtn=id=>IS_WEBKIT?`<button class="chip" data-lecture="${id}">Lire avec Siri</button>`:"";
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-lecture]");if(b)go("lecture",b.dataset.lecture)});
+const ANAT3D=[["os-coxal","Os coxal","os",0,1187,7124,7122,2],["femur","Fémur","os",21368,1553,30688,9306,2],["patella","Patella","os",49300,155,50232,918,2],["tibia","Tibia","os",52068,834,57072,4992,2],["fibula","Fibula","os",67056,573,70496,3426,2],["talus","Talus","os",77348,692,81500,4140,2],["calcaneus","Calcanéus","os",89780,633,93580,3786,2],["naviculaire","Naviculaire","os",101152,252,102664,1500,2],["cuboide","Cuboïde","os",105664,251,107172,1494,2],["cuneiforme-m","Cunéiforme médial","os",110160,252,111672,1500,2],["cuneiforme-i","Cunéiforme intermédiaire","os",114672,227,116036,1350,2],["cuneiforme-l","Cunéiforme latéral","os",118736,252,120248,1500,2],["m1","1er métatarsien","os",123248,251,124756,1494,2],["m2","2e métatarsien","os",127744,252,129256,1500,2],["m3","3e métatarsien","os",132256,252,133768,1500,2],["m4","4e métatarsien","os",136768,252,138280,1500,2],["m5","5e métatarsien","os",141280,251,142788,1494,2],["p1-1","Phalange proximale de l’hallux","os",145776,245,147248,1458,2],["p1-3","Phalange distale de l’hallux","os",150164,222,151496,1320,2],["p2-1","Phalange proximale du 2e orteil","os",154136,209,155392,1242,2],["p2-2","Phalange moyenne du 2e orteil","os",157876,134,158680,792,2],["p2-3","Phalange distale du 2e orteil","os",160264,102,160876,600,2],["p3-1","Phalange proximale du 3e orteil","os",162076,213,163356,1266,2],["p3-2","Phalange moyenne du 3e orteil","os",165888,148,166776,876,2],["p3-3","Phalange distale du 3e orteil","os",168528,132,169320,780,2],["p4-1","Phalange proximale du 4e orteil","os",170880,221,172208,1314,2],["p4-2","Phalange moyenne du 4e orteil","os",174836,177,175900,1050,2],["p4-3","Phalange distale du 4e orteil","os",178000,124,178744,732,2],["p5-1","Phalange proximale du 5e orteil","os",180208,205,181440,1218,2],["p5-2","Phalange moyenne du 5e orteil","os",183876,70,184296,408,2],["p5-3","Phalange distale du 5e orteil","os",185112,109,185768,630,2],["petit-fessier","Petit fessier","m3",187028,703,191248,4200,2],["piriforme","Piriforme","m3",199648,554,202972,3276,2],["jumeau-sup","Jumeau supérieur","m3",209524,235,210936,1206,2],["jumeau-inf","Jumeau inférieur","m3",213348,323,215288,1926,2],["obturateur-int","Obturateur interne","m3",219140,704,223364,4200,2],["obturateur-ext","Obturateur externe","m3",231764,424,234308,2352,2],["carre-femoral","Carré fémoral","m3",239012,600,242612,3588,2],["vaste-intermediaire","Vaste intermédiaire","m3",249788,702,254000,4200,2],["court-adducteur","Court adducteur","m3",262400,702,266612,4200,2],["petit-adducteur","Adducteur minimus","m3",275012,702,279224,4200,2],["popliteus","Poplité","m3",287624,431,290212,2574,2],["tibial-post","Tibial postérieur","m3",295360,688,299488,4194,2],["long-flechisseur-orteils","Long fléchisseur des orteils","m3",307876,703,312096,4194,2],["long-flechisseur-hallux","Long fléchisseur de l’hallux","m3",320484,702,324696,4200,2],["moyen-fessier","Moyen fessier","m2",333096,1002,339108,6000,2],["iliaque","Iliaque","m2",351108,1023,357248,6000,2],["pectine","Pectiné","m2",369248,692,373400,4140,2],["long-adducteur","Long adducteur","m2",381680,1000,387680,6000,2],["grand-adducteur","Grand adducteur","m2",399680,1002,405692,6000,2],["vaste-lateral","Vaste latéral","m2",417692,1002,423704,6000,2],["vaste-medial","Vaste médial","m2",435704,1003,441724,5994,2],["biceps-court","Biceps fémoral, chef court","m2",453712,866,458908,5184,2],["semi-membraneux","Semi-membraneux","m2",469276,1002,475288,6000,2],["soleaire","Soléaire","m2",487288,1004,493312,6000,2],["plantaire","Plantaire grêle","m2",505312,1002,511324,6000,2],["court-fibulaire","Court fibulaire","m2",523324,901,528732,5298,2],["long-extenseur-hallux","Long extenseur de l’hallux","m2",539328,834,544332,5004,2],["troisieme-fibulaire","3e fibulaire","m2",554340,712,558612,4248,2],["abducteur-hallux","Abducteur de l’hallux","m2",567108,536,570324,3204,2],["court-flechisseur-orteils","Court fléchisseur des orteils","m2",576732,996,582708,6000,2],["abducteur-5","Abducteur du petit orteil","m2",594708,644,598572,3828,2],["grand-fessier","Grand fessier","m1",606228,1200,613428,7128,2],["tfl","Tenseur du fascia lata","m1",627684,627,631448,3762,2],["tractus-it","Tractus ilio-tibial","m1",638972,1300,646772,7794,2],["sartorius","Sartorius","m1",662360,1306,670196,7800,2],["droit-femoral","Droit fémoral","m1",685796,1298,693584,7800,2],["gracile","Gracile","m1",709184,1304,717008,7800,2],["biceps-long","Biceps fémoral, chef long","m1",732608,1302,740420,7800,2],["semi-tendineux","Semi-tendineux","m1",756020,1302,763832,7800,2],["gastroc-med","Gastrocnémien, chef médial","m1",779432,1304,787256,7800,2],["gastroc-lat","Gastrocnémien, chef latéral","m1",802856,1302,810668,7800,2],["achille","Tendon calcanéen (d’Achille)","m1",826268,1290,834008,7800,2],["tibial-ant","Tibial antérieur","m1",849608,1301,857416,7530,2],["long-extenseur-orteils","Long extenseur des orteils","m1",872476,1304,880300,7800,2],["long-fibulaire","Long fibulaire","m1",895900,1306,903736,7800,2],["a-femorale","Artère fémorale","va",919336,378,921604,2256,2],["a-poplitee","Artère poplitée","va",926116,452,928828,2700,2],["a-tibiale-ant","Artère tibiale antérieure","va",934228,452,936940,2700,2],["a-tibiale-post","Artère tibiale postérieure","va",942340,451,945048,2694,2],["a-dorsale-pied","Artère dorsale du pied","va",950436,452,953148,2700,2],["a-plantaire-med","Artère plantaire médiale","va",958548,388,960876,2316,2],["a-plantaire-lat","Artère plantaire latérale","va",965508,452,968220,2700,2],["v-femorale","Veine fémorale","vv",973620,331,975608,1974,2],["v-grande-saphene","Grande veine saphène","vv",979556,502,982568,2988,2],["v-petite-saphene","Petite veine saphène","vv",988544,452,991256,2700,2]];
+// ---------- membre inférieur en 3D (BodyParts3D, © DBCLS, CC BY-SA 2.1 JP) ----------
+const L3D={os:["Os","#E9DEC4"],m3:["Muscles profonds","#8E3036"],m2:["Muscles moyens","#A93C40"],m1:["Muscles superficiels","#C2504D"],va:["Artères","#D23A32"],vv:["Veines","#3F67B8"]};
+const FICHE3D=k=>/^(os-coxal)$/.test(k)?"o-coxal":/^(femur|patella)$/.test(k)?"o-femur":/^(tibia|fibula)$/.test(k)?"o-jambe":/^(talus|calcaneus|naviculaire|cuboide|cuneiforme|m\d|p\d)/.test(k)?"a-pied"
+  :/^(petit-fessier|moyen-fessier|grand-fessier|piriforme|jumeau|obturateur|carre-femoral|iliaque|tfl|tractus)/.test(k)?"m-hanche"
+  :/^(vaste|droit-femoral|sartorius|gracile|biceps|semi|pectine|long-adducteur|grand-adducteur|court-adducteur|petit-adducteur)/.test(k)?"a-cuisse"
+  :/^(soleaire|plantaire$|gastroc|achille|popliteus|tibial|long-flechisseur|court-fibulaire|long-fibulaire|troisieme|long-extenseur)/.test(k)?"a-jambe"
+  :/^(abducteur|court-flechisseur)/.test(k)?"m-pied":/^[av]-/.test(k)?"a-vaisseaux":null;
+let V3=null;
+function view3d(){
+  const st=S.v3||(S.v3={on:{os:1,m3:1,m2:1,m1:1,va:1,vv:1}});
+  h(`<div class="top"><button class="back" data-go="anat" aria-label="Retour">‹</button><div style="flex:1;min-width:0" class="stack"><span class="eyebrow">Anatomie · modèle 3D</span><h2 style="font-size:1.05rem;margin:0">Membre inférieur droit en 3D</h2></div></div>
+  <div class="stack">
+   <div class="v3wrap" id="v3wrap"><canvas id="v3c" aria-label="Modèle 3D du membre inférieur droit : glisse pour tourner, pince pour zoomer, touche une structure pour voir son nom"></canvas>
+    <div class="v3load" id="v3load"><span class="v3spin"></span>Chargement du modèle 3D…</div>
+    <div class="v3views" role="group" aria-label="Vue">${[["face","Face"],["dos","Dos"],["dehors","Dehors"],["dedans","Dedans"],["pied","Pied"]].map(([k,l])=>`<button data-v3v="${k}">${l}</button>`).join("")}</div>
+    <div class="v3tip" id="v3tip" hidden></div></div>
+   <div class="stack" style="gap:6px"><span class="eyebrow">Couches</span><div class="v3layers">${Object.entries(L3D).map(([k,[l,c]])=>`<button class="v3l ${st.on[k]?"on":""}" data-v3l="${k}" aria-pressed="${!!st.on[k]}"><i style="background:${c}"></i>${l}</button>`).join("")}</div>
+    <div class="row"><button class="chip" id="v3peel">Éplucher couche par couche</button><button class="chip" id="v3all">Tout afficher</button></div></div>
+   <div class="v3card" id="v3card"><div class="v3name" id="v3name">Touche une structure</div><div class="small muted" id="v3sub">Glisse pour tourner, pince pour zoomer, deux doigts pour déplacer.</div><div class="row" id="v3act" hidden><button class="chip" id="v3iso">Isoler</button><button class="chip" id="v3hide">Masquer</button><button class="chip" id="v3fiche" hidden>Voir la fiche</button></div></div>
+   <div class="panel stack" id="v3quizbox"><div class="eyebrow">Quiz 3D</div><p class="small" id="v3qtxt">On te donne un nom, tu touches la bonne structure sur le modèle.</p><div class="row"><button class="btn primary" id="v3quiz">Lancer le quiz (10 questions)</button></div></div>
+   <p class="small muted">Modèle 3D : BodyParts3D, © The Database Center for Life Science (DBCLS), licence CC BY-SA 2.1 Japon, simplifié pour l’appli. Les nerfs du membre inférieur n’existent pas dans ce modèle : voir les planches d’atlas des nerfs.</p>
+  </div>`);
+  const cv=document.getElementById("v3c"),wrap=document.getElementById("v3wrap");
+  let alive=true;onLeave(()=>{alive=false;if(V3){try{V3.dispose()}catch(e){}V3=null}});
+  Promise.all([import("./vendor/three-mini.js"),fetch("anat/jambe3d.bin").then(r=>{if(!r.ok)throw new Error("modèle");return r.arrayBuffer()})]).then(([T,buf])=>{if(alive)V3=start3d(T,buf,cv,wrap,st)}).catch(e=>{const l=document.getElementById("v3load");if(l)l.innerHTML="Impossible de charger le modèle 3D. Vérifie ta connexion puis reviens sur cette page."});
+}
+function start3d(T,buf,cv,wrap,st){
+  const renderer=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true,powerPreference:"high-performance"});
+  renderer.setPixelRatio(Math.min(2,devicePixelRatio||1));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+  const scene=new T.Scene(),cam=new T.PerspectiveCamera(32,1,.01,20);
+  scene.add(new T.HemisphereLight(0xfff6ea,0x6d5b55,1.15));const d1=new T.DirectionalLight(0xffffff,1.6);d1.position.set(1.5,2,2.5);scene.add(d1);const d2=new T.DirectionalLight(0xffe2cf,.7);d2.position.set(-2,.5,-2);scene.add(d2);
+  const ctl=new T.OrbitControls(cam,cv);ctl.enableDamping=true;ctl.dampingFactor=.09;ctl.rotateSpeed=.8;ctl.minDistance=.25;ctl.maxDistance=4;
+  const meshes=[],byKey={},grp=new T.Group();scene.add(grp);
+  const mats={};Object.entries(L3D).forEach(([k,[,c]])=>{mats[k]=new T.MeshStandardMaterial({color:new T.Color(c),roughness:k==="os"?.82:.55,metalness:0,side:T.DoubleSide})});
+  const dv=new DataView(buf),own=[],matT=new T.MeshStandardMaterial({color:0xE2DACB,roughness:.45,metalness:0,side:T.DoubleSide});
+  ANAT3D.forEach(([key,fr,layer,vo,vc,io,ic,isz])=>{
+    const p=new Float32Array(vc*3);for(let i=0;i<vc*3;i++)p[i]=dv.getInt16(vo+i*2,true)/32767*.5;
+    const idx=isz===4?new Uint32Array(buf.slice(io,io+ic*4)):new Uint16Array(buf.slice(io,io+ic*2));
+    const g=new T.BufferGeometry();g.setAttribute("position",new T.BufferAttribute(p,3));g.setIndex(new T.BufferAttribute(idx,1));g.computeVertexNormals();
+    let mat=mats[layer];
+    if(/^(achille|tractus-it)$/.test(key))mat=matT;
+    else if(/^m[123]$/.test(layer)){const n=meshes.length,c=new T.Color(L3D[layer][1]);c.offsetHSL(((n*37)%11-5)*.004,0,((n*53)%9-4)*.018);mat=new T.MeshStandardMaterial({color:c,roughness:.5,metalness:0,side:T.DoubleSide});own.push(mat)}
+    const m=new T.Mesh(g,mat);m.userData={key,fr,layer,mat};grp.add(m);meshes.push(m);byKey[key]=m;
+  });
+  const box=new T.Box3().setFromObject(grp),ctr=box.getCenter(new T.Vector3()),size=box.getSize(new T.Vector3());
+  grp.position.sub(ctr);
+  const R=size.y*2.05;
+  const VIEWS3={face:[0,0,1],dos:[0,0,-1],dehors:[-1,0,0],dedans:[1,0,0],pied:[-.55,.5,.7]};
+  let anim=null;
+  function goView(k,inst){const d=VIEWS3[k];const tgt=k==="pied"?new T.Vector3(0,-size.y*.43,size.y*.05):new T.Vector3(0,-size.y*.045,0);const dist=k==="pied"?R*.3:R;const to=new T.Vector3(d[0],d[1],d[2]).normalize().multiplyScalar(dist).add(tgt);
+    if(inst||RM){cam.position.copy(to);ctl.target.copy(tgt);ctl.update();return}
+    const p0=cam.position.clone(),t0=ctl.target.clone(),s=performance.now();anim=now=>{const k2=Math.min(1,(now-s)/700),e=k2<.5?4*k2*k2*k2:1-Math.pow(-2*k2+2,3)/2;cam.position.lerpVectors(p0,to,e);ctl.target.lerpVectors(t0,tgt,e);if(k2>=1)anim=null}}
+  function fit(){const w=wrap.clientWidth,hh=wrap.clientHeight;renderer.setSize(w,hh,false);cam.aspect=w/hh;cam.updateProjectionMatrix()}
+  fit();goView("face",true);
+  const ro=new ResizeObserver(fit);ro.observe(wrap);
+  // couches
+  const applyLayers=()=>meshes.forEach(m=>{m.visible=!!st.on[m.userData.layer]&&!m.userData.hidden&&(!iso||iso===m)});
+  let iso=null,sel=null;
+  const hl=new T.MeshStandardMaterial({color:0xF2B33D,emissive:0x7a4b00,emissiveIntensity:.35,roughness:.5,side:T.DoubleSide});
+  function select(m){if(sel)sel.material=sel.userData.mat;sel=m;
+    const nm=document.getElementById("v3name"),sub=document.getElementById("v3sub"),act=document.getElementById("v3act"),fb=document.getElementById("v3fiche");
+    if(!m){nm.textContent="Touche une structure";sub.textContent="Glisse pour tourner, pince pour zoomer, deux doigts pour déplacer.";act.hidden=true;return}
+    m.material=hl;nm.textContent=m.userData.fr;sub.textContent=L3D[m.userData.layer][0];act.hidden=false;
+    const f=FICHE3D(m.userData.key);fb.hidden=!(f&&byId[f]);if(f)fb.onclick=()=>go("fiche",f);
+    document.getElementById("v3iso").textContent=iso?"Tout remontrer":"Isoler";}
+  document.getElementById("v3iso").onclick=()=>{iso=iso?null:sel;applyLayers();select(sel)};
+  document.getElementById("v3hide").onclick=()=>{if(!sel)return;sel.userData.hidden=true;const m=sel;select(null);applyLayers()};
+  document.getElementById("v3all").onclick=()=>{iso=null;meshes.forEach(m=>m.userData.hidden=false);Object.keys(L3D).forEach(k=>st.on[k]=1);syncL();applyLayers()};
+  const syncL=()=>document.querySelectorAll("[data-v3l]").forEach(b=>{const on=!!st.on[b.dataset.v3l];b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
+  document.querySelectorAll("[data-v3l]").forEach(b=>b.onclick=()=>{const k=b.dataset.v3l;st.on[k]=st.on[k]?0:1;persist();syncL();applyLayers()});
+  const PEEL=[["m1"],["m1","m2"],["m1","m2","m3"],[]];let peel=-1;
+  document.getElementById("v3peel").onclick=e=>{peel=(peel+1)%PEEL.length;Object.keys(L3D).forEach(k=>st.on[k]=PEEL[peel].includes(k)?0:1);syncL();applyLayers();e.currentTarget.textContent=["Retirer aussi les muscles moyens","Retirer aussi les profonds","Tout remettre","Éplucher couche par couche"][peel]};
+  document.querySelectorAll("[data-v3v]").forEach(b=>b.onclick=()=>goView(b.dataset.v3v));
+  applyLayers();
+  // toucher = choisir (on ignore les glissés)
+  const rc=new T.Raycaster(),pt=new T.Vector2();let down=null;
+  const pick=(x,y)=>{const r=cv.getBoundingClientRect();pt.set(((x-r.left)/r.width)*2-1,-((y-r.top)/r.height)*2+1);rc.setFromCamera(pt,cam);const hit=rc.intersectObjects(meshes.filter(m=>m.visible),false)[0];return hit?hit.object:null};
+  cv.addEventListener("pointerdown",e=>{down={x:e.clientX,y:e.clientY,t:performance.now()}});
+  cv.addEventListener("pointerup",e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(dx*dx+dy*dy<64&&performance.now()-down.t<500){const m=pick(e.clientX,e.clientY);if(quiz)answer(m);else select(m)}down=null});
+  // quiz 3D
+  let quiz=null;const qtxt=document.getElementById("v3qtxt"),qb=document.getElementById("v3quiz");
+  const pool=()=>meshes.filter(m=>m.visible&&m.userData.layer!=="os"||m.visible&&/^(os-coxal|femur|tibia|fibula|patella|talus|calcaneus|naviculaire|cuboide|m1|m5)$/.test(m.userData.key));
+  function nextQ(){if(quiz.i>=quiz.list.length){qtxt.innerHTML=`<b>${quiz.ok} / ${quiz.list.length}</b> bonnes réponses. ${quiz.ok>=8?"Bravo !":"Recommence pour progresser."}`;qb.textContent="Rejouer";qb.hidden=false;if(quiz.ok>=8)celebrate();quiz=null;select(null);return}
+    const m=quiz.list[quiz.i];qtxt.innerHTML=`Question ${quiz.i+1} / ${quiz.list.length} : touche <b>${esc(m.userData.fr)}</b>`}
+  function answer(m){if(!m)return;const want=quiz.list[quiz.i],ok=m===want;if(ok){quiz.ok++;haptic(10)}else haptic([8,50,8]);
+    select(want);const tip=document.getElementById("v3tip");tip.hidden=false;tip.className="v3tip "+(ok?"ok":"ko");tip.textContent=ok?"Oui !":"Non : c’était ici ("+(m.userData.fr)+" touché)";
+    S.days=S.days||{};const d=today();S.days[d]=(S.days[d]||0)+1;save();
+    quiz.i++;setTimeout(()=>{tip.hidden=true;if(quiz)nextQ()},ok?700:1600)}
+  qb.onclick=()=>{const p=shuffle(pool());if(p.length<4){qtxt.textContent="Affiche plus de couches pour lancer le quiz.";return}quiz={list:p.slice(0,10),i:0,ok:0};qb.hidden=true;select(null);nextQ()};
+  document.getElementById("v3load").remove();
+  let raf=0,run=true;const loop=now=>{if(!run)return;if(anim)anim(now);ctl.update();renderer.render(scene,cam);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
+  const vis=()=>{run=!document.hidden;if(run)raf=requestAnimationFrame(loop)};document.addEventListener("visibilitychange",vis);
+  return {dispose(){run=false;cancelAnimationFrame(raf);ro.disconnect();document.removeEventListener("visibilitychange",vis);ctl.dispose();meshes.forEach(m=>m.geometry.dispose());Object.values(mats).forEach(m=>m.dispose());own.forEach(m=>m.dispose());matT.dispose();hl.dispose();renderer.dispose()}};
+}
 function drawTabs(){
   const T=tabsNow();document.querySelector("nav.tabs").hidden=current==="matieres"||current==="lecture";
   const sig=T.map(t=>t[0]).join();
@@ -2076,10 +2196,10 @@ function go(view,arg,how){
     stopTimer(); stopSpeak(); stopRec();
     $gs.hidden=true;
     // chaque vue appartient à une matière : les onglets suivent
-    const PEDI_V=["fiches","lexique","oral","apprendre","texte","entrainement"],ANAT_V=["anat","pratique","examen","anattrain","legende","recap"];
+    const PEDI_V=["fiches","lexique","oral","apprendre","texte","entrainement"],ANAT_V=["v3d","anat","pratique","examen","anattrain","legende","recap"];
     const ns=(view==="fiche"||view==="lecture")&&byId[arg]?(byId[arg].cat==="anat"?"anat":"pedi"):PEDI_V.includes(view)?"pedi":ANAT_V.includes(view)?"anat":null;
     if(ns&&ns!==S.subj){S.subj=ns;persist()}
-    current=view==="lecture"?"lecture":view==="stats"?"home":view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende"||view==="recap")?"pratique":view; drawTabs();
+    current=view==="v3d"?"anat":view==="lecture"?"lecture":view==="stats"?"home":view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende"||view==="recap")?"pratique":view; drawTabs();
     lastView=[view,arg||null];
     document.body.dataset.area=S.subj==="anat"?"anat":"pedi";
     NAVFX=dir!=="back"&&dir!=="same";
@@ -2471,6 +2591,7 @@ function celebrate(){
 // ================= VIEWS =================
 const VIEWS={};
 VIEWS.stats=viewStats;
+VIEWS.v3d=view3d;
 VIEWS.lecture=viewLecture;
 
 function resumeCard(){
@@ -2579,6 +2700,7 @@ function anatHome(){
      ${goalHTML(true)}
      <button class="btn block hh-cta" data-start="jour">Réviser maintenant</button>
    </section>
+   <button class="v3cta" data-go="v3d"><span class="v3cta-t"><span class="eyebrow">Nouveau</span><strong>Le membre inférieur en 3D</strong><span>Tourne, zoome, enlève les couches de muscles et touche une structure pour voir son nom.</span></span><span class="v3cta-i" aria-hidden="true">3D</span></button>
    ${progCard()}
    ${favList()}
    <div class="grid2"><button class="btn" id="aquiz">Quiz anatomie</button><button class="btn" data-fiche="a-amplitudes">Toutes les amplitudes</button></div>
@@ -3037,7 +3159,7 @@ function anatFiche(t){
    <div class="fiche stack ${S.hidekw?"hidekw":""}" id="fiche" style="--cc:${CATC.anat}">
     <section id="s-ess" class="stack">
      ${icov&&ANATART[icov.k]&&(ANATART[icov.k].leg.length||ANATART[icov.k].keys.length)?`<div class="panel stack cov-leg"><div class="eyebrow">Légende du schéma · touche un nom pour le voir</div>${legendHTML(icov.k)}</div>`:""}
-     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">▶ Écouter la fiche</button>`:""}${favBtn(t.id)}${siriBtn(t.id)}</div>
+     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">▶ Écouter la fiche</button>`:""}<button class="chip" data-go="v3d">Voir en 3D</button>${favBtn(t.id)}${siriBtn(t.id)}</div>
      <div class="memo"><div class="eyebrow">À retenir en une phrase</div><p>${md(t.memo)}</p></div>
      <div class="panel stack"><div class="eyebrow">Les 5 points à savoir</div><ol class="keys">${t.key.map(k=>`<li><span>${md(k)}</span></li>`).join("")}</ol></div>
      ${others.map(viz).join("")}
@@ -3130,7 +3252,7 @@ function anatQuestions(kind){
 const ANAT_QMODES=[["anat","Mélange"],["asch","Schémas muets"],["anerf","Nerfs"],["amus","Quel muscle ?"],["aorig","Terminaisons"],["aamp","Amplitudes"],["arep","Repères"]];
 
 // ---------- page « Pratique »
-function anatPratiqueTiles(){return `<div class="ptiles"><button class="ptile" data-go="examen"><b>Examen pratique blanc</b><span>On te dit quoi palper, chrono, puis la méthode</span></button><button class="ptile" data-go="anattrain"><b>Entraînement varié</b><span>12 exercices mélangés</span></button><button class="ptile" data-go="pratique"><b>Schémas muets</b><span>${Object.keys(ANATQ).length} schémas à légender</span></button><button class="ptile" data-go="recap"><b>Tableau des muscles</b><span>${allMus().length} muscles : nerf et action</span></button></div>`}
+function anatPratiqueTiles(){return `<div class="ptiles"><button class="ptile wide3d" data-go="v3d"><b>Jambe en 3D et quiz 3D</b><span>Touche le muscle ou l’os demandé sur le modèle</span></button><button class="ptile" data-go="examen"><b>Examen pratique blanc</b><span>On te dit quoi palper, chrono, puis la méthode</span></button><button class="ptile" data-go="anattrain"><b>Entraînement varié</b><span>12 exercices mélangés</span></button><button class="ptile" data-go="pratique"><b>Schémas muets</b><span>${Object.keys(ANATQ).length} schémas à légender</span></button><button class="ptile" data-go="recap"><b>Tableau des muscles</b><span>${allMus().length} muscles : nerf et action</span></button></div>`}
 VIEWS.pratique=()=>{
   const ex=(S.exams||[]).slice(-4).reverse();
   h(`<div class="stack">

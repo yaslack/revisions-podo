@@ -10,6 +10,7 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 - **Entraînement varié** : 12 exercices mélangés (récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express). Une étape n’est maîtrisée à 100 % que retrouvée de tête sur au moins 3 jours différents.
 
 **Anatomie**
+- **Membre inférieur en 3D** : modèle anatomique réel (BodyParts3D, DBCLS, CC BY-SA 2.1 JP) avec 86 structures (os, muscles en 3 couches, artères, veines). On le fait tourner, on zoome, on enlève les couches, on touche une structure pour voir son nom et ouvrir sa fiche, et un quiz 3D demande de toucher la bonne structure.
 - **Planches d’atlas réalistes** : 32 planches en couleur de l’atlas de Bourgery et Jacob (1831-1854, domaine public, BIU Santé Paris) pour les muscles, les os, les articulations, les nerfs et les vaisseaux, nettoyées et numérotées en français, avec leur version muette.
 - 18 fiches rangées en 5 chapitres, avec des **planches haute définition** (muscles en relief avec fibres et tendons, os éclairés, nerfs et territoires sensitifs) et plusieurs vues par région (face, dos, profil, plans superficiel et profond). Les numéros et légendes restent nets à tous les zooms ; toucher une ligne de la légende allume le numéro sur le dessin :
   - **Os** : squelette, hanche (os coxal), cuisse (fémur, patella), jambe (tibia, fibula), pied ;
