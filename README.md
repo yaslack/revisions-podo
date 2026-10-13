@@ -22,4 +22,10 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 
 Cartes mémoire à répétition espacée (on peut glisser la carte : à droite si on savait, à gauche sinon) et quiz pour les deux matières. La progression reste sur le téléphone (2 copies : localStorage + IndexedDB) ; un code de sauvegarde permet de la copier ailleurs. Chaque personne a sa propre progression.
 
-**Design** : barre d’onglets flottante, transitions entre les pages (la vignette d’une fiche s’agrandit en grand schéma, la carte d’une matière devient l’en-tête de son accueil), titres qui apparaissent mot par mot, chiffres qui défilent. Chaque matière a sa couleur (vert pour la pédicurie, ambre pour l’anatomie). Tout est désactivé si l’iPhone est réglé sur « Réduire les animations ».
+**Ma progression** : série de jours, objectif du jour réglable (15, 30, 50 ou 80 révisions), calendrier des 12 dernières semaines, révisions des 14 derniers jours, état des cartes, maîtrise par famille ou chapitre et sujets à travailler en priorité.
+
+**Favoris** : une étoile sur chaque fiche ; les favoris s’affichent sur l’accueil et forment une série de cartes. Au quiz, « Refaire mes erreurs » rejoue les questions ratées.
+
+**Affichage** (dans Matières) : thème automatique, clair ou sombre, texte normal ou grand, animations normales ou réduites.
+
+**Design** : barre d’onglets en verre avec pastille qui glisse, transitions entre les pages, titres qui apparaissent mot par mot, chiffres qui défilent. Chaque matière a sa couleur (vert pour la pédicurie, ambre pour l’anatomie). Tout est désactivé si l’iPhone est réglé sur « Réduire les animations » ou si l’on choisit « Animations réduites ».
