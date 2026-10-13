@@ -287,6 +287,14 @@ textarea{min-height:90px;font-size:16px;font-family:ui-monospace,Menlo,monospace
 .script details.more summary{cursor:pointer;font-weight:650;font-size:.9rem;color:var(--accent);margin-bottom:8px}
 .parthead{border:0;background:none;padding:0;display:flex;gap:10px;align-items:center;font:inherit;font-family:var(--f-display);font-weight:800;font-size:1.1rem;color:var(--ink);cursor:pointer;text-align:left}
 .parthead .L{min-width:52px;height:30px;padding:0 6px;border-radius:9px;background:color-mix(in srgb,var(--cc,var(--accent)) 14%,var(--surface));color:var(--cc,var(--accent));display:grid;place-items:center;font-size:.75rem}
+.pst.mid2{background:color-mix(in srgb,var(--good) 30%,var(--surface));color:var(--good)}
+.trouline{font-size:1.1rem;line-height:2}
+.tin{font:inherit;font-weight:700;border:0;border-bottom:2px solid var(--accent);background:var(--accent-soft);border-radius:8px 8px 0 0;padding:2px 8px;width:11em;max-width:100%;color:var(--ink)}
+.tin.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--surface))}
+.tin.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.recw{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.recw audio{width:100%}
+.chip.on#recb{background:var(--bad);color:#fff}
 /* visionneuse photo */
 #lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
 #lb img{max-width:100%;max-height:78vh;border-radius:14px;background:#fff}
@@ -1105,11 +1113,20 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){$app.innerHTML=html;window.scrollTo(0,0)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="9";
+const APP_VERSION="10";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
-async function doUpdate(){try{const r=await navigator.serviceWorker.getRegistration();if(r)await r.update()}catch(e){}try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}location.reload()}
-function showUpdate(){if(document.getElementById("upd"))return;const b=document.createElement("button");b.id="upd";b.className="upd";b.textContent="Nouvelle version disponible · Toucher pour mettre à jour";b.onclick=()=>{b.textContent="Mise à jour…";doUpdate()};document.body.appendChild(b)}
-function checkUpdate(){if(!SWOK)return;fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&String(j.v)!==APP_VERSION)showUpdate()}).catch(()=>{})}
+async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
+async function doUpdate(v){
+  persist();
+  v=v||await latestVersion()||String(Date.now());
+  try{const r=await navigator.serviceWorker.getRegistration();if(r)await r.update()}catch(e){}
+  try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
+  try{await fetch(location.pathname+"?v="+encodeURIComponent(v),{cache:"reload"})}catch(e){}
+  location.replace(location.pathname+"?v="+encodeURIComponent(v));
+}
+try{if(/[?&]v=/.test(location.search))history.replaceState(null,"",location.pathname+location.hash)}catch(e){}
+function showUpdate(){if(document.getElementById("upd"))return;const b=document.createElement("button");b.id="upd";b.className="upd";b.textContent="Nouvelle version disponible · Toucher pour mettre à jour";b.onclick=()=>{b.textContent="Mise à jour…";doUpdate(b.dataset.v)};document.body.appendChild(b);return b}
+function checkUpdate(){if(!SWOK)return;latestVersion().then(v=>{if(v&&v!==APP_VERSION){const b=showUpdate();if(b)b.dataset.v=v;else{const u=document.getElementById("upd");if(u)u.dataset.v=v}}})}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkUpdate()});
 setTimeout(checkUpdate,1200);
 const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
@@ -1134,7 +1151,19 @@ function load(){
   return Object.assign(blank(),s);
 }
 let S=load();
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+// 2 copies sur le téléphone : localStorage (immédiat) + IndexedDB (secours si l’une est effacée)
+function idb(){return new Promise((ok,ko)=>{try{const r=indexedDB.open("podo",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>ok(r.result);r.onerror=()=>ko(r.error)}catch(e){ko(e)}})}
+async function idbPut(v){try{const db=await idb();await new Promise(ok=>{const tx=db.transaction("kv","readwrite");tx.objectStore("kv").put(v,KEY);tx.oncomplete=tx.onerror=tx.onabort=()=>ok()});db.close()}catch(e){}}
+async function idbGet(){try{const db=await idb();const v=await new Promise(ok=>{const tx=db.transaction("kv","readonly");const r=tx.objectStore("kv").get(KEY);r.onsuccess=()=>ok(r.result);r.onerror=()=>ok(null)});db.close();return v}catch(e){return null}}
+let idbT=null;
+function persist(){const j=JSON.stringify(S);try{localStorage.setItem(KEY,j)}catch(e){}clearTimeout(idbT);idbT=setTimeout(()=>idbPut(j),400)}
+async function restoreBackup(){
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{})}catch(e){}
+  const j=await idbGet();let b=null;try{b=j?JSON.parse(j):null}catch(e){}
+  if(b&&b.cards&&(b.u||0)>(S.u||0)){S=Object.assign(blank(),b);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(["home","fiches","cartes","quiz","oral"].includes(lastView[0]))VIEWS[lastView[0]](lastView[1]||undefined)}
+  else if((S.u||0)>((b&&b.u)||0))idbPut(JSON.stringify(S));
+}
+window.addEventListener("pagehide",()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}idbPut(JSON.stringify(S))});
 function save(){S.u=Date.now();persist();cloudSchedule()}
 
 // ---------- cards ----------
@@ -1179,9 +1208,9 @@ let current="home", lastView=["home",null];
 function drawTabs(){$tabs.innerHTML=TABS.map(([k,l])=>`<button class="tab ${k===current?"on":""}" data-tab="${k}" aria-label="${l}">${ICONS[k]}${l}</button>`).join("")}
 $tabs.addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(b)go(b.dataset.tab)});
 function go(view,arg){
-  stopTimer(); stopSpeak();
+  stopTimer(); stopSpeak(); stopRec();
   $gs.hidden=true;
-  current=(view==="fiche"||view==="lexique")?"fiches":(view==="apprendre"||view==="texte")?"oral":view; drawTabs();
+  current=(view==="fiche"||view==="lexique")?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":view; drawTabs();
   lastView=[view,arg||null];
   VIEWS[view](arg);
   try{sessionStorage.setItem("podo:view",JSON.stringify(lastView))}catch(e){}
@@ -1286,6 +1315,7 @@ VIEWS.home=()=>{
    </div>
    <h2>Sauvegarde</h2>
    <div class="panel stack">
+     ${hasProgress()&&(!S.bk||today()-S.bk>=14)?`<p class="small" style="color:var(--s3);font-weight:650">Ta progression est enregistrée sur ce téléphone. Par sécurité, copie ton code de sauvegarde dans tes Notes une fois toutes les 2 semaines (si tu changes de téléphone ou effaces Safari).</p>`:""}
      <div class="status" id="cloudst">${cloudText()}</div>
      <div class="grid2"><button class="btn" id="exp">Copier mon code</button><button class="btn" id="imp">Restaurer</button></div>
      <div id="impbox" class="stack" hidden><label for="impta" class="small muted">Colle ici ton code de sauvegarde :</label><textarea id="impta"></textarea><button class="btn primary" id="impgo">Restaurer ma progression</button></div>
@@ -1293,7 +1323,9 @@ VIEWS.home=()=>{
      <p class="small muted" id="bkmsg"></p>
      <div class="row" style="justify-content:space-between"><button class="chip" id="reset">Tout effacer</button><span class="row small muted">Version ${APP_VERSION}${SWOK?` <button class="chip" id="chkupd">Mettre à jour</button>`:""}</span></div>
    </div>
-   ${standalone?"":`<p class="muted small">Sur iPhone : ouvre ce lien dans Safari, touche Partager puis « Sur l’écran d’accueil ». Une fois ouverte, l’appli marche sans réseau.</p>`}
+   ${standalone?"":`<div class="panel stack"><div class="eyebrow">L’installer comme une appli</div><p class="small">Sur iPhone : ouvre ce lien dans <b>Safari</b>, touche Partager puis « Sur l’écran d’accueil ». Ensuite, ouvre-la toujours par l’icône : elle marche sans réseau et garde ta progression.</p><p class="small muted">Attention : la progression dans Safari et celle de l’icône sont séparées. Pour passer de l’une à l’autre, utilise « Copier mon code » puis « Restaurer ».</p></div>`}
+   <button class="btn block" id="share">Partager l’appli à un ami de la classe</button>
+   <p class="small muted" id="sharemsg" style="text-align:center;margin-top:-6px">Chacun garde sa propre progression sur son téléphone.</p>
   </div>`);
   const sd=document.getElementById("savedate"); if(sd) sd.onclick=()=>{
     const D=+document.getElementById("dD").value,M=+document.getElementById("dM").value,Y=+document.getElementById("dY").value,dt=new Date(Y,M-1,D,12);
@@ -1307,7 +1339,8 @@ VIEWS.home=()=>{
   document.getElementById("impgo").onclick=importCode;
   const rs=document.getElementById("reset");
   rs.onclick=()=>{ if(rs.dataset.armed){S=Object.assign(blank(),{exam:S.exam});save();VIEWS.home()} else {rs.dataset.armed="1";rs.textContent="Touche encore pour tout effacer";rs.style.background="var(--bad)";rs.style.color="#fff"} };
-  const cu=document.getElementById("chkupd"); if(cu) cu.onclick=()=>{cu.textContent="Mise à jour…";doUpdate()};
+  const sh=document.getElementById("share"); if(sh) sh.onclick=async()=>{const url=location.origin+location.pathname;const m=document.getElementById("sharemsg");try{if(navigator.share){await navigator.share({title:"Révisions Oral Pédicurie",text:"L’appli pour réviser l’oral de pédicurie et l’anatomie :",url});return}}catch(e){if(e&&e.name==="AbortError")return}try{await navigator.clipboard.writeText(url);m.textContent="Lien copié : "+url}catch(e){m.textContent=url}};
+  const cu=document.getElementById("chkupd"); if(cu) cu.onclick=async()=>{cu.textContent="Vérification…";const v=await latestVersion();if(v===null){cu.textContent="Pas de réseau";return}if(v===APP_VERSION){cu.textContent="Déjà à jour ✓";return}cu.textContent="Mise à jour…";doUpdate(v)};
 };
 
 function planPanel(){
@@ -1323,10 +1356,11 @@ function planPanel(){
    <button class="btn primary block" data-start="prog">Cartes du programme</button>
    <p class="small muted">Pour chaque sujet : lis la fiche, puis fais ses cartes. Coche quand c’est fait.</p></div>`;
 }
+const hasProgress=()=>Object.keys(S.cards).length+Object.keys(S.pt||{}).length+Object.keys(S.learn||{}).length>3;
 function exportCode(){
   let code="";try{code=btoa(unescape(encodeURIComponent(JSON.stringify(S))))}catch(e){}
   const ta=document.getElementById("expta"), msg=document.getElementById("bkmsg");
-  ta.value=code; ta.hidden=false;
+  ta.value=code; ta.hidden=false; S.bk=today(); persist();
   const done=()=>{msg.textContent="Code copié. Colle-le dans tes Notes pour le garder en sécurité."};
   const fallback=()=>{ta.focus();ta.select();msg.textContent="Sélectionne le code ci-dessus et copie-le dans tes Notes."};
   try{navigator.clipboard.writeText(code).then(done,fallback)}catch(e){fallback()}
@@ -1411,7 +1445,9 @@ function partsOf(t){
 }
 const lv=(id,k)=>((S.learn||{})[id]||{})[k]||0;
 function setLv(id,k,n){S.learn=S.learn||{};S.learn[id]=S.learn[id]||{};S.learn[id][k]=n;save()}
-const oralMastery=id=>{const t=byId[id];if(!t||!t.s)return 0;const P=partsOf(t);return Math.round(100*P.filter(p=>lv(id,p.k)>=3).length/P.length)};
+// une partie compte à 100 % quand elle est sue de tête ET retrouvée sur au moins 3 jours différents
+const partScore=(id,k)=>{const l=lv(id,k),b=((S.pt||{})[id+"|"+k]||{b:0}).b;return (l>=3?.5:l*.12)+.5*Math.min(1,b/3)};
+const oralMastery=id=>{const t=byId[id];if(!t||!t.s)return 0;const P=partsOf(t);return Math.floor(100*P.reduce((a,p)=>a+partScore(id,p.k),0)/P.length+1e-9)};
 const oralReady=()=>TOPICS.filter(t=>oralMastery(t.id)===100).length;
 const wordsOf=s=>strip(s).split(/\s+/).filter(Boolean).length;
 function oralMinutes(t){const n=partsOf(t).reduce((a,p)=>a+wordsOf(p.lead)+p.lines.reduce((b,x)=>b+wordsOf(x),0),0);return Math.max(1,Math.round(n/130))}
@@ -1419,7 +1455,7 @@ const hintOf=s=>{const w=strip(s).split(/\s+/);return w.slice(0,3).join(" ")+(w.
 function partHTML(p,mode,showHint){
   const lead=p.lead?`<p class="lead">${md(p.lead)}</p>`:"";
   if(mode==="tete") return `${lead}<p class="muted small">${p.lines.length>1?p.lines.length+" idées à dire":"1 idée à dire"} : récite à voix haute, puis vérifie.</p>${showHint?`<ul class="say hint">${p.lines.map(x=>`<li>${esc(hintOf(x))}</li>`).join("")}</ul>`:""}`;
-  return `${lead}<ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul>${mode==="lire"&&p.extra&&p.extra.length&&ORAL[lrn.id]?`<details class="more"><summary>Pour compléter la définition si le jury demande</summary><ul class="say">${p.extra.map(x=>`<li>${md(x)}</li>`).join("")}</ul></details>`:""}`;
+  return `${lead}<ul class="say">${p.lines.map(x=>`<li>${md(mode==="trous"?holeify(x):x)}</li>`).join("")}</ul>${mode==="lire"&&p.extra&&p.extra.length&&ORAL[lrn.id]?`<details class="more"><summary>Pour compléter la définition si le jury demande</summary><ul class="say">${p.extra.map(x=>`<li>${md(x)}</li>`).join("")}</ul></details>`:""}`;
 }
 function speakLines(arr,btn,label){
   if(!canSpeak)return;
@@ -1428,7 +1464,7 @@ function speakLines(arr,btn,label){
   arr.forEach((p,i)=>{const u=new SpeechSynthesisUtterance(plain(p));u.lang="fr-FR";if(voice)u.voice=voice;if(i===arr.length-1)u.onend=()=>{btn.classList.remove("on");btn.textContent=label};speechSynthesis.speak(u)});
   btn.classList.add("on");btn.textContent="Arrêter la lecture";
 }
-const stepDots=(t,P,cur)=>`<div class="psteps">${P.map((p,i)=>{const l=lv(t.id,p.k);return `<button class="pst ${l>=3?"ok":l>0?"mid":""} ${i===cur?"cur":""}" data-step="${i}" aria-label="${esc(p.l)}">${PSHORT[p.k]}</button>`}).join("")}</div>`;
+const stepDots=(t,P,cur)=>`<div class="psteps">${P.map((p,i)=>{const l=lv(t.id,p.k);const sb=((S.pt||{})[t.id+"|"+p.k]||{b:0}).b;return `<button class="pst ${l>=3&&sb>=3?"ok":l>=3?"mid2":l>0?"mid":""} ${i===cur?"cur":""}" data-step="${i}" aria-label="${esc(p.l)}">${PSHORT[p.k]}</button>`}).join("")}</div>`;
 
 let lrn={id:null,i:0,mode:"lire",hint:false,full:null};
 VIEWS.apprendre=(id)=>{
@@ -1442,12 +1478,12 @@ function drawLearn(){
   const m=lrn.mode, revealed=lrn.revealed;
   h(`<div class="top"><button class="back" data-fiche="${t.id}" aria-label="Retour à la fiche">‹</button><div style="flex:1;min-width:0" class="stack" ><span class="eyebrow" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${lrn.full?"Récitation complète":"Apprendre l’oral"} · ${esc(t.t)}</span>${stepDots(t,P,lrn.i)}</div></div>
   <div class="stack" style="--cc:${CATC[t.cat]}">
-   <div class="pagehead"><div class="eyebrow">Étape ${lrn.i+1} / ${P.length}${L>=3?" · sue de tête ✓":""}</div><h1>${esc(p.l)}</h1></div>
+   <div class="pagehead"><div class="eyebrow">Étape ${lrn.i+1} / ${P.length}${L>=3?(ptS(t.id,p.k).b>=3?" · solide ✓":" · sue de tête, à confirmer d’autres jours"):""}</div><h1>${esc(p.l)}</h1></div>
    ${lrn.full?"":`<div class="seg" role="tablist">${[["lire","1 · Lire"],["trous","2 · À trous"],["tete","3 · De tête"]].map(([k,l])=>`<button role="tab" aria-selected="${m===k}" class="${m===k?"on":""}" data-mode="${k}">${l}</button>`).join("")}</div>`}
    <div class="panel stack script ${m==="trous"?"hidekw":""}" id="script">${partHTML(p,m==="tete"&&!revealed?"tete":m==="tete"?"lire":m,lrn.hint)}</div>
    ${m==="lire"?`<p class="muted small">Lis à voix haute 2 fois. Les mots surlignés sont ceux que le jury attend.</p>
      <div class="grid2">${canSpeak?`<button class="btn" id="listen">Écouter</button>`:""}<button class="btn primary ${canSpeak?"":"block"}" id="nextlvl" style="${canSpeak?"":"grid-column:1/-1"}">C’est lu : texte à trous</button></div>`:""}
-   ${m==="trous"?`<p class="muted small">Dis la phrase entière en retrouvant chaque mot caché, puis touche-le pour vérifier.</p><button class="btn primary block" id="nextlvl">J’ai tout retrouvé : de tête</button>`:""}
+   ${m==="trous"?`<p class="muted small">Dis la phrase entière en retrouvant chaque mot caché, puis touche-le pour vérifier. Les mots cachés changent à chaque fois.</p><button class="btn primary block" id="nextlvl">J’ai tout retrouvé : de tête</button>`:""}
    ${m==="tete"&&!revealed?`${lrn.full?"":`<button class="chip" id="hint" style="align-self:center">${lrn.hint?"Cacher les indices":"Un indice (début de chaque idée)"}</button>`}<button class="btn primary block" id="reveal">J’ai récité : voir le texte</button>`:""}
    ${m==="tete"&&revealed?`<p class="muted small" style="text-align:center">As-tu tout dit ?</p><div class="grid2"><button class="btn bad" id="ko">J’ai oublié des choses</button><button class="btn good" id="ok">J’ai tout dit</button></div>`:""}
    ${lrn.full?"":`<div class="grid2"><button class="btn" id="prev" ${lrn.i?"":"disabled"}>‹ Étape précédente</button><button class="btn" id="next" ${lrn.i<P.length-1?"":"disabled"}>Étape suivante ›</button></div>
@@ -1466,17 +1502,18 @@ function drawLearn(){
   const advance=()=>{lrn.revealed=false;lrn.hint=false;
     if(lrn.full){lrn.i++;if(lrn.i>=P.length)return fullDone(t,P);return drawLearn()}
     if(lrn.i<P.length-1){lrn.i++;lrn.mode="lire";lrn.fresh=true;drawLearn()}else learnDone(t,P)};
-  if($("ok"))$("ok").onclick=()=>{setLv(t.id,p.k,3);if(lrn.full)lrn.full.ok.push(p.k);advance()};
-  if($("ko"))$("ko").onclick=()=>{setLv(t.id,p.k,Math.min(L||1,2));if(lrn.full){lrn.full.ko.push(p.k);advance()}else{lrn.mode="trous";lrn.revealed=false;drawLearn()}};
+  if($("ok"))$("ok").onclick=()=>{setLv(t.id,p.k,3);gradePart(t.id,p.k,true);if(lrn.full)lrn.full.ok.push(p.k);advance()};
+  if($("ko"))$("ko").onclick=()=>{setLv(t.id,p.k,Math.min(L||1,2));gradePart(t.id,p.k,false);if(lrn.full){lrn.full.ko.push(p.k);advance()}else{lrn.mode="trous";lrn.revealed=false;drawLearn()}};
   if($("prev"))$("prev").onclick=()=>{stopSpeak();lrn.i--;lrn.mode="lire";lrn.revealed=false;lrn.fresh=true;drawLearn()};
   if($("next"))$("next").onclick=()=>{stopSpeak();lrn.i++;lrn.mode="lire";lrn.revealed=false;lrn.fresh=true;drawLearn()};
   if($("full"))$("full").onclick=()=>{stopSpeak();lrn.full={ok:[],ko:[]};lrn.i=0;lrn.mode="tete";lrn.revealed=false;lrn.hint=false;drawLearn()};
 }
 function learnDone(t,P){
   const om=oralMastery(t.id);
-  h(`<div class="stack" style="--cc:${CATC[t.cat]}"><div class="pagehead"><div class="eyebrow">${esc(t.t)}</div><h1>${om===100?"Oral su à 100 %":"Tu as fait le tour"}</h1></div>
-   <div class="panel stack">${ringSvg(om,"de l’oral su de tête",false,"su")}<p>${om===100?"Toutes les étapes sont sues de tête. Refais une récitation complète dans 2 jours pour vérifier que ça tient.":"Les étapes en gris ou en bleu ne sont pas encore sues de tête. Termine par une récitation complète, sans regarder."}</p>${stepDots(t,P,-1)}</div>
+  h(`<div class="stack" style="--cc:${CATC[t.cat]}"><div class="pagehead"><div class="eyebrow">${esc(t.t)}</div><h1>${om===100?"Oral maîtrisé à 100 %":"Tu as fait le tour"}</h1></div>
+   <div class="panel stack">${ringSvg(om,"de l’oral su de tête",false,"su")}<p>${om===100?"Chaque étape est sue de tête et a tenu sur plusieurs jours. Garde le rythme avec l’entraînement varié.":"Pour atteindre 100 %, chaque étape doit être retrouvée de tête sur au moins 3 jours différents (vert foncé). Reviens demain : l’entraînement varié te la reposera autrement."}</p>${stepDots(t,P,-1)}</div>
    <button class="btn primary block" id="full">Récitation complète (tout de tête)</button>
+   <button class="btn block" data-train="${t.id}">Entraînement varié sur ce sujet</button>
    <button class="btn block" data-oral="${t.id}">Oral blanc chronométré sur ce sujet</button>
    <button class="btn block" data-go="oral">Choisir un autre sujet</button></div>`);
   document.getElementById("full").onclick=()=>{lrn={id:t.id,i:0,mode:"tete",hint:false,revealed:false,full:{ok:[],ko:[]}};drawLearn()};
@@ -1486,7 +1523,7 @@ function fullDone(t,P){
   const f=lrn.full,ok=f.ok.length,n=P.length;lrn.full=null;
   S.orals.push({d:Date.now(),id:t.id,ok,n});S.orals=S.orals.slice(-30);save();
   h(`<div class="stack" style="--cc:${CATC[t.cat]}"><div class="pagehead"><div class="eyebrow">Récitation complète · ${esc(t.t)}</div><h1>${ok} / ${n} étapes sans oubli</h1></div>
-   ${f.ko.length?`<div class="panel stack"><div class="eyebrow">À retravailler</div><div class="list">${P.map((p,i)=>f.ko.includes(p.k)?`<button class="item" data-step="${i}"><span class="th mono" style="--cc:var(--bad)">${PSHORT[p.k]}</span><div class="txt"><span>${esc(p.l)}</span></div><span class="muted">›</span></button>`:"").join("")}</div></div>`:`<div class="panel"><p>Parfait : tu as tout dit, dans l’ordre. Tu es prêt·e si ce sujet tombe.</p></div>`}
+   ${f.ko.length?`<div class="panel stack"><div class="eyebrow">À retravailler</div><div class="list">${P.map((p,i)=>f.ko.includes(p.k)?`<button class="item" data-step="${i}"><span class="th mono" style="--cc:var(--bad);font-size:.74rem">${PSHORT[p.k]}</span><div class="txt"><span>${esc(p.l)}</span></div><span class="muted">›</span></button>`:"").join("")}</div></div>`:`<div class="panel"><p>Parfait : tu as tout dit, dans l’ordre. Tu es prêt·e si ce sujet tombe.</p></div>`}
    <button class="btn primary block" id="again">Refaire la récitation</button>
    <button class="btn block" data-oral="${t.id}">Oral blanc chronométré</button>
    <button class="btn block" data-go="oral">Choisir un autre sujet</button></div>`);
@@ -1505,8 +1542,135 @@ VIEWS.texte=(id)=>{
   const ls=document.getElementById("listen");if(ls)ls.onclick=()=>speakLines(P.flatMap(p=>[p.l+".",p.lead].concat(p.lines)).filter(Boolean),ls,"Écouter tout");
   $app.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>{lrn={id:t.id,i:+b.dataset.goto,mode:"lire",hint:false,revealed:false,full:null};go("apprendre",t.id)});
 };
-const learnBox=t=>{const om=oralMastery(t.id);return `<div class="panel stack learnbox"><div class="row" style="justify-content:space-between"><div><div class="eyebrow">Mon oral sur ce sujet</div><strong>${om===100?"Su de tête à 100 %":om+" % su de tête"}</strong></div><span class="small muted">≈ ${oralMinutes(t)} min</span></div><div class="minibar"><i style="width:${om}%"></i></div><div class="grid2"><button class="btn primary" data-learn="${t.id}">Apprendre mon oral</button><button class="btn" data-texte="${t.id}">Texte complet</button></div></div>`};
+const learnBox=t=>{const om=oralMastery(t.id);return `<div class="panel stack learnbox"><div class="row" style="justify-content:space-between"><div><div class="eyebrow">Mon oral sur ce sujet</div><strong>${om===100?"Maîtrisé à 100 %":om+" % maîtrisé"}</strong></div><span class="small muted">≈ ${oralMinutes(t)} min</span></div><div class="minibar"><i style="width:${om}%"></i></div><div class="grid2"><button class="btn primary" data-learn="${t.id}">Apprendre mon oral</button><button class="btn" data-train="${t.id}">S’entraîner</button></div><button class="chip" data-texte="${t.id}" style="align-self:center">Lire le texte complet de l’oral</button></div>`};
 
+// ---------- solidité : une partie n'est « solide » que retrouvée sur plusieurs jours différents ----------
+const pkey=(id,k)=>id+"|"+k;
+const ptS=(id,k)=>((S.pt||{})[pkey(id,k)])||{b:0,d:0};
+function gradePart(id,k,ok){
+  S.pt=S.pt||{};const s=Object.assign({b:0,d:0},S.pt[pkey(id,k)]);
+  if(ok){if(s.d<=today()){s.b=Math.min(4,s.b+1);s.d=today()+INT[s.b]}}else{s.b=0;s.d=today()}
+  S.pt[pkey(id,k)]=s;const d=today();S.days[d]=(S.days[d]||0)+1;save();
+}
+const SOLID=3;
+// ---------- texte à trous qui change à chaque fois ----------
+function holeify(line){
+  return line.split(/(\*\*.+?\*\*)/).map(seg=>seg.startsWith("**")?seg:seg.replace(/[A-Za-zÀ-ÿœŒ’'-]{7,}/g,w=>Math.random()<.22?"**"+w+"**":w)).join("");
+}
+// ---------- outils ----------
+const norm2=x=>strip(x).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9<>%]/g,"");
+function lev(a,b){const m=a.length,n=b.length;if(!m)return n;if(!n)return m;let p=Array.from({length:n+1},(_,j)=>j);for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[n]}
+const close=(u,a)=>{const x=norm2(u),y=norm2(a);if(!x)return false;if(x===y)return true;return y.length>4&&lev(x,y)<=Math.max(1,Math.floor(y.length/6))};
+const bolds=s=>[...s.matchAll(/\*\*(.+?)\*\*/g)].map(m=>m[1]);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const mdn=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+const PARTL={intro:"Introduction",e:"Étiologie & facteurs de risque",p:"Physiopathologie",s:"Signes cliniques",d:"Diagnostic",t:"Traitement & prise en charge",r:"Pronostic",v:"Prévention & dépistage",concl:"Conclusion"};
+// enregistrement de sa voix (pour se réécouter)
+const canRec=typeof MediaRecorder!=="undefined"&&!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia);
+let recState=null;
+function stopRec(){if(recState&&recState.mr&&recState.mr.state==="recording"){try{recState.mr.stop()}catch(e){}}}
+function recWidget(){return canRec?`<div class="recw"><button class="chip" id="recb">● S’enregistrer</button><audio id="reca" controls hidden></audio><span class="small muted" id="recm"></span></div>`:""}
+function bindRec(){
+  const b=document.getElementById("recb");if(!b)return;
+  b.onclick=async()=>{
+    if(recState&&recState.mr&&recState.mr.state==="recording"){stopRec();return}
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      const mr=new MediaRecorder(stream),chunks=[];recState={mr};
+      mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+      mr.onstop=()=>{stream.getTracks().forEach(t=>t.stop());const a=document.getElementById("reca");if(!a)return;a.src=URL.createObjectURL(new Blob(chunks,{type:mr.mimeType||"audio/mp4"}));a.hidden=false;b.textContent="● Recommencer";b.classList.remove("on");document.getElementById("recm").textContent="Réécoute-toi : phrases complètes ? transitions ? pas trop vite ?"};
+      mr.start();b.textContent="■ Arrêter";b.classList.add("on");document.getElementById("recm").textContent="Enregistrement…";
+    }catch(e){document.getElementById("recm").textContent="Micro non autorisé : tu peux quand même parler à voix haute."}
+  };
+}
+
+// ---------- entraînement varié ----------
+const EXL={recit:"De tête",trou:"Mot manquant",vf:"Vrai ou faux",partie:"Quelle partie du plan ?",intrus:"Trouve l’intrus",jury:"Question du jury",express:"Oral express"};
+let px={list:[],i:0,ok:0,scope:"all",res:[]};
+function partPool(scope){
+  const ts=scope==="all"?TOPICS:[byId[scope]];
+  let started=ts.filter(t=>partsOf(t).some(p=>lv(t.id,p.k)>0||ptS(t.id,p.k).b>0));
+  const use=scope!=="all"||started.length<3?ts:started;
+  const items=[];use.forEach(t=>partsOf(t).forEach(p=>{const s=ptS(t.id,p.k);items.push({t,p,due:s.d<=today(),b:s.b,l:lv(t.id,p.k)})}));
+  return shuffle(items).sort((a,b)=>(b.due-a.due)||(a.b-b.b)||(a.l-b.l));
+}
+function makeEx(it,type,fb){
+  const {t,p}=it, mid=["e","p","s","d","t","r","v"].includes(p.k);
+  const lines=p.lines.filter(x=>bolds(x).length);
+  if(type==="trou"&&lines.length){const line=pick(lines),bs=bolds(line),ans=pick(bs);return {type,t,p,line,ans}}
+  if(type==="vf"&&lines.length){
+    const line=pick(lines),bs=bolds(line),tok=pick(bs),dig=/\d/.test(tok);
+    const pool=TOPICS.filter(x=>x.id!==t.id&&x.s[p.k]).flatMap(x=>x.s[p.k].flatMap(bolds)).filter(w=>/\d/.test(w)===dig&&!line.includes(w)&&norm2(w)!==norm2(tok));
+    if(pool.length&&Math.random()<.55){const fake=pick(pool);return {type,t,p,line,shown:line.replace("**"+tok+"**","**"+fake+"**"),truth:false,tok,fake}}
+    return {type,t,p,line,shown:line,truth:true};
+  }
+  if(type==="partie"&&mid){const line=pick(p.lines);const others=shuffle(["e","p","s","d","t","r","v"].filter(k=>k!==p.k)).slice(0,3);return {type,t,p,line,opts:shuffle([p.k].concat(others)),ans:p.k}}
+  if(type==="intrus"){const same=TOPICS.filter(x=>x.id!==t.id&&x.cat===t.cat),other=pick(same.length&&Math.random()<.7?same:TOPICS.filter(x=>x.id!==t.id));const odd=pick(other.key);const opts=shuffle(shuffle(t.key).slice(0,3).concat([odd]));return {type,t,p,opts,ans:odd,other}}
+  if(type==="jury"&&t.cards.length){const c=pick(t.cards);return {type,t,p,q:c[0],a:c[1]}}
+  if(type==="express")return {type,t,p};
+  if(type!=="recit"&&!fb)return makeEx(it,pick(["intrus","jury","recit"]),true);
+  return {type:"recit",t,p};
+}
+function buildPractice(scope,n){
+  const items=partPool(scope),out=[];
+  // un sac équilibré de types d'exercices, mélangé à chaque série, l'oral express en dernier
+  let bag=shuffle(["recit","recit","trou","trou","vf","vf","partie","partie","intrus","jury","jury"]);
+  for(let i=1;i<bag.length;i++)if(bag[i]===bag[i-1]){const j=(i+2)%bag.length;[bag[i],bag[j]]=[bag[j],bag[i]]}
+  bag=bag.slice(0,n-1).concat(["express"]);
+  for(let i=0;i<n&&items.length;i++)out.push(makeEx(items[i%items.length],bag[i]));
+  return out;
+}
+VIEWS.entrainement=(scope)=>{
+  px={list:buildPractice(scope||"all",12),i:0,ok:0,scope:scope||"all",res:[]};
+  showEx();
+};
+function exHead(ex){return `<div class="top"><button class="back" data-go="oral" aria-label="Quitter">‹</button><div style="flex:1" class="stack"><span class="eyebrow">${px.i+1} / ${px.list.length} · ${EXL[ex.type]}</span><div class="bar"><i style="width:${100*px.i/px.list.length}%"></i></div></div></div>`}
+function showEx(){
+  stopTimer();stopRec();
+  if(px.i>=px.list.length)return endPractice();
+  const ex=px.list[px.i],t=ex.t,p=ex.p,c=CATC[t.cat];
+  const ctx=`<div class="eyebrow" style="color:var(--cc)">${esc(t.t)} · ${esc(p.l)}</div>`;
+  let body="";
+  if(ex.type==="recit") body=`<div class="panel stack">${ctx}<p class="clue">Récite cette partie à voix haute, sans regarder.</p>${p.lead?`<p class="lead" style="font-style:italic">${md(p.lead)}</p>`:""}<p class="small muted">${p.lines.length>1?p.lines.length+" idées attendues":"1 idée attendue"}.</p></div><div id="rv" hidden class="panel stack script"><ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul></div><button class="btn primary block" id="show">Voir le texte</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">J’ai oublié des choses</button><button class="btn good" data-g="1">J’ai tout dit</button></div>`;
+  else if(ex.type==="trou"){const shown=ex.line.replace("**"+ex.ans+"**","[[TROU]]");body=`<div class="panel stack">${ctx}<p class="clue">Tape le mot ou l’expression qui manque.</p><p class="trouline">${md(shown).replace("[[TROU]]",`<input id="ti" class="tin" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Mot manquant">`)}</p></div><button class="btn primary block" id="chk">Vérifier</button><div id="fb" class="panel stack" hidden></div>`}
+  else if(ex.type==="vf") body=`<div class="panel stack">${ctx}<p class="clue">Cette phrase est-elle juste ?</p><p style="font-size:1.1rem">${md(ex.shown)}</p></div><div class="grid2"><button class="btn" data-vf="1">Vrai</button><button class="btn" data-vf="0">Faux</button></div><div id="fb" class="panel stack" hidden></div>`;
+  else if(ex.type==="partie") body=`<div class="panel stack"><div class="eyebrow" style="color:var(--cc)">${esc(t.t)}</div><p class="clue">Dans quelle partie du plan dis-tu ça ?</p><p style="font-size:1.08rem">${md(ex.line)}</p></div>${ex.opts.map(k=>`<button class="opt" data-o="${k}">${esc(PARTL[k])}</button>`).join("")}<div id="fb" class="panel stack" hidden></div>`;
+  else if(ex.type==="intrus") body=`<div class="panel stack"><div class="eyebrow" style="color:var(--cc)">${esc(t.t)}</div><p class="clue">Lequel ne concerne <u>pas</u> ce sujet ?</p></div>${ex.opts.map((o,i)=>`<button class="opt" data-o="${i}">${mdn(o)}</button>`).join("")}<div id="fb" class="panel stack" hidden></div>`;
+  else if(ex.type==="jury") body=`<div class="panel stack"><div class="eyebrow" style="color:var(--cc)">${esc(t.t)} · le jury demande</div><p class="clue">${esc(ex.q)}</p><p class="small muted">Réponds par une phrase complète, à voix haute.</p></div><div id="rv" hidden class="panel stack"><div class="eyebrow">Réponse attendue</div><p style="font-size:1.1rem">${md(ex.a)}</p></div><button class="btn primary block" id="show">Voir la réponse</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">Je ne savais pas</button><button class="btn good" data-g="1">Je savais</button></div>`;
+  else if(ex.type==="express") body=`<div class="panel stack">${ctx}<p class="clue">Oral express : présente cette partie comme devant le jury, en phrases complètes.</p><div class="timer" id="tm" style="font-size:3.2rem">1:00</div>${recWidget()}</div><div id="rv" hidden class="panel stack script">${p.lead?`<p class="lead">${md(p.lead)}</p>`:""}<ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul></div><button class="btn primary block" id="show">J’ai fini : comparer</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">Incomplet ou hésitant</button><button class="btn good" data-g="1">Complet et clair</button></div>`;
+  h(exHead(ex)+`<div class="stack" style="--cc:${c}">${body}<button class="btn block" id="nx" hidden>Suivant</button></div>`);
+  const $=id=>document.getElementById(id);
+  const finish=(ok,html)=>{px.res.push({t:t.id,k:p.k,ok});if(ok)px.ok++;gradePart(t.id,p.k,ok);if(html!=null){const fb=$("fb");fb.hidden=false;fb.innerHTML=html}$("nx").hidden=false;try{$("nx").scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}};
+  const verdict=(ok,extra)=>`<div class="eyebrow" style="color:${ok?"var(--good)":"var(--bad)"}">${ok?"Juste":"Pas tout à fait"}</div>${extra||""}`;
+  $("nx").onclick=()=>{px.i++;showEx()};
+  if(ex.type==="express"){keepAwake();countdown($("tm"),60);bindRec()}
+  if($("show"))$("show").onclick=()=>{stopTimer();stopRec();$("rv").hidden=false;$("show").hidden=true;$("sg").hidden=false;$app.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{$("sg").querySelectorAll("button").forEach(x=>x.disabled=true);finish(b.dataset.g==="1")})};
+  if(ex.type==="trou"){const ti=$("ti");setTimeout(()=>{try{ti.focus()}catch(e){}},50);const go2=()=>{if($("chk").disabled)return;$("chk").disabled=true;ti.disabled=true;const ok=close(ti.value,ex.ans);ti.classList.add(ok?"right":"wrong");finish(ok,verdict(ok,`<p>Réponse : <b>${esc(ex.ans)}</b></p><p class="small">${md(ex.line)}</p>`))};$("chk").onclick=go2;ti.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();go2()}}}
+  if(ex.type==="vf")$app.querySelectorAll("[data-vf]").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=(b.dataset.vf==="1")===ex.truth;b.classList.add(ok?"good":"bad");finish(ok,verdict(ok,ex.truth?`<p>C’était juste.</p>`:`<p>C’était faux : <b>${esc(ex.fake)}</b> vient d’un autre sujet. La bonne phrase :</p><p>${md(ex.line)}</p>`))});
+  if(ex.type==="partie")$app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=b.dataset.o===ex.ans;$app.querySelectorAll(".opt").forEach(x=>{if(x.dataset.o===ex.ans)x.classList.add("right");else if(x===b)x.classList.add("wrong")});finish(ok,verdict(ok,`<p>C’est dans : <strong>${esc(PARTL[ex.ans])}</strong>.</p>`))});
+  if(ex.type==="intrus")$app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=ex.opts[+b.dataset.o]===ex.ans;$app.querySelectorAll(".opt").forEach(x=>{if(ex.opts[+x.dataset.o]===ex.ans)x.classList.add("right");else if(x===b)x.classList.add("wrong")});finish(ok,verdict(ok,`<p>L’intrus vient de : <strong>${esc(ex.other.t)}</strong>.</p>`))});
+}
+function endPractice(){
+  const n=px.list.length,bad=px.res.filter(r=>!r.ok);
+  const seen=new Set();const weak=bad.filter(r=>{const k=pkey(r.t,r.k);if(seen.has(k))return false;seen.add(k);return true});
+  h(`<div class="stack"><div class="pagehead"><div class="eyebrow">Entraînement terminé</div><h1>${px.ok} / ${n}</h1></div>
+   <p class="muted">${px.ok>=n-1?"Excellent : tu sais le contenu, pas seulement la forme.":px.ok>=n/2?"Bien. Les parties ratées reviendront plus souvent.":"Normal au début : les parties ratées reviendront jusqu’à ce qu’elles tiennent."}</p>
+   ${weak.length?`<h2>À reprendre</h2><div class="list">${weak.map(r=>{const t=byId[r.t];return `<button class="item" data-lp="${r.t}|${r.k}" style="--cc:${CATC[t.cat]}"><span class="th mono" style="font-size:.74rem">${PSHORT[r.k]}</span><div class="txt"><span>${esc(t.t)}</span><span class="small muted" style="font-weight:400">${esc(PARTL[r.k])}</span></div><span class="muted">›</span></button>`}).join("")}</div>`:""}
+   <button class="btn primary block" id="again">Nouvelle série (exercices différents)</button><button class="btn block" data-go="oral">Retour à mon oral</button></div>`);
+  document.getElementById("again").onclick=()=>VIEWS.entrainement(px.scope);
+  $app.querySelectorAll("[data-lp]").forEach(b=>b.onclick=()=>{const [id,k]=b.dataset.lp.split("|");const P=partsOf(byId[id]);lrn={id,i:Math.max(0,P.findIndex(p=>p.k===k)),mode:"lire",hint:false,revealed:false,full:null};go("apprendre",id)});
+}
+const EXPR=`<details class="sec"><summary><span class="sumrow"><span class="L">“</span>Bien s’exprimer le jour J<span class="chev">›</span></span></summary><div class="oraltxt">
+ <div class="eyebrow">Les phrases qui relient</div>
+ <p>« Je vais vous présenter… » · « Je suivrai le plan suivant… » · « Je commence par… » · « Sur le plan physiopathologique… » · « Cliniquement, on retrouve… » · « Le diagnostic repose sur… » · « Concernant la prise en charge… » · « Le pronostic est… » · « Enfin, en prévention… » · « En conclusion… »</p>
+ <div class="eyebrow">Pendant l’oral</div>
+ <p>Fais des phrases complètes, sujet-verbe-complément, plutôt que des listes de mots. Annonce chaque partie avant de la développer : le jury suit ton plan et toi aussi.</p>
+ <p>Parle un peu plus lentement que d’habitude. Une pause silencieuse vaut mieux qu’un « euh ».</p>
+ <p>Si tu as un trou, dis-le simplement (« je reviendrai sur ce point ») et passe à la partie suivante du plan : le plan te raccroche.</p>
+ <p>Relie toujours à ton métier : ce que fait le pédicure-podologue, quand il oriente vers le médecin.</p>
+ <div class="eyebrow">Questions du jury</div>
+ <p>Reformule la question en commençant ta réponse. Si tu ne sais pas, dis ce que tu sais de proche et comment tu chercherais (avis médical, examen).</p>
+</div></details>`;
 // ---------- cartes ----------
 let deck=[],di=0,deckTopic="all",deckMode="jour",sess={ok:0,ko:0};
 const poolOf=()=>deckTopic==="all"?CARDS:deckTopic==="prog"?CARDS.filter(c=>((S.plan&&S.plan.ids)||[]).includes(c.topic)):cardsOf(deckTopic);
@@ -1633,8 +1797,11 @@ VIEWS.oral=(forced)=>{
   const hist=S.orals.slice(-5).reverse(), ready=oralReady();
   h(`<div class="stack">
    <div class="pagehead"><div class="eyebrow">L’oral de pédicurie</div><h1>Mon oral</h1></div>
-   <div class="panel stack"><div class="row" style="gap:14px;flex-wrap:nowrap">${ringSvg(Math.round(100*ready/TOPICS.length),"des sujets prêts",false,"prêts")}<div class="stack" style="gap:4px"><strong style="font-size:1.15rem">${ready} / ${TOPICS.length} sujets sus à 100 %</strong><p class="small muted">Pour chaque sujet : 9 étapes dans l’ordre de l’oral. Pour chacune, tu lis, puis tu complètes le texte à trous, puis tu la récites de tête.</p></div></div>
+   <div class="panel stack"><div class="row" style="gap:14px;flex-wrap:nowrap">${ringSvg(Math.round(100*ready/TOPICS.length),"des sujets prêts",false,"prêts")}<div class="stack" style="gap:4px"><strong style="font-size:1.15rem">${ready} / ${TOPICS.length} sujets maîtrisés à 100 %</strong><p class="small muted">9 étapes par sujet, dans l’ordre de l’oral. Une étape compte à 100 % quand tu la sais de tête <b>et</b> que tu l’as retrouvée sur au moins 3 jours différents.</p></div></div>
      <div class="psteps static">${["Intro","Étio","Physio","Signes","Diag","TTT","Prono","Prév","Concl"].map(x=>`<span class="pst">${x}</span>`).join("")}</div></div>
+   <button class="btn primary block" data-train="all">Entraînement varié (12 exercices mélangés)</button>
+   <p class="small muted" style="margin-top:-6px">Récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express : jamais deux fois la même série. Les parties ratées reviennent plus souvent.</p>
+   ${EXPR}
    <h2>Apprendre sujet par sujet</h2>
    ${Object.entries(CATS).map(([c,l])=>`<div class="stack" style="gap:8px"><div class="eyebrow cathead" style="--cc:${CATC[c]}">${l}</div><div class="list">${TOPICS.filter(t=>t.cat===c).map(learnItem).join("")}</div></div>`).join("")}
    <h2>Oral blanc, comme le jour J</h2>
@@ -1672,10 +1839,11 @@ function speakOral(t){
     <div class="panel stack" style="align-items:center"><div class="eyebrow">Temps de parole</div><div class="timer" id="tm">7:00</div></div>
     <div class="memo">${planStrip()}</div>
     <p class="muted">Parle à voix haute comme devant le jury.</p>
+    ${recWidget()}
     <button class="btn primary block" id="end">J’ai fini : questions du jury</button>
   </div>`);
-  keepAwake();countdown(document.getElementById("tm"),420);
-  document.getElementById("end").onclick=()=>{stopTimer();jury(t)};
+  keepAwake();countdown(document.getElementById("tm"),420);bindRec();
+  document.getElementById("end").onclick=()=>{stopTimer();if(recState&&recState.mr&&recState.mr.state==="recording"){stopRec();document.getElementById("end").textContent="Passer aux questions du jury";return}jury(t)};
 }
 function jury(t){
   const qs=shuffle(t.cards).slice(0,2);
@@ -1762,6 +1930,7 @@ $app.addEventListener("click",e=>{
   const f=e.target.closest("[data-fiche]");if(f){go("fiche",f.dataset.fiche);return}
   const c=e.target.closest("[data-cards]");if(c){go("cartes",c.dataset.cards);return}
   const lb=e.target.closest("[data-learn]");if(lb){go("apprendre",lb.dataset.learn);return}
+  const tr=e.target.closest("[data-train]");if(tr){go("entrainement",tr.dataset.train);return}
   const tx=e.target.closest("[data-texte]");if(tx){go("texte",tx.dataset.texte);return}
   const o=e.target.closest("[data-oral]");if(o){go("oral",o.dataset.oral);return}
   const k=e.target.closest("[data-cat]");if(k){go("fiches",k.dataset.cat);return}
@@ -1769,9 +1938,9 @@ $app.addEventListener("click",e=>{
 });
 
 let start=["home",null];
-try{const s=JSON.parse(sessionStorage.getItem("podo:view"));if(s&&VIEWS[s[0]]&&s[0]!=="oral")start=s}catch(e){}
+try{const s=JSON.parse(sessionStorage.getItem("podo:view"));if(s&&VIEWS[s[0]]&&s[0]!=="oral"&&s[0]!=="entrainement")start=s}catch(e){}
 go(start[0],start[1]||undefined);
-cloudInit();
+restoreBackup().then(cloudInit);
 })();
 
 </script>
