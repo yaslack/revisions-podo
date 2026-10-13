@@ -1,6 +1,7 @@
-// Révisions Podo · service worker v18 : page toujours à jour quand il y a du réseau, version en cache sinon.
-const CACHE="podo-v18";
-const ASSETS=["./","index.html","apple-touch-icon.png"];
+// Révisions Podo · service worker v19 : page toujours à jour quand il y a du réseau, version en cache sinon.
+// Les planches d’anatomie (anat/*.webp) sont mises en cache dès l’installation pour marcher hors ligne.
+const CACHE="podo-v19";
+const ASSETS=["./","index.html","apple-touch-icon.png"].concat(["a-amplitudes.webp","a-cheville.webp","a-cuisse.webp","a-genou.webp","a-hanchearti.webp","a-hanchemus.webp","a-jambe.webp","a-marche.webp","a-nerfs.webp","a-nerfs2.webp","a-parcours.webp","a-pied.webp","a-squelette.webp","a-vaisseaux.webp","a-voute.webp","m-cuisse.webp","m-fesse.webp","m-jambe.webp","m-jambe2.webp","m-pied.webp","m-pied2.webp","o-coxal.webp","o-femur.webp","o-jambe.webp"].map(f=>"anat/"+f));
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(ASSETS.map(u=>fetch(new Request(u,{cache:"reload"})).then(r=>{if(r.ok)return c.put(u,r)}).catch(()=>{})))).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener("fetch",e=>{

@@ -10,7 +10,7 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 - **Entraînement varié** : 12 exercices mélangés (récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express). Une étape n’est maîtrisée à 100 % que retrouvée de tête sur au moins 3 jours différents.
 
 **Anatomie**
-- 18 fiches rangées en 5 chapitres, avec schémas dessinés qui s’animent et plusieurs vues par région (face, dos, profil, plans superficiel et profond) :
+- 18 fiches rangées en 5 chapitres, avec des **planches haute définition** (muscles en relief avec fibres et tendons, os éclairés, nerfs et territoires sensitifs) et plusieurs vues par région (face, dos, profil, plans superficiel et profond). Les numéros et légendes restent nets à tous les zooms ; toucher une ligne de la légende allume le numéro sur le dessin :
   - **Os** : squelette, hanche (os coxal), cuisse (fémur, patella), jambe (tibia, fibula), pied ;
   - **Articulations** : hanche, genou, cheville, pied et voûte, toutes les amplitudes ;
   - **Muscles** : hanche, cuisse, jambe, pied ;
@@ -18,6 +18,8 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 - 40 muscles en fiche d’identité (origine, terminaison, nerf, action, palpation) et un tableau récapitulatif.
 - **Schéma qui suit la lecture** : dans « Muscles », « À palper » et « Le parcours », le schéma reste en haut de l’écran et zoome sur le muscle ou le repère que tu lis.
 - Parcours palpatoire de la hanche au pied : position du sujet, comment trouver, comment vérifier.
-- **Pratique** : examen pratique blanc chronométré, entraînement varié, 18 schémas muets à légender.
+- **Pratique** : examen pratique blanc chronométré, entraînement varié, 20 schémas muets à légender.
 
-Cartes mémoire à répétition espacée et quiz pour les deux matières. La progression reste sur le téléphone (2 copies : localStorage + IndexedDB) ; un code de sauvegarde permet de la copier ailleurs. Chaque personne a sa propre progression.
+Cartes mémoire à répétition espacée (on peut glisser la carte : à droite si on savait, à gauche sinon) et quiz pour les deux matières. La progression reste sur le téléphone (2 copies : localStorage + IndexedDB) ; un code de sauvegarde permet de la copier ailleurs. Chaque personne a sa propre progression.
+
+**Design** : barre d’onglets flottante, transitions entre les pages (la vignette d’une fiche s’agrandit en grand schéma, la carte d’une matière devient l’en-tête de son accueil), titres qui apparaissent mot par mot, chiffres qui défilent. Chaque matière a sa couleur (vert pour la pédicurie, ambre pour l’anatomie). Tout est désactivé si l’iPhone est réglé sur « Réduire les animations ».
