@@ -6,16 +6,18 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 - 24 fiches illustrées (photos du livret ou schémas dessinés), phrase mémo, 5 points clés, plan détaillé en frise.
 - Contenu aligné sur le **livret d’oral 2025** : le plan détaillé reprend tout le livret partie par partie, et chaque fiche contient le texte original du livret, mot pour mot (section « Livret »).
 - **Mon oral** : 9 étapes dans l’ordre de l’oral (intro → conclusion), chacune en 3 niveaux : lire, texte à trous (mots cachés différents à chaque fois), de tête. Texte complet à lire ou écouter, récitation complète, oral blanc chronométré avec enregistrement de sa voix.
+- **Écoute comme à l’oral** : la fiche est dite comme une vraie présentation (bonjour, plan, transitions, conclusion), avec un lecteur : pause, reprise, partie précédente / suivante, vitesse, choix de la voix. La position est retenue (carte « Reprendre l’écoute ») ; après une mise en veille, la lecture reprend à la phrase en cours.
 - **Entraînement varié** : 12 exercices mélangés (récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express). Une étape n’est maîtrisée à 100 % que retrouvée de tête sur au moins 3 jours différents.
 
 **Anatomie**
-- 18 fiches rangées en 5 chapitres, avec schémas dessinés qui s’animent :
+- 18 fiches rangées en 5 chapitres, avec schémas dessinés qui s’animent et plusieurs vues par région (face, dos, profil, plans superficiel et profond) :
   - **Os** : squelette, hanche (os coxal), cuisse (fémur, patella), jambe (tibia, fibula), pied ;
   - **Articulations** : hanche, genou, cheville, pied et voûte, toutes les amplitudes ;
   - **Muscles** : hanche, cuisse, jambe, pied ;
   - **Nerfs et vaisseaux** ; **Palpation et fonction** (parcours palpatoire, marche).
 - 40 muscles en fiche d’identité (origine, terminaison, nerf, action, palpation) et un tableau récapitulatif.
+- **Schéma qui suit la lecture** : dans « Muscles », « À palper » et « Le parcours », le schéma reste en haut de l’écran et zoome sur le muscle ou le repère que tu lis.
 - Parcours palpatoire de la hanche au pied : position du sujet, comment trouver, comment vérifier.
-- **Pratique** : examen pratique blanc chronométré, entraînement varié, 13 schémas muets à légender.
+- **Pratique** : examen pratique blanc chronométré, entraînement varié, 18 schémas muets à légender.
 
 Cartes mémoire à répétition espacée et quiz pour les deux matières. La progression reste sur le téléphone (2 copies : localStorage + IndexedDB) ; un code de sauvegarde permet de la copier ailleurs. Chaque personne a sa propre progression.
