@@ -823,6 +823,9 @@ body{--mx0:color-mix(in srgb,var(--ink) 14%,var(--surface));--mx1:color-mix(in s
 .favb.on .star{fill:#F2B33D;stroke:#D4920F}
 .prefr{display:grid;grid-template-columns:6.4em 1fr;gap:10px;align-items:center}
 .prefr>span{font-weight:650;font-size:.92rem}
+.vhelp summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.vhelp ol{margin:6px 0 10px;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.vhelp p{margin:8px 0 4px}
 @media (max-width:400px){.prefr{grid-template-columns:1fr;gap:6px}}
 html.bigtext{font-size:17.6px}
 html.bigtext body{font-size:19px}
@@ -1730,7 +1733,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){if(typeof CLEAN!=="undefined"){CLEAN.forEach(f=>{try{f()}catch(e){}});CLEAN=[]}$app.innerHTML=html;window.scrollTo(0,0);enhance($app)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="20";
+const APP_VERSION="21";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -2004,6 +2007,20 @@ function applyPrefs(){
   document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{if(!m.dataset.def)m.dataset.def=m.content;m.content=S.theme==="dark"?"#000000":S.theme==="light"?"#F1F4F3":m.dataset.def});
 }
 applyPrefs();
+function voiceOpts(){const el=document.getElementById("vsel");if(!el)return;const cur=plVoice();el.innerHTML=plVoices.length?plVoices.map(v=>`<option value="${esc(v.name)}"${v===cur?" selected":""}>${esc(v.name.replace(/\s*\(.*\)\s*$/,""))} · ${vLabel(v)}${/fr[-_]CA/i.test(v.lang)?" · accent québécois":/fr[-_](BE|CH)/i.test(v.lang)?" · accent "+(/BE/i.test(v.lang)?"belge":"suisse"):""}</option>`).join(""):'<option>Voix par défaut du téléphone</option>';
+  const tip=document.getElementById("vtip");if(tip)tip.hidden=plVoices.some(v=>vq(v)>=4)}
+const voiceHTML=()=>!canSpeak?"":`<div class="panel stack"><div class="eyebrow">Voix de lecture</div>
+   <select id="vsel" aria-label="Voix qui lit les fiches"></select>
+   <button class="btn" id="vtest">▶ Écouter un exemple</button>
+   <p class="small" id="vtip" style="color:var(--s3);font-weight:650">Ton téléphone n’a pas encore de voix de haute qualité en français : regarde juste en dessous comment en ajouter une (gratuit).</p>
+   <details class="vhelp"><summary>Avoir une voix plus naturelle</summary>
+    <p class="small"><strong>Sur iPhone</strong></p>
+    <ol class="small"><li>Ouvre <strong>Réglages</strong> → <strong>Accessibilité</strong> → <strong>Contenu énoncé</strong> → <strong>Voix</strong>.</li><li>Touche <strong>Français (France)</strong>, puis une voix comme <strong>Audrey</strong>, <strong>Aurélie</strong> ou <strong>Thomas</strong>.</li><li>Télécharge la version <strong>Améliorée</strong> ou <strong>Premium</strong> si elle est proposée (de 100 à 400 Mo, en Wi-Fi).</li><li>Ferme complètement l’appli Révisions puis rouvre-la : la nouvelle voix apparaît dans la liste au-dessus, choisis-la.</li></ol>
+    <p class="small"><strong>Sur Android</strong> : Paramètres → Synthèse vocale → moteur Google → installe les données vocales en français, puis choisis une voix « Google français ».</p>
+    <p class="small muted">Les voix de Siri ne sont pas proposées aux sites web par Apple.</p></details></div>`;
+function bindVoice(){const el=document.getElementById("vsel");if(!el)return;plLoadVoices();
+  el.onchange=()=>{S.pvoice=el.value;persist();voiceOpts()};
+  document.getElementById("vtest").onclick=()=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance("Bonjour. Je vais vous présenter les onychomycoses : ce sont les infections de l’ongle par un champignon, la plus fréquente des pathologies unguéales.");u.lang="fr-FR";const v=plVoice();if(v)u.voice=v;u.rate=S.prate||1;speechSynthesis.speak(u)}catch(e){}}}
 const prefsHTML=()=>{const seg=(k,opts)=>`<div class="seg" style="grid-template-columns:repeat(${opts.length},minmax(0,1fr))" role="group">${opts.map(([v,l])=>`<button class="${(S[k]||"")===v?"on":""}" data-pref="${k}" data-v="${v}" aria-pressed="${(S[k]||"")===v}">${l}</button>`).join("")}</div>`;
   return `<div class="panel stack"><div class="eyebrow">Affichage</div>
    <div class="prefr"><span>Thème</span>${seg("theme",[["","Auto"],["light","Clair"],["dark","Sombre"]])}</div>
@@ -2160,7 +2177,10 @@ function anatSegs(t){
 const PL={key:"",title:"",segs:[],i:0,on:false,tok:0,mini:false,started:false};
 const PRATES=[.85,1,1.15,1.3];
 let plVoices=[];
-function plLoadVoices(){try{const v=speechSynthesis.getVoices().filter(v=>/^fr/i.test(v.lang));const sc=v=>(/fr[-_]FR/i.test(v.lang)?4:0)+(/premium|enhanced|natural|neural|amélie|thomas|audrey|google/i.test(v.name)?2:0)+(v.localService?1:0);plVoices=v.sort((a,b)=>sc(b)-sc(a))}catch(e){}}
+// qualité d’une voix : premium > améliorée / naturelle > Google > standard ; les voix « robot » d’iOS passent en dernier
+const vq=v=>{const s=(v.name+" "+(v.voiceURI||"")).toLowerCase();if(/eloquence|novelty|grandma|grandpa|rocko|shelley|\breed\b|sandy|\beddy\b|\bflo\b|bahh|bells|boing|bubbles|cellos|wobble|jester|organ|superstar|trinoids|whisper|zarvox|albert|bad news|good news|junior|kathy|\bfred\b|ralph/.test(s))return 0;if(/premium/.test(s))return 5;if(/enhanced|améliorée|amelioree|natural|neural|online/.test(s))return 4;if(/google/.test(s))return 3;return 2};
+const vLabel=v=>["Voix robot","","Standard","Google","Haute qualité","Premium"][vq(v)];
+function plLoadVoices(){try{const all=speechSynthesis.getVoices().filter(v=>/^fr/i.test(v.lang));const sc=v=>vq(v)*10+(/fr[-_]FR/i.test(v.lang)?12:0)+(v.localService?1:0);const good=all.filter(v=>vq(v)>0);plVoices=(good.length?good:all).sort((a,b)=>sc(b)-sc(a));voiceOpts()}catch(e){}}
 if(canSpeak){plLoadVoices();try{speechSynthesis.addEventListener("voiceschanged",plLoadVoices)}catch(e){}}
 const plVoice=()=>plVoices.find(v=>v.name===S.pvoice)||plVoices[0]||null;
 const plPart=()=>(PL.segs[Math.min(PL.i,PL.segs.length-1)]||{}).k;
@@ -2506,11 +2526,13 @@ VIEWS.matieres=()=>{
      <div class="row" style="justify-content:space-between"><button class="chip" id="reset">Tout effacer</button><span class="row small muted">Version ${APP_VERSION}${SWOK?` <button class="chip" id="chkupd">Mettre à jour</button>`:""}</span></div>
    </div>
    ${prefsHTML()}
+   ${voiceHTML()}
    ${standalone?"":`<div class="panel stack"><div class="eyebrow">L’installer comme une appli</div><p class="small">Sur iPhone : ouvre ce lien dans <b>Safari</b>, touche Partager puis « Sur l’écran d’accueil ». Ensuite, ouvre-la toujours par l’icône : elle marche sans réseau et garde ta progression.</p><p class="small muted">Attention : la progression dans Safari et celle de l’icône sont séparées. Pour passer de l’une à l’autre, utilise « Copier mon code » puis « Restaurer ».</p></div>`}
    <button class="btn block" id="share">Partager l’appli à un ami de la classe</button>
    <p class="small muted" id="sharemsg" style="text-align:center;margin-top:-6px">Chacun garde sa propre progression sur son téléphone.</p>
   </div>`);
   $app.querySelectorAll("[data-subj]").forEach(b=>b.onclick=()=>{S.subj=b.dataset.subj;persist();go("home")});
+  bindVoice();
   document.getElementById("exp").onclick=exportCode;
   document.getElementById("imp").onclick=()=>{const b=document.getElementById("impbox");b.hidden=!b.hidden};
   document.getElementById("impgo").onclick=importCode;
