@@ -260,6 +260,33 @@ textarea{min-height:90px;font-size:16px;font-family:ui-monospace,Menlo,monospace
 .illu{margin:0;background:#F7F2EC;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);cursor:zoom-in}
 .illu img{display:block;width:100%;height:auto}
 .illu figcaption{padding:2px 16px 12px;font-size:.8rem;color:#5E6466}
+/* apprendre l’oral */
+.th.ill{background:#F7F2EC;object-fit:cover}
+.hero.illus{height:auto;flex-direction:column;align-items:stretch;background:#F7F2EC}
+.hero.illus img{position:static;height:auto;max-height:300px;object-fit:contain;padding:calc(54px + env(safe-area-inset-top,0px)) 8px 4px;cursor:zoom-in}
+.hero.illus::after{display:none}
+.hero.illus .hero-txt{background:linear-gradient(150deg,color-mix(in srgb,var(--cc) var(--tm1),#000),color-mix(in srgb,var(--cc) var(--tm2),#000))}
+.pst{font-size:.56rem;letter-spacing:-.02em}
+
+.learnbox strong{font-family:var(--f-display);font-size:1.15rem}
+.oralcta{border:0;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;cursor:pointer;color:inherit;font:inherit}
+.oralcta strong{font-family:var(--f-display);font-size:1.2rem}
+.psteps{display:grid;grid-template-columns:repeat(9,1fr);gap:3px}
+.pst{border:0;padding:6px 0;border-radius:8px;background:var(--surface2);color:var(--muted);font-size:.6rem;font-weight:700;text-align:center;cursor:pointer;min-width:0;overflow:hidden;text-overflow:clip;white-space:nowrap}
+.psteps.static .pst{cursor:default;background:var(--accent-soft);color:var(--accent)}
+.pst.mid{background:color-mix(in srgb,var(--accent) 22%,var(--surface));color:var(--accent)}
+.pst.ok{background:var(--good);color:#fff}
+.pst.cur{box-shadow:inset 0 0 0 2px var(--ink)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface2);border-radius:12px;padding:3px;gap:3px}
+.seg button{border:0;background:none;border-radius:9px;padding:9px 4px;font-weight:700;font-size:.85rem;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.script .lead{font-style:italic;color:var(--cc,var(--accent));font-weight:600}
+.say{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:10px;font-size:1.05rem;line-height:1.5}
+.say.hint{color:var(--muted)}
+.script details.more{border-top:1px solid var(--line);padding-top:10px}
+.script details.more summary{cursor:pointer;font-weight:650;font-size:.9rem;color:var(--accent);margin-bottom:8px}
+.parthead{border:0;background:none;padding:0;display:flex;gap:10px;align-items:center;font:inherit;font-family:var(--f-display);font-weight:800;font-size:1.1rem;color:var(--ink);cursor:pointer;text-align:left}
+.parthead .L{min-width:52px;height:30px;padding:0 6px;border-radius:9px;background:color-mix(in srgb,var(--cc,var(--accent)) 14%,var(--surface));color:var(--cc,var(--accent));display:grid;place-items:center;font-size:.75rem}
 /* visionneuse photo */
 #lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
 #lb img{max-width:100%;max-height:78vh;border-radius:14px;background:#fff}
@@ -1078,7 +1105,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){$app.innerHTML=html;window.scrollTo(0,0)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="8";
+const APP_VERSION="9";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function doUpdate(){try{const r=await navigator.serviceWorker.getRegistration();if(r)await r.update()}catch(e){}try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}location.reload()}
 function showUpdate(){if(document.getElementById("upd"))return;const b=document.createElement("button");b.id="upd";b.className="upd";b.textContent="Nouvelle version disponible · Toucher pour mettre à jour";b.onclick=()=>{b.textContent="Mise à jour…";doUpdate()};document.body.appendChild(b)}
@@ -1097,7 +1124,7 @@ function examDays(){if(!S.exam)return null;const n=Math.round((new Date(S.exam+"
 
 // ---------- state (stored on this phone) ----------
 const KEY="podo:v2", INT=[0,1,2,4,8];
-const blank=()=>({v:2,u:0,cards:{},days:{},quiz:{n:0,ok:0},orals:[],exam:"",hidekw:false});
+const blank=()=>({v:2,u:0,cards:{},days:{},quiz:{n:0,ok:0},orals:[],exam:"",hidekw:false,learn:{}});
 function load(){
   let s=null; try{s=JSON.parse(localStorage.getItem(KEY))}catch(e){}
   if(!s||typeof s!=="object"||!s.cards){
@@ -1154,19 +1181,20 @@ $tabs.addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(b)g
 function go(view,arg){
   stopTimer(); stopSpeak();
   $gs.hidden=true;
-  current=(view==="fiche"||view==="lexique")?"fiches":view; drawTabs();
+  current=(view==="fiche"||view==="lexique")?"fiches":(view==="apprendre"||view==="texte")?"oral":view; drawTabs();
   lastView=[view,arg||null];
   VIEWS[view](arg);
   try{sessionStorage.setItem("podo:view",JSON.stringify(lastView))}catch(e){}
 }
 const planStrip=()=>`<div class="plan" aria-label="Plan type">${PLAN.map(([k])=>`<div>${LETTERS[k]}<small>${SHORT[k]}</small></div>`).join("")}</div>`;
-function ringSvg(p,label,onHero){
+function ringSvg(p,label,onHero,sub){
   const r=40,c=2*Math.PI*r,tr=onHero?"rgba(255,255,255,.25)":"var(--surface2)",fg=onHero?"#fff":"var(--accent)",tx=onHero?"#fff":"var(--ink)";
-  return `<svg class="ringsvg" viewBox="0 0 96 96" role="img" aria-label="${p}% ${label}"><circle cx="48" cy="48" r="${r}" fill="none" stroke="${tr}" stroke-width="9"/><circle cx="48" cy="48" r="${r}" fill="none" stroke="${fg}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 48 48)"/><text x="48" y="52" text-anchor="middle" font-size="21" fill="${tx}">${p}%</text><text x="48" y="67" text-anchor="middle" font-size="9" fill="${tx}" opacity=".85">maîtrisé</text></svg>`;
+  return `<svg class="ringsvg" viewBox="0 0 96 96" role="img" aria-label="${p}% ${label}"><circle cx="48" cy="48" r="${r}" fill="none" stroke="${tr}" stroke-width="9"/><circle cx="48" cy="48" r="${r}" fill="none" stroke="${fg}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 48 48)"/><text x="48" y="52" text-anchor="middle" font-size="21" fill="${tx}">${p}%</text><text x="48" y="67" text-anchor="middle" font-size="9" fill="${tx}" opacity=".85">${sub||"maîtrisé"}</text></svg>`;
 }
 function thumb(t){
   const im=t.img.find(i=>i.q);
   if(im) return `<img class="th" src="${im.src}" alt="">`;
+  if(t.ill&&t.ill[0]) return `<img class="th ill" src="${t.ill[0].src}" alt="">`;
   const ini=t.t.replace(/^(Les |Le |La )/,"").split(/[\s,]+/).filter(w=>w.length>2).slice(0,2).map(w=>w[0].toUpperCase()).join("");
   return `<span class="th mono" style="--cc:${CATC[t.cat]}">${esc(ini)}</span>`;
 }
@@ -1244,6 +1272,7 @@ VIEWS.home=()=>{
      <button class="btn block hh-cta" data-start="jour">Réviser maintenant</button>
    </section>
    ${cd}
+   <button class="panel oralcta" data-go="oral"><div class="stack" style="gap:2px;text-align:left"><div class="eyebrow">Mon oral</div><strong>${oralReady()} / ${TOPICS.length} sujets sus à 100 %</strong><span class="small muted">Apprendre quoi dire, étape par étape</span></div><span class="muted" style="font-size:1.4rem">›</span></button>
    ${planPanel()}
    <h2>Le plan à réciter</h2>
    <div class="panel stack">${planStrip()}<p class="mnemo"><b>I</b>l <b>E</b>st <b>P</b>lutôt <b>S</b>imple <b>D</b>e <b>T</b>out <b>P</b>résenter <b>P</b>roprement</p></div>
@@ -1337,16 +1366,17 @@ VIEWS.lexique=()=>{
 };
 VIEWS.fiche=(id)=>{
   const t=byId[id]; if(!t) return go("fiches");
-  const cover=t.img.find(i=>i.q)||null;
-  h(`<div class="hero ${cover?"":"nophoto"}" style="--cc:${CATC[t.cat]}">
-     ${cover?`<img src="${cover.src}" alt="">`:""}
+  const cover=t.img.find(i=>i.q)||null, icov=!cover&&t.ill[0]?t.ill[0]:null;
+  h(`<div class="hero ${cover?"":icov?"illus":"nophoto"}" style="--cc:${CATC[t.cat]}">
+     ${cover?`<img src="${cover.src}" alt="">`:icov?`<img src="${icov.src}" alt="${esc(icov.c)}" id="icov">`:""}
      <button class="back" data-go="fiches" aria-label="Retour aux fiches">‹</button>
      <div class="hero-txt"><span class="pill">${CATS[t.cat]}</span><h1>${esc(t.t)}</h1><span class="small">${mastery(t.id)} % des cartes maîtrisées</span></div>
    </div>
    <div class="fiche stack ${S.hidekw?"hidekw":""}" id="fiche" style="--cc:${CATC[t.cat]}">
     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">Écouter la fiche</button>`:""}</div>
+    ${learnBox(t)}
     <div class="memo"><div class="eyebrow">Phrase mémo</div><p>${md(t.memo)}</p></div>
-    ${t.ill.map((im,i)=>`<figure class="illu" data-ill="${i}"><img src="${im.src}" alt="${esc(im.c)}"><figcaption>${esc(im.c)} · touche pour agrandir</figcaption></figure>`).join("")}
+    ${t.ill.map((im,i)=>icov&&i===0?"":`<figure class="illu" data-ill="${i}"><img src="${im.src}" alt="${esc(im.c)}"><figcaption>${esc(im.c)} · touche pour agrandir</figcaption></figure>`).join("")}
     ${t.viz.map(viz).join("")}
     <div class="panel stack"><div class="eyebrow">Les 5 points à dire absolument</div><ol class="keys">${t.key.map(k=>`<li><span>${md(k)}</span></li>`).join("")}</ol></div>
     ${t.img.length?`<div class="stack" style="gap:8px"><div class="eyebrow">Photos du livret · touche pour agrandir</div><div class="gal">${t.img.map((im,i)=>`<figure data-img="${i}"><img src="${im.src}" alt="${esc(im.c)}" class="${im.q?"":"doc"}" loading="lazy"><figcaption>${esc(im.c)}</figcaption></figure>`).join("")}</div></div>`:""}
@@ -1360,11 +1390,123 @@ VIEWS.fiche=(id)=>{
   f.addEventListener("click",e=>{const b=e.target.closest("b");if(b&&f.classList.contains("hidekw")){if(!b.classList.contains("shown")){b.classList.add("shown");e._kw=true}else if(!e.target.closest(".gl")){b.classList.remove("shown")}}});
   const sp=document.getElementById("speak"); if(sp) sp.onclick=()=>speakTopic(t,sp);
   f.querySelectorAll("[data-img]").forEach(fg=>fg.onclick=()=>{const im=t.img[+fg.dataset.img];openLb(im.src,im.c)});
+  const ic=document.getElementById("icov");if(ic)ic.onclick=()=>openLb(icov.src,icov.c);
   f.querySelectorAll("[data-ill]").forEach(fg=>fg.onclick=()=>{const im=t.ill[+fg.dataset.ill];openLb(im.src,im.c)});
   document.getElementById("openall").onclick=e=>{const ds=[...f.querySelectorAll("details.sec")];const open=!ds.every(d=>d.open);ds.forEach(d=>d.open=open);e.target.textContent=open?"Tout fermer":"Tout ouvrir"};
 };
 
 const oralHelp=t=>`<details class="sec"><summary><span class="sumrow"><span class="L">“</span>Intro et conclusion à dire<span class="chev">›</span></span></summary><div class="oraltxt"><div class="eyebrow">Introduction (exemple à adapter)</div><p>${esc(introText(t))}</p><div class="eyebrow">Conclusion</div><p>${esc(conclText(t))}</p></div></details>`;
+// ---------- apprendre l'oral : 9 étapes, 3 niveaux (lire, à trous, de tête) ----------
+const TRANS={e:"Je commence par l’étiologie et les facteurs de risque.",p:"Sur le plan physiopathologique :",s:"Cliniquement, on retrouve les signes suivants.",d:"Pour poser le diagnostic :",t:"Concernant le traitement et la prise en charge :",r:"Concernant le pronostic :",v:"Enfin, la prévention et le dépistage, où le pédicure-podologue a un rôle essentiel."};
+const PSHORT={intro:"Intro",e:"Étio",p:"Physio",s:"Signes",d:"Diag",t:"TTT",r:"Prono",v:"Prév",concl:"Concl"};
+const ABBR=[[/\bTTT\b/g,"traitement"],[/\bFdR\b/g,"facteurs de risque"],[/\bATCD\b/g,"antécédents"],[/\bDD\b/g,"diagnostic différentiel"],[/\bMI\b/g,"membres inférieurs"],[/\bCI\b/g,"contre-indications"]];
+const say=s=>ABBR.reduce((x,[r,v])=>x.replace(r,v),s);
+const PLAN_SENT="Je suivrai le plan suivant : **étiologie** et facteurs de risque, **physiopathologie**, **signes cliniques**, **diagnostic**, **traitement** et prise en charge, **pronostic**, puis **prévention** et dépistage.";
+function partsOf(t){
+  const o=ORAL[t.id]||{};
+  const P=[{k:"intro",l:"Introduction",lead:"Bonjour. Je vais vous présenter : "+lcFirst(t.t)+".",lines:[o.def||strip((t.s.i||[""])[0]),PLAN_SENT],extra:(t.s.i||[]).map(say)}];
+  PLAN.forEach(([k,l])=>{if(k!=="i"&&t.s[k]&&t.s[k].length)P.push({k,l,lead:TRANS[k],lines:t.s[k].map(say)})});
+  P.push({k:"concl",l:"Conclusion",lead:"",lines:[o.concl||("En conclusion, "+lcFirst(strip(t.memo)))]});
+  return P;
+}
+const lv=(id,k)=>((S.learn||{})[id]||{})[k]||0;
+function setLv(id,k,n){S.learn=S.learn||{};S.learn[id]=S.learn[id]||{};S.learn[id][k]=n;save()}
+const oralMastery=id=>{const t=byId[id];if(!t||!t.s)return 0;const P=partsOf(t);return Math.round(100*P.filter(p=>lv(id,p.k)>=3).length/P.length)};
+const oralReady=()=>TOPICS.filter(t=>oralMastery(t.id)===100).length;
+const wordsOf=s=>strip(s).split(/\s+/).filter(Boolean).length;
+function oralMinutes(t){const n=partsOf(t).reduce((a,p)=>a+wordsOf(p.lead)+p.lines.reduce((b,x)=>b+wordsOf(x),0),0);return Math.max(1,Math.round(n/130))}
+const hintOf=s=>{const w=strip(s).split(/\s+/);return w.slice(0,3).join(" ")+(w.length>3?" …":"")};
+function partHTML(p,mode,showHint){
+  const lead=p.lead?`<p class="lead">${md(p.lead)}</p>`:"";
+  if(mode==="tete") return `${lead}<p class="muted small">${p.lines.length>1?p.lines.length+" idées à dire":"1 idée à dire"} : récite à voix haute, puis vérifie.</p>${showHint?`<ul class="say hint">${p.lines.map(x=>`<li>${esc(hintOf(x))}</li>`).join("")}</ul>`:""}`;
+  return `${lead}<ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul>${mode==="lire"&&p.extra&&p.extra.length&&ORAL[lrn.id]?`<details class="more"><summary>Pour compléter la définition si le jury demande</summary><ul class="say">${p.extra.map(x=>`<li>${md(x)}</li>`).join("")}</ul></details>`:""}`;
+}
+function speakLines(arr,btn,label){
+  if(!canSpeak)return;
+  if(btn.classList.contains("on")){stopSpeak();btn.classList.remove("on");btn.textContent=label;return}
+  stopSpeak();let voice=null;try{voice=speechSynthesis.getVoices().find(v=>/^fr/i.test(v.lang))||null}catch(e){}
+  arr.forEach((p,i)=>{const u=new SpeechSynthesisUtterance(plain(p));u.lang="fr-FR";if(voice)u.voice=voice;if(i===arr.length-1)u.onend=()=>{btn.classList.remove("on");btn.textContent=label};speechSynthesis.speak(u)});
+  btn.classList.add("on");btn.textContent="Arrêter la lecture";
+}
+const stepDots=(t,P,cur)=>`<div class="psteps">${P.map((p,i)=>{const l=lv(t.id,p.k);return `<button class="pst ${l>=3?"ok":l>0?"mid":""} ${i===cur?"cur":""}" data-step="${i}" aria-label="${esc(p.l)}">${PSHORT[p.k]}</button>`}).join("")}</div>`;
+
+let lrn={id:null,i:0,mode:"lire",hint:false,full:null};
+VIEWS.apprendre=(id)=>{
+  const t=byId[id]; if(!t) return go("oral");
+  if(lrn.id!==id){const P=partsOf(t);const first=P.findIndex(p=>lv(id,p.k)<3);lrn={id,i:first<0?0:first,mode:"lire",hint:false,full:null,fresh:true}}
+  drawLearn();
+};
+function drawLearn(){
+  const t=byId[lrn.id],P=partsOf(t),p=P[lrn.i],L=lv(t.id,p.k);
+  if(!lrn.full&&lrn.mode==="lire"&&L>=1&&lrn.fresh){lrn.mode=L>=2?"tete":"trous"}lrn.fresh=false;
+  const m=lrn.mode, revealed=lrn.revealed;
+  h(`<div class="top"><button class="back" data-fiche="${t.id}" aria-label="Retour à la fiche">‹</button><div style="flex:1;min-width:0" class="stack" ><span class="eyebrow" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${lrn.full?"Récitation complète":"Apprendre l’oral"} · ${esc(t.t)}</span>${stepDots(t,P,lrn.i)}</div></div>
+  <div class="stack" style="--cc:${CATC[t.cat]}">
+   <div class="pagehead"><div class="eyebrow">Étape ${lrn.i+1} / ${P.length}${L>=3?" · sue de tête ✓":""}</div><h1>${esc(p.l)}</h1></div>
+   ${lrn.full?"":`<div class="seg" role="tablist">${[["lire","1 · Lire"],["trous","2 · À trous"],["tete","3 · De tête"]].map(([k,l])=>`<button role="tab" aria-selected="${m===k}" class="${m===k?"on":""}" data-mode="${k}">${l}</button>`).join("")}</div>`}
+   <div class="panel stack script ${m==="trous"?"hidekw":""}" id="script">${partHTML(p,m==="tete"&&!revealed?"tete":m==="tete"?"lire":m,lrn.hint)}</div>
+   ${m==="lire"?`<p class="muted small">Lis à voix haute 2 fois. Les mots surlignés sont ceux que le jury attend.</p>
+     <div class="grid2">${canSpeak?`<button class="btn" id="listen">Écouter</button>`:""}<button class="btn primary ${canSpeak?"":"block"}" id="nextlvl" style="${canSpeak?"":"grid-column:1/-1"}">C’est lu : texte à trous</button></div>`:""}
+   ${m==="trous"?`<p class="muted small">Dis la phrase entière en retrouvant chaque mot caché, puis touche-le pour vérifier.</p><button class="btn primary block" id="nextlvl">J’ai tout retrouvé : de tête</button>`:""}
+   ${m==="tete"&&!revealed?`${lrn.full?"":`<button class="chip" id="hint" style="align-self:center">${lrn.hint?"Cacher les indices":"Un indice (début de chaque idée)"}</button>`}<button class="btn primary block" id="reveal">J’ai récité : voir le texte</button>`:""}
+   ${m==="tete"&&revealed?`<p class="muted small" style="text-align:center">As-tu tout dit ?</p><div class="grid2"><button class="btn bad" id="ko">J’ai oublié des choses</button><button class="btn good" id="ok">J’ai tout dit</button></div>`:""}
+   ${lrn.full?"":`<div class="grid2"><button class="btn" id="prev" ${lrn.i?"":"disabled"}>‹ Étape précédente</button><button class="btn" id="next" ${lrn.i<P.length-1?"":"disabled"}>Étape suivante ›</button></div>
+   <button class="btn block" id="full">Récitation complète (tout de tête)</button>
+   <button class="btn block" data-texte="${t.id}">Voir le texte complet de l’oral</button>`}
+  </div>`);
+  const sc=document.getElementById("script");
+  if(m==="trous")sc.addEventListener("click",e=>{const b=e.target.closest("b");if(b){b.classList.toggle("shown");if(b.classList.contains("shown"))e._kw=true}});
+  const $=id=>document.getElementById(id);
+  $app.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{lrn.mode=b.dataset.mode;lrn.revealed=false;drawLearn()});
+  $app.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{if(lrn.full)return;lrn.i=+b.dataset.step;lrn.mode="lire";lrn.revealed=false;lrn.fresh=true;stopSpeak();drawLearn()});
+  if($("listen"))$("listen").onclick=e=>speakLines([p.lead].concat(p.lines).filter(Boolean),e.currentTarget,"Écouter");
+  if($("nextlvl"))$("nextlvl").onclick=()=>{stopSpeak();const nl=m==="lire"?1:2;if(L<nl)setLv(t.id,p.k,nl);lrn.mode=m==="lire"?"trous":"tete";lrn.revealed=false;drawLearn()};
+  if($("hint"))$("hint").onclick=()=>{lrn.hint=!lrn.hint;drawLearn()};
+  if($("reveal"))$("reveal").onclick=()=>{lrn.revealed=true;drawLearn()};
+  const advance=()=>{lrn.revealed=false;lrn.hint=false;
+    if(lrn.full){lrn.i++;if(lrn.i>=P.length)return fullDone(t,P);return drawLearn()}
+    if(lrn.i<P.length-1){lrn.i++;lrn.mode="lire";lrn.fresh=true;drawLearn()}else learnDone(t,P)};
+  if($("ok"))$("ok").onclick=()=>{setLv(t.id,p.k,3);if(lrn.full)lrn.full.ok.push(p.k);advance()};
+  if($("ko"))$("ko").onclick=()=>{setLv(t.id,p.k,Math.min(L||1,2));if(lrn.full){lrn.full.ko.push(p.k);advance()}else{lrn.mode="trous";lrn.revealed=false;drawLearn()}};
+  if($("prev"))$("prev").onclick=()=>{stopSpeak();lrn.i--;lrn.mode="lire";lrn.revealed=false;lrn.fresh=true;drawLearn()};
+  if($("next"))$("next").onclick=()=>{stopSpeak();lrn.i++;lrn.mode="lire";lrn.revealed=false;lrn.fresh=true;drawLearn()};
+  if($("full"))$("full").onclick=()=>{stopSpeak();lrn.full={ok:[],ko:[]};lrn.i=0;lrn.mode="tete";lrn.revealed=false;lrn.hint=false;drawLearn()};
+}
+function learnDone(t,P){
+  const om=oralMastery(t.id);
+  h(`<div class="stack" style="--cc:${CATC[t.cat]}"><div class="pagehead"><div class="eyebrow">${esc(t.t)}</div><h1>${om===100?"Oral su à 100 %":"Tu as fait le tour"}</h1></div>
+   <div class="panel stack">${ringSvg(om,"de l’oral su de tête",false,"su")}<p>${om===100?"Toutes les étapes sont sues de tête. Refais une récitation complète dans 2 jours pour vérifier que ça tient.":"Les étapes en gris ou en bleu ne sont pas encore sues de tête. Termine par une récitation complète, sans regarder."}</p>${stepDots(t,P,-1)}</div>
+   <button class="btn primary block" id="full">Récitation complète (tout de tête)</button>
+   <button class="btn block" data-oral="${t.id}">Oral blanc chronométré sur ce sujet</button>
+   <button class="btn block" data-go="oral">Choisir un autre sujet</button></div>`);
+  document.getElementById("full").onclick=()=>{lrn={id:t.id,i:0,mode:"tete",hint:false,revealed:false,full:{ok:[],ko:[]}};drawLearn()};
+  $app.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{lrn={id:t.id,i:+b.dataset.step,mode:"lire",hint:false,revealed:false,full:null,fresh:true};drawLearn()});
+}
+function fullDone(t,P){
+  const f=lrn.full,ok=f.ok.length,n=P.length;lrn.full=null;
+  S.orals.push({d:Date.now(),id:t.id,ok,n});S.orals=S.orals.slice(-30);save();
+  h(`<div class="stack" style="--cc:${CATC[t.cat]}"><div class="pagehead"><div class="eyebrow">Récitation complète · ${esc(t.t)}</div><h1>${ok} / ${n} étapes sans oubli</h1></div>
+   ${f.ko.length?`<div class="panel stack"><div class="eyebrow">À retravailler</div><div class="list">${P.map((p,i)=>f.ko.includes(p.k)?`<button class="item" data-step="${i}"><span class="th mono" style="--cc:var(--bad)">${PSHORT[p.k]}</span><div class="txt"><span>${esc(p.l)}</span></div><span class="muted">›</span></button>`:"").join("")}</div></div>`:`<div class="panel"><p>Parfait : tu as tout dit, dans l’ordre. Tu es prêt·e si ce sujet tombe.</p></div>`}
+   <button class="btn primary block" id="again">Refaire la récitation</button>
+   <button class="btn block" data-oral="${t.id}">Oral blanc chronométré</button>
+   <button class="btn block" data-go="oral">Choisir un autre sujet</button></div>`);
+  document.getElementById("again").onclick=()=>{lrn={id:t.id,i:0,mode:"tete",hint:false,revealed:false,full:{ok:[],ko:[]}};drawLearn()};
+  $app.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{lrn={id:t.id,i:+b.dataset.step,mode:"trous",hint:false,revealed:false,full:null};drawLearn()});
+}
+VIEWS.texte=(id)=>{
+  const t=byId[id]; if(!t) return go("oral");
+  const P=partsOf(t);
+  h(`<div class="top"><button class="back" data-fiche="${t.id}" aria-label="Retour à la fiche">‹</button><h2 style="font-size:1.05rem">Mon oral</h2></div>
+  <div class="stack" style="--cc:${CATC[t.cat]}">
+   <div class="pagehead"><div class="eyebrow">Texte complet · environ ${oralMinutes(t)} min à l’oral</div><h1>${esc(t.t)}</h1></div>
+   <div class="grid2">${canSpeak?`<button class="btn" id="listen">Écouter tout</button>`:""}<button class="btn primary" data-learn="${t.id}" style="${canSpeak?"":"grid-column:1/-1"}">Apprendre étape par étape</button></div>
+   ${P.map((p,i)=>`<section class="panel stack script"><button class="parthead" data-goto="${i}"><span class="L">${PSHORT[p.k]}</span>${esc(p.l)}<span class="muted" style="margin-left:auto">${lv(t.id,p.k)>=3?"✓":"›"}</span></button>${p.lead?`<p class="lead">${md(p.lead)}</p>`:""}<ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul></section>`).join("")}
+  </div>`);
+  const ls=document.getElementById("listen");if(ls)ls.onclick=()=>speakLines(P.flatMap(p=>[p.l+".",p.lead].concat(p.lines)).filter(Boolean),ls,"Écouter tout");
+  $app.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>{lrn={id:t.id,i:+b.dataset.goto,mode:"lire",hint:false,revealed:false,full:null};go("apprendre",t.id)});
+};
+const learnBox=t=>{const om=oralMastery(t.id);return `<div class="panel stack learnbox"><div class="row" style="justify-content:space-between"><div><div class="eyebrow">Mon oral sur ce sujet</div><strong>${om===100?"Su de tête à 100 %":om+" % su de tête"}</strong></div><span class="small muted">≈ ${oralMinutes(t)} min</span></div><div class="minibar"><i style="width:${om}%"></i></div><div class="grid2"><button class="btn primary" data-learn="${t.id}">Apprendre mon oral</button><button class="btn" data-texte="${t.id}">Texte complet</button></div></div>`};
+
 // ---------- cartes ----------
 let deck=[],di=0,deckTopic="all",deckMode="jour",sess={ok:0,ko:0};
 const poolOf=()=>deckTopic==="all"?CARDS:deckTopic==="prog"?CARDS.filter(c=>((S.plan&&S.plan.ids)||[]).includes(c.topic)):cardsOf(deckTopic);
@@ -1486,10 +1628,16 @@ function stopTimer(){if(timer){clearInterval(timer);timer=null}if(wake){try{wake
 async function keepAwake(){try{if(navigator.wakeLock)wake=await navigator.wakeLock.request("screen")}catch(e){}}
 const fmt=s=>{const n=Math.abs(s);return(s<0?"+":"")+Math.floor(n/60)+":"+String(n%60).padStart(2,"0")};
 function countdown(el,secs){const end=Date.now()+secs*1000;const tick=()=>{const left=Math.round((end-Date.now())/1000);el.textContent=fmt(left);el.classList.toggle("late",left<0)};tick();timer=setInterval(tick,500)}
+const learnItem=t=>{const om=oralMastery(t.id);return `<button class="item" data-learn="${t.id}" style="--cc:${CATC[t.cat]}">${thumb(t)}<div class="txt"><span>${esc(t.t)}</span><div class="minibar"><i style="width:${om}%;${om===100?"background:var(--good)":""}"></i></div></div><span class="small ${om===100?"":"muted"}" style="font-weight:700;${om===100?"color:var(--good)":""}">${om===100?"✓":om+" %"}</span></button>`};
 VIEWS.oral=(forced)=>{
-  const hist=S.orals.slice(-5).reverse();
+  const hist=S.orals.slice(-5).reverse(), ready=oralReady();
   h(`<div class="stack">
-   <div class="pagehead"><div class="eyebrow">Comme le jour J</div><h1>Oral blanc</h1></div>
+   <div class="pagehead"><div class="eyebrow">L’oral de pédicurie</div><h1>Mon oral</h1></div>
+   <div class="panel stack"><div class="row" style="gap:14px;flex-wrap:nowrap">${ringSvg(Math.round(100*ready/TOPICS.length),"des sujets prêts",false,"prêts")}<div class="stack" style="gap:4px"><strong style="font-size:1.15rem">${ready} / ${TOPICS.length} sujets sus à 100 %</strong><p class="small muted">Pour chaque sujet : 9 étapes dans l’ordre de l’oral. Pour chacune, tu lis, puis tu complètes le texte à trous, puis tu la récites de tête.</p></div></div>
+     <div class="psteps static">${["Intro","Étio","Physio","Signes","Diag","TTT","Prono","Prév","Concl"].map(x=>`<span class="pst">${x}</span>`).join("")}</div></div>
+   <h2>Apprendre sujet par sujet</h2>
+   ${Object.entries(CATS).map(([c,l])=>`<div class="stack" style="gap:8px"><div class="eyebrow cathead" style="--cc:${CATC[c]}">${l}</div><div class="list">${TOPICS.filter(t=>t.cat===c).map(learnItem).join("")}</div></div>`).join("")}
+   <h2>Oral blanc, comme le jour J</h2>
    <div class="panel"><ol class="chain" style="--cc:var(--accent)">
      <li><span class="n">1</span><p>Tirage au sort parmi les ${TOPICS.length} sujets.</p></li>
      <li><span class="n">2</span><p><b>5 minutes</b> de préparation.</p></li>
@@ -1554,6 +1702,7 @@ function correct(t){
   const ds=[...$app.querySelectorAll("details.sec")],n=ds.length;
   ds.forEach(d=>d.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{
     res[d.dataset.k]=+b.dataset.r;
+    {const lk=d.dataset.k==="i"?"intro":d.dataset.k;if(b.dataset.r==="0")setLv(t.id,lk,Math.min(lv(t.id,lk)||1,2))}
     d.querySelectorAll("[data-r]").forEach(x=>x.style.opacity=x===b?1:.35);
     d.querySelector(".L").style.background=b.dataset.r==="1"?"var(--good)":"var(--bad)";d.querySelector(".L").style.color="#fff";
     d.open=false;
@@ -1612,6 +1761,8 @@ $app.addEventListener("click",e=>{
   const g=e.target.closest("[data-go]");if(g){go(g.dataset.go);return}
   const f=e.target.closest("[data-fiche]");if(f){go("fiche",f.dataset.fiche);return}
   const c=e.target.closest("[data-cards]");if(c){go("cartes",c.dataset.cards);return}
+  const lb=e.target.closest("[data-learn]");if(lb){go("apprendre",lb.dataset.learn);return}
+  const tx=e.target.closest("[data-texte]");if(tx){go("texte",tx.dataset.texte);return}
   const o=e.target.closest("[data-oral]");if(o){go("oral",o.dataset.oral);return}
   const k=e.target.closest("[data-cat]");if(k){go("fiches",k.dataset.cat);return}
   const s=e.target.closest("[data-start]");if(s){deckTopic=s.dataset.start==="prog"?"prog":"all";deckMode="jour";current="cartes";drawTabs();startDeck();return}
