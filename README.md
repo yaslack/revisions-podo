@@ -9,9 +9,13 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 - **Entraînement varié** : 12 exercices mélangés (récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express). Une étape n’est maîtrisée à 100 % que retrouvée de tête sur au moins 3 jours différents.
 
 **Anatomie**
-- 13 fiches (os, hanche, cuisse, genou, jambe, cheville, pied, voûte, innervation, pouls, marche, amplitudes, parcours palpatoire) avec schémas dessinés qui s’animent.
+- 18 fiches rangées en 5 chapitres, avec schémas dessinés qui s’animent :
+  - **Os** : squelette, hanche (os coxal), cuisse (fémur, patella), jambe (tibia, fibula), pied ;
+  - **Articulations** : hanche, genou, cheville, pied et voûte, toutes les amplitudes ;
+  - **Muscles** : hanche, cuisse, jambe, pied ;
+  - **Nerfs et vaisseaux** ; **Palpation et fonction** (parcours palpatoire, marche).
 - 40 muscles en fiche d’identité (origine, terminaison, nerf, action, palpation) et un tableau récapitulatif.
 - Parcours palpatoire de la hanche au pied : position du sujet, comment trouver, comment vérifier.
-- **Pratique** : examen pratique blanc chronométré, entraînement varié, 8 schémas muets à légender.
+- **Pratique** : examen pratique blanc chronométré, entraînement varié, 13 schémas muets à légender.
 
 Cartes mémoire à répétition espacée et quiz pour les deux matières. La progression reste sur le téléphone (2 copies : localStorage + IndexedDB) ; un code de sauvegarde permet de la copier ailleurs. Chaque personne a sa propre progression.
