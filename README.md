@@ -28,6 +28,6 @@ Cartes mémoire à répétition espacée (on peut glisser la carte : à droite s
 
 **Affichage** (dans Matières) : thème automatique, clair ou sombre, texte normal ou grand, animations normales ou réduites.
 
-**Voix de lecture** (dans Matières) : la meilleure voix française du téléphone est choisie d’office (Premium, puis Améliorée, puis Google ; les voix « robot » d’iOS sont écartées). On peut en choisir une autre, l’écouter, et un guide explique comment télécharger gratuitement une voix Améliorée ou Premium sur iPhone.
+**Voix de lecture** (dans Matières) : la meilleure voix française du téléphone est choisie d’office (Premium, puis Améliorée, puis Google ; les voix « robot » d’iOS sont écartées). On peut en choisir une autre, l’écouter, et un guide explique comment télécharger gratuitement une voix Améliorée ou Premium sur iPhone. Pour la **voix de Siri**, chaque fiche a un bouton « Lire avec Siri » : il ouvre le texte de l’oral seul à l’écran, que l’iPhone lit avec « Énoncer l’écran » (Apple ne donne pas les voix de Siri aux sites web).
 
 **Design** : barre d’onglets en verre avec pastille qui glisse, transitions entre les pages, titres qui apparaissent mot par mot, chiffres qui défilent. Chaque matière a sa couleur (vert pour la pédicurie, ambre pour l’anatomie). Tout est désactivé si l’iPhone est réglé sur « Réduire les animations » ou si l’on choisit « Animations réduites ».

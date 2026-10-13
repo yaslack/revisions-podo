@@ -823,7 +823,12 @@ body{--mx0:color-mix(in srgb,var(--ink) 14%,var(--surface));--mx1:color-mix(in s
 .favb.on .star{fill:#F2B33D;stroke:#D4920F}
 .prefr{display:grid;grid-template-columns:6.4em 1fr;gap:10px;align-items:center}
 .prefr>span{font-weight:650;font-size:.92rem}
-.vhelp summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.vhelp summary,.siri-help summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.siri-help ol{margin:8px 0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px}
+.readtxt{background:var(--surface);border-radius:var(--r);padding:20px 18px;box-shadow:var(--shadow);font-size:1.08rem;line-height:1.65}
+.readtxt h1{font-size:1.7rem;margin-bottom:6px}
+.readtxt h3{margin:18px 0 6px;color:var(--accent);font-size:1rem}
+.readtxt p{margin:0}
 .vhelp ol{margin:6px 0 10px;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .vhelp p{margin:8px 0 4px}
 @media (max-width:400px){.prefr{grid-template-columns:1fr;gap:6px}}
@@ -1733,7 +1738,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){if(typeof CLEAN!=="undefined"){CLEAN.forEach(f=>{try{f()}catch(e){}});CLEAN=[]}$app.innerHTML=html;window.scrollTo(0,0);enhance($app)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="21";
+const APP_VERSION="22";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -1846,7 +1851,7 @@ const TABSET={pedi:[["home","Accueil"],["fiches","Fiches"],["cartes","Cartes"],[
 const tabsNow=()=>TABSET[S.subj==="anat"?"anat":"pedi"].concat(S.subj==="anat"&&typeof VIEWS.pratique==="function"?[["pratique","Pratique"]]:[]);
 let current="home", lastView=["home",null];
 // ---------- motion design : transitions de page, titres animés, onglets, petits effets ----------
-const DEPTH={stats:2,matieres:0,home:1,fiches:1,anat:1,cartes:1,quiz:1,oral:1,pratique:1,lexique:2,fiche:2,legende:2,examen:2,anattrain:2,recap:2,entrainement:2,apprendre:3,texte:3};
+const DEPTH={lecture:3,stats:2,matieres:0,home:1,fiches:1,anat:1,cartes:1,quiz:1,oral:1,pratique:1,lexique:2,fiche:2,legende:2,examen:2,anattrain:2,recap:2,entrainement:2,apprendre:3,texte:3};
 const SCR={};let NAVFX=false,HERO=[];
 // Safari (iPhone) : les View Transitions y font encore des sauts d’affichage, on garde la transition maison
 const IS_WEBKIT=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)||(/Safari\//.test(navigator.userAgent)&&!/Chrome|Chromium|Edg|Android/.test(navigator.userAgent));
@@ -2017,7 +2022,7 @@ const voiceHTML=()=>!canSpeak?"":`<div class="panel stack"><div class="eyebrow">
     <p class="small"><strong>Sur iPhone</strong></p>
     <ol class="small"><li>Ouvre <strong>Réglages</strong> → <strong>Accessibilité</strong> → <strong>Contenu énoncé</strong> → <strong>Voix</strong>.</li><li>Touche <strong>Français (France)</strong>, puis une voix comme <strong>Audrey</strong>, <strong>Aurélie</strong> ou <strong>Thomas</strong>.</li><li>Télécharge la version <strong>Améliorée</strong> ou <strong>Premium</strong> si elle est proposée (de 100 à 400 Mo, en Wi-Fi).</li><li>Ferme complètement l’appli Révisions puis rouvre-la : la nouvelle voix apparaît dans la liste au-dessus, choisis-la.</li></ol>
     <p class="small"><strong>Sur Android</strong> : Paramètres → Synthèse vocale → moteur Google → installe les données vocales en français, puis choisis une voix « Google français ».</p>
-    <p class="small muted">Les voix de Siri ne sont pas proposées aux sites web par Apple.</p></details></div>`;
+    <p class="small"><strong>Voix de Siri</strong> : Apple ne les donne pas aux sites web, mais l’iPhone peut lire une page avec. Ouvre une fiche et touche « Lire avec Siri ».</p></details></div>`;
 function bindVoice(){const el=document.getElementById("vsel");if(!el)return;plLoadVoices();
   el.onchange=()=>{S.pvoice=el.value;persist();voiceOpts()};
   document.getElementById("vtest").onclick=()=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance("Bonjour. Je vais vous présenter les onychomycoses : ce sont les infections de l’ongle par un champignon, la plus fréquente des pathologies unguéales.");u.lang="fr-FR";const v=plVoice();if(v)u.voice=v;u.rate=S.prate||1;speechSynthesis.speak(u)}catch(e){}}}
@@ -2032,8 +2037,27 @@ document.addEventListener("click",e=>{
   if(k==="calm"&&was!==!!S.calm){location.reload();return}
   b.parentElement.querySelectorAll("button").forEach(x=>{const on=x===b;x.classList.toggle("on",on);x.setAttribute("aria-pressed",on)});
 });
+// ---------- lecture avec la voix de Siri (via « Énoncer l’écran » d’iOS) ----------
+function viewLecture(id){
+  const t=byId[id];if(!t)return go("fiches");
+  const segs=t.cat==="anat"?anatSegs(t):oralSegs(t),parts=[];
+  segs.forEach(g=>{const l=parts[parts.length-1];if(l&&l.l===g.l)l.x.push(g.x);else parts.push({l:g.l,x:[g.x]})});
+  const first=!S.siriSeen;if(first){S.siriSeen=1;persist()}
+  h(`<div class="top"><button class="back" data-fiche="${t.id}" aria-label="Retour à la fiche">‹</button><h2 style="font-size:1.05rem">Lire avec la voix de Siri</h2></div>
+  <div class="stack">
+   <details class="panel siri-help"${first?" open":""}><summary>Comment faire lire cette page par Siri</summary>
+    <ol class="small"><li>Une seule fois : <strong>Réglages</strong> → <strong>Accessibilité</strong> → <strong>Contenu énoncé</strong> → active <strong>Énoncer l’écran</strong>.</li>
+    <li>Toujours dans <strong>Contenu énoncé</strong> → <strong>Voix</strong> → <strong>Français</strong> : choisis une voix <strong>Siri</strong> (par exemple « Siri Voix 1 ») et télécharge-la.</li>
+    <li>Reviens ici, ferme cette aide, puis <strong>glisse deux doigts du haut de l’écran vers le bas</strong> : l’iPhone lit toute la page avec la voix de Siri et fait défiler tout seul. Une petite barre permet de mettre en pause, d’accélérer ou de revenir en arrière.</li></ol>
+    <p class="small muted">Astuce : dans Contenu énoncé, active aussi « Contrôleur de parole » pour avoir un bouton de lecture toujours visible, sans faire le geste.</p></details>
+   <article class="readtxt"><h1>${esc(t.t)}</h1>${parts.map(p=>`<h3>${esc(p.l)}</h3><p>${esc(p.x.join(" "))}</p>`).join("")}</article>
+   <button class="btn block" data-fiche="${t.id}">Revenir à la fiche</button>
+  </div>`);
+}
+const siriBtn=id=>IS_WEBKIT?`<button class="chip" data-lecture="${id}">Lire avec Siri</button>`:"";
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-lecture]");if(b)go("lecture",b.dataset.lecture)});
 function drawTabs(){
-  const T=tabsNow();document.querySelector("nav.tabs").hidden=current==="matieres";
+  const T=tabsNow();document.querySelector("nav.tabs").hidden=current==="matieres"||current==="lecture";
   const sig=T.map(t=>t[0]).join();
   if($tabs.dataset.sig!==sig){$tabs.dataset.sig=sig;$tabs.style.gridTemplateColumns="repeat("+T.length+",1fr)";$tabs.style.setProperty("--tn",T.length);
     $tabs.innerHTML='<span class="tab-ind" aria-hidden="true"></span>'+T.map(([k,l])=>`<button class="tab" data-tab="${k}" aria-label="${l}">${ICONS[k==="anat"?"fiches":k]||ICONS.anat}${l}</button>`).join("");
@@ -2053,9 +2077,9 @@ function go(view,arg,how){
     $gs.hidden=true;
     // chaque vue appartient à une matière : les onglets suivent
     const PEDI_V=["fiches","lexique","oral","apprendre","texte","entrainement"],ANAT_V=["anat","pratique","examen","anattrain","legende","recap"];
-    const ns=view==="fiche"&&byId[arg]?(byId[arg].cat==="anat"?"anat":"pedi"):PEDI_V.includes(view)?"pedi":ANAT_V.includes(view)?"anat":null;
+    const ns=(view==="fiche"||view==="lecture")&&byId[arg]?(byId[arg].cat==="anat"?"anat":"pedi"):PEDI_V.includes(view)?"pedi":ANAT_V.includes(view)?"anat":null;
     if(ns&&ns!==S.subj){S.subj=ns;persist()}
-    current=view==="stats"?"home":view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende"||view==="recap")?"pratique":view; drawTabs();
+    current=view==="lecture"?"lecture":view==="stats"?"home":view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende"||view==="recap")?"pratique":view; drawTabs();
     lastView=[view,arg||null];
     document.body.dataset.area=S.subj==="anat"?"anat":"pedi";
     NAVFX=dir!=="back"&&dir!=="same";
@@ -2265,6 +2289,7 @@ function plDraw(){
     <button class="pl-btn pl-main" data-pl="toggle" aria-label="${PL.on?"Pause":"Lecture"}">${PL.on?PLI.pause:PLI.play}</button>
     <button class="pl-btn" data-pl="next" aria-label="Partie suivante">${PLI.next}</button>
     <button class="pl-chip" data-pl="voice" aria-label="Changer de voix">${v?esc(v.name.split(/[ (]/)[0]):"Voix"}</button></div>
+   ${IS_WEBKIT&&/^(oral|fiche):/.test(PL.key)?`<button class="pl-restart" data-pl="siri">Préférer la voix de Siri ?</button>`:""}
    ${PL.resumed&&PL.i>0&&!done?`<button class="pl-restart" data-pl="restart">Reprise là où tu t’étais arrêté · recommencer du début</button>`:""}`}
   </div>`;
 }
@@ -2277,6 +2302,7 @@ if(canSpeak){
     else if(a==="mini"){PL.mini=!PL.mini;plDraw()}
     else if(a==="restart"){PL.resumed=false;PL.i=0;plSave();PL.on?plSpeak():plResume()}
     else if(a==="rate"){const r=S.prate||1;S.prate=PRATES[(PRATES.indexOf(r)+1)%PRATES.length];persist();if(PL.on)plSpeak();else plDraw()}
+    else if(a==="siri"){const id=PL.key.split(":")[1];if(byId[id])go("lecture",id)}
     else if(a==="voice"){plLoadVoices();if(plVoices.length){const v=plVoice(),n=plVoices[(plVoices.indexOf(v)+1)%plVoices.length];S.pvoice=n.name;persist();if(PL.on)plSpeak();else plDraw()}}
   });
   // téléphone verrouillé ou appli quittée : la voix s’arrête souvent ; au retour on reprend à la phrase en cours
@@ -2445,6 +2471,7 @@ function celebrate(){
 // ================= VIEWS =================
 const VIEWS={};
 VIEWS.stats=viewStats;
+VIEWS.lecture=viewLecture;
 
 function resumeCard(){
   if(!canSpeak||!S.pllast)return "";const id=S.pllast.slice(5),t=byId[id],i=(S.plpos||{})[S.pllast];
@@ -2628,7 +2655,7 @@ VIEWS.fiche=(id)=>{
    ${courseNav("fiches",nav,CATC[t.cat])}
    <div class="fiche stack ${S.hidekw?"hidekw":""}" id="fiche" style="--cc:${CATC[t.cat]}">
     <section id="s-ess" class="stack">
-     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">▶ Écouter comme à l’oral</button>`:""}${favBtn(t.id)}</div>
+     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">▶ Écouter comme à l’oral</button>`:""}${favBtn(t.id)}${siriBtn(t.id)}</div>
      <div class="memo"><div class="eyebrow">Phrase mémo</div><p>${md(t.memo)}</p></div>
      <div class="panel stack"><div class="eyebrow">Les 5 points à dire absolument</div><ol class="keys">${t.key.map(k=>`<li><span>${md(k)}</span></li>`).join("")}</ol></div>
     </section>
@@ -3010,7 +3037,7 @@ function anatFiche(t){
    <div class="fiche stack ${S.hidekw?"hidekw":""}" id="fiche" style="--cc:${CATC.anat}">
     <section id="s-ess" class="stack">
      ${icov&&ANATART[icov.k]&&(ANATART[icov.k].leg.length||ANATART[icov.k].keys.length)?`<div class="panel stack cov-leg"><div class="eyebrow">Légende du schéma · touche un nom pour le voir</div>${legendHTML(icov.k)}</div>`:""}
-     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">▶ Écouter la fiche</button>`:""}${favBtn(t.id)}</div>
+     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">▶ Écouter la fiche</button>`:""}${favBtn(t.id)}${siriBtn(t.id)}</div>
      <div class="memo"><div class="eyebrow">À retenir en une phrase</div><p>${md(t.memo)}</p></div>
      <div class="panel stack"><div class="eyebrow">Les 5 points à savoir</div><ol class="keys">${t.key.map(k=>`<li><span>${md(k)}</span></li>`).join("")}</ol></div>
      ${others.map(viz).join("")}
