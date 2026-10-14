@@ -906,6 +906,43 @@ body.v3on #minih{display:none}
 .v3cta-t span:last-child{font-size:.84rem;opacity:.9;line-height:1.35}
 .v3cta-i{flex:none;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.3rem;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
 .ptile.wide3d{grid-column:1/-1;min-height:84px;background:linear-gradient(135deg,#2A2140,#4B2E5E 55%,#8A3B4C)}
+/* ================= v26 : quiz 3D enrichi + quiz sur planches ================= */
+.v3l.lab{color:var(--accent)}
+.v3l.lab.on{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 14px -8px var(--accent)}
+.v3labs{position:absolute;inset:0;pointer-events:none;overflow:hidden;transition:opacity .2s}
+.v3labs.mv{opacity:.35}
+.v3lab{position:absolute;left:0;top:0;pointer-events:auto;border:0;display:inline-flex;align-items:center;gap:5px;padding:4px 9px 4px 7px;border-radius:999px;font-size:.72rem;font-weight:700;white-space:nowrap;color:#1d1f20;background:rgba(255,255,255,.88);box-shadow:0 3px 10px -4px rgba(0,0,0,.45);cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.v3lab i{width:7px;height:7px;border-radius:50%;flex:none}
+.v3id{border-radius:14px;background:color-mix(in srgb,var(--ink) 5%,transparent);padding:2px 12px}
+.v3id summary{cursor:pointer;font-weight:700;font-size:.86rem;color:var(--accent);padding:8px 0;list-style:none}
+.v3id summary::-webkit-details-marker{display:none}
+.v3id summary::after{content:" ▾"}.v3id[open] summary::after{content:" ▴"}
+.v3id dl{margin:0 0 10px;display:grid;grid-template-columns:82px 1fr;gap:6px 10px;font-size:.86rem;line-height:1.4}
+.v3id dt{font-size:.66rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.v3id dd{margin:0}
+.v3mast{display:flex;gap:6px;flex-wrap:wrap}
+.v3mast span{border-radius:10px;padding:5px 9px;font-size:.78rem;color:var(--muted);background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.v3mast b{background:none;padding:0;color:var(--ink)}
+.v3opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.v3opt{border:0;border-radius:14px;padding:12px 10px;min-height:52px;font-weight:700;font-size:.9rem;line-height:1.2;cursor:pointer;color:var(--ink);background:var(--surface);box-shadow:inset 0 0 0 1.5px var(--line);transition:transform .4s var(--ease-spring),background-color .25s}
+.v3opt:active{transform:scale(.96)}
+.v3opt.right{background:color-mix(in srgb,var(--good) 18%,var(--surface));box-shadow:inset 0 0 0 2px var(--good)}
+.v3opt.wrong{background:color-mix(in srgb,var(--bad) 15%,var(--surface));box-shadow:inset 0 0 0 2px var(--bad)}
+.v3opt[disabled]{cursor:default}
+.v3s-txt .ko,.v3s-txt small .ko{color:var(--bad);font-weight:700}
+.pqcam{position:absolute;left:0;top:0;transform-origin:0 0}
+.pqcam img{display:block;width:100%;height:100%;border-radius:4px;box-shadow:0 18px 40px -20px rgba(0,0,0,.55);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;pointer-events:none}
+.pqcam svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.pdot circle{fill:#fff;stroke:#26292B}
+.pdot.faint circle{opacity:.5}
+.pdot.q circle{fill:#F2B33D;stroke:#7a4b00}
+.pdot.ok circle{fill:#2FA36B;stroke:#fff}
+.pdot.ko circle{fill:#E04A3F;stroke:#fff}
+.pdot text.pq{fill:#fff;font-weight:800}
+.pl rect{fill:#2FA36B}.pl.ko rect{fill:#E04A3F}
+.pl text{fill:#fff;font-weight:700}
+@media (prefers-reduced-motion: no-preference){.pdot.q circle,.pdot.ok circle{animation:pqpulse 1.1s ease-in-out infinite}}
+@keyframes pqpulse{50%{opacity:.6}}
 </style>
 </head>
 <body>
@@ -1802,7 +1839,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){if(typeof CLEAN!=="undefined"){CLEAN.forEach(f=>{try{f()}catch(e){}});CLEAN=[]}$app.innerHTML=html;window.scrollTo(0,0);enhance($app)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="25";
+const APP_VERSION="26";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -1915,7 +1952,7 @@ const TABSET={pedi:[["home","Accueil"],["fiches","Fiches"],["cartes","Cartes"],[
 const tabsNow=()=>TABSET[S.subj==="anat"?"anat":"pedi"].concat(S.subj==="anat"&&typeof VIEWS.pratique==="function"?[["pratique","Pratique"]]:[]);
 let current="home", lastView=["home",null];
 // ---------- motion design : transitions de page, titres animés, onglets, petits effets ----------
-const DEPTH={v3d:2,lecture:3,stats:2,matieres:0,home:1,fiches:1,anat:1,cartes:1,quiz:1,oral:1,pratique:1,lexique:2,fiche:2,legende:2,examen:2,anattrain:2,recap:2,entrainement:2,apprendre:3,texte:3};
+const DEPTH={pquiz:2,v3d:2,lecture:3,stats:2,matieres:0,home:1,fiches:1,anat:1,cartes:1,quiz:1,oral:1,pratique:1,lexique:2,fiche:2,legende:2,examen:2,anattrain:2,recap:2,entrainement:2,apprendre:3,texte:3};
 const SCR={};let NAVFX=false,HERO=[];
 // Safari (iPhone) : les View Transitions y font encore des sauts d’affichage, on garde la transition maison
 const IS_WEBKIT=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)||(/Safari\//.test(navigator.userAgent)&&!/Chrome|Chromium|Edg|Android/.test(navigator.userAgent));
@@ -2132,17 +2169,48 @@ const FICHE3D=k=>/^(os-coxal)$/.test(k)?"o-coxal":/^(femur|patella)$/.test(k)?"o
 const REG3D={"o-coxal":"hanche","m-hanche":"hanche","o-femur":"cuisse","a-cuisse":"cuisse","o-jambe":"jambe","a-jambe":"jambe","a-pied":"pied","m-pied":"pied"};
 const REGN={tout:"Toute la jambe",hanche:"Hanche",cuisse:"Cuisse",jambe:"Jambe",pied:"Pied"};
 let V3=null;
+const MUS3D={"grand-fessier":"Grand fessier","moyen-fessier":"Moyen fessier","petit-fessier":"Petit fessier","tfl":"Tenseur du fascia lata","piriforme":"Piriforme","jumeau-sup":"Jumeaux","jumeau-inf":"Jumeaux","obturateur-int":"Jumeaux","obturateur-ext":"Jumeaux","carre-femoral":"Jumeaux","iliaque":"Ilio-psoas","droit-femoral":"Droit fémoral","vaste-medial":"Vaste médial","vaste-lateral":"Vaste latéral","vaste-intermediaire":"Vaste intermédiaire","sartorius":"Sartorius","long-adducteur":"Long adducteur","grand-adducteur":"Grand adducteur","petit-adducteur":"Grand adducteur","pectine":"Pectiné","court-adducteur":"Pectiné","gracile":"Gracile","semi-tendineux":"Semi-tendineux","semi-membraneux":"Semi-membraneux","biceps-long":"Biceps fémoral","biceps-court":"Biceps fémoral","tibial-ant":"Tibial antérieur","long-extenseur-hallux":"Long extenseur de l’hallux","long-extenseur-orteils":"Long extenseur des orteils","troisieme-fibulaire":"Troisième fibulaire","long-fibulaire":"Long fibulaire","court-fibulaire":"Court fibulaire","gastroc-med":"Gastrocnémiens","gastroc-lat":"Gastrocnémiens","soleaire":"Soléaire","tibial-post":"Tibial postérieur","long-flechisseur-orteils":"Long fléchisseur des orteils","long-flechisseur-hallux":"Long fléchisseur de l’hallux","popliteus":"Poplité","abducteur-hallux":"Abducteur de l’hallux","court-flechisseur-orteils":"Court fléchisseur des orteils","abducteur-5":"Abducteur du 5e orteil"};
+const musOf=k=>{const n=MUS3D[k];if(!n)return null;for(const t of ANAT)for(const m of (t.mus||[]))if(m.n.startsWith(n))return m;return null};
+const FUNC3D=[
+ ["le fléchisseur principal de la hanche",["iliaque"]],
+ ["l’extenseur principal de la hanche (monter un escalier)",["grand-fessier"]],
+ ["l’abducteur principal, qui stabilise le bassin en appui sur une jambe",["moyen-fessier"]],
+ ["un rotateur externe de la hanche",["piriforme","jumeau-sup","jumeau-inf","obturateur-int","obturateur-ext","carre-femoral","grand-fessier"]],
+ ["le muscle qui fléchit, écarte et tourne en dedans la hanche, en dehors et en avant",["tfl"]],
+ ["un muscle qui étend le genou",["droit-femoral","vaste-medial","vaste-lateral","vaste-intermediaire"]],
+ ["le chef du quadriceps qui fléchit aussi la hanche",["droit-femoral"]],
+ ["le muscle de la « position du tailleur »",["sartorius"]],
+ ["un adducteur de la hanche",["long-adducteur","grand-adducteur","petit-adducteur","court-adducteur","pectine","gracile"]],
+ ["un ischio-jambier (étend la hanche, fléchit le genou)",["semi-tendineux","semi-membraneux","biceps-long","biceps-court"]],
+ ["le rotateur externe du genou fléchi",["biceps-long","biceps-court"]],
+ ["le releveur principal du pied (flexion dorsale + inversion)",["tibial-ant"]],
+ ["un muscle qui fait l’éversion du pied",["long-fibulaire","court-fibulaire","troisieme-fibulaire","long-extenseur-orteils"]],
+ ["un fléchisseur plantaire du triceps sural",["gastroc-med","gastroc-lat","soleaire"]],
+ ["le muscle qui fait l’inversion et soutient l’arche médiale (loge profonde)",["tibial-post"]],
+ ["le muscle qui « déverrouille » le genou",["popliteus"]],
+ ["le muscle qui étend l’hallux depuis la jambe",["long-extenseur-hallux"]],
+ ["le muscle qui fléchit l’hallux et propulse le pas",["long-flechisseur-hallux"]],
+ ["le muscle qui fléchit les orteils 2 à 5 depuis la jambe",["long-flechisseur-orteils"]],
+ ["le muscle qui abaisse la tête du 1er métatarsien",["long-fibulaire"]],
+ ["le muscle qui écarte l’hallux",["abducteur-hallux"]],
+ ["le muscle qui écarte le 5e orteil",["abducteur-5"]],
+ ["le muscle de la plante qui fléchit les orteils 2 à 5",["court-flechisseur-orteils"]],
+ ["l’artère du pouls fémoral",["a-femorale"]],["l’artère du pouls poplité",["a-poplitee"]],
+ ["l’artère du pouls pédieux",["a-dorsale-pied"]],["l’artère du pouls tibial postérieur (derrière la malléole médiale)",["a-tibiale-post"]],
+ ["la veine qui monte sur la face médiale de la jambe",["v-grande-saphene"]],["la veine qui monte derrière le mollet",["v-petite-saphene"]]];
+
 function view3d(){
-  const st=S.v3||(S.v3={});st.on=st.on||{os:1,m3:1,m2:1,m1:1,va:1,vv:1};st.q=st.q||{what:"tout",where:"tout",n:10};
+  const st=S.v3||(S.v3={});st.on=st.on||{os:1,m3:1,m2:1,m1:1,va:1,vv:1};st.q=Object.assign({what:"tout",where:"tout",n:10,type:"trouve"},st.q||{});if(st.q.what==="faibles")st.q.what="tout";
   h(`<div class="v3stage" id="v3stage">
    <canvas id="v3c" aria-label="Modèle 3D du membre inférieur droit : glisse pour tourner, pince pour zoomer, touche une structure"></canvas>
    <div class="v3load" id="v3load"><span class="v3spin"></span>Chargement du modèle 3D…</div>
    <div class="v3top" id="v3top">
     <div class="v3bar"><button class="v3btn" data-go="anat" aria-label="Retour">‹</button><div class="v3title"><b>Membre inférieur droit</b><small id="v3mode">Explorer · glisse pour tourner, pince pour zoomer</small></div></div>
-    <div class="v3chips" id="v3chips">${Object.entries(L3D).map(([k,[l,c]])=>`<button class="v3l ${st.on[k]?"on":""}" data-v3l="${k}" aria-pressed="${!!st.on[k]}"><i style="background:${c}"></i>${l}</button>`).join("")}<button class="v3l peel" id="v3peel">Éplucher</button></div>
+    <div class="v3chips" id="v3chips">${Object.entries(L3D).map(([k,[l,c]])=>`<button class="v3l ${st.on[k]?"on":""}" data-v3l="${k}" aria-pressed="${!!st.on[k]}"><i style="background:${c}"></i>${l}</button>`).join("")}<button class="v3l peel" id="v3peel">Éplucher</button><button class="v3l lab" id="v3labt" aria-pressed="false">Noms</button></div>
     <div class="v3q" id="v3q" hidden><div class="v3q-h"><span id="v3qn"></span><span id="v3qs"></span></div><div class="v3q-t" id="v3qt"></div><div class="v3q-bar"><i id="v3qbar"></i></div></div>
    </div>
    <div class="v3side" id="v3side" role="group" aria-label="Vue">${[["face","Face"],["dos","Dos"],["dehors","Dehors"],["dedans","Dedans"],["pied","Pied"]].map(([k,l])=>`<button data-v3v="${k}">${l}</button>`).join("")}</div>
+   <div class="v3labs" id="v3labs"></div>
    <div class="v3toast" id="v3toast" hidden></div>
    <div class="v3sheet" id="v3sheet"></div>
   </div>`);
@@ -2218,16 +2286,45 @@ function start3d(T,buf,st){
   const restoreMats=()=>meshes.forEach(m=>m.material=m.userData.mat);
   const toast=(txt,cls,ms)=>{const t=document.getElementById("v3toast");t.className="v3toast "+(cls||"");t.textContent=txt;t.hidden=false;clearTimeout(toast._t);if(ms)toast._t=setTimeout(()=>t.hidden=true,ms)};
   const hideToast=()=>{clearTimeout(toast._t);document.getElementById("v3toast").hidden=true};
+  const mQ=new T.MeshStandardMaterial({color:0xF2B33D,emissive:0x8a5200,emissiveIntensity:.5,roughness:.45,side:T.DoubleSide});
+  const S3=()=>S.s3d||(S.s3d={});
+  const stat3=(k,ok)=>{const r=S3()[k]||(S3()[k]={ok:0,ko:0});if(ok)r.ok++;else r.ko++;r.r=ok?1:0;r.d=today()};
+  const weak3=k=>{const r=S3()[k];return !!r&&(r.r===0||r.ko>r.ok)};
+  const known3=k=>{const r=S3()[k];return !!r&&r.r===1&&r.ok>r.ko};
+  // ---------- noms sur le modèle ----------
+  const labBox=document.getElementById("v3labs");let labsOn=!!st.labs,labs=[],labT=0,camSig="";
+  const vis3=()=>meshes.filter(x=>x.visible&&x.material!==mGhost);
+  const samples=m=>m.userData.smp||(m.userData.smp=(()=>{const a=m.geometry.attributes.position,n=a.count,out=[center(m)];for(let i=0;i<10;i++){const j=Math.floor((i+.5)*n/10);out.push(new T.Vector3(a.getX(j),a.getY(j),a.getZ(j)).applyMatrix4(m.matrixWorld))}return out})());
+  function chooseLabels(){labs=[];labBox.innerHTML="";if(!labsOn||Q)return;
+    const v=vis3(),top=avTop+6,bot=H-avBot-6,boxes=[];
+    const c=v.filter(m=>!/^p\d|^cuneiforme-i/.test(m.userData.key)).map(m=>({m,r:m.geometry.boundingSphere.radius})).sort((a,b)=>b.r-a.r).slice(0,45);
+    for(const o of c){let pt=null;
+      for(const sp of samples(o.m)){const p=sp.clone().project(cam),x=(p.x+1)/2*W,y=(1-p.y)/2*H;if(p.z>1||x<14||x>W-14||y<top||y>bot)continue;
+        const dir=sp.clone().sub(cam.position),dl=dir.length();rc.set(cam.position,dir.normalize());rc.far=dl+.01;const hit=rc.intersectObjects(v,false)[0];
+        if(hit&&hit.object===o.m){pt={p:hit.point.clone(),x,y};break}}
+      rc.far=Infinity;if(!pt)continue;
+      const w=Math.min(170,o.m.userData.fr.length*6.6+22),bx=[pt.x-w/2-3,pt.y-14,pt.x+w/2+3,pt.y+14];
+      if(boxes.some(b=>!(bx[2]<b[0]||bx[0]>b[2]||bx[3]<b[1]||bx[1]>b[3])))continue;boxes.push(bx);labs.push({m:o.m,pt:pt.p});if(labs.length>=14)break}
+    labBox.innerHTML=labs.map((l,i)=>`<button class="v3lab" data-li="${i}"><i style="background:${L3D[l.m.userData.layer][1]}"></i>${esc(l.m.userData.fr)}</button>`).join("");
+    labs.forEach((l,i)=>l.el=labBox.children[i]);placeLabels()}
+  function placeLabels(){for(const l of labs){const p=l.pt.clone().project(cam);l.el.style.transform=`translate(${((p.x+1)/2*W).toFixed(1)}px,${((1-p.y)/2*H).toFixed(1)}px) translate(-50%,-50%)`}}
+  labBox.addEventListener("click",e=>{const b=e.target.closest("[data-li]");if(b&&labs[+b.dataset.li])select(labs[+b.dataset.li].m)});
+  const labBtn=document.getElementById("v3labt");
+  const syncLab=()=>{labBtn.classList.toggle("on",labsOn);labBtn.setAttribute("aria-pressed",labsOn)};syncLab();
+  labBtn.onclick=()=>{labsOn=!labsOn;st.labs=labsOn?1:0;persist();syncLab();camSig="";chooseLabels()};
   // ---------- panneau du bas ----------
   const modeEl=document.getElementById("v3mode"),qEl=document.getElementById("v3q"),chipsEl=document.getElementById("v3chips");
   function sheetIdle(){modeEl.textContent="Explorer · glisse pour tourner, pince pour zoomer";
-    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>Touche une structure</b><small>pour voir son nom, l’isoler ou ouvrir sa fiche</small></div><button class="v3go" id="v3qopen">Quiz 3D</button></div>`;
+    const n=meshes.filter(m=>known3(m.userData.key)).length;
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>Touche une structure</b><small>pour voir son nom, sa fiche d’identité ; touche 2 fois pour zoomer dessus${n?` · ${n} / ${meshes.length} structures sues`:""}</small></div><button class="v3go" id="v3qopen">Quiz 3D</button></div>`;
     document.getElementById("v3qopen").onclick=sheetSetup}
-  function sheetSel(m){const f=FICHE3D(m.userData.key);
-    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>${esc(m.userData.fr)}</b><small>${L3DL[m.userData.layer]} · ${REGN[m.userData.reg]}</small></div><button class="v3x" id="v3unsel" aria-label="Fermer">×</button></div>
-     <div class="v3s-act"><button class="chip" id="v3iso">${iso?"Tout remontrer":"Isoler"}</button><button class="chip" id="v3hide">Masquer</button><button class="chip" id="v3show">Centrer</button>${f&&byId[f]?`<button class="chip" id="v3fiche">Voir la fiche</button>`:""}<button class="chip" id="v3all">Tout afficher</button></div>`;
+  function sheetSel(m){const f=FICHE3D(m.userData.key),r=musOf(m.userData.key),st3=S3()[m.userData.key];
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>${esc(m.userData.fr)}</b><small>${L3DL[m.userData.layer]} · ${REGN[m.userData.reg]}${st3?` · quiz : ${st3.ok} ✓ / ${st3.ko} ✗`:""}</small></div><button class="v3x" id="v3unsel" aria-label="Fermer">×</button></div>
+     ${r?`<details class="v3id" ${st.idOpen?"open":""}><summary>Fiche d’identité : origine, terminaison, nerf, action</summary><dl><dt>Origine</dt><dd>${md(r.o)}</dd><dt>Terminaison</dt><dd>${md(r.t)}</dd><dt>Nerf</dt><dd><span class="nchip" style="--nc:${NCOL[r.nf]}">${esc(nerfTxt(r))}</span></dd><dt>Action</dt><dd>${md(r.a)}</dd><dt>Palpation</dt><dd>${md(r.p)}</dd></dl></details>`:""}
+     <div class="v3s-act"><button class="chip" id="v3iso">${iso?"Tout remontrer":"Isoler"}</button><button class="chip" id="v3hide">Masquer</button><button class="chip" id="v3show">Zoomer</button>${f&&byId[f]?`<button class="chip" id="v3fiche">Voir la fiche</button>`:""}<button class="chip" id="v3all">Tout afficher</button></div>`;
+    const dd=sheet.querySelector(".v3id");if(dd)dd.ontoggle=()=>{st.idOpen=dd.open?1:0;persist()};
     document.getElementById("v3unsel").onclick=()=>select(null);
-    document.getElementById("v3iso").onclick=()=>{iso=iso?null:m;applyLayers();sheetSel(m)};
+    document.getElementById("v3iso").onclick=()=>{iso=iso?null:m;applyLayers();sheetSel(m);if(iso)showMesh(m)};
     document.getElementById("v3hide").onclick=()=>{m.userData.hidden=true;select(null);applyLayers()};
     document.getElementById("v3show").onclick=()=>showMesh(m);
     document.getElementById("v3all").onclick=()=>{iso=null;meshes.forEach(x=>x.userData.hidden=false);Object.keys(L3D).forEach(k=>st.on[k]=1);syncL();applyLayers();sheetSel(m)};
@@ -2235,78 +2332,279 @@ function start3d(T,buf,st){
   function select(m){if(sel)sel.material=sel.userData.mat;sel=m;if(!m){sheetIdle();return}m.material=mSel;sheetSel(m)}
   // ---------- quiz ----------
   let Q=null;
+  const TYPES3=[["trouve","Trouve-le"],["nomme","Nomme-le"],["fonction","Action, nerf, pouls"],["mix","Mélange"]];
   const pick3=(arr,v)=>arr.map(([k,l])=>`<button class="chip ${v===k?"on":""}" data-k="${k}">${l}</button>`).join("");
+  const inWhere=m=>st.q.where==="tout"||m.userData.reg===st.q.where;
   const poolQ=()=>meshes.filter(m=>{const L=m.userData.layer,w=st.q.what;
+    if(w==="faibles")return weak3(m.userData.key)&&inWhere(m);
     if(w==="os"&&L!=="os")return false;if(w==="muscles"&&!/^m/.test(L))return false;if(w==="vaisseaux"&&!/^v/.test(L))return false;
     if(w==="tout"&&L==="os"&&/^(p\d|cuneiforme-i)/.test(m.userData.key))return false;
-    return st.q.where==="tout"||m.userData.reg===st.q.where});
+    return inWhere(m)});
+  // questions « action / nerf » : plusieurs bonnes réponses possibles
+  function funcPool(){const w=st.q.what;if(w==="os")return [];
+    const out=[];FUNC3D.forEach(([txt,keys])=>{const set=keys.map(k=>byKey[k]).filter(Boolean);if(!set.length||!set.some(inWhere))return;const v=/^v/.test(set[0].userData.layer);if(w==="muscles"&&v||w==="vaisseaux"&&!v)return;out.push({txt:"Touche "+txt,set})});
+    if(w==="vaisseaux")return out;
+    const nf={};meshes.forEach(m=>{const r=musOf(m.userData.key);if(r)(nf[r.nf]=nf[r.nf]||[]).push(m)});
+    Object.entries(nf).forEach(([k,set])=>{if(set.some(inWhere))out.push({txt:`Touche ${set.length>1?"un muscle":"le muscle"} innervé par : ${NERFS[k][0]}`,set})});
+    return out}
+  function weighted(pool,n){return pool.map(m=>{const r=S3()[m.userData.key];let w=Math.random()*1.4;if(!r)w+=1.6;else w+=(r.ko-r.ok)*.7+(r.r===0?2.5:0)-(r.r===1&&r.ok>=3?1.2:0);return [w,m]}).sort((a,b)=>b[0]-a[0]).slice(0,n).map(x=>x[1])}
+  function buildQ(){const n=st.q.n,type=st.q.what==="os"&&st.q.type==="fonction"?"trouve":st.q.type;
+    const pool=poolQ(),fp=shuffle(funcPool()),picks=shuffle(weighted(pool,n)),out=[];let fi=0,pi=0;
+    for(let i=0;i<n;i++){let t=type==="mix"?["trouve","nomme","fonction"][i%3]:type;
+      if(t==="fonction"&&!fp.length)t="trouve";
+      if(t==="fonction"){out.push({t,...fp[fi++%fp.length]});continue}
+      if(!picks.length)break;out.push({t,m:picks[pi++%picks.length]})}
+    if(type==="mix")return shuffle(out);return out}
   function sheetSetup(){select(null);modeEl.textContent="Quiz 3D · choisis ce que tu veux réviser";
+    const nw=meshes.filter(m=>weak3(m.userData.key)).length,nk=meshes.filter(m=>known3(m.userData.key)).length;
     sheet.innerHTML=`<div class="v3s-h"><b>Quiz 3D</b><button class="v3x" id="v3qclose" aria-label="Fermer">×</button></div>
-     <div class="v3s-lab">Sur quoi ?</div><div class="v3s-opts" data-q="what">${pick3([["tout","Tout"],["muscles","Muscles"],["os","Os"],["vaisseaux","Vaisseaux"]],st.q.what)}</div>
+     ${nk||nw?`<div class="v3mast"><span><b>${nk}</b> sues</span><span><b>${nw}</b> à revoir</span><span><b>${meshes.length-nk-nw}</b> jamais vues</span></div>`:""}
+     <div class="v3s-lab">Type de question</div><div class="v3s-opts" data-q="type">${pick3(TYPES3,st.q.type)}</div>
+     <div class="v3s-lab">Sur quoi ?</div><div class="v3s-opts" data-q="what">${pick3([["tout","Tout"],["muscles","Muscles"],["os","Os"],["vaisseaux","Vaisseaux"]].concat(nw?[["faibles",`Mes points faibles (${nw})`]]:[]),st.q.what)}</div>
      <div class="v3s-lab">Où ?</div><div class="v3s-opts" data-q="where">${pick3(Object.entries(REGN),st.q.where)}</div>
      <div class="v3s-lab">Combien de questions ?</div><div class="v3s-opts" data-q="n">${pick3([[10,"10"],[20,"20"]],st.q.n)}</div>
      <button class="v3go big" id="v3qgo"></button>`;
-    const upd=()=>{const n=poolQ().length,b=document.getElementById("v3qgo");b.disabled=n<3;b.textContent=n<3?"Pas assez de structures ici":`Commencer (${Math.min(st.q.n,n)} questions)`};
+    const upd=()=>{const t=st.q.type,n=t==="fonction"?funcPool().length:poolQ().length,b=document.getElementById("v3qgo");b.disabled=n<2;
+      b.textContent=n<2?(t==="fonction"&&st.q.what==="os"?"Les questions d’action portent sur les muscles et les vaisseaux":"Pas assez de structures ici"):`Commencer (${st.q.n} questions)`};
     sheet.querySelectorAll("[data-q]").forEach(g=>g.onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=g.dataset.q;st.q[k]=k==="n"?+b.dataset.k:b.dataset.k;persist();g.querySelectorAll("[data-k]").forEach(x=>x.classList.toggle("on",x===b));upd()});
     document.getElementById("v3qclose").onclick=sheetIdle;
-    document.getElementById("v3qgo").onclick=()=>startQuiz(shuffle(poolQ()).slice(0,st.q.n));upd()}
+    document.getElementById("v3qgo").onclick=()=>startQuiz(buildQ());upd()}
   const saveOn=()=>Object.assign({},st.on);
-  function startQuiz(list,again){Q={list,i:0,ok:0,miss:[],hint:false,on0:Q&&Q.on0||saveOn(),phase:"ask"};
-    chipsEl.hidden=true;qEl.hidden=false;document.getElementById("v3side").classList.add("q");iso=null;meshes.forEach(m=>m.userData.hidden=false);ask()}
-  function layersFor(m){const L=m.userData.layer,on={os:1,m3:0,m2:0,m1:0,va:0,vv:0};
-    if(L==="m3")on.m3=1;if(L==="m2"){on.m3=1;on.m2=1}if(L==="m1"){on.m3=1;on.m2=1;on.m1=1}if(L==="va"||L==="vv"){on.va=1;on.vv=1}
-    Object.assign(st.on,on);applyLayers()}
-  function frameRegion(reg){if(reg==="tout"){goView(Q&&Q.view||"face");return}
+  const cfgKey=()=>[st.q.type,st.q.what,st.q.where].join("|");
+  function startQuiz(list,redo){if(!list.length)return;Q={list,i:0,ok:0,miss:[],streak:0,best:0,hint:false,redo:!!redo,on0:Q&&Q.on0||saveOn(),phase:"ask",t0:Date.now(),cfg:cfgKey()};
+    labs=[];labBox.innerHTML="";chipsEl.hidden=true;qEl.hidden=false;document.getElementById("v3side").classList.add("q");iso=null;meshes.forEach(m=>m.userData.hidden=false);ask()}
+  const LORD={m1:3,m2:2,m3:1,os:0,va:0,vv:0};
+  function layersFor(ms){const on={os:1,m3:0,m2:0,m1:0,va:0,vv:0};let top=0;
+    ms.forEach(m=>{const L=m.userData.layer;if(L==="va"||L==="vv"){on.va=1;on.vv=1}else top=Math.max(top,LORD[L])});
+    if(top>=1)on.m3=1;if(top>=2)on.m2=1;if(top>=3)on.m1=1;Object.assign(st.on,on);applyLayers()}
+  function frameRegion(reg){if(reg==="tout"){goView("face");return}
     const b=new T.Box3();meshes.forEach(m=>{if(m.userData.reg===reg&&m.visible){m.geometry.computeBoundingBox();b.union(m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld))}});if(b.isEmpty()){goView("face");return}
     const c=b.getCenter(new T.Vector3()),sz=b.getSize(new T.Vector3()),d=cam.position.clone().sub(ctl.target).normalize(),dist=Math.max(sz.y,sz.x*1.4,size.y*.18)*.6/tanH/avail();flyTo(c.clone().add(d.multiplyScalar(dist)),c,700)}
-  function ask(){restoreMats();hideToast();const m=Q.list[Q.i];Q.phase="ask";Q.hint=false;layersFor(m);const reframe=Q.i===0||Q.moved;Q.moved=false;
-    document.getElementById("v3qn").textContent=`Question ${Q.i+1} / ${Q.list.length}`;document.getElementById("v3qs").textContent=`${Q.ok} ✓`;
-    document.getElementById("v3qt").innerHTML=`Touche <b>${esc(m.userData.fr)}</b>`;document.getElementById("v3qbar").style.width=(100*Q.i/Q.list.length)+"%";
-    modeEl.textContent="Quiz 3D · tourne le modèle si besoin";
-    const shown={m3:"les muscles profonds",m2:"les muscles profonds et moyens",m1:"tous les muscles",os:"les os seuls",va:"les os et les vaisseaux",vv:"les os et les vaisseaux"}[m.userData.layer];
-    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><small>Affichés : ${shown} (${REGN[m.userData.reg].toLowerCase()})</small></div></div>
+  const setsOf=q=>q.t==="fonction"?q.set:[q.m];
+  function head(txt){document.getElementById("v3qn").textContent=`Question ${Q.i+1} / ${Q.list.length}`;
+    document.getElementById("v3qs").textContent=`${Q.ok} ✓${Q.streak>=2?` · série de ${Q.streak}`:""}`;
+    document.getElementById("v3qt").innerHTML=txt;document.getElementById("v3qbar").style.width=(100*Q.i/Q.list.length)+"%"}
+  function ask(){restoreMats();hideToast();const q=Q.list[Q.i];Q.phase="ask";Q.hint=false;const set=setsOf(q);layersFor(set);const reframe=Q.i===0||Q.moved;Q.moved=false;
+    modeEl.textContent=q.t==="nomme"?"Quiz 3D · tourne le modèle pour bien voir":"Quiz 3D · tourne le modèle si besoin";
+    if(q.t==="nomme"){
+      const m=q.m,grp=x=>x.userData.layer==="os"?"os":/^v/.test(x.userData.layer)?"v":"m";
+      let others=meshes.filter(x=>x!==m&&grp(x)===grp(m)&&x.userData.fr!==m.userData.fr);
+      const near=shuffle(others.filter(x=>x.userData.reg===m.userData.reg)),far=shuffle(others.filter(x=>x.userData.reg!==m.userData.reg));
+      const seen=new Set([m.userData.fr]),opts=[m.userData.fr];for(const x of near.concat(far)){if(opts.length>=4)break;if(!seen.has(x.userData.fr)){seen.add(x.userData.fr);opts.push(x.userData.fr)}}
+      q.opts=shuffle(opts);m.material=mQ;head("Comment s’appelle la structure <b>en jaune</b> ?");
+      sheet.innerHTML=`<div class="v3opts">${q.opts.map((o,i)=>`<button class="v3opt" data-o="${i}">${esc(o)}</button>`).join("")}</div>
+       <div class="v3s-act"><button class="chip" id="v3skip">Je ne sais pas</button><button class="chip" id="v3stop">Arrêter</button></div>`;
+      sheet.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>answerName(b));
+      document.getElementById("v3skip").onclick=()=>answerName(null);document.getElementById("v3stop").onclick=()=>endQuiz();
+      fit();showMesh(m,700);return}
+    const name=q.t==="fonction"?esc(q.txt.replace(/^Touche /,"")):`<b>${esc(q.m.userData.fr)}</b>`;
+    head(q.t==="fonction"?`Touche <b>${name}</b>`:`Touche ${name}`);
+    const L=set.reduce((a,m)=>LORD[m.userData.layer]>LORD[a]?m.userData.layer:a,set[0].userData.layer);
+    const shown={m3:"les muscles profonds",m2:"les muscles profonds et moyens",m1:"tous les muscles",os:"les os seuls",va:"les os et les vaisseaux",vv:"les os et les vaisseaux"}[L];
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><small>Affichés : ${shown}${q.t==="fonction"&&set.length>1?" · plusieurs bonnes réponses possibles":""}</small></div></div>
      <div class="v3s-act"><button class="chip" id="v3hint">Indice</button><button class="chip" id="v3skip">Je ne sais pas</button><button class="chip" id="v3stop">Arrêter</button></div>`;
-    document.getElementById("v3hint").onclick=()=>{Q.hint=true;const c=center(m);const cur=cam.position.clone().sub(ctl.target).normalize();flyTo(c.clone().add(cur.multiplyScalar(size.y*.42/Math.min(1,avail()+.15))),c,700);toast("Elle est dans cette zone","",1800)};
+    document.getElementById("v3hint").onclick=()=>{Q.hint=true;const c=center(set[0]);const cur=cam.position.clone().sub(ctl.target).normalize();flyTo(c.clone().add(cur.multiplyScalar(size.y*.42/Math.min(1,avail()+.15))),c,700);toast("C’est dans cette zone","",1800)};
     document.getElementById("v3skip").onclick=()=>answer(null,true);
     document.getElementById("v3stop").onclick=()=>endQuiz();
     if(reframe){fit();frameRegion(st.q.where)}}
-  function answer(hit,skip){const want=Q.list[Q.i],ok=hit===want;
-    S.days=S.days||{};const d=today();S.days[d]=(S.days[d]||0)+1;save();
-    if(ok){Q.ok++;haptic(10);restoreMats();want.material=mGood;toast(Q.hint?"Oui ! (avec indice)":"Bien vu !","ok");Q.phase="wait";Q.i++;setTimeout(()=>{if(Q&&Q.phase==="wait")next()},850);return}
-    haptic([8,50,8]);Q.miss.push(want);Q.phase="review";
-    meshes.forEach(m=>{if(m.visible)m.material=m===want?mGood:m===hit?mBad:mGhost});
-    showMesh(want,800);Q.moved=true;
-    document.getElementById("v3qt").innerHTML=`C’était <b>${esc(want.userData.fr)}</b>`;
-    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b class="ko">${skip?"Pas de réponse":"Raté"}</b><small>${hit?`Tu as touché : ${esc(hit.userData.fr)} (en rouge).<br>`:""}La bonne réponse est en vert : <b>${esc(want.userData.fr)}</b>.</small></div></div>
-     <div class="v3s-act"><button class="v3go" id="v3next">${Q.i+1>=Q.list.length?"Voir le résultat":"Question suivante"}</button></div>`;
-    document.getElementById("v3next").onclick=()=>{Q.i++;next()}}
+  function tick(){S.days=S.days||{};const d=today();S.days[d]=(S.days[d]||0)+1;save()}
+  function good(set){Q.ok++;Q.streak++;Q.best=Math.max(Q.best,Q.streak);haptic(10);
+    toast(Q.streak>=5&&Q.streak%5===0?`${Q.streak} d’affilée !`:Q.hint?"Oui ! (avec indice)":["Bien vu !","Exact !","Parfait !","Oui !"][Q.i%4],"ok");
+    Q.phase="wait";Q.i++;setTimeout(()=>{if(Q&&Q.phase==="wait")next()},900)}
+  function answer(hit,skip){const q=Q.list[Q.i],set=setsOf(q),ok=!!hit&&set.includes(hit);tick();
+    if(q.t==="trouve")stat3(q.m.userData.key,ok);
+    if(ok){restoreMats();hit.material=mGood;return good(set)}
+    haptic([8,50,8]);Q.streak=0;Q.miss.push(q);Q.phase="review";
+    meshes.forEach(m=>{if(m.visible)m.material=set.includes(m)?mGood:m===hit?mBad:mGhost});
+    const show=hit?set.slice().sort((a,b)=>center(a).distanceTo(center(hit))-center(b).distanceTo(center(hit)))[0]:set[0];
+    Q.moved=true;
+    const names=[...new Set(set.map(m=>m.userData.fr))];
+    document.getElementById("v3qt").innerHTML=names.length>1?`Bonnes réponses <b>en vert</b>`:`C’était <b>${esc(names[0])}</b>`;
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b class="ko">${skip?"Pas de réponse":"Raté"}</b><small>${hit?`Tu as touché : <span class="ko">${esc(hit.userData.fr)}</span> (en rouge).<br>`:""}${names.length>1?"Les bonnes réponses, en vert : ":"La bonne réponse, en vert : "}<b>${names.map(esc).join(", ")}</b>.</small></div></div>
+     ${nextBtn()}`;bindNext();fit();showMesh(show,800)}
+  function answerName(btn){const q=Q.list[Q.i],ok=!!btn&&q.opts[+btn.dataset.o]===q.m.userData.fr;tick();stat3(q.m.userData.key,ok);
+    sheet.querySelectorAll("[data-o]").forEach(b=>{const r=q.opts[+b.dataset.o]===q.m.userData.fr;b.classList.toggle("right",r);b.classList.toggle("wrong",b===btn&&!r);b.disabled=true});
+    q.m.material=ok?mGood:mGood;
+    if(ok){spark(btn);return good([q.m])}
+    haptic([8,50,8]);Q.streak=0;Q.miss.push(q);Q.phase="review";
+    document.getElementById("v3qt").innerHTML=`C’était <b>${esc(q.m.userData.fr)}</b>`;
+    sheet.insertAdjacentHTML("beforeend",nextBtn());sheet.querySelector(".v3s-act:not(.nx)")?.remove();bindNext()}
+  const nextBtn=()=>`<div class="v3s-act nx"><button class="v3go" id="v3next">${Q.i+1>=Q.list.length?"Voir le résultat":"Question suivante"}</button></div>`;
+  const bindNext=()=>{document.getElementById("v3next").onclick=()=>{Q.i++;next()}};
   function next(){if(!Q)return;if(Q.i>=Q.list.length)return finish();ask()}
-  function finish(){restoreMats();hideToast();const n=Q.list.length,ok=Q.ok,miss=Q.miss.slice();Q.phase="end";
-    document.getElementById("v3qbar").style.width="100%";document.getElementById("v3qn").textContent="Terminé";document.getElementById("v3qt").innerHTML=`<b>${ok} / ${n}</b> bonnes réponses`;
+  function finish(){restoreMats();hideToast();const n=Q.list.length,ok=Q.ok,miss=Q.miss.slice(),sec=Math.round((Date.now()-Q.t0)/1000),pct=Math.round(100*ok/n);Q.phase="end";
+    st.best=st.best||{};const prev=st.best[Q.cfg];const rec=!Q.redo&&n>=10&&(prev==null||pct>prev);if(rec)st.best[Q.cfg]=pct;persist();
+    document.getElementById("v3qbar").style.width="100%";document.getElementById("v3qn").textContent="Terminé";document.getElementById("v3qs").textContent=Q.best>=3?`meilleure série : ${Q.best}`:"";
+    document.getElementById("v3qt").innerHTML=`<b>${ok} / ${n}</b> bonnes réponses`;
     if(ok>=Math.ceil(n*.8))celebrate();
-    Object.assign(st.on,{os:1,m3:1,m2:1,m1:1,va:1,vv:1});applyLayers();
-    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>${ok>=Math.ceil(n*.8)?"Bravo !":ok>=n/2?"Pas mal":"Ça viendra"}</b><small>${miss.length?"À revoir (touche pour la montrer) :":"Aucune erreur."}</small></div></div>
-     ${miss.length?`<div class="v3s-opts miss">${miss.map((m,i)=>`<button class="chip" data-mi="${i}">${esc(m.userData.fr)}</button>`).join("")}</div>`:""}
+    Object.assign(st.on,{os:1,m3:1,m2:1,m1:1,va:1,vv:1});applyLayers();goView("face");
+    const mn=Math.floor(sec/60),tt=mn?`${mn} min ${String(sec%60).padStart(2,"0")}`:`${sec} s`;
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>${ok>=Math.ceil(n*.8)?"Bravo !":ok>=n/2?"Pas mal":"Ça viendra"}</b><small>${pct} % en ${tt}${rec&&prev!=null?" · <b>nouveau record !</b>":prev!=null?` · record : ${Math.max(prev,pct)} %`:""}</small></div></div>
+     ${miss.length?`<div class="v3s-lab">À revoir (touche pour la montrer)</div><div class="v3s-opts miss">${miss.map((q,i)=>`<button class="chip" data-mi="${i}">${esc(q.t==="fonction"?q.txt.replace(/^Touche /,""):q.m.userData.fr)}</button>`).join("")}</div>`:`<div class="v3s-txt"><small>Aucune erreur.</small></div>`}
      <div class="v3s-act">${miss.length?`<button class="v3go" id="v3redo">Refaire mes ${plural(miss.length,"erreur")}</button>`:""}<button class="chip" id="v3again">Nouveau quiz</button><button class="chip" id="v3exit">Explorer</button></div>`;
-    sheet.querySelectorAll("[data-mi]").forEach(b=>b.onclick=()=>{const m=miss[+b.dataset.mi];restoreMats();layersFor(m);m.material=mGood;showMesh(m)});
-    const rd=document.getElementById("v3redo");if(rd)rd.onclick=()=>startQuiz(shuffle(miss));
+    sheet.querySelectorAll("[data-mi]").forEach(b=>b.onclick=()=>{const q=miss[+b.dataset.mi],set=setsOf(q);restoreMats();layersFor(set);set.forEach(m=>m.material=mGood);showMesh(set[0])});
+    const rd=document.getElementById("v3redo");if(rd)rd.onclick=()=>startQuiz(shuffle(miss.map(q=>Object.assign({},q,{opts:null}))),true);
     document.getElementById("v3again").onclick=()=>{endQuiz(true);sheetSetup()};
     document.getElementById("v3exit").onclick=()=>endQuiz()}
-  function endQuiz(keep){if(Q&&Q.on0)Object.assign(st.on,Q.on0);Q=null;restoreMats();hideToast();applyLayers();syncL();chipsEl.hidden=false;qEl.hidden=true;document.getElementById("v3side").classList.remove("q");if(!keep){sheetIdle();fit();goView("face")}}
-  // toucher (on ignore les glissés)
-  const pt=new T.Vector2();let down=null;
+  function endQuiz(keep){if(Q&&Q.on0)Object.assign(st.on,Q.on0);Q=null;restoreMats();hideToast();applyLayers();syncL();chipsEl.hidden=false;qEl.hidden=true;document.getElementById("v3side").classList.remove("q");camSig="";if(!keep){sheetIdle();fit();goView("face")}}
+  // toucher (on ignore les glissés) ; 2 touches rapides = zoom sur la structure
+  const pt=new T.Vector2();let down=null,lastTap={t:0,m:null};
   const pick=(x,y)=>{const r=cv.getBoundingClientRect();pt.set(((x-r.left)/r.width)*2-1,-((y-r.top)/r.height)*2+1);rc.setFromCamera(pt,cam);const hit=rc.intersectObjects(meshes.filter(m=>m.visible),false)[0];return hit?hit.object:null};
   cv.addEventListener("pointerdown",e=>{down={x:e.clientX,y:e.clientY,t:performance.now()}});
   cv.addEventListener("pointerup",e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y,quick=dx*dx+dy*dy<64&&performance.now()-down.t<500;down=null;if(!quick)return;
     const m=pick(e.clientX,e.clientY);
-    if(Q){if(Q.phase==="ask"&&m)answer(m)}else select(m)});
+    if(Q){if(Q.phase==="ask"&&m&&Q.list[Q.i].t!=="nomme")answer(m);return}
+    const now=performance.now();if(m&&lastTap.m===m&&now-lastTap.t<350){showMesh(m);lastTap={t:0,m:null};return}lastTap={t:now,m};
+    select(m)});
   sheetIdle();fit();goView("face",true);
   document.getElementById("v3load").remove();
   let raf=0,run=true,t0=performance.now();const loop=now=>{if(!run)return;if(anim)anim(now);
-    const p=.5+.5*Math.sin((now-t0)/260);mGood.emissiveIntensity=.25+.35*p;mSel.emissiveIntensity=.2+.25*p;
-    ctl.update();renderer.render(scene,cam);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
+    const p=.5+.5*Math.sin((now-t0)/260);mGood.emissiveIntensity=.25+.35*p;mSel.emissiveIntensity=.2+.25*p;mQ.emissiveIntensity=.3+.5*p;
+    ctl.update();renderer.render(scene,cam);
+    if(labsOn&&!Q){const sig=cam.position.toArray().map(v=>v.toFixed(3)).join()+ctl.target.toArray().map(v=>v.toFixed(3)).join()+meshes.filter(m=>m.visible).length;
+      if(sig!==camSig){camSig=sig;labT=now;labBox.classList.add("mv")}else if(labT&&now-labT>220){labT=0;labBox.classList.remove("mv");chooseLabels()}placeLabels()}
+    raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
   const vis=()=>{run=!document.hidden;if(run)raf=requestAnimationFrame(loop)};document.addEventListener("visibilitychange",vis);
-  return {dispose(){run=false;cancelAnimationFrame(raf);ro.disconnect();document.removeEventListener("visibilitychange",vis);ctl.dispose();meshes.forEach(m=>m.geometry.dispose());[...Object.values(mats),...own,matT,mGood,mBad,mSel,mGhost].forEach(m=>m.dispose());renderer.dispose()}};
+  return {dispose(){run=false;cancelAnimationFrame(raf);ro.disconnect();document.removeEventListener("visibilitychange",vis);ctl.dispose();meshes.forEach(m=>m.geometry.dispose());[...Object.values(mats),...own,matT,mGood,mBad,mSel,mGhost,mQ].forEach(m=>m.dispose());renderer.dispose()}};
+}
+// ---------- quiz sur planches : plein écran, zoom au doigt, même principe que le quiz 3D ----------
+const PQCH={tout:"Tout",os:"Os",art:"Articulations",mus:"Muscles",nv:"Nerfs et vaisseaux"};
+function viewPQ(only){
+  const st=S.pq||(S.pq={});Object.assign(st,Object.assign({type:"trouve",ch:"tout",src:"tout",n:10},st));
+  h(`<div class="v3stage pqstage" id="pqstage">
+   <div class="pqcam" id="pqcam"><img id="pqimg" alt="" draggable="false"><svg id="pqsvg" aria-hidden="true"></svg></div>
+   <div class="v3top" id="pqtop">
+    <div class="v3bar"><button class="v3btn" data-go="${only?"legende":"pratique"}" ${only?`data-arg="${only}"`:""} aria-label="Retour">‹</button><div class="v3title"><b id="pqtitle">Quiz sur planches</b><small id="pqmode">Pince pour zoomer, glisse pour te déplacer</small></div></div>
+    <div class="v3q" id="pqq" hidden><div class="v3q-h"><span id="pqn"></span><span id="pqs"></span></div><div class="v3q-t" id="pqt"></div><div class="v3q-bar"><i id="pqbar"></i></div></div>
+   </div>
+   <div class="v3toast" id="pqtoast" hidden></div>
+   <div class="v3sheet" id="pqsheet"></div>
+  </div>`);
+  document.body.classList.add("v3on");onLeave(()=>document.body.classList.remove("v3on"));
+  const back=$app.querySelector(".v3btn[data-arg]");if(back)back.onclick=e=>{e.stopPropagation();go("legende",only)};
+  const stage=document.getElementById("pqstage"),camEl=document.getElementById("pqcam"),img=document.getElementById("pqimg"),svg=document.getElementById("pqsvg"),sheet=document.getElementById("pqsheet"),topEl=document.getElementById("pqtop");
+  const P2=()=>S.p2d||(S.p2d={});
+  const id2=(k,n)=>k+":"+n;
+  const weak2=x=>{const r=P2()[id2(x.k,x.n)];return !!r&&(r.r===0||r.ko>r.ok)};
+  const known2=x=>{const r=P2()[id2(x.k,x.n)];return !!r&&r.r===1&&r.ok>r.ko};
+  const stat2=(x,ok)=>{const r=P2()[id2(x.k,x.n)]||(P2()[id2(x.k,x.n)]={ok:0,ko:0});if(ok)r.ok++;else r.ko++;r.r=ok?1:0};
+  const itemsOf=k=>{const q=ANATQ[k];if(!q||!ANATART[k])return [];return q.labels.map((l,i)=>{const p=artPos(k,i+1);return p?{k,n:i+1,label:l,x:p.x,y:p.y}:null}).filter(Boolean)};
+  const plates=()=>Object.keys(ANATQ).filter(k=>{if(only)return k===only;const t=byId[ANATQ[k].topic];
+    if(st.ch!=="tout"&&(!t||t.ch!==st.ch))return false;if(st.src==="atlas"&&!/^b-/.test(k))return false;if(st.src==="schemas"&&/^b-/.test(k))return false;return true});
+  // ---------- caméra 2D ----------
+  let cur=null,W=1,H=1,top=0,bot=0,cam={s:1,x:0,y:0},fitS=1,anim=null;
+  const avail=()=>({x:0,y:top,w:W,h:Math.max(80,H-top-bot)});
+  function measure(){W=stage.clientWidth;H=stage.clientHeight;top=topEl.getBoundingClientRect().bottom-stage.getBoundingClientRect().top+4;bot=sheet.offsetHeight+16}
+  function fitCam(){const a=ANATART[cur],v=avail();fitS=Math.min(v.w*.94/a.w,v.h*.96/a.h);return {s:fitS,x:(W-a.w*fitS)/2,y:v.y+(v.h-a.h*fitS)/2}}
+  function apply(){camEl.style.transform=`translate(${cam.x.toFixed(1)}px,${cam.y.toFixed(1)}px) scale(${cam.s.toFixed(4)})`;
+    const r=(11/cam.s).toFixed(2),sw=(2.2/cam.s).toFixed(2),fs=(12/cam.s).toFixed(2);
+    svg.querySelectorAll("circle.pd").forEach(c=>{c.setAttribute("r",c.classList.contains("big")?(r*1.35).toFixed(2):r);c.setAttribute("stroke-width",sw)});
+    svg.querySelectorAll("text").forEach(t=>t.setAttribute("font-size",fs));
+    svg.querySelectorAll("g.pl").forEach(g=>{const x=+g.dataset.x,y=+g.dataset.y,t=g.querySelector("text"),w=t.textContent.length*6.4+16;g.querySelector("rect").setAttribute("x",(x-w/2/cam.s).toFixed(1));g.querySelector("rect").setAttribute("y",(y-34/cam.s).toFixed(1));g.querySelector("rect").setAttribute("width",(w/cam.s).toFixed(1));g.querySelector("rect").setAttribute("height",(22/cam.s).toFixed(1));g.querySelector("rect").setAttribute("rx",(11/cam.s).toFixed(1));t.setAttribute("x",x);t.setAttribute("y",(y-19/cam.s).toFixed(1))})}
+  function clampCam(c){const a=ANATART[cur],v=avail(),s=Math.max(fitS*.9,Math.min(fitS*7,c.s)),w=a.w*s,hh=a.h*s,m=60;
+    const x=w<v.w?(W-w)/2:Math.min(m,Math.max(W-w-m,c.x)),y=hh<v.h?v.y+(v.h-hh)/2:Math.min(v.y+m,Math.max(v.y+v.h-hh-m,c.y));return {s,x,y}}
+  function fly(to,ms){to=clampCam(to);if(RM||!ms){cam=to;apply();return}const f=Object.assign({},cam),t0=performance.now();
+    anim=now=>{const k=Math.min(1,(now-t0)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;cam={s:f.s+(to.s-f.s)*e,x:f.x+(to.x-f.x)*e,y:f.y+(to.y-f.y)*e};apply();if(k<1)requestAnimationFrame(anim);else anim=null};requestAnimationFrame(anim)}
+  function focusPts(ps,ms){const v=avail(),xs=ps.map(p=>p.x),ys=ps.map(p=>p.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys)-30,y1=Math.max(...ys);
+    const s=Math.max(fitS,Math.min(fitS*2.2,v.w*.6/Math.max(1,x1-x0),v.h*.55/Math.max(1,y1-y0)));fly({s,x:W/2-(x0+x1)/2*s,y:v.y+v.h/2-(y0+y1)/2*s},ms==null?600:ms)}
+  function focus(x,y,z,ms){const v=avail(),s=Math.max(cam.s,fitS*(z||2.2));fly({s,x:W/2-x*s,y:v.y+v.h/2-y*s},ms==null?650:ms)}
+  function load(k){return new Promise(res=>{if(cur===k&&img.complete)return res();cur=k;const a=ANATART[k];camEl.style.width=a.w+"px";camEl.style.height=a.h+"px";svg.setAttribute("viewBox",`0 0 ${a.w} ${a.h}`);
+    img.onload=img.onerror=()=>res();img.src=a.src;document.getElementById("pqtitle").textContent=SCHN[k]||"Planche";measure();cam=fitCam();apply()})}
+  const ro=new ResizeObserver(()=>{if(!cur)return;const old=fitS;measure();const f=fitCam();if(Math.abs(cam.s-old)<1e-6)cam=f;else cam=clampCam(cam);apply()});ro.observe(stage);ro.observe(sheet);onLeave(()=>ro.disconnect());
+  // ---------- gestes ----------
+  const pts=new Map();let g0=null,moved=false,lastTap=0;
+  const local=e=>{const r=stage.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}};
+  const inUI=e=>e.target.closest(".v3top,.v3sheet");
+  stage.addEventListener("pointerdown",e=>{if(inUI(e)||!cur)return;stage.setPointerCapture(e.pointerId);pts.set(e.pointerId,local(e));moved=false;g0=null;anim=null});
+  stage.addEventListener("pointermove",e=>{if(!pts.has(e.pointerId))return;const p=local(e),prev=pts.get(e.pointerId);pts.set(e.pointerId,p);
+    if(pts.size===1){const dx=p.x-prev.x,dy=p.y-prev.y;if(Math.abs(dx)+Math.abs(dy)>0){moved=moved||Math.hypot(dx,dy)>3;cam=clampCam({s:cam.s,x:cam.x+dx,y:cam.y+dy});apply()}}
+    else if(pts.size===2){const [a,b]=[...pts.values()],d=Math.hypot(a.x-b.x,a.y-b.y),mx=(a.x+b.x)/2,my=(a.y+b.y)/2;moved=true;
+      if(!g0)g0={d,mx,my,c:Object.assign({},cam)};else{const s=g0.c.s*d/g0.d,px=(g0.mx-g0.c.x)/g0.c.s,py=(g0.my-g0.c.y)/g0.c.s;cam=clampCam({s,x:mx-px*s,y:my-py*s});apply()}}});
+  const up=e=>{if(!pts.has(e.pointerId))return;const p=local(e);pts.delete(e.pointerId);if(pts.size<2)g0=null;
+    if(!moved&&pts.size===0){const now=performance.now();if(now-lastTap<300){lastTap=0;const px=(p.x-cam.x)/cam.s,py=(p.y-cam.y)/cam.s;if(cam.s>fitS*1.6)fly(fitCam(),400);else focus(px,py,2.6,400);return}lastTap=now;tap(p)}};
+  stage.addEventListener("pointerup",up);stage.addEventListener("pointercancel",e=>{pts.delete(e.pointerId);g0=null});
+  stage.addEventListener("wheel",e=>{if(!cur||inUI(e))return;e.preventDefault();const p=local(e),s=cam.s*Math.exp(-e.deltaY*.0015),px=(p.x-cam.x)/cam.s,py=(p.y-cam.y)/cam.s;cam=clampCam({s,x:p.x-px*s,y:p.y-py*s});apply()},{passive:false});
+  // ---------- dessin des points ----------
+  function drawDots(list,opts={}){svg.innerHTML=list.map(d=>`<g class="pdot ${d.cls||""}" data-n="${d.n}"><circle class="pd ${d.big?"big":""}" cx="${d.x}" cy="${d.y}"/>${d.q?`<text x="${d.x}" y="${d.y}" dy=".35em" text-anchor="middle" class="pq">?</text>`:""}</g>`).join("")
+    +(opts.labels||[]).map(l=>`<g class="pl ${l.cls||""}" data-x="${l.x}" data-y="${l.y}"><rect/><text text-anchor="middle" dy=".35em">${esc(l.t)}</text></g>`).join("");apply()}
+  const toast=(t,cls,ms)=>{const e=document.getElementById("pqtoast");e.className="v3toast "+(cls||"");e.textContent=t;e.hidden=false;clearTimeout(toast._t);if(ms)toast._t=setTimeout(()=>e.hidden=true,ms)};
+  const hideToast=()=>{clearTimeout(toast._t);document.getElementById("pqtoast").hidden=true};
+  // ---------- quiz ----------
+  let Q=null;const pick=(arr,v)=>arr.map(([k,l])=>`<button class="chip ${v==k?"on":""}" data-k="${k}">${l}</button>`).join("");
+  const allItems=()=>plates().flatMap(itemsOf);
+  function setup(){Q=null;hideToast();document.getElementById("pqq").hidden=true;document.getElementById("pqmode").textContent="Pince pour zoomer, glisse pour te déplacer";
+    const it=allItems(),nk=it.filter(known2).length,nw=it.filter(weak2).length,np=plates().length;
+    if(!cur){const k=plates()[0]||Object.keys(ANATQ)[0];load(k).then(()=>drawDots(itemsOf(k).map(d=>({...d}))))}
+    sheet.innerHTML=`<div class="v3s-h"><b>${only?"Se tester sur cette planche":"Quiz sur planches"}</b></div>
+     ${nk||nw?`<div class="v3mast"><span><b>${nk}</b> sus</span><span><b>${nw}</b> à revoir</span><span><b>${it.length-nk-nw}</b> jamais vus</span></div>`:""}
+     <div class="v3s-lab">Type de question</div><div class="v3s-opts" data-q="type">${pick([["trouve","Trouve le point"],["nomme","Nomme le point"],["mix","Mélange"]],st.type)}</div>
+     ${only?"":`<div class="v3s-lab">Chapitre</div><div class="v3s-opts" data-q="ch">${pick(Object.entries(PQCH),st.ch)}</div>
+     <div class="v3s-lab">Planches</div><div class="v3s-opts" data-q="src">${pick([["tout","Toutes"],["atlas","Atlas réalistes"],["schemas","Schémas dessinés"]],st.src)}</div>`}
+     <div class="v3s-lab">Combien de questions ?</div><div class="v3s-opts" data-q="n">${pick([[10,"10"],[20,"20"]].concat(only?[[0,"Toute la planche"]]:[]),st.n)}</div>
+     ${nw&&!only?`<button class="chip" id="pqweak">Seulement mes points faibles (${nw})</button>`:""}
+     <button class="v3go big" id="pqgo"></button>`;
+    const upd=()=>{const n=allItems().length,b=document.getElementById("pqgo");b.disabled=n<4;b.textContent=n<4?"Pas assez de points ici":`Commencer (${st.n?Math.min(st.n,n):n} questions${only?"":` · ${plates().length} planches`})`};
+    sheet.querySelectorAll("[data-q]").forEach(g=>g.onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=g.dataset.q;st[k]=k==="n"?+b.dataset.k:b.dataset.k;persist();g.querySelectorAll("[data-k]").forEach(x=>x.classList.toggle("on",x===b));upd();
+      if(k!=="type"&&k!=="n"){const p=plates()[0];if(p&&p!==cur)load(p).then(()=>drawDots(itemsOf(p)))}});
+    const wk=document.getElementById("pqweak");if(wk)wk.onclick=()=>start(build(allItems().filter(weak2)));
+    document.getElementById("pqgo").onclick=()=>start(build(allItems()));upd();measure()}
+  function build(items){const n=st.n||items.length;
+    const w=items.map(x=>{const r=P2()[id2(x.k,x.n)];let s=Math.random()*1.4;if(!r)s+=1.4;else s+=(r.ko-r.ok)*.7+(r.r===0?2.5:0)-(r.r===1&&r.ok>=3?1.2:0);return [s,x]}).sort((a,b)=>b[0]-a[0]).slice(0,n).map(x=>x[1]);
+    const order=shuffle([...new Set(w.map(x=>x.k))]);
+    return order.flatMap(k=>shuffle(w.filter(x=>x.k===k))).map((x,i)=>({...x,t:st.type==="mix"?(i%2?"nomme":"trouve"):st.type}))}
+  function start(list,redo){if(!list.length)return;Q={list,i:0,ok:0,miss:[],streak:0,best:0,t0:Date.now(),redo:!!redo,phase:"ask"};document.getElementById("pqq").hidden=false;ask()}
+  function head(txt){document.getElementById("pqn").textContent=`Question ${Q.i+1} / ${Q.list.length}`;document.getElementById("pqs").textContent=`${Q.ok} ✓${Q.streak>=2?` · série de ${Q.streak}`:""}`;
+    document.getElementById("pqt").innerHTML=txt;document.getElementById("pqbar").style.width=(100*Q.i/Q.list.length)+"%"}
+  async function ask(){hideToast();const q=Q.list[Q.i];Q.phase="load";const changed=cur!==q.k;await load(q.k);if(!Q)return;Q.phase="ask";
+    const pts=itemsOf(q.k);
+    if(q.t==="nomme"){
+      const pool=ANATQ[q.k].labels.filter(l=>l!==q.label),extra=shuffle(Object.values(ANATQ).flatMap(x=>x.labels)).filter(l=>l!==q.label&&!pool.includes(l));
+      const opts=[q.label];for(const l of shuffle(pool).concat(extra)){if(opts.length>=4)break;if(!opts.includes(l))opts.push(l)}q.opts=shuffle(opts);
+      drawDots(pts.map(d=>d.n===q.n?{...d,cls:"q",big:1,q:1}:{...d,cls:"faint"}));
+      head("Que montre le point <b>en jaune</b> ?");document.getElementById("pqmode").textContent="Choisis le bon nom en bas";
+      sheet.innerHTML=`<div class="v3opts">${q.opts.map((o,i)=>`<button class="v3opt" data-o="${i}">${esc(o)}</button>`).join("")}</div><div class="v3s-act"><button class="chip" id="pqskip">Je ne sais pas</button><button class="chip" id="pqstop">Arrêter</button></div>`;
+      sheet.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>answerName(b));document.getElementById("pqskip").onclick=()=>answerName(null);document.getElementById("pqstop").onclick=stop;
+      measure();focus(q.x,q.y,1.9,changed?0:600);return}
+    drawDots(pts.map(d=>({...d})));
+    head(`Touche <b>${esc(q.label)}</b>`);document.getElementById("pqmode").textContent="Touche le bon point · pince pour zoomer";
+    sheet.innerHTML=`<div class="v3s-act"><button class="chip" id="pqhint">Indice</button><button class="chip" id="pqskip">Je ne sais pas</button><button class="chip" id="pqstop">Arrêter</button></div>`;
+    document.getElementById("pqhint").onclick=()=>{Q.hint=1;focus(q.x+(Math.random()-.5)*60,q.y+(Math.random()-.5)*60,2.4);toast("C’est par ici","",1600)};
+    document.getElementById("pqskip").onclick=()=>answer(null);document.getElementById("pqstop").onclick=stop;
+    measure();if(changed||Q.moved){Q.moved=false;fly(fitCam(),changed?0:500)}}
+  function tap(p){if(!Q){const its=cur?itemsOf(cur):[];let best=null,bd=1e9;its.forEach(d=>{const dd=Math.hypot(cam.x+d.x*cam.s-p.x,cam.y+d.y*cam.s-p.y);if(dd<bd){bd=dd;best=d}});if(best&&bd<30)toast(best.label,"",1500);return}
+    if(Q.phase!=="ask")return;const q=Q.list[Q.i];if(q.t==="nomme")return;
+    const its=itemsOf(q.k);let best=null,bd=1e9;its.forEach(d=>{const sx=cam.x+d.x*cam.s,sy=cam.y+d.y*cam.s,dd=Math.hypot(sx-p.x,sy-p.y);if(dd<bd){bd=dd;best=d}});
+    if(!best||bd>30){toast("Touche un des points","",900);return}answer(best)}
+  function tick(){S.days=S.days||{};const d=today();S.days[d]=(S.days[d]||0)+1;save()}
+  function good(){Q.ok++;Q.streak++;Q.best=Math.max(Q.best,Q.streak);haptic(10);toast(Q.streak>=5&&Q.streak%5===0?`${Q.streak} d’affilée !`:["Bien vu !","Exact !","Parfait !","Oui !"][Q.i%4],"ok");Q.hint=0;Q.phase="wait";Q.i++;setTimeout(()=>{if(Q&&Q.phase==="wait")next()},850)}
+  function answer(hit){const q=Q.list[Q.i],ok=!!hit&&hit.n===q.n;tick();stat2(q,ok);const its=itemsOf(q.k);
+    if(ok){drawDots(its.map(d=>d.n===q.n?{...d,cls:"ok",big:1}:{...d,cls:"faint"}),{labels:[{x:q.x,y:q.y,t:q.label,cls:"ok"}]});return good()}
+    haptic([8,50,8]);Q.streak=0;Q.miss.push(q);Q.phase="review";Q.moved=true;
+    drawDots(its.map(d=>d.n===q.n?{...d,cls:"ok",big:1}:hit&&d.n===hit.n?{...d,cls:"ko",big:1}:{...d,cls:"faint"}),{labels:[{x:q.x,y:q.y,t:q.label,cls:"ok"}].concat(hit?[{x:hit.x,y:hit.y,t:hit.label,cls:"ko"}]:[])});
+    document.getElementById("pqt").innerHTML=`C’était <b>ici</b> : le point vert`;
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b class="ko">${hit?"Raté":"Pas de réponse"}</b><small>${hit?`Tu as touché : <span class="ko">${esc(hit.label)}</span> (en rouge).<br>`:""}<b>${esc(q.label)}</b> est le point vert.</small></div></div>${nextBtn()}`;bindNext();measure();focusPts(hit?[q,hit]:[q])}
+  function answerName(btn){const q=Q.list[Q.i],ok=!!btn&&q.opts[+btn.dataset.o]===q.label;tick();stat2(q,ok);
+    sheet.querySelectorAll("[data-o]").forEach(b=>{const r=q.opts[+b.dataset.o]===q.label;b.classList.toggle("right",r);b.classList.toggle("wrong",b===btn&&!r);b.disabled=true});
+    drawDots(itemsOf(q.k).map(d=>d.n===q.n?{...d,cls:"ok",big:1}:{...d,cls:"faint"}),{labels:[{x:q.x,y:q.y,t:q.label,cls:"ok"}]});
+    if(ok){spark(btn);return good()}
+    haptic([8,50,8]);Q.streak=0;Q.miss.push(q);Q.phase="review";
+    document.getElementById("pqt").innerHTML=`C’était <b>${esc(q.label)}</b>`;sheet.querySelector(".v3s-act").remove();sheet.insertAdjacentHTML("beforeend",nextBtn());bindNext()}
+  const nextBtn=()=>`<div class="v3s-act"><button class="v3go" id="pqnext">${Q.i+1>=Q.list.length?"Voir le résultat":"Question suivante"}</button></div>`;
+  const bindNext=()=>{document.getElementById("pqnext").onclick=()=>{Q.i++;next()}};
+  function next(){if(!Q)return;if(Q.i>=Q.list.length)return finish();ask()}
+  function finish(){hideToast();const n=Q.list.length,ok=Q.ok,miss=Q.miss.slice(),sec=Math.round((Date.now()-Q.t0)/1000),pct=Math.round(100*ok/n),key=only||[st.type,st.ch,st.src].join("|");
+    st.best=st.best||{};const prev=st.best[key],rec=!Q.redo&&n>=8&&(prev==null||pct>prev);if(rec)st.best[key]=pct;persist();Q.phase="end";
+    document.getElementById("pqbar").style.width="100%";document.getElementById("pqn").textContent="Terminé";document.getElementById("pqs").textContent=Q.best>=3?`meilleure série : ${Q.best}`:"";document.getElementById("pqt").innerHTML=`<b>${ok} / ${n}</b> bonnes réponses`;
+    if(ok>=Math.ceil(n*.8))celebrate();
+    const mn=Math.floor(sec/60),tt=mn?`${mn} min ${String(sec%60).padStart(2,"0")}`:`${sec} s`;
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>${ok>=Math.ceil(n*.8)?"Bravo !":ok>=n/2?"Pas mal":"Ça viendra"}</b><small>${pct} % en ${tt}${rec&&prev!=null?" · <b>nouveau record !</b>":prev!=null?` · record : ${Math.max(prev,pct)} %`:""}</small></div></div>
+     ${miss.length?`<div class="v3s-lab">À revoir (touche pour le montrer)</div><div class="v3s-opts miss">${miss.map((q,i)=>`<button class="chip" data-mi="${i}">${esc(q.label)}</button>`).join("")}</div>`:`<div class="v3s-txt"><small>Aucune erreur.</small></div>`}
+     <div class="v3s-act">${miss.length?`<button class="v3go" id="pqredo">Refaire mes ${plural(miss.length,"erreur")}</button>`:""}<button class="chip" id="pqagain">Nouveau quiz</button></div>`;
+    sheet.querySelectorAll("[data-mi]").forEach(b=>b.onclick=async()=>{const q=miss[+b.dataset.mi];await load(q.k);drawDots(itemsOf(q.k).map(d=>d.n===q.n?{...d,cls:"ok",big:1}:{...d,cls:"faint"}),{labels:[{x:q.x,y:q.y,t:q.label,cls:"ok"}]});measure();focusPts([q])});
+    const rd=document.getElementById("pqredo");if(rd)rd.onclick=()=>start(shuffle(miss.map(q=>({...q,opts:null}))),true);
+    document.getElementById("pqagain").onclick=setup}
+  function stop(){Q=null;setup()}
+  if(only){load(only).then(()=>{drawDots(itemsOf(only));setup()})}else setup();
 }
 function drawTabs(){
   const T=tabsNow();document.querySelector("nav.tabs").hidden=current==="matieres"||current==="lecture";
@@ -2328,10 +2626,10 @@ function go(view,arg,how){
     stopTimer(); stopSpeak(); stopRec();
     $gs.hidden=true;
     // chaque vue appartient à une matière : les onglets suivent
-    const PEDI_V=["fiches","lexique","oral","apprendre","texte","entrainement"],ANAT_V=["v3d","anat","pratique","examen","anattrain","legende","recap"];
+    const PEDI_V=["fiches","lexique","oral","apprendre","texte","entrainement"],ANAT_V=["pquiz","v3d","anat","pratique","examen","anattrain","legende","recap"];
     const ns=(view==="fiche"||view==="lecture")&&byId[arg]?(byId[arg].cat==="anat"?"anat":"pedi"):PEDI_V.includes(view)?"pedi":ANAT_V.includes(view)?"anat":null;
     if(ns&&ns!==S.subj){S.subj=ns;persist()}
-    current=view==="v3d"?"anat":view==="lecture"?"lecture":view==="stats"?"home":view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende"||view==="recap")?"pratique":view; drawTabs();
+    current=view==="pquiz"?"pratique":view==="v3d"?"anat":view==="lecture"?"lecture":view==="stats"?"home":view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende"||view==="recap")?"pratique":view; drawTabs();
     lastView=[view,arg||null];
     document.body.dataset.area=S.subj==="anat"?"anat":"pedi";
     NAVFX=dir!=="back"&&dir!=="same";
@@ -2724,6 +3022,7 @@ function celebrate(){
 const VIEWS={};
 VIEWS.stats=viewStats;
 VIEWS.v3d=view3d;
+VIEWS.pquiz=viewPQ;
 VIEWS.lecture=viewLecture;
 
 function resumeCard(){
@@ -3384,7 +3683,7 @@ function anatQuestions(kind){
 const ANAT_QMODES=[["anat","Mélange"],["asch","Schémas muets"],["anerf","Nerfs"],["amus","Quel muscle ?"],["aorig","Terminaisons"],["aamp","Amplitudes"],["arep","Repères"]];
 
 // ---------- page « Pratique »
-function anatPratiqueTiles(){return `<div class="ptiles"><button class="ptile wide3d" data-go="v3d"><b>Jambe en 3D et quiz 3D</b><span>Touche le muscle ou l’os demandé sur le modèle</span></button><button class="ptile" data-go="examen"><b>Examen pratique blanc</b><span>On te dit quoi palper, chrono, puis la méthode</span></button><button class="ptile" data-go="anattrain"><b>Entraînement varié</b><span>12 exercices mélangés</span></button><button class="ptile" data-go="pratique"><b>Schémas muets</b><span>${Object.keys(ANATQ).length} schémas à légender</span></button><button class="ptile" data-go="recap"><b>Tableau des muscles</b><span>${allMus().length} muscles : nerf et action</span></button></div>`}
+function anatPratiqueTiles(){return `<div class="ptiles"><button class="ptile wide3d" data-go="v3d"><b>Jambe en 3D et quiz 3D</b><span>Touche le muscle ou l’os demandé sur le modèle</span></button><button class="ptile" data-go="examen"><b>Examen pratique blanc</b><span>On te dit quoi palper, chrono, puis la méthode</span></button><button class="ptile" data-go="anattrain"><b>Entraînement varié</b><span>12 exercices mélangés</span></button><button class="ptile" data-go="pquiz"><b>Quiz sur planches</b><span>${Object.keys(ANATQ).length} planches : touche le bon point</span></button><button class="ptile" data-go="recap"><b>Tableau des muscles</b><span>${allMus().length} muscles : nerf et action</span></button></div>`}
 VIEWS.pratique=()=>{
   const ex=(S.exams||[]).slice(-4).reverse();
   h(`<div class="stack">
@@ -3405,7 +3704,7 @@ VIEWS.legende=(k)=>{
    <div class="schbox" id="schbox">${schHTML(k,"")}</div>
    <div class="row"><button class="chip" id="revall">Tout révéler</button><button class="chip" id="hideall">Tout cacher</button><button class="chip" id="zoom">Agrandir</button></div>
    <div class="list leglist">${q.labels.map((l,i)=>`<button class="item" data-i="${i+1}"><span class="th mono" style="--cc:var(--c-anat);width:38px;height:38px;font-size:.95rem">${i+1}</span><div class="txt"><span class="lg-a">Touche pour voir</span><span class="lg-b" hidden>${esc(l)}</span></div></button>`).join("")}</div>
-   <button class="btn primary block" id="schq">Se tester sur ce schéma (quiz)</button>
+   <button class="btn primary block" id="schq">Se tester sur cette planche</button>
    ${q.topic?`<button class="btn block" data-fiche="${q.topic}">Revoir la fiche</button>`:""}
   </div>`);
   const box=document.getElementById("schbox").firstElementChild;
@@ -3414,7 +3713,7 @@ VIEWS.legende=(k)=>{
   document.getElementById("revall").onclick=()=>$app.querySelectorAll(".leglist [data-i]").forEach(b=>show(b,true));
   document.getElementById("hideall").onclick=()=>{$app.querySelectorAll(".leglist [data-i]").forEach(b=>show(b,false));box.dataset.hl="";hlSch()};
   document.getElementById("zoom").onclick=()=>openArt(k,SCHN[k]||"",true);
-  document.getElementById("schq").onclick=()=>{quizMode="asch";current="quiz";drawTabs();lastView=["quiz",null];qz=shuffle(anatQuestions("asch").filter(x=>x.sch.k===k)).slice(0,10);qi=0;qok=0;showQ()};
+  document.getElementById("schq").onclick=()=>go("pquiz",k);
 };
 
 // ---------- examen pratique blanc
