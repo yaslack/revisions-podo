@@ -11,9 +11,9 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 
 **Anatomie**
 - **Membre inférieur en 3D** : modèle anatomique réel (BodyParts3D, DBCLS, CC BY-SA 2.1 JP) avec 86 structures (os, muscles en 3 couches, artères, veines). Plein écran : on le fait tourner, on zoome, on enlève les couches, on touche une structure pour voir son nom et ouvrir sa fiche. Bouton « Noms » pour afficher les noms sur le modèle ; toucher un muscle ouvre sa fiche d’identité (origine, terminaison, nerf, action, palpation). Le quiz 3D a 4 types de questions (trouve la structure, nomme la structure en jaune, action / nerf / pouls, mélange), se règle par catégorie et région, retient tes réponses pour reposer d’abord tes points faibles, compte tes séries et garde ton record ; en cas d’erreur, la bonne structure est en vert et celle touchée en rouge ; à la fin, « Refaire mes erreurs ».
-- **Quiz sur planches** : même principe sur les 48 planches et schémas, en plein écran avec zoom au doigt : touche le bon point ou nomme le point en jaune, avec révision des points faibles.
-- **Planches d’atlas réalistes** : 32 planches en couleur de l’atlas de Bourgery et Jacob (1831-1854, domaine public, BIU Santé Paris) pour les muscles, les os, les articulations, les nerfs et les vaisseaux, nettoyées et numérotées en français, avec leur version muette.
-- 18 fiches rangées en 5 chapitres, avec des **planches haute définition** (muscles en relief avec fibres et tendons, os éclairés, nerfs et territoires sensitifs) et plusieurs vues par région (face, dos, profil, plans superficiel et profond). Les numéros et légendes restent nets à tous les zooms ; toucher une ligne de la légende allume le numéro sur le dessin :
+- **Quiz sur planches** : même principe sur les 41 planches numérotées (atlas et rendus 3D), en plein écran avec zoom au doigt : touche le bon point ou nomme le point en jaune, avec révision des points faibles.
+- **Uniquement de vraies images** : plus aucun schéma dessiné à la main. 35 planches en couleur de l’atlas de Bourgery et Jacob (1831-1854, domaine public, BIU Santé Paris) pour les muscles, les os, les articulations, les nerfs, les vaisseaux, les coupes de cuisse et de jambe (les loges), l’aponévrose plantaire et les couches profondes de la plante, nettoyées et numérotées en français, avec leur version muette ; et 8 planches rendues à partir du vrai modèle 3D (squelette, artères et pouls, muscles de la hanche colorés par action, voûte plantaire, amplitudes de hanche, genou et cheville, cycle de marche, parcours palpatoire en deux planches).
+- 18 fiches rangées en 5 chapitres, avec plusieurs planches par région (face, dos, profil, plans superficiel et profond, coupes). Les numéros et légendes restent nets à tous les zooms ; toucher une ligne de la légende allume le numéro sur la planche :
   - **Os** : squelette, hanche (os coxal), cuisse (fémur, patella), jambe (tibia, fibula), pied ;
   - **Articulations** : hanche, genou, cheville, pied et voûte, toutes les amplitudes ;
   - **Muscles** : hanche, cuisse, jambe, pied ;
@@ -21,7 +21,7 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 - 40 muscles en fiche d’identité (origine, terminaison, nerf, action, palpation) et un tableau récapitulatif.
 - **Schéma qui suit la lecture** : dans « Muscles », « À palper » et « Le parcours », le schéma reste en haut de l’écran et zoome sur le muscle ou le repère que tu lis.
 - Parcours palpatoire de la hanche au pied : position du sujet, comment trouver, comment vérifier.
-- **Pratique** : examen pratique blanc chronométré, entraînement varié, 20 schémas muets à légender.
+- **Pratique** : examen pratique blanc chronométré, entraînement varié, 41 planches muettes à légender.
 
 Cartes mémoire à répétition espacée (on peut glisser la carte : à droite si on savait, à gauche sinon) et quiz pour les deux matières. La progression reste sur le téléphone (2 copies : localStorage + IndexedDB) ; un code de sauvegarde permet de la copier ailleurs. Chaque personne a sa propre progression.
 
