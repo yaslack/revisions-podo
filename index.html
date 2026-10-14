@@ -389,7 +389,7 @@ body.has-player #player.mini~* .fab,body.has-player.pl-mini .fab{bottom:calc(150
 @media (prefers-reduced-motion: reduce){.pl-in,#player.on .pl-main{animation:none}}
 /* planches d’anatomie (dessin HD + calque) */
 .art{position:relative;width:100%;margin:0 auto;background:#F7F2EC;overflow:hidden}
-.art>img{display:block;width:100%;height:100%;object-fit:contain;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.art>img{display:block;width:100%;height:100%;max-height:none!important;border-radius:0!important;background:none!important;object-fit:contain;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .art>.ov{position:absolute;inset:0;width:100%!important;height:100%!important;max-height:none!important;overflow:visible;pointer-events:none}
 .ov .tt{font-size:12.5px;font-weight:700;fill:#26292B;paint-order:stroke;stroke:#F7F2EC;stroke-width:3.5px;stroke-linejoin:round}
 .ov .ts{font-size:11px;font-weight:400;fill:#5E6466;paint-order:stroke;stroke:#F7F2EC;stroke-width:3.5px;stroke-linejoin:round}
@@ -843,23 +843,62 @@ html.calm *,html.calm *::before,html.calm *::after{animation:none!important;tran
 }
 @keyframes colUp{from{transform:scaleY(0)}}
 
-/* ================= v24 : modèle 3D ================= */
-.v3wrap{position:relative;height:min(62vh,560px);border-radius:var(--r);overflow:hidden;background:radial-gradient(120% 90% at 50% 20%,#FBF8F3,#E9E1D6);box-shadow:var(--shadow);touch-action:none}
-.v3wrap canvas{display:block;width:100%;height:100%;touch-action:none}
-.v3load{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#5E6466;font-weight:650;font-size:.92rem;text-align:center;padding:20px}
-.v3spin{width:34px;height:34px;border-radius:50%;border:3px solid rgba(0,0,0,.1);border-top-color:var(--accent);animation:spin 1s linear infinite}
+/* ================= v25 : modèle 3D plein écran ================= */
+body.v3on{overflow:hidden}
+html:has(body.v3on){overflow:hidden}
+body.v3on #minih{display:none}
+.v3stage{position:fixed;inset:0;z-index:45;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;
+  background:radial-gradient(120% 80% at 50% 30%,#FDFBF7,#E8DFD3)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .v3stage{background:radial-gradient(120% 80% at 50% 30%,#2A2A2D,#0B0B0C)}}
+:root[data-theme="dark"] .v3stage{background:radial-gradient(120% 80% at 50% 30%,#2A2A2D,#0B0B0C)}
+.v3stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.v3load{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-weight:650;font-size:.95rem;text-align:center;padding:20px}
+.v3spin{width:34px;height:34px;border-radius:50%;border:3px solid rgba(127,127,127,.25);border-top-color:var(--accent);animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.v3views{position:absolute;left:8px;right:8px;bottom:8px;display:flex;gap:4px;justify-content:center;flex-wrap:wrap}
-.v3views button{border:0;border-radius:999px;padding:7px 11px;font-weight:700;font-size:.8rem;background:rgba(255,255,255,.86);color:#26292B;box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.v3tip{position:absolute;left:50%;top:12px;transform:translateX(-50%);padding:8px 14px;border-radius:999px;font-weight:800;font-size:.9rem;color:#fff;box-shadow:0 6px 16px -6px rgba(0,0,0,.4);max-width:90%;text-align:center}
-.v3tip.ok{background:var(--good)}.v3tip.ko{background:var(--bad)}
-.v3card{background:var(--surface);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;min-height:84px}
-.v3name{font-family:var(--f-display);font-weight:800;font-size:1.25rem}
-.v3layers{display:flex;flex-wrap:wrap;gap:6px}
-.v3l{border:0;display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 12px;font-weight:700;font-size:.84rem;background:var(--surface2);color:var(--muted);cursor:pointer}
-.v3l i{width:11px;height:11px;border-radius:50%;opacity:.45}
-.v3l.on{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line),var(--shadow)}
+.v3top{position:absolute;left:0;right:0;top:0;padding:calc(env(safe-area-inset-top,0px) + 8px) 10px 6px;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.v3top>*{pointer-events:auto}
+.v3bar{display:flex;align-items:center;gap:10px}
+.v3btn{flex:none;border:0;width:40px;height:40px;border-radius:50%;font-size:1.5rem;line-height:1;font-weight:600;display:grid;place-items:center;cursor:pointer;color:var(--ink);background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:var(--glass-edge),0 4px 14px -6px rgba(0,0,0,.3)}
+.v3title{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.v3title b{font-family:var(--f-display);font-size:1.05rem;background:none;padding:0}
+.v3title small{color:var(--muted);font-size:.76rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v3chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -10px;padding:2px 10px}
+.v3chips::-webkit-scrollbar{display:none}
+.v3l{flex:none;border:0;display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 11px;font-weight:700;font-size:.8rem;cursor:pointer;color:var(--muted);background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:var(--glass-edge)}
+.v3l i{width:10px;height:10px;border-radius:50%;opacity:.35}
+.v3l.on{color:var(--ink);box-shadow:var(--glass-edge),inset 0 0 0 1.5px color-mix(in srgb,var(--ink) 18%,transparent)}
 .v3l.on i{opacity:1}
+.v3l.peel{color:var(--accent)}
+.v3q{border-radius:20px;padding:10px 14px 12px;background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);box-shadow:var(--glass-edge),0 10px 28px -14px rgba(0,0,0,.45)}
+.v3q-h{display:flex;justify-content:space-between;font-size:.76rem;font-weight:800;color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
+.v3q-t{font-family:var(--f-display);font-size:1.32rem;line-height:1.2;margin:4px 0 8px}
+.v3q-t b{background:none;padding:0;color:var(--accent)}
+.v3q-bar{height:5px;border-radius:3px;background:color-mix(in srgb,var(--ink) 10%,transparent);overflow:hidden}
+.v3q-bar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .5s var(--ease-out)}
+.v3side{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px}
+.v3side button{border:0;border-radius:12px;padding:8px 9px;min-width:62px;font-weight:700;font-size:.74rem;cursor:pointer;color:var(--ink);background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:var(--glass-edge)}
+.v3side.q{top:auto;bottom:auto;transform:none;top:42%}
+.v3toast{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);padding:10px 18px;border-radius:999px;font-weight:800;font-size:1rem;color:#fff;background:rgba(20,20,20,.75);box-shadow:0 10px 24px -10px rgba(0,0,0,.5);pointer-events:none;white-space:nowrap}
+.v3toast.ok{background:var(--good)}
+.v3sheet{position:absolute;left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);max-width:620px;margin:0 auto;border-radius:22px;padding:12px 14px 14px;display:flex;flex-direction:column;gap:10px;
+  background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);box-shadow:var(--glass-edge),0 16px 36px -14px rgba(0,0,0,.4);max-height:52vh;overflow:auto}
+.v3s-row{display:flex;align-items:center;gap:10px}
+.v3s-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.v3s-txt>b{font-family:var(--f-display);font-size:1.18rem;line-height:1.2;background:none;padding:0}
+.v3s-txt>b.ko{color:var(--bad)}
+.v3s-txt small{color:var(--muted);font-size:.84rem;line-height:1.35}
+.v3s-txt small b{background:none;padding:0;color:var(--good)}
+.v3s-act{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.v3s-h{display:flex;justify-content:space-between;align-items:center}
+.v3s-h b{font-family:var(--f-display);font-size:1.2rem;background:none;padding:0}
+.v3s-lab{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:-4px}
+.v3s-opts{display:flex;flex-wrap:wrap;gap:6px}
+.v3s-opts .chip{min-height:34px;padding:7px 12px;font-size:.84rem}
+.v3x{flex:none;border:0;width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--muted);font-size:1.25rem;line-height:1;cursor:pointer}
+.v3go{border:0;border-radius:14px;padding:11px 16px;font-weight:800;font-size:.95rem;cursor:pointer;color:var(--accent-ink);background:var(--accent);box-shadow:0 10px 20px -12px var(--accent)}
+.v3go.big{width:100%;padding:14px;font-size:1.02rem}
+.v3go[disabled]{opacity:.45}
+@media (prefers-reduced-motion: no-preference){.v3sheet,.v3q{animation:fadeUp .35s var(--ease-out) both}}
 .v3cta{border:0;width:100%;display:flex;align-items:center;gap:14px;text-align:left;border-radius:var(--r);padding:16px;cursor:pointer;color:#fff;font:inherit;background:linear-gradient(135deg,#2A2140,#4B2E5E 55%,#8A3B4C);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 16px 30px -18px #4B2E5E}
 .v3cta-t{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
 .v3cta-t .eyebrow{color:rgba(255,255,255,.75)}
@@ -1763,7 +1802,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){if(typeof CLEAN!=="undefined"){CLEAN.forEach(f=>{try{f()}catch(e){}});CLEAN=[]}$app.innerHTML=html;window.scrollTo(0,0);enhance($app)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="24";
+const APP_VERSION="25";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -2082,99 +2121,192 @@ function viewLecture(id){
 const siriBtn=id=>IS_WEBKIT?`<button class="chip" data-lecture="${id}">Lire avec Siri</button>`:"";
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-lecture]");if(b)go("lecture",b.dataset.lecture)});
 const ANAT3D=[["os-coxal","Os coxal","os",0,1187,7124,7122,2],["femur","Fémur","os",21368,1553,30688,9306,2],["patella","Patella","os",49300,155,50232,918,2],["tibia","Tibia","os",52068,834,57072,4992,2],["fibula","Fibula","os",67056,573,70496,3426,2],["talus","Talus","os",77348,692,81500,4140,2],["calcaneus","Calcanéus","os",89780,633,93580,3786,2],["naviculaire","Naviculaire","os",101152,252,102664,1500,2],["cuboide","Cuboïde","os",105664,251,107172,1494,2],["cuneiforme-m","Cunéiforme médial","os",110160,252,111672,1500,2],["cuneiforme-i","Cunéiforme intermédiaire","os",114672,227,116036,1350,2],["cuneiforme-l","Cunéiforme latéral","os",118736,252,120248,1500,2],["m1","1er métatarsien","os",123248,251,124756,1494,2],["m2","2e métatarsien","os",127744,252,129256,1500,2],["m3","3e métatarsien","os",132256,252,133768,1500,2],["m4","4e métatarsien","os",136768,252,138280,1500,2],["m5","5e métatarsien","os",141280,251,142788,1494,2],["p1-1","Phalange proximale de l’hallux","os",145776,245,147248,1458,2],["p1-3","Phalange distale de l’hallux","os",150164,222,151496,1320,2],["p2-1","Phalange proximale du 2e orteil","os",154136,209,155392,1242,2],["p2-2","Phalange moyenne du 2e orteil","os",157876,134,158680,792,2],["p2-3","Phalange distale du 2e orteil","os",160264,102,160876,600,2],["p3-1","Phalange proximale du 3e orteil","os",162076,213,163356,1266,2],["p3-2","Phalange moyenne du 3e orteil","os",165888,148,166776,876,2],["p3-3","Phalange distale du 3e orteil","os",168528,132,169320,780,2],["p4-1","Phalange proximale du 4e orteil","os",170880,221,172208,1314,2],["p4-2","Phalange moyenne du 4e orteil","os",174836,177,175900,1050,2],["p4-3","Phalange distale du 4e orteil","os",178000,124,178744,732,2],["p5-1","Phalange proximale du 5e orteil","os",180208,205,181440,1218,2],["p5-2","Phalange moyenne du 5e orteil","os",183876,70,184296,408,2],["p5-3","Phalange distale du 5e orteil","os",185112,109,185768,630,2],["petit-fessier","Petit fessier","m3",187028,703,191248,4200,2],["piriforme","Piriforme","m3",199648,554,202972,3276,2],["jumeau-sup","Jumeau supérieur","m3",209524,235,210936,1206,2],["jumeau-inf","Jumeau inférieur","m3",213348,323,215288,1926,2],["obturateur-int","Obturateur interne","m3",219140,704,223364,4200,2],["obturateur-ext","Obturateur externe","m3",231764,424,234308,2352,2],["carre-femoral","Carré fémoral","m3",239012,600,242612,3588,2],["vaste-intermediaire","Vaste intermédiaire","m3",249788,702,254000,4200,2],["court-adducteur","Court adducteur","m3",262400,702,266612,4200,2],["petit-adducteur","Adducteur minimus","m3",275012,702,279224,4200,2],["popliteus","Poplité","m3",287624,431,290212,2574,2],["tibial-post","Tibial postérieur","m3",295360,688,299488,4194,2],["long-flechisseur-orteils","Long fléchisseur des orteils","m3",307876,703,312096,4194,2],["long-flechisseur-hallux","Long fléchisseur de l’hallux","m3",320484,702,324696,4200,2],["moyen-fessier","Moyen fessier","m2",333096,1002,339108,6000,2],["iliaque","Iliaque","m2",351108,1023,357248,6000,2],["pectine","Pectiné","m2",369248,692,373400,4140,2],["long-adducteur","Long adducteur","m2",381680,1000,387680,6000,2],["grand-adducteur","Grand adducteur","m2",399680,1002,405692,6000,2],["vaste-lateral","Vaste latéral","m2",417692,1002,423704,6000,2],["vaste-medial","Vaste médial","m2",435704,1003,441724,5994,2],["biceps-court","Biceps fémoral, chef court","m2",453712,866,458908,5184,2],["semi-membraneux","Semi-membraneux","m2",469276,1002,475288,6000,2],["soleaire","Soléaire","m2",487288,1004,493312,6000,2],["plantaire","Plantaire grêle","m2",505312,1002,511324,6000,2],["court-fibulaire","Court fibulaire","m2",523324,901,528732,5298,2],["long-extenseur-hallux","Long extenseur de l’hallux","m2",539328,834,544332,5004,2],["troisieme-fibulaire","3e fibulaire","m2",554340,712,558612,4248,2],["abducteur-hallux","Abducteur de l’hallux","m2",567108,536,570324,3204,2],["court-flechisseur-orteils","Court fléchisseur des orteils","m2",576732,996,582708,6000,2],["abducteur-5","Abducteur du petit orteil","m2",594708,644,598572,3828,2],["grand-fessier","Grand fessier","m1",606228,1200,613428,7128,2],["tfl","Tenseur du fascia lata","m1",627684,627,631448,3762,2],["tractus-it","Tractus ilio-tibial","m1",638972,1300,646772,7794,2],["sartorius","Sartorius","m1",662360,1306,670196,7800,2],["droit-femoral","Droit fémoral","m1",685796,1298,693584,7800,2],["gracile","Gracile","m1",709184,1304,717008,7800,2],["biceps-long","Biceps fémoral, chef long","m1",732608,1302,740420,7800,2],["semi-tendineux","Semi-tendineux","m1",756020,1302,763832,7800,2],["gastroc-med","Gastrocnémien, chef médial","m1",779432,1304,787256,7800,2],["gastroc-lat","Gastrocnémien, chef latéral","m1",802856,1302,810668,7800,2],["achille","Tendon calcanéen (d’Achille)","m1",826268,1290,834008,7800,2],["tibial-ant","Tibial antérieur","m1",849608,1301,857416,7530,2],["long-extenseur-orteils","Long extenseur des orteils","m1",872476,1304,880300,7800,2],["long-fibulaire","Long fibulaire","m1",895900,1306,903736,7800,2],["a-femorale","Artère fémorale","va",919336,378,921604,2256,2],["a-poplitee","Artère poplitée","va",926116,452,928828,2700,2],["a-tibiale-ant","Artère tibiale antérieure","va",934228,452,936940,2700,2],["a-tibiale-post","Artère tibiale postérieure","va",942340,451,945048,2694,2],["a-dorsale-pied","Artère dorsale du pied","va",950436,452,953148,2700,2],["a-plantaire-med","Artère plantaire médiale","va",958548,388,960876,2316,2],["a-plantaire-lat","Artère plantaire latérale","va",965508,452,968220,2700,2],["v-femorale","Veine fémorale","vv",973620,331,975608,1974,2],["v-grande-saphene","Grande veine saphène","vv",979556,502,982568,2988,2],["v-petite-saphene","Petite veine saphène","vv",988544,452,991256,2700,2]];
-// ---------- membre inférieur en 3D (BodyParts3D, © DBCLS, CC BY-SA 2.1 JP) ----------
-const L3D={os:["Os","#E9DEC4"],m3:["Muscles profonds","#8E3036"],m2:["Muscles moyens","#A93C40"],m1:["Muscles superficiels","#C2504D"],va:["Artères","#D23A32"],vv:["Veines","#3F67B8"]};
+// ---------- membre inférieur en 3D (BodyParts3D, © DBCLS, CC BY-SA 2.1 JP) : plein écran, explorer + quiz ----------
+const L3D={os:["Os","#E9DEC4"],m3:["Profonds","#8E3036"],m2:["Moyens","#A93C40"],m1:["Superficiels","#C2504D"],va:["Artères","#D23A32"],vv:["Veines","#3F67B8"]};
+const L3DL={os:"Os",m3:"Muscle profond",m2:"Muscle du plan moyen",m1:"Muscle superficiel",va:"Artère",vv:"Veine"};
 const FICHE3D=k=>/^(os-coxal)$/.test(k)?"o-coxal":/^(femur|patella)$/.test(k)?"o-femur":/^(tibia|fibula)$/.test(k)?"o-jambe":/^(talus|calcaneus|naviculaire|cuboide|cuneiforme|m\d|p\d)/.test(k)?"a-pied"
   :/^(petit-fessier|moyen-fessier|grand-fessier|piriforme|jumeau|obturateur|carre-femoral|iliaque|tfl|tractus)/.test(k)?"m-hanche"
   :/^(vaste|droit-femoral|sartorius|gracile|biceps|semi|pectine|long-adducteur|grand-adducteur|court-adducteur|petit-adducteur)/.test(k)?"a-cuisse"
   :/^(soleaire|plantaire$|gastroc|achille|popliteus|tibial|long-flechisseur|court-fibulaire|long-fibulaire|troisieme|long-extenseur)/.test(k)?"a-jambe"
   :/^(abducteur|court-flechisseur)/.test(k)?"m-pied":/^[av]-/.test(k)?"a-vaisseaux":null;
+const REG3D={"o-coxal":"hanche","m-hanche":"hanche","o-femur":"cuisse","a-cuisse":"cuisse","o-jambe":"jambe","a-jambe":"jambe","a-pied":"pied","m-pied":"pied"};
+const REGN={tout:"Toute la jambe",hanche:"Hanche",cuisse:"Cuisse",jambe:"Jambe",pied:"Pied"};
 let V3=null;
 function view3d(){
-  const st=S.v3||(S.v3={on:{os:1,m3:1,m2:1,m1:1,va:1,vv:1}});
-  h(`<div class="top"><button class="back" data-go="anat" aria-label="Retour">‹</button><div style="flex:1;min-width:0" class="stack"><span class="eyebrow">Anatomie · modèle 3D</span><h2 style="font-size:1.05rem;margin:0">Membre inférieur droit en 3D</h2></div></div>
-  <div class="stack">
-   <div class="v3wrap" id="v3wrap"><canvas id="v3c" aria-label="Modèle 3D du membre inférieur droit : glisse pour tourner, pince pour zoomer, touche une structure pour voir son nom"></canvas>
-    <div class="v3load" id="v3load"><span class="v3spin"></span>Chargement du modèle 3D…</div>
-    <div class="v3views" role="group" aria-label="Vue">${[["face","Face"],["dos","Dos"],["dehors","Dehors"],["dedans","Dedans"],["pied","Pied"]].map(([k,l])=>`<button data-v3v="${k}">${l}</button>`).join("")}</div>
-    <div class="v3tip" id="v3tip" hidden></div></div>
-   <div class="stack" style="gap:6px"><span class="eyebrow">Couches</span><div class="v3layers">${Object.entries(L3D).map(([k,[l,c]])=>`<button class="v3l ${st.on[k]?"on":""}" data-v3l="${k}" aria-pressed="${!!st.on[k]}"><i style="background:${c}"></i>${l}</button>`).join("")}</div>
-    <div class="row"><button class="chip" id="v3peel">Éplucher couche par couche</button><button class="chip" id="v3all">Tout afficher</button></div></div>
-   <div class="v3card" id="v3card"><div class="v3name" id="v3name">Touche une structure</div><div class="small muted" id="v3sub">Glisse pour tourner, pince pour zoomer, deux doigts pour déplacer.</div><div class="row" id="v3act" hidden><button class="chip" id="v3iso">Isoler</button><button class="chip" id="v3hide">Masquer</button><button class="chip" id="v3fiche" hidden>Voir la fiche</button></div></div>
-   <div class="panel stack" id="v3quizbox"><div class="eyebrow">Quiz 3D</div><p class="small" id="v3qtxt">On te donne un nom, tu touches la bonne structure sur le modèle.</p><div class="row"><button class="btn primary" id="v3quiz">Lancer le quiz (10 questions)</button></div></div>
-   <p class="small muted">Modèle 3D : BodyParts3D, © The Database Center for Life Science (DBCLS), licence CC BY-SA 2.1 Japon, simplifié pour l’appli. Les nerfs du membre inférieur n’existent pas dans ce modèle : voir les planches d’atlas des nerfs.</p>
+  const st=S.v3||(S.v3={});st.on=st.on||{os:1,m3:1,m2:1,m1:1,va:1,vv:1};st.q=st.q||{what:"tout",where:"tout",n:10};
+  h(`<div class="v3stage" id="v3stage">
+   <canvas id="v3c" aria-label="Modèle 3D du membre inférieur droit : glisse pour tourner, pince pour zoomer, touche une structure"></canvas>
+   <div class="v3load" id="v3load"><span class="v3spin"></span>Chargement du modèle 3D…</div>
+   <div class="v3top" id="v3top">
+    <div class="v3bar"><button class="v3btn" data-go="anat" aria-label="Retour">‹</button><div class="v3title"><b>Membre inférieur droit</b><small id="v3mode">Explorer · glisse pour tourner, pince pour zoomer</small></div></div>
+    <div class="v3chips" id="v3chips">${Object.entries(L3D).map(([k,[l,c]])=>`<button class="v3l ${st.on[k]?"on":""}" data-v3l="${k}" aria-pressed="${!!st.on[k]}"><i style="background:${c}"></i>${l}</button>`).join("")}<button class="v3l peel" id="v3peel">Éplucher</button></div>
+    <div class="v3q" id="v3q" hidden><div class="v3q-h"><span id="v3qn"></span><span id="v3qs"></span></div><div class="v3q-t" id="v3qt"></div><div class="v3q-bar"><i id="v3qbar"></i></div></div>
+   </div>
+   <div class="v3side" id="v3side" role="group" aria-label="Vue">${[["face","Face"],["dos","Dos"],["dehors","Dehors"],["dedans","Dedans"],["pied","Pied"]].map(([k,l])=>`<button data-v3v="${k}">${l}</button>`).join("")}</div>
+   <div class="v3toast" id="v3toast" hidden></div>
+   <div class="v3sheet" id="v3sheet"></div>
   </div>`);
-  const cv=document.getElementById("v3c"),wrap=document.getElementById("v3wrap");
-  let alive=true;onLeave(()=>{alive=false;if(V3){try{V3.dispose()}catch(e){}V3=null}});
-  Promise.all([import("./vendor/three-mini.js"),fetch("anat/jambe3d.bin").then(r=>{if(!r.ok)throw new Error("modèle");return r.arrayBuffer()})]).then(([T,buf])=>{if(alive)V3=start3d(T,buf,cv,wrap,st)}).catch(e=>{const l=document.getElementById("v3load");if(l)l.innerHTML="Impossible de charger le modèle 3D. Vérifie ta connexion puis reviens sur cette page."});
+  document.body.classList.add("v3on");
+  let alive=true;onLeave(()=>{alive=false;document.body.classList.remove("v3on");if(V3){try{V3.dispose()}catch(e){}V3=null}});
+  Promise.all([import("./vendor/three-mini.js"),fetch("anat/jambe3d.bin").then(r=>{if(!r.ok)throw new Error("modèle");return r.arrayBuffer()})])
+    .then(([T,buf])=>{if(alive)V3=start3d(T,buf,st)})
+    .catch(()=>{const l=document.getElementById("v3load");if(l)l.innerHTML="Impossible de charger le modèle 3D.<br>Vérifie ta connexion puis rouvre cette page."});
 }
-function start3d(T,buf,cv,wrap,st){
+function start3d(T,buf,st){
+  const stage=document.getElementById("v3stage"),cv=document.getElementById("v3c"),sheet=document.getElementById("v3sheet"),topEl=document.getElementById("v3top");
+  const dark=matchMedia("(prefers-color-scheme: dark)").matches&&document.documentElement.dataset.theme!=="light"||document.documentElement.dataset.theme==="dark";
   const renderer=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true,powerPreference:"high-performance"});
-  renderer.setPixelRatio(Math.min(2,devicePixelRatio||1));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+  renderer.setPixelRatio(Math.min(2,devicePixelRatio||1));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=dark?1.15:1.05;
   const scene=new T.Scene(),cam=new T.PerspectiveCamera(32,1,.01,20);
   scene.add(new T.HemisphereLight(0xfff6ea,0x6d5b55,1.15));const d1=new T.DirectionalLight(0xffffff,1.6);d1.position.set(1.5,2,2.5);scene.add(d1);const d2=new T.DirectionalLight(0xffe2cf,.7);d2.position.set(-2,.5,-2);scene.add(d2);
-  const ctl=new T.OrbitControls(cam,cv);ctl.enableDamping=true;ctl.dampingFactor=.09;ctl.rotateSpeed=.8;ctl.minDistance=.25;ctl.maxDistance=4;
+  const ctl=new T.OrbitControls(cam,cv);ctl.enableDamping=true;ctl.dampingFactor=.09;ctl.rotateSpeed=.8;ctl.minDistance=.12;ctl.maxDistance=4;
   const meshes=[],byKey={},grp=new T.Group();scene.add(grp);
   const mats={};Object.entries(L3D).forEach(([k,[,c]])=>{mats[k]=new T.MeshStandardMaterial({color:new T.Color(c),roughness:k==="os"?.82:.55,metalness:0,side:T.DoubleSide})});
   const dv=new DataView(buf),own=[],matT=new T.MeshStandardMaterial({color:0xE2DACB,roughness:.45,metalness:0,side:T.DoubleSide});
+  const mGood=new T.MeshStandardMaterial({color:0x2FB36B,emissive:0x0b5a2c,emissiveIntensity:.4,roughness:.45,side:T.DoubleSide});
+  const mBad=new T.MeshStandardMaterial({color:0xE04A3F,emissive:0x6a120c,emissiveIntensity:.35,roughness:.45,side:T.DoubleSide});
+  const mSel=new T.MeshStandardMaterial({color:0xF2B33D,emissive:0x7a4b00,emissiveIntensity:.35,roughness:.5,side:T.DoubleSide});
+  const mGhost=new T.MeshStandardMaterial({color:dark?0x9aa3a8:0xb9b2a8,transparent:true,opacity:.13,depthWrite:false,roughness:.9,side:T.DoubleSide});
   ANAT3D.forEach(([key,fr,layer,vo,vc,io,ic,isz])=>{
     const p=new Float32Array(vc*3);for(let i=0;i<vc*3;i++)p[i]=dv.getInt16(vo+i*2,true)/32767*.5;
     const idx=isz===4?new Uint32Array(buf.slice(io,io+ic*4)):new Uint16Array(buf.slice(io,io+ic*2));
-    const g=new T.BufferGeometry();g.setAttribute("position",new T.BufferAttribute(p,3));g.setIndex(new T.BufferAttribute(idx,1));g.computeVertexNormals();
+    const g=new T.BufferGeometry();g.setAttribute("position",new T.BufferAttribute(p,3));g.setIndex(new T.BufferAttribute(idx,1));g.computeVertexNormals();g.computeBoundingSphere();
     let mat=mats[layer];
     if(/^(achille|tractus-it)$/.test(key))mat=matT;
     else if(/^m[123]$/.test(layer)){const n=meshes.length,c=new T.Color(L3D[layer][1]);c.offsetHSL(((n*37)%11-5)*.004,0,((n*53)%9-4)*.018);mat=new T.MeshStandardMaterial({color:c,roughness:.5,metalness:0,side:T.DoubleSide});own.push(mat)}
     const m=new T.Mesh(g,mat);m.userData={key,fr,layer,mat};grp.add(m);meshes.push(m);byKey[key]=m;
   });
   const box=new T.Box3().setFromObject(grp),ctr=box.getCenter(new T.Vector3()),size=box.getSize(new T.Vector3());
-  grp.position.sub(ctr);
-  const R=size.y*2.05;
+  grp.position.sub(ctr);grp.updateMatrixWorld(true);
+  const center=m=>m.geometry.boundingSphere.center.clone().applyMatrix4(m.matrixWorld);
+  // région de chaque structure (fiche pour les os et muscles, hauteur pour les vaisseaux)
+  const yKnee=center(byKey.patella).y,yAnkle=center(byKey.talus).y,yHip=center(byKey["os-coxal"]).y-size.y*.06;
+  meshes.forEach(m=>{const f=FICHE3D(m.userData.key),y=center(m).y;m.userData.reg=REG3D[f]||(y<yAnkle+size.y*.02?"pied":y<yKnee?"jambe":y<yHip?"cuisse":"hanche")});
+  // cadrage : le modèle tient entre la barre du haut et le panneau du bas
+  let W=1,H=1,avTop=0,avBot=0;
+  function fit(){W=stage.clientWidth;H=stage.clientHeight;renderer.setSize(W,H,false);cam.aspect=W/H;
+    avTop=topEl.getBoundingClientRect().bottom-stage.getBoundingClientRect().top;avBot=sheet.offsetHeight+8;
+    const off=Math.round((avBot-avTop)/2);cam.setViewOffset(W,H,0,off,W,H);cam.updateProjectionMatrix()}
+  const avail=()=>Math.max(.3,(H-avTop-avBot)/H);
+  const tanH=Math.tan(cam.fov*Math.PI/360);
+  const fullDist=()=>size.y*.54/tanH/avail();
   const VIEWS3={face:[0,0,1],dos:[0,0,-1],dehors:[-1,0,0],dedans:[1,0,0],pied:[-.55,.5,.7]};
   let anim=null;
-  function goView(k,inst){const d=VIEWS3[k];const tgt=k==="pied"?new T.Vector3(0,-size.y*.43,size.y*.05):new T.Vector3(0,-size.y*.045,0);const dist=k==="pied"?R*.3:R;const to=new T.Vector3(d[0],d[1],d[2]).normalize().multiplyScalar(dist).add(tgt);
-    if(inst||RM){cam.position.copy(to);ctl.target.copy(tgt);ctl.update();return}
-    const p0=cam.position.clone(),t0=ctl.target.clone(),s=performance.now();anim=now=>{const k2=Math.min(1,(now-s)/700),e=k2<.5?4*k2*k2*k2:1-Math.pow(-2*k2+2,3)/2;cam.position.lerpVectors(p0,to,e);ctl.target.lerpVectors(t0,tgt,e);if(k2>=1)anim=null}}
-  function fit(){const w=wrap.clientWidth,hh=wrap.clientHeight;renderer.setSize(w,hh,false);cam.aspect=w/hh;cam.updateProjectionMatrix()}
+  function flyTo(pos,tgt,ms){if(RM||!ms){cam.position.copy(pos);ctl.target.copy(tgt);ctl.update();return}
+    const p0=cam.position.clone(),t0=ctl.target.clone(),s=performance.now();anim=now=>{const k=Math.min(1,(now-s)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;cam.position.lerpVectors(p0,pos,e);ctl.target.lerpVectors(t0,tgt,e);if(k>=1)anim=null}}
+  function goView(k,inst){const d=new T.Vector3(...VIEWS3[k]).normalize();const tgt=k==="pied"?new T.Vector3(0,-size.y*.43,size.y*.05):new T.Vector3(0,-size.y*.02,0);
+    const dist=k==="pied"?fullDist()*.3:fullDist();flyTo(d.multiplyScalar(dist).add(tgt),tgt,inst?0:700)}
+  // montre une structure : on cherche un côté d'où elle se voit, puis on s'en approche
+  const rc=new T.Raycaster();
+  function showMesh(m,ms){const c=center(m),r=m.geometry.boundingSphere.radius;const dist=Math.max(r*4.4,size.y*.3)/Math.min(1,avail()+.15);
+    const cur=cam.position.clone().sub(ctl.target).normalize();
+    const cands=[cur,...Object.values(VIEWS3).map(v=>new T.Vector3(...v).normalize()),new T.Vector3(.7,0,.7).normalize(),new T.Vector3(-.7,0,.7).normalize(),new T.Vector3(.7,0,-.7).normalize(),new T.Vector3(-.7,0,-.7).normalize()];
+    const vis=meshes.filter(x=>x.visible&&x.material!==mGhost);
+    let best=cur;for(const d of cands){const from=c.clone().add(d.clone().multiplyScalar(dist));rc.set(from,c.clone().sub(from).normalize());const hit=rc.intersectObjects(vis,false)[0];if(hit&&hit.object===m){best=d;break}}
+    flyTo(c.clone().add(best.multiplyScalar(dist)),c,ms==null?750:ms)}
   fit();goView("face",true);
-  const ro=new ResizeObserver(fit);ro.observe(wrap);
+  const ro=new ResizeObserver(()=>fit());ro.observe(stage);ro.observe(sheet);
   // couches
-  const applyLayers=()=>meshes.forEach(m=>{m.visible=!!st.on[m.userData.layer]&&!m.userData.hidden&&(!iso||iso===m)});
   let iso=null,sel=null;
-  const hl=new T.MeshStandardMaterial({color:0xF2B33D,emissive:0x7a4b00,emissiveIntensity:.35,roughness:.5,side:T.DoubleSide});
-  function select(m){if(sel)sel.material=sel.userData.mat;sel=m;
-    const nm=document.getElementById("v3name"),sub=document.getElementById("v3sub"),act=document.getElementById("v3act"),fb=document.getElementById("v3fiche");
-    if(!m){nm.textContent="Touche une structure";sub.textContent="Glisse pour tourner, pince pour zoomer, deux doigts pour déplacer.";act.hidden=true;return}
-    m.material=hl;nm.textContent=m.userData.fr;sub.textContent=L3D[m.userData.layer][0];act.hidden=false;
-    const f=FICHE3D(m.userData.key);fb.hidden=!(f&&byId[f]);if(f)fb.onclick=()=>go("fiche",f);
-    document.getElementById("v3iso").textContent=iso?"Tout remontrer":"Isoler";}
-  document.getElementById("v3iso").onclick=()=>{iso=iso?null:sel;applyLayers();select(sel)};
-  document.getElementById("v3hide").onclick=()=>{if(!sel)return;sel.userData.hidden=true;const m=sel;select(null);applyLayers()};
-  document.getElementById("v3all").onclick=()=>{iso=null;meshes.forEach(m=>m.userData.hidden=false);Object.keys(L3D).forEach(k=>st.on[k]=1);syncL();applyLayers()};
+  const applyLayers=()=>meshes.forEach(m=>{m.visible=!!st.on[m.userData.layer]&&!m.userData.hidden&&(!iso||iso===m)});
   const syncL=()=>document.querySelectorAll("[data-v3l]").forEach(b=>{const on=!!st.on[b.dataset.v3l];b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
   document.querySelectorAll("[data-v3l]").forEach(b=>b.onclick=()=>{const k=b.dataset.v3l;st.on[k]=st.on[k]?0:1;persist();syncL();applyLayers()});
-  const PEEL=[["m1"],["m1","m2"],["m1","m2","m3"],[]];let peel=-1;
-  document.getElementById("v3peel").onclick=e=>{peel=(peel+1)%PEEL.length;Object.keys(L3D).forEach(k=>st.on[k]=PEEL[peel].includes(k)?0:1);syncL();applyLayers();e.currentTarget.textContent=["Retirer aussi les muscles moyens","Retirer aussi les profonds","Tout remettre","Éplucher couche par couche"][peel]};
+  const PEEL=[["m1"],["m1","m2"],["m1","m2","m3"],[]];let peel=-1;const peelB=document.getElementById("v3peel");
+  peelB.onclick=()=>{peel=(peel+1)%PEEL.length;Object.keys(L3D).forEach(k=>st.on[k]=PEEL[peel].includes(k)?0:1);syncL();applyLayers();peelB.textContent=["Éplucher encore","Éplucher encore","Tout remettre","Éplucher"][peel]};
   document.querySelectorAll("[data-v3v]").forEach(b=>b.onclick=()=>goView(b.dataset.v3v));
   applyLayers();
-  // toucher = choisir (on ignore les glissés)
-  const rc=new T.Raycaster(),pt=new T.Vector2();let down=null;
+  const restoreMats=()=>meshes.forEach(m=>m.material=m.userData.mat);
+  const toast=(txt,cls,ms)=>{const t=document.getElementById("v3toast");t.className="v3toast "+(cls||"");t.textContent=txt;t.hidden=false;clearTimeout(toast._t);if(ms)toast._t=setTimeout(()=>t.hidden=true,ms)};
+  const hideToast=()=>{clearTimeout(toast._t);document.getElementById("v3toast").hidden=true};
+  // ---------- panneau du bas ----------
+  const modeEl=document.getElementById("v3mode"),qEl=document.getElementById("v3q"),chipsEl=document.getElementById("v3chips");
+  function sheetIdle(){modeEl.textContent="Explorer · glisse pour tourner, pince pour zoomer";
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>Touche une structure</b><small>pour voir son nom, l’isoler ou ouvrir sa fiche</small></div><button class="v3go" id="v3qopen">Quiz 3D</button></div>`;
+    document.getElementById("v3qopen").onclick=sheetSetup}
+  function sheetSel(m){const f=FICHE3D(m.userData.key);
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>${esc(m.userData.fr)}</b><small>${L3DL[m.userData.layer]} · ${REGN[m.userData.reg]}</small></div><button class="v3x" id="v3unsel" aria-label="Fermer">×</button></div>
+     <div class="v3s-act"><button class="chip" id="v3iso">${iso?"Tout remontrer":"Isoler"}</button><button class="chip" id="v3hide">Masquer</button><button class="chip" id="v3show">Centrer</button>${f&&byId[f]?`<button class="chip" id="v3fiche">Voir la fiche</button>`:""}<button class="chip" id="v3all">Tout afficher</button></div>`;
+    document.getElementById("v3unsel").onclick=()=>select(null);
+    document.getElementById("v3iso").onclick=()=>{iso=iso?null:m;applyLayers();sheetSel(m)};
+    document.getElementById("v3hide").onclick=()=>{m.userData.hidden=true;select(null);applyLayers()};
+    document.getElementById("v3show").onclick=()=>showMesh(m);
+    document.getElementById("v3all").onclick=()=>{iso=null;meshes.forEach(x=>x.userData.hidden=false);Object.keys(L3D).forEach(k=>st.on[k]=1);syncL();applyLayers();sheetSel(m)};
+    const fb=document.getElementById("v3fiche");if(fb)fb.onclick=()=>go("fiche",f)}
+  function select(m){if(sel)sel.material=sel.userData.mat;sel=m;if(!m){sheetIdle();return}m.material=mSel;sheetSel(m)}
+  // ---------- quiz ----------
+  let Q=null;
+  const pick3=(arr,v)=>arr.map(([k,l])=>`<button class="chip ${v===k?"on":""}" data-k="${k}">${l}</button>`).join("");
+  const poolQ=()=>meshes.filter(m=>{const L=m.userData.layer,w=st.q.what;
+    if(w==="os"&&L!=="os")return false;if(w==="muscles"&&!/^m/.test(L))return false;if(w==="vaisseaux"&&!/^v/.test(L))return false;
+    if(w==="tout"&&L==="os"&&/^(p\d|cuneiforme-i)/.test(m.userData.key))return false;
+    return st.q.where==="tout"||m.userData.reg===st.q.where});
+  function sheetSetup(){select(null);modeEl.textContent="Quiz 3D · choisis ce que tu veux réviser";
+    sheet.innerHTML=`<div class="v3s-h"><b>Quiz 3D</b><button class="v3x" id="v3qclose" aria-label="Fermer">×</button></div>
+     <div class="v3s-lab">Sur quoi ?</div><div class="v3s-opts" data-q="what">${pick3([["tout","Tout"],["muscles","Muscles"],["os","Os"],["vaisseaux","Vaisseaux"]],st.q.what)}</div>
+     <div class="v3s-lab">Où ?</div><div class="v3s-opts" data-q="where">${pick3(Object.entries(REGN),st.q.where)}</div>
+     <div class="v3s-lab">Combien de questions ?</div><div class="v3s-opts" data-q="n">${pick3([[10,"10"],[20,"20"]],st.q.n)}</div>
+     <button class="v3go big" id="v3qgo"></button>`;
+    const upd=()=>{const n=poolQ().length,b=document.getElementById("v3qgo");b.disabled=n<3;b.textContent=n<3?"Pas assez de structures ici":`Commencer (${Math.min(st.q.n,n)} questions)`};
+    sheet.querySelectorAll("[data-q]").forEach(g=>g.onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=g.dataset.q;st.q[k]=k==="n"?+b.dataset.k:b.dataset.k;persist();g.querySelectorAll("[data-k]").forEach(x=>x.classList.toggle("on",x===b));upd()});
+    document.getElementById("v3qclose").onclick=sheetIdle;
+    document.getElementById("v3qgo").onclick=()=>startQuiz(shuffle(poolQ()).slice(0,st.q.n));upd()}
+  const saveOn=()=>Object.assign({},st.on);
+  function startQuiz(list,again){Q={list,i:0,ok:0,miss:[],hint:false,on0:Q&&Q.on0||saveOn(),phase:"ask"};
+    chipsEl.hidden=true;qEl.hidden=false;document.getElementById("v3side").classList.add("q");iso=null;meshes.forEach(m=>m.userData.hidden=false);ask()}
+  function layersFor(m){const L=m.userData.layer,on={os:1,m3:0,m2:0,m1:0,va:0,vv:0};
+    if(L==="m3")on.m3=1;if(L==="m2"){on.m3=1;on.m2=1}if(L==="m1"){on.m3=1;on.m2=1;on.m1=1}if(L==="va"||L==="vv"){on.va=1;on.vv=1}
+    Object.assign(st.on,on);applyLayers()}
+  function frameRegion(reg){if(reg==="tout"){goView(Q&&Q.view||"face");return}
+    const b=new T.Box3();meshes.forEach(m=>{if(m.userData.reg===reg&&m.visible){m.geometry.computeBoundingBox();b.union(m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld))}});if(b.isEmpty()){goView("face");return}
+    const c=b.getCenter(new T.Vector3()),sz=b.getSize(new T.Vector3()),d=cam.position.clone().sub(ctl.target).normalize(),dist=Math.max(sz.y,sz.x*1.4,size.y*.18)*.6/tanH/avail();flyTo(c.clone().add(d.multiplyScalar(dist)),c,700)}
+  function ask(){restoreMats();hideToast();const m=Q.list[Q.i];Q.phase="ask";Q.hint=false;layersFor(m);const reframe=Q.i===0||Q.moved;Q.moved=false;
+    document.getElementById("v3qn").textContent=`Question ${Q.i+1} / ${Q.list.length}`;document.getElementById("v3qs").textContent=`${Q.ok} ✓`;
+    document.getElementById("v3qt").innerHTML=`Touche <b>${esc(m.userData.fr)}</b>`;document.getElementById("v3qbar").style.width=(100*Q.i/Q.list.length)+"%";
+    modeEl.textContent="Quiz 3D · tourne le modèle si besoin";
+    const shown={m3:"les muscles profonds",m2:"les muscles profonds et moyens",m1:"tous les muscles",os:"les os seuls",va:"les os et les vaisseaux",vv:"les os et les vaisseaux"}[m.userData.layer];
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><small>Affichés : ${shown} (${REGN[m.userData.reg].toLowerCase()})</small></div></div>
+     <div class="v3s-act"><button class="chip" id="v3hint">Indice</button><button class="chip" id="v3skip">Je ne sais pas</button><button class="chip" id="v3stop">Arrêter</button></div>`;
+    document.getElementById("v3hint").onclick=()=>{Q.hint=true;const c=center(m);const cur=cam.position.clone().sub(ctl.target).normalize();flyTo(c.clone().add(cur.multiplyScalar(size.y*.42/Math.min(1,avail()+.15))),c,700);toast("Elle est dans cette zone","",1800)};
+    document.getElementById("v3skip").onclick=()=>answer(null,true);
+    document.getElementById("v3stop").onclick=()=>endQuiz();
+    if(reframe){fit();frameRegion(st.q.where)}}
+  function answer(hit,skip){const want=Q.list[Q.i],ok=hit===want;
+    S.days=S.days||{};const d=today();S.days[d]=(S.days[d]||0)+1;save();
+    if(ok){Q.ok++;haptic(10);restoreMats();want.material=mGood;toast(Q.hint?"Oui ! (avec indice)":"Bien vu !","ok");Q.phase="wait";Q.i++;setTimeout(()=>{if(Q&&Q.phase==="wait")next()},850);return}
+    haptic([8,50,8]);Q.miss.push(want);Q.phase="review";
+    meshes.forEach(m=>{if(m.visible)m.material=m===want?mGood:m===hit?mBad:mGhost});
+    showMesh(want,800);Q.moved=true;
+    document.getElementById("v3qt").innerHTML=`C’était <b>${esc(want.userData.fr)}</b>`;
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b class="ko">${skip?"Pas de réponse":"Raté"}</b><small>${hit?`Tu as touché : ${esc(hit.userData.fr)} (en rouge).<br>`:""}La bonne réponse est en vert : <b>${esc(want.userData.fr)}</b>.</small></div></div>
+     <div class="v3s-act"><button class="v3go" id="v3next">${Q.i+1>=Q.list.length?"Voir le résultat":"Question suivante"}</button></div>`;
+    document.getElementById("v3next").onclick=()=>{Q.i++;next()}}
+  function next(){if(!Q)return;if(Q.i>=Q.list.length)return finish();ask()}
+  function finish(){restoreMats();hideToast();const n=Q.list.length,ok=Q.ok,miss=Q.miss.slice();Q.phase="end";
+    document.getElementById("v3qbar").style.width="100%";document.getElementById("v3qn").textContent="Terminé";document.getElementById("v3qt").innerHTML=`<b>${ok} / ${n}</b> bonnes réponses`;
+    if(ok>=Math.ceil(n*.8))celebrate();
+    Object.assign(st.on,{os:1,m3:1,m2:1,m1:1,va:1,vv:1});applyLayers();
+    sheet.innerHTML=`<div class="v3s-row"><div class="v3s-txt"><b>${ok>=Math.ceil(n*.8)?"Bravo !":ok>=n/2?"Pas mal":"Ça viendra"}</b><small>${miss.length?"À revoir (touche pour la montrer) :":"Aucune erreur."}</small></div></div>
+     ${miss.length?`<div class="v3s-opts miss">${miss.map((m,i)=>`<button class="chip" data-mi="${i}">${esc(m.userData.fr)}</button>`).join("")}</div>`:""}
+     <div class="v3s-act">${miss.length?`<button class="v3go" id="v3redo">Refaire mes ${plural(miss.length,"erreur")}</button>`:""}<button class="chip" id="v3again">Nouveau quiz</button><button class="chip" id="v3exit">Explorer</button></div>`;
+    sheet.querySelectorAll("[data-mi]").forEach(b=>b.onclick=()=>{const m=miss[+b.dataset.mi];restoreMats();layersFor(m);m.material=mGood;showMesh(m)});
+    const rd=document.getElementById("v3redo");if(rd)rd.onclick=()=>startQuiz(shuffle(miss));
+    document.getElementById("v3again").onclick=()=>{endQuiz(true);sheetSetup()};
+    document.getElementById("v3exit").onclick=()=>endQuiz()}
+  function endQuiz(keep){if(Q&&Q.on0)Object.assign(st.on,Q.on0);Q=null;restoreMats();hideToast();applyLayers();syncL();chipsEl.hidden=false;qEl.hidden=true;document.getElementById("v3side").classList.remove("q");if(!keep){sheetIdle();fit();goView("face")}}
+  // toucher (on ignore les glissés)
+  const pt=new T.Vector2();let down=null;
   const pick=(x,y)=>{const r=cv.getBoundingClientRect();pt.set(((x-r.left)/r.width)*2-1,-((y-r.top)/r.height)*2+1);rc.setFromCamera(pt,cam);const hit=rc.intersectObjects(meshes.filter(m=>m.visible),false)[0];return hit?hit.object:null};
   cv.addEventListener("pointerdown",e=>{down={x:e.clientX,y:e.clientY,t:performance.now()}});
-  cv.addEventListener("pointerup",e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(dx*dx+dy*dy<64&&performance.now()-down.t<500){const m=pick(e.clientX,e.clientY);if(quiz)answer(m);else select(m)}down=null});
-  // quiz 3D
-  let quiz=null;const qtxt=document.getElementById("v3qtxt"),qb=document.getElementById("v3quiz");
-  const pool=()=>meshes.filter(m=>m.visible&&m.userData.layer!=="os"||m.visible&&/^(os-coxal|femur|tibia|fibula|patella|talus|calcaneus|naviculaire|cuboide|m1|m5)$/.test(m.userData.key));
-  function nextQ(){if(quiz.i>=quiz.list.length){qtxt.innerHTML=`<b>${quiz.ok} / ${quiz.list.length}</b> bonnes réponses. ${quiz.ok>=8?"Bravo !":"Recommence pour progresser."}`;qb.textContent="Rejouer";qb.hidden=false;if(quiz.ok>=8)celebrate();quiz=null;select(null);return}
-    const m=quiz.list[quiz.i];qtxt.innerHTML=`Question ${quiz.i+1} / ${quiz.list.length} : touche <b>${esc(m.userData.fr)}</b>`}
-  function answer(m){if(!m)return;const want=quiz.list[quiz.i],ok=m===want;if(ok){quiz.ok++;haptic(10)}else haptic([8,50,8]);
-    select(want);const tip=document.getElementById("v3tip");tip.hidden=false;tip.className="v3tip "+(ok?"ok":"ko");tip.textContent=ok?"Oui !":"Non : c’était ici ("+(m.userData.fr)+" touché)";
-    S.days=S.days||{};const d=today();S.days[d]=(S.days[d]||0)+1;save();
-    quiz.i++;setTimeout(()=>{tip.hidden=true;if(quiz)nextQ()},ok?700:1600)}
-  qb.onclick=()=>{const p=shuffle(pool());if(p.length<4){qtxt.textContent="Affiche plus de couches pour lancer le quiz.";return}quiz={list:p.slice(0,10),i:0,ok:0};qb.hidden=true;select(null);nextQ()};
+  cv.addEventListener("pointerup",e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y,quick=dx*dx+dy*dy<64&&performance.now()-down.t<500;down=null;if(!quick)return;
+    const m=pick(e.clientX,e.clientY);
+    if(Q){if(Q.phase==="ask"&&m)answer(m)}else select(m)});
+  sheetIdle();fit();goView("face",true);
   document.getElementById("v3load").remove();
-  let raf=0,run=true;const loop=now=>{if(!run)return;if(anim)anim(now);ctl.update();renderer.render(scene,cam);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
+  let raf=0,run=true,t0=performance.now();const loop=now=>{if(!run)return;if(anim)anim(now);
+    const p=.5+.5*Math.sin((now-t0)/260);mGood.emissiveIntensity=.25+.35*p;mSel.emissiveIntensity=.2+.25*p;
+    ctl.update();renderer.render(scene,cam);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
   const vis=()=>{run=!document.hidden;if(run)raf=requestAnimationFrame(loop)};document.addEventListener("visibilitychange",vis);
-  return {dispose(){run=false;cancelAnimationFrame(raf);ro.disconnect();document.removeEventListener("visibilitychange",vis);ctl.dispose();meshes.forEach(m=>m.geometry.dispose());Object.values(mats).forEach(m=>m.dispose());own.forEach(m=>m.dispose());matT.dispose();hl.dispose();renderer.dispose()}};
+  return {dispose(){run=false;cancelAnimationFrame(raf);ro.disconnect();document.removeEventListener("visibilitychange",vis);ctl.dispose();meshes.forEach(m=>m.geometry.dispose());[...Object.values(mats),...own,matT,mGood,mBad,mSel,mGhost].forEach(m=>m.dispose());renderer.dispose()}};
 }
 function drawTabs(){
   const T=tabsNow();document.querySelector("nav.tabs").hidden=current==="matieres"||current==="lecture";
