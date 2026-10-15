@@ -155,6 +155,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 .th{width:52px;height:52px;border-radius:14px;object-fit:cover;flex:none;background:var(--surface2)}
 .mono{display:grid;place-items:center;color:#fff;font-family:var(--f-display);font-weight:800;font-size:1.05rem;background:linear-gradient(150deg,color-mix(in srgb,var(--cc) var(--tm1),#000),color-mix(in srgb,var(--cc) var(--tm2),#000))}
 .minibar{height:4px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.runtop{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 14px 14px 16px;cursor:pointer;--rc:var(--hero1)}
+.runtop.anat{--rc:var(--c-anat)}
+.runtop .rt-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.runtop .rt-txt strong{font-size:1rem}
+.runtop .minibar{display:block;margin-top:4px}.runtop .minibar i{background:var(--rc)}
+.runtop .rt-go{flex:none;background:var(--rc);color:#fff;font-weight:750;border-radius:99px;padding:9px 14px;font-size:.92rem}
 .minibar i{display:block;height:100%;background:var(--cc,var(--accent));border-radius:99px}
 .cathead{display:flex;align-items:center;gap:8px;margin-top:8px}
 .cathead::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--cc)}
@@ -1929,7 +1935,7 @@ new MutationObserver(ms=>{let hit=false;for(const m of ms){const el=m.target;if(
   const btn=["nx","next","gnext","ok","sg"].map(i=>document.getElementById(i)).find(b=>b&&!b.hidden&&b.offsetParent);const all=[...$app.querySelectorAll("#after,#fb,#rv,#sg,#nx,#ans,#gr,#lstc,#score,#meth")].filter(e=>!e.hidden&&e.offsetParent);
   bringIntoView(btn||all[all.length-1])}).observe(document.getElementById("app")||document.body,{subtree:true,attributes:true,attributeFilter:["hidden"]});
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="30";
+const APP_VERSION="31";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -2721,7 +2727,7 @@ function go(view,arg,how){
     if(ns&&ns!==S.subj){S.subj=ns;persist()}
     current=view==="pquiz"?"pratique":view==="v3d"?"anat":view==="lecture"?"lecture":view==="stats"?"home":view==="fiche"?(S.subj==="anat"?"anat":"fiches"):view==="lexique"?"fiches":(view==="apprendre"||view==="texte"||view==="entrainement")?"oral":(view==="examen"||view==="anattrain"||view==="legende"||view==="recap")?"pratique":view; drawTabs();
     lastView=[view,arg||null];
-    document.body.dataset.area=S.subj==="anat"?"anat":"pedi";
+    document.body.dataset.area=view==="matieres"?"home":S.subj==="anat"?"anat":"pedi";
     NAVFX=dir!=="back"&&dir!=="same";
     $app.classList.remove("enter");
     VIEWS[view](arg);
@@ -3144,6 +3150,7 @@ VIEWS.home=()=>{
      <button class="btn block hh-cta" data-train="jour">Ma séance du jour</button>
      <button class="hh-link2" data-start="jour">ou mes cartes du jour (${due} à revoir)</button>
    </section>
+   ${runCards()}
    ${resumeCard()}
    ${cd}
    <button class="panel oralcta" data-go="oral"><div class="stack" style="gap:3px;text-align:left"><div class="eyebrow">Mon oral</div><strong>${oralReady()} / ${TOPICS.length} sujets maîtrisés à 100 %</strong><span class="small muted">Apprendre quoi dire, partie par partie, puis l’oral blanc</span></div><span class="muted" style="font-size:1.4rem">›</span></button>
@@ -3183,6 +3190,7 @@ VIEWS.matieres=()=>{
   const standalone=(navigator.standalone===true)||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);
   h(`<div class="stack">
    <div class="pagehead"><div class="eyebrow greet"><i></i>${hello()}${stk?" · "+plural(stk,"jour")+" de révision d’affilée":""}</div><h1>Que veux-tu réviser ?</h1></div>
+   ${runResumeTop()}
    <button class="subj pedi" data-subj="pedi"><div class="subj-top"><div><div class="subj-name">Pédicurie</div><div class="subj-sub">L’oral : ${TOPICS.length} sujets${nd!==null&&nd>=0?" · "+(nd===0?"c’est aujourd’hui":"J-"+nd):""}</div></div>${ringSvg(masteryOf(pc),"des cartes de pédicurie maîtrisées",true)}</div>
      <div class="subj-stats"><span><b>${oralReady()}/${TOPICS.length}</b> sujets prêts</span><span><b>${pc.filter(isDue).length}</b> cartes à revoir</span></div></button>
    <button class="subj anat" data-subj="anat"><div class="subj-top"><div><div class="subj-name">Anatomie</div><div class="subj-sub">Palpatoire : de la hanche au pied</div></div>${ringSvg(masteryOf(ac),"des cartes d’anatomie maîtrisées",true)}</div>
@@ -3224,6 +3232,7 @@ function anatHome(){
      ${goalHTML(true)}
      <button class="btn block hh-cta" data-start="jour">Réviser maintenant</button>
    </section>
+   ${runCards()}
    ${resumeCard()}
    <button class="v3cta" data-go="v3d"><span class="v3cta-t"><span class="eyebrow">En 3D</span><strong>Le membre inférieur en 3D</strong><span>Tourne, zoome, enlève les couches de muscles et touche une structure pour voir son nom.</span></span><span class="v3cta-i" aria-hidden="true">3D</span></button>
    ${favList()}
@@ -3375,13 +3384,21 @@ function setLv(id,k,n){S.learn=S.learn||{};S.learn[id]=S.learn[id]||{};S.learn[i
 // chaque point à citer a sa propre mémoire : retrouvé sur 2 jours différents = solide
 const ppk=(id,k,i)=>id+"|"+k+"|"+i;
 const ppS=(id,k,i)=>((S.pp||{})[ppk(id,k,i)])||{b:0,d:0,n:0,m:0};
+// Répétition espacée par point. Un rappel réussi (de tête) fait monter d'un niveau : 1, 3, 6, 12 puis 25 jours.
+// Une simple reconnaissance (choix multiple, quel sujet ?) ne fait pas monter : elle reprogramme sans plus.
+// Un oubli fait redescendre (niveau 1 si le point était solide, sinon 0) et le point revient le jour même.
+// Rien n'est programmé après l'oral : tout ce qui tomberait après revient la veille.
 const PINT=[0,1,3,6,12,25];
-function gradePoint(id,k,i,ok){S.pp=S.pp||{};const s=Object.assign({b:0,d:0,n:0,m:0},S.pp[ppk(id,k,i)]);if(!s.n){const d=today();if(!S.newd||S.newd.d!==d)S.newd={d,n:0};S.newd.n++}s.n++;if(ok){if(s.d<=today()){s.b=Math.min(5,s.b+1);s.d=today()+PINT[s.b]}}else{s.b=0;s.d=today();s.m++}S.pp[ppk(id,k,i)]=s}
+function nextDue(b){const T=today(),iv=PINT[b];let d=T+iv+(iv>=6?Math.round((Math.random()-.5)*iv*.2):0);const ed=examDays();if(ed!=null&&ed>1&&d>=T+ed)d=Math.max(T+1,T+ed-1);return d}
+function gradePoint(id,k,i,ok,reco){S.pp=S.pp||{};const T=today(),s=Object.assign({b:0,d:0,n:0,m:0},S.pp[ppk(id,k,i)]);if(!s.n){if(!S.newd||S.newd.d!==T)S.newd={d:T,n:0};S.newd.n++}s.n++;
+  if(ok){if(s.d<=T){if(reco)s.d=s.b?nextDue(s.b):T+1;else{s.b=Math.min(5,s.b+1);s.d=nextDue(s.b)}}}
+  else{s.b=s.b>=3?1:0;s.d=T;s.m++;s.l=T}
+  S.pp[ppk(id,k,i)]=s}
 const ptsScore=(id,p)=>p&&p.pts&&p.pts.length?p.pts.reduce((a,_,i)=>a+Math.min(1,ppS(id,p.k,i).b/2),0)/p.pts.length:null;
 const partScore=(id,k,p)=>{const l=lv(id,k),b=((S.pt||{})[id+"|"+k]||{b:0}).b,base=(l>=3?.5:l*.12)+.5*Math.min(1,b/3),ps=ptsScore(id,p);return ps==null?base:.35*base+.65*ps};
 // points oubliés (à revoir), tous sujets confondus
 const ptCue=x=>{const m=x.match(/^(.{3,70}?)\s:\s(.+)$/),w=x.split(/\s+/);return {full:x,q:m?m[1]:w.slice(0,Math.max(2,Math.ceil(w.length/3))).join(" ")+" …",a:m?m[2]:x,colon:!!m}};
-function missedPoints(only){const out=[];TOPICS.forEach(t=>{if(only&&t.id!==only)return;partsOf(t).forEach(p=>(p.pts||[]).forEach(([x],i)=>{const s=ppS(t.id,p.k,i);if(s.n&&s.b===0)out.push({t,p,i,x})}))});return out}
+function missedPoints(only){const out=[];TOPICS.forEach(t=>{if(only&&t.id!==only)return;partsOf(t).forEach(p=>(p.pts||[]).forEach(([x],i)=>{const s=ppS(t.id,p.k,i);if(s.n&&(s.b===0||s.l===today()))out.push({t,p,i,x})}))});return out}
 const oralMastery=id=>{const t=byId[id];if(!t||!t.s)return 0;const P=partsOf(t);return Math.floor(100*P.reduce((a,p)=>a+partScore(id,p.k,p),0)/P.length+1e-9)};
 const oralReady=()=>TOPICS.filter(t=>oralMastery(t.id)===100).length;
 const wordsOf=s=>strip(s).split(/\s+/).filter(Boolean).length;
@@ -3535,6 +3552,31 @@ let px={list:[],i:0,ok:0,scope:"all",res:[],miss:[]};
 const deacc=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 const words4=s=>deacc(strip(s)).split(/[^a-z0-9]+/).filter(z=>z.length>3);
 const numOf=s=>(String(s).match(/\d+(?:[,.]\d+)?/)||[""])[0].replace(",",".");
+// ---------- les séances survivent à une sortie en plein milieu : sauvegarde à chaque question ----------
+function freeze(v,d){d=d||0;if(typeof v==="function")return undefined;if(v==null||typeof v!=="object"||d>9)return v;if(Array.isArray(v))return v.map(x=>freeze(x,d+1));
+  if(v.id&&byId[v.id]===v)return {$t:v.id};if(v.src&&/^data:/.test(v.src)&&v.k)return {$img:v.k,c:v.c,q:v.q};
+  const o={};for(const k in v){if(k==="_err")continue;const x=freeze(v[k],d+1);if(x!==undefined)o[k]=x}return o}
+function thaw(v){if(v==null||typeof v!=="object")return v;if(Array.isArray(v))return v.map(thaw);
+  if(v.$t)return byId[v.$t];if(v.$p){const t=byId[v.$p[0]];return t?(partsOf(t).find(p=>p.k===v.$p[1])||partsOf(t)[0]):null}
+  if(v.$img){const m=IMG[v.$img];return {k:v.$img,c:v.c,q:v.q,src:m?m.src:""}}
+  const o={};for(const k in v)o[k]=thaw(v[k]);return o}
+function runSave(kind,data){try{S.run=S.run||{};S.run[kind]=Object.assign({d:today()},data);persist()}catch(e){}}
+function runGet(kind){const r=S.run&&S.run[kind];return r&&r.d===today()&&r.i<r.n?r:null}
+function runClear(kind){if(S.run&&S.run[kind]){delete S.run[kind];persist()}}
+function pxSave(i){runSave("px",{scope:px.scope,i,n:px.list.length,ok:px.ok,res:px.res,miss:freeze(px.miss),t0:px.t0,list:px.list.map(ex=>freeze(Object.assign({},ex,{t:{$t:ex.t.id},p:{$p:[ex.t.id,ex.p.k]}})))})}
+function pxRestore(){const r=runGet("px");if(!r)return false;try{const list=thaw(r.list);if(!list.length||list.some(x=>!x||!x.t||!x.p))throw 0;px={list,i:r.i,ok:r.ok,scope:r.scope,res:r.res||[],miss:thaw(r.miss||[]).filter(m=>m&&m.t),t0:r.t0};return true}catch(e){runClear("px");return false}}
+const SCOPEL=s=>s==="jour"?"Séance du jour":s==="chiffres"?"Les chiffres":s==="oublis"?"Mes points oubliés":s==="varie"?"Exercices variés":byId[s]?byId[s].t:"Séance";
+const qzSubj=r=>r&&String(r.mode||"")[0]==="a"?"anat":"pedi";
+function runCards(){const r=runGet("px"),q0=runGet("qz"),q=q0&&qzSubj(q0)===subj()?q0:null,a=subj()==="anat"?runGet("atr"):null;
+  const card=(lab,i,n,go,kind)=>`<div class="panel stack runcard"><div class="row" style="justify-content:space-between;gap:10px;align-items:center"><div style="min-width:0"><div class="eyebrow">En cours · reprends où tu t’étais arrêté</div><strong>${esc(lab)} · question ${i+1} / ${n}</strong></div><button class="chip" data-runclear="${kind}">Abandonner</button></div><div class="minibar"><i style="width:${Math.round(100*i/n)}%"></i></div><button class="btn primary block" ${go}>Reprendre</button></div>`;
+  return (r&&subj()==="pedi"?card(SCOPEL(r.scope),r.i,r.n,`data-train="${r.scope}"`,"px"):"")+(q?card("Quiz",q.i,q.n,`data-qresume="1"`,"qz"):"")+(a?card("Entraînement d’anatomie",a.i,a.n,`data-go="anattrain"`,"atr"):"")}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-runclear]");if(b){runClear(b.dataset.runclear);const c=b.closest(".runcard");if(c)c.remove();return}
+  const q=e.target.closest&&e.target.closest("[data-qresume]");if(q&&qzRestore())showQ();
+  const rs=e.target.closest&&e.target.closest("[data-resume]");if(rs){const k=rs.dataset.resume,r=runGet(k);if(!r)return;S.subj=k==="px"?"pedi":k==="atr"?"anat":qzSubj(r);persist();if(k==="px")go("entrainement",r.scope);else if(k==="atr")go("anattrain");else if(qzRestore())showQ()}});
+// accueil (choix de la matière) : ce qui est en cours, en un tap
+function runResumeTop(){const L=[];const p=runGet("px"),q=runGet("qz"),a=runGet("atr");
+  if(p)L.push(["px","Pédicurie · "+SCOPEL(p.scope),p]);if(q)L.push(["qz",(qzSubj(q)==="anat"?"Anatomie":"Pédicurie")+" · Quiz",q]);if(a)L.push(["atr","Anatomie · Entraînement",a]);
+  return L.map(([k,l,r])=>`<button class="runtop ${k==="px"||(k==="qz"&&qzSubj(r)==="pedi")?"pedi":"anat"}" data-resume="${k}"><span class="rt-txt"><span class="eyebrow">En cours · question ${r.i+1} / ${r.n}</span><strong>${esc(l)}</strong><span class="minibar"><i style="width:${Math.round(100*r.i/r.n)}%"></i></span></span><span class="rt-go">Reprendre ›</span></button>`).join("")}
 function allPts(only){const out=[];TOPICS.forEach(t=>{if(only&&t.id!==only)return;partsOf(t).forEach(p=>(p.pts||[]).forEach(([x,l],i)=>out.push({t,p,i,x,l,s:ppS(t.id,p.k,i)})))});return out}
 // rythme : combien de points nouveaux par jour pour tout avoir vu 3 jours avant l'oral
 function newQuota(){const d=today(),nt=(S.newd&&S.newd.d===d)?S.newd.n:0,P=allPts(),unseen=P.filter(o=>!o.s.n).length,ed=examDays();
@@ -3567,12 +3609,12 @@ function exForPt(o){const s=o.s,num=/\d/.test(o.x),r=Math.random();let order;
   if(!s.n)order=["qcm","point"];
   else if(s.b===0)order=num&&r<.4?["chiffre","point"]:r<.75?["point"]:["qcm","point"];
   else if(s.b===1)order=num&&r<.5?["chiffre","point"]:r<.3?["sujet","point"]:["point"];
-  else order=r<.45?["sujet","point"]:num&&r<.75?["chiffre","point"]:["point"];
+  else order=r<.25?["sujet","point"]:num&&r<.6?["chiffre","point"]:["point"];
   for(const ty of order){const e=mkPt(o,ty);if(e)return e}return mkPt(o,"point")}
 function buildSession(scope,n){
   const only=byId[scope]?scope:null,P=allPts(only),T=today();
   if(scope==="chiffres"){const C=shuffle(P.filter(o=>/\d/.test(o.x))).sort((a,b)=>(a.s.n?(a.s.b?a.s.b+1:0):.5)-(b.s.n?(b.s.b?b.s.b+1:0):.5));return interleave(C.slice(0,n)).map(o=>mkPt(o,"chiffre"))}
-  const due=shuffle(P.filter(o=>o.s.n&&o.s.d<=T)).sort((a,b)=>(a.s.b-b.s.b)||(b.s.m-a.s.m));
+  const due=shuffle(P.filter(o=>o.s.n&&o.s.d<=T)).sort((a,b)=>(a.s.b-b.s.b)||(a.s.d-b.s.d)||(b.s.m-a.s.m));
   const started=new Set(P.filter(o=>o.s.n).map(o=>o.t.id));
   const fresh=P.filter(o=>!o.s.n),freshS=fresh.filter(o=>started.has(o.t.id)).concat(fresh.filter(o=>!started.has(o.t.id)));
   const q=newQuota();
@@ -3626,6 +3668,7 @@ function buildPractice(scope,n){
 }
 VIEWS.entrainement=(scope)=>{
   scope=scope||"jour";if(scope==="all")scope="jour";
+  {const r=runGet("px");if(r&&r.scope===scope&&pxRestore())return showEx()}
   let list;
   if(scope==="oublis")list=shuffle(missedPoints()).slice(0,15).map(m=>exForPt({t:m.t,p:m.p,i:m.i,x:m.x,s:ppS(m.t.id,m.p.k,m.i)}));
   else if(scope==="varie")list=buildPractice("all",12);
@@ -3641,6 +3684,7 @@ function exHead(ex){const n=px.list.length;return `<div class="top"><button clas
 function showEx(){
   stopTimer();stopRec();
   if(px.i>=px.list.length)return endPractice();
+  pxSave(px.i);
   const ex=px.list[px.i],t=ex.t,p=ex.p,c=CATC[t.cat];
   const ctx=`<div class="eyebrow" style="color:var(--cc)">${esc(t.t)} · ${esc(p.l)}</div>`;
   const ctxLine=ex.pt?bestLine(p,ex.pt):null,inOral=ctxLine?`<div class="eyebrow" style="margin-top:4px">Dans ton oral</div><p class="small">${md(ctxLine)}</p>`:"";
@@ -3662,10 +3706,10 @@ function showEx(){
   // un point raté revient en fin de séance (une fois), pour le retrouver avant de partir
   const finish=(ok,html)=>{
     if(!ex.retry){px.res.push({t:t.id,k:p.k,ok,pt:ex.pt,type:ex.type});if(ok)px.ok++}
-    if(PT_TYPES.has(ex.type)){if(!ex.retry){gradePoint(t.id,p.k,ex.pi,ok);save()}
+    if(PT_TYPES.has(ex.type)){if(!ex.retry){gradePoint(t.id,p.k,ex.pi,ok,ex.type==="qcm"||ex.type==="sujet");save()}
       if(!ok&&!ex.retry){px.miss.push({t,x:ex.pt});px.list.push(Object.assign(mkPt({t,p,i:ex.pi,x:ex.pt},"point"),{retry:true}))}}
     else gradePart(t.id,p.k,ok);
-    if(html!=null){const fb=$("fb");fb.hidden=false;fb.innerHTML=html}$("nx").hidden=false};
+    pxSave(px.i+1);if(html!=null){const fb=$("fb");fb.hidden=false;fb.innerHTML=html}$("nx").hidden=false};
   const verdict=(ok,extra)=>`<div class="eyebrow" style="color:${ok?"var(--good)":"var(--bad)"}">${ok?"Juste":"Pas tout à fait"}</div>${extra||""}`;
   const fullPt=()=>`<p>${esc(ex.pt)}</p>${inOral}`;
   $("nx").onclick=()=>{px.i++;showEx()};
@@ -3684,6 +3728,7 @@ function showEx(){
   if(ex.type==="intrus")$app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=ex.opts[+b.dataset.o]===ex.ans;$app.querySelectorAll(".opt").forEach(x=>{if(ex.opts[+x.dataset.o]===ex.ans)x.classList.add("right");else if(x===b)x.classList.add("wrong")});finish(ok,verdict(ok,`<p>L’intrus vient de : <strong>${esc(ex.other.t)}</strong>.</p>`))});
 }
 function endPractice(){
+  runClear("px");
   const n=px.res.length,ok=px.ok,pc=n?Math.round(100*ok/n):0,min=Math.max(1,Math.round((Date.now()-(px.t0||Date.now()))/60000));
   if(n>=8&&pc>=80)setTimeout(celebrate,250);
   const T=today(),P=allPts(),tom=P.filter(o=>o.s.n&&o.s.d===T+1).length,dueNow=P.filter(o=>o.s.n&&o.s.d<=T).length,q=newQuota();
@@ -3706,7 +3751,7 @@ function seanceCard(){
    <div class="minibar two"><i style="width:${(100*seen/P.length).toFixed(1)}%"></i><i class="b" style="width:${(100*solid/P.length).toFixed(1)}%"></i></div>
    <p class="small muted" style="margin:0">${ed!=null&&ed>0?`Oral dans ${ed} jour${ed>1?"s":""} : ${q.per} nouveaux points par jour pour avoir tout vu 3 jours avant.`:`${q.per} nouveaux points par jour. Mets la date de ton oral sur l’accueil pour adapter le rythme.`} Chaque point revient juste avant d’être oublié : 1, 3, 6, 12 puis 25 jours.</p>
    <div class="seg" role="tablist">${[["court","Courte · 10"],["normal","Normale · 20"],["long","Longue · 30"]].map(([k,l])=>`<button role="tab" aria-selected="${L===k}" class="${L===k?"on":""}" data-slen="${k}">${l}</button>`).join("")}</div>
-   <button class="btn primary block" data-train="jour">Commencer la séance</button></div>`;
+   ${(()=>{const r=runGet("px");return r&&r.scope==="jour"?`<button class="btn primary block" data-train="jour">Reprendre la séance (question ${r.i+1} / ${r.n})</button><button class="hh-link2" style="color:var(--muted)" data-runclear="px">Abandonner et en commencer une nouvelle</button>`:`<button class="btn primary block" data-train="jour">Commencer la séance</button>`})()}</div>`;
 }
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-slen]");if(!b)return;S.slen=b.dataset.slen;persist();const box=b.closest(".seance");if(box)box.outerHTML=seanceCard()});
 const EXPR=`<details class="sec"><summary><span class="sumrow"><span class="L">“</span>Bien s’exprimer le jour J<span class="chev">›</span></span></summary><div class="oraltxt">
@@ -4051,6 +4096,7 @@ function showExm(){
 // ---------- entraînement varié d'anatomie
 let atr={list:[],i:0,ok:0,res:[]};
 VIEWS.anattrain=()=>{
+  {const r=runGet("atr");if(r){try{const list=thaw(r.list);if(list.length){atr={list,i:r.i,ok:r.ok,res:r.res||[]};return showAtr()}}catch(e){runClear("atr")}}}
   const Q=k=>anatQuestions(k);
   const bag=shuffle(["asch","asch","anerf","amus","aorig","arep","typeamp","typeamp","vf","palp","palp","otia"]);
   const amps=ANAT.filter(t=>t.id!=="a-amplitudes").flatMap(t=>t.viz.filter(v=>v.type==="rom").flatMap(v=>v.items.flatMap(([la,va,lb,vb,note])=>[{t,l:la,v:va,j:v.title},{t,l:lb,v:vb,j:v.title}])));
@@ -4065,6 +4111,7 @@ VIEWS.anattrain=()=>{
   showAtr();
 };
 function showAtr(){
+  if(atr.i<atr.list.length)runSave("atr",{i:atr.i,n:atr.list.length,ok:atr.ok,res:atr.res,list:freeze(atr.list)});else runClear("atr");
   if(atr.i>=atr.list.length){
     if(atr.ok>=10)setTimeout(celebrate,250);
     return h(`<div class="stack"><div class="pagehead"><div class="eyebrow">Entraînement terminé</div><h1>${atr.ok} / ${atr.list.length}</h1></div><p class="muted">Les éléments ratés reviendront plus souvent dans tes cartes.</p>
@@ -4073,7 +4120,7 @@ function showAtr(){
   const ex=atr.list[atr.i];
   const head=lbl=>`<div class="top"><button class="back" data-go="pratique" aria-label="Quitter">‹</button><div style="flex:1" class="stack"><span class="eyebrow">${atr.i+1} / ${atr.list.length} · ${lbl}</span><div class="bar"><i style="width:${100*atr.i/atr.list.length}%"></i></div></div></div>`;
   const nextBtn=`<button class="btn primary block" id="nx" hidden>Suivant</button>`;
-  const fin=(ok,html)=>{atr.res.push(ok);if(ok)atr.ok++;const fb=document.getElementById("fb");if(fb&&html!=null){fb.hidden=false;fb.innerHTML=html}document.getElementById("nx").hidden=false;try{document.getElementById("nx").scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}};
+  const fin=(ok,html)=>{atr.res.push(ok);if(ok)atr.ok++;runSave("atr",{i:atr.i+1,n:atr.list.length,ok:atr.ok,res:atr.res,list:freeze(atr.list)});const fb=document.getElementById("fb");if(fb&&html!=null){fb.hidden=false;fb.innerHTML=html}document.getElementById("nx").hidden=false;try{document.getElementById("nx").scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}};
   const cardBy=id=>CARDS.find(c=>c.id===id);
   if(ex.type==="qcm"){
     const q=ex.q;
@@ -4200,6 +4247,8 @@ function showCard(){
 
 // ---------- quiz ----------
 let qz=[],qi=0,qok=0,quizMode="mix";
+function qzSave(i){runSave("qz",{i,n:qz.length,ok:qok,mode:quizMode,list:freeze(qz),err:freeze(qz._err||[])})}
+function qzRestore(){const r=runGet("qz");if(!r)return false;try{qz=thaw(r.list);qz._err=thaw(r.err||[]);qi=r.i;qok=r.ok;quizMode=r.mode;return qz.length>0}catch(e){runClear("qz");return false}}
 // chaque question : {eyebrow, clue | img, opts:[libellés], ans:libellé, topic, note}
 function makeQuiz(){
   if(quizMode[0]==="a")return shuffle(anatQuestions(quizMode)).slice(0,10);
@@ -4222,11 +4271,13 @@ VIEWS.quiz=()=>{
     <p class="muted">${subj()==="anat"?"Nerfs, actions des muscles, amplitudes et repères à palper.":"Un indice ou une photo s’affiche : trouve la pathologie. Les réponses changent de place à chaque fois."}</p>
     <div class="row">${(subj()==="anat"?AQM:[["mix","Mélange"],["clues","Indices"],["photos","Photos"]]).map(([k,l])=>`<button class="chip ${quizMode===k?"on":""}" data-qm="${k}">${l}</button>`).join("")}</div>
     ${S.quiz.n?`<div class="panel"><span class="big" style="font-size:2rem">${Math.round(100*S.quiz.ok/S.quiz.n)} %</span> <span class="muted">de bonnes réponses sur ${S.quiz.n} questions</span></div>`:""}
-    <button class="btn primary block" id="qs">Lancer le quiz</button></div>`);
+    ${runGet("qz")?`<button class="btn primary block" data-qresume="1">Reprendre mon quiz (question ${runGet("qz").i+1} / ${runGet("qz").n})</button>`:""}
+    <button class="btn ${runGet("qz")?"":"primary "}block" id="qs">${runGet("qz")?"Nouveau quiz":"Lancer le quiz"}</button></div>`);
   $app.querySelectorAll("[data-qm]").forEach(b=>b.onclick=()=>{quizMode=b.dataset.qm;VIEWS.quiz()});
-  document.getElementById("qs").onclick=()=>{qz=makeQuiz();qi=0;qok=0;showQ()};
+  document.getElementById("qs").onclick=()=>{runClear("qz");qz=makeQuiz();qi=0;qok=0;showQ()};
 };
 function showQ(){
+  if(qi<qz.length)qzSave(qi);else runClear("qz");
   if(qi>=qz.length){
     if(qok>=8)setTimeout(celebrate,250);
     h(`<div class="stack"><div class="pagehead"><div class="eyebrow">Résultat du quiz</div><h1>${qok>=8?"Bravo !":qok>=5?"Pas mal":"On s’accroche"}</h1></div>
@@ -4250,7 +4301,7 @@ function showQ(){
     b.parentElement.classList.add("answered");haptic(ok?10:[8,50,8]);if(ok)spark(b);else(qz._err||(qz._err=[])).push(q);
     document.getElementById("verdict").innerHTML=`<div class="eyebrow" style="color:${ok?"var(--good)":"var(--bad)"}">${ok?"Bonne réponse":"La bonne réponse était"}</div><h3>${mdn(q.ans)}</h3><p class="small muted">${md(q.note||"")}</p>${q.topicQ?"":`<button class="chip" data-fiche="${tt.id}" style="align-self:flex-start">Fiche : ${esc(tt.t)}</button>`}`;
     document.getElementById("qmore").onclick=e=>{const mb=document.getElementById("qmoreBox");mb.hidden=false;e.currentTarget.hidden=true;try{mb.scrollIntoView({behavior:"smooth",block:"start"})}catch(_){}};
-    document.getElementById("after").hidden=false;
+    qzSave(qi+1);document.getElementById("after").hidden=false;
     document.getElementById("next").onclick=()=>{qi++;showQ()};
   });
 }
@@ -4269,6 +4320,7 @@ VIEWS.oral=(forced)=>{
    <div class="pagehead"><div class="eyebrow">L’oral de pédicurie</div><h1>Mon oral</h1></div>
    <div class="panel stack"><div class="row" style="gap:14px;flex-wrap:nowrap">${ringSvg(Math.round(100*ready/TOPICS.length),"des sujets prêts",false,"prêts")}<div class="stack" style="gap:4px"><strong style="font-size:1.15rem">${ready} / ${TOPICS.length} sujets maîtrisés à 100 %</strong><p class="small muted">Pour chaque sujet : l’oral complet en phrases simples, et tous les points du livret à citer. Après chaque récitation, tu coches ce que tu as dit. Un sujet est à 100 % quand chaque point a été retrouvé de tête sur 2 jours différents.</p></div></div>
      <div class="psteps static">${["Intro","Étio","Physio","Signes","Diag","TTT","Prono","Prév","Concl"].map(x=>`<span class="pst">${x}</span>`).join("")}</div></div>
+   ${runCards()}
    ${(()=>{const n=missedPoints().length;return n?`<button class="btn block missbtn" data-train="oublis">Revoir mes ${n} point${n>1?"s":""} oublié${n>1?"s":""}</button>`:""})()}
    ${seanceCard()}
    <div class="grid2"><button class="btn" data-train="chiffres">Les chiffres à connaître</button><button class="btn" data-train="varie">Exercices variés</button></div>

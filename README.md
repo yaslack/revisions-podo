@@ -11,12 +11,16 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
 - **Revoir mes points oubliés** : une série courte qui ne repose que les points ratés, tous sujets confondus.
 - **Écoute comme à l’oral** : la fiche est dite comme une vraie présentation (bonjour, plan, transitions, conclusion), avec un lecteur : pause, reprise, partie précédente / suivante, vitesse, choix de la voix. La position est retenue (carte « Reprendre l’écoute ») ; après une mise en veille, la lecture reprend à la phrase en cours.
 - **Séance du jour** (10, 20 ou 30 questions) : l’appli choisit pour toi, point par point. D’abord les points à revoir aujourd’hui, puis des nouveaux, tous sujets mélangés.
-  - **Répétition espacée** : chaque point revient juste avant d’être oublié (1, 3, 6, 12 puis 25 jours). Un point raté repart à zéro et revient en fin de séance.
+  - **Répétition espacée** : chaque point revient juste avant d’être oublié (1, 3, 6, 12 puis 25 jours, avec un léger décalage aléatoire pour ne pas tout revoir le même jour). Un point raté revient en fin de séance, puis le lendemain ; s’il était déjà solide, il ne repart pas tout en bas.
+  - **Pas de fausse progression** : refaire un point plusieurs fois le même jour ne le fait pas monter ; le reconnaître dans un choix multiple ou retrouver son sujet le reprogramme sans le faire monter : seul le rappel (le dire ou le taper) compte pour monter.
+  - **Calé sur l’oral** : aucune révision n’est programmée après la date de l’oral, elle est avancée à la veille. Les points les plus en retard et les plus fragiles passent en premier.
   - **Difficulté qui monte** : un point nouveau se reconnaît (choix multiple), puis se retrouve avec un indice (point à citer), puis seul (chiffre exact à taper, retrouver de quel sujet vient le point).
   - Chaque séance contient aussi la partie la plus fragile à **citer en entier** (on coche ce qu’on a dit), une **question du jury** et un **oral express**.
   - **Rythme** : avec la date de l’oral saisie sur l’accueil, le nombre de nouveaux points par jour est calculé pour avoir tout vu 3 jours avant.
   - Fin de séance : score du premier coup, liste des points à retenir, ce qui revient demain.
 - **Les chiffres à connaître** (tous les chiffres du livret, à taper) et **Exercices variés** (récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express). Un sujet n’est maîtrisé à 100 % que quand chaque point a été retrouvé de tête sur 2 jours différents.
+
+**Rien ne se perd** : chaque réponse est enregistrée tout de suite. Si tu quittes en plein milieu d’une séance du jour, d’un quiz ou d’un entraînement d’anatomie (appli fermée, appel, téléphone verrouillé), une carte « En cours · Reprendre » t’attend au retour sur l’écran d’accueil, à la question où tu t’étais arrêté (valable jusqu’à la fin de la journée ; « Abandonner » pour repartir de zéro).
 
 **Lecture claire partout**
 - Fiches d’anatomie en une colonne aérée : l’essentiel d’abord (phrase à retenir, 5 points), puis chaque muscle, repère ou étape du parcours replié sur une ligne (nom, nerf, action en bref). On en ouvre un à la fois pour lire sa fiche d’identité en grand, avec la planche zoomée sur lui. Les autres planches défilent en bandeau.
