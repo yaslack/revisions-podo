@@ -18,6 +18,11 @@ Appli de révision pour l’oral de pédicurie-podologie et l’anatomie palpato
   - Fin de séance : score du premier coup, liste des points à retenir, ce qui revient demain.
 - **Les chiffres à connaître** (tous les chiffres du livret, à taper) et **Exercices variés** (récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express). Un sujet n’est maîtrisé à 100 % que quand chaque point a été retrouvé de tête sur 2 jours différents.
 
+**Lecture claire partout**
+- Fiches d’anatomie en une colonne aérée : l’essentiel d’abord (phrase à retenir, 5 points), puis chaque muscle, repère ou étape du parcours replié sur une ligne (nom, nerf, action en bref). On en ouvre un à la fois pour lire sa fiche d’identité en grand, avec la planche zoomée sur lui. Les autres planches défilent en bandeau.
+- Accueil réorganisé : une action principale (« Ma séance du jour »), puis l’oral, le programme, les priorités et les familles ; le plan et la méthode sont repliés.
+- Exercices et quiz : après chaque réponse, la page descend toute seule jusqu’à la correction et au bouton « Suivant ».
+
 **Anatomie**
 - **Membre inférieur en 3D** : modèle anatomique réel (BodyParts3D, DBCLS, CC BY-SA 2.1 JP) avec 86 structures (os, muscles en 3 couches, artères, veines). Plein écran : on le fait tourner, on zoome, on enlève les couches, on touche une structure pour voir son nom et ouvrir sa fiche. Bouton « Noms » pour afficher les noms sur le modèle ; toucher un muscle ouvre sa fiche d’identité (origine, terminaison, nerf, action, palpation). Le quiz 3D a 4 types de questions (trouve la structure, nomme la structure en jaune, action / nerf / pouls, mélange), se règle par catégorie et région, retient tes réponses pour reposer d’abord tes points faibles, compte tes séries et garde ton record ; en cas d’erreur, la bonne structure est en vert et celle touchée en rouge ; à la fin, « Refaire mes erreurs ».
 - **Quiz sur planches** : même principe sur les 41 planches numérotées (atlas et rendus 3D), en plein écran avec zoom au doigt : touche le bon point ou nomme le point en jaune, avec révision des points faibles.

@@ -978,6 +978,53 @@ body.v3on #minih{display:none}
 .pl text{fill:#fff;font-weight:700}
 @media (prefers-reduced-motion: no-preference){.pdot.q circle,.pdot.ok circle{animation:pqpulse 1.1s ease-in-out infinite}}
 @keyframes pqpulse{50%{opacity:.6}}
+
+/* fiche d'anatomie aérée : une colonne, un élément ouvert à la fois */
+.afiche{gap:22px}
+.afiche h2{margin-top:6px}
+.afiche h2.h3{font-size:1.15rem;margin:0}
+.afiche .memo p{font-size:1.16rem;line-height:1.5}
+.afiche .keys{gap:14px}
+.afiche .keys li{font-size:1.03rem;line-height:1.5}
+.afiche .lead2{margin:-6px 0 2px}
+.afiche .actrow{gap:8px}
+.afiche .gl{text-decoration-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.acclist{display:flex;flex-direction:column;gap:10px}
+details.acc{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+details.acc summary{list-style:none;display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::marker{content:""}
+.acc-dot{width:11px;height:11px;border-radius:50%;background:var(--nc,var(--cc,var(--accent)));flex:none}
+.acc-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.acc-n{font-size:1.03rem;font-weight:650;line-height:1.3;color:var(--ink)}
+.acc-t small{color:var(--muted);font-size:.86rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+details.acc .chev{color:var(--muted);font-size:1.4rem;line-height:1;transition:transform .2s;flex:none}
+details.acc[open] .chev{transform:rotate(90deg)}
+details.acc[open] .acc-t small{white-space:normal}
+details.acc[open]{box-shadow:var(--shadow-lg,var(--shadow))}
+.acc-b{padding:2px 16px 18px;display:flex;flex-direction:column;gap:14px}
+.mfig{all:unset;box-sizing:border-box;display:block;position:relative;height:230px;border-radius:14px;overflow:hidden;background:#F7F2EC;cursor:zoom-in}
+.mfig .art{position:absolute;left:0;top:0;transform-origin:0 0;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.mfig-c{margin:-8px 0 0}
+.idr{display:flex;flex-direction:column;gap:14px}
+.idr-r>span{display:block;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cc,var(--accent));margin-bottom:3px}
+.idr-r p{margin:0;font-size:1.02rem;line-height:1.52}
+.accp{margin:0;font-size:1.02rem;line-height:1.52}
+.accul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:10px;font-size:1.02rem;line-height:1.5}
+.legacc .aleg{grid-template-columns:1fr!important}
+.hscroll{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 8px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.hcard{flex:0 0 68%;scroll-snap-align:start;margin:0;background:var(--surface);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);cursor:zoom-in}
+.hcard img{display:block;width:100%;height:190px;object-fit:contain;background:#F7F2EC}
+.hcard figcaption{padding:8px 12px 10px;font-size:.84rem;line-height:1.35;color:var(--muted)}
+
+/* accueil aéré */
+.homev{gap:18px}
+.homev>h2{margin:14px 0 -4px}
+.hh-link2{all:unset;cursor:pointer;align-self:center;font-size:.86rem;font-weight:600;opacity:.9;padding:4px 8px;color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+/* exercices et quiz aérés */
+.opt{padding:17px 18px;font-size:1.02rem;line-height:1.42;min-height:58px}
+.clue{font-size:1.32rem;line-height:1.38}
 </style>
 </head>
 <body>
@@ -1874,8 +1921,15 @@ const md=s=>glossify(esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\*(.+
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){if(typeof CLEAN!=="undefined"){CLEAN.forEach(f=>{try{f()}catch(e){}});CLEAN=[]}$app.innerHTML=html;window.scrollTo(0,0);enhance($app)}
+// fait apparaître la correction et le bouton « Suivant » sans avoir à défiler
+function bringIntoView(el){if(!el)return;requestAnimationFrame(()=>{const r=el.getBoundingClientRect();if(!r.height)return;const tb=document.querySelector(".tabs"),bot=innerHeight-(tb?tb.getBoundingClientRect().height:0)-18,top=78;
+  let dy=0;if(r.bottom>bot)dy=Math.min(r.bottom-bot,r.top-top);else if(r.top<top)dy=r.top-top;if(Math.abs(dy)>4)window.scrollTo({top:window.scrollY+dy,behavior:RM?"auto":"smooth"})})}
+const AUTOSCROLL=new Set(["after","fb","rv","sg","nx","ans","gr","lstc","score","meth","oublis"]);
+new MutationObserver(ms=>{let hit=false;for(const m of ms){const el=m.target;if(el.id&&AUTOSCROLL.has(el.id)&&!el.hidden)hit=true}if(!hit)return;
+  const btn=["nx","next","gnext","ok","sg"].map(i=>document.getElementById(i)).find(b=>b&&!b.hidden&&b.offsetParent);const all=[...$app.querySelectorAll("#after,#fb,#rv,#sg,#nx,#ans,#gr,#lstc,#score,#meth")].filter(e=>!e.hidden&&e.offsetParent);
+  bringIntoView(btn||all[all.length-1])}).observe(document.getElementById("app")||document.body,{subtree:true,attributes:true,attributeFilter:["hidden"]});
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="29";
+const APP_VERSION="30";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -3070,8 +3124,9 @@ function resumeCard(){
 VIEWS.home=()=>{
   if(subj()==="anat")return anatHome();
   const SC=subjCards(), g=subjMastery(), due=SC.filter(isDue).length, fresh=SC.filter(c=>!st(c)).length;
-  const weak=TOPICS.slice().sort((a,b)=>mastery(a.id)-mastery(b.id)).slice(0,3);
+  const weak=TOPICS.slice().sort((a,b)=>oralMastery(a.id)-oralMastery(b.id)).slice(0,3);
   const nd=examDays(), dateSet=!!(S.exam&&!editDate&&nd!==null&&nd>=0), stk=streak();
+  const PP=allPts(),pdue=PP.filter(o=>o.s.n&&o.s.d<=today()).length,pq=newQuota(),pnew=Math.min(pq.left,pq.unseen);
   const dd=dateSet?new Date(S.exam+"T12:00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}):"";
   let cd="";
   if(!dateSet){
@@ -3080,30 +3135,31 @@ VIEWS.home=()=>{
       <div class="datesel"><select id="dD" aria-label="Jour">${Array.from({length:31},(_,i)=>`<option value="${i+1}" ${base.getDate()===i+1?"selected":""}>${i+1}</option>`).join("")}</select><select id="dM" aria-label="Mois">${MOIS.map((m,i)=>`<option value="${i+1}" ${base.getMonth()===i?"selected":""}>${m}</option>`).join("")}</select><select id="dY" aria-label="Année">${[y0,y0+1].map(y=>`<option value="${y}" ${base.getFullYear()===y?"selected":""}>${y}</option>`).join("")}</select></div>
       <button class="btn primary" id="savedate">Enregistrer la date</button><p class="muted small" id="datemsg">Pour le compte à rebours et ton programme de révision jour par jour.</p></div>`;
   }
-    h(`<div class="stack">
+    h(`<div class="stack homev">
    <div class="subjbar"><button class="chip" data-go="matieres">‹ Matières</button><span class="eyebrow">Pédicurie</span></div>
    <section class="hh">
      <div class="hh-top"><div style="min-width:0"><div class="hh-eyebrow">Oral de pédicurie-podologie</div><div class="hh-title">${dateSet?(nd===0?"Jour J":"J-"+nd):"Mes révisions"}</div><div class="hh-sub">${dateSet?(nd===0?"C’est aujourd’hui, tu vas gérer.":esc(dd))+` <button class="hh-link" id="chgdate">Modifier</button>`:"Ajoute la date de ton oral juste en dessous."}</div></div>${ringSvg(g,"des cartes maîtrisées",true)}</div>
-     <div class="hh-stats"><div><strong>${due}</strong><span>à revoir</span></div><div><strong>${fresh}</strong><span>nouvelles</span></div><div><strong>${stk}</strong><span>${stk>1?"jours d’affilée":"jour d’affilée"}</span></div></div>
+     <div class="hh-stats"><div><strong>${pdue}</strong><span>points à revoir</span></div><div><strong>${pnew}</strong><span>nouveaux</span></div><div><strong>${stk}</strong><span>${stk>1?"jours d’affilée":"jour d’affilée"}</span></div></div>
      ${goalHTML(true)}
-     <button class="btn block hh-cta" data-start="jour">Réviser maintenant</button>
+     <button class="btn block hh-cta" data-train="jour">Ma séance du jour</button>
+     <button class="hh-link2" data-start="jour">ou mes cartes du jour (${due} à revoir)</button>
    </section>
    ${resumeCard()}
-   ${progCard()}
    ${cd}
-   <button class="panel oralcta" data-go="oral"><div class="stack" style="gap:2px;text-align:left"><div class="eyebrow">Mon oral</div><strong>${oralReady()} / ${TOPICS.length} sujets sus à 100 %</strong><span class="small muted">Apprendre quoi dire, étape par étape</span></div><span class="muted" style="font-size:1.4rem">›</span></button>
+   <button class="panel oralcta" data-go="oral"><div class="stack" style="gap:3px;text-align:left"><div class="eyebrow">Mon oral</div><strong>${oralReady()} / ${TOPICS.length} sujets maîtrisés à 100 %</strong><span class="small muted">Apprendre quoi dire, partie par partie, puis l’oral blanc</span></div><span class="muted" style="font-size:1.4rem">›</span></button>
    ${planPanel()}
-   <h2>Le plan à réciter</h2>
-   <div class="panel stack">${planStrip()}<p class="mnemo"><b>I</b>l <b>E</b>st <b>P</b>lutôt <b>S</b>imple <b>D</b>e <b>T</b>out <b>P</b>résenter <b>P</b>roprement</p></div>
-   <h2>Pédicurie : les 4 familles</h2>
-   <div class="cats">${Object.entries(CATS).map(([c,l])=>`<button class="cat-tile" style="--cc:${CATC[c]}" data-cat="${c}">${l}<span>${plural(TOPICS.filter(t=>t.cat===c).length,"sujet")} · ${CATDESC[c]}</span></button>`).join("")}</div>
-   ${favList()}
    <h2>À travailler en priorité</h2>
    <div class="list">${weak.map(topicItem).join("")}</div>
-   <h2>Ma méthode</h2>
+   <h2>Les 4 familles</h2>
+   <div class="cats">${Object.entries(CATS).map(([c,l])=>`<button class="cat-tile" style="--cc:${CATC[c]}" data-cat="${c}">${l}<span>${plural(TOPICS.filter(t=>t.cat===c).length,"sujet")} · ${CATDESC[c]}</span></button>`).join("")}</div>
+   ${favList()}
+   ${progCard()}
+   <h2>Repères</h2>
+   <details class="acc"><summary><span class="acc-dot"></span><span class="acc-t"><span class="acc-n">Le plan à réciter</span><small>IEPSDTPP : « Il Est Plutôt Simple De Tout Présenter Proprement »</small></span><span class="chev" aria-hidden="true">›</span></summary><div class="acc-b">${planStrip()}<p class="mnemo"><b>I</b>l <b>E</b>st <b>P</b>lutôt <b>S</b>imple <b>D</b>e <b>T</b>out <b>P</b>résenter <b>P</b>roprement</p></div></details>
+   <details class="acc"><summary><span class="acc-dot"></span><span class="acc-t"><span class="acc-n">Ma méthode</span><small>Les 4 étapes pour apprendre une fiche</small></span><span class="chev" aria-hidden="true">›</span></summary><div class="acc-b">
    <div class="list">
-     ${[["fiches","Lire la fiche","Phrase mémo, schémas, 5 points clés, puis le plan détaillé."],["fiches","Cacher les mots-clés","Dans une fiche, cache les mots surlignés et retrouve-les de tête."],["cartes","Cartes du jour","Les cartes ratées reviennent le jour même, les sues dans 1, 2, 4 puis 8 jours."],["oral","Oral blanc","Tirage au sort, 5 min de préparation, 7 min de présentation, 3 min de questions du jury."]].map(([g2,a2,b2],i)=>`<button class="item" data-go="${g2}"><span class="th mono" style="--cc:var(--accent);width:40px;height:40px;border-radius:12px">${i+1}</span><div class="txt"><span>${a2}</span><span class="muted small" style="font-weight:400">${b2}</span></div><span class="muted" aria-hidden="true">›</span></button>`).join("")}
-   </div>
+     ${[["fiches","Lire la fiche","Phrase mémo, 5 points clés, puis « Mon oral » partie par partie."],["oral","Apprendre mon oral","Lire, texte à trous, de tête : tu coches les points dits, les oublis reviennent."],["oral","Séance du jour","Chaque point revient juste avant d’être oublié : 1, 3, 6, 12 puis 25 jours."],["oral","Oral blanc","Tirage au sort, 5 min de préparation, 7 min de présentation, questions du jury, correction point par point."]].map(([g2,a2,b2],i)=>`<button class="item" data-go="${g2}"><span class="th mono" style="--cc:var(--accent);width:40px;height:40px;border-radius:12px">${i+1}</span><div class="txt"><span>${a2}</span><span class="muted small" style="font-weight:400">${b2}</span></div><span class="muted" aria-hidden="true">›</span></button>`).join("")}
+   </div></div></details>
    <button class="btn block" data-go="matieres">Changer de matière · réglages et sauvegarde</button>
   </div>`);
   const sd=document.getElementById("savedate"); if(sd) sd.onclick=()=>{
@@ -3160,7 +3216,7 @@ VIEWS.matieres=()=>{
 function chapLists(ts){return Object.entries(ACH).map(([c,[l,d]],ci)=>{const xs=ts.filter(t=>t.ch===c);return xs.length?`<div class="stack chap" style="gap:8px"><div class="chap-h" style="--cc:${CATC.anat}"><span class="chap-n">${ci+1}</span><div><h2 class="chap-t">${l}</h2><span class="small muted">${d}</span></div></div><div class="list">${xs.map(topicItem).join("")}</div></div>`:""}).join("")}
 function anatHome(){
   const SC=subjCards(), due=SC.filter(isDue).length, fresh=SC.filter(c=>!st(c)).length, stk=streak();
-  h(`<div class="stack">
+  h(`<div class="stack homev">
    <div class="subjbar"><button class="chip" data-go="matieres">‹ Matières</button><span class="eyebrow">Anatomie</span></div>
    <section class="hh anat">
      <div class="hh-top"><div style="min-width:0"><div class="hh-eyebrow">Anatomie palpatoire</div><div class="hh-title">Membre inférieur</div><div class="hh-sub">De la hanche au pied, en 5 chapitres : os, articulations, muscles, nerfs et vaisseaux, palpation.</div></div>${ringSvg(subjMastery(),"des cartes d’anatomie maîtrisées",true)}</div>
@@ -3168,13 +3224,16 @@ function anatHome(){
      ${goalHTML(true)}
      <button class="btn block hh-cta" data-start="jour">Réviser maintenant</button>
    </section>
-   <button class="v3cta" data-go="v3d"><span class="v3cta-t"><span class="eyebrow">Nouveau</span><strong>Le membre inférieur en 3D</strong><span>Tourne, zoome, enlève les couches de muscles et touche une structure pour voir son nom.</span></span><span class="v3cta-i" aria-hidden="true">3D</span></button>
-   ${progCard()}
+   ${resumeCard()}
+   <button class="v3cta" data-go="v3d"><span class="v3cta-t"><span class="eyebrow">En 3D</span><strong>Le membre inférieur en 3D</strong><span>Tourne, zoome, enlève les couches de muscles et touche une structure pour voir son nom.</span></span><span class="v3cta-i" aria-hidden="true">3D</span></button>
    ${favList()}
+   <h2>Les fiches</h2>
+   ${chapLists(ANAT)}
+   <h2>S’entraîner</h2>
    <div class="grid2"><button class="btn" id="aquiz">Quiz anatomie</button><button class="btn" data-fiche="a-amplitudes">Toutes les amplitudes</button></div>
    ${typeof anatPratiqueTiles==="function"?anatPratiqueTiles():""}
+   ${progCard()}
    ${PALP_METHOD}
-   ${chapLists(ANAT)}
    <button class="btn block" data-go="matieres">Changer de matière · réglages et sauvegarde</button>
   </div>`);
   document.getElementById("aquiz").onclick=startAnatQuiz;
@@ -3598,7 +3657,7 @@ function showEx(){
   else if(ex.type==="intrus") body=`<div class="panel stack"><div class="eyebrow" style="color:var(--cc)">${esc(t.t)}</div><p class="clue">Lequel ne concerne <u>pas</u> ce sujet ?</p></div>${ex.opts.map((o,i)=>`<button class="opt" data-o="${i}">${mdn(o)}</button>`).join("")}<div id="fb" class="panel stack" hidden></div>`;
   else if(ex.type==="jury") body=`<div class="panel stack"><div class="eyebrow" style="color:var(--cc)">${esc(t.t)} · le jury demande</div><p class="clue">${esc(ex.q)}</p><p class="small muted">Réponds par une phrase complète, à voix haute.</p></div><div id="rv" hidden class="panel stack"><div class="eyebrow">Réponse attendue</div><p style="font-size:1.1rem">${md(ex.a)}</p></div><button class="btn primary block" id="show">Voir la réponse</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">Je ne savais pas</button><button class="btn good" data-g="1">Je savais</button></div>`;
   else if(ex.type==="express") body=`<div class="panel stack">${ctx}<p class="clue">Oral express : présente cette partie comme devant le jury, en phrases complètes.</p><div class="timer" id="tm" style="font-size:3.2rem">1:00</div>${recWidget()}</div><div id="rv" hidden class="panel stack script">${p.lead?`<p class="lead">${md(p.lead)}</p>`:""}<ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul></div><button class="btn primary block" id="show">J’ai fini : comparer</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">Incomplet ou hésitant</button><button class="btn good" data-g="1">Complet et clair</button></div>`;
-  h(exHead(ex)+`<div class="stack" style="--cc:${c}">${body}<button class="btn block" id="nx" hidden>Suivant</button></div>`);
+  h(exHead(ex)+`<div class="stack" style="--cc:${c}">${body}<button class="btn primary block" id="nx" hidden>Suivant</button></div>`);
   const $=id=>document.getElementById(id);
   // un point raté revient en fin de séance (une fois), pour le retrouver avant de partir
   const finish=(ok,html)=>{
@@ -3606,7 +3665,7 @@ function showEx(){
     if(PT_TYPES.has(ex.type)){if(!ex.retry){gradePoint(t.id,p.k,ex.pi,ok);save()}
       if(!ok&&!ex.retry){px.miss.push({t,x:ex.pt});px.list.push(Object.assign(mkPt({t,p,i:ex.pi,x:ex.pt},"point"),{retry:true}))}}
     else gradePart(t.id,p.k,ok);
-    if(html!=null){const fb=$("fb");fb.hidden=false;fb.innerHTML=html}$("nx").hidden=false;try{$("nx").scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}};
+    if(html!=null){const fb=$("fb");fb.hidden=false;fb.innerHTML=html}$("nx").hidden=false};
   const verdict=(ok,extra)=>`<div class="eyebrow" style="color:${ok?"var(--good)":"var(--bad)"}">${ok?"Juste":"Pas tout à fait"}</div>${extra||""}`;
   const fullPt=()=>`<p>${esc(ex.pt)}</p>${inOral}`;
   $("nx").onclick=()=>{px.i++;showEx()};
@@ -3770,34 +3829,66 @@ function chapNav(t){
   const xs=ANAT.filter(x=>x.ch===t.ch),i=xs.indexOf(t),p=xs[i-1],n=xs[i+1];
   return `<nav class="chapnav" aria-label="Chapitre ${esc(ACH[t.ch][0])}"><div class="eyebrow">Chapitre ${esc(ACH[t.ch][0])} · ${i+1} / ${xs.length}</div><div class="chapnav-row">${p?`<button class="chapbtn" data-fiche="${p.id}"><small>‹ Précédent</small><span>${esc(p.t)}</span></button>`:"<span></span>"}${n?`<button class="chapbtn nx" data-fiche="${n.id}"><small>Suivant ›</small><span>${esc(n.t)}</span></button>`:"<span></span>"}</div></nav>`;
 }
+// ---------- fiche d'anatomie : une colonne aérée, un élément ouvert à la fois ----------
+// Chaque muscle, repère ou étape du parcours est replié sur une ligne (nom + l'essentiel).
+// On l'ouvre pour lire sa fiche en grand, avec la planche zoomée sur lui.
+const shortTxt=(s,n)=>{s=strip(s).split(/\s*[;(]\s*/)[0];return s.length>n?s.slice(0,n-1).replace(/\s+\S*$/,"")+"…":s};
+const rowsHTML=rows=>`<div class="idr">${rows.filter(r=>r[1]).map(([l,v])=>`<div class="idr-r"><span>${l}</span><p>${v}</p></div>`).join("")}</div>`;
+function accHTML(o){return `<details class="acc"${o.fig?` data-k="${o.fig.k}" data-n="${o.fig.n}"`:""}${o.name?` data-sname="${esc(o.name)}"`:""}><summary><span class="acc-dot" style="--nc:${o.dot||"var(--cc)"}"></span><span class="acc-t"><span class="acc-n">${esc(o.title)}</span>${o.sub?`<small>${o.sub}</small>`:""}</span><span class="chev" aria-hidden="true">›</span></summary><div class="acc-b">${o.fig?`<button class="mfig" type="button" aria-label="Voir la planche en grand"></button><p class="mfig-c small muted">${esc(SCHN[o.fig.k]||"Planche")} · n° ${o.fig.n} · touche pour agrandir</p>`:""}${o.body}</div></details>`}
+function focusMini(f,k,n){
+  const A=ANATART[k],art=f.querySelector(".art");if(!A||!art)return;
+  const W=f.clientWidth,H=f.clientHeight;if(!W||!H)return;
+  const bh=W*A.h/A.w;art.style.width=W+"px";art.style.maxWidth="none";
+  art.querySelectorAll(".nm").forEach(g=>g.classList.toggle("hl",g.dataset.n==n));
+  const p=artPos(k,n);if(!p){art.style.transform=`translate(0px,${Math.min(0,(H-bh)/2).toFixed(1)}px)`;return}
+  const z=Math.max(1.6,Math.min(2.4,1.25*H/bh*3));
+  let tx=W/2-z*(p.x/A.w)*W,ty=H/2-z*(p.y/A.h)*bh;
+  tx=Math.min(0,Math.max(W-z*W,tx));ty=z*bh>H?Math.min(0,Math.max(H-z*bh,ty)):(H-z*bh)/2;
+  art.style.transform=`translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${z.toFixed(3)})`;
+}
+function bindAcc(root){
+  root.querySelectorAll("details.acc").forEach(d=>d.addEventListener("toggle",()=>{
+    if(!d.open)return;
+    const list=d.parentElement;list.querySelectorAll(":scope>details.acc[open]").forEach(o=>{if(o!==d)o.open=false});
+    const f=d.querySelector(".mfig");
+    if(f&&!f.dataset.done){f.dataset.done="1";f.innerHTML=artHTML(d.dataset.k,{muet:true});const img=f.querySelector("img");const go2=()=>focusMini(f,d.dataset.k,+d.dataset.n);requestAnimationFrame(go2);if(img&&!img.complete)img.addEventListener("load",go2,{once:true})}
+    requestAnimationFrame(()=>{const nav=document.getElementById("toc"),off=(nav?nav.getBoundingClientRect().bottom:0)+10,top=d.getBoundingClientRect().top;if(top<off||top>innerHeight*.55)window.scrollTo({top:window.scrollY+top-off,behavior:RM?"auto":"smooth"})});
+  }));
+  root.querySelectorAll(".mfig").forEach(f=>f.onclick=()=>{const d=f.closest("details");openArt(d.dataset.k,SCHN[d.dataset.k]||"Planche")});
+  const rs=()=>root.querySelectorAll("details.acc[open] .mfig[data-done]").forEach(f=>{const d=f.closest("details");focusMini(f,d.dataset.k,+d.dataset.n)});
+  window.addEventListener("resize",rs);onLeave(()=>window.removeEventListener("resize",rs));
+}
 function anatFiche(t){
   const icov=t.ill[0]||null, roms=t.viz.filter(v=>v.type==="rom"), others=t.viz.filter(v=>v.type!=="rom");
   const muets=Object.entries(ANATQ).filter(([k,q])=>q.topic===t.id);
-  const nav=[["s-ess","L’essentiel"]].concat(t.parc?[["s-parc","Le parcours"]]:[],roms.length?[["s-amp","Amplitudes"]]:[],t.mus&&t.mus.length?[["s-mus","Muscles"]]:[],t.palp&&t.palp.length?[["s-palp","À palper"]]:[],t.sec&&t.sec.length?[["s-det","Détails"]]:[]);
+  const K=schKeysFor(t),figOf=name=>{const r=findOn(name,K.all,K.local.length);return r&&r.sc>=1?{k:r.k,n:r.n}:null};
+  const nav=[["s-ess","L’essentiel"]].concat(t.parc?[["s-parc","Le parcours"]]:[],roms.length?[["s-amp","Amplitudes"]]:[],t.mus&&t.mus.length?[["s-mus","Muscles"]]:[],t.palp&&t.palp.length?[["s-palp","À palper"]]:[],t.sec&&t.sec.length?[["s-det","Détails"]]:[],[["s-train","S’entraîner"]]);
+  const leg=icov&&ANATART[icov.k]&&(ANATART[icov.k].leg.length||ANATART[icov.k].keys.length)?ANATART[icov.k].leg.length:0;
   h(`${icov?coverHTML(icov,CATC.anat,"anat"):""}
    <div class="course-head" style="--cc:${CATC.anat}"><span class="pill2">Anatomie · ${esc(ACH[t.ch][0])}</span><h1>${esc(t.t)}</h1><div class="row small muted">${mastery(t.id)} % des cartes maîtrisées</div></div>
    ${courseNav("anat",nav,CATC.anat)}
-   <div class="fiche stack ${S.hidekw?"hidekw":""}" id="fiche" style="--cc:${CATC.anat}">
+   <div class="fiche afiche stack ${S.hidekw?"hidekw":""}" id="fiche" style="--cc:${CATC.anat}">
     <section id="s-ess" class="stack">
-     ${icov&&ANATART[icov.k]&&(ANATART[icov.k].leg.length||ANATART[icov.k].keys.length)?`<div class="panel stack cov-leg"><div class="eyebrow">Légende du schéma · touche un nom pour le voir</div>${legendHTML(icov.k)}</div>`:""}
-     <div class="row"><button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button>${canSpeak?`<button class="chip" id="speak">▶ Écouter la fiche</button>`:""}<button class="chip" data-go="v3d">Voir en 3D</button>${favBtn(t.id)}${siriBtn(t.id)}</div>
+     ${icov&&ANATART[icov.k]&&(leg||ANATART[icov.k].keys.length)?`<details class="acc legacc"><summary><span class="acc-dot"></span><span class="acc-t"><span class="acc-n">Légende de la planche</span><small>${leg?leg+" repères · touche un nom pour l’allumer":"couleurs"}</small></span><span class="chev" aria-hidden="true">›</span></summary><div class="acc-b">${legendHTML(icov.k)}</div></details>`:""}
      <div class="memo"><div class="eyebrow">À retenir en une phrase</div><p>${md(t.memo)}</p></div>
      <div class="panel stack"><div class="eyebrow">Les 5 points à savoir</div><ol class="keys">${t.key.map(k=>`<li><span>${md(k)}</span></li>`).join("")}</ol></div>
+     <div class="row actrow">${canSpeak?`<button class="chip" id="speak">▶ Écouter</button>`:""}<button class="chip" data-go="v3d">Voir en 3D</button>${favBtn(t.id)}${siriBtn(t.id)}<button class="chip ${S.hidekw?"on":""}" id="kw">${S.hidekw?"Montrer les mots-clés":"Cacher les mots-clés"}</button></div>
      ${others.map(viz).join("")}
-     ${t.ill.length>1?`<div class="views"><div class="eyebrow">Les autres vues (${t.ill.length-1})</div><div class="gal">${t.ill.slice(1).map((im,i)=>`<figure class="illu vthumb" data-ill="${i+1}"><img src="${im.src}" alt="${esc(im.c)}" loading="lazy"><figcaption>${esc(im.c)}</figcaption></figure>`).join("")}</div></div>`:""}
+     ${t.ill.length>1?`<div class="stack" style="gap:8px"><h2 class="h3">Les autres planches <span class="muted small">(${t.ill.length-1})</span></h2><div class="hscroll">${t.ill.slice(1).map((im,i)=>`<figure class="hcard" data-ill="${i+1}"><img src="${im.src}" alt="${esc(im.c)}" loading="lazy"><figcaption>${esc(im.c)}</figcaption></figure>`).join("")}</div></div>`:""}
     </section>
-    ${muets.map(([k,q])=>`<button class="btn block muetbtn" data-leg="${k}"><span>Se tester sur le schéma muet${muets.length>1?" · "+esc(SCHN[k]||""):""}</span><small>${q.labels.length} éléments à retrouver</small></button>`).join("")}
-    ${t.parc?`<section id="s-parc" class="stack"><h2>Le parcours, repère par repère</h2>${dockHTML("parc")}${t.parc.map(([z,items],zi)=>`<h3 class="pz">${zi+1}. ${esc(z)}</h3><div class="stack" style="gap:10px">${items.map(([n,pos,how,chk])=>`<article class="pcard sitem" data-sname="${esc(n)}"><h4>${esc(n)}</h4><div class="pc-row"><span>Position</span><p>${md(pos)}</p></div><div class="pc-row"><span>Comment</span><p>${md(how)}</p></div><div class="pc-row ok"><span>Vérifier</span><p>${md(chk)}</p></div></article>`).join("")}</div>`).join("")}</section>`:""}
+    ${t.parc?`<section id="s-parc" class="stack"><h2>Le parcours, repère par repère</h2><p class="small muted lead2">Touche un repère pour voir comment le trouver.</p>${t.parc.map(([z,items],zi)=>`<h3 class="pz">${zi+1}. ${esc(z)}</h3><div class="acclist">${items.map(([n,pos,how,chk])=>accHTML({title:n,name:n,sub:esc(shortTxt(pos,58)),fig:figOf(n),body:rowsHTML([["Position",md(pos)],["Comment le trouver",md(how)],["Pour vérifier",md(chk)]])})).join("")}</div>`).join("")}</section>`:""}
     ${roms.length?`<section id="s-amp" class="stack"><h2>Amplitudes</h2>${roms.map(viz).join("")}<p class="small muted">Valeurs moyennes (elles varient un peu selon les auteurs) : vérifie celles de ton cours.</p></section>`:""}
-    ${t.mus&&t.mus.length?`<section id="s-mus" class="stack"><h2>Muscles</h2>${dockHTML("mus")}<div class="stack" style="gap:12px">${t.mus.map(m=>`<div class="sitem" data-sname="${esc(m.n)}">${musHTML(m)}</div>`).join("")}</div></section>`:""}
-    ${t.palp&&t.palp.length?`<section id="s-palp" class="stack"><h2>Repères à palper</h2>${dockHTML("palp")}<div class="panel"><ul class="palp">${t.palp.map(([n,d])=>`<li class="sitem" data-sname="${esc(n)}"><strong>${esc(n)}</strong><span>${md(d)}</span></li>`).join("")}</ul></div></section>`:""}
-    ${t.sec&&t.sec.length?`<section id="s-det" class="stack"><h2>Pour aller plus loin</h2><ol class="tl">${t.sec.map(([ti,items],i)=>`<li class="tl-i"><span class="tl-dot">${i+1}</span><div class="tl-body"><h3>${esc(ti)}</h3><ul>${items.map(x=>`<li>${md(x)}</li>`).join("")}</ul></div></li>`).join("")}</ol></section>`:""}
-    <div class="grid2"><button class="btn primary" data-cards="${t.id}">Cartes de ce sujet</button><button class="btn" id="aq1">Quiz anatomie</button></div>
+    ${t.mus&&t.mus.length?`<section id="s-mus" class="stack"><h2>Muscles <span class="muted small">(${t.mus.length})</span></h2><p class="small muted lead2">Touche un muscle pour ouvrir sa fiche d’identité. La couleur indique son nerf.</p><div class="acclist">${t.mus.map(m=>{const nf=NERFS[m.nf]||["?",""];return accHTML({title:m.n,name:m.n,dot:NCOL[m.nf],sub:`${esc(nf[0].replace(/^N\. /,"n. "))} · ${esc(shortTxt(m.a,48))}`,fig:figOf(m.n),body:rowsHTML([["Origine",md(m.o)],["Terminaison",md(m.t)],["Nerf",esc(nerfTxt(m))],["Action",md(m.a)],["Palper",md(m.p)]])})}).join("")}</div></section>`:""}
+    ${t.palp&&t.palp.length?`<section id="s-palp" class="stack"><h2>Repères à palper <span class="muted small">(${t.palp.length})</span></h2><div class="acclist">${t.palp.map(([n,d])=>accHTML({title:n,name:n,sub:esc(shortTxt(d,58)),fig:figOf(n),body:`<p class="accp">${md(d)}</p>`})).join("")}</div></section>`:""}
+    ${t.sec&&t.sec.length?`<section id="s-det" class="stack"><h2>Pour aller plus loin</h2><div class="acclist">${t.sec.map(([ti,items])=>accHTML({title:ti,sub:items.length+" point"+(items.length>1?"s":""),body:`<ul class="accul">${items.map(x=>`<li>${md(x)}</li>`).join("")}</ul>`})).join("")}</div></section>`:""}
+    <section id="s-train" class="stack"><h2>S’entraîner</h2>
+     <div class="grid2"><button class="btn primary" data-cards="${t.id}">Cartes de ce sujet</button><button class="btn" id="aq1">Quiz anatomie</button></div>
+     ${muets.length?`<div class="list">${muets.map(([k,q])=>`<button class="item" data-leg="${k}" style="--cc:${CATC.anat}"><span class="th mono" style="font-size:.9rem">?</span><div class="txt"><span>Planche muette · ${esc(SCHN[k]||"")}</span><span class="small muted" style="font-weight:400">${q.labels.length} éléments à retrouver</span></div><span class="muted">›</span></button>`).join("")}</div>`:""}
+    </section>
     ${chapNav(t)}
-   </div>
-   ${fabHTML(icov?{src:icov.src,c:icov.c}:null)}`);
+   </div>`);
   const f=document.getElementById("fiche");
-  bindKw(f);bindOpenAll();bindCourse(icov);setupDocks(t);
+  bindKw(f);bindOpenAll();bindCourse(icov);bindAcc(f);
   const sp=document.getElementById("speak"); if(sp) sp.onclick=()=>speakTopic(t);
   const ic=document.getElementById("icov");if(ic)ic.onclick=()=>openArt(icov.k,icov.c);
   f.querySelectorAll("[data-ill]").forEach(fg=>fg.onclick=()=>{const im=t.ill[+fg.dataset.ill];openArt(im.k,im.c)});
@@ -3981,7 +4072,7 @@ function showAtr(){
   }
   const ex=atr.list[atr.i];
   const head=lbl=>`<div class="top"><button class="back" data-go="pratique" aria-label="Quitter">‹</button><div style="flex:1" class="stack"><span class="eyebrow">${atr.i+1} / ${atr.list.length} · ${lbl}</span><div class="bar"><i style="width:${100*atr.i/atr.list.length}%"></i></div></div></div>`;
-  const nextBtn=`<button class="btn block" id="nx" hidden>Suivant</button>`;
+  const nextBtn=`<button class="btn primary block" id="nx" hidden>Suivant</button>`;
   const fin=(ok,html)=>{atr.res.push(ok);if(ok)atr.ok++;const fb=document.getElementById("fb");if(fb&&html!=null){fb.hidden=false;fb.innerHTML=html}document.getElementById("nx").hidden=false;try{document.getElementById("nx").scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}};
   const cardBy=id=>CARDS.find(c=>c.id===id);
   if(ex.type==="qcm"){
