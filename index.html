@@ -38,6 +38,11 @@
 .longtip{background:color-mix(in srgb,var(--accent) 9%,var(--surface));line-height:1.45}
 .cres{margin-left:8px;font-weight:700}
 .cred{display:block;font-size:.68rem;opacity:.75;margin-top:2px;font-weight:400}
+
+.seance{gap:10px}
+.minibar.two{position:relative}
+.minibar.two i{position:absolute;left:0;top:0;bottom:0}
+.minibar.two i.b{background:var(--good)}
 </style>
 <title>Révisions Oral Pédicurie</title>
 <script>try{var p=JSON.parse(localStorage.getItem("podo:v2"))||{},r=document.documentElement;if(p.theme==="light"||p.theme==="dark")r.dataset.theme=p.theme;if(p.big)r.classList.add("bigtext");if(p.calm)r.classList.add("calm")}catch(e){}</script>
@@ -1870,7 +1875,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
 function h(html){if(typeof CLEAN!=="undefined"){CLEAN.forEach(f=>{try{f()}catch(e){}});CLEAN=[]}$app.innerHTML=html;window.scrollTo(0,0);enhance($app)}
 const plural=(n,w)=>n+" "+w+(n>1?"s":"");
-const APP_VERSION="28";
+const APP_VERSION="29";
 const SWOK=("serviceWorker" in navigator)&&/github\.io$/.test(location.hostname);
 async function latestVersion(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v!=null?String(j.v):null}catch(e){return null}}
 async function doUpdate(v){
@@ -3311,7 +3316,8 @@ function setLv(id,k,n){S.learn=S.learn||{};S.learn[id]=S.learn[id]||{};S.learn[i
 // chaque point à citer a sa propre mémoire : retrouvé sur 2 jours différents = solide
 const ppk=(id,k,i)=>id+"|"+k+"|"+i;
 const ppS=(id,k,i)=>((S.pp||{})[ppk(id,k,i)])||{b:0,d:0,n:0,m:0};
-function gradePoint(id,k,i,ok){S.pp=S.pp||{};const s=Object.assign({b:0,d:0,n:0,m:0},S.pp[ppk(id,k,i)]);s.n++;if(ok){if(s.d<=today()){s.b=Math.min(4,s.b+1);s.d=today()+INT[s.b]}}else{s.b=0;s.d=today();s.m++}S.pp[ppk(id,k,i)]=s}
+const PINT=[0,1,3,6,12,25];
+function gradePoint(id,k,i,ok){S.pp=S.pp||{};const s=Object.assign({b:0,d:0,n:0,m:0},S.pp[ppk(id,k,i)]);if(!s.n){const d=today();if(!S.newd||S.newd.d!==d)S.newd={d,n:0};S.newd.n++}s.n++;if(ok){if(s.d<=today()){s.b=Math.min(5,s.b+1);s.d=today()+PINT[s.b]}}else{s.b=0;s.d=today();s.m++}S.pp[ppk(id,k,i)]=s}
 const ptsScore=(id,p)=>p&&p.pts&&p.pts.length?p.pts.reduce((a,_,i)=>a+Math.min(1,ppS(id,p.k,i).b/2),0)/p.pts.length:null;
 const partScore=(id,k,p)=>{const l=lv(id,k),b=((S.pt||{})[id+"|"+k]||{b:0}).b,base=(l>=3?.5:l*.12)+.5*Math.min(1,b/3),ps=ptsScore(id,p);return ps==null?base:.35*base+.65*ps};
 // points oubliés (à revoir), tous sujets confondus
@@ -3459,8 +3465,74 @@ function bindRec(){
 }
 
 // ---------- entraînement varié ----------
-const EXL={point:"Point à citer",recit:"De tête",trou:"Mot manquant",vf:"Vrai ou faux",partie:"Quelle partie du plan ?",intrus:"Trouve l’intrus",jury:"Question du jury",express:"Oral express"};
-let px={list:[],i:0,ok:0,scope:"all",res:[]};
+// ---------- entraînement : séance du jour, répétition espacée point par point ----------
+// Chaque point du livret a sa mémoire. Un point nouveau est d'abord reconnu (QCM), puis retrouvé avec un indice,
+// puis retrouvé seul (chiffre exact, sujet d'origine). Il revient à 1, 3, 6, 12 puis 25 jours ; un raté repart à zéro
+// et revient en fin de séance. Les séances mélangent les sujets (mieux pour la mémoire) et finissent par l'oral.
+const EXL={qcm:"Choisis la bonne réponse",point:"Point à citer",chiffre:"Le bon chiffre",sujet:"Quel sujet ?",liste:"Tout citer",recit:"De tête",trou:"Mot manquant",vf:"Vrai ou faux",partie:"Quelle partie du plan ?",intrus:"Trouve l’intrus",jury:"Question du jury",express:"Oral express"};
+const SLEN={court:10,normal:20,long:30};
+const PT_TYPES=new Set(["qcm","point","chiffre","sujet"]);
+let px={list:[],i:0,ok:0,scope:"all",res:[],miss:[]};
+const deacc=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const words4=s=>deacc(strip(s)).split(/[^a-z0-9]+/).filter(z=>z.length>3);
+const numOf=s=>(String(s).match(/\d+(?:[,.]\d+)?/)||[""])[0].replace(",",".");
+function allPts(only){const out=[];TOPICS.forEach(t=>{if(only&&t.id!==only)return;partsOf(t).forEach(p=>(p.pts||[]).forEach(([x,l],i)=>out.push({t,p,i,x,l,s:ppS(t.id,p.k,i)})))});return out}
+// rythme : combien de points nouveaux par jour pour tout avoir vu 3 jours avant l'oral
+function newQuota(){const d=today(),nt=(S.newd&&S.newd.d===d)?S.newd.n:0,P=allPts(),unseen=P.filter(o=>!o.s.n).length,ed=examDays();
+  let per=20;if(ed!=null&&ed>0)per=Math.max(10,Math.min(80,Math.ceil(unseen/Math.max(1,ed-3))));
+  return {per,left:Math.max(0,per-nt),unseen,total:P.length,done:nt}}
+// la phrase de l'oral où le point est dit (pour relire dans son contexte)
+function bestLine(p,x){const w=new Set(words4(x));let best=null,bs=0;p.lines.forEach(l=>{const s=words4(l).filter(z=>w.has(z)).length;if(s>bs){bs=s;best=l}});return bs>=2?best:null}
+// mélange les sujets : jamais deux fois de suite le même quand c'est possible
+function interleave(L){const g=new Map();L.forEach(o=>{const k=o.t.id;if(!g.has(k))g.set(k,[]);g.get(k).push(o)});const out=[],G=shuffle([...g.values()]);while(out.length<L.length)G.forEach(a=>{if(a.length)out.push(a.shift())});return out}
+function mkPt(o,type){
+  const {t,p,i,x}=o,base={t,p,pi:i,pt:x};
+  if(type==="point"){const c=ptCue(x);if(c.colon&&p.pts.some((y,j)=>j!==i&&norm2(ptCue(y[0]).q)===norm2(c.q))){const w=c.a.split(/\s+/);c.q=c.q+" : "+w.slice(0,Math.min(2,w.length-1)).join(" ")+" …";c.colon=false}return Object.assign(base,{type},c)}
+  if(type==="qcm"){const c=ptCue(x);if(!c.colon)return null;
+    const sib=p.pts.filter((_,j)=>j!==i).map(y=>ptCue(y[0])).filter(z=>z.colon&&norm2(z.q)!==norm2(c.q)).map(z=>z.a);
+    const far=shuffle(TOPICS.filter(u=>u.id!==t.id&&u.cat===t.cat)).flatMap(u=>{const q=partsOf(u).find(z=>z.k===p.k);return q&&q.pts?q.pts.map(y=>ptCue(y[0])).filter(z=>z.colon).map(z=>z.a):[]});
+    const seen=new Set([norm2(c.a)]),dis=[];
+    for(const a of shuffle(sib).concat(far)){const k=norm2(a);if(!seen.has(k)&&a.length<170){seen.add(k);dis.push(a)}if(dis.length>=3)break}
+    if(dis.length<3)return null;return Object.assign(base,{type,q:c.q,a:c.a,opts:shuffle([c.a].concat(dis))})}
+  if(type==="chiffre"){const ms=[...x.matchAll(/\d+(?:[,.]\d+)?/g)];if(!ms.length)return null;const m=ms[Math.floor(Math.random()*ms.length)];
+    return Object.assign(base,{type,before:x.slice(0,m.index),after:x.slice(m.index+m[0].length),ans:m[0]})}
+  if(type==="sujet"){if(x.length<28)return null;const c=ptCue(x);
+    const tw=deacc(t.t).split(/[^a-z]+/).filter(w=>w.length>=5).map(w=>w.replace(/s$/,"").slice(0,6));const has=s=>tw.some(w=>deacc(s).includes(w));
+    let shown=x;if(has(shown)){if(c.colon&&!has(c.a)&&c.a.length>=24)shown=c.a;else return null}
+    let others=shuffle(TOPICS.filter(u=>u.id!==t.id&&u.cat===t.cat)).slice(0,3);if(others.length<3)others=others.concat(shuffle(TOPICS.filter(u=>u.id!==t.id&&!others.includes(u))).slice(0,3-others.length));
+    return Object.assign(base,{type,shown,opts:shuffle([t.id].concat(others.map(u=>u.id)))})}
+  return null;
+}
+// le type d'exercice dépend de la solidité du point : reconnaître → retrouver avec indice → retrouver seul
+function exForPt(o){const s=o.s,num=/\d/.test(o.x),r=Math.random();let order;
+  if(!s.n)order=["qcm","point"];
+  else if(s.b===0)order=num&&r<.4?["chiffre","point"]:r<.75?["point"]:["qcm","point"];
+  else if(s.b===1)order=num&&r<.5?["chiffre","point"]:r<.3?["sujet","point"]:["point"];
+  else order=r<.45?["sujet","point"]:num&&r<.75?["chiffre","point"]:["point"];
+  for(const ty of order){const e=mkPt(o,ty);if(e)return e}return mkPt(o,"point")}
+function buildSession(scope,n){
+  const only=byId[scope]?scope:null,P=allPts(only),T=today();
+  if(scope==="chiffres"){const C=shuffle(P.filter(o=>/\d/.test(o.x))).sort((a,b)=>(a.s.n?(a.s.b?a.s.b+1:0):.5)-(b.s.n?(b.s.b?b.s.b+1:0):.5));return interleave(C.slice(0,n)).map(o=>mkPt(o,"chiffre"))}
+  const due=shuffle(P.filter(o=>o.s.n&&o.s.d<=T)).sort((a,b)=>(a.s.b-b.s.b)||(b.s.m-a.s.m));
+  const started=new Set(P.filter(o=>o.s.n).map(o=>o.t.id));
+  const fresh=P.filter(o=>!o.s.n),freshS=fresh.filter(o=>started.has(o.t.id)).concat(fresh.filter(o=>!started.has(o.t.id)));
+  const q=newQuota();
+  let nd=Math.min(due.length,Math.round(n*.75)),nn=Math.min(only?n:q.left,n-nd,freshS.length);
+  if(nd+nn<n)nd=Math.min(due.length,n-nn);
+  let sel=due.slice(0,nd).concat(freshS.slice(0,nn));
+  if(sel.length<n){const rest=shuffle(P.filter(o=>o.s.n&&!sel.includes(o))).sort((a,b)=>a.s.b-b.s.b);sel=sel.concat(rest.slice(0,n-sel.length))}
+  if(sel.length<n&&!only)sel=sel.concat(freshS.slice(nn,nn+n-sel.length));
+  const items=interleave(sel).map(exForPt);
+  // la partie la plus fragile à citer en entier, une question du jury, puis l'oral express pour finir
+  const ts=only?[byId[only]]:TOPICS.filter(t=>started.has(t.id)),parts=[];
+  ts.forEach(t=>partsOf(t).forEach(p=>{const sc=ptsScore(t.id,p);if(sc!=null&&(only||P.some(o=>o.t===t&&o.p.k===p.k&&o.s.n)))parts.push({t,p,sc})}));
+  parts.sort((a,b)=>a.sc-b.sc);
+  if(parts.length&&n>=10)items.splice(Math.floor(items.length/2),0,{type:"liste",t:parts[0].t,p:parts[0].p});
+  if(ts.length&&n>=10){const jt=pick(ts),je=makeEx({t:jt,p:partsOf(jt)[0]},"jury");if(je&&je.type==="jury")items.splice(Math.floor(items.length*.8),0,je)}
+  if(parts.length&&n>=20){const w=parts[Math.min(1,parts.length-1)];items.push({type:"express",t:w.t,p:w.p})}
+  return items;
+}
+// ---------- exercices d'avant (parties du plan), gardés pour la série « exercices variés » ----------
 function partPool(scope){
   const ts=scope==="all"?TOPICS:[byId[scope]];
   let started=ts.filter(t=>partsOf(t).some(p=>lv(t.id,p.k)>0||ptS(t.id,p.k).b>0));
@@ -3474,41 +3546,52 @@ function makeEx(it,type,fb){
   if(type==="trou"&&lines.length){const line=pick(lines),bs=bolds(line),ans=pick(bs);return {type,t,p,line,ans}}
   if(type==="vf"&&lines.length){
     const line=pick(lines),bs=bolds(line),tok=pick(bs),dig=/\d/.test(tok);
-    const pool=TOPICS.filter(x=>x.id!==t.id&&x.s[p.k]).flatMap(x=>x.s[p.k].flatMap(bolds)).filter(w=>/\d/.test(w)===dig&&!line.includes(w)&&norm2(w)!==norm2(tok));
+    const pool=TOPICS.filter(x=>x.id!==t.id).flatMap(x=>{const q=partsOf(x).find(z=>z.k===p.k);return q?q.lines.flatMap(bolds):[]}).filter(w=>/\d/.test(w)===dig&&!line.includes(w)&&norm2(w)!==norm2(tok));
     if(pool.length&&Math.random()<.55){const fake=pick(pool);return {type,t,p,line,shown:line.replace("**"+tok+"**","**"+fake+"**"),truth:false,tok,fake}}
     return {type,t,p,line,shown:line,truth:true};
   }
   if(type==="partie"&&mid){const line=pick(p.lines);const others=shuffle(["e","p","s","d","t","r","v"].filter(k=>k!==p.k)).slice(0,3);return {type,t,p,line,opts:shuffle([p.k].concat(others)),ans:p.k}}
   if(type==="intrus"){const same=TOPICS.filter(x=>x.id!==t.id&&x.cat===t.cat),other=pick(same.length&&Math.random()<.7?same:TOPICS.filter(x=>x.id!==t.id));const odd=pick(other.key);const opts=shuffle(shuffle(t.key).slice(0,3).concat([odd]));return {type,t,p,opts,ans:odd,other}}
   if(type==="jury"){const pool=(ORALX[t.id]&&ORALX[t.id].jury)||t.cards;if(pool.length){const c=pick(pool);return {type,t,p,q:c[0],a:c[1]}}}
-  if(type==="point"&&p.pts&&p.pts.length){const miss=p.pts.map((_,i)=>i).filter(i=>{const s=ppS(t.id,p.k,i);return s.n&&s.b===0});const pi=miss.length?pick(miss):Math.floor(Math.random()*p.pts.length);return Object.assign({type,t,p,pi},ptCue(p.pts[pi][0]))}
   if(type==="express")return {type,t,p};
   if(type!=="recit"&&!fb)return makeEx(it,pick(["intrus","jury","recit"]),true);
   return {type:"recit",t,p};
 }
 function buildPractice(scope,n){
   const items=partPool(scope),out=[];
-  // un sac équilibré de types d'exercices, mélangé à chaque série, l'oral express en dernier
-  let bag=shuffle(["recit","point","point","trou","trou","vf","vf","partie","intrus","jury","jury"]);
+  let bag=shuffle(["recit","recit","trou","trou","vf","vf","partie","partie","intrus","jury","jury"]);
   for(let i=1;i<bag.length;i++)if(bag[i]===bag[i-1]){const j=(i+2)%bag.length;[bag[i],bag[j]]=[bag[j],bag[i]]}
   bag=bag.slice(0,n-1).concat(["express"]);
   for(let i=0;i<n&&items.length;i++)out.push(makeEx(items[i%items.length],bag[i]));
   return out;
 }
 VIEWS.entrainement=(scope)=>{
-  if(scope==="oublis"){const M=shuffle(missedPoints()).slice(0,15);if(!M.length)return go("oral");px={list:M.map(m=>Object.assign({type:"point",t:m.t,p:m.p,pi:m.i},ptCue(m.x))),i:0,ok:0,scope,res:[]};return showEx()}
-  px={list:buildPractice(scope||"all",12),i:0,ok:0,scope:scope||"all",res:[]};
+  scope=scope||"jour";if(scope==="all")scope="jour";
+  let list;
+  if(scope==="oublis")list=shuffle(missedPoints()).slice(0,15).map(m=>exForPt({t:m.t,p:m.p,i:m.i,x:m.x,s:ppS(m.t.id,m.p.k,m.i)}));
+  else if(scope==="varie")list=buildPractice("all",12);
+  else if(scope==="chiffres")list=buildSession("chiffres",15);
+  else if(byId[scope])list=buildSession(scope,15);
+  else list=buildSession(null,SLEN[S.slen||"normal"]);
+  list=list.filter(Boolean);
+  if(!list.length)return go("oral");
+  px={list,i:0,ok:0,scope,res:[],miss:[],t0:Date.now()};
   showEx();
 };
-function exHead(ex){return `<div class="top"><button class="back" data-go="oral" aria-label="Quitter">‹</button><div style="flex:1" class="stack"><span class="eyebrow">${px.i+1} / ${px.list.length} · ${EXL[ex.type]}</span><div class="bar"><i style="width:${100*px.i/px.list.length}%"></i></div></div></div>`}
+function exHead(ex){const n=px.list.length;return `<div class="top"><button class="back" data-go="oral" aria-label="Quitter">‹</button><div style="flex:1" class="stack"><span class="eyebrow">${px.i+1} / ${n} · ${EXL[ex.type]}${ex.retry?" · encore une fois":""}</span><div class="bar"><i style="width:${100*px.i/n}%"></i></div></div></div>`}
 function showEx(){
   stopTimer();stopRec();
   if(px.i>=px.list.length)return endPractice();
   const ex=px.list[px.i],t=ex.t,p=ex.p,c=CATC[t.cat];
   const ctx=`<div class="eyebrow" style="color:var(--cc)">${esc(t.t)} · ${esc(p.l)}</div>`;
+  const ctxLine=ex.pt?bestLine(p,ex.pt):null,inOral=ctxLine?`<div class="eyebrow" style="margin-top:4px">Dans ton oral</div><p class="small">${md(ctxLine)}</p>`:"";
   let body="";
-  if(ex.type==="recit") body=`<div class="panel stack">${ctx}<p class="clue">Récite cette partie à voix haute, sans regarder.</p>${p.lead?`<p class="lead" style="font-style:italic">${md(p.lead)}</p>`:""}<p class="small muted">${p.lines.length>1?p.lines.length+" idées attendues":"1 idée attendue"}.</p></div><div id="rv" hidden class="panel stack script"><ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul></div><button class="btn primary block" id="show">Voir le texte</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">J’ai oublié des choses</button><button class="btn good" data-g="1">J’ai tout dit</button></div>`;
-  else if(ex.type==="point") body=`<div class="panel stack">${ctx}<p class="clue">Complète ce point à voix haute.</p><p style="font-size:1.12rem"><b>${esc(ex.q)}</b>${ex.colon?" : …":""}</p></div><div id="rv" hidden class="panel stack"><div class="eyebrow">Le point complet</div><p style="font-size:1.08rem">${esc(ex.full)}</p></div><button class="btn primary block" id="show">Voir la réponse</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">Je ne l’avais pas</button><button class="btn good" data-g="1">Je l’avais</button></div>`;
+  if(ex.type==="qcm") body=`<div class="panel stack">${ctx}<p class="clue">${esc(ex.q)} : …</p><p class="small muted">Quelle est la suite exacte, d’après le livret ?</p></div>${ex.opts.map((o,i)=>`<button class="opt" data-o="${i}">${esc(o)}</button>`).join("")}<div id="fb" class="panel stack" hidden></div>`;
+  else if(ex.type==="chiffre") body=`<div class="panel stack">${ctx}<p class="clue">Tape le chiffre qui manque.</p><p class="trouline">${esc(ex.before)}<input id="ti" class="tin" inputmode="decimal" autocomplete="off" aria-label="Chiffre manquant" style="width:5.5em">${esc(ex.after)}</p></div><button class="btn primary block" id="chk">Vérifier</button><div id="fb" class="panel stack" hidden></div>`;
+  else if(ex.type==="sujet") body=`<div class="panel stack"><div class="eyebrow">${esc(p.l)}</div><p class="clue">De quel sujet vient ce point ?</p><p style="font-size:1.08rem">${esc(ex.shown)}</p></div>${ex.opts.map(id=>`<button class="opt" data-o="${id}">${esc(byId[id].t)}</button>`).join("")}<div id="fb" class="panel stack" hidden></div>`;
+  else if(ex.type==="liste") body=`<div class="panel stack">${ctx}<p class="clue">Cite les ${p.pts.length} points de cette partie, à voix haute, sans regarder.</p><p class="small muted">C’est l’exercice le plus proche de l’oral : rien n’est donné, tout vient de toi.</p></div><button class="btn primary block" id="lst">J’ai fini : cocher ce que j’ai dit</button><div id="lstc" hidden></div><div id="fb" class="panel stack" hidden></div>`;
+  else if(ex.type==="recit") body=`<div class="panel stack">${ctx}<p class="clue">Récite cette partie à voix haute, sans regarder.</p>${p.lead?`<p class="lead" style="font-style:italic">${md(p.lead)}</p>`:""}<p class="small muted">${p.lines.length>1?p.lines.length+" idées attendues":"1 idée attendue"}.</p></div><div id="rv" hidden class="panel stack script"><ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul></div><button class="btn primary block" id="show">Voir le texte</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">J’ai oublié des choses</button><button class="btn good" data-g="1">J’ai tout dit</button></div>`;
+  else if(ex.type==="point") body=`<div class="panel stack">${ctx}<p class="clue">Complète ce point à voix haute.</p><p style="font-size:1.12rem"><b>${esc(ex.q)}</b>${ex.colon?" : …":""}</p></div><div id="rv" hidden class="panel stack"><div class="eyebrow">Le point complet</div><p style="font-size:1.08rem">${esc(ex.full)}</p>${inOral}</div><button class="btn primary block" id="show">Voir la réponse</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">Je ne l’avais pas</button><button class="btn good" data-g="1">Je l’avais</button></div>`;
   else if(ex.type==="trou"){const shown=ex.line.replace("**"+ex.ans+"**","[[TROU]]");body=`<div class="panel stack">${ctx}<p class="clue">Tape le mot ou l’expression qui manque.</p><p class="trouline">${md(shown).replace("[[TROU]]",`<input id="ti" class="tin" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Mot manquant">`)}</p></div><button class="btn primary block" id="chk">Vérifier</button><div id="fb" class="panel stack" hidden></div>`}
   else if(ex.type==="vf") body=`<div class="panel stack">${ctx}<p class="clue">Cette phrase est-elle juste ?</p><p style="font-size:1.1rem">${md(ex.shown)}</p></div><div class="grid2"><button class="btn" data-vf="1">Vrai</button><button class="btn" data-vf="0">Faux</button></div><div id="fb" class="panel stack" hidden></div>`;
   else if(ex.type==="partie") body=`<div class="panel stack"><div class="eyebrow" style="color:var(--cc)">${esc(t.t)}</div><p class="clue">Dans quelle partie du plan dis-tu ça ?</p><p style="font-size:1.08rem">${md(ex.line)}</p></div>${ex.opts.map(k=>`<button class="opt" data-o="${k}">${esc(PARTL[k])}</button>`).join("")}<div id="fb" class="panel stack" hidden></div>`;
@@ -3517,27 +3600,56 @@ function showEx(){
   else if(ex.type==="express") body=`<div class="panel stack">${ctx}<p class="clue">Oral express : présente cette partie comme devant le jury, en phrases complètes.</p><div class="timer" id="tm" style="font-size:3.2rem">1:00</div>${recWidget()}</div><div id="rv" hidden class="panel stack script">${p.lead?`<p class="lead">${md(p.lead)}</p>`:""}<ul class="say">${p.lines.map(x=>`<li>${md(x)}</li>`).join("")}</ul></div><button class="btn primary block" id="show">J’ai fini : comparer</button><div class="grid2" id="sg" hidden><button class="btn bad" data-g="0">Incomplet ou hésitant</button><button class="btn good" data-g="1">Complet et clair</button></div>`;
   h(exHead(ex)+`<div class="stack" style="--cc:${c}">${body}<button class="btn block" id="nx" hidden>Suivant</button></div>`);
   const $=id=>document.getElementById(id);
-  const finish=(ok,html)=>{px.res.push({t:t.id,k:p.k,ok});if(ok)px.ok++;if(ex.type==="point")gradePoint(t.id,p.k,ex.pi,ok);gradePart(t.id,p.k,ok);if(html!=null){const fb=$("fb");fb.hidden=false;fb.innerHTML=html}$("nx").hidden=false;try{$("nx").scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}};
+  // un point raté revient en fin de séance (une fois), pour le retrouver avant de partir
+  const finish=(ok,html)=>{
+    if(!ex.retry){px.res.push({t:t.id,k:p.k,ok,pt:ex.pt,type:ex.type});if(ok)px.ok++}
+    if(PT_TYPES.has(ex.type)){if(!ex.retry){gradePoint(t.id,p.k,ex.pi,ok);save()}
+      if(!ok&&!ex.retry){px.miss.push({t,x:ex.pt});px.list.push(Object.assign(mkPt({t,p,i:ex.pi,x:ex.pt},"point"),{retry:true}))}}
+    else gradePart(t.id,p.k,ok);
+    if(html!=null){const fb=$("fb");fb.hidden=false;fb.innerHTML=html}$("nx").hidden=false;try{$("nx").scrollIntoView({behavior:"smooth",block:"center"})}catch(e){}};
   const verdict=(ok,extra)=>`<div class="eyebrow" style="color:${ok?"var(--good)":"var(--bad)"}">${ok?"Juste":"Pas tout à fait"}</div>${extra||""}`;
+  const fullPt=()=>`<p>${esc(ex.pt)}</p>${inOral}`;
   $("nx").onclick=()=>{px.i++;showEx()};
   if(ex.type==="express"){keepAwake();countdown($("tm"),60);bindRec()}
   if($("show"))$("show").onclick=()=>{stopTimer();stopRec();$("rv").hidden=false;$("show").hidden=true;$("sg").hidden=false;$app.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{$("sg").querySelectorAll("button").forEach(x=>x.disabled=true);finish(b.dataset.g==="1")})};
+  if(ex.type==="qcm")$app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=ex.opts[+b.dataset.o]===ex.a;$app.querySelectorAll(".opt").forEach(x=>{if(ex.opts[+x.dataset.o]===ex.a)x.classList.add("right");else if(x===b)x.classList.add("wrong")});finish(ok,verdict(ok,fullPt()))});
+  if(ex.type==="sujet")$app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=b.dataset.o===t.id;$app.querySelectorAll(".opt").forEach(x=>{if(x.dataset.o===t.id)x.classList.add("right");else if(x===b)x.classList.add("wrong")});finish(ok,verdict(ok,`<p>C’est dans <strong>${esc(t.t)}</strong>, partie ${esc(p.l.toLowerCase())}.</p>${fullPt()}`))});
+  if(ex.type==="chiffre"){const ti=$("ti");setTimeout(()=>{try{ti.focus()}catch(e){}},50);const go2=()=>{if($("chk").disabled)return;$("chk").disabled=true;ti.disabled=true;const ok=!!ti.value.trim()&&numOf(ti.value)===numOf(ex.ans);ti.classList.add(ok?"right":"wrong");finish(ok,verdict(ok,`<p>Réponse : <b>${esc(ex.ans)}</b></p>${fullPt()}`))};$("chk").onclick=go2;ti.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();go2()}}}
+  if(ex.type==="liste")$("lst").onclick=()=>{$("lst").hidden=true;const box=$("lstc");box.hidden=false;box.innerHTML=ptsCheckHTML(p.pts,"Coche ce que tu as dit");
+    bindPtsCheck(arr=>{arr.forEach((ok,i)=>gradePoint(t.id,p.k,i,ok));const n=arr.filter(Boolean).length,ok=n>=Math.ceil(arr.length*.8);
+      box.querySelectorAll("button").forEach(b=>b.disabled=true);arr.forEach((o,i)=>{if(!o)px.miss.push({t,x:p.pts[i][0]})});
+      finish(ok,verdict(ok,`<p>${n} / ${arr.length} points cités.</p>${n<arr.length?`<div class="eyebrow">Oubliés</div><ul class="ptsl">${arr.map((o,i)=>o?"":`<li>${esc(p.pts[i][0])}</li>`).join("")}</ul>`:""}`))},box)};
   if(ex.type==="trou"){const ti=$("ti");setTimeout(()=>{try{ti.focus()}catch(e){}},50);const go2=()=>{if($("chk").disabled)return;$("chk").disabled=true;ti.disabled=true;const ok=close(ti.value,ex.ans);ti.classList.add(ok?"right":"wrong");finish(ok,verdict(ok,`<p>Réponse : <b>${esc(ex.ans)}</b></p><p class="small">${md(ex.line)}</p>`))};$("chk").onclick=go2;ti.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();go2()}}}
   if(ex.type==="vf")$app.querySelectorAll("[data-vf]").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=(b.dataset.vf==="1")===ex.truth;b.classList.add(ok?"good":"bad");finish(ok,verdict(ok,ex.truth?`<p>C’était juste.</p>`:`<p>C’était faux : <b>${esc(ex.fake)}</b> vient d’un autre sujet. La bonne phrase :</p><p>${md(ex.line)}</p>`))});
   if(ex.type==="partie")$app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=b.dataset.o===ex.ans;$app.querySelectorAll(".opt").forEach(x=>{if(x.dataset.o===ex.ans)x.classList.add("right");else if(x===b)x.classList.add("wrong")});finish(ok,verdict(ok,`<p>C’est dans : <strong>${esc(PARTL[ex.ans])}</strong>.</p>`))});
   if(ex.type==="intrus")$app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(!$("nx").hidden)return;const ok=ex.opts[+b.dataset.o]===ex.ans;$app.querySelectorAll(".opt").forEach(x=>{if(ex.opts[+x.dataset.o]===ex.ans)x.classList.add("right");else if(x===b)x.classList.add("wrong")});finish(ok,verdict(ok,`<p>L’intrus vient de : <strong>${esc(ex.other.t)}</strong>.</p>`))});
 }
 function endPractice(){
-  if(px.ok>=10)setTimeout(celebrate,250);
-  const n=px.list.length,bad=px.res.filter(r=>!r.ok);
-  const seen=new Set();const weak=bad.filter(r=>{const k=pkey(r.t,r.k);if(seen.has(k))return false;seen.add(k);return true});
-  h(`<div class="stack"><div class="pagehead"><div class="eyebrow">Entraînement terminé</div><h1>${px.ok} / ${n}</h1></div>
-   <p class="muted">${px.ok>=n-1?"Excellent : tu sais le contenu, pas seulement la forme.":px.ok>=n/2?"Bien. Les parties ratées reviendront plus souvent.":"Normal au début : les parties ratées reviendront jusqu’à ce qu’elles tiennent."}</p>
-   ${weak.length?`<h2>À reprendre</h2><div class="list">${weak.map(r=>{const t=byId[r.t];return `<button class="item" data-lp="${r.t}|${r.k}" style="--cc:${CATC[t.cat]}"><span class="th mono" style="font-size:.74rem">${PSHORT[r.k]}</span><div class="txt"><span>${esc(t.t)}</span><span class="small muted" style="font-weight:400">${esc(PARTL[r.k])}</span></div><span class="muted">›</span></button>`}).join("")}</div>`:""}
-   <button class="btn primary block" id="again">Nouvelle série (exercices différents)</button><button class="btn block" data-go="oral">Retour à mon oral</button></div>`);
+  const n=px.res.length,ok=px.ok,pc=n?Math.round(100*ok/n):0,min=Math.max(1,Math.round((Date.now()-(px.t0||Date.now()))/60000));
+  if(n>=8&&pc>=80)setTimeout(celebrate,250);
+  const T=today(),P=allPts(),tom=P.filter(o=>o.s.n&&o.s.d===T+1).length,dueNow=P.filter(o=>o.s.n&&o.s.d<=T).length,q=newQuota();
+  const seen=new Set(),miss=px.miss.filter(m=>{const k=m.t.id+m.x;if(seen.has(k))return false;seen.add(k);return true});
+  const badParts=px.res.filter(r=>!r.ok&&!r.pt),seenP=new Set(),weak=badParts.filter(r=>{const k=pkey(r.t,r.k);if(seenP.has(k))return false;seenP.add(k);return true});
+  h(`<div class="stack"><div class="pagehead"><div class="eyebrow">Séance terminée · ${min} min</div><h1>${ok} / ${n} du premier coup</h1></div>
+   <div class="panel stack"><div class="row" style="gap:14px;flex-wrap:nowrap">${ringSvg(pc,"réussi du premier coup",false,"justes")}<p class="small" style="margin:0">${pc>=85?"Excellent : ces points tiennent. Ils reviendront plus tard, juste avant d’être oubliés.":pc>=60?"Bien. Les points ratés sont revenus en fin de séance et reviendront demain.":"Normal quand les points sont nouveaux : chaque raté revient demain, puis de plus en plus espacé."}</p></div>
+   <p class="small muted" style="margin:0">${dueNow?`Encore ${dueNow} point${dueNow>1?"s":""} à revoir aujourd’hui.`:`Plus rien à revoir aujourd’hui.`} Demain : ${tom} point${tom>1?"s":""} à revoir${q.left&&q.unseen?` et ${Math.min(q.per,q.unseen)} nouveaux`:""}.</p></div>
+   ${miss.length?`<h2>À retenir</h2><div class="panel stack"><ul class="ptsl">${miss.map(m=>`<li><span class="small muted">${esc(m.t.t)} · </span>${esc(m.x)}</li>`).join("")}</ul></div>`:""}
+   ${weak.length?`<h2>Parties à reprendre</h2><div class="list">${weak.map(r=>{const t=byId[r.t];return `<button class="item" data-lp="${r.t}|${r.k}" style="--cc:${CATC[t.cat]}"><span class="th mono" style="font-size:.74rem">${PSHORT[r.k]}</span><div class="txt"><span>${esc(t.t)}</span><span class="small muted" style="font-weight:400">${esc(PARTL[r.k])}</span></div><span class="muted">›</span></button>`}).join("")}</div>`:""}
+   <button class="btn primary block" id="again">${px.scope==="jour"&&(dueNow||q.left)?"Continuer : une autre séance":"Nouvelle série"}</button><button class="btn block" data-go="oral">Retour à mon oral</button></div>`);
   document.getElementById("again").onclick=()=>VIEWS.entrainement(px.scope);
-  $app.querySelectorAll("[data-lp]").forEach(b=>b.onclick=()=>{const [id,k]=b.dataset.lp.split("|");const P=partsOf(byId[id]);lrn={id,i:Math.max(0,P.findIndex(p=>p.k===k)),mode:"lire",hint:false,revealed:false,full:null};go("apprendre",id)});
+  $app.querySelectorAll("[data-lp]").forEach(b=>b.onclick=()=>{const [id,k]=b.dataset.lp.split("|");const P2=partsOf(byId[id]);lrn={id,i:Math.max(0,P2.findIndex(p=>p.k===k)),mode:"lire",hint:false,revealed:false,full:null};go("apprendre",id)});
 }
+// carte « Séance du jour » de la page Mon oral
+function seanceCard(){
+  const P=allPts(),T=today(),due=P.filter(o=>o.s.n&&o.s.d<=T).length,q=newQuota(),seen=P.length-q.unseen,ed=examDays(),L=S.slen||"normal";
+  const solid=P.filter(o=>o.s.b>=2).length;
+  return `<div class="panel stack seance"><div class="row" style="justify-content:space-between;align-items:baseline;gap:8px"><div><div class="eyebrow">Séance du jour</div><strong style="font-size:1.12rem">${due} à revoir · ${Math.min(q.left,q.unseen)} nouveau${Math.min(q.left,q.unseen)>1?"x":""}</strong></div><span class="small muted" style="text-align:right">${seen} / ${P.length} points vus<br>${solid} solides</span></div>
+   <div class="minibar two"><i style="width:${(100*seen/P.length).toFixed(1)}%"></i><i class="b" style="width:${(100*solid/P.length).toFixed(1)}%"></i></div>
+   <p class="small muted" style="margin:0">${ed!=null&&ed>0?`Oral dans ${ed} jour${ed>1?"s":""} : ${q.per} nouveaux points par jour pour avoir tout vu 3 jours avant.`:`${q.per} nouveaux points par jour. Mets la date de ton oral sur l’accueil pour adapter le rythme.`} Chaque point revient juste avant d’être oublié : 1, 3, 6, 12 puis 25 jours.</p>
+   <div class="seg" role="tablist">${[["court","Courte · 10"],["normal","Normale · 20"],["long","Longue · 30"]].map(([k,l])=>`<button role="tab" aria-selected="${L===k}" class="${L===k?"on":""}" data-slen="${k}">${l}</button>`).join("")}</div>
+   <button class="btn primary block" data-train="jour">Commencer la séance</button></div>`;
+}
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-slen]");if(!b)return;S.slen=b.dataset.slen;persist();const box=b.closest(".seance");if(box)box.outerHTML=seanceCard()});
 const EXPR=`<details class="sec"><summary><span class="sumrow"><span class="L">“</span>Bien s’exprimer le jour J<span class="chev">›</span></span></summary><div class="oraltxt">
  <div class="eyebrow">Les phrases qui relient</div>
  <p>« Je vais vous présenter… » · « Je suivrai le plan suivant… » · « Je commence par… » · « Sur le plan physiopathologique… » · « Cliniquement, on retrouve… » · « Le diagnostic repose sur… » · « Concernant la prise en charge… » · « Le pronostic est… » · « Enfin, en prévention… » · « En conclusion… »</p>
@@ -4067,8 +4179,9 @@ VIEWS.oral=(forced)=>{
    <div class="panel stack"><div class="row" style="gap:14px;flex-wrap:nowrap">${ringSvg(Math.round(100*ready/TOPICS.length),"des sujets prêts",false,"prêts")}<div class="stack" style="gap:4px"><strong style="font-size:1.15rem">${ready} / ${TOPICS.length} sujets maîtrisés à 100 %</strong><p class="small muted">Pour chaque sujet : l’oral complet en phrases simples, et tous les points du livret à citer. Après chaque récitation, tu coches ce que tu as dit. Un sujet est à 100 % quand chaque point a été retrouvé de tête sur 2 jours différents.</p></div></div>
      <div class="psteps static">${["Intro","Étio","Physio","Signes","Diag","TTT","Prono","Prév","Concl"].map(x=>`<span class="pst">${x}</span>`).join("")}</div></div>
    ${(()=>{const n=missedPoints().length;return n?`<button class="btn block missbtn" data-train="oublis">Revoir mes ${n} point${n>1?"s":""} oublié${n>1?"s":""}</button>`:""})()}
-   <button class="btn primary block" data-train="all">Entraînement varié (12 exercices mélangés)</button>
-   <p class="small muted" style="margin-top:-6px">Récitation, mot à taper, vrai/faux piégé, partie du plan, intrus, question du jury, oral express : jamais deux fois la même série. Les parties ratées reviennent plus souvent.</p>
+   ${seanceCard()}
+   <div class="grid2"><button class="btn" data-train="chiffres">Les chiffres à connaître</button><button class="btn" data-train="varie">Exercices variés</button></div>
+   <p class="small muted" style="margin-top:-6px">La séance du jour choisit pour toi : d’abord les points à revoir aujourd’hui, puis des nouveaux, tous sujets mélangés. Un point nouveau se reconnaît (choix multiple), puis se retrouve avec un indice, puis seul (chiffre exact, sujet d’origine). Chaque séance contient aussi une partie à citer en entier, une question du jury et un oral express.</p>
    ${canSpeak?`<button class="btn block" id="listenrnd">🎧 Écouter un sujet tiré au sort, présenté comme à l’oral</button>`:""}
    ${EXPR}
    <h2>Apprendre sujet par sujet</h2>
