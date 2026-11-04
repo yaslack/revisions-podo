@@ -110,6 +110,8 @@
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
       <div class="kicker">ORAL UEM · PÉDICURIE-PODOLOGIE</div><h1>Mes révisions</h1>
+      ${S.skinAsked ? '' : `<div class="card skinask"><div class="t" style="font-family:var(--marker)">Nouveau look !</div><div class="muted small">Le site est maintenant dessiné comme les vidéos. Tu préfères l'ancien style ? Tu peux changer quand tu veux, en bas de l'accueil.</div>
+        <div class="row2"><button class="btn grow" data-skin="drawn" style="--c:var(--hl)">Garder le dessiné</button><button class="btn ghost grow" data-skin="classic">L'ancien style</button></div></div>`}
       ${last ? `<a class="card resume" href="#/pedi/${last.id}${S.last.k ? '/p' + S.last.k : ''}">${thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title)}
         <span class="rt"><span class="kicker">▶ REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
       <div class="sec">OÙ J'EN SUIS</div>
@@ -121,8 +123,18 @@
         <a class="qb" href="#/anat/quiz" style="--c:var(--p1)"><span class="em">🎯</span><span class="t">Je m'interroge</span><span class="s">un repère d'anatomie au hasard</span></a>
         <a class="qb" href="#/tirage" style="--c:var(--red)"><span class="em">🎲</span><span class="t">Tirage au sort</span><span class="s">comme le jour de l'oral</span></a>
         <a class="qb" href="#/plan" style="--c:var(--p3)">${thumb(ill('plan', 'board'), 'Le plan')}<span class="t">Le plan de l'oral</span><span class="s">les 8 questions</span></a>
-      </div></div>`;
+      </div>
+      <div class="sec">APPARENCE</div>${skinPicker()}</div>`;
   }
+
+  // thème : « dessiné » (comme les vidéos) ou « classique » (l'ancien style), en clair ou en sombre
+  function skinPicker() {
+    const sk = S.skin || 'drawn', th = S.theme || '', b = (attr, v, cur, t) => `<button class="btn ghost" data-${attr}="${v}" aria-pressed="${cur === v}">${t}</button>`;
+    return `<div class="card"><div class="skin">${b('skin', 'drawn', sk, '✏️ Dessiné')}${b('skin', 'classic', sk, 'Classique')}</div>
+      ${sk === 'classic' ? `<div class="skin" style="margin-top:8px">${b('theme', '', th, 'Auto')}${b('theme', 'light', th, 'Clair')}${b('theme', 'dark', th, 'Sombre')}</div>` : ''}</div>`;
+  }
+  function setSkin() { const r = document.documentElement; r.dataset.skin = S.skin || 'drawn'; if (S.theme && S.skin === 'classic') r.dataset.theme = S.theme; else delete r.dataset.theme; }
+  setSkin();
 
   // ---------- pédicurie ----------
   function pediList() {
@@ -550,6 +562,7 @@
     if (t.classList.contains('poster')) { t.remove(); return; }
     if (t.dataset.qa) { quizAct(t); return; }
     if (t.dataset.q3) { q3Act(t); return; }
+    if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; S.skinAsked = 1; save(); setSkin(); render(); return; }
     if (t.dataset.v3l) { const k = t.dataset.v3l; on3()[k] = on3()[k] ? 0 : 1; save(); t.classList.toggle('on', !!on3()[k]); if (V3) V3.layers(); return; }
     if (t.classList.contains('reveal')) { t.closest('[data-quiz]').classList.add('shown'); return; }
     if (!t.matches('button')) { t.classList.toggle('shown'); return; }
