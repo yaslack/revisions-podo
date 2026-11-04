@@ -96,13 +96,13 @@
   const frame = (id, t, poster) => `<button class="video vposter" data-vid="${id}" style="background-image:url(${poster})" aria-label="${t}">
     <span class="play">▶</span><span class="vtxt">Regarder la vidéo</span></button>`;
   // yt : vidéo YouTube (tests d'examen clinique, de piriforme.fr) ; src : la page d'où elle vient
-  function openVideo(id, yt, src) {
+  function openVideo(id, yt, src, lab) {
     closeVideo();
     const d = document.createElement('div'); d.className = 'vlayer' + (yt ? ' yt' : '');
     d.innerHTML = `<iframe src="${yt ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1` : `https://drive.google.com/file/d/${id}/preview`}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>
       <div class="vrot">📱↻ Tourne ton téléphone pour voir la vidéo en grand.</div>
       <button class="vclose" id="vclose" aria-label="Fermer la vidéo">✕</button>
-      ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">Fiche du test sur piriforme.fr ↗</a>` : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
+      ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">${lab || 'Fiche du test sur piriforme.fr'} ↗</a>` : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
     document.body.appendChild(d); document.body.classList.add('vopen');
     fitLayer(); window.addEventListener('resize', fitLayer);
     try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
@@ -150,7 +150,7 @@
       <div class="sec">OÙ J'EN SUIS</div>
       <a class="card prog" href="#/pedi">${ring(vP, 'var(--p6)')}<span class="rt"><span class="t">Pédicurie</span><span class="s">${nP}/24 fiches sues · ${PEDI.reduce((s, f) => s + nSeen(f), 0)} parties lues</span>${bar(nP / 24, 'var(--p6)')}</span><span class="chev">›</span></a>
       <a class="card prog" href="#/anat">${ring(nA / AQ.length, 'var(--p1)')}<span class="rt"><span class="t">Anatomie palpatoire</span><span class="s">${nA}/${AQ.length} repères sus</span><span class="minis">${regs}</span></span><span class="chev">›</span></a>
-      <a class="card prog" href="#/clin">${ring(nC(CL) / CL.length, 'var(--p4)')}<span class="rt"><span class="t">Examen clinique</span><span class="s">${nC(CL)}/${CL.length} tests sus</span>${bar(nC(CL) / CL.length, 'var(--p4)')}</span><span class="chev">›</span></a>
+      <a class="card prog" href="#/clin">${ring((nC(CL) + nB(BL)) / (CL.length + BL.length), 'var(--p4)')}<span class="rt"><span class="t">Examen clinique</span><span class="s">${nC(CL)}/${CL.length} tests · ${nB(BL)}/${BL.length} étapes du bilan</span>${bar((nC(CL) + nB(BL)) / (CL.length + BL.length), 'var(--p4)')}</span><span class="chev">›</span></a>
       <div class="sec">RÉVISER MAINTENANT</div>
       <div class="quick">
         ${nextF ? `<a class="qb" href="#/pedi/${nextF.id}" style="--c:var(--p6)">${thumb(ill(nextF.id, 'cover'), nextF.title)}<span class="t">Fiche ${nextF.n}</span><span class="s">${esc(nextF.title)}</span></a>` : ''}
@@ -267,6 +267,11 @@
     { v: 51, items: [
       ['✏️', 'Examen clinique : tous les dessins des tests ont été refaits, plus clairs, avec les mains du praticien et des gros plans sur le genou, la cheville et le pied.'],
       ['🧢', 'L\'appli s\'appelle Yanoé (Yaya + Noé), et tu peux voir qui l\'a faite : Yaya et Nono, en haut de l\'accueil.'],
+    ] },
+    { v: 52, items: [
+      ['🦶', 'Examen clinique : le bilan du pied, en décharge et en charge, en 15 étapes dans l\'ordre de l\'examen.'],
+      ['✏️', 'Chaque étape a son dessin : empreintes au podoscope, griffes, axe du talon, amplitudes, test de Jack…'],
+      ['▶️', 'Des vidéos pour 6 étapes, et le mode test (l\'œil en haut) pour réciter.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -550,10 +555,12 @@
   const pic = (n, cls = 'cpic') => `<svg class="${cls}" viewBox="0 0 240 150" aria-hidden="true">${window.CLIN_PIC ? window.CLIN_PIC(n) : ''}</svg>`;
 
   function clinHub() {
-    return `<div class="wrap">${top('#/', 'Examen clinique', count(nC(CL), CL.length))}
-      <div class="muted lead">Les ${CL.length} tests du guide : comment se placer, les gestes, et comment lire le résultat.</div>
-      <button class="btn wide" id="crand" style="--c:var(--hl)">🎯 Un test au hasard, réponses cachées</button>
-      <div class="sec">LES TESTS · ${CS.length} SECTIONS</div>
+    const kb = nB(BL);
+    return `<div class="wrap">${top('#/', 'Examen clinique', count(nC(CL) + kb, CL.length + BL.length))}
+      <div class="sec">LE BILAN DU PIED · ${BL.length} ÉTAPES</div>
+      <a class="entry" href="#/clin/b" style="--c:var(--p5)"><span class="cthumb">${bpic(12, 'mini')}</span><span class="rt"><span class="t">Le bilan du pied, en décharge et en charge</span><span class="n">${kb}/${BL.length} étapes sues</span>${bar(kb / BL.length, 'var(--p5)')}</span><span class="chev">›</span></a>
+      <div class="sec">LES ${CL.length} TESTS · ${CS.length} SECTIONS</div>
+      <button class="btn wide" id="crand" style="--c:var(--hl);margin-bottom:10px">🎯 Un test au hasard, réponses cachées</button>
       <div class="entries">${CS.map((s, i) => { const it = CL.filter(x => x.s === i), k = nC(it);
         return `<a class="entry" href="#/clin/s${i + 1}" style="--c:${SCOL(i)}"><span class="stamp xs cem">${s.e}</span><span class="rt"><span class="t">${esc(s.t)}</span><span class="n">${k}/${it.length} tests sus</span>${bar(k / it.length, SCOL(i))}</span><span class="chev">›</span></a>`; }).join('')}</div></div>`;
   }
@@ -584,6 +591,40 @@
       ${pager(n > 1 ? `#/clin/${n - 1}` : '', `<button class="btn grow ${doneC(n) ? 'ghost' : ''}" id="cknow" style="--c:var(--p6)">${doneC(n) ? '✓ Su · à revoir ?' : 'Je sais le faire'}</button>`, n < CL.length ? `#/clin/${n + 1}` : '')}</div>`;
   }
 
+  // ---------- le bilan du pied (data/bilan.js), dans l'ordre de l'examen ----------
+  const BL = window.BILAN || [], BG = window.BILAN_G || [];
+  const doneB = i => !!(S.bil && S.bil[i]), nB = list => list.filter(x => doneB(BL.indexOf(x) + 1)).length;
+  const bpic = (n, cls = 'cpic') => `<svg class="${cls}" viewBox="0 0 240 150" aria-hidden="true">${window.BILAN_PIC ? window.BILAN_PIC(n) : ''}</svg>`;
+  const BCOL = g => ['var(--p3)', 'var(--p5)', 'var(--p4)', 'var(--p7)'][g];
+  function bilanList() {
+    return `<div class="wrap">${top('#/clin', 'Le bilan du pied', count(nB(BL), BL.length))}
+      <div class="muted lead">L'examen du pied dans l'ordre : on écoute, on examine assis ou allongé, puis debout, puis on fait bouger.</div>
+      ${BG.map((g, i) => { const it = BL.filter(x => x.g === i); return `<div class="sec" style="color:${BCOL(i)}">${g.e} ${esc(g.t).toUpperCase()}</div>
+        <div class="entries">${it.map(x => { const n = BL.indexOf(x) + 1;
+          return `<a class="entry" href="#/clin/b/${n}" style="--c:${BCOL(i)}"><span class="cthumb">${bpic(n, 'mini')}</span><span class="rt"><span class="n">ÉTAPE ${n}${x.yt ? ' · ▶ vidéo' : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.why)}</span></span>${doneB(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>`; }).join('')}</div>`;
+  }
+  const bBlock = x => `<div class="body"><div class="h">${esc(x.h)}</div>${x.p ? `<p class="bp">${md(x.p)}</p>` : ''}` +
+    (x.kv ? `<ul class="who">${x.kv.map(([a, b]) => `<li><span><span class="lab">${md(a)}</span>${md(b)}</span></li>`).join('')}</ul>` : '') +
+    (x.li ? `<ul class="notes">${x.li.map(t => `<li>${md(t)}</li>`).join('')}</ul>` : '') +
+    (x.steps ? `<ol class="steps">${x.steps.map(t => `<li>${md(t)}</li>`).join('')}</ol>` : '') +
+    (x.table ? `<table class="ctab">${x.head ? `<tr>${x.head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>` : ''}${x.table.map(r => `<tr>${r.map(c => `<td>${md(c)}</td>`).join('')}</tr>`).join('')}</table>` : '') +
+    (x.res ? `<ul class="res">${x.res.map(([k, a, b]) => `<li class="${k === 'ok' ? 'okr' : k === 'mid' ? 'midr' : 'kor'}"><span class="lab">${md(a)}</span>${b ? '→ ' + md(b) : ''}</li>`).join('')}</ul>` : '') + '</div>';
+  function bilanStep(n) {
+    const x = BL[n - 1]; if (!x) return notFound();
+    const c = BCOL(x.g), g = BG[x.g];
+    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top('#/clin/b', `${g.e} ${esc(g.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
+      <section class="part solo ctest" style="--c:${c}">
+        <figure class="chero">${bpic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.youtube.com/watch?v=${x.yt}" data-lab="Voir sur YouTube">▶ Voir en vidéo</button>` : ''}</figure>
+        <div class="chead"><div class="rt"><div class="n" style="color:${c}">ÉTAPE ${n} / ${BL.length}</div><h1>${esc(x.n)}</h1><div class="cq">🎯 ${esc(x.why)}</div></div></div>
+        ${S.revise ? '<div class="hint">🙈 Mode test : récite l\'étape, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
+        ${x.pos ? `<div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">🧍</span><span>${md(x.pos)}</span></li></ul></div>` : ''}
+        ${x.b.map(bBlock).join('')}
+        ${x.key ? `<div class="chips">${x.key.map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>` : ''}
+        ${x.tip ? `<div class="ctip">💡 ${md(x.tip)}</div>` : ''}
+      </section>
+      ${pager(n > 1 ? `#/clin/b/${n - 1}` : '#/clin/b', `<button class="btn grow ${doneB(n) ? 'ghost' : ''}" id="bknow" style="--c:var(--p6)">${doneB(n) ? '✓ Su · à revoir ?' : 'Je la connais'}</button>`, n < BL.length ? `#/clin/b/${n + 1}` : '')}</div>`;
+  }
+
   // ---------- lexique et recherche : la liste se met à jour pendant qu'on tape, sans redessiner la page ----------
   const norm = x => String(x).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   const LEX = window.LEXIQUE || [];
@@ -607,6 +648,7 @@
     }
     for (const x of AQ) if (norm(x.name).includes(n) || norm(x.how || '').includes(n)) out.push(`<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 44)}<span class="rt"><span class="n">ANATOMIE · Q${x.q}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`);
     CL.forEach((x, i) => { if (norm(x.n).includes(n) || norm(x.cherche).includes(n)) out.push(`<a class="entry" href="#/clin/${i + 1}" style="--c:${SCOL(x.s)}"><span class="cthumb">${pic(i + 1, 'mini')}</span><span class="rt"><span class="n">EXAMEN CLINIQUE · TEST ${i + 1}</span><span class="t">${esc(x.n)}</span></span><span class="chev">›</span></a>`); });
+    BL.forEach((x, i) => { if (norm(x.n).includes(n) || norm(x.why).includes(n)) out.push(`<a class="entry" href="#/clin/b/${i + 1}" style="--c:${BCOL(x.g)}"><span class="cthumb">${bpic(i + 1, 'mini')}</span><span class="rt"><span class="n">BILAN DU PIED · ÉTAPE ${i + 1}</span><span class="t">${esc(x.n)}</span></span><span class="chev">›</span></a>`); });
     const lx = LEX.filter(([w]) => norm(w).includes(n));
     return (lx.length ? `<dl class="lex">${lx.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') +
       (out.length ? `<div class="entries">${out.slice(0, 60).join('')}</div>` : lx.length ? '' : '<div class="empty">Rien trouvé.</div>');
@@ -763,7 +805,7 @@
     else if (sec === 'pedi') html = a ? pedi(a, b, c) : pediList();
     else if (sec === 'plan') html = plan();
     else if (sec === 'anat') html = a === 'quiz' ? anatQuiz() : a === '3d' ? quiz3d() : a && !REG_ORDER.includes(a) ? anatItem(a) : anatList(a);
-    else if (sec === 'clin') html = !a ? clinHub() : a[0] === 's' ? clinSec(+a.slice(1) - 1) : clinTest(+a);
+    else if (sec === 'clin') html = !a ? clinHub() : a === 'b' ? (b ? bilanStep(+b) : bilanList()) : a[0] === 's' ? clinSec(+a.slice(1) - 1) : clinTest(+a);
     else if (sec === 'tirage') html = tirage();
     else if (sec === 'lexique') html = lexique();
     else if (sec === 'search') html = search();
@@ -776,7 +818,7 @@
     document.body.classList.toggle('reading', !!$('#app .pager.fixed'));
     document.querySelectorAll('nav.tabs a').forEach(t => t.classList.toggle('on', t.dataset.s === (sec || '') || (t.dataset.s === 'tirage' && sec === 'plan')));
     const f = PEDI.find(x => x.id === a);
-    document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
+    document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, 0);
     showNote();
   }
@@ -787,7 +829,7 @@
     if (im) { e.preventDefault(); const z = document.createElement('div'); z.className = 'zoom' + (im.dataset.full ? ' tall' : ''); z.innerHTML = `<img src="${im.dataset.full || im.getAttribute('src')}" alt=""><span>Toucher pour fermer</span>`; z.onclick = () => z.remove(); document.body.appendChild(z); return; }
   }, true);
   document.addEventListener('click', e => {
-    const t = e.target.closest('button, .revise .part .body li, .revise .part .body .chip, .revise .part .body .badge');
+    const t = e.target.closest('button, .revise .part .body li, .revise .part .body .chip, .revise .part .body .badge, .revise .part .body td');
     if (!t) return;
     if (t.dataset.qa) { quizAct(t); return; }
     if (t.dataset.q3) { q3Act(t); return; }
@@ -801,7 +843,7 @@
       else copy();
       return;
     }
-    if (t.dataset.vid) { openVideo(t.dataset.vid, t.dataset.yt, t.dataset.src); return; }
+    if (t.dataset.vid) { openVideo(t.dataset.vid, t.dataset.yt, t.dataset.src, t.dataset.lab); return; }
     if (t.id === 'vclose') { closeVideo(); return; }
     if (t.id === 'upcheck') { const m = $('#upmsg'); m.textContent = 'Vérification…'; latestV().then(v => { if (!v) m.textContent = 'Pas de réseau : réessaie plus tard.'; else if (v > APP_V) { m.innerHTML = `Version ${v} disponible. <button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button>`; } else m.textContent = 'Tu as la dernière version ✓'; }); return; }
     if (t.id === 'upgo') { t.textContent = 'Mise à jour…'; applyUpdate(); return; }
@@ -815,6 +857,7 @@
     const [, sec, a] = location.hash.split('/');
     if (t.id === 'revise') { S.revise = !S.revise; save(); render(); }
     if (t.id === 'done') { const p = S.pedi[a] = S.pedi[a] || {}; p.done = !p.done; save(); render(); }
+    if (t.id === 'bknow') { const m = S.bil = S.bil || {}, k = location.hash.split('/')[3]; m[k] = !m[k]; if (m[k]) did(1); save(); render(); }
     if (t.id === 'cknow') { const m = S.clin = S.clin || {}; m[a] = !m[a]; if (m[a]) did(1); save(); render(); }
     if (t.id === 'crand') { const left = CL.map((_, i) => i + 1).filter(i => !doneC(i)), pool = left.length ? left : CL.map((_, i) => i + 1); S.revise = true; save(); location.hash = '#/clin/' + pool[Math.floor(Math.random() * pool.length)]; }
     if (t.id === 'aknow') { S.anat[a] = !S.anat[a]; save(); render(); }

@@ -179,14 +179,14 @@
   const SEATT = o => table(16, 110) + SEAT(o);
 
   // pied vu de profil (orteils vers la droite), cheville en (ax, ay) ; med : côté interne (voûte)
-  const footSide = (ax, ay, s = 1, med) => { const Q = (x, y) => [ax + x * s, ay + y * s];
-    const pts = [[-11, -64], [-9.5, -12], [-14, 2], [-17, 16], [-14, 26], [-4, 28.5], [8, 27], [med ? 22 : 22, med ? 22.5 : 27], [36, 26.5], [50, 28], [59, 26], [61, 20], [55, 16], [40, 10], [24, 0], [12, -9], [10, -64]].map(([x, y]) => Q(x, y));
+  const footSide = (ax, ay, s = 1, med, top = -64) => { const Q = (x, y) => [ax + x * s, ay + y * s];
+    const pts = [[-11, top], [-9.5, -12], [-14, 2], [-17, 16], [-14, 26], [-4, 28.5], [8, 27], [med ? 22 : 22, med ? 22.5 : 27], [36, 26.5], [50, 28], [59, 26], [61, 20], [55, 16], [40, 10], [24, 0], [12, -9], [10, top]].map(([x, y]) => Q(x, y));
     const m = Q(med ? 1 : -1, -2);
     return layer([part(smooth(pts), SKN, '', `<circle cx="${m[0]}" cy="${m[1]}" r="${5 * s}" fill="${SKN[1]}"/><path d="M${P(Q(52, 17))}Q${P(Q(55, 22))} ${P(Q(52, 27))}" stroke="${SKN[1]}" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"/>`)]); };
   // pied vu de dessus ou de dessous (orteils en haut) ; hallux à gauche
-  const footTop = (cx, cy, s = 1) => { const Q = (x, y) => [cx + x * s, cy + y * s];
+  const footTop = (cx, cy, s = 1, tv = [0, 0]) => { const Q = (x, y) => [cx + x * s, cy + y * s];
     const sole = [[-2, 58], [-16, 52], [-18, 34], [-16, 16], [-22, -2], [-23, -20], [-16, -36], [2, -41], [18, -38], [25, -26], [22, -4], [15, 18], [15, 40], [10, 55]].map(([x, y]) => Q(x, y));
-    const toes = [[-14, -50, 8.6], [1, -54, 5.8], [11, -52, 5], [19, -47, 4.4], [25, -40, 3.9]];
+    const toes = [[-14, -50 + tv[0], 8.6], [1, -54 + tv[1], 5.8], [11, -52, 5], [19, -47, 4.4], [25, -40, 3.9]];
     return layer([...toes.map(([x, y, r]) => part(circle(Q(x, y), r * s), SKN)), part(smooth(sole), SKN, '', `<path d="M${P(Q(-12, -28))}Q${P(Q(4, -32))} ${P(Q(20, -26))}" stroke="${SKN[1]}" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"/>`)]); };
   // jambe et talon vus de derrière (cheville en cx, cy)
   const rear = (cx, cy) => layer([part(smooth([[cx - 13, cy - 92], [cx - 11, cy - 40], [cx - 9, cy - 10], [cx - 13, cy + 6], [cx - 9, cy + 18], [cx, cy + 21], [cx + 9, cy + 18], [cx + 13, cy + 6], [cx + 9, cy - 10], [cx + 12, cy - 40], [cx + 13, cy - 92]]), SKN, '',
@@ -299,6 +299,91 @@
   D[41] = () => floor() + `<path class="al" d="M30 132V142"/>` + shadow(46) + man({ h: [44, 40], s: [46, 57], hip: [44, 92], l: [[56, 114], [40, 136], [52, 138]], l2: [[30, 104], [24, 120], [20, 125]], a: [[34, 72], [27, 84]] }) +
     `<path class="ds" d="M60 90Q120 20 176 80"/>` + shadow(184) + man({ h: [186, 24], s: [184, 41], hip: [180, 80], l: [[190, 108], [180, 136], [193, 138]], l2: [[168, 98], [160, 114], [156, 123]], a: [[196, 60], [204, 50]] }) +
     ar(30, 147, 180, 147, 1) + tx(105, 136, 'distance, 3 essais') + tx(206, 118, 'tenir 2 s', 'start', 'lb sm');
+
+
+  // =================== le bilan du pied : 15 dessins (BILAN_PIC) ===================
+  const BD = [], BCAM = {};
+  const mirror = (cx, g) => `<g transform="matrix(-1 0 0 1 ${2 * cx} 0)">${g}</g>`;
+  const rotg = (a, x, y, g, op) => `<g transform="rotate(${a} ${x} ${y})"${op ? ` opacity="${op}"` : ''}>${g}</g>`;
+  const bubble = (x, y, w, t, tail = 'left') => `<path d="M${x + 8} ${y}h${w - 16}q8 0 8 8v6q0 8 -8 8h${tail === 'right' ? -(w - 30) : -8}l${tail === 'right' ? -6 : -6} 7l1 -7H${x + 8}q-8 0 -8 -8v-6q0 -8 8 -8Z" style="fill:var(--card);stroke:var(--c)" stroke-width="1.6" vector-effect="non-scaling-stroke"/>` + tx(x + w / 2, y + 15, t);
+  const chair = (x1, x2, y, back) => `<path d="M${x1 + 4} ${y + 6}V141M${x2 - 4} ${y + 6}V141" stroke="#8b7b69" stroke-width="3"/><rect x="${x1}" y="${y}" width="${x2 - x1}" height="7" rx="3" fill="#a8927a" stroke="#6e5d4c" stroke-width="1.2" vector-effect="non-scaling-stroke"/>` +
+    (back != null ? `<rect x="${back - 3}" y="${y - 40}" width="6" height="46" rx="3" fill="#a8927a" stroke="#6e5d4c" stroke-width="1.2" vector-effect="non-scaling-stroke"/>` : '');
+  // empreinte au podoscope (orteils en haut, hallux à gauche) : n normal, p1..p3 plat, c1..c3 creux
+  const print = (cx, cy, s, kind) => { const Q = ([x, y]) => [cx + x * s, cy + y * s], f = 'style="fill:var(--ink)" opacity=".85"';
+    const fore = [[-23, -20], [-16, -36], [2, -41], [18, -38], [25, -26]], heelL = [[15, 40], [10, 55], [-2, 58], [-15, 52], [-17, 38]];
+    const W = { n: 13, p1: 19, p2: 27, p3: 44, c1: 7 }[kind], gap = kind === 'c2' || kind === 'c3';
+    let g = (kind === 'c3' ? '' : [[-14, -52, 7.4], [1, -55, 4.8], [10, -53, 4.2], [18, -48, 3.8], [24, -42, 3.3]].map(([x, y, r]) => { const c = Q([x, y]); return `<circle cx="${c[0]}" cy="${c[1]}" r="${r * s}" ${f}/>`; }).join(''));
+    if (gap) g += `<path d="${smooth([...fore, [23, -10], [8, -6], [-12, -8]].map(Q))}" ${f}/><path d="${smooth([[15, 24], ...heelL, [-14, 26], [0, 22]].map(Q))}" ${f}/>`;
+    else g += `<path d="${smooth([...fore, [22, -4], [16, 18], ...heelL, [-15, 26], [18 - W, 12], [16 - W * .9, -2], [-21, -10]].map(Q))}" ${f}/>`;
+    return g; };
+  // jambe vue de derrière, talon basculé de a degrés (a > 0 : le bas du talon part vers la droite de l'image)
+  const rearT = (cx, cy, a, lift = 0) => { const pv = [cx, cy - 6 - lift];
+    const leg = smooth([[cx - 14, cy - 96], [cx - 12, cy - 40], [cx - 9, cy - 8 - lift], [cx + 9, cy - 8 - lift], [cx + 12, cy - 40], [cx + 14, cy - 96]]);
+    const heel = smooth([[cx - 10, cy - 14 - lift], [cx - 13, cy + 4 - lift], [cx - 8, cy + 18 - lift], [cx, cy + 21 - lift], [cx + 8, cy + 18 - lift], [cx + 13, cy + 4 - lift], [cx + 10, cy - 14 - lift]]);
+    return layer([part(leg, SKN, '', `<circle cx="${cx - 11}" cy="${cy - 9 - lift}" r="3.6" fill="${SKN[1]}"/><circle cx="${cx + 11}" cy="${cy - 6 - lift}" r="3.6" fill="${SKN[1]}"/>`)]) +
+      `<g transform="rotate(${-a} ${pv[0]} ${pv[1]})">${layer([part(heel, SKN, '', `<path d="M${cx - 6} ${cy + 8 - lift}Q${cx} ${cy + 12 - lift} ${cx + 6} ${cy + 8 - lift}" stroke="${SKN[1]}" stroke-width="1.2" fill="none" vector-effect="non-scaling-stroke"/>`)])}</g>`; };
+  const heelAxis = (cx, cy, a, lift = 0) => { const pv = [cx, cy - 6 - lift], r = a * Math.PI / 180;
+    return dash([cx, cy - 74 - lift], [cx, cy + 26 - lift]) + `<path class="halo" d="M${pv[0]} ${pv[1]}L${pv[0] + Math.sin(r) * 30} ${pv[1] + Math.cos(r) * 30}"/><path class="al" d="M${pv[0]} ${pv[1]}L${pv[0] + Math.sin(r) * 30} ${pv[1] + Math.cos(r) * 30}"/>`; };
+  // orteil vu de côté : normal ou en griffe (MTP en extension, IPP en flexion)
+  const toe = (x, y, claw) => { const pts = claw ? [[x + 40, y + 2], [x + 52, y - 13], [x + 59, y + 1], [x + 61, y + 13]] : [[x + 40, y + 4], [x + 56, y + 5], [x + 66, y + 8], [x + 73, y + 12]];
+    const [a, b, c, d] = pts;
+    return layer([part(smooth([[x - 6, y - 26], [x + 14, y - 14], [x + 38, y - 4], [x + 44, y + 6], [x + 38, y + 13], [x + 12, y + 15], [x - 6, y + 15]]), SKN, '', `<rect x="${x - 8}" y="${y - 30}" width="4" height="48" fill="${SKN[0]}"/>`), part(limb(a, b, 6, 5.4), SKN, shadeOf(a, b, 6, 5.4)), part(limb(b, c, 5.2, 4.8), SKN, shadeOf(b, c, 5.2, 4.8)), part(limb(c, d, 4.6, 3.9), SKN, '',
+      `<path d="M${P(lerp(c, d, .35))}L${P(lerp(c, d, .95))}" stroke="#f3e3d6" stroke-width="3.2" stroke-linecap="round" transform="translate(${claw ? 2.5 : 0} ${claw ? 0 : -3})"/>`)]); };
+
+  // ---------- avant l'examen ----------
+  BD[1] = () => floor() + chair(48, 94, 98, 50) + chair(148, 196, 98, 194) +
+    man({ h: [66, 40], s: [68, 58], hip: [72, 96], l: [[100, 98], [102, 134], [115, 138]], l2: [[98, 96], [98, 133], [111, 137]], a: [[78, 78], [92, 92]], a2: [[74, 78], [88, 90]] }) +
+    man({ pro: 1, face: [-1, 0], h: [174, 38], s: [172, 56], hip: [170, 96], l: [[142, 98], [140, 134], [127, 138]], l2: [[144, 96], [144, 133], [131, 137]], a: [[160, 76], [148, 80]], a2: [[164, 74], [152, 72]] }) +
+    dev('M140 64l14 -4l6 22l-14 4z') + bubble(120, 4, 112, 'Où avez-vous mal ?', 'left') + tx(70, 18, 'j\'écoute, j\'observe', 'middle', 'lb sm');
+  BD[2] = () => { const p = (i, t) => panel(4 + i * 78, 6, 74, 138, t);
+    return p(0, 'systématique') + footSide(30, 66, .55) + ar(16, 112, 62, 112) + tx(40, 128, 'arrière → avant', 'middle', 'lb sm') +
+      p(1, 'bilatéral') + mirror(105, footTop(105, 74, .5)) + footTop(133, 74, .5) + tx(119, 124, 'les 2 pieds', 'middle', 'lb sm') +
+      p(2, 'comparatif') + mirror(184, footTop(184, 74, .5)) + footTop(212, 74, .5) + tx(198, 26, '= ?', 'middle', 'big') + tx(198, 124, 'D comme G ?', 'middle', 'lb sm'); };
+  // ---------- en décharge ----------
+  BD[3] = () => { const ax = 38, ay = 70, s = .95, t = -18 * Math.PI / 180, R = ([x, y]) => [ax + (x * Math.cos(t) - y * Math.sin(t)) * s, ay + (x * Math.sin(t) + y * Math.cos(t)) * s], hb = R([-4, 28.5]), m1 = R([36, 26.5]);
+    return panel(4, 6, 132, 138, 'dénivellation') + rotg(-18, ax, ay, footSide(ax, ay, s, 1)) + dash([hb[0] - 8, hb[1]], [m1[0] + 26, hb[1]]) + dash([m1[0] - 8, m1[1]], [m1[0] + 26, m1[1]]) + pt(hb[0], hb[1]) + pt(m1[0], m1[1]) +
+      ar(m1[0] + 18, m1[1] + 1, m1[0] + 18, hb[1] - 1, 1) + tx(m1[0] + 14, hb[1] + 14, '2-2,5 cm', 'middle', 'lb sm') + tx(hb[0] + 6, hb[1] + 12, 'talon', 'middle', 'lb sm') + tx(m1[0], m1[1] - 8, 'tête M1', 'middle', 'lb sm') +
+      panel(140, 6, 96, 138) + footTop(158, 90, .42, [-7, 6]) + footTop(188, 90, .42, [-2, 0]) + footTop(218, 90, .42, [5, -6]) + [[158, -7], [188, -2], [218, 5]].map(([x, d]) => dash([x - 12, 90 + (-58.6 + d) * .42], [x + 12, 90 + (-58.6 + d) * .42])).join('') +
+      tx(158, 132, 'égyptien', 'middle', 'lb sm') + tx(188, 132, 'carré', 'middle', 'lb sm') + tx(218, 132, 'grec', 'middle', 'lb sm') + tx(188, 22, 'les orteils'); };
+  BD[4] = () => { const cx = 74, cy = 80, s = 1.05, Q = (x, y) => [cx + x * s, cy + y * s], hk = (x, y, rx, ry) => `<ellipse cx="${Q(x, y)[0]}" cy="${Q(x, y)[1]}" rx="${rx}" ry="${ry}" fill="#ead39a" stroke="#b9974f" stroke-width="1.2" vector-effect="non-scaling-stroke"/>`;
+    return footTop(cx, cy, s) + hk(-13, -27, 8, 6) + hk(18, -20, 6, 5) + hk(1, 45, 9, 7) +
+      `<circle cx="168" cy="54" r="30" fill="${SKN[0]}" stroke="#6b7686" stroke-width="5"/><ellipse cx="168" cy="54" rx="17" ry="12" fill="#ead39a" stroke="#b9974f" stroke-width="1.4"/><path d="M190 76L210 98" stroke="#6b7686" stroke-width="7" stroke-linecap="round"/>` +
+      dash(Q(-13, -27), [140, 46]) + tx(168, 102, 'durillon = hyperpression', 'middle', 'lb sm') + tx(168, 120, 'Shore : 20 souple · 35 ferme', 'middle', 'lb sm') + tx(168, 138, '+ ongles, grains de beauté (ABCDE)', 'middle', 'lb sm'); };
+  BD[5] = () => { const p = (i, t) => panel(4 + i * 78, 6, 74, 138, t);
+    return p(0, 'pédieux') + footTop(40, 78, .62) + pt(36, 58, 4.5) + hand([14, 136], [36, 62], 0, .9) + `<path class="al" d="M50 34l3-5 3 8 3-6 3 3"/>` +
+      p(1, 'tibial post.') + footSide(108, 74, .58, 1) + pt(102, 78, 4.5) + hand([150, 132], [104, 82], -1, .9) + `<path class="al" d="M120 50l3-5 3 8 3-6 3 3"/>` +
+      p(2, 'recoloration') + footSide(178, 70, .58, 1) + hand([232, 40], [210, 82], -1, .9) + pt(212, 88, 4) + tx(194, 30, '< 3 s', 'middle', 'big'); };
+  BD[6] = () => layer([part(limb([96, -10], [110, 98], 15, 8.5, 0, 3.6), SKN, shadeOf([96, -10], [110, 98], 15, 8.5))]) + footSide(110, 104, .9, 1, -30) +
+    `<path d="M86 24q5 6 -1 12t1 12q5 6 0 12M96 30q-4 8 2 14t0 14" stroke="#5b74c9" stroke-width="2.6" fill="none" stroke-linecap="round"/>` +
+    hand([160, 82], [124, 98], -1) + `<ellipse cx="121" cy="100" rx="3.6" ry="2.4" fill="${SKN[1]}" stroke="${SKN[2]}" stroke-width=".8"/>` +
+    `<circle class="pt" cx="130" cy="128" r="6"/><circle class="pt" cx="104" cy="48" r="6"/>` + `<text x="130" y="132" text-anchor="middle" style="font:700 9px sans-serif;fill:#fff">1</text><text x="104" y="52" text-anchor="middle" style="font:700 9px sans-serif;fill:#fff">2</text>` +
+    ar(150, 128, 150, 30) + tx(156, 30, 'le sang remonte', 'start', 'lb sm') + tx(170, 112, 'godet', 'start') + tx(40, 30, 'varices ?', 'middle') + tx(66, 128, '1 voûte · 2 mollet · 3 cuisse', 'middle', 'lb sm');
+  BD[7] = () => { const p = (i, t) => panel(4 + i * 78, 6, 74, 138, t);
+    return p(0, 'monofilament') + footTop(40, 80, .62) + pt(32, 50, 4) + pt(32, 70, 4) + pt(52, 74, 4) + rod([72, 30], [58, 58], 4, '#4b5563') + `<path class="al" d="M58 58Q52 66 48 60"/>` +
+      p(1, 'diapason') + footSide(102, 72, .6, 1) + rod([136, 50], [136, 70], 3.4, '#8b95a3') + `<path d="M130 32V44Q130 50 136 50Q142 50 142 44V32" stroke="#8b95a3" stroke-width="3.4" fill="none"/>` + pt(136, 74, 4) +
+      p(2, 'réflexe achilléen') + footSide(196, 70, .62) + `<g transform="rotate(-30 180 72)">${rod([180, 72], [180, 40], 3, '#6b7686')}<rect x="172" y="66" width="16" height="9" rx="4" fill="#c0392b" stroke="#7a2318" stroke-width="1"/></g>` + pt(187, 76, 4) + tx(196, 30, 'S1', 'middle', 'big'); };
+  BD[8] = () => { const ax = 104, ay = 74, foot = footSide(ax, ay, 1.05, 0, -8);
+    return layer([part(limb([ax - 1, ay - 74], [ax, ay - 4], 10.5, 9.5), SKN, shadeOf([ax - 1, ay - 74], [ax, ay - 4], 10.5, 9.5))]) + rotg(-25, ax, ay, foot, .35) + rotg(40, ax, ay, foot, .35) + foot +
+      arc(ax, ay, 66, -6, -30) + arc(ax, ay, 66, 16, 54) + tx(178, 26, 'FD 20-30°', 'start') + tx(150, 140, 'FP 30-50°', 'start') + tx(30, 120, 'MTP1 : ext. 50-60°', 'middle', 'lb sm'); };
+  BD[9] = () => footSide(70, 70, 1.05) + hand([150, 30], [118, 80], -1) + ar(104, 48, 104, 66) + ar(86, 112, 86, 94) + tx(110, 42, 'je résiste', 'start', 'lb sm') + tx(78, 128, 'il pousse', 'middle', 'lb sm') +
+    [0, 1, 2, 3, 4, 5].map(i => `<rect x="${170 + i * 10}" y="${110 - i * 13}" width="8" height="${12 + i * 13}" rx="2" style="fill:${i === 3 ? 'var(--c)' : 'color-mix(in srgb, var(--c) 30%, transparent)'}"/>` + tx(174 + i * 10, 136, i, 'middle', 'lb sm')).join('') + tx(194, 22, '3 = contre pesanteur', 'middle', 'lb sm');
+  // ---------- en charge ----------
+  BD[10] = () => floor(10, 230, 132) + rearT(70, 110, 5) + heelAxis(70, 110, 5) + tx(70, 146, 'normal : valgus ≤ 5°', 'middle', 'lb sm') +
+    rearT(172, 110, 14) + heelAxis(172, 110, 14) + tx(172, 146, 'valgus > 5°', 'middle', 'lb sm') + tx(120, 14, 'vu de dos, debout', 'middle', 'lb sm');
+  BD[11] = () => floor(10, 112, 122) + floor(128, 232, 122) + panel(4, 6, 112, 138, 'normal') + toe(18, 104) + panel(124, 6, 112, 138, 'griffe') + toe(138, 104, 1) +
+    `<ellipse cx="190" cy="85" rx="5" ry="3" fill="#ead39a" stroke="#b9974f" stroke-width="1"/>` + tx(212, 70, 'cor', 'middle', 'lb sm') + hand([226, 40], [191, 82], -1, .9) + ar(206, 52, 196, 70) + tx(180, 30, 'je la redresse ?', 'middle', 'lb sm');
+  BD[12] = () => { const L = [['n', 'normal'], ['p1', 'plat 1°'], ['p2', 'plat 2°'], ['p3', 'plat 3°'], ['c1', 'creux 1°'], ['c2', 'creux 2°'], ['c3', 'creux 3°']];
+    return L.map(([k, t], i) => { const r = i < 4 ? 0 : 1, x = r ? 56 + (i - 4) * 64 : 30 + i * 60, y = r ? 104 : 32; return print(x, y, .42, k) + tx(x + 2, y + 36, t, 'middle', 'lb sm'); }).join(''); };
+  // ---------- tests dynamiques ----------
+  BD[13] = () => floor(10, 130) + shadow(62) + man({ h: [60, 26], s: [60, 44], hip: [58, 84], l: [[60, 110], [58, 136], [71, 138]], l2: [[82, 92], [82, 118], [94, 120]], a: [[50, 64], [44, 80]], a2: [[68, 62], [74, 78]] }) +
+    panel(130, 6, 106, 138, 'pied creux souple') + print(158, 66, .5, 'c1') + ar(176, 66, 192, 66) + print(212, 66, .5, 'n') + tx(156, 116, 'avant', 'middle', 'lb sm') + tx(212, 116, 'en appui', 'middle', 'lb sm');
+  BD[14] = () => { const pair = (cx, a, lift) => rearT(cx - 15, 110, a, lift) + mirror(cx + 15, rearT(cx + 15, 110, a, lift)) + heelAxis(cx - 15, 110, a, lift) + mirror(cx + 15, heelAxis(cx + 15, 110, a, lift));
+    return floor(10, 230, 132) + pair(64, -9, 0) + tx(64, 146, 'debout : valgus', 'middle', 'lb sm') + pair(176, 9, 12) + tx(176, 146, 'sur pointe : varus', 'middle', 'lb sm') + ar(120, 110, 120, 86) + tx(120, 14, 'vu de dos', 'middle', 'lb sm'); };
+  BD[15] = () => floor(10, 230, 101) + footSide(60, 66, 1.25, 1) + hand([172, 30], [136, 80], -1) + arc(126, 92, 18, -20, -80) + dash([62, 96], [86, 86], [110, 96]) + ar(88, 100, 88, 84) +
+    tx(150, 52, 'je relève l\'hallux', 'start', 'lb sm') + tx(88, 120, 'l\'arche se creuse ?', 'middle');
+
+  window.BILAN_PIC = n => { if (!BD[n]) return ''; const c = BCAM[n] || [0, 0, 240]; K = 240 / c[2]; HANDS.length = 0;
+    return `<g transform="scale(${+K.toFixed(4)}) translate(${-c[0]} ${-c[1]})" fill="none" stroke-linecap="round" stroke-linejoin="round">${BD[n]()}</g>`; };
 
   window.CLIN_PIC = n => { if (!D[n]) return ''; const c = CAM[n] || [0, 0, 240]; K = 240 / c[2]; HANDS.length = 0;
     const svg = D[n](); return `<g transform="scale(${+K.toFixed(4)}) translate(${-c[0]} ${-c[1]})" fill="none" stroke-linecap="round" stroke-linejoin="round">${svg}</g>`; };

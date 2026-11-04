@@ -18,7 +18,7 @@ Site de révision de l’oral UEM de pédicurie-podologie, dans le style des vid
 ## Fichiers
 
 - `index.html`, `style.css`, `app.js` : le site.
-- `data/pedi.js`, `data/anat.js`, `data/anat3d.js` : le contenu, généré (ne pas éditer à la main) ; `data/quiz.js` : les questions des quiz de fiche (écrites à la main) ; `data/lexique.js` : le lexique ; `data/videos.js` : liens Drive des vidéos. `data/clinique.js` : les 41 tests (écrits à la main) ; `data/clinique-dessins.js` : leurs dessins en SVG (même numéro que le test).
+- `data/pedi.js`, `data/anat.js`, `data/anat3d.js` : le contenu, généré (ne pas éditer à la main) ; `data/quiz.js` : les questions des quiz de fiche (écrites à la main) ; `data/lexique.js` : le lexique ; `data/videos.js` : liens Drive des vidéos. `data/clinique.js` : les 41 tests (écrits à la main) ; `data/bilan.js` : le bilan du pied en 15 étapes ; `data/clinique-dessins.js` : les dessins en SVG des tests (CLIN_PIC) et du bilan (BILAN_PIC), même numéro.
 - `vendor/three-mini.js`, `anat/jambe3d.bin` : le modèle 3D (BodyParts3D, © DBCLS, CC BY-SA 2.1 JP).
 - Mise à jour : ajouter une entrée à `NOTES` dans `app.js` (fenêtre « Quoi de neuf ? »), changer `?v=` dans `index.html`, puis `node tools/build-sw.js N` et `version.json`.
 - `illus/` : dessins tirés des vidéos ; `anat/` : planches ; `photos/` : photos ; `fonts/` : Permanent Marker et Caveat (licence OFL).
