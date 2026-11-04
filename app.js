@@ -122,6 +122,11 @@
   }
   const thumb = (src, alt) => `<span class="drawn th">${img(src, alt)}</span>`;
 
+  // Noé (Nono) devient Natasha de 21 h à 6 h ; le nom de l'appli mélange Yaya et son nom : Yanoé, ou Yatasha la nuit
+  const night = () => { const h = new Date().getHours(); return h >= 21 || h < 6; };
+  const NONO = () => night() ? 'Natasha' : 'Nono', APPNAME = () => night() ? 'Yatasha' : 'Yanoé';
+  const nightly = t => t.replace(/Nono/g, NONO()).replace(/Yanoé/g, APPNAME());
+
   // ---------- accueil : où j'en suis, et quoi faire maintenant ----------
   function home() {
     const nP = PEDI.filter(f => doneP(f.id)).length, vP = PEDI.reduce((s, f) => s + pctP(f), 0) / PEDI.length;
@@ -130,9 +135,9 @@
     const nextF = PEDI.find(f => !doneP(f.id) && f !== last);
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
-      <header class="brand"><h1>Podo<span>Prépa</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
+      <header class="brand"><h1>Ya<span>${night() ? 'tasha' : 'noé'}</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
       <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> 🧢<br><small>le dev</small></span></span>
-        <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="Nono"><span><b>Nono</b> 🚧<br><small>l'aide</small></span></span></div>
+        <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> 🚧<br><small>l'aide</small></span></span></div>
       ${todayCard()}
       ${last ? `<a class="card resume" href="#/pedi/${last.id}${S.last.k ? '/p' + S.last.k : ''}">${thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title)}
         <span class="rt"><span class="kicker">▶ REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
@@ -255,7 +260,7 @@
     ] },
     { v: 51, items: [
       ['✏️', 'Examen clinique : tous les dessins des tests ont été refaits, plus clairs, avec les mains du praticien et des gros plans sur le genou, la cheville et le pied.'],
-      ['🧢', 'L\'appli s\'appelle PodoPrépa, et tu peux voir qui l\'a faite : Yaya et Nono, en haut de l\'accueil.'],
+      ['🧢', 'L\'appli s\'appelle Yanoé (Yaya + Noé), et tu peux voir qui l\'a faite : Yaya et Nono, en haut de l\'accueil.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -265,7 +270,7 @@
     if (!news.length || $('.note')) return;
     const d = document.createElement('div'); d.className = 'note';
     d.innerHTML = `<div class="card" role="dialog" aria-label="Quoi de neuf"><div class="kicker">MISE À JOUR</div><h2>Quoi de neuf ?</h2>
-      <ul>${news.flatMap(n => n.items).map(([e, t]) => `<li><span>${e}</span><span>${esc(t)}</span></li>`).join('')}</ul>
+      <ul>${news.flatMap(n => n.items).map(([e, t]) => `<li><span>${e}</span><span>${esc(nightly(t))}</span></li>`).join('')}</ul>
       ${news.some(n => n.theme) ? `<div class="row2"><button class="btn grow" data-skin="drawn" style="--c:var(--hl)">Garder le dessiné</button><button class="btn ghost grow" data-skin="classic">L'ancien style</button></div>`
         : `<button class="btn wide" data-note="ok">C'est parti !</button>`}</div>`;
     document.body.appendChild(d);
