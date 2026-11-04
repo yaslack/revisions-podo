@@ -316,7 +316,7 @@
     let h = `<div class="wrap">${top('#/', 'Anatomie palpatoire', count(nA, AQ.length))}
       <nav class="regtabs">${REG_ORDER.map(x => { const it = AQ.filter(a => a.reg === x), k = it.filter(a => doneA(a.q)).length;
         return `<a href="#/anat/${x}" class="${x === r ? 'on' : ''}" style="--c:${RCOL[x]}"><span class="t">${REG_SHORT[x]}</span><span class="s">${k}/${it.length}</span>${bar(k / it.length, RCOL[x])}</a>`; }).join('')}</nav>
-      <a class="btn wide" href="#/anat/quiz" style="--c:var(--hl)">🎯 Je m'interroge</a>`;
+      <div class="row2"><a class="btn grow" href="#/anat/quiz" style="--c:var(--hl)">🎯 Je m'interroge</a><a class="btn grow" href="#/anat/3d" style="--c:var(--p8);color:#fff">🧊 Quiz 3D</a></div>`;
     for (const g of ['Os', 'Muscles']) {
       const it = items.filter(x => x.group === g);
       if (!it.length) continue;
@@ -381,6 +381,142 @@
 
   const notFound = () => `<div class="wrap">${top('#/', 'Introuvable')}<div class="empty">Cette page n'existe pas.</div></div>`;
 
+  // ---------- quiz 3D : retrouver les 59 repères sur le modèle du membre inférieur droit ----------
+  // Modèle BodyParts3D (© DBCLS, CC BY-SA 2.1 JP) ; cibles calculées par tools/build-anat3d.js (data/anat3d.js).
+  // La page n'est dessinée qu'une fois (le modèle reste chargé) : seul le panneau du bas change.
+  const L3 = { os: ['Os', '#E9DEC4'], m3: ['Profonds', '#8E3036'], m2: ['Moyens', '#A93C40'], m1: ['Superficiels', '#C2504D'] };
+  let Q3 = null, V3 = null;
+  const on3 = () => (S.v3on = S.v3on || { os: 1, m3: 1, m2: 1, m1: 1 });
+  const stat3 = q => (S.a3 || {})[q] || { ok: 0, ko: 0 };
+  function quiz3d() {
+    Q3 = Q3 || { st: 'pick' };
+    return `<div class="v3"><canvas id="v3c" aria-label="Modèle 3D du membre inférieur droit : glisse pour tourner, pince pour zoomer"></canvas>
+      <div class="v3load" id="v3load">Chargement du modèle 3D…</div><div id="v3mk"></div>
+      ${top('#/anat', 'Quiz 3D · les 59 repères', `<span class="count" id="v3n"></span>`)}
+      <div class="v3chips">${Object.entries(L3).map(([k, [l, c]]) => `<button class="v3l ${on3()[k] ? 'on' : ''}" data-v3l="${k}"><i style="background:${c}"></i>${l}</button>`).join('')}</div>
+      <div class="v3sheet" id="v3sheet">${sheet3()}</div></div>`;
+  }
+  function sheet3() {
+    const x = Q3.list && Q3.list[Q3.i], b = (a, t, c = 'var(--hl)', cls = 'grow') => `<button class="btn ${cls}" data-q3="${a}" style="--c:${c}">${t}</button>`;
+    if (Q3.st === 'pick') return `<div class="kicker">TROUVE-LES SUR LE MODÈLE</div><div class="muted small">Glisse pour tourner, pince pour zoomer. Enlève des couches en haut pour atteindre les muscles profonds.</div>
+      <div class="regpick">${['tout', ...REG_ORDER].map(r => { const it = r === 'tout' ? AQ : AQ.filter(a => a.reg === r); return `<button class="btn ghost" data-q3="go" data-r="${r}">${r === 'tout' ? 'Tout' : REG_SHORT[r]} <small>${it.length}</small></button>`; }).join('')}</div>`;
+    if (Q3.st === 'end') { const n = Q3.list.length, miss = Q3.list.filter(a => !Q3.res[a.q]);
+      return `<div class="qend">${ring(Q3.ok / n, Q3.ok / n >= .8 ? 'var(--p6)' : 'var(--p4)')}<div><div class="question">${Q3.ok} / ${n} trouvés</div>${miss.length ? `<div class="muted small">À revoir : ${miss.map(a => `<a href="#/anat/${a.q}">${esc(a.name)}</a>`).join(', ')}</div>` : ''}</div></div>
+        <div class="row2">${b('again', '↻ Rejouer')}${b('pick', 'Autre région', 'var(--card)')}</div>`; }
+    const head = `<div class="kicker">${esc(REG_SHORT[x.reg]).toUpperCase()} · ${x.group === 'Os' ? 'OS' : 'MUSCLE / TENDON'} · Q${x.q}</div>`;
+    if (Q3.st === 'q') return `${head}<div class="question">Touche : ${esc(x.name)}</div>
+      <div class="row2">${b('help', '💡 La zone', 'var(--card)')}${b('skip', 'Je ne sais pas', 'var(--card)')}</div>`;
+    return `${head}<div class="question">${Q3.good ? '✓ Bien vu : ' : '✗ '}${esc(x.name)}</div>${!Q3.good && Q3.hit ? `<div class="muted small">Tu as touché : ${esc(Q3.hit)}</div>` : ''}
+      <div class="small">${md(x.how || '')}</div><div class="row2"><a class="btn ghost grow" href="#/anat/${x.q}">La fiche</a>${b('next', Q3.i + 1 < Q3.list.length ? 'Suivant →' : 'Résultat')}</div>`;
+  }
+  function upd3() { const s = $('#v3sheet'), n = $('#v3n'); if (s) s.innerHTML = sheet3(); if (n) n.textContent = Q3.list && Q3.st !== 'pick' && Q3.st !== 'end' ? `${Q3.i + 1}/${Q3.list.length}` : ''; if (V3) V3.mark(); }
+  function q3Start(r) {
+    const pool = (r === 'tout' ? AQ : AQ.filter(a => a.reg === r)).map(a => [stat3(a.q).ok > stat3(a.q).ko ? 1 : 0, Math.random(), a]).sort((a, b) => a[0] - b[0] || a[1] - b[1]).map(a => a[2]);
+    Q3 = { st: 'q', reg: r, list: pool.slice(0, 10), i: 0, ok: 0, res: {} };
+    if (V3) V3.home();
+  }
+  function q3Answer(good, hit) {
+    const x = Q3.list[Q3.i], a3 = S.a3 = S.a3 || {}, r = a3[x.q] = a3[x.q] || { ok: 0, ko: 0 };
+    good ? r.ok++ : r.ko++; save();
+    Object.assign(Q3, { st: 'a', good, hit }); if (good) { Q3.ok++; Q3.res[x.q] = 1; }
+    if (V3) V3.show(x.q);
+    upd3();
+  }
+  function q3Act(t) {
+    const a = t.dataset.q3;
+    if (a === 'go') q3Start(t.dataset.r);
+    else if (a === 'again') q3Start(Q3.reg);
+    else if (a === 'pick') Q3 = { st: 'pick' };
+    else if (a === 'help') { if (V3) V3.show(Q3.list[Q3.i].q, true); return; }
+    else if (a === 'skip') return q3Answer(false, null);
+    else if (a === 'next') { Q3.i++; Object.assign(Q3, Q3.i < Q3.list.length ? { st: 'q', hit: null } : { st: 'end' }); if (V3) V3.home(); }
+    upd3();
+  }
+  async function start3d() {
+    const cv = $('#v3c'); if (!cv) return;
+    try {
+      const [T, buf] = await Promise.all([import('./vendor/three-mini.js'), fetch('anat/jambe3d.bin').then(r => { if (!r.ok) throw new Error('modèle'); return r.arrayBuffer(); })]);
+      if (!document.body.contains(cv)) return;
+      V3 = make3d(T, buf, cv); const l = $('#v3load'); if (l) l.remove(); upd3();
+    } catch (e) { const l = $('#v3load'); if (l) l.textContent = 'Impossible de charger le modèle 3D : vérifie ta connexion, puis rouvre la page.'; }
+  }
+  function make3d(T, buf, cv) {
+    const stage = cv.parentNode, mk = $('#v3mk');
+    const renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1)); renderer.outputColorSpace = T.SRGBColorSpace; renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+    const scene = new T.Scene(), cam = new T.PerspectiveCamera(32, 1, .01, 20);
+    scene.add(new T.HemisphereLight(0xfff6ea, 0x6d5b55, 1.15));
+    const d1 = new T.DirectionalLight(0xffffff, 1.6); d1.position.set(1.5, 2, 2.5); scene.add(d1);
+    const d2 = new T.DirectionalLight(0xffe2cf, .7); d2.position.set(-2, .5, -2); scene.add(d2);
+    const ctl = new T.OrbitControls(cam, cv); ctl.enableDamping = true; ctl.dampingFactor = .09; ctl.minDistance = .06; ctl.maxDistance = 4;
+    const grp = new T.Group(); scene.add(grp);
+    const dv = new DataView(buf), meshes = [], byKey = {};
+    window.ANAT3D.forEach(([key, fr, layer, vo, vc, io, ic, isz]) => {
+      if (!L3[layer]) return;   // artères et veines : pas dans les 59
+      const p = new Float32Array(vc * 3); for (let i = 0; i < vc * 3; i++) p[i] = dv.getInt16(vo + i * 2, true) / 32767 * .5;
+      const idx = isz === 4 ? new Uint32Array(buf.slice(io, io + ic * 4)) : new Uint16Array(buf.slice(io, io + ic * 2));
+      const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(p, 3)); g.setIndex(new T.BufferAttribute(idx, 1)); g.computeVertexNormals(); g.computeBoundingSphere();
+      const c = new T.Color(/^(achille|tractus-it)$/.test(key) ? '#E2DACB' : L3[layer][1]);
+      if (layer !== 'os') c.offsetHSL(((meshes.length * 37) % 11 - 5) * .004, 0, ((meshes.length * 53) % 9 - 4) * .018);
+      const mat = new T.MeshStandardMaterial({ color: c, roughness: layer === 'os' ? .82 : .55, metalness: 0, side: T.DoubleSide });
+      const m = new T.Mesh(g, mat); m.userData = { key, fr, layer, mat }; grp.add(m); meshes.push(m); byKey[key] = m;
+    });
+    const box = new T.Box3().setFromObject(grp), size = box.getSize(new T.Vector3());
+    grp.position.sub(box.getCenter(new T.Vector3())); grp.updateMatrixWorld(true);
+    const mat = (c, e) => new T.MeshStandardMaterial({ color: c, emissive: e, emissiveIntensity: .45, roughness: .45, side: T.DoubleSide });
+    const mGood = mat(0x2FB36B, 0x0b5a2c), mBad = mat(0xE04A3F, 0x6a120c);
+    const layers = () => meshes.forEach(m => (m.visible = !!on3()[m.userData.layer]));
+    layers();
+    let W = 1, H = 1;
+    const fit = () => { W = stage.clientWidth; H = stage.clientHeight; renderer.setSize(W, H, false); cam.aspect = W / H; cam.updateProjectionMatrix(); };
+    const ro = new ResizeObserver(fit); ro.observe(stage); fit();
+    const full = () => size.y * .62 / Math.tan(cam.fov * Math.PI / 360);
+    let anim = null;
+    const fly = (pos, tgt) => { const p0 = cam.position.clone(), t0 = ctl.target.clone(), s0 = performance.now();
+      anim = now => { const k = Math.min(1, (now - s0) / 650), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; cam.position.lerpVectors(p0, pos, e); ctl.target.lerpVectors(t0, tgt, e); if (k >= 1) anim = null; }; };
+    cam.position.set(0, 0, full()); ctl.target.set(0, 0, 0); ctl.update();
+    // cible d'une question : centre des pièces, ou point sur l'os
+    const T3 = window.ANAT3D_T, R0 = .03;
+    const tgtOf = q => { const t = T3[q];
+      if (t.p) return { c: grp.localToWorld(new T.Vector3(...t.p)), r: .06 };
+      const ms = t.m.map(k => byKey[k]).filter(Boolean), c = new T.Vector3();
+      ms.forEach(m => c.add(m.geometry.boundingSphere.center.clone().applyMatrix4(m.matrixWorld))); c.divideScalar(ms.length);
+      return { c, r: Math.max(...ms.map(m => m.geometry.boundingSphere.radius)) }; };
+    const pts = [];   // repères affichés : { v: Vector3, cls }
+    const reset = () => { meshes.forEach(m => (m.material = m.userData.mat)); pts.length = 0; };
+    const api = {
+      home() { reset(); fly(new T.Vector3(0, 0, full()), new T.Vector3(0, 0, 0)); },
+      show(q, hintOnly) {
+        const t = T3[q], g = tgtOf(q), dir = cam.position.clone().sub(ctl.target).normalize();
+        fly(g.c.clone().add(dir.multiplyScalar(Math.max(g.r * 4.5, .22))), g.c);
+        if (hintOnly) return;
+        if (t.m) t.m.forEach(k => byKey[k] && (byKey[k].material = mGood)); else pts.push({ v: g.c, cls: 'good' });
+      },
+      mark() { mk.innerHTML = pts.map(p => `<i class="${p.cls}"></i>`).join(''); },
+      dispose() { cancelAnimationFrame(raf); ro.disconnect(); ctl.dispose && ctl.dispose(); meshes.forEach(m => m.geometry.dispose()); renderer.dispose(); },
+    };
+    // un toucher (pas un glissement) : on regarde ce qui est sous le doigt
+    const rc = new T.Raycaster(); let down = null;
+    cv.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY, performance.now()]; });
+    cv.addEventListener('pointerup', e => {
+      if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 8 || performance.now() - down[2] > 450 || !Q3 || Q3.st !== 'q') return;
+      const r = cv.getBoundingClientRect();
+      rc.setFromCamera(new T.Vector2((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1), cam);
+      const hit = rc.intersectObjects(meshes.filter(m => m.visible), false)[0];
+      if (!hit) return;
+      const x = Q3.list[Q3.i], t = T3[x.q];
+      const good = t.m ? t.m.includes(hit.object.userData.key) : hit.point.distanceTo(tgtOf(x.q).c) < R0 * (t.r || 1);
+      if (!good) { if (t.m) hit.object.material = mBad; else pts.push({ v: hit.point.clone(), cls: 'bad' }); }
+      q3Answer(good, good ? null : hit.object.userData.fr);
+    });
+    let raf = 0;
+    const loop = now => { raf = requestAnimationFrame(loop); if (anim) anim(now); ctl.update(); renderer.render(scene, cam);
+      const els = mk.children; pts.forEach((p, i) => { const v = p.v.clone().project(cam); if (els[i]) els[i].style.transform = `translate(${(v.x + 1) / 2 * W}px,${(1 - v.y) / 2 * H}px)`; }); };
+    raf = requestAnimationFrame(loop);
+    api.layers = layers;
+    return api;
+  }
+
   // ---------- routeur ----------
   function render() {
     const [, sec, a, b, c] = (location.hash || '#/').split('/');
@@ -388,14 +524,17 @@
     if (!sec) html = home();
     else if (sec === 'pedi') html = a ? pedi(a, b, c) : pediList();
     else if (sec === 'plan') html = plan();
-    else if (sec === 'anat') html = a === 'quiz' ? anatQuiz() : a && !REG_ORDER.includes(a) ? anatItem(a) : anatList(a);
+    else if (sec === 'anat') html = a === 'quiz' ? anatQuiz() : a === '3d' ? quiz3d() : a && !REG_ORDER.includes(a) ? anatItem(a) : anatList(a);
     else if (sec === 'tirage') html = tirage();
     else html = notFound();
+    if (V3) { V3.dispose(); V3 = null; }
     $('#app').innerHTML = html;
+    document.body.classList.toggle('v3on', !!$('#v3c'));
+    if ($('#v3c')) start3d();
     document.body.classList.toggle('reading', !!$('#app .pager.fixed'));
     document.querySelectorAll('nav.tabs a').forEach(t => t.classList.toggle('on', t.dataset.s === (sec || '') || (t.dataset.s === 'tirage' && sec === 'plan')));
     const f = PEDI.find(x => x.id === a);
-    document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
+    document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, 0);
     fitVideos();
   }
@@ -410,6 +549,8 @@
     if (!t) return;
     if (t.classList.contains('poster')) { t.remove(); return; }
     if (t.dataset.qa) { quizAct(t); return; }
+    if (t.dataset.q3) { q3Act(t); return; }
+    if (t.dataset.v3l) { const k = t.dataset.v3l; on3()[k] = on3()[k] ? 0 : 1; save(); t.classList.toggle('on', !!on3()[k]); if (V3) V3.layers(); return; }
     if (t.classList.contains('reveal')) { t.closest('[data-quiz]').classList.add('shown'); return; }
     if (!t.matches('button')) { t.classList.toggle('shown'); return; }
     const [, sec, a] = location.hash.split('/');
