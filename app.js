@@ -54,8 +54,19 @@
 
   // dessins des vidéos : illus/<fiche>/cover.webp, pNa.webp (milieu de la partie), pNb.webp (fin)
   const ill = (id, name) => `illus/${id}/${name}.webp`;
-  const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" onerror="this.closest('.drawn')?this.closest('.drawn').remove():this.remove()">`;
-  const frame = (id, t) => `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="${t}"></iframe>`;
+  // une image qui ne charge pas (réseau du téléphone) : on réessaie une fois, puis on retire son cadre
+  const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
+  const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
+  // vidéo Drive : le lecteur est dessiné en taille ordinateur puis réduit (sinon Drive recadre et zoome sur téléphone),
+  // avec la couverture dessinée de la fiche par-dessus en guise d'aperçu ; on la touche pour lancer le lecteur
+  const frame = (id, t, poster) => `<div class="video"><iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen" allowfullscreen title="${t}"></iframe>
+    <button class="poster" style="background-image:url(${poster})" aria-label="Lancer la vidéo"><span>▶</span></button></div>
+    <a class="vlink" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">La vidéo ne se lance pas ? L'ouvrir dans Google Drive ↗</a>`;
+  const fitVideos = () => document.querySelectorAll('.video iframe').forEach(f => {
+    const w = f.parentNode.clientWidth, W = Math.max(640, w);
+    f.style.width = W + 'px'; f.style.height = W * 9 / 16 + 'px'; f.style.transform = w < W ? `scale(${w / W})` : '';
+  });
+  window.addEventListener('resize', fitVideos);
   const thumb = (src, alt) => `<span class="drawn th">${img(src, alt)}</span>`;
 
   // ---------- accueil : où j'en suis, et quoi faire maintenant ----------
@@ -148,12 +159,12 @@
 
   function video(f) {
     return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · vidéo`)}
-      <div class="video">${frame(VIDEOS[f.id], 'Vidéo de la fiche')}</div>
+      ${frame(VIDEOS[f.id], 'Vidéo de la fiche', ill(f.id, 'cover'))}
       <div class="muted lead" style="margin-top:12px">Regarde-la une fois en entier, puis reprends partie par partie.</div>
       <a class="btn wide" href="#/pedi/${f.id}/p1">Partie 1 →</a></div>`;
   }
   function photos(f) {
-    return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · photos`)}<div class="photos">${f.photos.map(p => `<figure class="photo"><img loading="lazy" src="${p.src}" alt="${esc(p.cap)}"><figcaption>${esc(p.cap)}<small>${p.ln ? `<a href="${p.ln}" target="_blank" rel="noopener">${esc(p.cr)}</a>` : esc(p.cr)}</small></figcaption></figure>`).join('')}</div></div>`;
+    return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · photos`)}<div class="photos">${f.photos.map(p => `<figure class="photo"><img loading="lazy" src="${p.src}" alt="${esc(p.cap)}" ${RETRY}><figcaption>${esc(p.cap)}<small>${p.ln ? `<a href="${p.ln}" target="_blank" rel="noopener">${esc(p.cr)}</a>` : esc(p.cr)}</small></figcaption></figure>`).join('')}</div></div>`;
   }
   function livret(f) {
     return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · livret`)}<div class="livret">${f.livret}</div></div>`;
@@ -171,7 +182,7 @@
   function plan() {
     const P = window.PLAN_ORAL || [];
     return `<div class="wrap">${top('#/', "Le plan de l'oral")}<div class="muted lead">Pour chaque sujet, les mêmes 8 questions, dans le même ordre.</div>
-      ${VIDEOS.plan ? `<div class="video">${frame(VIDEOS.plan, 'Vidéo : le plan de l’oral')}</div>` : ''}
+      ${VIDEOS.plan ? frame(VIDEOS.plan, 'Vidéo : le plan de l’oral', ill('plan', 'cover')) : ''}
       <div class="entries" style="margin-top:16px">${P.map((p, i) => `<details class="fold-e" style="--c:${PCOL(i)}"><summary class="entry part-e"><span class="stamp xs">${i + 1}</span><span class="rt"><span class="t">${esc(p.title)}</span><span class="q">${esc(p.q)}</span></span><span class="chev">›</span></summary>
         <div class="dd"><figure class="drawn slide">${img(ill('plan', `p${i + 1}b`), p.title, 'crop')}</figure><p>${md(p.say)}</p></div></details>`).join('')}</div></div>`;
   }
@@ -265,6 +276,7 @@
     const f = PEDI.find(x => x.id === a);
     document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, 0);
+    fitVideos();
   }
 
   // toucher un dessin ou une planche : plein écran (on peut zoomer avec les doigts), toucher encore pour fermer
@@ -275,6 +287,7 @@
   document.addEventListener('click', e => {
     const t = e.target.closest('button, .revise .part .body li, .revise .part .body .chip, .revise .part .body .badge');
     if (!t) return;
+    if (t.classList.contains('poster')) { t.remove(); return; }
     if (t.classList.contains('reveal')) { t.closest('[data-quiz]').classList.add('shown'); return; }
     if (!t.matches('button')) { t.classList.toggle('shown'); return; }
     const [, sec, a] = location.hash.split('/');

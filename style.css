@@ -275,3 +275,10 @@ body.reading nav.tabs { display: none; }
 .zoom span { color: #f4ecd9; font: 400 15px var(--marker); }
 @media (orientation: portrait) and (max-width: 600px) { .zoom img { max-width: none; width: 92vh; transform: rotate(90deg); } }
 @media (min-width: 760px) { .wrap { max-width: 860px; } .quick { grid-template-columns: repeat(4, 1fr); } }
+.video { aspect-ratio: auto; height: 0; padding-top: 56.25%; }   /* 16/9 aussi sur les vieux iPhone */
+.video iframe { right: auto; bottom: auto; transform-origin: 0 0; }
+.video iframe:fullscreen { transform: none !important; width: 100% !important; height: 100% !important; }
+.poster { position: absolute; inset: 0; z-index: 2; border: 0; padding: 0; background: #f4ecd9 center / cover no-repeat; display: grid; place-items: center; }
+.poster span { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; background: var(--red); color: #fff; font-size: 30px;
+  border: 3px solid var(--ink); box-shadow: 3px 4px 0 rgba(37,35,45,.3); padding-left: 6px; }
+.vlink { display: block; margin-top: 8px; font-size: 17px; color: var(--muted); text-decoration: underline; }
