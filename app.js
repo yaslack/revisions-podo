@@ -98,15 +98,21 @@
   // vidéo Drive : la couverture dessinée ouvre un calque plein écran avec le lecteur Drive à la forme exacte de la vidéo.
   // Drive recadre son image et grossit ses commandes dans un petit cadre : le lecteur est dessiné plus grand puis réduit
   // (fitLayer). Il est seul dans le calque (rien ne défile dessous) et supprimé en fermant, pour que rien ne tourne après.
+  // icônes en SVG : les polices dessinées n'ont pas ▶ ✕ 📱, l'iPhone affiche alors « ? »
+  const IC = {
+    play: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>',
+    close: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>',
+    rotate: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2.5" width="8" height="14" rx="1.6"/><path d="M11 14h2"/><path d="M3.5 15.5a8.5 8.5 0 0 0 7 6"/><path d="M8.5 19.8l2 1.7-1.6 2"/></svg>',
+  };
   const frame = (id, t, poster) => `<button class="video vposter" data-vid="${id}" style="background-image:url(${poster})" aria-label="${t}">
-    <span class="play">▶</span><span class="vtxt">Regarder la vidéo</span></button>`;
+    <span class="play">${IC.play}</span><span class="vtxt">Regarder la vidéo</span></button>`;
   // yt : vidéo YouTube (tests d'examen clinique, de piriforme.fr) ; src : la page d'où elle vient
   function openVideo(id, yt, src, lab) {
     closeVideo();
     const d = document.createElement('div'); d.className = 'vlayer' + (yt ? ' yt' : '');
     d.innerHTML = `<iframe src="${yt ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1` : `https://drive.google.com/file/d/${id}/preview`}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>
-      <div class="vrot">📱↻ Tourne ton téléphone pour voir la vidéo en grand.</div>
-      <button class="vclose" id="vclose" aria-label="Fermer la vidéo">✕</button>
+      <div class="vrot">${IC.rotate} Tourne ton téléphone pour voir la vidéo en grand.</div>
+      <button class="vclose" id="vclose" aria-label="Fermer la vidéo">${IC.close}</button>
       ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">${lab || 'Fiche du test sur piriforme.fr'} ↗</a>` : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
     document.body.appendChild(d); document.body.classList.add('vopen');
     fitLayer(); window.addEventListener('resize', fitLayer);
@@ -151,7 +157,7 @@
         <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> 🚧<br><small>le cerveau</small></span></span></div>
       ${todayCard()}
       ${last ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
-        <span class="rt"><span class="kicker">▶ REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
+        <span class="rt"><span class="kicker">${IC.play} REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
       <div class="sec">OÙ J'EN SUIS</div>
       <a class="card prog" href="#/pedi">${ring(vP, 'var(--p6)')}<span class="rt"><span class="t">Pédicurie</span><span class="s">${nP}/24 fiches sues · ${PEDI.reduce((s, f) => s + nSeen(f), 0)} parties lues</span>${bar(nP / 24, 'var(--p6)')}</span><span class="chev">›</span></a>
       <a class="card prog" href="#/podo">${ring(PODO_OK.length ? PODO_OK.reduce((s, f) => s + pctP(f), 0) / PODO.length : 0, 'var(--p8)')}<span class="rt"><span class="t">Podologie</span><span class="s">${PODO_OK.filter(f => doneP(f.id)).length}/${PODO.length} fiches sues · ${PODO_OK.length} prête${PODO_OK.length > 1 ? 's' : ''}, les autres arrivent</span>${bar(PODO_OK.filter(f => doneP(f.id)).length / PODO.length, 'var(--p8)')}</span><span class="chev">›</span></a>
@@ -244,7 +250,7 @@
   function upBanner(v) {
     if ($('.upbar') || !v || v <= APP_V) return;
     const d = document.createElement('div'); d.className = 'upbar';
-    d.innerHTML = `<span>Une mise à jour est disponible (version ${v}).</span><button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button><button class="upx" id="upx" aria-label="Plus tard">✕</button>`;
+    d.innerHTML = `<span>Une mise à jour est disponible (version ${v}).</span><button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button><button class="upx" id="upx" aria-label="Plus tard">${IC.close}</button>`;
     document.body.appendChild(d);
   }
   setTimeout(() => latestV().then(upBanner), 2500);
@@ -597,7 +603,7 @@
     return `<div class="wrap">${top('#/clin', `${s.e} ${esc(s.t)}`, count(nC(it), it.length))}
       <div class="muted lead">${esc(s.intro)}</div>
       <div class="entries">${it.map(x => { const n = CL.indexOf(x) + 1;
-        return `<a class="entry" href="#/clin/${n}" style="--c:${SCOL(i)}"><span class="cthumb">${pic(n, 'mini')}</span><span class="rt"><span class="n">TEST ${n}${x.yt ? ' · ▶ vidéo' : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.cherche)}</span></span>${doneC(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>
+        return `<a class="entry" href="#/clin/${n}" style="--c:${SCOL(i)}"><span class="cthumb">${pic(n, 'mini')}</span><span class="rt"><span class="n">TEST ${n}${x.yt ? ` · ${IC.play} vidéo` : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.cherche)}</span></span>${doneC(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>
       ${i === 5 ? `<div class="sec">GRADE DU RISQUE PODOLOGIQUE (HAS)</div><div class="card hasg">${(window.CLIN_HAS || []).map(([g, t]) => `<div><b class="g${g}">${g}</b><span>${esc(t)}</span></div>`).join('')}<div class="muted small">Le pédicure-podologue peut poser lui-même ce grade.</div></div>` : ''}
       <div class="pair">${i > 0 ? `<a href="#/clin/s${i}">← ${esc(CS[i - 1].t)}</a>` : '<span></span>'}${i < CS.length - 1 ? `<a href="#/clin/s${i + 2}">${esc(CS[i + 1].t)} →</a>` : ''}</div></div>`;
   }
@@ -606,7 +612,7 @@
     const c = SCOL(x.s), s = CS[x.s];
     return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`#/clin/s${x.s + 1}`, `${s.e} ${esc(s.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
       <section class="part solo ctest" style="--c:${c}">
-        <figure class="chero">${pic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.piriforme.fr/bdd/orthopedie/${x.src}">▶ Voir le test en vidéo</button>` : ''}</figure><div class="chead"><div class="rt"><div class="n" style="color:${c}">TEST ${n} / ${CL.length}</div><h1>${esc(x.n)}</h1><div class="cq">🎯 ${esc(x.cherche)}</div></div></div>
+        <figure class="chero">${pic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.piriforme.fr/bdd/orthopedie/${x.src}">${IC.play} Voir le test en vidéo</button>` : ''}</figure><div class="chead"><div class="rt"><div class="n" style="color:${c}">TEST ${n} / ${CL.length}</div><h1>${esc(x.n)}</h1><div class="cq">🎯 ${esc(x.cherche)}</div></div></div>
         ${S.revise ? '<div class="hint">🙈 Mode test : dis comment tu fais le test, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
         <div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">🧍</span><span><span class="lab">Patient</span>${md(x.pat)}</span></li><li><span class="em">🩺</span><span><span class="lab">Praticien</span>${md(x.prat)}</span></li></ul></div>
         <div class="body"><div class="h">Comment faire</div><ol class="steps">${x.steps.map(t => `<li>${md(t)}</li>`).join('')}</ol>
@@ -628,7 +634,7 @@
       <div class="muted lead">L'examen du pied dans l'ordre : on écoute, on examine assis ou allongé, puis debout, puis on fait bouger.</div>
       ${BG.map((g, i) => { const it = BL.filter(x => x.g === i); return `<div class="sec" style="color:${BCOL(i)}">${g.e} ${esc(g.t).toUpperCase()}</div>
         <div class="entries">${it.map(x => { const n = BL.indexOf(x) + 1;
-          return `<a class="entry" href="#/clin/b/${n}" style="--c:${BCOL(i)}"><span class="cthumb">${bpic(n, 'mini')}</span><span class="rt"><span class="n">ÉTAPE ${n}${x.yt ? ' · ▶ vidéo' : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.why)}</span></span>${doneB(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>`; }).join('')}</div>`;
+          return `<a class="entry" href="#/clin/b/${n}" style="--c:${BCOL(i)}"><span class="cthumb">${bpic(n, 'mini')}</span><span class="rt"><span class="n">ÉTAPE ${n}${x.yt ? ` · ${IC.play} vidéo` : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.why)}</span></span>${doneB(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>`; }).join('')}</div>`;
   }
   const bBlock = x => `<div class="body"><div class="h">${esc(x.h)}</div>${x.p ? `<p class="bp">${md(x.p)}</p>` : ''}` +
     (x.kv ? `<ul class="who">${x.kv.map(([a, b]) => `<li><span><span class="lab">${md(a)}</span>${md(b)}</span></li>`).join('')}</ul>` : '') +
@@ -641,7 +647,7 @@
     const c = BCOL(x.g), g = BG[x.g];
     return `<div class="wrap ${S.revise ? 'revise' : ''}">${top('#/clin/b', `${g.e} ${esc(g.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
       <section class="part solo ctest" style="--c:${c}">
-        <figure class="chero">${bpic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.youtube.com/watch?v=${x.yt}" data-lab="Voir sur YouTube">▶ Voir en vidéo</button>` : ''}</figure>
+        <figure class="chero">${bpic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.youtube.com/watch?v=${x.yt}" data-lab="Voir sur YouTube">${IC.play} Voir en vidéo</button>` : ''}</figure>
         <div class="chead"><div class="rt"><div class="n" style="color:${c}">ÉTAPE ${n} / ${BL.length}</div><h1>${esc(x.n)}</h1><div class="cq">🎯 ${esc(x.why)}</div></div></div>
         ${S.revise ? '<div class="hint">🙈 Mode test : récite l\'étape, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
         ${x.pos ? `<div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">🧍</span><span>${md(x.pos)}</span></li></ul></div>` : ''}

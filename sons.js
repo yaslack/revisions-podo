@@ -18,6 +18,10 @@
     { id: 'alpha', n: 'Ondes alpha', e: '🎧', d: 'Sons binauraux à 10 Hz : avec un casque seulement (effet encore discuté).' },
   ];
   const byId = id => LIST.find(s => s.id === id);
+  // icônes en SVG (les polices dessinées n'ont pas ▶ ⏸ ✕ : l'iPhone affiche « ? »)
+  const svg = d => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+  const IC = { play: svg('<path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/>'), pause: svg('<path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z" fill="currentColor"/>'),
+    close: svg('<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/>') };
   let ctx = null, master = null, src = [], playing = false;
   const cache = {}, LOOP = 14, FADE = 1.5;
   const gainOf = v => v * v;   // le volume perçu suit mieux le carré du curseur
@@ -103,9 +107,9 @@
     const cur = byId(st.id);
     if (!st.on || !cur) { if (b) b.remove(); document.body.classList.remove('sndon'); return; }
     if (!b) { b = document.createElement('div'); b.id = 'sndbar'; b.className = 'sndbar'; document.body.appendChild(b); }
-    const pp = `<button class="sndpp" data-sndpp aria-label="${playing ? 'Pause' : 'Lecture'}">${playing ? '⏸' : '▶'}</button>`, grip = '<span class="sndgrip" aria-label="Déplacer le lecteur" title="Déplacer">⠿</span>';
+    const pp = `<button class="sndpp" data-sndpp aria-label="${playing ? 'Pause' : 'Lecture'}">${playing ? IC.pause : IC.play}</button>`, grip = '<span class="sndgrip" aria-label="Déplacer le lecteur" title="Déplacer">⠿</span>';
     b.innerHTML = st.mini ? `${grip}${pp}<button class="sndexp" data-sndmin aria-label="Agrandir le lecteur">${cur.e}</button>`
-      : `${grip}${pp}<span class="sndn">${cur.e} ${esc(cur.n)}</span>${vol()}<button class="sndmin" data-sndmin aria-label="Réduire le lecteur">–</button><button class="sndx" data-sndx aria-label="Arrêter le son">✕</button>`;
+      : `${grip}${pp}<span class="sndn">${cur.e} ${esc(cur.n)}</span>${vol()}<button class="sndmin" data-sndmin aria-label="Réduire le lecteur">–</button><button class="sndx" data-sndx aria-label="Arrêter le son">${IC.close}</button>`;
     b.classList.toggle('paused', !playing); b.classList.toggle('mini', !!st.mini); document.body.classList.add('sndon');
     place(b);
   }
