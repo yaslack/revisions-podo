@@ -533,6 +533,9 @@ ul.res .kor::before { content: '!'; background: var(--p2); }
 
 /* ---------- accueil : titre du site et qui l'a fait ---------- */
 .brand h1 { font-size: clamp(34px, 10vw, 48px); line-height: 1; letter-spacing: -.5px; }
+#apptitle { transition: filter .42s ease, opacity .42s ease, letter-spacing .42s ease, transform .42s ease; }
+#apptitle.tap { cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; }
+#apptitle.swap { filter: blur(12px); opacity: 0; letter-spacing: 6px; transform: scale(.97); }
 .brand h1 span { color: var(--red); }
 .brand .kicker { margin-top: 4px; font-size: 13px; }
 .team { display: flex; gap: 18px; margin: 12px 0 4px; }

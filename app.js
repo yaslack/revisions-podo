@@ -122,10 +122,16 @@
   }
   const thumb = (src, alt) => `<span class="drawn th">${img(src, alt)}</span>`;
 
-  // Noé (Nono) devient Natasha de 21 h à 6 h ; le nom de l'appli mélange Yaya et son nom : Yanoé, ou Yatasha la nuit
+  // Noé (Nono) devient Natasha de 21 h à 6 h ; le nom de l'appli mélange Yaya et Noé : Yanoé (Yanatasha la nuit, en touchant le titre)
   const night = () => { const h = new Date().getHours(); return h >= 21 || h < 6; };
-  const NONO = () => night() ? 'Natasha' : 'Nono', APPNAME = () => night() ? 'Yatasha' : 'Yanoé';
-  const nightly = t => t.replace(/Nono/g, NONO()).replace(/Yanoé/g, APPNAME());
+  const NONO = () => night() ? 'Natasha' : 'Nono';
+  const nightly = t => t.replace(/Nono/g, NONO());
+  // la nuit, toucher le titre le change en Yanatasha (et retour), avec un fondu flou
+  document.addEventListener('click', e => {
+    const h = e.target.closest('#apptitle'); if (!h || !night() || h.classList.contains('swap')) return;
+    h.classList.add('swap');
+    setTimeout(() => { const n = h.dataset.n = h.dataset.n === '1' ? '0' : '1'; h.innerHTML = `Ya<span>${n === '1' ? 'natasha' : 'noé'}</span>`; h.classList.remove('swap'); }, 420);
+  });
 
   // ---------- accueil : où j'en suis, et quoi faire maintenant ----------
   function home() {
@@ -135,7 +141,7 @@
     const nextF = PEDI.find(f => !doneP(f.id) && f !== last);
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
-      <header class="brand"><h1>Ya<span>${night() ? 'tasha' : 'noé'}</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
+      <header class="brand"><h1 id="apptitle" class="${night() ? 'tap' : ''}">Ya<span>noé</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
       <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> 🧢<br><small>le dev</small></span></span>
         <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> 🚧<br><small>le cerveau</small></span></span></div>
       ${todayCard()}
