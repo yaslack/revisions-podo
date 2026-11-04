@@ -12,6 +12,7 @@
 
   // progression, gardée sur le téléphone ; l'appli marche sans (navigation privée)
   const KEY = 'podo:v3';
+  let usedBefore = false; try { usedBefore = !!(localStorage.getItem('podo:v2') || localStorage.getItem(KEY)); } catch (e) {}
   let S = { pedi: {}, anat: {} };
   try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
@@ -89,16 +90,11 @@
   // une image qui ne charge pas (réseau du téléphone) : on réessaie une fois, puis on retire son cadre
   const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
-  // vidéo Drive : le lecteur est dessiné en taille ordinateur puis réduit (sinon Drive recadre et zoome sur téléphone),
-  // avec la couverture dessinée de la fiche par-dessus en guise d'aperçu ; on la touche pour lancer le lecteur
-  const frame = (id, t, poster) => `<div class="video"><iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen" allowfullscreen title="${t}"></iframe>
-    <button class="poster" style="background-image:url(${poster})" aria-label="Lancer la vidéo"><span>▶</span></button></div>
-    <a class="vlink" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">La vidéo ne se lance pas ? L'ouvrir dans Google Drive ↗</a>`;
-  const fitVideos = () => document.querySelectorAll('.video iframe').forEach(f => {
-    const w = f.parentNode.clientWidth, W = Math.max(640, w);
-    f.style.width = W + 'px'; f.style.height = W * 9 / 16 + 'px'; f.style.transform = w < W ? `scale(${w / W})` : '';
-  });
-  window.addEventListener('resize', fitVideos);
+  // vidéo : la couverture dessinée ouvre la vidéo dans Google Drive (l'appli Drive sur téléphone), avec le lecteur du
+  // téléphone, le plein écran et le choix de la qualité. Drive refuse d'être lu directement par une page web, et son
+  // lecteur intégré rame et mélange ses commandes avec celles du téléphone : on ne l'intègre donc plus.
+  const frame = (id, t, poster) => `<a class="video vposter" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener" style="background-image:url(${poster})" aria-label="${t} : ouvrir dans Google Drive">
+    <span class="play">▶</span><span class="vtxt">Regarder · s'ouvre dans Google Drive</span></a>`;
   const thumb = (src, alt) => `<span class="drawn th">${img(src, alt)}</span>`;
 
   // ---------- accueil : où j'en suis, et quoi faire maintenant ----------
@@ -110,8 +106,7 @@
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
       <div class="kicker">ORAL UEM · PÉDICURIE-PODOLOGIE</div><h1>Mes révisions</h1>
-      ${S.skinAsked ? '' : `<div class="card skinask"><div class="t" style="font-family:var(--marker)">Nouveau look !</div><div class="muted small">Le site est maintenant dessiné comme les vidéos. Tu préfères l'ancien style ? Tu peux changer quand tu veux, en bas de l'accueil.</div>
-        <div class="row2"><button class="btn grow" data-skin="drawn" style="--c:var(--hl)">Garder le dessiné</button><button class="btn ghost grow" data-skin="classic">L'ancien style</button></div></div>`}
+      ${todayCard()}
       ${last ? `<a class="card resume" href="#/pedi/${last.id}${S.last.k ? '/p' + S.last.k : ''}">${thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title)}
         <span class="rt"><span class="kicker">▶ REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
       <div class="sec">OÙ J'EN SUIS</div>
@@ -124,22 +119,104 @@
         <a class="qb" href="#/tirage" style="--c:var(--red)"><span class="em">🎲</span><span class="t">Tirage au sort</span><span class="s">comme le jour de l'oral</span></a>
         <a class="qb" href="#/plan" style="--c:var(--p3)">${thumb(ill('plan', 'board'), 'Le plan')}<span class="t">Le plan de l'oral</span><span class="s">les 8 questions</span></a>
       </div>
-      <div class="sec">APPARENCE</div>${skinPicker()}</div>`;
+      <div class="sec">RÉGLAGES</div>${settings()}</div>`;
   }
 
-  // thème : « dessiné » (comme les vidéos) ou « classique » (l'ancien style), en clair ou en sombre
-  function skinPicker() {
-    const sk = S.skin || 'drawn', th = S.theme || '', b = (attr, v, cur, t) => `<button class="btn ghost" data-${attr}="${v}" aria-pressed="${cur === v}">${t}</button>`;
-    return `<div class="card"><div class="skin">${b('skin', 'drawn', sk, '✏️ Dessiné')}${b('skin', 'classic', sk, 'Classique')}</div>
-      ${sk === 'classic' ? `<div class="skin" style="margin-top:8px">${b('theme', '', th, 'Auto')}${b('theme', 'light', th, 'Clair')}${b('theme', 'dark', th, 'Sombre')}</div>` : ''}</div>`;
+  // ---------- réglages : thème, couleurs, taille du texte, code de sauvegarde ----------
+  function settings() {
+    const b = (attr, v, cur, t) => `<button class="btn ghost" data-${attr}="${v}" aria-pressed="${cur === v}">${t}</button>`;
+    return `<div class="card sets">
+      <div class="lbl">Thème</div><div class="skin">${b('skin', 'drawn', S.skin || 'drawn', '✏️ Dessiné')}${b('skin', 'classic', S.skin || 'drawn', 'Classique')}</div>
+      <div class="lbl">Couleurs</div><div class="skin">${b('theme', '', S.theme || '', 'Auto')}${b('theme', 'light', S.theme || '', 'Clair')}${b('theme', 'dark', S.theme || '', 'Sombre')}</div>
+      <div class="lbl">Texte</div><div class="skin">${b('size', '', S.size || '', 'Normal')}${b('size', 'big', S.size || '', 'Grand')}</div>
+      <div class="lbl">Sauvegarde</div><div class="muted small">Ta progression reste sur ce téléphone. Sur iPhone, Safari et l'icône de l'écran d'accueil ne la partagent pas : copie ton code d'un côté, restaure-le de l'autre (ou garde-le dans tes Notes).</div>
+      <div class="skin"><button class="btn ghost" id="bkcopy">📋 Copier mon code</button><button class="btn ghost" id="bkopen">Restaurer</button></div>
+      <div id="bkzone" hidden><textarea id="bkta" rows="3" placeholder="Colle ton code ici"></textarea><button class="btn" id="bkload" style="--c:var(--hl)">Restaurer ce code</button></div>
+      <div class="muted small" id="bkmsg"></div></div>`;
   }
-  function setSkin() { const r = document.documentElement; r.dataset.skin = S.skin || 'drawn'; if (S.theme && S.skin === 'classic') r.dataset.theme = S.theme; else delete r.dataset.theme; }
+  function setSkin() { const r = document.documentElement; r.dataset.skin = S.skin || 'drawn'; S.theme ? (r.dataset.theme = S.theme) : delete r.dataset.theme; S.size ? (r.dataset.size = S.size) : delete r.dataset.size; }
   setSkin();
+  const toCode = () => btoa(unescape(encodeURIComponent(JSON.stringify(S))));
+  function fromCode(raw) {
+    const o = JSON.parse(decodeURIComponent(escape(atob(raw.trim().replace(/\s/g, '')))));
+    if (o && o.cards) { fromOld(o); return; }                  // un code de l'ancienne version
+    if (!o || !o.pedi || !o.anat) throw new Error('code');
+    S = Object.assign({ pedi: {}, anat: {} }, o);
+  }
+
+  // ---------- révisions espacées : une fiche (quiz) ou un repère revient après 1, 3, 6, 12 puis 25 jours ----------
+  // Raté : il revient demain. Rien n'est prévu après l'oral : ce qui tomberait après revient la veille.
+  const INT = [0, 1, 3, 6, 12, 25];
+  const dayNum = (d = new Date()) => Math.round(new Date(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
+  const today = () => dayNum();
+  const examDay = () => S.exam ? dayNum(new Date(S.exam + 'T12:00:00')) : null;
+  function review(key, ok) {
+    const rv = S.rv = S.rv || {}, r = rv[key] = rv[key] || { b: 0, d: 0 }, T = today();
+    r.b = ok ? Math.min(5, r.b + 1) : 0; r.d = T + (ok ? INT[r.b] : 1);
+    const e = examDay(); if (e && e > T + 1 && r.d >= e) r.d = Math.max(T + 1, e - 1);
+    did(1);
+  }
+  const dueKeys = pre => Object.entries(S.rv || {}).filter(([k, r]) => k.startsWith(pre) && r.d <= today()).map(([k]) => k.slice(pre.length));
+  const dueIn = key => { const r = (S.rv || {})[key]; return r ? r.d - today() : null; };
+  // activité du jour (pour l'objectif et la série de jours)
+  const GOAL = 20;
+  function did(n) { const d = S.days = S.days || {}, k = String(today()); d[k] = (d[k] || 0) + n; save(); }
+  const doneToday = () => (S.days || {})[String(today())] || 0;
+  function streak() { const d = S.days || {}; let t = today(), n = 0; if (!d[t]) t--; while (d[t]) { n++; t--; } return n; }
+  function todayCard() {
+    const T = today(), e = examDay(), left = e != null ? e - T : null;
+    const dueF = dueKeys('f:').map(id => PEDI.find(f => f.id === id)).filter(Boolean), dueA = dueKeys('a:').length;
+    const fresh = PEDI.filter(f => !doneP(f.id) && !(S.rv || {})['f:' + f.id] && !(S.last && S.last.id === f.id));
+    const perDay = left > 1 ? Math.ceil(fresh.length / Math.max(1, left - 2)) : 0, nf = fresh[0], st = streak(), n = doneToday();
+    const item = (href, em, t, sub) => `<a class="todo" href="${href}"><span class="em">${em}</span><span class="rt"><span class="t">${t}</span>${sub ? `<span class="s">${sub}</span>` : ''}</span><span class="chev">›</span></a>`;
+    return `<div class="card today">
+      <div class="trow"><div><div class="kicker">MA SÉANCE DU JOUR</div>${left != null ? `<div class="big3">${left > 0 ? `Oral dans ${left} jour${left > 1 ? 's' : ''}` : left === 0 ? "C'est le jour J !" : 'Oral passé'}</div>` : ''}</div>
+        <div class="streak" title="Jours d'affilée">🔥 ${st}<small>jour${st > 1 ? 's' : ''}</small></div></div>
+      <div class="goal"><span>Objectif du jour : ${Math.min(n, GOAL)} / ${GOAL}</span>${bar(Math.min(1, n / GOAL), 'var(--p6)')}</div>
+      <div class="todos">
+        ${dueF.map(f => item(`#/pedi/${f.id}/quiz`, '🔁', `À revoir : ${esc(f.title)}`, 'le quiz de la fiche')).join('')}
+        ${dueA ? item('#/anat/quiz', '🦴', `${dueA} repère${dueA > 1 ? 's' : ''} d'anatomie à revoir`, "Je m'interroge") : ''}
+        ${nf ? item(`#/pedi/${nf.id}`, '🆕', `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `pour tout voir avant l'oral : ${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour` : 'lis-la, puis fais son quiz') : ''}
+        ${!dueF.length && !dueA && !nf ? '<div class="muted small">Rien à revoir aujourd\'hui. Tire un sujet au sort pour t\'entraîner !</div>' : ''}
+      </div>
+      <div class="exam">📅 Mon oral : <input type="date" id="examdate" value="${S.exam || ''}" aria-label="Date de mon oral"></div></div>`;
+  }
+
+  // ---------- quoi de neuf : affiché une fois après une mise à jour, seulement à ceux qui utilisaient déjà le site ----------
+  // Pour une nouvelle version : ajouter une entrée { v, items } à la fin (v = numéro de version.json).
+  const NOTES = [
+    { v: 45, theme: true, items: [
+      ['✏️', 'Un nouveau look, dessiné comme les vidéos. Tu préfères l\'ancien ? Choisis en bas.'],
+      ['🎯', 'Un quiz pour apprendre chaque fiche par cœur : partie par partie, puis toute la fiche de mémoire.'],
+      ['🎬', 'La vidéo de chaque fiche, et les dessins des vidéos sur chaque partie.'],
+      ['🦴', 'Anatomie : seulement les 59 questions de l\'oral, rangées pied / jambe / cuisse, avec ce qui s\'insère sur chaque os.'],
+      ['🧊', 'Le quiz 3D revient, sur les 59 repères.'],
+      ['📅', 'Ma séance du jour : la date de ton oral, ce qu\'il faut revoir aujourd\'hui, ton objectif et ta série de jours.'],
+      ['🔁', 'Ce que tu apprends revient au bon moment : après 1, 3, 6, 12 puis 25 jours.'],
+      ['📖', 'Le lexique des mots compliqués et une recherche dans tout le site.'],
+      ['🌙', 'Mode sombre, texte plus grand et code de sauvegarde : dans Réglages, en bas de l\'accueil.'],
+      ['✅', 'Ta progression a été gardée.'],
+    ] },
+  ];
+  const NOTE_V = NOTES[NOTES.length - 1].v;
+  if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
+  function showNote() {
+    const news = NOTES.filter(n => n.v > (S.noteV || 0));
+    if (!news.length || $('.note')) return;
+    const d = document.createElement('div'); d.className = 'note';
+    d.innerHTML = `<div class="card" role="dialog" aria-label="Quoi de neuf"><div class="kicker">MISE À JOUR</div><h2>Quoi de neuf ?</h2>
+      <ul>${news.flatMap(n => n.items).map(([e, t]) => `<li><span>${e}</span><span>${esc(t)}</span></li>`).join('')}</ul>
+      ${news.some(n => n.theme) ? `<div class="row2"><button class="btn grow" data-skin="drawn" style="--c:var(--hl)">Garder le dessiné</button><button class="btn ghost grow" data-skin="classic">L'ancien style</button></div>`
+        : `<button class="btn wide" data-note="ok">C'est parti !</button>`}</div>`;
+    document.body.appendChild(d);
+  }
+  const closeNote = () => { S.noteV = NOTE_V; save(); const n = $('.note'); if (n) n.remove(); };
 
   // ---------- pédicurie ----------
   function pediList() {
     const nP = PEDI.filter(f => doneP(f.id)).length;
     return `<div class="wrap">${top('#/', 'Pédicurie · 24 fiches', count(nP, 24))}
+      <div class="row2" style="margin:0 0 12px"><a class="btn ghost grow" href="#/search">🔎 Rechercher</a><a class="btn ghost grow" href="#/lexique">📖 Lexique (${(window.LEXIQUE || []).length})</a></div>
       <div class="entries">${PEDI.map(f => `<a class="entry" href="#/pedi/${f.id}">${thumb(ill(f.id, 'cover'), f.title)}
         <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div></div>`;
   }
@@ -154,6 +231,7 @@
       <div class="fhead"><span class="drawn th zoomable">${img(ill(f.id, 'cover'), f.title)}</span><div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
       <a class="btn wide" href="#/pedi/${f.id}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
       <a class="btn wide quizbtn" href="#/pedi/${f.id}/quiz" style="--c:var(--p5)">🎯 Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
+      ${dueIn('f:' + f.id) != null ? `<div class="muted small center-t">${dueIn('f:' + f.id) <= 0 ? '🔁 À revoir aujourd\'hui' : `🔁 Prochaine révision dans ${dueIn('f:' + f.id)} jour${dueIn('f:' + f.id) > 1 ? 's' : ''}`}</div>` : ''}
       <div class="tools">
         ${VIDEOS[f.id] ? tool(`#/pedi/${f.id}/video`, '▶️', 'Vidéo') : ''}
         ${tool(`#/pedi/${f.id}/memo`, '📝', 'Mots-clés')}
@@ -173,6 +251,7 @@
     if (!p) return fiche(f);
     const st = S.pedi[f.id] = S.pedi[f.id] || {};
     st.seen = st.seen || []; if (!st.seen.includes(k)) st.seen.push(k);
+    if (!(S.last && S.last.id === f.id && S.last.k === k)) did(1);
     S.last = { id: f.id, k }; save();
     const prev = k > 1 ? `#/pedi/${f.id}/p${k - 1}` : `#/pedi/${f.id}`, next = k < n ? `#/pedi/${f.id}/p${k + 1}` : `#/pedi/${f.id}/memo`;
     return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
@@ -263,7 +342,7 @@
     const parts = Object.keys(Q.res).map(Number).sort((a, b) => a - b);
     const ok = parts.reduce((s, p) => s + Q.res[p].ok, 0), tot = parts.reduce((s, p) => s + Q.res[p].tot, 0), v = tot ? ok / tot : 0;
     const weak = parts.filter(p => Q.res[p].ok / Q.res[p].tot < 0.8);
-    if (Q.full && !Q.saved) { const z = S.qz = S.qz || {}, o = z[f.id] || {}; z[f.id] = { last: pc(v), best: Math.max(o.best || 0, pc(v)), at: Date.now() }; Q.saved = true; save(); }
+    if (Q.full && !Q.saved) { const z = S.qz = S.qz || {}, o = z[f.id] || {}; z[f.id] = { last: pc(v), best: Math.max(o.best || 0, pc(v)), at: Date.now() }; Q.saved = true; review('f:' + f.id, v >= 0.8); did(4); }
     const msg = v >= 0.9 ? 'Tu la connais ! Refais-la demain pour la garder.' : v >= 0.6 ? 'Presque : refais les parties en rouge.' : 'Normal au début : refais les parties en rouge, puis recommence demain.';
     return `<div class="card qend">${ring(v, v >= 0.9 ? 'var(--p6)' : v >= 0.6 ? 'var(--p4)' : 'var(--red)')}<div class="question">${msg}</div></div>
       <div class="entries">${parts.map(p => { const r = Q.res[p], x = r.ok / r.tot; return `<a class="entry part-e" href="#/pedi/${f.id}/p${p}" style="--c:${PCOL(p - 1)}"><span class="stamp xs">${p}</span><span class="rt"><span class="t">${esc(f.parts[p - 1].title)}</span>${bar(x, x >= 0.8 ? 'var(--p6)' : 'var(--red)')}</span>${x >= 0.8 ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>
@@ -372,7 +451,7 @@
   // je m'interroge : un repère au hasard (les non sus d'abord), on cherche, puis on vérifie
   let card = null, shown = false;
   function anatQuiz() {
-    if (!card) { const pool = AQ.filter(x => !doneA(x.q)); const src = pool.length ? pool : AQ; card = src[Math.floor(Math.random() * src.length)]; shown = false; }
+    if (!card) { const due = dueKeys('a:').map(Number), pool = due.length ? AQ.filter(x => due.includes(x.q)) : AQ.filter(x => !doneA(x.q)); const src = pool.length ? pool : AQ; card = src[Math.floor(Math.random() * src.length)]; shown = false; }
     const x = card, c = RCOL[x.reg], nA = AQ.filter(a => doneA(a.q)).length;
     return `<div class="wrap">${top(`#/anat/${x.reg}`, "Je m'interroge", count(nA, AQ.length))}${bar(nA / AQ.length, 'var(--p6)')}
       <div class="card draw"><span class="stamp" style="--c:${c}">${x.q}</span><div class="kicker" style="margin-top:12px">${esc(x.regName).toUpperCase()} · ${x.group.toUpperCase()}</div><div class="big">${esc(x.name)}</div>
@@ -390,6 +469,38 @@
       ${d && d.kind === 'p' ? `<a class="card draw" href="#/pedi/${d.f.id}"><span class="stamp">${d.f.n}</span><div class="big">${esc(d.f.title)}</div><div class="muted">Touche pour ouvrir la fiche</div></a>` : ''}
       ${d && d.kind === 'a' ? `<div class="entries" style="margin-top:16px">${d.list.map(x => `<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 52)}<span class="rt"><span class="n">Question ${x.q} · ${REG_SHORT[x.reg]}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`).join('')}</div>` : ''}</div>`;
   }
+
+  // ---------- lexique et recherche : la liste se met à jour pendant qu'on tape, sans redessiner la page ----------
+  const norm = x => String(x).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const LEX = window.LEXIQUE || [];
+  function lexique() {
+    return `<div class="wrap">${top('#/pedi', 'Lexique des mots compliqués', `<span class="count">${LEX.length}</span>`)}
+      <input class="search" id="lexq" type="search" placeholder="Chercher un mot…" autocomplete="off"><div id="lexres">${lexRows('')}</div></div>`;
+  }
+  const lexRows = q => { const n = norm(q), r = LEX.filter(([w, d]) => !n || norm(w).includes(n) || norm(d).includes(n));
+    return r.length ? `<dl class="lex">${r.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '<div class="empty">Aucun mot trouvé.</div>'; };
+  function search() {
+    return `<div class="wrap">${top('#/pedi', 'Rechercher')}<input class="search" id="sq" type="search" placeholder="verrue, ongle, Raynaud, monofilament…" autocomplete="off">
+      <div id="sres"><div class="muted small">Cherche dans les 24 fiches, les 59 repères d'anatomie et le lexique.</div></div></div>`;
+  }
+  function searchRows(q) {
+    const n = norm(q.trim()); if (n.length < 2) return '<div class="muted small">Tape au moins 2 lettres.</div>';
+    const snip = (txt, k = 70) => { const t = String(txt).replace(/\*\*/g, ''), i = norm(t).indexOf(n); if (i < 0) return ''; const a = Math.max(0, i - k); return (a ? '…' : '') + esc(t.slice(a, i)) + '<mark>' + esc(t.slice(i, i + n.length)) + '</mark>' + esc(t.slice(i + n.length, i + n.length + k)) + '…'; };
+    const out = [];
+    for (const f of PEDI) {
+      if (norm(f.title).includes(n)) out.push(`<a class="entry" href="#/pedi/${f.id}">${thumb(ill(f.id, 'cover'), f.title)}<span class="rt"><span class="n">FICHE ${f.n}</span><span class="t">${esc(f.title)}</span></span><span class="chev">›</span></a>`);
+      f.parts.forEach((p, i) => { const sn = snip(p.say); if (sn) out.push(`<a class="entry part-e" href="#/pedi/${f.id}/p${i + 1}" style="--c:${PCOL(i)}"><span class="stamp xs">${i + 1}</span><span class="rt"><span class="n">${f.n}. ${esc(f.title)} · ${esc(p.title)}</span><span class="s">${sn}</span></span></a>`); });
+    }
+    for (const x of AQ) if (norm(x.name).includes(n) || norm(x.how || '').includes(n)) out.push(`<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 44)}<span class="rt"><span class="n">ANATOMIE · Q${x.q}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`);
+    const lx = LEX.filter(([w]) => norm(w).includes(n));
+    return (lx.length ? `<dl class="lex">${lx.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') +
+      (out.length ? `<div class="entries">${out.slice(0, 60).join('')}</div>` : lx.length ? '' : '<div class="empty">Rien trouvé.</div>');
+  }
+  document.addEventListener('input', e => {
+    if (e.target.id === 'lexq') $('#lexres').innerHTML = lexRows(e.target.value);
+    if (e.target.id === 'sq') $('#sres').innerHTML = searchRows(e.target.value);
+  });
+  document.addEventListener('change', e => { if (e.target.id === 'examdate') { S.exam = e.target.value || ''; save(); render(); } });
 
   const notFound = () => `<div class="wrap">${top('#/', 'Introuvable')}<div class="empty">Cette page n'existe pas.</div></div>`;
 
@@ -429,7 +540,7 @@
   }
   function q3Answer(good, hit) {
     const x = Q3.list[Q3.i], a3 = S.a3 = S.a3 || {}, r = a3[x.q] = a3[x.q] || { ok: 0, ko: 0 };
-    good ? r.ok++ : r.ko++; save();
+    good ? r.ok++ : r.ko++; review('a:' + x.q, good);
     Object.assign(Q3, { st: 'a', good, hit }); if (good) { Q3.ok++; Q3.res[x.q] = 1; }
     if (V3) V3.show(x.q);
     upd3();
@@ -538,6 +649,8 @@
     else if (sec === 'plan') html = plan();
     else if (sec === 'anat') html = a === 'quiz' ? anatQuiz() : a === '3d' ? quiz3d() : a && !REG_ORDER.includes(a) ? anatItem(a) : anatList(a);
     else if (sec === 'tirage') html = tirage();
+    else if (sec === 'lexique') html = lexique();
+    else if (sec === 'search') html = search();
     else html = notFound();
     if (V3) { V3.dispose(); V3 = null; }
     $('#app').innerHTML = html;
@@ -548,7 +661,7 @@
     const f = PEDI.find(x => x.id === a);
     document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, 0);
-    fitVideos();
+    showNote();
   }
 
   // toucher un dessin ou une planche : plein écran (on peut zoomer avec les doigts), toucher encore pour fermer
@@ -559,10 +672,14 @@
   document.addEventListener('click', e => {
     const t = e.target.closest('button, .revise .part .body li, .revise .part .body .chip, .revise .part .body .badge');
     if (!t) return;
-    if (t.classList.contains('poster')) { t.remove(); return; }
     if (t.dataset.qa) { quizAct(t); return; }
     if (t.dataset.q3) { q3Act(t); return; }
-    if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; S.skinAsked = 1; save(); setSkin(); render(); return; }
+    if (t.dataset.note) { closeNote(); return; }
+    if (t.dataset.size !== undefined) { S.size = t.dataset.size; save(); setSkin(); render(); return; }
+    if (t.id === 'bkcopy') { const c = toCode(), m = $('#bkmsg'), z = $('#bkzone'), ta = $('#bkta'); z.hidden = false; ta.value = c; ta.select(); try { navigator.clipboard.writeText(c).then(() => (m.textContent = 'Code copié. Colle-le dans tes Notes pour le garder.'), () => (m.textContent = 'Sélectionne le code ci-dessus et copie-le.')); } catch (er) { m.textContent = 'Sélectionne le code ci-dessus et copie-le.'; } return; }
+    if (t.id === 'bkopen') { $('#bkzone').hidden = false; $('#bkta').value = ''; $('#bkta').focus(); return; }
+    if (t.id === 'bkload') { try { fromCode($('#bkta').value); save(); setSkin(); render(); const m = $('#bkmsg'); if (m) m.textContent = 'Progression restaurée ✓'; } catch (er) { $('#bkmsg').textContent = "Ce code n'est pas valide : vérifie que tu l'as collé en entier."; } return; }
+    if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; if (t.closest('.note')) closeNote(); save(); setSkin(); render(); return; }
     if (t.dataset.v3l) { const k = t.dataset.v3l; on3()[k] = on3()[k] ? 0 : 1; save(); t.classList.toggle('on', !!on3()[k]); if (V3) V3.layers(); return; }
     if (t.classList.contains('reveal')) { t.closest('[data-quiz]').classList.add('shown'); return; }
     if (!t.matches('button')) { t.classList.toggle('shown'); return; }
@@ -571,7 +688,7 @@
     if (t.id === 'done') { const p = S.pedi[a] = S.pedi[a] || {}; p.done = !p.done; save(); render(); }
     if (t.id === 'aknow') { S.anat[a] = !S.anat[a]; save(); render(); }
     if (t.id === 'qshow') { shown = true; render(); }
-    if (t.id === 'qok' || t.id === 'qko') { S.anat[card.q] = t.id === 'qok'; save(); card = null; render(); }
+    if (t.id === 'qok' || t.id === 'qko') { S.anat[card.q] = t.id === 'qok'; review('a:' + card.q, t.id === 'qok'); card = null; render(); }
     if (t.id === 'drawP') { draw = { kind: 'p', f: PEDI[Math.floor(Math.random() * PEDI.length)] }; render(); }
     if (t.id === 'drawA') { const pool = AQ.slice().sort(() => Math.random() - 0.5); draw = { kind: 'a', list: pool.slice(0, 5).sort((x, y) => x.q - y.q) }; render(); }
   });
