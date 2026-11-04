@@ -95,13 +95,14 @@
   // (fitLayer). Il est seul dans le calque (rien ne défile dessous) et supprimé en fermant, pour que rien ne tourne après.
   const frame = (id, t, poster) => `<button class="video vposter" data-vid="${id}" style="background-image:url(${poster})" aria-label="${t}">
     <span class="play">▶</span><span class="vtxt">Regarder la vidéo</span></button>`;
-  function openVideo(id) {
+  // yt : vidéo YouTube (tests d'examen clinique, de piriforme.fr) ; src : la page d'où elle vient
+  function openVideo(id, yt, src) {
     closeVideo();
-    const d = document.createElement('div'); d.className = 'vlayer';
-    d.innerHTML = `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen" allowfullscreen title="Vidéo"></iframe>
+    const d = document.createElement('div'); d.className = 'vlayer' + (yt ? ' yt' : '');
+    d.innerHTML = `<iframe src="${yt ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1` : `https://drive.google.com/file/d/${id}/preview`}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>
       <div class="vrot">📱↻ Tourne ton téléphone pour voir la vidéo en grand.</div>
       <button class="vclose" id="vclose" aria-label="Fermer la vidéo">✕</button>
-      <a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`;
+      ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">Fiche du test sur piriforme.fr ↗</a>` : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
     document.body.appendChild(d); document.body.classList.add('vopen');
     fitLayer(); window.addEventListener('resize', fitLayer);
     try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
@@ -110,7 +111,7 @@
   // (sur iPhone il les agrandit dans un petit cadre) et montre l'image entière, même en portrait
   function fitLayer() {
     const d = $('.vlayer'), f = d && d.querySelector('iframe'); if (!f) return;
-    const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = Math.max(fw, 800), k = fw / VW;
+    const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = d.classList.contains('yt') ? fw : Math.max(fw, 800), k = fw / VW;
     Object.assign(f.style, { width: VW + 'px', height: VW * 9 / 16 + 'px', left: (W - fw) / 2 + 'px', top: (H - fh) / 2 + 'px', transform: k < 1 ? `scale(${k})` : '' });
   }
   function closeVideo() {
@@ -136,6 +137,7 @@
       <div class="sec">OÙ J'EN SUIS</div>
       <a class="card prog" href="#/pedi">${ring(vP, 'var(--p6)')}<span class="rt"><span class="t">Pédicurie</span><span class="s">${nP}/24 fiches sues · ${PEDI.reduce((s, f) => s + nSeen(f), 0)} parties lues</span>${bar(nP / 24, 'var(--p6)')}</span><span class="chev">›</span></a>
       <a class="card prog" href="#/anat">${ring(nA / AQ.length, 'var(--p1)')}<span class="rt"><span class="t">Anatomie palpatoire</span><span class="s">${nA}/${AQ.length} repères sus</span><span class="minis">${regs}</span></span><span class="chev">›</span></a>
+      <a class="card prog" href="#/clin">${ring(nC(CL) / CL.length, 'var(--p4)')}<span class="rt"><span class="t">Examen clinique</span><span class="s">${nC(CL)}/${CL.length} tests sus</span>${bar(nC(CL) / CL.length, 'var(--p4)')}</span><span class="chev">›</span></a>
       <div class="sec">RÉVISER MAINTENANT</div>
       <div class="quick">
         ${nextF ? `<a class="qb" href="#/pedi/${nextF.id}" style="--c:var(--p6)">${thumb(ill(nextF.id, 'cover'), nextF.title)}<span class="t">Fiche ${nextF.n}</span><span class="s">${esc(nextF.title)}</span></a>` : ''}
@@ -241,6 +243,13 @@
       ['📖', 'Le lexique des mots compliqués et une recherche dans tout le site.'],
       ['🌙', 'Mode sombre, texte plus grand et code de sauvegarde : dans Réglages, en bas de l\'accueil.'],
       ['✅', 'Ta progression a été gardée.'],
+    ] },
+    { v: 50, items: [
+      ['🩺', 'Nouvel onglet Examen clinique : les 41 tests du guide, rangés en 7 sections.'],
+      ['✏️', 'Chaque test a son dessin : comment se placer, où mettre les mains, ce qui bouge.'],
+      ['👣', 'Les étapes une par une, les chiffres à retenir, et comment lire le résultat (normal ou positif).'],
+      ['▶️', 'Une vidéo pour 13 des tests.'],
+      ['🙈', 'Mode test (l\'œil en haut) et « Un test au hasard » pour t\'entraîner.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -515,6 +524,49 @@
       ${d && d.kind === 'a' ? `<div class="entries" style="margin-top:16px">${d.list.map(x => `<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 52)}<span class="rt"><span class="n">Question ${x.q} · ${REG_SHORT[x.reg]}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`).join('')}</div>` : ''}</div>`;
   }
 
+  // ---------- examen clinique : les 41 tests (data/clinique.js), rangés en 7 sections ----------
+  const CL = window.CLIN || [], CS = window.CLIN_S || [];
+  const SCOL = s => PCOL(s);
+  const doneC = i => !!(S.clin && S.clin[i]);
+  const nC = list => list.filter(x => doneC(CL.indexOf(x) + 1)).length;
+  // dessins des tests : data/clinique-dessins.js
+  const pic = (n, cls = 'cpic') => `<svg class="${cls}" viewBox="0 0 240 150" aria-hidden="true">${window.CLIN_PIC ? window.CLIN_PIC(n) : ''}</svg>`;
+
+  function clinHub() {
+    return `<div class="wrap">${top('#/', 'Examen clinique', count(nC(CL), CL.length))}
+      <div class="muted lead">Les ${CL.length} tests du guide : comment se placer, les gestes, et comment lire le résultat.</div>
+      <button class="btn wide" id="crand" style="--c:var(--hl)">🎯 Un test au hasard, réponses cachées</button>
+      <div class="sec">LES TESTS · ${CS.length} SECTIONS</div>
+      <div class="entries">${CS.map((s, i) => { const it = CL.filter(x => x.s === i), k = nC(it);
+        return `<a class="entry" href="#/clin/s${i + 1}" style="--c:${SCOL(i)}"><span class="stamp xs cem">${s.e}</span><span class="rt"><span class="t">${esc(s.t)}</span><span class="n">${k}/${it.length} tests sus</span>${bar(k / it.length, SCOL(i))}</span><span class="chev">›</span></a>`; }).join('')}</div></div>`;
+  }
+  function clinSec(i) {
+    const s = CS[i]; if (!s) return notFound();
+    const it = CL.filter(x => x.s === i);
+    return `<div class="wrap">${top('#/clin', `${s.e} ${esc(s.t)}`, count(nC(it), it.length))}
+      <div class="muted lead">${esc(s.intro)}</div>
+      <div class="entries">${it.map(x => { const n = CL.indexOf(x) + 1;
+        return `<a class="entry" href="#/clin/${n}" style="--c:${SCOL(i)}"><span class="cthumb">${pic(n, 'mini')}</span><span class="rt"><span class="n">TEST ${n}${x.yt ? ' · ▶ vidéo' : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.cherche)}</span></span>${doneC(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>
+      ${i === 5 ? `<div class="sec">GRADE DU RISQUE PODOLOGIQUE (HAS)</div><div class="card hasg">${(window.CLIN_HAS || []).map(([g, t]) => `<div><b class="g${g}">${g}</b><span>${esc(t)}</span></div>`).join('')}<div class="muted small">Le pédicure-podologue peut poser lui-même ce grade.</div></div>` : ''}
+      <div class="pair">${i > 0 ? `<a href="#/clin/s${i}">← ${esc(CS[i - 1].t)}</a>` : '<span></span>'}${i < CS.length - 1 ? `<a href="#/clin/s${i + 2}">${esc(CS[i + 1].t)} →</a>` : ''}</div></div>`;
+  }
+  function clinTest(n) {
+    const x = CL[n - 1]; if (!x) return notFound();
+    const c = SCOL(x.s), s = CS[x.s];
+    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`#/clin/s${x.s + 1}`, `${s.e} ${esc(s.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
+      <section class="part solo ctest" style="--c:${c}">
+        <figure class="chero">${pic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.piriforme.fr/bdd/orthopedie/${x.src}">▶ Voir le test en vidéo</button>` : ''}</figure><div class="chead"><div class="rt"><div class="n" style="color:${c}">TEST ${n} / ${CL.length}</div><h1>${esc(x.n)}</h1><div class="cq">🎯 ${esc(x.cherche)}</div></div></div>
+        ${S.revise ? '<div class="hint">🙈 Mode test : dis comment tu fais le test, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
+        <div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">🧍</span><span><span class="lab">Patient</span>${md(x.pat)}</span></li><li><span class="em">🩺</span><span><span class="lab">Praticien</span>${md(x.prat)}</span></li></ul></div>
+        <div class="body"><div class="h">Comment faire</div><ol class="steps">${x.steps.map(t => `<li>${md(t)}</li>`).join('')}</ol>
+          ${x.key && x.key.length ? `<div class="chips">${x.key.map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>` : ''}</div>
+        <div class="body"><div class="h">Lire le résultat</div><ul class="res"><li class="okr"><span class="lab">Normal</span>${md(x.norm)}</li>${x.pos.map(([a, b]) => `<li class="kor"><span class="lab">${md(a)}</span>→ ${md(b)}</li>`).join('')}</ul>
+          ${x.extra ? `<div class="muted small" style="margin-top:8px">${md(x.extra)}</div>` : ''}</div>
+        ${x.tip ? `<div class="ctip">💡 ${md(x.tip)}</div>` : ''}
+      </section>
+      ${pager(n > 1 ? `#/clin/${n - 1}` : '', `<button class="btn grow ${doneC(n) ? 'ghost' : ''}" id="cknow" style="--c:var(--p6)">${doneC(n) ? '✓ Su · à revoir ?' : 'Je sais le faire'}</button>`, n < CL.length ? `#/clin/${n + 1}` : '')}</div>`;
+  }
+
   // ---------- lexique et recherche : la liste se met à jour pendant qu'on tape, sans redessiner la page ----------
   const norm = x => String(x).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   const LEX = window.LEXIQUE || [];
@@ -526,7 +578,7 @@
     return r.length ? `<dl class="lex">${r.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '<div class="empty">Aucun mot trouvé.</div>'; };
   function search() {
     return `<div class="wrap">${top('#/pedi', 'Rechercher')}<input class="search" id="sq" type="search" placeholder="verrue, ongle, Raynaud, monofilament…" autocomplete="off">
-      <div id="sres"><div class="muted small">Cherche dans les 24 fiches, les 59 repères d'anatomie et le lexique.</div></div></div>`;
+      <div id="sres"><div class="muted small">Cherche dans les 24 fiches, les 59 repères d'anatomie, les tests d'examen clinique et le lexique.</div></div></div>`;
   }
   function searchRows(q) {
     const n = norm(q.trim()); if (n.length < 2) return '<div class="muted small">Tape au moins 2 lettres.</div>';
@@ -537,6 +589,7 @@
       f.parts.forEach((p, i) => { const sn = snip(p.say); if (sn) out.push(`<a class="entry part-e" href="#/pedi/${f.id}/p${i + 1}" style="--c:${PCOL(i)}"><span class="stamp xs">${i + 1}</span><span class="rt"><span class="n">${f.n}. ${esc(f.title)} · ${esc(p.title)}</span><span class="s">${sn}</span></span></a>`); });
     }
     for (const x of AQ) if (norm(x.name).includes(n) || norm(x.how || '').includes(n)) out.push(`<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 44)}<span class="rt"><span class="n">ANATOMIE · Q${x.q}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`);
+    CL.forEach((x, i) => { if (norm(x.n).includes(n) || norm(x.cherche).includes(n)) out.push(`<a class="entry" href="#/clin/${i + 1}" style="--c:${SCOL(x.s)}"><span class="cthumb">${pic(i + 1, 'mini')}</span><span class="rt"><span class="n">EXAMEN CLINIQUE · TEST ${i + 1}</span><span class="t">${esc(x.n)}</span></span><span class="chev">›</span></a>`); });
     const lx = LEX.filter(([w]) => norm(w).includes(n));
     return (lx.length ? `<dl class="lex">${lx.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') +
       (out.length ? `<div class="entries">${out.slice(0, 60).join('')}</div>` : lx.length ? '' : '<div class="empty">Rien trouvé.</div>');
@@ -693,6 +746,7 @@
     else if (sec === 'pedi') html = a ? pedi(a, b, c) : pediList();
     else if (sec === 'plan') html = plan();
     else if (sec === 'anat') html = a === 'quiz' ? anatQuiz() : a === '3d' ? quiz3d() : a && !REG_ORDER.includes(a) ? anatItem(a) : anatList(a);
+    else if (sec === 'clin') html = !a ? clinHub() : a[0] === 's' ? clinSec(+a.slice(1) - 1) : clinTest(+a);
     else if (sec === 'tirage') html = tirage();
     else if (sec === 'lexique') html = lexique();
     else if (sec === 'search') html = search();
@@ -705,7 +759,7 @@
     document.body.classList.toggle('reading', !!$('#app .pager.fixed'));
     document.querySelectorAll('nav.tabs a').forEach(t => t.classList.toggle('on', t.dataset.s === (sec || '') || (t.dataset.s === 'tirage' && sec === 'plan')));
     const f = PEDI.find(x => x.id === a);
-    document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
+    document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, 0);
     showNote();
   }
@@ -730,7 +784,7 @@
       else copy();
       return;
     }
-    if (t.dataset.vid) { openVideo(t.dataset.vid); return; }
+    if (t.dataset.vid) { openVideo(t.dataset.vid, t.dataset.yt, t.dataset.src); return; }
     if (t.id === 'vclose') { closeVideo(); return; }
     if (t.id === 'upcheck') { const m = $('#upmsg'); m.textContent = 'Vérification…'; latestV().then(v => { if (!v) m.textContent = 'Pas de réseau : réessaie plus tard.'; else if (v > APP_V) { m.innerHTML = `Version ${v} disponible. <button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button>`; } else m.textContent = 'Tu as la dernière version ✓'; }); return; }
     if (t.id === 'upgo') { t.textContent = 'Mise à jour…'; applyUpdate(); return; }
@@ -744,6 +798,8 @@
     const [, sec, a] = location.hash.split('/');
     if (t.id === 'revise') { S.revise = !S.revise; save(); render(); }
     if (t.id === 'done') { const p = S.pedi[a] = S.pedi[a] || {}; p.done = !p.done; save(); render(); }
+    if (t.id === 'cknow') { const m = S.clin = S.clin || {}; m[a] = !m[a]; if (m[a]) did(1); save(); render(); }
+    if (t.id === 'crand') { const left = CL.map((_, i) => i + 1).filter(i => !doneC(i)), pool = left.length ? left : CL.map((_, i) => i + 1); S.revise = true; save(); location.hash = '#/clin/' + pool[Math.floor(Math.random() * pool.length)]; }
     if (t.id === 'aknow') { S.anat[a] = !S.anat[a]; save(); render(); }
     if (t.id === 'qshow') { shown = true; render(); }
     if (t.id === 'qok' || t.id === 'qko') { S.anat[card.q] = t.id === 'qok'; review('a:' + card.q, t.id === 'qok'); card = null; render(); }
