@@ -5,6 +5,7 @@
   const PCOL = i => `var(--p${(i % 8) + 1})`;
   const RCOL = { pied: 'var(--p5)', jambe: 'var(--p4)', cuisse: 'var(--p1)' };
   const REG_ORDER = ['pied', 'jambe', 'cuisse'];
+  const REG_PLATE = { pied: 'r-parcours2', jambe: 'b-jambe-ext', cuisse: 'r-hanchemus' };
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
@@ -39,25 +40,28 @@
   // ---------- pages ----------
   const top = (back, kicker) => `<div class="top"><a class="back" href="${back}" aria-label="Retour">←</a><div class="kicker">${kicker}</div></div>`;
 
-  function home() {
-    const nP = PEDI.filter(f => doneP(f.id)).length, nA = AQ.filter(x => doneA(x.q)).length;
-    return `<div class="wrap">
-      <div class="kicker">ORAL UEM · PÉDICURIE-PODOLOGIE</div>
-      <h1 style="margin:6px 0 4px">Mes révisions</h1>
-      <div class="muted">Les 24 fiches du livret, comme dans les vidéos, et les 59 repères d'anatomie palpatoire.</div>
-      <div class="home-grid">
-        <a class="card subject" href="#/pedi" style="--c:var(--p6)"><div class="kicker">PÉDICURIE</div><h2>24 fiches</h2>
-          <div class="muted">Le plan en 8 parties, les mots-clés et le quiz de chaque fiche.</div>${dots(PEDI, f => doneP(f.id))}<div class="big">${nP} / 24</div></a>
-        <a class="card subject" href="#/anat" style="--c:var(--p1)"><div class="kicker">ANATOMIE PALPATOIRE</div><h2>59 questions</h2>
-          <div class="muted">Rangées par région : pied, jambe, cuisse ; puis os et muscles.</div>${dots(AQ, x => doneA(x.q))}<div class="big">${nA} / 59</div></a>
-        <a class="card subject" href="#/plan" style="--c:var(--p3)"><div class="kicker">MÉTHODE</div><h2>Le plan de l'oral</h2><div class="muted">Les 8 questions à dérouler pour chaque sujet.</div></a>
-        <a class="card subject" href="#/tirage" style="--c:var(--red)"><div class="kicker">ENTRAÎNEMENT</div><h2>Tirage au sort</h2><div class="muted">Comme le jour J : un sujet au hasard, ou des repères à palper.</div></a>
-      </div></div>`;
-  }
-
   // dessins des vidéos : illus/<fiche>/cover.webp, pNa.webp (milieu de la partie), pNb.webp (fin)
   const ill = (id, name) => `illus/${id}/${name}.webp`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" onerror="this.closest('.drawn')?this.closest('.drawn').remove():this.remove()">`;
+
+  function home() {
+    const nP = PEDI.filter(f => doneP(f.id)).length, nA = AQ.filter(x => doneA(x.q)).length;
+    const last = S.last && PEDI.find(f => f.id === S.last.id);
+    const pile = [PEDI[0], PEDI[9], PEDI[23]].map((f, i) => `<span class="drawn pile p${i}">${img(ill(f.id, 'cover'), f.title)}</span>`).join('');
+    return `<div class="wrap">
+      <div class="kicker">ORAL UEM · PÉDICURIE-PODOLOGIE</div>
+      <h1 class="space-s">Mes révisions</h1>
+      <div class="drawn big home-hero">${img(ill('plan', 'board'), 'Le plan en 8 questions')}</div>
+      ${last ? `<a class="card step resume" href="#/pedi/${last.id}${S.last.k ? '/p' + S.last.k : ''}" style="--c:var(--red)"><span class="drawn mini">${img(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title)}</span><span><span class="kicker">REPRENDRE</span><span class="t">${esc(last.title)}</span><span class="s">${S.last.k ? 'partie ' + S.last.k + ' · ' + esc(last.parts[S.last.k - 1].title) : 'le plan de la fiche'}</span></span></a>` : ''}
+      <div class="home-grid">
+        <a class="card subject" href="#/pedi" style="--c:var(--p6)"><div class="piles">${pile}</div><div class="kicker">PÉDICURIE</div><h2>24 fiches</h2>
+          <div class="muted">Le plan en 8 parties, les dessins des vidéos, les mots-clés et le quiz de chaque fiche.</div>${dots(PEDI, f => doneP(f.id))}<div class="big">${nP} / 24</div></a>
+        <a class="card subject" href="#/anat" style="--c:var(--p1)"><span class="drawn">${img(PL['r-parcours2'] ? PL['r-parcours2'].src : '', 'Planche du pied', 'plate-thumb')}</span><div class="kicker">ANATOMIE PALPATOIRE</div><h2>59 questions</h2>
+          <div class="muted">Pied, jambe, cuisse ; puis os et muscles.</div>${dots(AQ, x => doneA(x.q))}<div class="big">${nA} / 59</div></a>
+        <a class="card subject" href="#/plan" style="--c:var(--p3)"><span class="drawn">${img(ill('plan', 'p1b'), 'Le plan de l’oral')}</span><div class="kicker">MÉTHODE</div><h2>Le plan de l'oral</h2><div class="muted">Les 8 questions à dérouler pour chaque sujet.</div></a>
+        <a class="card subject" href="#/tirage" style="--c:var(--red)"><span class="drawn">${img(ill('plan', 'cover'), 'Tirage au sort')}</span><div class="kicker">ENTRAÎNEMENT</div><h2>Tirage au sort</h2><div class="muted">Comme le jour J : un sujet au hasard, ou des repères à palper.</div></a>
+      </div></div>`;
+  }
 
   function pediList() {
     return `<div class="wrap">${top('#/', 'PÉDICURIE · 24 FICHES')}<h1>Les fiches</h1>${dots(PEDI, f => doneP(f.id))}
@@ -69,6 +73,7 @@
   // la fiche = la couverture, puis le plan : une carte dessinée par partie
   function fiche(f) {
     const vid = VIDEOS[f.id], n = f.parts.length;
+    if (!S.last || S.last.id !== f.id) { S.last = { id: f.id, k: 0 }; save(); }
     return `<div class="wrap">${top('#/pedi', `FICHE ${f.n} / 24 · ${esc(f.catName).toUpperCase()}`)}
       <div class="hero"><span class="stamp">${f.n}</span><div><h1>${esc(f.title)}</h1><div class="sub">${esc(f.catName)} · ${n} parties · mots-clés · quiz</div></div></div>
       ${vid ? `<div class="video"><iframe src="https://drive.google.com/file/d/${vid}/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="Vidéo de la fiche"></iframe></div>`
@@ -93,6 +98,7 @@
   function part(f, k) {
     const p = f.parts[k - 1], n = f.parts.length, c = PCOL(k - 1);
     if (!p) return fiche(f);
+    S.last = { id: f.id, k }; save();
     const prev = k > 1 ? `#/pedi/${f.id}/p${k - 1}` : `#/pedi/${f.id}`, next = k < n ? `#/pedi/${f.id}/p${k + 1}` : `#/pedi/${f.id}/memo`;
     return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`#/pedi/${f.id}`, `FICHE ${f.n} · ${esc(f.title).toUpperCase()}`)}
       <div class="steps">${f.parts.map((_, i) => `<a href="#/pedi/${f.id}/p${i + 1}" class="${i + 1 === k ? 'on' : ''}" style="--c:${PCOL(i)}">${i + 1}</a>`).join('')}</div>
@@ -136,9 +142,11 @@
 
   function plan() {
     const P = window.PLAN_ORAL || [];
-    return `<div class="wrap">${top('#/', 'MÉTHODE')}<h1>Le plan de l'oral</h1><div class="muted" style="margin:6px 0 16px">Pour chaque sujet, on déroule les mêmes 8 questions, dans le même ordre.</div>
-      <div class="board">${P.map((p, i) => `<a class="pcard" href="#/plan/p${i + 1}" style="--c:${PCOL(i)}"><span class="stamp sm">${i + 1}</span><div class="t">${esc(p.title)}</div><div class="q">${esc(p.q)}</div></a>`).join('')}</div>
-      ${P.map((p, i) => `<section class="part" id="p${i + 1}" style="--c:${PCOL(i)}"><header><span class="stamp">${i + 1}</span><div><h2>${esc(p.title)}</h2><span class="q hl">${esc(p.q)}</span></div></header><div class="body"><div>${md(p.say)}</div></div></section>`).join('')}</div>`;
+    return `<div class="wrap">${top('#/', 'MÉTHODE')}<h1>Le plan de l'oral</h1><div class="muted space-s">Pour chaque sujet, on déroule les mêmes 8 questions, dans le même ordre.</div>
+      <div class="drawn big">${img(ill('plan', 'board'), 'Le plan en 8 questions')}</div>
+      ${P.map((p, i) => `<section class="part solo" id="p${i + 1}" style="--c:${PCOL(i)}"><header><span class="stamp">${i + 1}</span><div><h2>${esc(p.title)}</h2><span class="q hl">${esc(p.q)}</span></div></header>
+        <figure class="drawn slide">${img(ill('plan', `p${i + 1}b`), p.title, 'crop')}</figure>
+        <details class="say"><summary>🗣 Ce qu'on attend dans cette partie</summary><p>${md(p.say)}</p></details></section>`).join('')}</div>`;
   }
 
   function anatList() {
@@ -146,15 +154,24 @@
       <div class="btns"><a class="btn" href="#/anat/quiz" style="--c:var(--hl)">Je m'interroge</a><a class="btn ghost" href="#/tirage">Tirage au sort</a></div>`;
     for (const r of REG_ORDER) {
       const items = AQ.filter(x => x.reg === r);
-      h += `<div class="section-title" style="--c:${RCOL[r]}"><h2 style="color:${RCOL[r]}">${esc(window.ANAT_REG[r])}</h2><span class="bar"></span><span class="muted">${items.filter(x => doneA(x.q)).length}/${items.length}</span></div>`;
+      const pl = PL[REG_PLATE[r]];
+      h += `<div class="region" style="--c:${RCOL[r]}">${pl ? `<span class="drawn">${img(pl.src, window.ANAT_REG[r], 'plate-thumb')}</span>` : ''}<div><h2>${esc(window.ANAT_REG[r])}</h2><div class="muted">${items.length} repères · ${items.filter(x => doneA(x.q)).length} sus</div>${dots(items, x => doneA(x.q))}</div></div>`;
       for (const g of ['Os', 'Muscles']) {
         const it = items.filter(x => x.group === g);
         if (!it.length) continue;
         h += `<div class="sub-title" style="--c:${RCOL[r]}">${g === 'Os' ? '🦴 OS & REPÈRES OSSEUX' : '💪 MUSCLES & TENDONS'}</div><div class="list">${it.map(x => `<a class="tag item" href="#/anat/${x.q}" style="--c:${RCOL[r]}">
-          <span class="stamp xs" style="--c:${doneA(x.q) ? 'var(--p6)' : RCOL[r]}">${x.q}</span><span class="t">${esc(x.name)}</span>${doneA(x.q) ? '<span class="ok">✓</span>' : ''}</a>`).join('')}</div>`;
+          ${zoomThumb(x)}<span class="stamp xs" style="--c:${doneA(x.q) ? 'var(--p6)' : RCOL[r]}">${x.q}</span><span class="t">${esc(x.name)}</span>${doneA(x.q) ? '<span class="ok">✓</span>' : ''}</a>`).join('')}</div>`;
       }
     }
     return h + '</div>';
+  }
+
+  // vignette ronde découpée dans la planche, centrée sur le numéro de la structure
+  function zoomThumb(x, size = 64) {
+    const p = x.plates[0], d = p && PL[p.pl], m = d && d.num.find(n => n[0] === p.num);
+    if (!m) return '';
+    const bw = size * 4, bh = bw * d.h / d.w, px = -(m[1] / d.w * bw - size / 2), py = -(m[2] / d.h * bh - size / 2);
+    return `<span class="zthumb" style="width:${size}px;height:${size}px;background-image:url(${d.src});background-size:${bw}px ${bh}px;background-position:${px}px ${py}px"></span>`;
   }
 
   function plateHTML(p, name) {
@@ -224,6 +241,11 @@
     if (sec === 'plan' && a) setTimeout(() => { const el = document.getElementById(a); if (el) el.scrollIntoView(); }, 0);
   }
 
+  // toucher un dessin ou une planche : plein écran (on peut zoomer avec les doigts), toucher encore pour fermer
+  document.addEventListener('click', e => {
+    const im = e.target.closest('.slide img, .drawn.big img, .plate img, .home-hero img');
+    if (im) { e.preventDefault(); const z = document.createElement('div'); z.className = 'zoom'; z.innerHTML = `<img src="${im.getAttribute('src')}" alt=""><span>Toucher pour fermer</span>`; z.onclick = () => z.remove(); document.body.appendChild(z); return; }
+  }, true);
   document.addEventListener('click', e => {
     const t = e.target.closest('button, .revise .part .body > *, .revise .part .body li, .revise .part .body .tag');
     if (!t) return;

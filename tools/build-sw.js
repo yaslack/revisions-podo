@@ -4,7 +4,9 @@ const v = process.argv[2];
 global.window = {}; require(path.resolve('data/pedi.js')); require(path.resolve('data/anat.js'));
 const files = ['./', 'index.html', 'style.css', 'app.js', 'apple-touch-icon.png', 'data/pedi.js', 'data/anat.js', 'data/videos.js', 'fonts/fonts.css',
   ...fs.readdirSync('fonts').filter(f => f.endsWith('.woff2')).map(f => 'fonts/' + f),
-  ...new Set(window.PEDI.flatMap(f => f.photos.map(p => p.src))), ...Object.values(window.ANAT_PL).map(p => p.src)];
+  ...new Set(window.PEDI.flatMap(f => f.photos.map(p => p.src))), ...Object.values(window.ANAT_PL).map(p => p.src),
+  // dessins : couvertures et plan en avance ; ceux des parties se mettent en cache à la première ouverture
+  ...window.PEDI.map(f => `illus/${f.id}/cover.webp`), ...fs.readdirSync('illus/plan').map(f => 'illus/plan/' + f)];
 for (const f of files) if (f !== './' && !fs.existsSync(f)) throw new Error('fichier manquant : ' + f);
 fs.writeFileSync('sw.js', `// Révisions podo · service worker v${v} (généré par tools/build-sw.js) : page à jour quand il y a du réseau, cache sinon.
 const CACHE = 'podo-v${v}';

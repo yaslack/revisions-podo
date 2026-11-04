@@ -236,3 +236,37 @@ a.item, a.tag.item, a.card.item { display: flex; }            /* a.card/a.tag me
 .pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
 .sheet a.row { color: inherit; }
 .quiz .qcard { margin-top: 40px; }
+
+/* ---------- accueil, plan, anatomie : dessins et espace ---------- */
+.home-hero { margin: 10px 0 30px; }
+.home-grid { gap: 26px; margin-top: 30px; }
+.subject { display: flex !important; flex-direction: column; gap: 6px; padding: 18px 18px 22px; }
+.subject > .drawn { margin: -4px -4px 12px; box-shadow: none; border-width: 2px; }
+.subject .big { margin-top: auto; padding-top: 8px; }
+img.plate-thumb { aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 35%; background: #fff; }
+.piles { position: relative; height: 150px; margin: 4px 0 18px; }
+.pile { position: absolute; width: 62%; box-shadow: 3px 4px 0 rgba(37,35,45,.15); border-width: 2px; }
+.pile.p0 { left: 0; top: 18px; transform: rotate(-7deg); }
+.pile.p1 { left: 19%; top: 4px; transform: rotate(2deg); z-index: 1; }
+.pile.p2 { right: 0; top: 22px; transform: rotate(8deg); z-index: 2; }
+.resume { margin: 0 0 6px; }
+.resume .t { font-size: 20px; }
+.resume .kicker { display: block; color: var(--red); font-size: 14px; }
+.drawn.mini { width: 120px; flex: none; box-shadow: none; border-width: 2px; }
+.region { display: grid; grid-template-columns: minmax(120px, 230px) 1fr; gap: 18px; align-items: center; margin: 46px 0 14px; padding-top: 18px; border-top: 3px dashed var(--c); }
+.region h2 { color: var(--c); }
+.region .drawn { border-color: var(--c); box-shadow: 4px 5px 0 rgba(37,35,45,.12); transform: rotate(-1.2deg); }
+@media (max-width: 520px) { .region { grid-template-columns: 1fr; } }
+.sub-title { margin: 26px 0 12px; font-size: 19px; }
+.fields { gap: 16px; }
+.field, .tag.field { padding: 14px 18px; }
+.mcard { gap: 10px 14px; }
+.plate { margin: 14px 0 22px; }
+.part.solo + .part.solo { margin-top: 54px; }
+.zthumb { flex: none; border-radius: 50%; border: 2.5px solid var(--c, var(--ink)); background-color: #fff; background-repeat: no-repeat; box-shadow: 2px 3px 0 rgba(37,35,45,.12); }
+.list .item .stamp.xs { margin-left: -26px; margin-top: 34px; align-self: flex-start; z-index: 1; }
+.slide img, .drawn.big img, .plate img { cursor: zoom-in; }
+.zoom { position: fixed; inset: 0; z-index: 50; background: rgba(37,35,45,.92); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 12px; touch-action: pinch-zoom; }
+.zoom img { max-width: 100%; max-height: 88vh; object-fit: contain; border-radius: 8px; background: #f4ecd9; }
+.zoom span { color: #f4ecd9; font: 400 15px var(--marker); }
+@media (orientation: portrait) and (max-width: 600px) { .zoom img { max-width: none; width: 92vh; transform: rotate(90deg); } }

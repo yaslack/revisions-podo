@@ -1,25 +1,15 @@
-// Révisions Podo · service worker v32 : page toujours à jour quand il y a du réseau, version en cache sinon.
-// Les planches d’anatomie (anat/*.webp) et les photos de pédicurie (photos/*.webp) sont mises en cache dès l’installation pour marcher hors ligne.
-const CACHE="podo-v32";
-const ASSETS=["./","index.html","apple-touch-icon.png","vendor/three-mini.js","anat/jambe3d.bin"].concat(["b-acetabulum.webp","b-apo-plantaire.webp","b-art-cuisse.webp","b-art-jambe.webp","b-art-pied.webp","b-bassin.webp","b-cheville.webp","b-coupe-cuisse.webp","b-coupe-jambe.webp","b-coxal.webp","b-cuisse-ant.webp","b-cuisse-int.webp","b-cuisse-post.webp","b-femur.webp","b-fesse1.webp","b-fesse2.webp","b-genou.webp","b-hanche-lig.webp","b-jambe-ant.webp","b-jambe-ext.webp","b-jambe-post.webp","b-nerf-cuisse.webp","b-nerf-cutane.webp","b-nerf-dos-pied.webp","b-nerf-fesse.webp","b-nerf-jambe-ext.webp","b-nerf-jambe.webp","b-nerf-plante.webp","b-pied-dos.webp","b-pied-lig.webp","b-pied-os.webp","b-pied-plante.webp","b-plante-prof.webp","b-tibia.webp","b-veines.webp","r-amplitudes.webp","r-hanchemus.webp","r-marche.webp","r-parcours1.webp","r-parcours2.webp","r-squelette.webp","r-vaisseaux.webp","r-voute.webp"].map(f=>"anat/"+f)).concat(["ains-1.webp","ains-2.webp","antifongiques-1.webp","antifongiques-2.webp","antiseptiques-1.webp","antiseptiques-2.webp","aomi-1.webp","aomi-2.webp","hyperkeratoses-1.webp","hyperkeratoses-2.webp","onychodys-1.webp","onychodys-2.webp","phlebite-1.webp","phlebite-2.webp","phlyctenes-1.webp","phlyctenes-2.webp","sudoraux-1.webp","sudoraux-2.webp","varices-1.webp","varices-2.webp","verrues-1.webp","verrues-2.webp"].map(f=>"photos/"+f));
-self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(ASSETS.map(u=>fetch(new Request(u,{cache:"reload"})).then(r=>{if(r.ok)return c.put(u,r)}).catch(()=>{})))).then(()=>self.skipWaiting()))});
-self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
-self.addEventListener("fetch",e=>{
-  const req=e.request; if(req.method!=="GET")return;
-  const url=new URL(req.url); if(url.origin!==location.origin)return;
-  if(url.pathname.endsWith("version.json")||url.pathname.endsWith("sw.js"))return;
-  const isPage=req.mode==="navigate"||url.pathname.endsWith("/")||url.pathname.endsWith(".html");
-  if(isPage){
-    e.respondWith((async()=>{
-      const c=await caches.open(CACHE);
-      try{
-        const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),4000);
-        const r=await fetch(req,{cache:"no-cache",signal:ctrl.signal}); clearTimeout(t);
-        if(r&&r.ok){await c.put("index.html",r.clone());await c.put("./",r.clone());return r}
-      }catch(err){}
-      return (await c.match("index.html"))||(await c.match("./"))||Response.error();
-    })());
-    return;
-  }
-  e.respondWith(caches.open(CACHE).then(async c=>{const hit=await c.match(req,{ignoreSearch:true});if(hit)return hit;try{const r=await fetch(req);if(r.ok)c.put(req,r.clone());return r}catch(err){return Response.error()}}));
+// Révisions podo · service worker v35 (généré par tools/build-sw.js) : page à jour quand il y a du réseau, cache sinon.
+const CACHE = 'podo-v35';
+const ASSETS = ["./","index.html","style.css","app.js","apple-touch-icon.png","data/pedi.js","data/anat.js","data/videos.js","fonts/fonts.css","fonts/Caveat-500-latin-ext.woff2","fonts/Caveat-500-latin.woff2","fonts/PermanentMarker-400-latin.woff2","photos/verrues-1.webp","photos/verrues-2.webp","photos/livret/i25.jpg","photos/livret/i26.jpg","photos/livret/i27.jpg","photos/antifongiques-1.webp","photos/antifongiques-2.webp","photos/livret/i28.jpg","photos/ains-1.webp","photos/ains-2.webp","photos/antiseptiques-1.webp","photos/antiseptiques-2.webp","photos/livret/i35.jpg","photos/livret/i36.jpg","photos/hyperkeratoses-1.webp","photos/hyperkeratoses-2.webp","photos/phlyctenes-1.webp","photos/phlyctenes-2.webp","photos/livret/i39.jpg","photos/livret/i40.jpg","photos/livret/i43.jpg","photos/aomi-1.webp","photos/aomi-2.webp","photos/phlebite-1.webp","photos/phlebite-2.webp","photos/livret/i9.jpg","photos/varices-1.webp","photos/varices-2.webp","photos/livret/i44.jpg","photos/livret/i45.jpg","photos/livret/i46.jpg","photos/livret/i47.jpg","photos/livret/i48.jpg","photos/livret/i49.jpg","photos/livret/i50.jpg","photos/livret/i37.jpg","photos/livret/i38.jpg","photos/sudoraux-1.webp","photos/sudoraux-2.webp","photos/livret/i8.jpg","photos/livret/i3.jpg","photos/livret/i4.jpg","photos/livret/i5.jpg","photos/livret/i6.jpg","photos/livret/i7.jpg","photos/livret/i29.jpg","photos/onychodys-1.webp","photos/onychodys-2.webp","photos/livret/i30.jpg","photos/livret/i31.jpg","photos/livret/i32.jpg","photos/livret/i33.jpg","photos/livret/i34.jpg","photos/livret/i41.jpg","photos/livret/i42.jpg","photos/livret/i13.jpg","photos/livret/i11.jpg","photos/livret/i12.jpg","photos/livret/i14.jpg","photos/livret/i15.jpg","photos/livret/i16.jpg","photos/livret/i17.jpg","photos/livret/i18.jpg","photos/livret/i19.jpg","photos/livret/i20.jpg","photos/livret/i21.jpg","photos/livret/i22.jpg","photos/livret/i23.jpg","photos/livret/i24.jpg","anat/b-bassin.webp","anat/r-parcours1.webp","anat/r-squelette.webp","anat/b-coxal.webp","anat/b-femur.webp","anat/r-hanchemus.webp","anat/b-cuisse-post.webp","anat/b-fesse1.webp","anat/b-coupe-cuisse.webp","anat/b-cuisse-int.webp","anat/b-fesse2.webp","anat/b-cuisse-ant.webp","anat/b-acetabulum.webp","anat/b-tibia.webp","anat/b-genou.webp","anat/b-jambe-ext.webp","anat/b-coupe-jambe.webp","anat/b-jambe-ant.webp","anat/r-parcours2.webp","anat/r-voute.webp","anat/b-cheville.webp","anat/b-pied-os.webp","anat/b-apo-plantaire.webp","anat/b-pied-dos.webp","anat/r-vaisseaux.webp","anat/b-jambe-post.webp","anat/b-pied-lig.webp","anat/b-pied-plante.webp","anat/b-plante-prof.webp","illus/verrues/cover.webp","illus/onychomycoses/cover.webp","illus/antifongiques/cover.webp","illus/hematome/cover.webp","illus/ains/cover.webp","illus/antiseptiques/cover.webp","illus/mycoses/cover.webp","illus/hyperkeratoses/cover.webp","illus/phlyctenes/cover.webp","illus/mpp/cover.webp","illus/aomi/cover.webp","illus/phlebite/cover.webp","illus/varices/cover.webp","illus/erysipele/cover.webp","illus/eczema/cover.webp","illus/psoriasis/cover.webp","illus/dyshidrose/cover.webp","illus/sudoraux/cover.webp","illus/raynaud/cover.webp","illus/gelures/cover.webp","illus/onychodys/cover.webp","illus/dyschromies/cover.webp","illus/smp/cover.webp","illus/tumeurs/cover.webp","illus/plan/board.webp","illus/plan/cover.webp","illus/plan/p1b.webp","illus/plan/p2b.webp","illus/plan/p3b.webp","illus/plan/p4b.webp","illus/plan/p5b.webp","illus/plan/p6b.webp","illus/plan/p7b.webp","illus/plan/p8b.webp"];
+self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => Promise.all(ASSETS.map(u => fetch(new Request(u, { cache: 'reload' })).then(r => r.ok && c.put(u, r)).catch(() => {})))).then(() => self.skipWaiting())));
+self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));
+self.addEventListener('fetch', e => {
+  const req = e.request, url = new URL(req.url);
+  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.endsWith('sw.js')) return;
+  // réseau d'abord (4 s max) pour avoir la dernière version, puis le cache
+  e.respondWith((async () => {
+    const c = await caches.open(CACHE);
+    try { const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 4000); const r = await fetch(req, { cache: 'no-cache', signal: ctl.signal }); clearTimeout(t); if (r.ok) c.put(req, r.clone()); return r; }
+    catch (err) { return (await c.match(req, { ignoreSearch: true })) || (req.mode === 'navigate' && (await c.match('index.html'))) || Response.error(); }
+  })());
 });
