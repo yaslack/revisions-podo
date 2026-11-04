@@ -164,6 +164,7 @@
         <a class="qb" href="#/tirage" style="--c:var(--red)"><span class="em">🎲</span><span class="t">Tirage au sort</span><span class="s">comme le jour de l'oral</span></a>
         <a class="qb" href="#/plan" style="--c:var(--p3)">${thumb(ill('plan', 'board'), 'Le plan')}<span class="t">Le plan de l'oral</span><span class="s">les 8 questions</span></a>
       </div>
+      ${window.SONS ? `<div class="sec">POUR SE CONCENTRER</div>${SONS.card()}` : ''}
       <div class="sec">RÉGLAGES</div>${settings()}</div>`;
   }
 
@@ -283,6 +284,11 @@
       ['🦵', 'Nouveau : la podologie ! Les 40 fiches du livret, faites comme celles de pédicurie, à partir des vidéos.'],
       ['✅', 'Déjà prêtes : 1. Atteintes ligamentaires du genou et 2. Les chaussures de l\'enfant, avec leurs dessins, leur quiz et le livret.'],
       ['⏳', 'Les autres arrivent au fur et à mesure des vidéos. Elles sont sur l\'accueil, sous Pédicurie.'],
+    ] },
+    { v: 55, items: [
+      ['🎧', 'Des sons pour réviser : bruit rose, brun, brun profond, blanc, pluie, vagues, feu, ondes alpha. À choisir en bas de l\'accueil.'],
+      ['⏯', 'Un mini-lecteur reste à l\'écran : pause, volume ou arrêt à tout moment. Déplace-le avec ⠿, réduis-le avec –. Le son tourne en boucle sans fin.'],
+      ['▶️', 'La vidéo de la fiche podologie 2 (chaussures de l\'enfant) est là.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;

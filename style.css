@@ -561,3 +561,29 @@ html[data-skin="classic"] .ctab th { font-family: var(--hand); font-weight: 700;
 .entry.soon { opacity: .55; cursor: default; }
 .entry.soon .stamp { --c: var(--muted); }
 .entry.soon .n { font-size: 13px; }
+
+/* ---------- sons pour réviser ---------- */
+.sndcard .trow { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.sndcard .sndoff { padding: 6px 12px; font-size: 14px; }
+.sndgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; }
+.sndchip { display: flex; align-items: center; gap: 7px; padding: 9px 10px; border-radius: 12px; border: 2px solid color-mix(in srgb, var(--ink) 18%, transparent); background: var(--card); color: var(--ink); font: inherit; font-size: 16px; line-height: 1.1; text-align: left; cursor: pointer; }
+.sndchip .em { font-size: 19px; }
+.sndchip.on { border-color: var(--p8); background: color-mix(in srgb, var(--p8) 16%, var(--card)); font-weight: 700; }
+.sndd { margin-top: 10px; }
+.sndvol { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 18px; }
+.sndvol input, .sndbar input { flex: 1; accent-color: var(--p8); }
+.sndbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(78px + env(safe-area-inset-bottom)); z-index: 60; width: min(92vw, 400px);
+  display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 6px; border-radius: 999px; background: var(--card); color: var(--ink);
+  border: 2px solid var(--p8); box-shadow: 0 6px 18px rgba(0, 0, 0, .22); }
+body.reading .sndbar { bottom: calc(84px + env(safe-area-inset-bottom)); }
+.sndbar .sndpp { flex: none; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--p8); color: #fff; font-size: 16px; cursor: pointer; }
+.sndbar .sndn { flex: none; max-width: 38%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; font-weight: 700; }
+.sndbar .sndx { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); font-size: 17px; cursor: pointer; }
+.sndbar.paused .sndn { opacity: .6; }
+body.sndon #app { padding-bottom: 70px; }
+.sndbar.moved, body.reading .sndbar.moved { transform: none; bottom: auto; }
+.sndbar .sndgrip { flex: none; width: 22px; text-align: center; font-size: 18px; color: var(--muted); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; padding: 6px 0; }
+.sndbar .sndgrip:active { cursor: grabbing; }
+.sndbar .sndmin { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); font-size: 22px; line-height: 1; cursor: pointer; }
+.sndbar.mini { width: auto; gap: 4px; padding: 5px 6px 5px 4px; }
+.sndbar .sndexp { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 0; background: color-mix(in srgb, var(--p8) 15%, var(--card)); font-size: 17px; cursor: pointer; }

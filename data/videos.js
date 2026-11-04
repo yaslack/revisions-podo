@@ -26,5 +26,6 @@ window.VIDEOS = {
  "smp": "1dPz_L-9sGBVWXJL5rIQHp0FVKX5Fn6zw",
  "tumeurs": "1nj_wf40oMDDjh2cC6WW_MxwDmpNu0moF",
  // podologie (dossier « video fiche podologie »)
- "genou": "1gIDcQOesCvPBGqwzH-QKPjCdacBv-Ig0"
+ "genou": "1gIDcQOesCvPBGqwzH-QKPjCdacBv-Ig0",
+ "chaussures-enfant": "1P44XeYOnACV4_GRiSpqZIU20mIKdhGgg"
 };
