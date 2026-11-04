@@ -1,7 +1,7 @@
 // Révisions podo : 24 fiches de pédicurie (structure des vidéos) + 59 questions d'anatomie palpatoire.
 // Données : data/pedi.js (window.PEDI, PLAN_ORAL), data/anat.js (ANAT_Q, ANAT_PL, ANAT_REG), data/videos.js (VIDEOS).
 (() => {
-  const PEDI = window.PEDI, AQ = window.ANAT_Q, PL = window.ANAT_PL, VIDEOS = window.VIDEOS || {};
+  const PEDI = window.PEDI, PODO = window.PODO || [], PODO_OK = PODO.filter(f => f.ready), AQ = window.ANAT_Q, PL = window.ANAT_PL, VIDEOS = window.VIDEOS || {};
   const PCOL = i => `var(--p${(i % 8) + 1})`;
   const RCOL = { pied: 'var(--p5)', jambe: 'var(--p4)', cuisse: 'var(--p1)' };
   const REG_ORDER = ['pied', 'jambe', 'cuisse'];
@@ -86,8 +86,13 @@
   const pager = (prev, mid, next) => `<div class="pager fixed">${prev ? `<a class="btn ghost arrow prev" href="${prev}" aria-label="Précédent">←</a>` : '<span class="arrow"></span>'}${mid}${next ? `<a class="btn ghost arrow next" href="${next}" aria-label="Suivant">→</a>` : '<span class="arrow"></span>'}</div>`;
 
   // dessins des vidéos : illus/<fiche>/cover.webp, pNa.webp (milieu de la partie), pNb.webp (fin)
-  const ill = (id, name) => `illus/${id}/${name}.webp`;
+  const ILLX = Object.fromEntries(PODO.filter(f => f.ill).map(f => [f.id, f.ill]));   // podologie : dessins en .jpg
+  const ill = (id, name) => `illus/${id}/${name}.${ILLX[id] || 'webp'}`;
   // une image qui ne charge pas (réseau du téléphone) : on réessaie une fois, puis on retire son cadre
+  // une fiche de pédicurie ou de podologie : son adresse, sa liste, ses dessins (la podologie n'a pas encore les dessins des vidéos)
+  const FB = f => `#/${f.sec || 'pedi'}/${f.id}`, LISTOF = f => f.sec === 'podo' ? PODO_OK : PEDI, ALLF = PEDI.concat(PODO_OK);
+  const SECN = f => f.sec === 'podo' ? 'Podologie' : 'Pédicurie', NTOT = f => f.sec === 'podo' ? PODO.length : PEDI.length;
+  const hasIll = f => f.sec !== 'podo' || !!f.ill;
   const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
   // vidéo Drive : la couverture dessinée ouvre un calque plein écran avec le lecteur Drive à la forme exacte de la vidéo.
@@ -137,7 +142,7 @@
   function home() {
     const nP = PEDI.filter(f => doneP(f.id)).length, vP = PEDI.reduce((s, f) => s + pctP(f), 0) / PEDI.length;
     const nA = AQ.filter(x => doneA(x.q)).length;
-    const last = S.last && PEDI.find(f => f.id === S.last.id);
+    const last = S.last && ALLF.find(f => f.id === S.last.id);
     const nextF = PEDI.find(f => !doneP(f.id) && f !== last);
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
@@ -145,15 +150,16 @@
       <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> 🧢<br><small>le dev</small></span></span>
         <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> 🚧<br><small>le cerveau</small></span></span></div>
       ${todayCard()}
-      ${last ? `<a class="card resume" href="#/pedi/${last.id}${S.last.k ? '/p' + S.last.k : ''}">${thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title)}
+      ${last ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
         <span class="rt"><span class="kicker">▶ REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
       <div class="sec">OÙ J'EN SUIS</div>
       <a class="card prog" href="#/pedi">${ring(vP, 'var(--p6)')}<span class="rt"><span class="t">Pédicurie</span><span class="s">${nP}/24 fiches sues · ${PEDI.reduce((s, f) => s + nSeen(f), 0)} parties lues</span>${bar(nP / 24, 'var(--p6)')}</span><span class="chev">›</span></a>
+      <a class="card prog" href="#/podo">${ring(PODO_OK.length ? PODO_OK.reduce((s, f) => s + pctP(f), 0) / PODO.length : 0, 'var(--p8)')}<span class="rt"><span class="t">Podologie</span><span class="s">${PODO_OK.filter(f => doneP(f.id)).length}/${PODO.length} fiches sues · ${PODO_OK.length} prête${PODO_OK.length > 1 ? 's' : ''}, les autres arrivent</span>${bar(PODO_OK.filter(f => doneP(f.id)).length / PODO.length, 'var(--p8)')}</span><span class="chev">›</span></a>
       <a class="card prog" href="#/anat">${ring(nA / AQ.length, 'var(--p1)')}<span class="rt"><span class="t">Anatomie palpatoire</span><span class="s">${nA}/${AQ.length} repères sus</span><span class="minis">${regs}</span></span><span class="chev">›</span></a>
       <a class="card prog" href="#/clin">${ring((nC(CL) + nB(BL)) / (CL.length + BL.length), 'var(--p4)')}<span class="rt"><span class="t">Examen clinique</span><span class="s">${nC(CL)}/${CL.length} tests · ${nB(BL)}/${BL.length} étapes du bilan</span>${bar((nC(CL) + nB(BL)) / (CL.length + BL.length), 'var(--p4)')}</span><span class="chev">›</span></a>
       <div class="sec">RÉVISER MAINTENANT</div>
       <div class="quick">
-        ${nextF ? `<a class="qb" href="#/pedi/${nextF.id}" style="--c:var(--p6)">${thumb(ill(nextF.id, 'cover'), nextF.title)}<span class="t">Fiche ${nextF.n}</span><span class="s">${esc(nextF.title)}</span></a>` : ''}
+        ${nextF ? `<a class="qb" href="${FB(nextF)}" style="--c:var(--p6)">${thumb(ill(nextF.id, 'cover'), nextF.title)}<span class="t">Fiche ${nextF.n}</span><span class="s">${esc(nextF.title)}</span></a>` : ''}
         <a class="qb" href="#/anat/quiz" style="--c:var(--p1)"><span class="em">🎯</span><span class="t">Je m'interroge</span><span class="s">un repère d'anatomie au hasard</span></a>
         <a class="qb" href="#/tirage" style="--c:var(--red)"><span class="em">🎲</span><span class="t">Tirage au sort</span><span class="s">comme le jour de l'oral</span></a>
         <a class="qb" href="#/plan" style="--c:var(--p3)">${thumb(ill('plan', 'board'), 'Le plan')}<span class="t">Le plan de l'oral</span><span class="s">les 8 questions</span></a>
@@ -209,8 +215,8 @@
   function streak() { const d = S.days || {}; let t = today(), n = 0; if (!d[t]) t--; while (d[t]) { n++; t--; } return n; }
   function todayCard() {
     const T = today(), e = examDay(), left = e != null ? e - T : null;
-    const dueF = dueKeys('f:').map(id => PEDI.find(f => f.id === id)).filter(Boolean), dueA = dueKeys('a:').length;
-    const fresh = PEDI.filter(f => !doneP(f.id) && !(S.rv || {})['f:' + f.id] && !(S.last && S.last.id === f.id));
+    const dueF = dueKeys('f:').map(id => ALLF.find(f => f.id === id)).filter(Boolean), dueA = dueKeys('a:').length;
+    const fresh = ALLF.filter(f => !doneP(f.id) && !(S.rv || {})['f:' + f.id] && !(S.last && S.last.id === f.id));
     const perDay = left > 1 ? Math.ceil(fresh.length / Math.max(1, left - 2)) : 0, nf = fresh[0], st = streak(), n = doneToday();
     const item = (href, em, t, sub) => `<a class="todo" href="${href}"><span class="em">${em}</span><span class="rt"><span class="t">${t}</span>${sub ? `<span class="s">${sub}</span>` : ''}</span><span class="chev">›</span></a>`;
     return `<div class="card today">
@@ -218,9 +224,9 @@
         <div class="streak" title="Jours d'affilée">🔥 ${st}<small>jour${st > 1 ? 's' : ''}</small></div></div>
       <div class="goal"><span>Objectif du jour : ${Math.min(n, GOAL)} / ${GOAL}</span>${bar(Math.min(1, n / GOAL), 'var(--p6)')}</div>
       <div class="todos">
-        ${dueF.map(f => item(`#/pedi/${f.id}/quiz`, '🔁', `À revoir : ${esc(f.title)}`, 'le quiz de la fiche')).join('')}
+        ${dueF.map(f => item(`${FB(f)}/quiz`, '🔁', `À revoir : ${esc(f.title)}`, 'le quiz de la fiche')).join('')}
         ${dueA ? item('#/anat/quiz', '🦴', `${dueA} repère${dueA > 1 ? 's' : ''} d'anatomie à revoir`, "Je m'interroge") : ''}
-        ${nf ? item(`#/pedi/${nf.id}`, '🆕', `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `pour tout voir avant l'oral : ${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour` : 'lis-la, puis fais son quiz') : ''}
+        ${nf ? item(`${FB(nf)}`, '🆕', `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `pour tout voir avant l'oral : ${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour` : 'lis-la, puis fais son quiz') : ''}
         ${!dueF.length && !dueA && !nf ? '<div class="muted small">Rien à revoir aujourd\'hui. Tire un sujet au sort pour t\'entraîner !</div>' : ''}
       </div>
       <div class="exam">📅 Mon oral : <input type="date" id="examdate" value="${S.exam || ''}" aria-label="Date de mon oral"></div></div>`;
@@ -273,6 +279,11 @@
       ['✏️', 'Chaque étape a son dessin : empreintes au podoscope, griffes, axe du talon, amplitudes, test de Jack…'],
       ['▶️', 'Des vidéos pour 6 étapes, et le mode test (l\'œil en haut) pour réciter.'],
     ] },
+    { v: 53, items: [
+      ['🦵', 'Nouveau : la podologie ! Les 40 fiches du livret, faites comme celles de pédicurie, à partir des vidéos.'],
+      ['✅', 'Déjà prêtes : 1. Atteintes ligamentaires du genou et 2. Les chaussures de l\'enfant, avec leurs dessins, leur quiz et le livret.'],
+      ['⏳', 'Les autres arrivent au fur et à mesure des vidéos. Elles sont sur l\'accueil, sous Pédicurie.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -293,8 +304,18 @@
     const nP = PEDI.filter(f => doneP(f.id)).length;
     return `<div class="wrap">${top('#/', 'Pédicurie · 24 fiches', count(nP, 24))}
       <div class="row2" style="margin:0 0 12px"><a class="btn ghost grow" href="#/search">🔎 Rechercher</a><a class="btn ghost grow" href="#/lexique">📖 Lexique (${(window.LEXIQUE || []).length})</a></div>
-      <div class="entries">${PEDI.map(f => `<a class="entry" href="#/pedi/${f.id}">${thumb(ill(f.id, 'cover'), f.title)}
+      <div class="entries">${PEDI.map(f => `<a class="entry" href="${FB(f)}">${thumb(ill(f.id, 'cover'), f.title)}
         <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div></div>`;
+  }
+
+  // podologie : les 40 fiches du livret ; celles dont la vidéo n'est pas encore finie sont « coming soon »
+  function podoList() {
+    const nP = PODO_OK.filter(f => doneP(f.id)).length;
+    return `<div class="wrap">${top('#/', `Podologie · ${PODO.length} fiches`, count(nP, PODO.length))}
+      <div class="muted lead">${PODO_OK.length} fiche${PODO_OK.length > 1 ? 's' : ''} prête${PODO_OK.length > 1 ? 's' : ''} : les autres arrivent au fur et à mesure des vidéos.</div>
+      <div class="entries">${PODO.map(f => f.ready ? `<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(ill(f.id, 'cover'), f.title) : `<span class="stamp xs" style="--c:var(--p8)">${f.n}</span>`}
+        <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`
+        : `<div class="entry soon"><span class="stamp xs">${f.n}</span><span class="rt"><span class="t">${esc(f.title)}</span><span class="n">⏳ Coming soon</span></span></div>`).join('')}</div></div>`;
   }
 
   // la fiche : où j'en suis, le bouton pour continuer, les outils, puis le plan
@@ -302,23 +323,23 @@
     const n = f.parts.length, k = nSeen(f), nextK = (f.parts.findIndex((_, i) => !seenP(f, i + 1)) + 1) || 1;
     if (!S.last || S.last.id !== f.id) { S.last = { id: f.id, k: 0 }; save(); }
     const tool = (href, em, label) => `<a class="tool" href="${href}"><span class="em">${em}</span><span>${label}</span></a>`;
-    const i = PEDI.indexOf(f), a = PEDI[i - 1], b = PEDI[i + 1];
-    return `<div class="wrap">${top('#/pedi', `Fiche ${f.n} / 24 · ${esc(f.catName)}`, count(k, n))}
-      <div class="fhead"><span class="drawn th zoomable">${img(ill(f.id, 'cover'), f.title)}</span><div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
-      <a class="btn wide" href="#/pedi/${f.id}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
-      <a class="btn wide quizbtn" href="#/pedi/${f.id}/quiz" style="--c:var(--p5)">🎯 Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
+    const L = LISTOF(f), i = L.indexOf(f), a = L[i - 1], b = L[i + 1];
+    return `<div class="wrap">${top('#/' + (f.sec || 'pedi'), `Fiche ${f.n} / ${NTOT(f)} · ${esc(f.catName)}`, count(k, n))}
+      <div class="fhead">${hasIll(f) ? `<span class="drawn th zoomable">${img(ill(f.id, 'cover'), f.title)}</span>` : `<span class="stamp" style="--c:var(--p8)">${f.n}</span>`}<div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
+      <a class="btn wide" href="${FB(f)}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
+      <a class="btn wide quizbtn" href="${FB(f)}/quiz" style="--c:var(--p5)">🎯 Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
       ${dueIn('f:' + f.id) != null ? `<div class="muted small center-t">${dueIn('f:' + f.id) <= 0 ? '🔁 À revoir aujourd\'hui' : `🔁 Prochaine révision dans ${dueIn('f:' + f.id)} jour${dueIn('f:' + f.id) > 1 ? 's' : ''}`}</div>` : ''}
       <div class="tools">
-        ${VIDEOS[f.id] ? tool(`#/pedi/${f.id}/video`, '▶️', 'Vidéo') : ''}
-        ${tool(`#/pedi/${f.id}/memo`, '📝', 'Mots-clés')}
-        ${f.photos.length ? tool(`#/pedi/${f.id}/photos`, '📷', 'Photos') : ''}
-        ${f.livret ? tool(`#/pedi/${f.id}/livret`, '📖', 'Livret') : ''}
+        ${VIDEOS[f.id] ? tool(`${FB(f)}/video`, '▶️', 'Vidéo') : ''}
+        ${tool(`${FB(f)}/memo`, '📝', 'Mots-clés')}
+        ${f.photos.length ? tool(`${FB(f)}/photos`, '📷', 'Photos') : ''}
+        ${f.livret ? tool(`${FB(f)}/livret`, '📖', 'Livret') : ''}
       </div>
       <div class="sec">${esc(f.planTitle || 'LE PLAN EN ' + n + ' PARTIES').toUpperCase()}</div>
-      <div class="entries">${f.parts.map((p, j) => `<a class="entry part-e" href="#/pedi/${f.id}/p${j + 1}" style="--c:${PCOL(j)}"><span class="stamp xs">${j + 1}</span>
-        <span class="rt"><span class="t">${esc(p.title)}</span><span class="q">${esc(p.q)}</span></span>${thumb(ill(f.id, `p${j + 1}b`), p.title)}${seenP(f, j + 1) ? '<span class="ok">✓</span>' : ''}</a>`).join('')}</div>
+      <div class="entries">${f.parts.map((p, j) => `<a class="entry part-e" href="${FB(f)}/p${j + 1}" style="--c:${PCOL(j)}"><span class="stamp xs">${j + 1}</span>
+        <span class="rt"><span class="t">${esc(p.title)}</span><span class="q">${esc(p.q)}</span></span>${hasIll(f) ? thumb(ill(f.id, `p${j + 1}b`), p.title) : ''}${seenP(f, j + 1) ? '<span class="ok">✓</span>' : ''}</a>`).join('')}</div>
       <button class="btn wide ${doneP(f.id) ? 'ghost' : ''}" id="done" style="--c:var(--p6);margin-top:18px">${doneP(f.id) ? 'Je dois encore la revoir' : '✓ Je la connais'}</button>
-      <div class="pair">${a ? `<a href="#/pedi/${a.id}">← Fiche ${a.n}</a>` : '<span></span>'}${b ? `<a href="#/pedi/${b.id}">Fiche ${b.n} →</a>` : ''}</div></div>`;
+      <div class="pair">${a ? `<a href="${FB(a)}">← Fiche ${a.n}</a>` : '<span></span>'}${b ? `<a href="${FB(b)}">Fiche ${b.n} →</a>` : ''}</div></div>`;
   }
 
   // une partie = un écran : le dessin de la vidéo, les points clés, ce que je dis
@@ -329,25 +350,25 @@
     st.seen = st.seen || []; if (!st.seen.includes(k)) st.seen.push(k);
     if (!(S.last && S.last.id === f.id && S.last.k === k)) did(1);
     S.last = { id: f.id, k }; save();
-    const prev = k > 1 ? `#/pedi/${f.id}/p${k - 1}` : `#/pedi/${f.id}`, next = k < n ? `#/pedi/${f.id}/p${k + 1}` : `#/pedi/${f.id}/memo`;
-    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
-      <nav class="segnav">${f.parts.map((_, i) => `<a href="#/pedi/${f.id}/p${i + 1}" class="${i + 1 === k ? 'on' : seenP(f, i + 1) ? 'seen' : ''}" style="--c:${PCOL(i)}">${i + 1}</a>`).join('')}</nav>
+    const prev = k > 1 ? `${FB(f)}/p${k - 1}` : `${FB(f)}`, next = k < n ? `${FB(f)}/p${k + 1}` : `${FB(f)}/memo`;
+    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
+      <nav class="segnav">${f.parts.map((_, i) => `<a href="${FB(f)}/p${i + 1}" class="${i + 1 === k ? 'on' : seenP(f, i + 1) ? 'seen' : ''}" style="--c:${PCOL(i)}">${i + 1}</a>`).join('')}</nav>
       <section class="part solo" style="--c:${c}">
         <header><span class="stamp sm">${k}</span><div><h2>${esc(p.title)}</h2><span class="q">${esc(p.q)}</span></div></header>
-        <figure class="drawn slide">${img(ill(f.id, `p${k}b`), p.title + ' : dessin de la vidéo', 'crop')}</figure>
+        ${hasIll(f) ? `<figure class="drawn slide">${img(ill(f.id, `p${k}b`), p.title + ' : dessin de la vidéo', 'crop')}</figure>` : ''}
         ${S.revise ? '<div class="hint">🙈 Mode test : récite, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
         <div class="body">${blocks(p.blocks)}</div>
         <details class="say"><summary>🗣 Ce que je dis à l'oral</summary><p>${md(p.say)}</p></details>
-        <a class="btn ghost wide" href="#/pedi/${f.id}/quiz/${k}" style="margin-top:14px">🎯 Me tester sur cette partie</a>
+        <a class="btn ghost wide" href="${FB(f)}/quiz/${k}" style="margin-top:14px">🎯 Me tester sur cette partie</a>
       </section>
       ${pager(prev, `<a class="btn grow" href="${next}" style="--c:${k < n ? PCOL(k) : 'var(--hl)'}">${k < n ? `Partie ${k + 1}` : 'Mots-clés'} →</a>`, next)}</div>`;
   }
 
   function memo(f) {
     const n = f.parts.length;
-    return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · mots-clés`)}<div class="muted lead">Une ligne par partie : récite à partir des mots-clés.</div>
-      <div class="sheet">${f.memo.map((r, i) => `<a class="row" href="#/pedi/${f.id}/p${i + 1}"><span class="n" style="color:${PCOL(i)}">${i + 1}.</span><span class="qq">${esc(r.q)}</span><span class="k"><span class="hl">${md(r.k)}</span></span></a>`).join('')}</div>
-      ${pager(`#/pedi/${f.id}/p${n}`, `<a class="btn grow" href="#/pedi/${f.id}/quiz" style="--c:var(--p5)">Quiz →</a>`, `#/pedi/${f.id}/quiz`)}</div>`;
+    return `<div class="wrap">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)} · mots-clés`)}<div class="muted lead">Une ligne par partie : récite à partir des mots-clés.</div>
+      <div class="sheet">${f.memo.map((r, i) => `<a class="row" href="${FB(f)}/p${i + 1}"><span class="n" style="color:${PCOL(i)}">${i + 1}.</span><span class="qq">${esc(r.q)}</span><span class="k"><span class="hl">${md(r.k)}</span></span></a>`).join('')}</div>
+      ${pager(`${FB(f)}/p${n}`, `<a class="btn grow" href="${FB(f)}/quiz" style="--c:var(--p5)">Quiz →</a>`, `${FB(f)}/quiz`)}</div>`;
   }
 
   // ---------- quiz d'apprentissage d'une fiche (data/quiz.js) ----------
@@ -381,7 +402,7 @@
   function quiz(f, c) {
     const key = c && f.parts[+c - 1] ? c : 'all';
     if (!Q || Q.id !== f.id || Q.key !== key) startQuiz(f, key, key === 'all' ? f.parts.map((_, i) => i + 1) : [+key]);
-    const back = key === 'all' ? `#/pedi/${f.id}` : `#/pedi/${f.id}/p${key}`;
+    const back = key === 'all' ? `${FB(f)}` : `${FB(f)}/p${key}`;
     const head = top(back, `${f.n}. ${esc(f.title)} · quiz`, Q.i < Q.steps.length ? count(Q.i + 1, Q.steps.length) : '');
     const bar = `<div class="qbar">${Q.steps.map((x, j) => `<i class="${j < Q.i ? 'on' : j === Q.i ? 'now' : ''}" style="--c:${x.t === 'f' ? 'var(--ink)' : PCOL(x.p - 1)}"></i>`).join('')}</div>`;
     if (Q.i >= Q.steps.length) return `<div class="wrap">${head}${quizEnd(f)}</div>`;
@@ -421,11 +442,11 @@
     if (Q.full && !Q.saved) { const z = S.qz = S.qz || {}, o = z[f.id] || {}; z[f.id] = { last: pc(v), best: Math.max(o.best || 0, pc(v)), at: Date.now() }; Q.saved = true; review('f:' + f.id, v >= 0.8); did(4); }
     const msg = v >= 0.9 ? 'Tu la connais ! Refais-la demain pour la garder.' : v >= 0.6 ? 'Presque : refais les parties en rouge.' : 'Normal au début : refais les parties en rouge, puis recommence demain.';
     return `<div class="card qend">${ring(v, v >= 0.9 ? 'var(--p6)' : v >= 0.6 ? 'var(--p4)' : 'var(--red)')}<div class="question">${msg}</div></div>
-      <div class="entries">${parts.map(p => { const r = Q.res[p], x = r.ok / r.tot; return `<a class="entry part-e" href="#/pedi/${f.id}/p${p}" style="--c:${PCOL(p - 1)}"><span class="stamp xs">${p}</span><span class="rt"><span class="t">${esc(f.parts[p - 1].title)}</span>${bar(x, x >= 0.8 ? 'var(--p6)' : 'var(--red)')}</span>${x >= 0.8 ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>
-      <div class="pager fixed">${weak.length ? `<button class="btn grow" data-qa="weak" data-w="${weak.join(',')}" style="--c:var(--hl)">↻ Refaire ${weak.length > 1 ? 'les ' + weak.length + ' parties ratées' : 'la partie ratée'}</button>` : `<button class="btn grow" data-qa="again" style="--c:var(--hl)">↻ Recommencer</button>`}<a class="btn ghost grow" href="#/pedi/${f.id}">Fiche</a></div>`;
+      <div class="entries">${parts.map(p => { const r = Q.res[p], x = r.ok / r.tot; return `<a class="entry part-e" href="${FB(f)}/p${p}" style="--c:${PCOL(p - 1)}"><span class="stamp xs">${p}</span><span class="rt"><span class="t">${esc(f.parts[p - 1].title)}</span>${bar(x, x >= 0.8 ? 'var(--p6)' : 'var(--red)')}</span>${x >= 0.8 ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>
+      <div class="pager fixed">${weak.length ? `<button class="btn grow" data-qa="weak" data-w="${weak.join(',')}" style="--c:var(--hl)">↻ Refaire ${weak.length > 1 ? 'les ' + weak.length + ' parties ratées' : 'la partie ratée'}</button>` : `<button class="btn grow" data-qa="again" style="--c:var(--hl)">↻ Recommencer</button>`}<a class="btn ghost grow" href="${FB(f)}">Fiche</a></div>`;
   }
   function quizAct(t) {
-    const st = Q && Q.steps[Q.i], j = +t.dataset.j, f = PEDI.find(x => x.id === Q.id);
+    const st = Q && Q.steps[Q.i], j = +t.dataset.j, f = ALLF.find(x => x.id === Q.id);
     switch (t.dataset.qa) {
       case 'show': st.shown = true; break;
       case 'yes': quizScore(st, 1); break;
@@ -445,19 +466,19 @@
   }
 
   function video(f) {
-    return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · vidéo`)}
-      ${frame(VIDEOS[f.id], 'Vidéo de la fiche', ill(f.id, 'cover'))}
+    return `<div class="wrap">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)} · vidéo`)}
+      ${frame(VIDEOS[f.id], 'Vidéo de la fiche', hasIll(f) ? ill(f.id, 'cover') : '')}
       <div class="muted lead" style="margin-top:12px">Regarde-la une fois en entier, puis reprends partie par partie.</div>
-      <a class="btn wide" href="#/pedi/${f.id}/p1">Partie 1 →</a></div>`;
+      <a class="btn wide" href="${FB(f)}/p1">Partie 1 →</a></div>`;
   }
   function photos(f) {
-    return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · photos`)}<div class="photos">${f.photos.map(p => `<figure class="photo"><img loading="lazy" src="${p.src}" alt="${esc(p.cap)}" ${RETRY}><figcaption>${esc(p.cap)}<small>${p.ln ? `<a href="${p.ln}" target="_blank" rel="noopener">${esc(p.cr)}</a>` : esc(p.cr)}</small></figcaption></figure>`).join('')}</div></div>`;
+    return `<div class="wrap">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)} · photos`)}<div class="photos">${f.photos.map(p => `<figure class="photo"><img loading="lazy" src="${p.src}" alt="${esc(p.cap)}" ${RETRY}><figcaption>${esc(p.cap)}<small>${p.ln ? `<a href="${p.ln}" target="_blank" rel="noopener">${esc(p.cr)}</a>` : esc(p.cr)}</small></figcaption></figure>`).join('')}</div></div>`;
   }
   function livret(f) {
-    return `<div class="wrap">${top(`#/pedi/${f.id}`, `${f.n}. ${esc(f.title)} · livret`)}<div class="livret">${f.livret}</div></div>`;
+    return `<div class="wrap">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)} · livret`)}<div class="livret">${f.livret}</div></div>`;
   }
-  function pedi(id, sub, c) {
-    const f = PEDI.find(x => x.id === id);
+  function pedi(id, sub, c, sec = 'pedi') {
+    const f = (sec === 'podo' ? PODO_OK : PEDI).find(x => x.id === id);
     if (!f) return notFound();
     if (!sub) return fiche(f);
     if (/^p\d+$/.test(sub)) return part(f, +sub.slice(1));
@@ -541,8 +562,8 @@
   function tirage() {
     const d = draw;
     return `<div class="wrap">${top('#/', 'Tirage au sort')}<div class="muted lead">Comme le jour de l'oral : 5 minutes pour préparer, puis tu présentes avec le plan.</div>
-      <div class="quick"><button class="qb" id="drawP" style="--c:var(--p6)"><span class="em">🎲</span><span class="t">Un sujet de pédicurie</span></button><button class="qb" id="drawA" style="--c:var(--p1)"><span class="em">🎲</span><span class="t">5 repères à palper</span></button></div>
-      ${d && d.kind === 'p' ? `<a class="card draw" href="#/pedi/${d.f.id}"><span class="stamp">${d.f.n}</span><div class="big">${esc(d.f.title)}</div><div class="muted">Touche pour ouvrir la fiche</div></a>` : ''}
+      <div class="quick"><button class="qb" id="drawP" style="--c:var(--p6)"><span class="em">🎲</span><span class="t">Un sujet de pédicurie</span></button>${PODO_OK.length ? `<button class="qb" id="drawO" style="--c:var(--p8)"><span class="em">🎲</span><span class="t">Un sujet de podologie</span><span class="s">parmi les ${PODO_OK.length} fiches prêtes</span></button>` : ''}<button class="qb" id="drawA" style="--c:var(--p1)"><span class="em">🎲</span><span class="t">5 repères à palper</span></button></div>
+      ${d && d.kind === 'p' ? `<a class="card draw" href="${FB(d.f)}"><span class="stamp">${d.f.n}</span><div class="big">${esc(d.f.title)}</div><div class="muted">Touche pour ouvrir la fiche</div></a>` : ''}
       ${d && d.kind === 'a' ? `<div class="entries" style="margin-top:16px">${d.list.map(x => `<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 52)}<span class="rt"><span class="n">Question ${x.q} · ${REG_SHORT[x.reg]}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`).join('')}</div>` : ''}</div>`;
   }
 
@@ -636,15 +657,15 @@
     return r.length ? `<dl class="lex">${r.map(([w, d]) => `<dt>${esc(w)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '<div class="empty">Aucun mot trouvé.</div>'; };
   function search() {
     return `<div class="wrap">${top('#/pedi', 'Rechercher')}<input class="search" id="sq" type="search" placeholder="verrue, ongle, Raynaud, monofilament…" autocomplete="off">
-      <div id="sres"><div class="muted small">Cherche dans les 24 fiches, les 59 repères d'anatomie, les tests d'examen clinique et le lexique.</div></div></div>`;
+      <div id="sres"><div class="muted small">Cherche dans les fiches de pédicurie et de podologie, les 59 repères d'anatomie, les tests d'examen clinique et le lexique.</div></div></div>`;
   }
   function searchRows(q) {
     const n = norm(q.trim()); if (n.length < 2) return '<div class="muted small">Tape au moins 2 lettres.</div>';
     const snip = (txt, k = 70) => { const t = String(txt).replace(/\*\*/g, ''), i = norm(t).indexOf(n); if (i < 0) return ''; const a = Math.max(0, i - k); return (a ? '…' : '') + esc(t.slice(a, i)) + '<mark>' + esc(t.slice(i, i + n.length)) + '</mark>' + esc(t.slice(i + n.length, i + n.length + k)) + '…'; };
     const out = [];
-    for (const f of PEDI) {
-      if (norm(f.title).includes(n)) out.push(`<a class="entry" href="#/pedi/${f.id}">${thumb(ill(f.id, 'cover'), f.title)}<span class="rt"><span class="n">FICHE ${f.n}</span><span class="t">${esc(f.title)}</span></span><span class="chev">›</span></a>`);
-      f.parts.forEach((p, i) => { const sn = snip(p.say); if (sn) out.push(`<a class="entry part-e" href="#/pedi/${f.id}/p${i + 1}" style="--c:${PCOL(i)}"><span class="stamp xs">${i + 1}</span><span class="rt"><span class="n">${f.n}. ${esc(f.title)} · ${esc(p.title)}</span><span class="s">${sn}</span></span></a>`); });
+    for (const f of ALLF) {
+      if (norm(f.title).includes(n)) out.push(`<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(ill(f.id, 'cover'), f.title) : ''}<span class="rt"><span class="n">${SECN(f).toUpperCase()} · FICHE ${f.n}</span><span class="t">${esc(f.title)}</span></span><span class="chev">›</span></a>`);
+      f.parts.forEach((p, i) => { const sn = snip(p.say); if (sn) out.push(`<a class="entry part-e" href="${FB(f)}/p${i + 1}" style="--c:${PCOL(i)}"><span class="stamp xs">${i + 1}</span><span class="rt"><span class="n">${f.n}. ${esc(f.title)} · ${esc(p.title)}</span><span class="s">${sn}</span></span></a>`); });
     }
     for (const x of AQ) if (norm(x.name).includes(n) || norm(x.how || '').includes(n)) out.push(`<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 44)}<span class="rt"><span class="n">ANATOMIE · Q${x.q}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`);
     CL.forEach((x, i) => { if (norm(x.n).includes(n) || norm(x.cherche).includes(n)) out.push(`<a class="entry" href="#/clin/${i + 1}" style="--c:${SCOL(x.s)}"><span class="cthumb">${pic(i + 1, 'mini')}</span><span class="rt"><span class="n">EXAMEN CLINIQUE · TEST ${i + 1}</span><span class="t">${esc(x.n)}</span></span><span class="chev">›</span></a>`); });
@@ -803,6 +824,7 @@
     let html;
     if (!sec) html = home();
     else if (sec === 'pedi') html = a ? pedi(a, b, c) : pediList();
+    else if (sec === 'podo') html = a ? pedi(a, b, c, 'podo') : podoList();
     else if (sec === 'plan') html = plan();
     else if (sec === 'anat') html = a === 'quiz' ? anatQuiz() : a === '3d' ? quiz3d() : a && !REG_ORDER.includes(a) ? anatItem(a) : anatList(a);
     else if (sec === 'clin') html = !a ? clinHub() : a === 'b' ? (b ? bilanStep(+b) : bilanList()) : a[0] === 's' ? clinSec(+a.slice(1) - 1) : clinTest(+a);
@@ -817,8 +839,8 @@
     if ($('#v3c')) start3d();
     document.body.classList.toggle('reading', !!$('#app .pager.fixed'));
     document.querySelectorAll('nav.tabs a').forEach(t => t.classList.toggle('on', t.dataset.s === (sec || '') || (t.dataset.s === 'tirage' && sec === 'plan')));
-    const f = PEDI.find(x => x.id === a);
-    document.title = sec === 'pedi' && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
+    const f = (sec === 'podo' ? PODO_OK : PEDI).find(x => x.id === a);
+    document.title = (sec === 'pedi' || sec === 'podo') && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, 0);
     showNote();
   }
@@ -863,6 +885,7 @@
     if (t.id === 'aknow') { S.anat[a] = !S.anat[a]; save(); render(); }
     if (t.id === 'qshow') { shown = true; render(); }
     if (t.id === 'qok' || t.id === 'qko') { S.anat[card.q] = t.id === 'qok'; review('a:' + card.q, t.id === 'qok'); card = null; render(); }
+    if (t.id === 'drawO') { draw = { kind: 'p', f: PODO_OK[Math.floor(Math.random() * PODO_OK.length)] }; render(); }
     if (t.id === 'drawP') { draw = { kind: 'p', f: PEDI[Math.floor(Math.random() * PEDI.length)] }; render(); }
     if (t.id === 'drawA') { const pool = AQ.slice().sort(() => Math.random() - 0.5); draw = { kind: 'a', list: pool.slice(0, 5).sort((x, y) => x.q - y.q) }; render(); }
   });

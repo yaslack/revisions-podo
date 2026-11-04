@@ -510,3 +510,50 @@ QUIZ.tumeurs = [
   { k: ["Autosurveillance de la peau", "Sujets à risque : suivi médical annuel à vie", "Lésion pigmentée qui saigne : mélanome ?", "Lésion traînante sur un orteil → biopsie", "Bande pigmentée > 4 mm + Hutchinson : mélanome unguéal"],
     q: ["Bande pigmentée de l'ongle évocatrice de mélanome ? | plus de 4 mm, avec le signe de Hutchinson || moins de 1 mm ; sur tous les ongles ; qui suit un choc"] },
 ];
+
+// ======================= PODOLOGIE =======================
+// 1. Atteintes ligamentaires du genou
+QUIZ['genou'] = [
+  { k: ["Blessures courantes : la stabilité du genou", "Traumatisme direct ou mouvement brusque", "Sports à changements de direction ou à impacts", "LCA, LCP, LCM, LCL"],
+    q: ["Les 4 ligaments les plus touchés ? | LCA (croisé antérieur) ; LCP (croisé postérieur) ; LCM (collatéral médial) ; LCL (collatéral latéral)",
+        "Ces blessures touchent surtout… | la stabilité du genou || la souplesse de la cheville ; le cartilage de la rotule ; la force du quadriceps"] },
+  { k: ["Traumatisme aigu : torsion, arrêt brusque, contact violent", "Football, basket, ski", "Sports à pivot, sauts, collisions", "Laxité ligamentaire, antécédents de blessure", "Femme : phase ovulatoire, hormones → laxité"],
+    q: ["Cite les facteurs de risque | sports à changements de direction, sauts, collisions ; laxité ligamentaire ou antécédents de blessure ; facteurs hormonaux",
+        "Chez la femme, le risque augmente… | pendant la phase ovulatoire || pendant les règles ; après la ménopause ; pendant la grossesse"] },
+  { k: ["Les ligaments limitent les mouvements excessifs et gardent l'alignement", "Rupture → déplacements anormaux, lésions secondaires (cartilage)", "LCA : retient le tibia vers l'avant, stabilise la flexion-extension", "LCP : retient le tibia vers l'arrière", "LCM et LCL : stabilité intérieur / extérieur"],
+    q: ["Le LCA empêche le tibia de glisser… | vers l'avant, par rapport au fémur || vers l'arrière ; vers l'intérieur ; vers l'extérieur",
+        "Rôle du LCM et du LCL ? | stabiliser l'intérieur et l'extérieur du genou, contre les mouvements latéraux excessifs"] },
+  { k: ["Douleur aiguë au moment de l'accident", "Œdème : le genou gonfle en quelques heures", "Instabilité : sensation de flottement (LCA)", "Limitation du mouvement, surtout en extension", "Craquement, bruit de rupture (LCA)"],
+    q: ["Les 5 signes à citer | douleur aiguë ; œdème rapide ; instabilité (flottement) ; difficulté à bouger, surtout en extension ; craquement au moment de l'accident"] },
+  { k: ["Examen clinique : tests de stabilité", "LCA : Lachman, tiroir antérieur", "LCP : tiroir postérieur", "Radio : exclure une fracture", "IRM : l'examen clé"],
+    q: ["Tests cliniques du LCA ? | test de Lachman ; tiroir antérieur",
+        "L'examen d'imagerie clé ? | l'IRM || la radiographie ; l'échographie ; le scanner",
+        "À quoi sert la radiographie ? | à exclure une fracture associée"] },
+  { k: ["Selon la gravité et l'activité du patient", "Conservateur : RICE, physiothérapie, genouillère", "Chirurgie si rupture complète (LCA) : greffe", "Rééducation : mobilité, force, stabilité"],
+    q: ["RICE, c'est quoi ? | repos ; glace ; compression ; élévation",
+        "Rupture complète du LCA : on fait… | une reconstruction chirurgicale par greffe || des infiltrations ; une immobilisation plâtrée seule ; rien, ça cicatrise seul"] },
+  { k: ["Dépend de la gravité, du traitement, de la rééducation", "Lésions bénignes : guérison avec conservateur", "Rupture du LCA : chirurgie + rééducation longue, plusieurs mois", "Sans traitement : instabilité chronique, douleurs, arthrose précoce"],
+    q: ["Sans traitement, on risque… | instabilité chronique ; douleurs persistantes ; arthrose précoce du genou"] },
+  { k: ["Équipements adaptés : protège-genoux", "Renforcement musculaire, proprioception, étirements", "Orthèses plantaires pour la stabilité", "Dépistage : suivi régulier des sportifs de haut niveau"],
+    q: ["Les moyens de prévention ? | protège-genoux ; renforcement musculaire ; proprioception ; étirements ; orthèses plantaires"] },
+];
+// 2. Les chaussures de l'enfant
+QUIZ['chaussures-enfant'] = [
+  { k: ["Rôle essentiel : développement et confort du pied", "Soutiennent la croissance et la posture", "Préviennent les blessures : l'enfant grandit vite", "Mauvaise chaussure → alignement, démarche, troubles musculosquelettiques"],
+    q: ["Les 3 rôles de la chaussure de l'enfant ? | soutenir la croissance ; maintenir une bonne posture ; prévenir les blessures"] },
+  { k: ["Croissance rapide, surtout de 0 à 3 ans", "Trop serrée ou trop large : douleurs, callosités, hallux valgus", "Inadaptée à l'activité (sport)", "Famille : pieds plats, hallux valgus ; sols durs"],
+    q: ["Le pied grandit le plus vite… | entre 0 et 3 ans || entre 6 et 10 ans ; à la puberté ; après 12 ans",
+        "Cite les facteurs de risque | croissance rapide ; chaussure trop serrée ou trop large ; inadaptée à l'activité ; antécédents familiaux et sols durs"] },
+  { k: ["Pied encore souple, en développement : vulnérable", "Trop rigide ou trop petite → déformations (pieds plats, griffes)", "Modifie la marche : genoux, hanches, colonne", "Frottements : ampoules, cors"],
+    q: ["Une chaussure trop rigide ou trop petite peut donner… | pieds plats ; orteils en griffe ; troubles de la marche et de la posture"] },
+  { k: ["Douleurs, gêne, ampoules à répétition", "Marche difficile, course maladroite", "Déformations : orteils tordus, pieds plats, enroulement", "Chaleur, humidité : mycoses, odeurs"],
+    q: ["Une chaussure mal aérée favorise… | les mycoses et les mauvaises odeurs || les entorses ; les fractures ; les verrues uniquement"] },
+  { k: ["Examen clinique : pédiatre ou podologue", "Croissance, alignement, déformations, peau", "Observer la démarche", "Mesurer le pied : longueur, largeur, profondeur (scanner 3D)"],
+    q: ["Les 3 mesures du pied ? | longueur ; largeur ; profondeur"] },
+  { k: ["Changer de chaussures : larges, confortables, voûte et talon soutenus", "Orthèses ou semelles sur mesure (pieds plats, déviations)", "Éduquer les parents : adaptées, ajustement vérifié"],
+    q: ["Les 3 axes de prise en charge ? | changer de chaussures ; orthèses ou semelles sur mesure ; éducation des parents"] },
+  { k: ["Généralement favorable si détecté et traité tôt", "Bonne chaussure : prévient ou corrige", "Non traité jeune : déformations permanentes, troubles posturaux"],
+    q: ["Le pronostic est… | favorable si c'est détecté et traité tôt || toujours mauvais ; sans importance ; meilleur sans chaussures"] },
+  { k: ["Respecter la forme du pied", "Voûte soutenue, semelle souple, stable", "Renouveler régulièrement", "Dépister tôt : pédiatre ou podologue"],
+    q: ["Les qualités d'une bonne chaussure d'enfant ? | respecte la forme du pied ; soutient la voûte ; semelle souple ; stable ; renouvelée avec la croissance"] },
+];

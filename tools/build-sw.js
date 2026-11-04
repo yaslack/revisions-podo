@@ -1,12 +1,12 @@
 // Écrit sw.js avec la liste exacte des fichiers du site, pour qu'il marche hors ligne. usage: node tools/build-sw.js VERSION
 const fs = require('fs'), path = require('path');
 const v = process.argv[2];
-global.window = {}; require(path.resolve('data/pedi.js')); require(path.resolve('data/anat.js'));
-const files = ['./', 'index.html', 'style.css', 'app.js', 'apple-touch-icon.png', 'data/pedi.js', 'data/anat.js', 'data/videos.js', 'data/quiz.js', 'data/anat3d.js', 'data/lexique.js', 'data/clinique.js', 'data/bilan.js', 'data/clinique-dessins.js', 'photos/equipe/yaya.jpg', 'photos/equipe/nono.jpg', 'fonts/fonts.css',
+global.window = {}; require(path.resolve('data/pedi.js')); require(path.resolve('data/podo.js')); require(path.resolve('data/anat.js'));
+const files = ['./', 'index.html', 'style.css', 'app.js', 'apple-touch-icon.png', 'data/pedi.js', 'data/podo.js', 'data/anat.js', 'data/videos.js', 'data/quiz.js', 'data/anat3d.js', 'data/lexique.js', 'data/clinique.js', 'data/bilan.js', 'data/clinique-dessins.js', 'photos/equipe/yaya.jpg', 'photos/equipe/nono.jpg', 'fonts/fonts.css',
   ...fs.readdirSync('fonts').filter(f => f.endsWith('.woff2')).map(f => 'fonts/' + f),
   ...new Set(window.PEDI.flatMap(f => f.photos.map(p => p.src))), ...Object.values(window.ANAT_PL).map(p => p.src),
   // dessins : couvertures et plan en avance ; ceux des parties se mettent en cache à la première ouverture
-  ...window.PEDI.map(f => `illus/${f.id}/cover.webp`), ...fs.readdirSync('illus/plan').map(f => 'illus/plan/' + f)];
+  ...window.PEDI.map(f => `illus/${f.id}/cover.webp`), ...window.PODO.filter(f => f.ill).map(f => `illus/${f.id}/cover.${f.ill}`), ...fs.readdirSync('illus/plan').map(f => 'illus/plan/' + f)];
 for (const f of files) if (f !== './' && !fs.existsSync(f)) throw new Error('fichier manquant : ' + f);
 fs.writeFileSync('sw.js', `// Révisions podo · service worker v${v} (généré par tools/build-sw.js) : page à jour quand il y a du réseau, cache sinon ; images depuis le cache.
 const CACHE = 'podo-v${v}';

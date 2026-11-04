@@ -1,7 +1,7 @@
 // Builds data/pedi.json from the video episodes (video-plan/episodes/NN-*/script.js + scenes.js).
 // The scenes are run with every drawing function replaced by a recorder, so the texts shown on screen come out in order,
 // part by part: notes (term + detail), chips, headings, card titles, badges and captions. The narration of each clip
-// comes from script.js. usage: node tools/extract-videos.js VIDEO_PLAN_DIR > data/pedi.json
+// comes from script.js. usage: node tools/extract-videos.js VIDEO_PLAN_DIR [MOTIF] > data/pedi.json
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const root = process.argv[2];
 const art = fs.readFileSync(path.join(root, 'js/art.js'), 'utf8');
@@ -50,6 +50,7 @@ function episode(dir) {
   return out;
 }
 
-const eps = fs.readdirSync(path.join(root, 'episodes')).filter(d => /^\d\d-/.test(d)).sort();
+const only = new RegExp(process.argv[3] || '^\\d\\d-');   // 2e argument : quels épisodes (ex. '^p0[12]-' pour la podologie)
+const eps = fs.readdirSync(path.join(root, 'episodes')).filter(d => only.test(d)).sort();
 const all = eps.map(d => episode(path.join(root, 'episodes', d)));
 process.stdout.write(JSON.stringify(all, null, 1));

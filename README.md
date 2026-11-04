@@ -38,3 +38,13 @@ node tools/build-sw.js VERSION && echo '{"v": "VERSION"}' > version.json
 ```
 
 `ANCIEN_INDEX.html` est l’`index.html` de la version 32 (`git show a4ceada:index.html`) : il contient le texte du livret, les photos et les fiches d’anatomie d’origine.
+
+## Podologie : ajouter une fiche quand sa vidéo est finie
+
+Les 40 fiches sont dans `data/podo.js` (généré). Une fiche s'ouvre dès que son épisode `pNN-…` est extrait ; les autres sont « coming soon ».
+1. Texte : `node tools/extract-videos.js VIDEO_PLAN '^p(01|02|03)-' > raw.json` (mettre tous les épisodes dont la vidéo est finie), puis `node tools/build-podo.js raw.json tools/src/livret-podo.txt`.
+2. Dessins, pris dans la vidéo finie (rien n'est relancé dans le projet vidéo) :
+   `node tools/podo-frames.js VIDEO_PLAN p03-… | swift tools/grab-frames.swift "~/Desktop/Podologie/03 - ….mp4" illus/<id>`, puis relancer `build-podo.js`.
+3. Quiz : ajouter `QUIZ['<id>']` en bas de `data/quiz.js` (une entrée par partie).
+4. Vidéo : son identifiant Drive dans `data/videos.js`.
+5. Nouvelle version : entrée dans `NOTES` (app.js), `?v=` dans `index.html`, `version.json`, `node tools/build-sw.js N`.

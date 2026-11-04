@@ -24,5 +24,7 @@ window.VIDEOS = {
  "onychodys": "1tXzj2WcY3iM_JGvcQc975Z0DhSnA2B-M",
  "dyschromies": "1WtAAdEkFS_L6EfJeGWeI7CejJWW22pj_",
  "smp": "1dPz_L-9sGBVWXJL5rIQHp0FVKX5Fn6zw",
- "tumeurs": "1nj_wf40oMDDjh2cC6WW_MxwDmpNu0moF"
+ "tumeurs": "1nj_wf40oMDDjh2cC6WW_MxwDmpNu0moF",
+ // podologie (dossier « video fiche podologie »)
+ "genou": "1gIDcQOesCvPBGqwzH-QKPjCdacBv-Ig0"
 };

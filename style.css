@@ -556,3 +556,8 @@ ul.res .midr::before { content: '~'; background: var(--p4); }
 ul.res .midr > .lab { color: var(--p4); }
 html[data-skin="classic"] .ctab { font-size: 15px; }
 html[data-skin="classic"] .ctab th { font-family: var(--hand); font-weight: 700; }
+
+/* ---------- podologie : fiches pas encore prêtes ---------- */
+.entry.soon { opacity: .55; cursor: default; }
+.entry.soon .stamp { --c: var(--muted); }
+.entry.soon .n { font-size: 13px; }
