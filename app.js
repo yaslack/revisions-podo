@@ -15,6 +15,38 @@
   let S = { pedi: {}, anat: {} };
   try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+  // Reprendre la progression de l'ancienne version du site (clé « podo:v2 », avec sa copie de secours dans IndexedDB) :
+  // une seule fois, en ajoutant sans rien effacer, et sans toucher à l'ancienne sauvegarde.
+  function fromOld(o) {
+    if (!o || typeof o !== 'object' || !o.cards) return false;
+    const b = id => ((o.cards[id] || {}).b || 0), KEYS = ['i', 'e', 'p', 's', 'd', 't', 'r', 'v'];
+    const pp = Object.keys(o.pp || {}), learn = o.learn || {}, pt = o.pt || {};
+    for (const f of PEDI) {
+      const L = learn[f.id] || {}, cur = S.pedi[f.id] = S.pedi[f.id] || {}, seen = new Set(cur.seen || []);
+      let all = f.parts.length === 8;
+      if (f.parts.length === 8) KEYS.forEach((k, i) => {
+        const lv = L[k] || 0, ptb = (pt[f.id + '|' + k] || {}).b || 0;
+        if (lv > 0 || ptb > 0 || b(f.id + '-' + k) > 0 || pp.some(x => x.startsWith(f.id + '|' + k + '|'))) seen.add(i + 1);
+        if (lv < 3 || ptb < 3) all = false;
+      });
+      if (seen.size) cur.seen = [...seen];
+      if (all) cur.done = true;
+      if (!Object.keys(cur).length) delete S.pedi[f.id];
+    }
+    // un repère est « su » si la moitié au moins de ses anciennes cartes l'étaient (niveau 2 ou plus)
+    for (const x of AQ) if (x.old && x.old.filter(id => b(id) >= 2).length >= Math.ceil(x.old.length / 2)) S.anat[x.q] = true;
+    return true;
+  }
+  if (!S.mig) {
+    let o = null; try { o = JSON.parse(localStorage.getItem('podo:v2')); } catch (e) {}
+    if (fromOld(o)) { S.mig = 1; save(); }
+    else try {   // localStorage effacé : la copie IndexedDB de l'ancienne version
+      const r = indexedDB.open('podo', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('kv');
+      r.onsuccess = () => { try { const g = r.result.transaction('kv', 'readonly').objectStore('kv').get('podo:v2');
+        g.onsuccess = () => { let v = null; try { v = JSON.parse(g.result); } catch (e) {} if (fromOld(v)) { S.mig = 1; save(); render(); } r.result.close(); }; } catch (e) {} };
+    } catch (e) {}
+  }
   const doneP = id => !!(S.pedi[id] && S.pedi[id].done);
   const doneA = q => !!S.anat[q];
   const seenP = (f, k) => doneP(f.id) || !!(S.pedi[f.id] && (S.pedi[f.id].seen || []).includes(k));
@@ -319,7 +351,7 @@
       ${[['Origine', x.o], ['Terminaison', x.t], ['Innervation', x.nerf], ['Action', x.act]].filter(r => r[1]).map(([l, v]) => `<span class="l">${l}</span><span>${md(v)}</span>`).join('')}</div></div>` : '';
     return `<div class="wrap">${top(`#/anat/${x.reg}`, `${REG_SHORT[x.reg]} · ${x.group}`, count(AQ.filter(y => doneA(y.q)).length, AQ.length))}
       <div class="fhead">${zoomThumb(x, 64)}<div class="rt"><div class="n" style="color:${c}">QUESTION ${x.q}</div><h1>${esc(x.name)}</h1></div></div>
-      <div class="fields">${f('Position du sujet', x.pos, 'var(--p1)')}${f('Comment le trouver', x.how, 'var(--p4)')}${f('Pour vérifier', x.chk, 'var(--p6)')}</div>
+      <div class="fields">${f('Position du sujet', x.pos, 'var(--p1)')}${f('Comment le trouver', x.how, 'var(--p4)')}${f('Pour vérifier', x.chk, 'var(--p6)')}${f("Ce qui s'y insère", x.ins, 'var(--p3)')}</div>
       ${mus}
       <div class="sec">SUR LA PLANCHE</div>${x.plates.map(p => plateHTML(p, x.name)).join('')}
       ${pager(a ? `#/anat/${a.q}` : '', `<button class="btn grow ${doneA(x.q) ? 'ghost' : ''}" id="aknow" style="--c:var(--p6)">${doneA(x.q) ? '✓ Su · à revoir ?' : 'Je sais le palper'}</button>`, b ? `#/anat/${b.q}` : '')}</div>`;
@@ -332,8 +364,8 @@
     const x = card, c = RCOL[x.reg], nA = AQ.filter(a => doneA(a.q)).length;
     return `<div class="wrap">${top(`#/anat/${x.reg}`, "Je m'interroge", count(nA, AQ.length))}${bar(nA / AQ.length, 'var(--p6)')}
       <div class="card draw"><span class="stamp" style="--c:${c}">${x.q}</span><div class="kicker" style="margin-top:12px">${esc(x.regName).toUpperCase()} · ${x.group.toUpperCase()}</div><div class="big">${esc(x.name)}</div>
-      <div class="muted">Position du sujet ? Comment le trouver ? Comment vérifier ?${x.o ? ' Origine, terminaison, nerf, action ?' : ''}</div>
-      ${shown ? `<div style="text-align:left;margin-top:16px" class="fields">${x.pos ? `<div class="tag" style="--c:var(--p1)"><div class="tt">Position</div>${md(x.pos)}</div>` : ''}<div class="tag" style="--c:var(--p4)"><div class="tt">Comment le trouver</div>${md(x.how)}</div>${x.chk ? `<div class="tag" style="--c:var(--p6)"><div class="tt">Vérifier</div>${md(x.chk)}</div>` : ''}${x.o ? `<div class="tag" style="--c:var(--p3)"><div class="tt">Identité</div><b>O :</b> ${md(x.o)}<br><b>T :</b> ${md(x.t)}<br><b>N :</b> ${md(x.nerf)}<br><b>A :</b> ${md(x.act)}</div>` : ''}</div>` : ''}
+      <div class="muted">Position du sujet ? Comment le trouver ? Comment vérifier ?${x.o ? ' Origine, terminaison, nerf, action ?' : ''}${x.ins ? " Qu'est-ce qui s'y insère ?" : ''}</div>
+      ${shown ? `<div style="text-align:left;margin-top:16px" class="fields">${x.pos ? `<div class="tag" style="--c:var(--p1)"><div class="tt">Position</div>${md(x.pos)}</div>` : ''}<div class="tag" style="--c:var(--p4)"><div class="tt">Comment le trouver</div>${md(x.how)}</div>${x.chk ? `<div class="tag" style="--c:var(--p6)"><div class="tt">Vérifier</div>${md(x.chk)}</div>` : ''}${x.ins ? `<div class="tag" style="--c:var(--p3)"><div class="tt">Ce qui s'y insère</div>${md(x.ins)}</div>` : ''}${x.o ? `<div class="tag" style="--c:var(--p3)"><div class="tt">Identité</div><b>O :</b> ${md(x.o)}<br><b>T :</b> ${md(x.t)}<br><b>N :</b> ${md(x.nerf)}<br><b>A :</b> ${md(x.act)}</div>` : ''}</div>` : ''}
       <div class="btns center"><a class="btn ghost" href="#/anat/${x.q}">Ouvrir la fiche</a></div></div>
       <div class="pager fixed">${shown ? `<button class="btn grow" id="qko" style="--c:#f6c3b9">À revoir</button><button class="btn grow" id="qok" style="--c:var(--p6)">✓ Je savais</button>` : `<button class="btn grow" id="qshow">Voir la réponse</button>`}</div></div>`;
   }

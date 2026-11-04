@@ -9,12 +9,13 @@ let i = L.findIndex(l => l.startsWith('const ANAT=[')), j = i; while (!L[j].star
 const A = JSON.parse('[' + L.slice(i + 1, j).join('\n').replace(/,\s*$/, '') + ']');
 const ART = JSON.parse(old.match(/const ANATART=(\{.*\});/)[1]);
 const NERFS = Function('return ' + old.slice(old.indexOf('const NERFS={') + 12, old.indexOf('};', old.indexOf('const NERFS={')) + 1))();
-const parc = {}, palp = {}, mus = {};
-for (const [, items] of A.find(x => x.id === 'a-parcours').parc) for (const [n, pos, how, chk] of items) parc[n] = { pos, how, chk };
-for (const f of A) { (f.palp || []).forEach(([n, x]) => (palp[n] = x)); (f.mus || []).forEach(m => (mus[m.n] = m)); }
+const parc = {}, palp = {}, mus = {}, oldId = {};
+// identifiants des cartes de l'ancien site (v32), pour reprendre la progression de ceux qui l'utilisaient
+A.find(x => x.id === 'a-parcours').parc.forEach(([, items], zi) => items.forEach(([n, pos, how, chk], ii) => { parc[n] = { pos, how, chk }; oldId['p:' + n] = ['a-parcours-x' + zi + '-' + ii]; }));
+for (const f of A) { (f.palp || []).forEach(([n, x]) => (palp[n] = x)); (f.mus || []).forEach((m, i) => { mus[m.n] = m; oldId['m:' + m.n] = ['p', 'o', 't', 'n', 'a'].map(k => f.id + '-m' + i + k); }); }
 const need = (o, k) => { if (!o[k]) throw new Error('source introuvable : ' + k); return o[k]; };
-const fromParc = k => ({ ...need(parc, k) });
-const fromMus = (k, extra = {}) => { const m = need(mus, k); const nf = NERFS[m.nf]; return { pos: '', how: m.p, chk: '', o: m.o, t: m.t, nerf: nf ? `${nf[0]} (${nf[1]})` + (m.nn ? ` · ${m.nn}` : '') : '', act: m.a, ...extra }; };
+const fromParc = k => ({ ...need(parc, k), old: oldId['p:' + k] });
+const fromMus = (k, extra = {}) => { const m = need(mus, k); const nf = NERFS[m.nf]; return { pos: '', how: m.p, chk: '', o: m.o, t: m.t, nerf: nf ? `${nf[0]} (${nf[1]})` + (m.nn ? ` · ${m.nn}` : '') : '', act: m.a, old: oldId['m:' + k], ...extra }; };
 
 // Classement demandé : région (pied, jambe, cuisse ; le bassin et la hanche vont avec la cuisse), puis os ou muscles.
 const R = { pied: 'Pied', jambe: 'Jambe', cuisse: 'Cuisse, hanche & bassin' };
@@ -133,6 +134,33 @@ const Q = [
   [60, '5e métatarsien', 'pied', 'os', fromParc('Base (tubérosité) du M5'), ['5e metatarsien']],
 ];
 
+// Os : les muscles (et ligaments) qui s'y insèrent, pour avoir quelque chose à dire quand on parle de l'os.
+const INS = {
+  1: "**Grand fessier** (une partie de son origine) ; ligaments sacro-iliaques postérieurs et sacro-tubéral.",
+  2: "**Obliques externe et interne**, **transverse** de l'abdomen, **grand dorsal**, **carré des lombes** ; en avant, le **TFL**.",
+  3: "**Sartorius** et **tenseur du fascia lata** ; le **ligament inguinal**.",
+  4: "**Moyen fessier** et **petit fessier**, **piriforme**, **obturateur interne et jumeaux** ; en dessous, origine du **vaste latéral**.",
+  16: "En haut, le **tendon du quadriceps** (droit fémoral + 3 vastes) ; en bas, le **ligament patellaire** ; sur les côtés, les rétinaculums.",
+  17: "Le **ligament patellaire** : terminaison de tout l'appareil extenseur du **quadriceps**.",
+  18: "**Biceps fémoral** ; **ligament collatéral fibulaire** du genou ; origine du **long fibulaire** et d'une partie du **soléaire**.",
+  19: "Le **tractus ilio-tibial** (fascia lata tendu par le **TFL** et le **grand fessier**) ; quelques fibres du **tibial antérieur**.",
+  28: "En avant, l'origine du **court extenseur des orteils** ; dedans, les ligaments **talo-calcanéen interosseux** et **cervical** ; le rétinaculum des extenseurs.",
+  29: "**Aucun muscle** ne s'insère sur le talus ! Seulement des ligaments (talo-fibulaires, deltoïdien) ; les tendons des extenseurs passent devant.",
+  30: "**Aucun muscle** (le talus n'a pas d'insertion musculaire) ; la capsule talo-crurale et le ligament talo-naviculaire.",
+  31: "Base de P1 : **abducteur** et **adducteur de l'hallux**, **court extenseur de l'hallux** ; dessous, le **court fléchisseur** (par les sésamoïdes) ; les tendons des **longs extenseur et fléchisseur** passent vers P2.",
+  32: "Base : **long fibulaire** (en dessous, en dehors) et **tibial antérieur** (en dedans) ; origine du **1er interosseux dorsal**.",
+  33: "**Tibial antérieur** (face médiale) et **long fibulaire** (face plantaire) ; des expansions du **tibial postérieur**.",
+  34: "Le **tibial postérieur** (sa terminaison principale) ; le ligament calcanéo-naviculaire plantaire (spring ligament).",
+  35: "Le **ligament deltoïdien** (collatéral médial) ; derrière elle passent le **tibial postérieur** et le **long fléchisseur des orteils**.",
+  36: "Dessous passe le **long fléchisseur de l'hallux** ; s'y attachent le **ligament calcanéo-naviculaire plantaire** et le faisceau tibio-calcanéen du deltoïdien.",
+  37: "Le **long fibulaire** passe dans sa gouttière plantaire ; expansions du **tibial postérieur** ; ligaments plantaires (long ligament plantaire).",
+  38: "Elle sépare le **court fibulaire** (au-dessus) du **long fibulaire** (en dessous) ; le rétinaculum inférieur des fibulaires s'y fixe.",
+  39: "Le **ligament collatéral latéral** (talo-fibulaire antérieur, calcanéo-fibulaire, talo-fibulaire postérieur) ; derrière passent le **long** et le **court fibulaire**.",
+  40: "Origine de l'**abducteur de l'hallux**, du **court fléchisseur des orteils** et de l'**aponévrose plantaire** (le tendon calcanéen est juste au-dessus, en arrière).",
+  41: "Les deux chefs du **court fléchisseur de l'hallux** ; l'**abducteur** (médial) et l'**adducteur de l'hallux** (latéral) ; le **long fléchisseur de l'hallux** passe entre eux.",
+  59: "Origine des **1er et 2e interosseux dorsaux** ; le chef oblique de l'**adducteur de l'hallux** ; expansions du **tibial postérieur** à la base.",
+  60: "Base (styloïde) : **court fibulaire** ; face dorsale : **3e fibulaire** ; origine du **court fléchisseur** et de l'**opposant du 5e** ; l'**abducteur du 5e** ; interosseux.",
+};
 const N = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const order = k => (k.startsWith('r-parcours') ? 0 : k.startsWith('r-') ? 1 : 2);
 const used = new Set();
@@ -144,7 +172,7 @@ const ANAT_Q = Q.map(([q, name, reg, kind, c, keys]) => {
   }
   plates.splice(3);
   plates.forEach(p => used.add(p.pl));
-  return { q, name, reg: REG[reg], regName: R[REG[reg]], kind, group: GROUP[kind], ...c, plates };
+  return { q, name, reg: REG[reg], regName: R[REG[reg]], kind, group: GROUP[kind], ...c, ...(INS[q] ? { ins: INS[q] } : {}), plates };
 });
 const ANAT_PL = Object.fromEntries([...used].map(k => [k, ART[k]]));
 fs.mkdirSync('data', { recursive: true });
@@ -152,3 +180,4 @@ fs.writeFileSync('data/anat.js', '// Généré par tools/build-anat.js : les 59 
 const none = ANAT_Q.filter(x => !x.plates.length).map(x => 'Q' + x.q + ' ' + x.name);
 console.log(ANAT_Q.length, 'questions,', used.size, 'planches utilisées,', Math.round(fs.statSync('data/anat.js').size / 1024), 'Ko');
 console.log('sans planche :', none.join(' | ') || 'aucune');
+const noIns = ANAT_Q.filter(x => x.group === 'Os' && !x.ins).map(x => x.q); if (noIns.length) throw new Error('os sans insertions : ' + noIns);
