@@ -130,7 +130,9 @@
     const nextF = PEDI.find(f => !doneP(f.id) && f !== last);
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
-      <div class="kicker">ORAL UEM · PÉDICURIE-PODOLOGIE</div><h1>Mes révisions</h1>
+      <header class="brand"><h1>Podo<span>Prépa</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
+      <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> 🧢<br><small>le dev</small></span></span>
+        <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="Nono"><span><b>Nono</b> 🚧<br><small>l'aide</small></span></span></div>
       ${todayCard()}
       ${last ? `<a class="card resume" href="#/pedi/${last.id}${S.last.k ? '/p' + S.last.k : ''}">${thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title)}
         <span class="rt"><span class="kicker">▶ REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
@@ -253,6 +255,7 @@
     ] },
     { v: 51, items: [
       ['✏️', 'Examen clinique : tous les dessins des tests ont été refaits, plus clairs, avec les mains du praticien et des gros plans sur le genou, la cheville et le pied.'],
+      ['🧢', 'L\'appli s\'appelle PodoPrépa, et tu peux voir qui l\'a faite : Yaya et Nono, en haut de l\'accueil.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -770,7 +773,7 @@
   // toucher un dessin ou une planche : plein écran (on peut zoomer avec les doigts), toucher encore pour fermer
   document.addEventListener('click', e => {
     const im = e.target.closest('.slide img, .zoomable img, .plate img');
-    if (im) { e.preventDefault(); const z = document.createElement('div'); z.className = 'zoom'; z.innerHTML = `<img src="${im.getAttribute('src')}" alt=""><span>Toucher pour fermer</span>`; z.onclick = () => z.remove(); document.body.appendChild(z); return; }
+    if (im) { e.preventDefault(); const z = document.createElement('div'); z.className = 'zoom' + (im.dataset.full ? ' tall' : ''); z.innerHTML = `<img src="${im.dataset.full || im.getAttribute('src')}" alt=""><span>Toucher pour fermer</span>`; z.onclick = () => z.remove(); document.body.appendChild(z); return; }
   }, true);
   document.addEventListener('click', e => {
     const t = e.target.closest('button, .revise .part .body li, .revise .part .body .chip, .revise .part .body .badge');
