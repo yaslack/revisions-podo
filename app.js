@@ -91,8 +91,8 @@
   const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
   // vidéo Drive : la couverture dessinée ouvre un calque plein écran avec le lecteur Drive à la forme exacte de la vidéo.
-  // Drive recadre (zoome) son lecteur sous ~560 px de large : en portrait on demande de tourner le téléphone.
-  // Pas de transformation CSS sur le lecteur (c'est ce qui ramait) ; on le supprime en fermant, pour que rien ne tourne après.
+  // Drive recadre son image et grossit ses commandes dans un petit cadre : le lecteur est dessiné plus grand puis réduit
+  // (fitLayer). Il est seul dans le calque (rien ne défile dessous) et supprimé en fermant, pour que rien ne tourne après.
   const frame = (id, t, poster) => `<button class="video vposter" data-vid="${id}" style="background-image:url(${poster})" aria-label="${t}">
     <span class="play">▶</span><span class="vtxt">Regarder la vidéo</span></button>`;
   function openVideo(id) {
@@ -103,9 +103,18 @@
       <button class="vclose" id="vclose" aria-label="Fermer la vidéo">✕</button>
       <a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`;
     document.body.appendChild(d); document.body.classList.add('vopen');
+    fitLayer(); window.addEventListener('resize', fitLayer);
     try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
   }
+  // le lecteur est dessiné à 800 px de large au moins, puis réduit : Drive garde ses commandes de taille normale
+  // (sur iPhone il les agrandit dans un petit cadre) et montre l'image entière, même en portrait
+  function fitLayer() {
+    const d = $('.vlayer'), f = d && d.querySelector('iframe'); if (!f) return;
+    const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = Math.max(fw, 800), k = fw / VW;
+    Object.assign(f.style, { width: VW + 'px', height: VW * 9 / 16 + 'px', left: (W - fw) / 2 + 'px', top: (H - fh) / 2 + 'px', transform: k < 1 ? `scale(${k})` : '' });
+  }
   function closeVideo() {
+    window.removeEventListener('resize', fitLayer);
     const d = $('.vlayer'); if (!d) return;
     d.querySelector('iframe').src = 'about:blank'; d.remove(); document.body.classList.remove('vopen');
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
