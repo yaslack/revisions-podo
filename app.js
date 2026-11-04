@@ -133,6 +133,8 @@
       <div class="skin"><button class="btn ghost" id="bkcopy">📋 Copier mon code</button><button class="btn ghost" id="bkopen">Restaurer</button></div>
       <div id="bkzone" hidden><textarea id="bkta" rows="3" placeholder="Colle ton code ici"></textarea><button class="btn" id="bkload" style="--c:var(--hl)">Restaurer ce code</button></div>
       <div class="muted small" id="bkmsg"></div>
+      <div class="lbl">Mise à jour</div><div class="skin"><span class="muted small" style="margin:0">Version ${APP_V}</span><button class="btn ghost" id="upcheck">🔄 Vérifier</button></div>
+      <div class="muted small" id="upmsg"></div>
       <div class="lbl">Partager</div><div class="skin"><button class="btn" id="share" style="--c:var(--hl)">📤 Partager l'appli à un ami</button></div>
       <div class="muted small" id="shmsg">Chacun garde sa propre progression sur son téléphone.</div>
       ${matchMedia('(display-mode: standalone)').matches || navigator.standalone ? '' : `<div class="lbl">L'installer comme une appli</div><div class="muted small">Sur iPhone : ouvre le site dans Safari, touche Partager puis « Sur l'écran d'accueil ». Sur Android : menu ⋮ puis « Ajouter à l'écran d'accueil ». Elle marche ensuite sans réseau.</div>`}</div>`;
@@ -184,6 +186,22 @@
       </div>
       <div class="exam">📅 Mon oral : <input type="date" id="examdate" value="${S.exam || ''}" aria-label="Date de mon oral"></div></div>`;
   }
+
+  // ---------- mise à jour : la version de ce téléphone (le ?v= de app.js) contre celle du site (version.json) ----------
+  const APP_V = +((document.querySelector('script[src*="app.js"]') || {}).src || '').replace(/.*[?&]v=(\d+).*/, '$1') || 0;
+  const latestV = () => fetch('version.json?t=' + Date.now(), { cache: 'no-store' }).then(r => r.json()).then(j => +j.v).catch(() => 0);
+  async function applyUpdate() {   // nouveau service worker, caches vidés, puis on recharge : la progression n'est pas touchée
+    try { const r = navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if (r) await r.update(); } catch (e) {}
+    try { for (const k of await caches.keys()) await caches.delete(k); } catch (e) {}
+    location.reload();
+  }
+  function upBanner(v) {
+    if ($('.upbar') || !v || v <= APP_V) return;
+    const d = document.createElement('div'); d.className = 'upbar';
+    d.innerHTML = `<span>Une mise à jour est disponible (version ${v}).</span><button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button><button class="upx" id="upx" aria-label="Plus tard">✕</button>`;
+    document.body.appendChild(d);
+  }
+  setTimeout(() => latestV().then(upBanner), 2500);
 
   // ---------- quoi de neuf : affiché une fois après une mise à jour, seulement à ceux qui utilisaient déjà le site ----------
   // Pour une nouvelle version : ajouter une entrée { v, items } à la fin (v = numéro de version.json).
@@ -687,6 +705,9 @@
       else copy();
       return;
     }
+    if (t.id === 'upcheck') { const m = $('#upmsg'); m.textContent = 'Vérification…'; latestV().then(v => { if (!v) m.textContent = 'Pas de réseau : réessaie plus tard.'; else if (v > APP_V) { m.innerHTML = `Version ${v} disponible. <button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button>`; } else m.textContent = 'Tu as la dernière version ✓'; }); return; }
+    if (t.id === 'upgo') { t.textContent = 'Mise à jour…'; applyUpdate(); return; }
+    if (t.id === 'upx') { t.closest('.upbar').remove(); return; }
     if (t.id === 'bkopen') { $('#bkzone').hidden = false; $('#bkta').value = ''; $('#bkta').focus(); return; }
     if (t.id === 'bkload') { try { fromCode($('#bkta').value); save(); setSkin(); render(); const m = $('#bkmsg'); if (m) m.textContent = 'Progression restaurée ✓'; } catch (er) { $('#bkmsg').textContent = "Ce code n'est pas valide : vérifie que tu l'as collé en entier."; } return; }
     if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; if (t.closest('.note')) closeNote(); save(); setSkin(); render(); return; }

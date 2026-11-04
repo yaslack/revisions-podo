@@ -453,3 +453,11 @@ mark { background: var(--hl); color: #25232d; border-radius: 3px; padding: 0 2px
 html[data-skin="classic"] :is(.exam input, .search, .sets textarea) { border: 1px solid var(--line); font-family: var(--hand); }
 html[data-skin="classic"] .todo { border: 1px solid var(--line); }
 html[data-skin="classic"] .big3 { font-weight: 700; }
+
+/* bandeau « mise à jour disponible » */
+.upbar { position: fixed; left: 10px; right: 10px; top: calc(10px + env(safe-area-inset-top)); z-index: 40; display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+  background: var(--card); border: 2.5px solid var(--ink); border-radius: 14px; box-shadow: 3px 5px 0 rgba(37,35,45,.2); font-size: 18px; line-height: 1.2; }
+.upbar span { flex: 1; }
+.upbar .btn { padding: 7px 12px; font-size: 15px; }
+.upx { border: 0; background: none; font-size: 18px; color: var(--muted); padding: 4px; }
+html[data-skin="classic"] .upbar { border: 1px solid var(--line); box-shadow: var(--shade); font-size: 15px; }
