@@ -44,6 +44,8 @@
   const ill = (id, name) => `illus/${id}/${name}.webp`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" onerror="this.closest('.drawn')?this.closest('.drawn').remove():this.remove()">`;
 
+  const frame = (id, t) => `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="${t}"></iframe>`;
+
   function home() {
     const nP = PEDI.filter(f => doneP(f.id)).length, nA = AQ.filter(x => doneA(x.q)).length;
     const last = S.last && PEDI.find(f => f.id === S.last.id);
@@ -76,7 +78,7 @@
     if (!S.last || S.last.id !== f.id) { S.last = { id: f.id, k: 0 }; save(); }
     return `<div class="wrap">${top('#/pedi', `FICHE ${f.n} / 24 · ${esc(f.catName).toUpperCase()}`)}
       <div class="hero"><span class="stamp">${f.n}</span><div><h1>${esc(f.title)}</h1><div class="sub">${esc(f.catName)} · ${n} parties · mots-clés · quiz</div></div></div>
-      ${vid ? `<div class="video"><iframe src="https://drive.google.com/file/d/${vid}/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="Vidéo de la fiche"></iframe></div>`
+      ${vid ? `<div class="video">${frame(vid, 'Vidéo de la fiche')}</div>`
             : `<div class="drawn big">${img(ill(f.id, 'cover'), f.title)}</div>`}
       <h2 class="space">${esc(f.planTitle || 'Le plan en ' + n + ' parties')}</h2>
       <div class="board drawn-board">${f.parts.map((p, i) => `<a class="pcard" href="#/pedi/${f.id}/p${i + 1}" style="--c:${PCOL(i)}">
@@ -143,7 +145,7 @@
   function plan() {
     const P = window.PLAN_ORAL || [];
     return `<div class="wrap">${top('#/', 'MÉTHODE')}<h1>Le plan de l'oral</h1><div class="muted space-s">Pour chaque sujet, on déroule les mêmes 8 questions, dans le même ordre.</div>
-      <div class="drawn big">${img(ill('plan', 'board'), 'Le plan en 8 questions')}</div>
+      ${VIDEOS.plan ? `<div class="video">${frame(VIDEOS.plan, 'Vidéo : le plan de l’oral')}</div>` : `<div class="drawn big">${img(ill('plan', 'board'), 'Le plan en 8 questions')}</div>`}
       ${P.map((p, i) => `<section class="part solo" id="p${i + 1}" style="--c:${PCOL(i)}"><header><span class="stamp">${i + 1}</span><div><h2>${esc(p.title)}</h2><span class="q hl">${esc(p.q)}</span></div></header>
         <figure class="drawn slide">${img(ill('plan', `p${i + 1}b`), p.title, 'crop')}</figure>
         <details class="say"><summary>🗣 Ce qu'on attend dans cette partie</summary><p>${md(p.say)}</p></details></section>`).join('')}</div>`;

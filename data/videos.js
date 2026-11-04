@@ -1,3 +1,28 @@
-// Vidéo de chaque fiche : identifiant du fichier Google Drive (partagé « tous les utilisateurs disposant du lien »).
-// Exemple : window.VIDEOS = { verrues: '1AbC…' }; une fiche sans identifiant n'affiche pas de vidéo.
-window.VIDEOS = {};
+// Vidéo de chaque fiche : identifiant du fichier Google Drive (dossier partagé « tous les utilisateurs disposant du lien »).
+window.VIDEOS = {
+ "plan": "1dMmkyZ9lRRIJARmA-zEPxMi4M6tAOxzI",
+ "verrues": "1PgsZw2-I_lKR5jH8sKa1xukas7Q7vMn5",
+ "onychomycoses": "1fbZfbS58sd6B-bFB1iMnRkB107lqlZzV",
+ "antifongiques": "1sX1tL3gh5wzgP3Wcmx3lFmEtmG8o6ym-",
+ "hematome": "1SqYccUlCGLa4n8BiwT-tZeuyuIYwUxd1",
+ "ains": "1iRA6V2iP5yA524LHMy_cLIdDIF6ETlFl",
+ "antiseptiques": "1PEa5xoz8I3h4yvkQcgUYvNAAuGxMkVln",
+ "mycoses": "1huS7wXIhjy9ZGePgB3J62RO3ggYCzOq_",
+ "hyperkeratoses": "11cOC4mTlOBGOHPuH_rakxJKqtG2-fvVc",
+ "phlyctenes": "1rnv1hIhmTD1m69q4ox_d8GBNFDDmPs9e",
+ "mpp": "1dcetpUAFSITH_d9P2gL0eptBa2RR_sWD",
+ "aomi": "1--stu_bT-g00D7SEohOREe5A9Mw8eT1a",
+ "phlebite": "1kBxxVOrGEOciD5OzGL3M_Xm0Bu7fXH1Q",
+ "varices": "19eFcP8Frl2m3CMJWaBMsptkpmp6z6oCa",
+ "erysipele": "1taNhTovH6KiQoxR7LH9ItwREMjKw8I3s",
+ "eczema": "1l_1cvW4zTuKuU2XiqRZ_5GU0woGKAAZr",
+ "psoriasis": "106TGDB8KytScDDjLr9-DPY5KYGbFo41D",
+ "dyshidrose": "19gP4wK_2YbCFFTS68MeS4e4H4IUgxsXg",
+ "sudoraux": "1DZWbjy5avDtRaL8BOuYcwctl3yvtnulH",
+ "raynaud": "1HW4lX0Tao_aJcHUWvkPsjq0FsF22u2qW",
+ "gelures": "1-qb1Ua89rvwble3q4bbOX5wb4YAnSm3b",
+ "onychodys": "1tXzj2WcY3iM_JGvcQc975Z0DhSnA2B-M",
+ "dyschromies": "1WtAAdEkFS_L6EfJeGWeI7CejJWW22pj_",
+ "smp": "1dPz_L-9sGBVWXJL5rIQHp0FVKX5Fn6zw",
+ "tumeurs": "1nj_wf40oMDDjh2cC6WW_MxwDmpNu0moF"
+};
