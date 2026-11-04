@@ -90,11 +90,26 @@
   // une image qui ne charge pas (réseau du téléphone) : on réessaie une fois, puis on retire son cadre
   const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
-  // vidéo : la couverture dessinée ouvre la vidéo dans Google Drive (l'appli Drive sur téléphone), avec le lecteur du
-  // téléphone, le plein écran et le choix de la qualité. Drive refuse d'être lu directement par une page web, et son
-  // lecteur intégré rame et mélange ses commandes avec celles du téléphone : on ne l'intègre donc plus.
-  const frame = (id, t, poster) => `<a class="video vposter" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener" style="background-image:url(${poster})" aria-label="${t} : ouvrir dans Google Drive">
-    <span class="play">▶</span><span class="vtxt">Regarder · s'ouvre dans Google Drive</span></a>`;
+  // vidéo Drive : la couverture dessinée ouvre un calque plein écran avec le lecteur Drive à la forme exacte de la vidéo.
+  // Drive recadre (zoome) son lecteur sous ~560 px de large : en portrait on demande de tourner le téléphone.
+  // Pas de transformation CSS sur le lecteur (c'est ce qui ramait) ; on le supprime en fermant, pour que rien ne tourne après.
+  const frame = (id, t, poster) => `<button class="video vposter" data-vid="${id}" style="background-image:url(${poster})" aria-label="${t}">
+    <span class="play">▶</span><span class="vtxt">Regarder la vidéo</span></button>`;
+  function openVideo(id) {
+    closeVideo();
+    const d = document.createElement('div'); d.className = 'vlayer';
+    d.innerHTML = `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen" allowfullscreen title="Vidéo"></iframe>
+      <div class="vrot">📱↻ Tourne ton téléphone pour voir la vidéo en grand.</div>
+      <button class="vclose" id="vclose" aria-label="Fermer la vidéo">✕</button>
+      <a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`;
+    document.body.appendChild(d); document.body.classList.add('vopen');
+    try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
+  }
+  function closeVideo() {
+    const d = $('.vlayer'); if (!d) return;
+    d.querySelector('iframe').src = 'about:blank'; d.remove(); document.body.classList.remove('vopen');
+    try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+  }
   const thumb = (src, alt) => `<span class="drawn th">${img(src, alt)}</span>`;
 
   // ---------- accueil : où j'en suis, et quoi faire maintenant ----------
@@ -674,6 +689,7 @@
     else if (sec === 'search') html = search();
     else html = notFound();
     if (V3) { V3.dispose(); V3 = null; }
+    closeVideo();
     $('#app').innerHTML = html;
     document.body.classList.toggle('v3on', !!$('#v3c'));
     if ($('#v3c')) start3d();
@@ -705,6 +721,8 @@
       else copy();
       return;
     }
+    if (t.dataset.vid) { openVideo(t.dataset.vid); return; }
+    if (t.id === 'vclose') { closeVideo(); return; }
     if (t.id === 'upcheck') { const m = $('#upmsg'); m.textContent = 'Vérification…'; latestV().then(v => { if (!v) m.textContent = 'Pas de réseau : réessaie plus tard.'; else if (v > APP_V) { m.innerHTML = `Version ${v} disponible. <button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button>`; } else m.textContent = 'Tu as la dernière version ✓'; }); return; }
     if (t.id === 'upgo') { t.textContent = 'Mise à jour…'; applyUpdate(); return; }
     if (t.id === 'upx') { t.closest('.upbar').remove(); return; }
