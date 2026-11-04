@@ -474,24 +474,19 @@ body.vopen { overflow: hidden; }
 @media (orientation: landscape) { .vdrive { display: none; } }
 
 /* ---------- examen clinique ---------- */
-.cpic, .mini { display: block; overflow: visible; width: 100%; height: auto; }
-:is(.cpic, .mini) .al { stroke: var(--c); stroke-width: 3.5; fill: none; }
-:is(.cpic, .mini) .ah { fill: var(--c); stroke: none; }
-:is(.cpic, .mini) .ds { stroke: var(--c); stroke-width: 2.2; stroke-dasharray: 5 5; fill: none; }
-:is(.cpic, .mini) .zn { fill: color-mix(in srgb, var(--c) 22%, transparent); stroke: var(--c); stroke-width: 2; stroke-dasharray: 4 3; }
+.cpic, .mini { display: block; overflow: hidden; width: 100%; height: auto; }
+:is(.cpic, .mini) :is(.al, .halo, .ds, .zn, .pt, .fl, .pn, .ey) { vector-effect: non-scaling-stroke; }
+:is(.cpic, .mini) .al { stroke: var(--c); stroke-width: 3.4; fill: none; }
+:is(.cpic, .mini) .halo { stroke: var(--card); stroke-width: 7.5; fill: none; opacity: .85; }
+:is(.cpic, .mini) .ah { fill: var(--c); stroke: var(--card); stroke-width: 1.2; vector-effect: non-scaling-stroke; paint-order: stroke; }
+:is(.cpic, .mini) .ds { stroke: var(--c); stroke-width: 2; stroke-dasharray: 5 5; fill: none; }
+:is(.cpic, .mini) .zn { fill: color-mix(in srgb, var(--c) 20%, transparent); stroke: var(--c); stroke-width: 2; stroke-dasharray: 4 3; }
 :is(.cpic, .mini) .pt { fill: var(--c); stroke: #fff; stroke-width: 1.5; }
-:is(.cpic, .mini) .tb { fill: var(--muted); opacity: .4; }
-:is(.cpic, .mini) .tl { stroke: var(--muted); stroke-width: 4; opacity: .4; }
-:is(.cpic, .mini) .fl { stroke: var(--muted); stroke-width: 2.5; opacity: .5; }
-:is(.cpic, .mini) .ft { fill: #f1c6a0; stroke: #2b2730; stroke-width: 2.5; }
-:is(.cpic, .mini) .ftm { fill: #d9a77f; stroke: none; opacity: .7; }
-:is(.cpic, .mini) .dev { fill: #e9edf2; stroke: #2b2730; stroke-width: 2; }
-:is(.cpic, .mini) path.dev { fill: none; stroke: #6b7280; }
+:is(.cpic, .mini) .fl { stroke: var(--muted); stroke-width: 2; opacity: .45; }
 :is(.cpic, .mini) .ey { stroke: var(--ink); stroke-width: 2; fill: none; }
 :is(.cpic, .mini) .pn { fill: color-mix(in srgb, var(--card) 70%, transparent); stroke: var(--c); stroke-width: 1.5; stroke-dasharray: 3 3; }
 :is(.cpic, .mini) text { fill: var(--c); font: 700 13px var(--hand); paint-order: stroke; stroke: var(--card); stroke-width: 3px; stroke-linejoin: round; }
-:is(.cpic, .mini) text.sm { font-size: 10.5px; fill: var(--muted); }
-:is(.cpic, .mini) text.big { font-size: 22px; }
+:is(.cpic, .mini) text.sm { fill: var(--muted); }
 .mini text { display: none; }
 .cvid { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 6px; padding: 9px 12px; border-radius: 12px; border: 0;
   background: var(--c); color: #fff; font: 400 16px var(--marker); cursor: pointer; }

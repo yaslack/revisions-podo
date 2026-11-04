@@ -251,6 +251,9 @@
       ['▶️', 'Une vidéo pour 13 des tests.'],
       ['🙈', 'Mode test (l\'œil en haut) et « Un test au hasard » pour t\'entraîner.'],
     ] },
+    { v: 51, items: [
+      ['✏️', 'Examen clinique : tous les dessins des tests ont été refaits, plus clairs, avec les mains du praticien et des gros plans sur le genou, la cheville et le pied.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
