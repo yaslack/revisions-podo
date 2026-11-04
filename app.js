@@ -132,7 +132,10 @@
       <div class="lbl">Sauvegarde</div><div class="muted small">Ta progression reste sur ce téléphone. Sur iPhone, Safari et l'icône de l'écran d'accueil ne la partagent pas : copie ton code d'un côté, restaure-le de l'autre (ou garde-le dans tes Notes).</div>
       <div class="skin"><button class="btn ghost" id="bkcopy">📋 Copier mon code</button><button class="btn ghost" id="bkopen">Restaurer</button></div>
       <div id="bkzone" hidden><textarea id="bkta" rows="3" placeholder="Colle ton code ici"></textarea><button class="btn" id="bkload" style="--c:var(--hl)">Restaurer ce code</button></div>
-      <div class="muted small" id="bkmsg"></div></div>`;
+      <div class="muted small" id="bkmsg"></div>
+      <div class="lbl">Partager</div><div class="skin"><button class="btn" id="share" style="--c:var(--hl)">📤 Partager l'appli à un ami</button></div>
+      <div class="muted small" id="shmsg">Chacun garde sa propre progression sur son téléphone.</div>
+      ${matchMedia('(display-mode: standalone)').matches || navigator.standalone ? '' : `<div class="lbl">L'installer comme une appli</div><div class="muted small">Sur iPhone : ouvre le site dans Safari, touche Partager puis « Sur l'écran d'accueil ». Sur Android : menu ⋮ puis « Ajouter à l'écran d'accueil ». Elle marche ensuite sans réseau.</div>`}</div>`;
   }
   function setSkin() { const r = document.documentElement; r.dataset.skin = S.skin || 'drawn'; S.theme ? (r.dataset.theme = S.theme) : delete r.dataset.theme; S.size ? (r.dataset.size = S.size) : delete r.dataset.size; }
   setSkin();
@@ -677,6 +680,13 @@
     if (t.dataset.note) { closeNote(); return; }
     if (t.dataset.size !== undefined) { S.size = t.dataset.size; save(); setSkin(); render(); return; }
     if (t.id === 'bkcopy') { const c = toCode(), m = $('#bkmsg'), z = $('#bkzone'), ta = $('#bkta'); z.hidden = false; ta.value = c; ta.select(); try { navigator.clipboard.writeText(c).then(() => (m.textContent = 'Code copié. Colle-le dans tes Notes pour le garder.'), () => (m.textContent = 'Sélectionne le code ci-dessus et copie-le.')); } catch (er) { m.textContent = 'Sélectionne le code ci-dessus et copie-le.'; } return; }
+    if (t.id === 'share') {
+      const url = location.origin + location.pathname, m = $('#shmsg');
+      const copy = () => { try { navigator.clipboard.writeText(url).then(() => (m.textContent = 'Lien copié : envoie-le à ton ami.'), () => (m.textContent = url)); } catch (er) { m.textContent = url; } };
+      if (navigator.share) navigator.share({ title: 'Révisions podo', text: "Pour réviser l'oral de pédicurie-podologie : les 24 fiches et les 59 repères d'anatomie.", url }).catch(er => { if (er && er.name !== 'AbortError') copy(); });
+      else copy();
+      return;
+    }
     if (t.id === 'bkopen') { $('#bkzone').hidden = false; $('#bkta').value = ''; $('#bkta').focus(); return; }
     if (t.id === 'bkload') { try { fromCode($('#bkta').value); save(); setSkin(); render(); const m = $('#bkmsg'); if (m) m.textContent = 'Progression restaurée ✓'; } catch (er) { $('#bkmsg').textContent = "Ce code n'est pas valide : vérifie que tu l'as collé en entier."; } return; }
     if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; if (t.closest('.note')) closeNote(); save(); setSkin(); render(); return; }
