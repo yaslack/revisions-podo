@@ -320,6 +320,9 @@
     { v: 65, items: [
       ['play', 'Les vidéos des fiches podologie 10 à 13 sont là : fractures de fatigue, genu valgum et varum, gonarthrose, hallux rigidus.'],
     ] },
+    { v: 66, items: [
+      ['leg', 'Podologie : nouvelle fiche 14. L\'hallux valgus, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

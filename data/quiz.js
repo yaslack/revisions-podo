@@ -745,3 +745,23 @@ QUIZ['hallux-rigidus'] = [
   { k: ["Pas de prévention totale", "Chaussures confortables, poids", "Éviter les traumatismes du gros orteil", "Dépister : douleur persistante, antécédent de traumatisme"],
     q: ["Quand consulter ? | douleur persistante du gros orteil ou antécédent de traumatisme"] },
 ];
+
+QUIZ['hallux-valgus'] = [
+  { k: ["Déformation FRÉQUENTE : gros orteil → DEHORS, 1er métatarsien → DEDANS", "Saillie à la base du gros orteil = OIGNON", "Douleurs, gêne, troubles de la marche", "Surtout la femme : talons, chaussures étroites, formes familiales"],
+    q: ["Dans l'hallux valgus, le gros orteil part… | en dehors, et le 1er métatarsien en dedans || en dedans ; vers le haut ; vers le bas"] },
+  { k: ["Mécanique : chaussures étroites + talons", "Génétique : antécédents familiaux", "Biomécanique : pied plat, tendons", "Polyarthrite rhumatoïde, vieillissement"],
+    q: ["Les facteurs de risque | chaussures étroites et talons ; génétique ; biomécanique ; polyarthrite rhumatoïde ; vieillissement"] },
+  { k: ["Déséquilibre de la métatarso-phalangienne", "M1 en dedans, gros orteil en dehors → oignon", "Pression → douleur + inflammation", "Long terme : risque d'ARTHROSE de la MTP"],
+    q: ["La saillie à la base du gros orteil s'appelle… | l'oignon || un ostéophyte ; un cor ; une exostose de Haglund"] },
+  { k: ["Déformation visible + oignon", "Douleur au frottement dans la chaussure", "Poussées : rougeur, gonflement, chaleur", "Pression sur le bord externe, démarche modifiée, raideur"],
+    q: ["Les signes à citer | déformation et oignon ; douleur au frottement ; poussées inflammatoires ; démarche modifiée ; raideur"] },
+  { k: ["Examen clinique ESSENTIEL : déformation, douleur, mobilité", "Radio : déformation osseuse, état de la MTP, DEGRÉ", "IRM / écho si besoin"],
+    q: ["Ce que mesure la radio | la déformation de M1 et du gros orteil ; l'état de la MTP ; le degré"] },
+  { k: ["Chaussures LARGES sans talon haut", "Semelles sur mesure, AINS", "Orthèses : SÉPARATEURS d'orteils, physio", "Chirurgie : ostéotomie de M1, exostectomie, arthrodèse, prothèse"],
+    q: ["L'exostectomie, c'est… | retirer l'oignon || réaligner M1 ; bloquer l'articulation ; poser une prothèse",
+        "La chirurgie qui réaligne le 1er métatarsien | l'ostéotomie"] },
+  { k: ["Dépend de la sévérité et de la prise en charge", "Formes légères : chaussures + semelles peuvent suffire", "Formes avancées : chirurgie", "Pas grave pour la vie, mais gêne la mobilité"],
+    q: ["Forme légère : que peut-il suffire ? | des chaussures adaptées et des semelles"] },
+  { k: ["Chaussures larges et confortables : essentiel", "Poids santé, moins de contraintes sur l'avant-pied", "Dépistage : antécédents familiaux, premiers symptômes → podologue"],
+    q: ["Qui dépister tôt ? | ceux qui ont des antécédents familiaux ou les premiers symptômes"] },
+];
