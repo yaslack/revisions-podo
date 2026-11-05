@@ -50,7 +50,10 @@ function chapter(i) {
 
 // un épisode pNN-mots va à la fiche dont l'identifiant a les mêmes mots (les numéros des vidéos ne suivent pas le livret)
 const same = (ep, id) => ep.replace('premier', '1er').split('-').slice(1).every(w => id.split('-').some(v => v.slice(0, 4) === w.slice(0, 4)));
-const EPI = eps.map(e => { const m = LIST.filter(([, id]) => same(e.id, id)); if (m.length !== 1) throw new Error(`épisode ${e.id} : ${m.length} fiches`); return [m[0][1], e]; });
+// noms d'épisodes trop différents de l'identifiant ; et un nom identique gagne (scoliose ≠ attitudes-scoliotiques)
+const ALIAS = { 'fasciite-plantaire': 'map', 'pseudo-morton': 'morton', 'deuxieme-rayon': 'syndrome-2e-rayon' };
+const pick = ep => { const k = ep.replace(/^p\d+-/, ''), x = LIST.filter(([, id]) => id === (ALIAS[k] || k)); return x.length ? x : LIST.filter(([, id]) => same(ep, id)); };
+const EPI = eps.map(e => { const m = pick(e.id); if (m.length !== 1) throw new Error(`épisode ${e.id} : ${m.length} fiches`); return [m[0][1], e]; });
 const PODO = LIST.map(([title, id], i) => {
   // numéros de la liste du livret, repris par les vidéos : elle saute 8 et 9 (1 à 7, puis 10 à 42)
   const n = i < 7 ? i + 1 : i + 3, e = (EPI.find(([k]) => k === id) || [])[1];
