@@ -765,3 +765,26 @@ QUIZ['hallux-valgus'] = [
   { k: ["Chaussures larges et confortables : essentiel", "Poids santé, moins de contraintes sur l'avant-pied", "Dépistage : antécédents familiaux, premiers symptômes → podologue"],
     q: ["Qui dépister tôt ? | ceux qui ont des antécédents familiaux ou les premiers symptômes"] },
 ];
+
+QUIZ['ilm'] = [
+  { k: ["PHYSIOLOGIQUE jusqu'à 5 mm", "< 1/4 de la population : membres exactement égaux", "1/3 : ILMI idiopathique de 5 à 15 mm", "Enfant : chirurgie possible dès 2 cm", "ILMI ACTUELLE (mesurée) vs PRÉDITE à maturité (calculée)"],
+    q: ["Jusqu'où une inégalité est-elle physiologique ? | 5 mm || 1 cm ; 2 cm ; 2 mm",
+        "Les 2 ILMI à distinguer | actuelle (mesurée) ; prédite à maturité squelettique (calculée)"] },
+  { k: ["En cabinet : surtout idiopathiques, < 2 cm", "Congénitales : hémiatrophie / hémihypertrophie, os court, spina bifida", "Développementales : pied bot, tumeurs, pseudarthrose, malformations vasculaires", "Acquises : arrêt de croissance, cal vicieux, stimulation après fracture du fémur"],
+    q: ["Les 3 familles de causes | congénitales ; développementales ; acquises",
+        "Une fracture du fémur chez l'enfant peut… | stimuler la croissance et allonger le membre || toujours le raccourcir ; ne rien changer ; bloquer la hanche"] },
+  { k: ["Différence au fémur, au tibia ou aux deux", "Cartilages de croissance perturbés", "Compensations : bascule du bassin, rétractions, attitude scoliotique, asymétrie podale", "Long terme : douleurs lombaires, pelviennes, hanche, genou, pied"],
+    q: ["Les compensations à citer | bascule du bassin ; rétractions ; troubles statiques ; attitude scoliotique ; asymétrie podale"] },
+  { k: ["STATIQUE debout : bascule, girations pelviennes, test du PLONGEUR", "DYNAMIQUE : marche, asymétries, compensations", "DÉCHARGE allongé : mesure EIAS → malléole médiale", "Jambes fléchies à 90° : fémur ou tibia ?", "TALONNETTES croissantes → estimer la compensation"],
+    q: ["La mesure couchée va de… | l'EIAS à la malléole médiale || l'ombilic au talon ; le grand trochanter au genou ; l'EIPS à la malléole latérale",
+        "À quoi servent les talonnettes de hauteur croissante ? | à estimer la compensation nécessaire"] },
+  { k: ["Radiographie : comparer fémur / tibia", "Téléradiographie, scanométrie : longueurs + axes", "Âge osseux : avance ou retard de croissance", "EOS : debout, face + profil, 3D, peu de rayons"],
+    q: ["L'atout du système EOS | debout en charge ; face et profil ; 3D ; peu de rayons"] },
+  { k: ["< 1 cm : ORTHÈSES plantaires", "> 1 cm : CHAUSSURES orthopédiques", "> 2 cm : ± chirurgie si croissance en cours (allongement, épiphysiodèse)"],
+    q: ["Inégalité de moins de 1 cm : que propose-t-on ? | des orthèses plantaires || des chaussures orthopédiques ; une chirurgie ; rien",
+        "Les seuils de traitement | < 1 cm orthèses ; > 1 cm chaussures orthopédiques ; > 2 cm chirurgie possible"] },
+  { k: ["Dépend de l'importance, de l'évolution, des compensations", "Petites : bien tolérées", "Marquées : douleurs du dos au pied, statique et marche", "Bonne prise en charge → limite les compensations"],
+    q: ["Une petite inégalité est le plus souvent… | bien tolérée et sans symptôme"] },
+  { k: ["Dépistage = examen clinique, bilan podologique", "Suivi de croissance de l'enfant et de l'ado", "Prévention = détection précoce", "L'inégalité peut évoluer avec la croissance"],
+    q: ["Pourquoi surveiller l'enfant de près ? | l'inégalité peut évoluer avec la croissance"] },
+];

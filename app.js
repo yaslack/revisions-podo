@@ -323,6 +323,9 @@
     { v: 66, items: [
       ['leg', 'Podologie : nouvelle fiche 14. L\'hallux valgus, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 67, items: [
+      ['leg', 'Podologie : nouvelle fiche 15. L\'inégalité de longueur des membres, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
