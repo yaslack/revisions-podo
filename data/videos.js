@@ -27,5 +27,8 @@ window.VIDEOS = {
  "tumeurs": "1nj_wf40oMDDjh2cC6WW_MxwDmpNu0moF",
  // podologie (dossier « video fiche podologie »)
  "genou": "1gIDcQOesCvPBGqwzH-QKPjCdacBv-Ig0",
- "chaussures-enfant": "1P44XeYOnACV4_GRiSpqZIU20mIKdhGgg"
+ "chaussures-enfant": "1P44XeYOnACV4_GRiSpqZIU20mIKdhGgg",
+ "chaussures-securite": "1nHvqSZA9fSNPq4eF4nv_IZ9BrPbEXgCk",
+ "coxarthrose": "14SpsUZKgnJmU0Gm8CCCIjQQuMm_D3mDV",
+ "cycle-marche": "1GqsgHePO7H95rFVEa9Q72p5eEkZ5Kpf0"
 };

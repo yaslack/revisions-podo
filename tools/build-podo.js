@@ -11,12 +11,12 @@ const eps = JSON.parse(fs.readFileSync(raw, 'utf8'));
 // [titre du livret, identifiant, titre du chapitre dans le PDF si différent]
 const LIST = [
   ['Atteintes ligamentaires du genou', 'genou'], ["Chaussures de l'enfant", 'chaussures-enfant'], ['Chaussures de sécurité', 'chaussures-securite'],
-  ['Coxarthrose', 'coxarthrose'], ['Cycle de marche', 'cycle-marche'], ['Déformations des orteils : griffes, clinodactylies, vrilles', 'deformations-orteils'],
-  ['Entorses de cheville, LODA', 'entorses-cheville'], ['Fractures de fatigue', 'fractures-fatigue'], ['Genu valgum et genu varum', 'genu-valgum-varum'],
-  ['Gonarthrose', 'gonarthrose'], ['Hallux rigidus', 'hallux-rigidus'], ['Hallux valgus', 'hallux-valgus'], ['ILMI', 'ilm'],
-  ['Insuffisance du 1er rayon', 'insuffisance-1er-rayon'], ['Kyste poplité', 'kyste-poplite'], ["Maladie d'Haglund", 'haglund'],
-  ['Maladies de Sever et d\'Osgood-Schlatter', 'sever-osgood'], ['Myo-aponévrosite plantaire', 'map'], ['Naviculaire accessoire', 'naviculaire-accessoire'],
-  ['Ostéochondrose', 'osteochondrose'], ['Périostite tibiale', 'periostite-tibiale'], ['Pied bot varus équin', 'pied-bot'], ['Pied creux', 'pied-creux'],
+  ['Coxarthrose', 'coxarthrose'], ['Cycle de marche', 'cycle-marche', 'Le Cycle de Marche'], ['Déformations des orteils : griffes, clinodactylies, vrilles', 'deformations-orteils', 'Déformations des orteils - Griffes, Clinodactylies, Vrilles, Métatarsalgie'],
+  ['Entorses de cheville, LODA', 'entorses-cheville', 'Entorses de la Cheville'], ['Fractures de fatigue', 'fractures-fatigue', 'Fractures de Fatigue du Membre Inférieur'], ['Genu valgum et genu varum', 'genu-valgum-varum', 'Genu Valgum et du Genu Varum'],
+  ['Gonarthrose', 'gonarthrose'], ['Hallux rigidus', 'hallux-rigidus'], ['Hallux valgus', 'hallux-valgus'], ['ILMI', 'ilm', 'Inégalité de longueur des membres inférieurs'],
+  ['Insuffisance du 1er rayon', 'insuffisance-1er-rayon', 'Insuffisance du Premier Rayon'], ['Kyste poplité', 'kyste-poplite'], ["Maladie d'Haglund", 'haglund', 'Maladie de Haglund'],
+  ['Maladies de Sever et d\'Osgood-Schlatter', 'sever-osgood', "Maladie de Sever et Maladie d'Osgood-Schlatter"], ['Myo-aponévrosite plantaire', 'map'], ['Naviculaire accessoire', 'naviculaire-accessoire', 'Os Naviculaire Accessoire'],
+  ['Ostéochondrose', 'osteochondrose', 'Ostéochondroses'], ['Périostite tibiale', 'periostite-tibiale'], ['Pied bot varus équin', 'pied-bot'], ['Pied creux', 'pied-creux'],
   ['Pied plat valgus', 'pied-plat'], ['Scoliose', 'scoliose'], ['Attitudes scoliotiques', 'attitudes-scoliotiques'], ['Syndrome du carrefour postérieur', 'carrefour-posterieur'],
   ['Syndrome du canal tarsien', 'canal-tarsien'], ['Bursite inter-capito-métatarsienne', 'bursite-icm'], ['Pseudo-névrome de Morton', 'morton'],
   ['Syndrome de la patte d\'oie', 'patte-oie'], ["Syndrome de l'essuie-glace", 'essuie-glace'], ['Syndrome des loges', 'syndrome-loges'],
@@ -30,16 +30,16 @@ const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, 
 const lines = fs.readFileSync(livretTxt, 'utf8').split('\n').map(l => l.trim()).filter(l => l && !/^=== PAGE/.test(l) && !/^Page \d+ sur \d+$/.test(l));
 const START = lines.findIndex(l => /^42\s*-/.test(l));   // après la liste des pathologies du début
 if (START < 0) throw new Error('liste des pathologies introuvable');
-const SECTION = /^(Étiologie|Etiologie|Physiopathologie|Signes cliniques|Diagnostic|Traitement|Pronostic|Prévention|Prevention|Complications)\b/i;
+const SECTION = /^(\d+\.\s*)?(Introduction|Étiologie|Etiologie|Physiopathologie|Signes cliniques|Diagnostic|Traitement|Pronostic|Prévention|Prevention|Complications|Examen clinique)\b/i;
 function chapter(i) {
   const at = j => { const t = norm(LIST[j][2] || LIST[j][0]); return lines.findIndex((l, k) => k > START && norm(l) === t); };
   const a = at(i); if (a < 0) throw new Error('chapitre introuvable dans le livret : ' + LIST[i][0]);
   let b = i + 1 < LIST.length ? at(i + 1) : lines.length; if (b < 0) throw new Error('chapitre suivant introuvable : ' + LIST[i + 1][0]);
-  let html = '<h4>Introduction</h4>', para = '', inList = false;
+  let html = SECTION.test(lines[a + 1]) ? '' : '<h4>Introduction</h4>', para = '', inList = false;   // titre « Introduction » seulement si le livret n'en a pas
   const flush = () => { if (para) html += inList ? `<li>${para}</li>` : `<p>${para}</p>`; para = ''; };
   const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  for (const l of lines.slice(a + 1, b)) {
-    if (SECTION.test(l) && l.length < 60 && !/[.:]$/.test(l)) { flush(); if (inList) { html += '</ul>'; inList = false; } html += `<h4>${esc(l)}</h4>`; continue; }
+  for (let l of lines.slice(a + 1, b)) {
+    if (SECTION.test(l) && l.length < 60 && !/[.]$/.test(l)) { l = l.replace(/^\d+\.\s*/, '').replace(/\s*:$/, ''); flush(); if (inList) { html += '</ul>'; inList = false; } html += `<h4>${esc(l)}</h4>`; continue; }
     if (/^[-•]\s/.test(l)) { flush(); if (!inList) { html += '<ul>'; inList = true; } para = esc(l.replace(/^[-•]\s*/, '')); continue; }
     if (para && !/[.:!?]$/.test(para)) { para += ' ' + esc(l); continue; }
     flush(); if (inList) { html += '</ul>'; inList = false; } para = esc(l);

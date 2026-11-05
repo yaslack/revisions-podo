@@ -297,8 +297,9 @@
       ['⏯', 'Un mini-lecteur reste à l\'écran : pause, volume ou arrêt à tout moment. Déplace-le avec ⠿, réduis-le avec –. Le son tourne en boucle sans fin.'],
       ['▶️', 'La vidéo de la fiche podologie 2 (chaussures de l\'enfant) est là.'],
     ] },
-    { v: 58, items: [
+    { v: 59, items: [
       ['📱', 'Vidéos sur iPhone : des commandes plus petites et plus de voile noir sur l\'image. Tourne le téléphone pour la voir en grand.'],
+      ['🦵', 'Podologie : 3 nouvelles fiches, avec vidéo, dessins et quiz : 3. Les chaussures de sécurité, 4. La coxarthrose, 5. Le cycle de marche.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
