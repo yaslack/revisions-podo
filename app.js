@@ -317,6 +317,9 @@
     { v: 64, items: [
       ['play', 'La vidéo de la fiche podologie 6 (déformations des orteils) est là.'],
     ] },
+    { v: 65, items: [
+      ['play', 'Les vidéos des fiches podologie 10 à 13 sont là : fractures de fatigue, genu valgum et varum, gonarthrose, hallux rigidus.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

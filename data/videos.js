@@ -32,5 +32,9 @@ window.VIDEOS = {
  "coxarthrose": "14SpsUZKgnJmU0Gm8CCCIjQQuMm_D3mDV",
  "cycle-marche": "1GqsgHePO7H95rFVEa9Q72p5eEkZ5Kpf0",
  "entorses-cheville": "1CZ6EIEF6NosGWN1Rdtr9YhCYEvq4m6Sx",
- "deformations-orteils": "1_SrPyPqE4eBymGPLqVnz6VyOpz99gn0p"
+ "deformations-orteils": "1_SrPyPqE4eBymGPLqVnz6VyOpz99gn0p",
+ "fractures-fatigue": "1rqJzlaDWeL6PKrhX2nuR2z9DJ1CCv0uc",
+ "genu-valgum-varum": "1SbnLv05tajfmslio4LLfniw2T8coHfXx",
+ "gonarthrose": "1xqccv1rZg-FNJFlo7foG8oiAXwa3RG8O",
+ "hallux-rigidus": "1JVjXLf2ibQT9uYxUHRdKcY8pRvd5MvuM"
 };
