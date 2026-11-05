@@ -92,7 +92,7 @@
   // une image qui ne charge pas (réseau du téléphone) : on réessaie une fois, puis on retire son cadre
   // une fiche de pédicurie ou de podologie : son adresse, sa liste, ses dessins (la podologie n'a pas encore les dessins des vidéos)
   const FB = f => `#/${f.sec || 'pedi'}/${f.id}`, LISTOF = f => f.sec === 'podo' ? PODO_OK : PEDI, ALLF = PEDI.concat(PODO_OK);
-  const SECN = f => f.sec === 'podo' ? 'Podologie' : 'Pédicurie', NTOT = f => f.sec === 'podo' ? PODO.length : PEDI.length;
+  const SECN = f => f.sec === 'podo' ? 'Podologie' : 'Pédicurie';
   const hasIll = f => f.sec !== 'podo' || !!f.ill;
   const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
@@ -309,6 +309,11 @@
     { v: 59, items: [
       ['leg', 'Podologie : 3 nouvelles fiches, avec vidéo, dessins et quiz : 3. Les chaussures de sécurité, 4. La coxarthrose, 5. Le cycle de marche.'],
     ] },
+    { v: 63, items: [
+      ['leg', 'Podologie : 6 nouvelles fiches, avec dessins et quiz : 6. Déformations des orteils, 7. Les entorses de la cheville, 10. Les fractures de fatigue, 11. Genu valgum et genu varum, 12. La gonarthrose, 13. L\'hallux rigidus.'],
+      ['play', 'La vidéo de la fiche 7 est là ; les autres arrivent.'],
+      ['memo', 'Les fiches de podologie gardent les numéros de la liste officielle (et des vidéos) : la liste saute le 8 et le 9.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -349,7 +354,7 @@
     if (!S.last || S.last.id !== f.id) { S.last = { id: f.id, k: 0 }; save(); }
     const tool = (href, em, label) => `<a class="tool" href="${href}"><span class="em">${em}</span><span>${label}</span></a>`;
     const L = LISTOF(f), i = L.indexOf(f), a = L[i - 1], b = L[i + 1];
-    return `<div class="wrap">${top('#/' + (f.sec || 'pedi'), `Fiche ${f.n} / ${NTOT(f)} · ${esc(f.catName)}`, count(k, n))}
+    return `<div class="wrap">${top('#/' + (f.sec || 'pedi'), `Fiche ${f.n}${f.sec === 'podo' ? '' : ' / ' + PEDI.length} · ${esc(f.catName)}`, count(k, n))}
       <div class="fhead">${hasIll(f) ? `<span class="drawn th zoomable">${img(ill(f.id, 'cover'), f.title)}</span>` : `<span class="stamp" style="--c:var(--p8)">${f.n}</span>`}<div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
       <a class="btn wide" href="${FB(f)}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
       <a class="btn wide quizbtn" href="${FB(f)}/quiz" style="--c:var(--p5)">${ico('target')} Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
