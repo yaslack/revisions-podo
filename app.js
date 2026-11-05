@@ -314,6 +314,9 @@
       ['play', 'La vidéo de la fiche 7 est là ; les autres arrivent.'],
       ['memo', 'Les fiches de podologie gardent les numéros de la liste officielle (et des vidéos) : la liste saute le 8 et le 9.'],
     ] },
+    { v: 64, items: [
+      ['play', 'La vidéo de la fiche podologie 6 (déformations des orteils) est là.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

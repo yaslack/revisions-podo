@@ -31,5 +31,6 @@ window.VIDEOS = {
  "chaussures-securite": "1nHvqSZA9fSNPq4eF4nv_IZ9BrPbEXgCk",
  "coxarthrose": "14SpsUZKgnJmU0Gm8CCCIjQQuMm_D3mDV",
  "cycle-marche": "1GqsgHePO7H95rFVEa9Q72p5eEkZ5Kpf0",
- "entorses-cheville": "1CZ6EIEF6NosGWN1Rdtr9YhCYEvq4m6Sx"
+ "entorses-cheville": "1CZ6EIEF6NosGWN1Rdtr9YhCYEvq4m6Sx",
+ "deformations-orteils": "1_SrPyPqE4eBymGPLqVnz6VyOpz99gn0p"
 };
