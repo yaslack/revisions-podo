@@ -43,8 +43,8 @@ function episode(dir) {
     if (sc.type === 'memo') out.memo = sc.rows;
     if (sc.type === 'quiz') out.quiz.push({ q: sc.question, a: sc.answer, qSay: script[sc.qId], aSay: script[sc.aId] });
     if (sc.type !== 'part') continue;
-    ev.length = 0;
-    for (let i = 0; i < 2000 && true; i++) { try { sc.body(0, S); break; } catch (e) { const m = /^(\w+) is not defined/.exec(e.message); if (!m) throw new Error(dir + ': ' + e.message); ctx[m[1]] = noop; } }
+    // relancée à chaque fonction de dessin inconnue : on vide ce qui a été noté avant l'erreur, sinon le début est en double
+    for (let i = 0; i < 2000; i++) { ev.length = 0; try { sc.body(0, S); break; } catch (e) { const m = /^(\w+) is not defined/.exec(e.message); if (!m) throw new Error(dir + ': ' + e.message); ctx[m[1]] = noop; } }
     out.parts.push({ k: sc.k, say: script[sc.clip], screen: ev.slice() });
   }
   return out;
