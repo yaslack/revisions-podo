@@ -118,11 +118,12 @@
     fitLayer(); window.addEventListener('resize', fitLayer);
     try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
   }
-  // le lecteur est dessiné à 800 px de large au moins, puis réduit : Drive garde ses commandes de taille normale
+  // le lecteur est dessiné à 1024 px de large au moins, puis réduit : sur iPhone, Drive montre alors une barre fine au lieu de
+  // grosses commandes et d'un voile noir sur toute la vidéo (testé à 402 / 800 / 1024 / 1280 px sur le simulateur iPhone)
   // (sur iPhone il les agrandit dans un petit cadre) et montre l'image entière, même en portrait
   function fitLayer() {
     const d = $('.vlayer'), f = d && d.querySelector('iframe'); if (!f) return;
-    const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = d.classList.contains('yt') ? fw : Math.max(fw, 800), k = fw / VW;
+    const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = d.classList.contains('yt') ? fw : Math.max(fw, 1024), k = fw / VW;
     Object.assign(f.style, { width: VW + 'px', height: VW * 9 / 16 + 'px', left: (W - fw) / 2 + 'px', top: (H - fh) / 2 + 'px', transform: k < 1 ? `scale(${k})` : '' });
   }
   function closeVideo() {
@@ -295,6 +296,9 @@
       ['🎧', 'Des sons pour réviser : bruit rose, brun, brun profond, blanc, pluie, vagues, feu, ondes alpha. À choisir en bas de l\'accueil.'],
       ['⏯', 'Un mini-lecteur reste à l\'écran : pause, volume ou arrêt à tout moment. Déplace-le avec ⠿, réduis-le avec –. Le son tourne en boucle sans fin.'],
       ['▶️', 'La vidéo de la fiche podologie 2 (chaussures de l\'enfant) est là.'],
+    ] },
+    { v: 58, items: [
+      ['📱', 'Vidéos sur iPhone : des commandes plus petites et plus de voile noir sur l\'image. Tourne le téléphone pour la voir en grand.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
