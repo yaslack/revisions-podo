@@ -598,3 +598,17 @@ body.sndon #app { padding-bottom: 70px; }
 .vrot .ic { width: 22px; height: 22px; vertical-align: -.3em; margin-right: 4px; }
 .sndbar .sndpp .ic { width: 16px; height: 16px; }
 .sndbar .sndx .ic { width: 16px; height: 16px; }
+
+/* ---------- barre du bas : onglet « Fiches » et son menu (Pédicurie / Podologie) ---------- */
+nav.tabs .tabf { position: relative; display: flex; }
+nav.tabs .tabmenu { position: absolute; bottom: calc(100% + 12px); left: 50%; min-width: 172px; display: flex; flex-direction: column; gap: 4px; padding: 6px;
+  background: var(--card); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 0 8px 22px rgba(0,0,0,.25);
+  transform: translateX(-50%) scaleY(.4); transform-origin: bottom center; opacity: 0; pointer-events: none; transition: transform .18s ease, opacity .18s ease; }
+nav.tabs .tabmenu.open { transform: translateX(-50%) scaleY(1); opacity: 1; pointer-events: auto; }
+nav.tabs .tabmenu a { padding: 11px 14px; font-size: 16px; border-radius: 11px; border: 2px solid transparent; text-align: left; }
+nav.tabs .tabmenu a.on { background: var(--hl); border-color: var(--ink); padding: 11px 14px; }
+html[data-skin="classic"] nav.tabs .tabmenu { border: 1px solid var(--line); }
+html[data-skin="classic"] nav.tabs .tabmenu a, html[data-skin="classic"] nav.tabs .tabmenu a.on { padding: 11px 14px; font-size: 15px; border: 0; }
+@media (max-width: 420px) { nav.tabs .tabmenu a, nav.tabs .tabmenu a.on { padding: 11px 14px; font-size: 15px; } }
+nav.tabs #tabf::after { content: ''; display: inline-block; width: 5px; height: 5px; margin-left: 6px; border-left: 2px solid currentColor; border-top: 2px solid currentColor; transform: translateY(1px) rotate(45deg); transition: transform .18s ease; }
+nav.tabs #tabf[aria-expanded="true"]::after { transform: translateY(-2px) rotate(225deg); }

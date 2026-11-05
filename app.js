@@ -862,12 +862,21 @@
     document.body.classList.toggle('v3on', !!$('#v3c'));
     if ($('#v3c')) start3d();
     document.body.classList.toggle('reading', !!$('#app .pager.fixed'));
-    document.querySelectorAll('nav.tabs a').forEach(t => t.classList.toggle('on', t.dataset.s === (sec || '') || (t.dataset.s === 'tirage' && sec === 'plan')));
+    document.querySelectorAll('nav.tabs a').forEach(t => t.classList.toggle('on', t.dataset.s === (sec || '') || (t.dataset.s === 'tirage' && sec === 'plan') || (t.dataset.s === 'fiches' && (sec === 'pedi' || sec === 'podo'))));
+    tabMenu(false);
     const f = (sec === 'podo' ? PODO_OK : PEDI).find(x => x.id === a);
     document.title = (sec === 'pedi' || sec === 'podo') && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, 0);
     showNote();
   }
+
+  // onglet « Fiches » de la barre du bas : un petit menu vertical s'ouvre vers le haut (Pédicurie / Podologie)
+  function tabMenu(open) { const m = $('#tabmenu'), t = $('#tabf'); if (!m || !t) return; m.classList.toggle('open', open); t.setAttribute('aria-expanded', open); }
+  document.addEventListener('click', e => {
+    if (e.target.closest('#tabf')) { e.preventDefault(); tabMenu(!$('#tabmenu').classList.contains('open')); return; }
+    if (!e.target.closest('#tabmenu')) tabMenu(false);
+  }, true);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') tabMenu(false); });
 
   // toucher un dessin ou une planche : plein écran (on peut zoomer avec les doigts), toucher encore pour fermer
   document.addEventListener('click', e => {
