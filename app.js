@@ -334,8 +334,12 @@
     ] },
     { v: 70, items: [
       ['play', 'Podologie : les vidéos des fiches 14 à 17 sont en ligne (hallux valgus, inégalité de longueur des membres, insuffisance du premier rayon, kyste poplité).'],
-    ] },  { v: 71, items: [
+    ] },
+    { v: 71, items: [
       ['leg', 'Podologie : nouvelle fiche 18. La maladie de Haglund, avec dessins et quiz (la vidéo arrive).'],
+    ] },
+    { v: 72, items: [
+      ['leg', 'Podologie : nouvelle fiche 19. Sever et Osgood-Schlatter, avec dessins et quiz (la vidéo arrive).'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
