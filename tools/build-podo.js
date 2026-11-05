@@ -49,7 +49,7 @@ function chapter(i) {
 }
 
 // un épisode pNN-mots va à la fiche dont l'identifiant a les mêmes mots (les numéros des vidéos ne suivent pas le livret)
-const same = (ep, id) => ep.split('-').slice(1).every(w => id.split('-').some(v => v.slice(0, 4) === w.slice(0, 4)));
+const same = (ep, id) => ep.replace('premier', '1er').split('-').slice(1).every(w => id.split('-').some(v => v.slice(0, 4) === w.slice(0, 4)));
 const EPI = eps.map(e => { const m = LIST.filter(([, id]) => same(e.id, id)); if (m.length !== 1) throw new Error(`épisode ${e.id} : ${m.length} fiches`); return [m[0][1], e]; });
 const PODO = LIST.map(([title, id], i) => {
   // numéros de la liste du livret, repris par les vidéos : elle saute 8 et 9 (1 à 7, puis 10 à 42)

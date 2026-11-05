@@ -788,3 +788,24 @@ QUIZ['ilm'] = [
   { k: ["Dépistage = examen clinique, bilan podologique", "Suivi de croissance de l'enfant et de l'ado", "Prévention = détection précoce", "L'inégalité peut évoluer avec la croissance"],
     q: ["Pourquoi surveiller l'enfant de près ? | l'inégalité peut évoluer avec la croissance"] },
 ];
+
+QUIZ['insuffisance-1er-rayon'] = [
+  { k: ["1er RAYON = gros orteil + 1er métatarsien", "Mobilité ↓ de M1 et de la MTP → mécanique du pied altérée", "Douleur gros orteil, avant-pied, marche, posture", "Âgés, talons hauts ; souvent avec hallux valgus ou fasciite plantaire", "Rôle clé : la PROPULSION"],
+    q: ["Le 1er rayon, c'est… | le gros orteil et le 1er métatarsien || le 1er cunéiforme seul ; le talus et le calcanéus ; les 5 métatarsiens",
+        "Dans quelle phase de la marche le 1er rayon est-il clé ? | la propulsion"] },
+  { k: ["Tendons fléchisseurs / extenseurs du gros orteil", "Déformations : hallux valgus, pied plat, pied creux", "Fracture de M1 mal consolidée, arthrose de la MTP", "Polyarthrite rhumatoïde ; chaussures étroites, rigides, à talons"],
+    q: ["Les causes à citer | tendons ; déformations ; traumatismes ; arthrose ; inflammation ; chaussures"] },
+  { k: ["Normal : M1 + gros orteil = propulsion", "MTP fléchit et s'étend mal → forces mal réparties", "Propulsion retardée, avant-pied déséquilibré", "Compensations : genoux, hanches, bas du dos"],
+    q: ["Conséquence sur la marche ? | propulsion retardée, avant-pied déséquilibré, compensations en chaîne"] },
+  { k: ["Douleur de la MTP du gros orteil", "Mobilité réduite en flexion et extension", "Hallux valgus associé, douleurs plantaires", "Raideur après le repos, démarche modifiée"],
+    q: ["Les signes à citer | douleur MTP ; mobilité réduite ; déformation associée ; raideur ; démarche modifiée"] },
+  { k: ["Examen clinique : mobilité MTP, douleur, déformations", "Radio : anatomie du 1er rayon, arthrose", "Écho / IRM : tendons, ligaments, bursite", "Analyse de la marche : compensations"],
+    q: ["À quoi sert l'analyse de la marche ici ? | à repérer les compensations"] },
+  { k: ["Chaussures larges, souples, sans talon haut", "Semelles qui soulagent le 1er rayon, orthèses d'alignement", "Physio, AINS", "Chirurgie : ostéotomie de M1, prothèse, arthrodèse"],
+    q: ["L'arthrodèse : avantage et inconvénient | soulage la douleur, mais plus de mobilité",
+        "La chirurgie qui réaligne M1 | l'ostéotomie || l'arthrodèse ; la prothèse ; l'exostectomie"] },
+  { k: ["Dépend de la gravité et du traitement", "Cas bénins : semelles + rééducation → nette amélioration", "Cas graves : chirurgie", "Bien pris en charge : pronostic favorable"],
+    q: ["Cas bénin : qu'est-ce qui suffit souvent ? | des semelles et de la rééducation"] },
+  { k: ["Chaussures adaptées : pas de talons, pas trop étroites", "Suivi précoce des troubles posturaux", "Dépistage : douleur chronique du gros orteil → podologue", "Suivi des déformations (hallux valgus)"],
+    q: ["Quand adresser au podologue ? | douleur chronique du gros orteil ou de l'avant-pied"] },
+];
