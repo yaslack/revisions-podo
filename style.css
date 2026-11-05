@@ -466,7 +466,10 @@ html[data-skin="classic"] .upbar { border: 1px solid var(--line); box-shadow: va
 /* calque vidéo plein écran : le lecteur Drive à la forme de la vidéo (16/9), sans transformation */
 body.vopen { overflow: hidden; }
 .vlayer { position: fixed; inset: 0; z-index: 70; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
-.vlayer iframe { position: absolute; border: 0; background: #000; transform-origin: 0 0; }
+.vlayer { overflow: hidden; }
+.vlayer .vbox { position: absolute; overflow: hidden; background: #000; }
+.vlayer iframe { position: absolute; left: 0; top: 0; border: 0; background: #000; transform-origin: 0 0; }
+html.vopen, html.vopen body { overflow: hidden; }
 .vrot { display: none; position: absolute; left: 0; right: 0; bottom: calc(48px + env(safe-area-inset-bottom)); color: #f4ecd9; font: 400 17px var(--marker); text-align: center; padding: 0 24px; }
 @media (orientation: portrait) { .vrot { display: block; } }
 .vclose { position: absolute; top: calc(10px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); z-index: 2; width: 44px; height: 44px; border-radius: 50%;

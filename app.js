@@ -110,26 +110,34 @@
   function openVideo(id, yt, src, lab) {
     closeVideo();
     const d = document.createElement('div'); d.className = 'vlayer' + (yt ? ' yt' : '');
-    d.innerHTML = `<iframe src="${yt ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1` : `https://drive.google.com/file/d/${id}/preview`}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>
+    d.innerHTML = `<div class="vbox"><iframe src="${yt ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1` : `https://drive.google.com/file/d/${id}/preview`}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe></div>
       <div class="vrot">${IC.rotate} Tourne ton téléphone pour voir la vidéo en grand.</div>
       <button class="vclose" id="vclose" aria-label="Fermer la vidéo">${IC.close}</button>
       ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">${lab || 'Fiche du test sur piriforme.fr'} ↗</a>` : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
-    document.body.appendChild(d); document.body.classList.add('vopen');
-    fitLayer(); window.addEventListener('resize', fitLayer);
+    document.body.appendChild(d); document.body.classList.add('vopen'); document.documentElement.classList.add('vopen');
+    zoomLock(true); fitLayer(); window.addEventListener('resize', fitLayer); window.addEventListener('orientationchange', refit);
     try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
   }
   // le lecteur est dessiné à 1024 px de large au moins, puis réduit : sur iPhone, Drive montre alors une barre fine au lieu de
   // grosses commandes et d'un voile noir sur toute la vidéo (testé à 402 / 800 / 1024 / 1280 px sur le simulateur iPhone)
-  // (sur iPhone il les agrandit dans un petit cadre) et montre l'image entière, même en portrait
+  // Le lecteur est dans une boîte à la taille exacte de l'écran qui cache ce qui dépasse : sinon le lecteur de 1024 px rend
+  // la page plus large que l'écran et l'iPhone dézoome en tournant, puis garde ce zoom en revenant en portrait.
   function fitLayer() {
-    const d = $('.vlayer'), f = d && d.querySelector('iframe'); if (!f) return;
+    const d = $('.vlayer'), b = d && d.querySelector('.vbox'), f = b && b.querySelector('iframe'); if (!f) return;
     const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = d.classList.contains('yt') ? fw : Math.max(fw, 1024), k = fw / VW;
-    Object.assign(f.style, { width: VW + 'px', height: VW * 9 / 16 + 'px', left: (W - fw) / 2 + 'px', top: (H - fh) / 2 + 'px', transform: k < 1 ? `scale(${k})` : '' });
+    Object.assign(b.style, { width: fw + 'px', height: fh + 'px', left: (W - fw) / 2 + 'px', top: (H - fh) / 2 + 'px' });
+    Object.assign(f.style, { width: VW + 'px', height: VW * 9 / 16 + 'px', transform: k < 1 ? `scale(${k})` : '' });
   }
+  // l'iPhone donne la nouvelle taille un peu après la rotation : on recale encore, puis on remet le zoom de la page à 1
+  const refit = () => { [120, 400, 900].forEach(t => setTimeout(() => { fitLayer(); zoomLock(!!$('.vlayer')); }, t)); };
+  // pendant la vidéo, la page ne peut pas zoomer ; en fermant, on rend le zoom (et l'iPhone revient à l'échelle 1)
+  const VIEWPORT = 'width=device-width, initial-scale=1, viewport-fit=cover';
+  function zoomLock(on) { const m = document.querySelector('meta[name=viewport]'); if (m) m.setAttribute('content', on ? VIEWPORT + ', maximum-scale=1, user-scalable=no' : VIEWPORT); }
   function closeVideo() {
-    window.removeEventListener('resize', fitLayer);
+    window.removeEventListener('resize', fitLayer); window.removeEventListener('orientationchange', refit);
     const d = $('.vlayer'); if (!d) return;
-    d.querySelector('iframe').src = 'about:blank'; d.remove(); document.body.classList.remove('vopen');
+    d.querySelector('iframe').src = 'about:blank'; d.remove(); document.body.classList.remove('vopen'); document.documentElement.classList.remove('vopen');
+    zoomLock(true); setTimeout(() => zoomLock(false), 300);
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
   }
   const thumb = (src, alt) => `<span class="drawn th">${img(src, alt)}</span>`;
@@ -298,7 +306,6 @@
       ['▶️', 'La vidéo de la fiche podologie 2 (chaussures de l\'enfant) est là.'],
     ] },
     { v: 59, items: [
-      ['📱', 'Vidéos sur iPhone : des commandes plus petites et plus de voile noir sur l\'image. Tourne le téléphone pour la voir en grand.'],
       ['🦵', 'Podologie : 3 nouvelles fiches, avec vidéo, dessins et quiz : 3. Les chaussures de sécurité, 4. La coxarthrose, 5. Le cycle de marche.'],
     ] },
   ];
