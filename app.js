@@ -332,6 +332,9 @@
     { v: 69, items: [
       ['leg', 'Podologie : nouvelle fiche 17. Le kyste poplité, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 70, items: [
+      ['play', 'Podologie : les vidéos des fiches 14 à 17 sont en ligne (hallux valgus, inégalité de longueur des membres, insuffisance du premier rayon, kyste poplité).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

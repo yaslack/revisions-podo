@@ -36,5 +36,9 @@ window.VIDEOS = {
  "fractures-fatigue": "1rqJzlaDWeL6PKrhX2nuR2z9DJ1CCv0uc",
  "genu-valgum-varum": "1SbnLv05tajfmslio4LLfniw2T8coHfXx",
  "gonarthrose": "1xqccv1rZg-FNJFlo7foG8oiAXwa3RG8O",
- "hallux-rigidus": "1JVjXLf2ibQT9uYxUHRdKcY8pRvd5MvuM"
+ "hallux-rigidus": "1JVjXLf2ibQT9uYxUHRdKcY8pRvd5MvuM",
+ "hallux-valgus": "1ExQ6NOU6yNyO1IvMP6d8lN6n8Ru_U01j",
+ "ilm": "1yK7Qgj7Tcee0PBLeLTGyvZ3KnWHwyGPc",
+ "insuffisance-1er-rayon": "1uprwf-r7cJAQB57pzHaRTiZutvyJAVvh",
+ "kyste-poplite": "1QAXvAVxpW7ClSh7dPY7WKFGTOy2cMhG1"
 };
