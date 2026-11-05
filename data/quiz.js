@@ -809,3 +809,25 @@ QUIZ['insuffisance-1er-rayon'] = [
   { k: ["Chaussures adaptées : pas de talons, pas trop étroites", "Suivi précoce des troubles posturaux", "Dépistage : douleur chronique du gros orteil → podologue", "Suivi des déformations (hallux valgus)"],
     q: ["Quand adresser au podologue ? | douleur chronique du gros orteil ou de l'avant-pied"] },
 ];
+
+QUIZ['kyste-poplite'] = [
+  { k: ["LIQUIDE SYNOVIAL dans la fosse poplitée, à l'arrière du genou", "BÉNIN : la cause est un problème du genou (arthrose, ménisque, synovite)", "Souvent asymptomatique ; sinon douleur, gonflement, tension", "RUPTURE → douleur + œdème du bas de jambe"],
+    q: ["Où se trouve le kyste poplité ? | dans la fosse poplitée, à l'arrière du genou || devant la rotule ; sur le tibia ; dans le creux inguinal",
+        "Que se passe-t-il en cas de rupture ? | douleur et œdème du bas de la jambe"] },
+  { k: ["Arthrose : cartilage dégradé", "Lésion du ménisque", "Synovite (polyarthrite rhumatoïde), traumatisme", "Plus rarement : infection, goutte → trop de liquide"],
+    q: ["Les causes à citer | arthrose ; lésion du ménisque ; synovite ; traumatisme ; plus rarement infection ou goutte"] },
+  { k: ["Membrane synoviale → liquide qui lubrifie", "Membrane irritée (arthrose, ménisque) → trop de liquide", "Le liquide s'accumule dans la fosse poplitée = kyste", "Rupture si pression ↑ ou traumatisme"],
+    q: ["D'où vient le liquide du kyste ? | de la membrane synoviale du genou, irritée || du sang ; de la bourse prérotulienne ; de la lymphe"] },
+  { k: ["BOSSE palpable derrière le genou", "Douleur légère à modérée en flexion / extension", "Tension, raideur à l'accroupissement", "Mobilité limitée ; parfois chaleur + rougeur"],
+    q: ["Les signes à citer | bosse derrière le genou ; douleur ; tension et raideur ; mobilité limitée"] },
+  { k: ["Examen clinique : masse palpable, mobilité", "ÉCHOGRAPHIE : le plus simple, taille + contenu liquide", "IRM : kyste précis, ménisque, arthrose", "Radio : ne voit PAS le kyste, montre l'arthrose"],
+    q: ["L'examen le plus simple ? | l'échographie || la radiographie ; le scanner ; la scintigraphie",
+        "La radio voit-elle le kyste ? | non, elle montre l'arthrose ou les lésions associées"] },
+  { k: ["Repos, glace, élévation, AINS, compression", "PONCTION : draine mais n'empêche pas la récidive", "Chirurgie : drainage / excision si persistant", "TRAITER LA CAUSE : ménisque, arthrose (arthroscopie, infiltrations)"],
+    q: ["La limite de la ponction ? | elle n'empêche pas la récidive",
+        "Le plus important dans le traitement ? | traiter la cause (ménisque, arthrose)"] },
+  { k: ["Généralement BON", "Cause traitée → le kyste peut se résorber", "Récidive après ponction → chirurgie", "Dépend de la pathologie associée"],
+    q: ["Si on traite la cause, le kyste… | peut se résorber"] },
+  { k: ["Pas toujours évitable", "Poids santé, renforcement du genou, gérer l'arthrose", "Traiter vite blessures et inflammations", "Suivi si arthrose, ménisque, maladie inflammatoire"],
+    q: ["Qui suivre régulièrement ? | arthrose ; lésion du ménisque ; maladie inflammatoire"] },
+];
