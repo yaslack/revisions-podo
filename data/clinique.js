@@ -2,13 +2,13 @@
 // Chaque test : n nom, s section (dessin : data/clinique-dessins.js, même numéro), cherche ce qu'on cherche,
 // yt / src vidéo YouTube et page de piriforme.fr/bdd/orthopedie (quand elle existe), pat / prat positions, steps étapes, key chiffres à retenir, norm résultat normal, pos [signe, ce que ça veut dire], tip astuce, extra.
 window.CLIN_S = [
-  { t: 'Rachis, posture et statique', e: '🧍', intro: "Le rachis, le bassin et le pied sont liés : on regarde toujours la colonne pour comprendre les compensations qui se répercutent sur les appuis du pied." },
-  { t: 'Hanche, bassin et ILMI', e: '🦵', intro: "La hanche et le bassin, puis l'inégalité de longueur des membres inférieurs (ILMI). ILMI suspectée → Galeazzi (tibia ou fémur ?) et cales en charge (combien corriger ?)." },
-  { t: 'Genou et alignement', e: '🦿', intro: "L'axe des genoux (valgum en X, varum en O), la bandelette ilio-tibiale et les ligaments croisés." },
-  { t: 'Cheville, arrière-pied et ligaments', e: '🦶', intro: "Après une entorse : tiroir antérieur pour le LTFA, squeeze test et Kleiger pour la syndesmose, Ottawa pour savoir s'il faut une radio." },
-  { t: 'Avant-pied et syndromes canalaires', e: '👣', intro: "Les métatarso-phalangiennes, le névrome de Morton, les tendons et les nerfs comprimés dans un canal." },
-  { t: 'Diabète et neuro-vasculaire', e: '🩺', intro: "Pour prévenir les plaies et les amputations : on teste la sensibilité et les artères, puis on donne le grade de risque podologique (HAS)." },
-  { t: 'Tests fonctionnels, sport et hyperlaxité', e: '🏃', intro: "La laxité constitutionnelle (Beighton) et les tests qui autorisent la reprise du sport après une blessure." },
+  { t: 'Rachis, posture et statique', e: 'person', intro: "Le rachis, le bassin et le pied sont liés : on regarde toujours la colonne pour comprendre les compensations qui se répercutent sur les appuis du pied." },
+  { t: 'Hanche, bassin et ILMI', e: 'leg', intro: "La hanche et le bassin, puis l'inégalité de longueur des membres inférieurs (ILMI). ILMI suspectée → Galeazzi (tibia ou fémur ?) et cales en charge (combien corriger ?)." },
+  { t: 'Genou et alignement', e: 'knee', intro: "L'axe des genoux (valgum en X, varum en O), la bandelette ilio-tibiale et les ligaments croisés." },
+  { t: 'Cheville, arrière-pied et ligaments', e: 'foot', intro: "Après une entorse : tiroir antérieur pour le LTFA, squeeze test et Kleiger pour la syndesmose, Ottawa pour savoir s'il faut une radio." },
+  { t: 'Avant-pied et syndromes canalaires', e: 'feet', intro: "Les métatarso-phalangiennes, le névrome de Morton, les tendons et les nerfs comprimés dans un canal." },
+  { t: 'Diabète et neuro-vasculaire', e: 'stetho', intro: "Pour prévenir les plaies et les amputations : on teste la sensibilité et les artères, puis on donne le grade de risque podologique (HAS)." },
+  { t: 'Tests fonctionnels, sport et hyperlaxité', e: 'run', intro: "La laxité constitutionnelle (Beighton) et les tests qui autorisent la reprise du sport après une blessure." },
 ];
 
 window.CLIN = [

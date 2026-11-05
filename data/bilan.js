@@ -3,10 +3,10 @@
 // Chaque étape : n titre, g groupe, why ce qu'on cherche, pos installation, b blocs, key chiffres, tip astuce, yt vidéo YouTube.
 // Un bloc : h titre, puis p (texte), kv ([libellé, texte]), li (liste), steps (étapes), table (+ head), res ([ok|mid|ko, signe, sens]).
 window.BILAN_G = [
-  { t: "Avant l'examen", e: '🗣' },
-  { t: 'En décharge (assis ou allongé)', e: '🛏' },
-  { t: 'En charge (debout)', e: '🧍' },
-  { t: 'Tests dynamiques', e: '🏃' },
+  { t: "Avant l'examen", e: 'speak' },
+  { t: 'En décharge (assis ou allongé)', e: 'bed' },
+  { t: 'En charge (debout)', e: 'person' },
+  { t: 'Tests dynamiques', e: 'run' },
 ];
 window.BILAN = [
   { n: 'Accueil et anamnèse', g: 0, why: 'Comprendre pourquoi le patient vient, avant de toucher le pied',

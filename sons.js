@@ -8,16 +8,17 @@
   try { Object.assign(st, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
   const LIST = [
-    { id: 'rose', n: 'Bruit rose', e: '🌸', d: 'Doux et régulier : le bruit le plus étudié pour la concentration et la mémoire.' },
-    { id: 'brun', n: 'Bruit brun', e: '🟤', d: 'Grave et enveloppant, comme une cascade au loin.' },
-    { id: 'brun2', n: 'Brun profond', e: '🌑', d: 'Encore plus grave : un grondement sourd et très calme.' },
-    { id: 'blanc', n: 'Bruit blanc', e: '⚪', d: 'Plus aigu : cache bien les voix et les bruits autour.' },
-    { id: 'pluie', n: 'Pluie', e: '🌧', d: 'Une pluie régulière sur le toit.' },
-    { id: 'vagues', n: 'Vagues', e: '🌊', d: 'Le ressac lent de la mer, pour se poser.' },
-    { id: 'feu', n: 'Feu de cheminée', e: '🔥', d: 'Un grondement doux et quelques crépitements.' },
-    { id: 'alpha', n: 'Ondes alpha', e: '🎧', d: 'Sons binauraux à 10 Hz : avec un casque seulement (effet encore discuté).' },
+    { id: 'rose', n: 'Bruit rose', e: 'noisep', d: 'Doux et régulier : le bruit le plus étudié pour la concentration et la mémoire.' },
+    { id: 'brun', n: 'Bruit brun', e: 'noisebr', d: 'Grave et enveloppant, comme une cascade au loin.' },
+    { id: 'brun2', n: 'Brun profond', e: 'noisedeep', d: 'Encore plus grave : un grondement sourd et très calme.' },
+    { id: 'blanc', n: 'Bruit blanc', e: 'noisew', d: 'Plus aigu : cache bien les voix et les bruits autour.' },
+    { id: 'pluie', n: 'Pluie', e: 'rain', d: 'Une pluie régulière sur le toit.' },
+    { id: 'vagues', n: 'Vagues', e: 'waves', d: 'Le ressac lent de la mer, pour se poser.' },
+    { id: 'feu', n: 'Feu de cheminée', e: 'flame', d: 'Un grondement doux et quelques crépitements.' },
+    { id: 'alpha', n: 'Ondes alpha', e: 'phones', d: 'Sons binauraux à 10 Hz : avec un casque seulement (effet encore discuté).' },
   ];
   const byId = id => LIST.find(s => s.id === id);
+  const ico = n => window.ico ? window.ico(n) : '';
   // icônes en SVG (les polices dessinées n'ont pas ▶ ⏸ ✕ : l'iPhone affiche « ? »)
   const svg = d => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
   const IC = { play: svg('<path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/>'), pause: svg('<path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z" fill="currentColor"/>'),
@@ -95,10 +96,10 @@
   function card() {
     const cur = byId(st.id);
     return `<div class="card sndcard" id="sndcard">
-      <div class="trow"><div><div class="kicker">🎧 SONS POUR RÉVISER</div><div class="muted small">${st.on && cur ? (playing ? `En cours : ${cur.e} ${esc(cur.n)}` : `En pause : ${cur.e} ${esc(cur.n)}`) : 'Choisis un son : il joue en fond pendant que tu révises.'}</div></div>
+      <div class="trow"><div><div class="kicker">${ico('phones')} SONS POUR RÉVISER</div><div class="muted small">${st.on && cur ? (playing ? `En cours : ${ico(cur.e)} ${esc(cur.n)}` : `En pause : ${ico(cur.e)} ${esc(cur.n)}`) : 'Choisis un son : il joue en fond pendant que tu révises.'}</div></div>
         ${st.on ? `<button class="btn ghost sndoff" data-sndx>Couper</button>` : ''}</div>
-      <div class="sndgrid">${LIST.map(s => `<button class="sndchip ${st.on && st.id === s.id ? 'on' : ''}" data-snd="${s.id}" aria-pressed="${st.on && st.id === s.id && playing}"><span class="em">${s.e}</span>${esc(s.n)}</button>`).join('')}</div>
-      ${st.on && cur ? `<div class="sndd small muted">${esc(cur.d)}</div><label class="sndvol">🔈 ${vol()} 🔊</label>` : ''}
+      <div class="sndgrid">${LIST.map(s => `<button class="sndchip ${st.on && st.id === s.id ? 'on' : ''}" data-snd="${s.id}" aria-pressed="${st.on && st.id === s.id && playing}"><span class="em">${ico(s.e)}</span>${esc(s.n)}</button>`).join('')}</div>
+      ${st.on && cur ? `<div class="sndd small muted">${esc(cur.d)}</div><label class="sndvol">${ico('spklow')} ${vol()} ${ico('spkhigh')}</label>` : ''}
     </div>`;
   }
   function ui() {
@@ -108,8 +109,8 @@
     if (!st.on || !cur) { if (b) b.remove(); document.body.classList.remove('sndon'); return; }
     if (!b) { b = document.createElement('div'); b.id = 'sndbar'; b.className = 'sndbar'; document.body.appendChild(b); }
     const pp = `<button class="sndpp" data-sndpp aria-label="${playing ? 'Pause' : 'Lecture'}">${playing ? IC.pause : IC.play}</button>`, grip = '<span class="sndgrip" aria-label="Déplacer le lecteur" title="Déplacer">⠿</span>';
-    b.innerHTML = st.mini ? `${grip}${pp}<button class="sndexp" data-sndmin aria-label="Agrandir le lecteur">${cur.e}</button>`
-      : `${grip}${pp}<span class="sndn">${cur.e} ${esc(cur.n)}</span>${vol()}<button class="sndmin" data-sndmin aria-label="Réduire le lecteur">–</button><button class="sndx" data-sndx aria-label="Arrêter le son">${IC.close}</button>`;
+    b.innerHTML = st.mini ? `${grip}${pp}<button class="sndexp" data-sndmin aria-label="Agrandir le lecteur">${ico(cur.e)}</button>`
+      : `${grip}${pp}<span class="sndn">${ico(cur.e)} ${esc(cur.n)}</span>${vol()}<button class="sndmin" data-sndmin aria-label="Réduire le lecteur">–</button><button class="sndx" data-sndx aria-label="Arrêter le son">${IC.close}</button>`;
     b.classList.toggle('paused', !playing); b.classList.toggle('mini', !!st.mini); document.body.classList.add('sndon');
     place(b);
   }

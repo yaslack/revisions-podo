@@ -7,6 +7,7 @@
   const REG_ORDER = ['pied', 'jambe', 'cuisse'];
   const REG_SHORT = { pied: 'Pied', jambe: 'Jambe', cuisse: 'Cuisse' };
   const $ = s => document.querySelector(s);
+  const ico = (n, c) => window.ico ? window.ico(n, c) : '';   // icônes dessinées (icons.js)
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
 
@@ -162,8 +163,8 @@
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
       <header class="brand"><h1 id="apptitle" class="${night() ? 'tap' : ''}">Ya<span>noé</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
-      <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> 🧢<br><small>le dev</small></span></span>
-        <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> 🚧<br><small>le cerveau</small></span></span></div>
+      <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> ${ico('cap')}<br><small>le dev</small></span></span>
+        <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> ${ico('cone')}<br><small>le cerveau</small></span></span></div>
       ${todayCard()}
       ${last ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
         <span class="rt"><span class="kicker">${IC.play} REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
@@ -175,8 +176,8 @@
       <div class="sec">RÉVISER MAINTENANT</div>
       <div class="quick">
         ${nextF ? `<a class="qb" href="${FB(nextF)}" style="--c:var(--p6)">${thumb(ill(nextF.id, 'cover'), nextF.title)}<span class="t">Fiche ${nextF.n}</span><span class="s">${esc(nextF.title)}</span></a>` : ''}
-        <a class="qb" href="#/anat/quiz" style="--c:var(--p1)"><span class="em">🎯</span><span class="t">Je m'interroge</span><span class="s">un repère d'anatomie au hasard</span></a>
-        <a class="qb" href="#/tirage" style="--c:var(--red)"><span class="em">🎲</span><span class="t">Tirage au sort</span><span class="s">comme le jour de l'oral</span></a>
+        <a class="qb" href="#/anat/quiz" style="--c:var(--p1)"><span class="em">${ico('target')}</span><span class="t">Je m'interroge</span><span class="s">un repère d'anatomie au hasard</span></a>
+        <a class="qb" href="#/tirage" style="--c:var(--red)"><span class="em">${ico('dice')}</span><span class="t">Tirage au sort</span><span class="s">comme le jour de l'oral</span></a>
         <a class="qb" href="#/plan" style="--c:var(--p3)">${thumb(ill('plan', 'board'), 'Le plan')}<span class="t">Le plan de l'oral</span><span class="s">les 8 questions</span></a>
       </div>
       ${window.SONS ? `<div class="sec">POUR SE CONCENTRER</div>${SONS.card()}` : ''}
@@ -187,16 +188,16 @@
   function settings() {
     const b = (attr, v, cur, t) => `<button class="btn ghost" data-${attr}="${v}" aria-pressed="${cur === v}">${t}</button>`;
     return `<div class="card sets">
-      <div class="lbl">Thème</div><div class="skin">${b('skin', 'drawn', S.skin || 'drawn', '✏️ Dessiné')}${b('skin', 'classic', S.skin || 'drawn', 'Classique')}</div>
+      <div class="lbl">Thème</div><div class="skin">${b('skin', 'drawn', S.skin || 'drawn', ico('pencil') + ' Dessiné')}${b('skin', 'classic', S.skin || 'drawn', 'Classique')}</div>
       <div class="lbl">Couleurs</div><div class="skin">${b('theme', '', S.theme || '', 'Auto')}${b('theme', 'light', S.theme || '', 'Clair')}${b('theme', 'dark', S.theme || '', 'Sombre')}</div>
       <div class="lbl">Texte</div><div class="skin">${b('size', '', S.size || '', 'Normal')}${b('size', 'big', S.size || '', 'Grand')}</div>
       <div class="lbl">Sauvegarde</div><div class="muted small">Ta progression reste sur ce téléphone. Sur iPhone, Safari et l'icône de l'écran d'accueil ne la partagent pas : copie ton code d'un côté, restaure-le de l'autre (ou garde-le dans tes Notes).</div>
-      <div class="skin"><button class="btn ghost" id="bkcopy">📋 Copier mon code</button><button class="btn ghost" id="bkopen">Restaurer</button></div>
+      <div class="skin"><button class="btn ghost" id="bkcopy">${ico('clipboard')} Copier mon code</button><button class="btn ghost" id="bkopen">Restaurer</button></div>
       <div id="bkzone" hidden><textarea id="bkta" rows="3" placeholder="Colle ton code ici"></textarea><button class="btn" id="bkload" style="--c:var(--hl)">Restaurer ce code</button></div>
       <div class="muted small" id="bkmsg"></div>
-      <div class="lbl">Mise à jour</div><div class="skin"><span class="muted small" style="margin:0">Version ${APP_V}</span><button class="btn ghost" id="upcheck">🔄 Vérifier</button></div>
+      <div class="lbl">Mise à jour</div><div class="skin"><span class="muted small" style="margin:0">Version ${APP_V}</span><button class="btn ghost" id="upcheck">${ico('refresh')} Vérifier</button></div>
       <div class="muted small" id="upmsg"></div>
-      <div class="lbl">Partager</div><div class="skin"><button class="btn" id="share" style="--c:var(--hl)">📤 Partager l'appli à un ami</button></div>
+      <div class="lbl">Partager</div><div class="skin"><button class="btn" id="share" style="--c:var(--hl)">${ico('share')} Partager l'appli à un ami</button></div>
       <div class="muted small" id="shmsg">Chacun garde sa propre progression sur son téléphone.</div>
       ${matchMedia('(display-mode: standalone)').matches || navigator.standalone ? '' : `<div class="lbl">L'installer comme une appli</div><div class="muted small">Sur iPhone : ouvre le site dans Safari, touche Partager puis « Sur l'écran d'accueil ». Sur Android : menu ⋮ puis « Ajouter à l'écran d'accueil ». Elle marche ensuite sans réseau.</div>`}</div>`;
   }
@@ -237,15 +238,15 @@
     const item = (href, em, t, sub) => `<a class="todo" href="${href}"><span class="em">${em}</span><span class="rt"><span class="t">${t}</span>${sub ? `<span class="s">${sub}</span>` : ''}</span><span class="chev">›</span></a>`;
     return `<div class="card today">
       <div class="trow"><div><div class="kicker">MA SÉANCE DU JOUR</div>${left != null ? `<div class="big3">${left > 0 ? `Oral dans ${left} jour${left > 1 ? 's' : ''}` : left === 0 ? "C'est le jour J !" : 'Oral passé'}</div>` : ''}</div>
-        <div class="streak" title="Jours d'affilée">🔥 ${st}<small>jour${st > 1 ? 's' : ''}</small></div></div>
+        <div class="streak" title="Jours d'affilée">${ico('flame')} ${st}<small>jour${st > 1 ? 's' : ''}</small></div></div>
       <div class="goal"><span>Objectif du jour : ${Math.min(n, GOAL)} / ${GOAL}</span>${bar(Math.min(1, n / GOAL), 'var(--p6)')}</div>
       <div class="todos">
-        ${dueF.map(f => item(`${FB(f)}/quiz`, '🔁', `À revoir : ${esc(f.title)}`, 'le quiz de la fiche')).join('')}
-        ${dueA ? item('#/anat/quiz', '🦴', `${dueA} repère${dueA > 1 ? 's' : ''} d'anatomie à revoir`, "Je m'interroge") : ''}
-        ${nf ? item(`${FB(nf)}`, '🆕', `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `pour tout voir avant l'oral : ${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour` : 'lis-la, puis fais son quiz') : ''}
+        ${dueF.map(f => item(`${FB(f)}/quiz`, ico('repeat'), `À revoir : ${esc(f.title)}`, 'le quiz de la fiche')).join('')}
+        ${dueA ? item('#/anat/quiz', ico('bone'), `${dueA} repère${dueA > 1 ? 's' : ''} d'anatomie à revoir`, "Je m'interroge") : ''}
+        ${nf ? item(`${FB(nf)}`, ico('sparkle'), `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `pour tout voir avant l'oral : ${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour` : 'lis-la, puis fais son quiz') : ''}
         ${!dueF.length && !dueA && !nf ? '<div class="muted small">Rien à revoir aujourd\'hui. Tire un sujet au sort pour t\'entraîner !</div>' : ''}
       </div>
-      <div class="exam">📅 Mon oral : <input type="date" id="examdate" value="${S.exam || ''}" aria-label="Date de mon oral"></div></div>`;
+      <div class="exam">${ico('calendar')} Mon oral : <input type="date" id="examdate" value="${S.exam || ''}" aria-label="Date de mon oral"></div></div>`;
   }
 
   // ---------- mise à jour : la version de ce téléphone (le ?v= de app.js) contre celle du site (version.json) ----------
@@ -268,45 +269,45 @@
   // Pour une nouvelle version : ajouter une entrée { v, items } à la fin (v = numéro de version.json).
   const NOTES = [
     { v: 45, theme: true, items: [
-      ['✏️', 'Un nouveau look, dessiné comme les vidéos. Tu préfères l\'ancien ? Choisis en bas.'],
-      ['🎯', 'Un quiz pour apprendre chaque fiche par cœur : partie par partie, puis toute la fiche de mémoire.'],
-      ['🎬', 'La vidéo de chaque fiche, et les dessins des vidéos sur chaque partie.'],
-      ['🦴', 'Anatomie : seulement les 59 questions de l\'oral, rangées pied / jambe / cuisse, avec ce qui s\'insère sur chaque os.'],
-      ['🧊', 'Le quiz 3D revient, sur les 59 repères.'],
-      ['📅', 'Ma séance du jour : la date de ton oral, ce qu\'il faut revoir aujourd\'hui, ton objectif et ta série de jours.'],
-      ['🔁', 'Ce que tu apprends revient au bon moment : après 1, 3, 6, 12 puis 25 jours.'],
-      ['📖', 'Le lexique des mots compliqués et une recherche dans tout le site.'],
-      ['🌙', 'Mode sombre, texte plus grand et code de sauvegarde : dans Réglages, en bas de l\'accueil.'],
-      ['✅', 'Ta progression a été gardée.'],
+      ['pencil', 'Un nouveau look, dessiné comme les vidéos. Tu préfères l\'ancien ? Choisis en bas.'],
+      ['target', 'Un quiz pour apprendre chaque fiche par cœur : partie par partie, puis toute la fiche de mémoire.'],
+      ['film', 'La vidéo de chaque fiche, et les dessins des vidéos sur chaque partie.'],
+      ['bone', 'Anatomie : seulement les 59 questions de l\'oral, rangées pied / jambe / cuisse, avec ce qui s\'insère sur chaque os.'],
+      ['cube', 'Le quiz 3D revient, sur les 59 repères.'],
+      ['calendar', 'Ma séance du jour : la date de ton oral, ce qu\'il faut revoir aujourd\'hui, ton objectif et ta série de jours.'],
+      ['repeat', 'Ce que tu apprends revient au bon moment : après 1, 3, 6, 12 puis 25 jours.'],
+      ['book', 'Le lexique des mots compliqués et une recherche dans tout le site.'],
+      ['moon', 'Mode sombre, texte plus grand et code de sauvegarde : dans Réglages, en bas de l\'accueil.'],
+      ['check', 'Ta progression a été gardée.'],
     ] },
     { v: 50, items: [
-      ['🩺', 'Nouvel onglet Examen clinique : les 41 tests du guide, rangés en 7 sections.'],
-      ['✏️', 'Chaque test a son dessin : comment se placer, où mettre les mains, ce qui bouge.'],
-      ['👣', 'Les étapes une par une, les chiffres à retenir, et comment lire le résultat (normal ou positif).'],
-      ['▶️', 'Une vidéo pour 13 des tests.'],
-      ['🙈', 'Mode test (l\'œil en haut) et « Un test au hasard » pour t\'entraîner.'],
+      ['stetho', 'Nouvel onglet Examen clinique : les 41 tests du guide, rangés en 7 sections.'],
+      ['pencil', 'Chaque test a son dessin : comment se placer, où mettre les mains, ce qui bouge.'],
+      ['feet', 'Les étapes une par une, les chiffres à retenir, et comment lire le résultat (normal ou positif).'],
+      ['play', 'Une vidéo pour 13 des tests.'],
+      ['eyeoff', 'Mode test (l\'œil en haut) et « Un test au hasard » pour t\'entraîner.'],
     ] },
     { v: 51, items: [
-      ['✏️', 'Examen clinique : tous les dessins des tests ont été refaits, plus clairs, avec les mains du praticien et des gros plans sur le genou, la cheville et le pied.'],
-      ['🧢', 'L\'appli s\'appelle Yanoé (Yaya + Noé), et tu peux voir qui l\'a faite : Yaya et Nono, en haut de l\'accueil.'],
+      ['pencil', 'Examen clinique : tous les dessins des tests ont été refaits, plus clairs, avec les mains du praticien et des gros plans sur le genou, la cheville et le pied.'],
+      ['cap', 'L\'appli s\'appelle Yanoé (Yaya + Noé), et tu peux voir qui l\'a faite : Yaya et Nono, en haut de l\'accueil.'],
     ] },
     { v: 52, items: [
-      ['🦶', 'Examen clinique : le bilan du pied, en décharge et en charge, en 15 étapes dans l\'ordre de l\'examen.'],
-      ['✏️', 'Chaque étape a son dessin : empreintes au podoscope, griffes, axe du talon, amplitudes, test de Jack…'],
-      ['▶️', 'Des vidéos pour 6 étapes, et le mode test (l\'œil en haut) pour réciter.'],
+      ['foot', 'Examen clinique : le bilan du pied, en décharge et en charge, en 15 étapes dans l\'ordre de l\'examen.'],
+      ['pencil', 'Chaque étape a son dessin : empreintes au podoscope, griffes, axe du talon, amplitudes, test de Jack…'],
+      ['play', 'Des vidéos pour 6 étapes, et le mode test (l\'œil en haut) pour réciter.'],
     ] },
     { v: 53, items: [
-      ['🦵', 'Nouveau : la podologie ! Les 40 fiches du livret, faites comme celles de pédicurie, à partir des vidéos.'],
-      ['✅', 'Déjà prêtes : 1. Atteintes ligamentaires du genou et 2. Les chaussures de l\'enfant, avec leurs dessins, leur quiz et le livret.'],
-      ['⏳', 'Les autres arrivent au fur et à mesure des vidéos. Elles sont sur l\'accueil, sous Pédicurie.'],
+      ['leg', 'Nouveau : la podologie ! Les 40 fiches du livret, faites comme celles de pédicurie, à partir des vidéos.'],
+      ['check', 'Déjà prêtes : 1. Atteintes ligamentaires du genou et 2. Les chaussures de l\'enfant, avec leurs dessins, leur quiz et le livret.'],
+      ['hourglass', 'Les autres arrivent au fur et à mesure des vidéos. Elles sont sur l\'accueil, sous Pédicurie.'],
     ] },
     { v: 55, items: [
-      ['🎧', 'Des sons pour réviser : bruit rose, brun, brun profond, blanc, pluie, vagues, feu, ondes alpha. À choisir en bas de l\'accueil.'],
-      ['⏯', 'Un mini-lecteur reste à l\'écran : pause, volume ou arrêt à tout moment. Déplace-le avec ⠿, réduis-le avec –. Le son tourne en boucle sans fin.'],
-      ['▶️', 'La vidéo de la fiche podologie 2 (chaussures de l\'enfant) est là.'],
+      ['phones', 'Des sons pour réviser : bruit rose, brun, brun profond, blanc, pluie, vagues, feu, ondes alpha. À choisir en bas de l\'accueil.'],
+      ['playpause', 'Un mini-lecteur reste à l\'écran : pause, volume ou arrêt à tout moment. Déplace-le avec ⠿, réduis-le avec –. Le son tourne en boucle sans fin.'],
+      ['play', 'La vidéo de la fiche podologie 2 (chaussures de l\'enfant) est là.'],
     ] },
     { v: 59, items: [
-      ['🦵', 'Podologie : 3 nouvelles fiches, avec vidéo, dessins et quiz : 3. Les chaussures de sécurité, 4. La coxarthrose, 5. Le cycle de marche.'],
+      ['leg', 'Podologie : 3 nouvelles fiches, avec vidéo, dessins et quiz : 3. Les chaussures de sécurité, 4. La coxarthrose, 5. Le cycle de marche.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -316,7 +317,7 @@
     if (!news.length || $('.note')) return;
     const d = document.createElement('div'); d.className = 'note';
     d.innerHTML = `<div class="card" role="dialog" aria-label="Quoi de neuf"><div class="kicker">MISE À JOUR</div><h2>Quoi de neuf ?</h2>
-      <ul>${news.flatMap(n => n.items).map(([e, t]) => `<li><span>${e}</span><span>${esc(nightly(t))}</span></li>`).join('')}</ul>
+      <ul>${news.flatMap(n => n.items).map(([e, t]) => `<li><span>${ico(e) || esc(e)}</span><span>${esc(nightly(t))}</span></li>`).join('')}</ul>
       ${news.some(n => n.theme) ? `<div class="row2"><button class="btn grow" data-skin="drawn" style="--c:var(--hl)">Garder le dessiné</button><button class="btn ghost grow" data-skin="classic">L'ancien style</button></div>`
         : `<button class="btn wide" data-note="ok">C'est parti !</button>`}</div>`;
     document.body.appendChild(d);
@@ -327,7 +328,7 @@
   function pediList() {
     const nP = PEDI.filter(f => doneP(f.id)).length;
     return `<div class="wrap">${top('#/', 'Pédicurie · 24 fiches', count(nP, 24))}
-      <div class="row2" style="margin:0 0 12px"><a class="btn ghost grow" href="#/search">🔎 Rechercher</a><a class="btn ghost grow" href="#/lexique">📖 Lexique (${(window.LEXIQUE || []).length})</a></div>
+      <div class="row2" style="margin:0 0 12px"><a class="btn ghost grow" href="#/search">${ico('search')} Rechercher</a><a class="btn ghost grow" href="#/lexique">${ico('book')} Lexique (${(window.LEXIQUE || []).length})</a></div>
       <div class="entries">${PEDI.map(f => `<a class="entry" href="${FB(f)}">${thumb(ill(f.id, 'cover'), f.title)}
         <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div></div>`;
   }
@@ -339,7 +340,7 @@
       <div class="muted lead">${PODO_OK.length} fiche${PODO_OK.length > 1 ? 's' : ''} prête${PODO_OK.length > 1 ? 's' : ''} : les autres arrivent au fur et à mesure des vidéos.</div>
       <div class="entries">${PODO.map(f => f.ready ? `<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(ill(f.id, 'cover'), f.title) : `<span class="stamp xs" style="--c:var(--p8)">${f.n}</span>`}
         <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`
-        : `<div class="entry soon"><span class="stamp xs">${f.n}</span><span class="rt"><span class="t">${esc(f.title)}</span><span class="n">⏳ Coming soon</span></span></div>`).join('')}</div></div>`;
+        : `<div class="entry soon"><span class="stamp xs">${f.n}</span><span class="rt"><span class="t">${esc(f.title)}</span><span class="n">${ico('hourglass')} Coming soon</span></span></div>`).join('')}</div></div>`;
   }
 
   // la fiche : où j'en suis, le bouton pour continuer, les outils, puis le plan
@@ -351,13 +352,13 @@
     return `<div class="wrap">${top('#/' + (f.sec || 'pedi'), `Fiche ${f.n} / ${NTOT(f)} · ${esc(f.catName)}`, count(k, n))}
       <div class="fhead">${hasIll(f) ? `<span class="drawn th zoomable">${img(ill(f.id, 'cover'), f.title)}</span>` : `<span class="stamp" style="--c:var(--p8)">${f.n}</span>`}<div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
       <a class="btn wide" href="${FB(f)}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
-      <a class="btn wide quizbtn" href="${FB(f)}/quiz" style="--c:var(--p5)">🎯 Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
-      ${dueIn('f:' + f.id) != null ? `<div class="muted small center-t">${dueIn('f:' + f.id) <= 0 ? '🔁 À revoir aujourd\'hui' : `🔁 Prochaine révision dans ${dueIn('f:' + f.id)} jour${dueIn('f:' + f.id) > 1 ? 's' : ''}`}</div>` : ''}
+      <a class="btn wide quizbtn" href="${FB(f)}/quiz" style="--c:var(--p5)">${ico('target')} Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
+      ${dueIn('f:' + f.id) != null ? `<div class="muted small center-t">${dueIn('f:' + f.id) <= 0 ? ico('repeat') + ' À revoir aujourd\'hui' : `${ico('repeat')} Prochaine révision dans ${dueIn('f:' + f.id)} jour${dueIn('f:' + f.id) > 1 ? 's' : ''}`}</div>` : ''}
       <div class="tools">
-        ${VIDEOS[f.id] ? tool(`${FB(f)}/video`, '▶️', 'Vidéo') : ''}
-        ${tool(`${FB(f)}/memo`, '📝', 'Mots-clés')}
-        ${f.photos.length ? tool(`${FB(f)}/photos`, '📷', 'Photos') : ''}
-        ${f.livret ? tool(`${FB(f)}/livret`, '📖', 'Livret') : ''}
+        ${VIDEOS[f.id] ? tool(`${FB(f)}/video`, ico('play'), 'Vidéo') : ''}
+        ${tool(`${FB(f)}/memo`, ico('memo'), 'Mots-clés')}
+        ${f.photos.length ? tool(`${FB(f)}/photos`, ico('camera'), 'Photos') : ''}
+        ${f.livret ? tool(`${FB(f)}/livret`, ico('book'), 'Livret') : ''}
       </div>
       <div class="sec">${esc(f.planTitle || 'LE PLAN EN ' + n + ' PARTIES').toUpperCase()}</div>
       <div class="entries">${f.parts.map((p, j) => `<a class="entry part-e" href="${FB(f)}/p${j + 1}" style="--c:${PCOL(j)}"><span class="stamp xs">${j + 1}</span>
@@ -375,15 +376,15 @@
     if (!(S.last && S.last.id === f.id && S.last.k === k)) did(1);
     S.last = { id: f.id, k }; save();
     const prev = k > 1 ? `${FB(f)}/p${k - 1}` : `${FB(f)}`, next = k < n ? `${FB(f)}/p${k + 1}` : `${FB(f)}/memo`;
-    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
+    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? ico('eyeoff') : ico('eye')}</button>`)}
       <nav class="segnav">${f.parts.map((_, i) => `<a href="${FB(f)}/p${i + 1}" class="${i + 1 === k ? 'on' : seenP(f, i + 1) ? 'seen' : ''}" style="--c:${PCOL(i)}">${i + 1}</a>`).join('')}</nav>
       <section class="part solo" style="--c:${c}">
         <header><span class="stamp sm">${k}</span><div><h2>${esc(p.title)}</h2><span class="q">${esc(p.q)}</span></div></header>
         ${hasIll(f) ? `<figure class="drawn slide">${img(ill(f.id, `p${k}b`), p.title + ' : dessin de la vidéo', 'crop')}</figure>` : ''}
-        ${S.revise ? '<div class="hint">🙈 Mode test : récite, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
+        ${S.revise ? `<div class="hint">${ico('eyeoff')} Mode test : récite, puis touche une ligne pour la voir. (${ico('eye')} en haut pour tout afficher)</div>` : ''}
         <div class="body">${blocks(p.blocks)}</div>
-        <details class="say"><summary>🗣 Ce que je dis à l'oral</summary><p>${md(p.say)}</p></details>
-        <a class="btn ghost wide" href="${FB(f)}/quiz/${k}" style="margin-top:14px">🎯 Me tester sur cette partie</a>
+        <details class="say"><summary>${ico('speak')} Ce que je dis à l'oral</summary><p>${md(p.say)}</p></details>
+        <a class="btn ghost wide" href="${FB(f)}/quiz/${k}" style="margin-top:14px">${ico('target')} Me tester sur cette partie</a>
       </section>
       ${pager(prev, `<a class="btn grow" href="${next}" style="--c:${k < n ? PCOL(k) : 'var(--hl)'}">${k < n ? `Partie ${k + 1}` : 'Mots-clés'} →</a>`, next)}</div>`;
   }
@@ -440,16 +441,16 @@
       body = `<div class="question">${md(st.q)}</div><div class="opts">${st.opts.map((o, j) => `<button class="opt ${st.pick != null ? (o === st.ok ? 'good' : j === st.pick ? 'bad' : 'dim') : ''}" data-qa="pick" data-j="${j}" ${st.pick != null ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div>`;
       foot = st.pick != null ? btn('next', st.opts[st.pick] === st.ok ? '✓ Bien vu ! Continuer →' : 'Continuer →', st.opts[st.pick] === st.ok ? 'var(--p6)' : 'var(--hl)') : '<span class="tip">Choisis une réponse</span>';
     } else if (st.t === 'q' && st.kind === 'flip') {
-      body = `<div class="question">${md(st.q)}</div>${st.shown ? `<div class="answer">${md(st.a)}</div>` : '<div class="say-it">🗣 Réponds à voix haute</div>'}`;
+      body = `<div class="question">${md(st.q)}</div>${st.shown ? `<div class="answer">${md(st.a)}</div>` : `<div class="say-it">${ico('speak')} Réponds à voix haute</div>`}`;
       foot = st.shown ? btn('no', '✗ Pas su', '#f6c3b9') + btn('yes', '✓ Je savais', 'var(--p6)') : btn('show', 'Voir la réponse', 'var(--hl)');
     } else if (st.t === 'q') {
-      body = `<div class="question">${md(st.q)}</div>${st.shown ? `<div class="muted small">Touche ce que tu avais trouvé :</div>${checks(st.items)}` : `<div class="say-it">🗣 Cite-les à voix haute (${st.items.length})</div>`}`;
+      body = `<div class="question">${md(st.q)}</div>${st.shown ? `<div class="muted small">Touche ce que tu avais trouvé :</div>${checks(st.items)}` : `<div class="say-it">${ico('speak')} Cite-les à voix haute (${st.items.length})</div>`}`;
       foot = st.shown ? btn('valid', `Valider · ${(st.ticks || []).length}/${st.items.length}`, 'var(--p6)') : btn('show', 'Voir la réponse', 'var(--hl)');
     } else if (st.t === 'r') {
       const m = f.memo[st.p - 1];
       body = `<div class="kicker">RÉCITE LA PARTIE ${st.p}</div><div class="question">${esc(P.q)}</div>
-        ${st.shown ? `<div class="muted small">Coche ce que tu as dit :</div>${checks(st.items)}<details class="say"><summary>🗣 Le texte complet de la partie</summary><p>${md(P.say)}</p></details>`
-          : `<div class="say-it">🗣 Dis-la à voix haute, comme à l'oral.</div>${m ? `<details class="hintk"><summary>💡 Un indice</summary><span class="hl">${md(m.k)}</span></details>` : ''}`}`;
+        ${st.shown ? `<div class="muted small">Coche ce que tu as dit :</div>${checks(st.items)}<details class="say"><summary>${ico('speak')} Le texte complet de la partie</summary><p>${md(P.say)}</p></details>`
+          : `<div class="say-it">${ico('speak')} Dis-la à voix haute, comme à l'oral.</div>${m ? `<details class="hintk"><summary>${ico('bulb')} Un indice</summary><span class="hl">${md(m.k)}</span></details>` : ''}`}`;
       foot = st.shown ? btn('valid', `Valider · ${(st.ticks || []).length}/${st.items.length}`, 'var(--p6)') : btn('show', "J'ai récité → voir", 'var(--hl)');
     } else {
       body = `<div class="muted small">Pour chaque question du plan, dis la partie à voix haute, puis touche-la pour vérifier.</div>
@@ -528,11 +529,11 @@
     let h = `<div class="wrap">${top('#/', 'Anatomie palpatoire', count(nA, AQ.length))}
       <nav class="regtabs">${REG_ORDER.map(x => { const it = AQ.filter(a => a.reg === x), k = it.filter(a => doneA(a.q)).length;
         return `<a href="#/anat/${x}" class="${x === r ? 'on' : ''}" style="--c:${RCOL[x]}"><span class="t">${REG_SHORT[x]}</span><span class="s">${k}/${it.length}</span>${bar(k / it.length, RCOL[x])}</a>`; }).join('')}</nav>
-      <div class="row2"><a class="btn grow" href="#/anat/quiz" style="--c:var(--hl)">🎯 Je m'interroge</a><a class="btn grow" href="#/anat/3d" style="--c:var(--p8);color:#fff">🧊 Quiz 3D</a></div>`;
+      <div class="row2"><a class="btn grow" href="#/anat/quiz" style="--c:var(--hl)">${ico('target')} Je m'interroge</a><a class="btn grow" href="#/anat/3d" style="--c:var(--p8);color:#fff">${ico('cube')} Quiz 3D</a></div>`;
     for (const g of ['Os', 'Muscles']) {
       const it = items.filter(x => x.group === g);
       if (!it.length) continue;
-      h += `<div class="sec" style="color:${RCOL[r]}">${g === 'Os' ? '🦴 OS & REPÈRES OSSEUX' : '💪 MUSCLES & TENDONS'} · ${it.filter(x => doneA(x.q)).length}/${it.length}</div>
+      h += `<div class="sec" style="color:${RCOL[r]}">${g === 'Os' ? ico('bone') + ' OS & REPÈRES OSSEUX' : ico('muscle') + ' MUSCLES & TENDONS'} · ${it.filter(x => doneA(x.q)).length}/${it.length}</div>
         <div class="entries">${it.map(x => `<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[r]}">${zoomThumb(x, 52)}<span class="rt"><span class="n">Question ${x.q}</span><span class="t">${esc(x.name)}</span></span>${doneA(x.q) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div>`;
     }
     return h + '</div>';
@@ -586,7 +587,7 @@
   function tirage() {
     const d = draw;
     return `<div class="wrap">${top('#/', 'Tirage au sort')}<div class="muted lead">Comme le jour de l'oral : 5 minutes pour préparer, puis tu présentes avec le plan.</div>
-      <div class="quick"><button class="qb" id="drawP" style="--c:var(--p6)"><span class="em">🎲</span><span class="t">Un sujet de pédicurie</span></button>${PODO_OK.length ? `<button class="qb" id="drawO" style="--c:var(--p8)"><span class="em">🎲</span><span class="t">Un sujet de podologie</span><span class="s">parmi les ${PODO_OK.length} fiches prêtes</span></button>` : ''}<button class="qb" id="drawA" style="--c:var(--p1)"><span class="em">🎲</span><span class="t">5 repères à palper</span></button></div>
+      <div class="quick"><button class="qb" id="drawP" style="--c:var(--p6)"><span class="em">${ico('dice')}</span><span class="t">Un sujet de pédicurie</span></button>${PODO_OK.length ? `<button class="qb" id="drawO" style="--c:var(--p8)"><span class="em">${ico('dice')}</span><span class="t">Un sujet de podologie</span><span class="s">parmi les ${PODO_OK.length} fiches prêtes</span></button>` : ''}<button class="qb" id="drawA" style="--c:var(--p1)"><span class="em">${ico('dice')}</span><span class="t">5 repères à palper</span></button></div>
       ${d && d.kind === 'p' ? `<a class="card draw" href="${FB(d.f)}"><span class="stamp">${d.f.n}</span><div class="big">${esc(d.f.title)}</div><div class="muted">Touche pour ouvrir la fiche</div></a>` : ''}
       ${d && d.kind === 'a' ? `<div class="entries" style="margin-top:16px">${d.list.map(x => `<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 52)}<span class="rt"><span class="n">Question ${x.q} · ${REG_SHORT[x.reg]}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`).join('')}</div>` : ''}</div>`;
   }
@@ -605,14 +606,14 @@
       <div class="sec">LE BILAN DU PIED · ${BL.length} ÉTAPES</div>
       <a class="entry" href="#/clin/b" style="--c:var(--p5)"><span class="cthumb">${bpic(12, 'mini')}</span><span class="rt"><span class="t">Le bilan du pied, en décharge et en charge</span><span class="n">${kb}/${BL.length} étapes sues</span>${bar(kb / BL.length, 'var(--p5)')}</span><span class="chev">›</span></a>
       <div class="sec">LES ${CL.length} TESTS · ${CS.length} SECTIONS</div>
-      <button class="btn wide" id="crand" style="--c:var(--hl);margin-bottom:10px">🎯 Un test au hasard, réponses cachées</button>
+      <button class="btn wide" id="crand" style="--c:var(--hl);margin-bottom:10px">${ico('target')} Un test au hasard, réponses cachées</button>
       <div class="entries">${CS.map((s, i) => { const it = CL.filter(x => x.s === i), k = nC(it);
-        return `<a class="entry" href="#/clin/s${i + 1}" style="--c:${SCOL(i)}"><span class="stamp xs cem">${s.e}</span><span class="rt"><span class="t">${esc(s.t)}</span><span class="n">${k}/${it.length} tests sus</span>${bar(k / it.length, SCOL(i))}</span><span class="chev">›</span></a>`; }).join('')}</div></div>`;
+        return `<a class="entry" href="#/clin/s${i + 1}" style="--c:${SCOL(i)}"><span class="stamp xs cem">${ico(s.e)}</span><span class="rt"><span class="t">${esc(s.t)}</span><span class="n">${k}/${it.length} tests sus</span>${bar(k / it.length, SCOL(i))}</span><span class="chev">›</span></a>`; }).join('')}</div></div>`;
   }
   function clinSec(i) {
     const s = CS[i]; if (!s) return notFound();
     const it = CL.filter(x => x.s === i);
-    return `<div class="wrap">${top('#/clin', `${s.e} ${esc(s.t)}`, count(nC(it), it.length))}
+    return `<div class="wrap">${top('#/clin', `${ico(s.e)} ${esc(s.t)}`, count(nC(it), it.length))}
       <div class="muted lead">${esc(s.intro)}</div>
       <div class="entries">${it.map(x => { const n = CL.indexOf(x) + 1;
         return `<a class="entry" href="#/clin/${n}" style="--c:${SCOL(i)}"><span class="cthumb">${pic(n, 'mini')}</span><span class="rt"><span class="n">TEST ${n}${x.yt ? ` · ${IC.play} vidéo` : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.cherche)}</span></span>${doneC(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>
@@ -622,16 +623,16 @@
   function clinTest(n) {
     const x = CL[n - 1]; if (!x) return notFound();
     const c = SCOL(x.s), s = CS[x.s];
-    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`#/clin/s${x.s + 1}`, `${s.e} ${esc(s.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
+    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`#/clin/s${x.s + 1}`, `${ico(s.e)} ${esc(s.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? ico('eyeoff') : ico('eye')}</button>`)}
       <section class="part solo ctest" style="--c:${c}">
-        <figure class="chero">${pic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.piriforme.fr/bdd/orthopedie/${x.src}">${IC.play} Voir le test en vidéo</button>` : ''}</figure><div class="chead"><div class="rt"><div class="n" style="color:${c}">TEST ${n} / ${CL.length}</div><h1>${esc(x.n)}</h1><div class="cq">🎯 ${esc(x.cherche)}</div></div></div>
-        ${S.revise ? '<div class="hint">🙈 Mode test : dis comment tu fais le test, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
-        <div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">🧍</span><span><span class="lab">Patient</span>${md(x.pat)}</span></li><li><span class="em">🩺</span><span><span class="lab">Praticien</span>${md(x.prat)}</span></li></ul></div>
+        <figure class="chero">${pic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.piriforme.fr/bdd/orthopedie/${x.src}">${IC.play} Voir le test en vidéo</button>` : ''}</figure><div class="chead"><div class="rt"><div class="n" style="color:${c}">TEST ${n} / ${CL.length}</div><h1>${esc(x.n)}</h1><div class="cq">${ico('target')} ${esc(x.cherche)}</div></div></div>
+        ${S.revise ? `<div class="hint">${ico('eyeoff')} Mode test : dis comment tu fais le test, puis touche une ligne pour la voir. (${ico('eye')} en haut pour tout afficher)</div>` : ''}
+        <div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">${ico('person')}</span><span><span class="lab">Patient</span>${md(x.pat)}</span></li><li><span class="em">${ico('stetho')}</span><span><span class="lab">Praticien</span>${md(x.prat)}</span></li></ul></div>
         <div class="body"><div class="h">Comment faire</div><ol class="steps">${x.steps.map(t => `<li>${md(t)}</li>`).join('')}</ol>
           ${x.key && x.key.length ? `<div class="chips">${x.key.map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>` : ''}</div>
         <div class="body"><div class="h">Lire le résultat</div><ul class="res"><li class="okr"><span class="lab">Normal</span>${md(x.norm)}</li>${x.pos.map(([a, b]) => `<li class="kor"><span class="lab">${md(a)}</span>→ ${md(b)}</li>`).join('')}</ul>
           ${x.extra ? `<div class="muted small" style="margin-top:8px">${md(x.extra)}</div>` : ''}</div>
-        ${x.tip ? `<div class="ctip">💡 ${md(x.tip)}</div>` : ''}
+        ${x.tip ? `<div class="ctip">${ico('bulb')} ${md(x.tip)}</div>` : ''}
       </section>
       ${pager(n > 1 ? `#/clin/${n - 1}` : '', `<button class="btn grow ${doneC(n) ? 'ghost' : ''}" id="cknow" style="--c:var(--p6)">${doneC(n) ? '✓ Su · à revoir ?' : 'Je sais le faire'}</button>`, n < CL.length ? `#/clin/${n + 1}` : '')}</div>`;
   }
@@ -644,7 +645,7 @@
   function bilanList() {
     return `<div class="wrap">${top('#/clin', 'Le bilan du pied', count(nB(BL), BL.length))}
       <div class="muted lead">L'examen du pied dans l'ordre : on écoute, on examine assis ou allongé, puis debout, puis on fait bouger.</div>
-      ${BG.map((g, i) => { const it = BL.filter(x => x.g === i); return `<div class="sec" style="color:${BCOL(i)}">${g.e} ${esc(g.t).toUpperCase()}</div>
+      ${BG.map((g, i) => { const it = BL.filter(x => x.g === i); return `<div class="sec" style="color:${BCOL(i)}">${ico(g.e)} ${esc(g.t).toUpperCase()}</div>
         <div class="entries">${it.map(x => { const n = BL.indexOf(x) + 1;
           return `<a class="entry" href="#/clin/b/${n}" style="--c:${BCOL(i)}"><span class="cthumb">${bpic(n, 'mini')}</span><span class="rt"><span class="n">ÉTAPE ${n}${x.yt ? ` · ${IC.play} vidéo` : ''}</span><span class="t">${esc(x.n)}</span><span class="s">${esc(x.why)}</span></span>${doneB(n) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`; }).join('')}</div>`; }).join('')}</div>`;
   }
@@ -657,15 +658,15 @@
   function bilanStep(n) {
     const x = BL[n - 1]; if (!x) return notFound();
     const c = BCOL(x.g), g = BG[x.g];
-    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top('#/clin/b', `${g.e} ${esc(g.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? '🙈' : '👁'}</button>`)}
+    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top('#/clin/b', `${ico(g.e)} ${esc(g.t)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? ico('eyeoff') : ico('eye')}</button>`)}
       <section class="part solo ctest" style="--c:${c}">
         <figure class="chero">${bpic(n)}${x.yt ? `<button class="cvid" data-vid="${x.yt}" data-yt="1" data-src="https://www.youtube.com/watch?v=${x.yt}" data-lab="Voir sur YouTube">${IC.play} Voir en vidéo</button>` : ''}</figure>
-        <div class="chead"><div class="rt"><div class="n" style="color:${c}">ÉTAPE ${n} / ${BL.length}</div><h1>${esc(x.n)}</h1><div class="cq">🎯 ${esc(x.why)}</div></div></div>
-        ${S.revise ? '<div class="hint">🙈 Mode test : récite l\'étape, puis touche une ligne pour la voir. (👁 en haut pour tout afficher)</div>' : ''}
-        ${x.pos ? `<div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">🧍</span><span>${md(x.pos)}</span></li></ul></div>` : ''}
+        <div class="chead"><div class="rt"><div class="n" style="color:${c}">ÉTAPE ${n} / ${BL.length}</div><h1>${esc(x.n)}</h1><div class="cq">${ico('target')} ${esc(x.why)}</div></div></div>
+        ${S.revise ? `<div class="hint">${ico('eyeoff')} Mode test : récite l'étape, puis touche une ligne pour la voir. (${ico('eye')} en haut pour tout afficher)</div>` : ''}
+        ${x.pos ? `<div class="body"><div class="h">Installation</div><ul class="who"><li><span class="em">${ico('person')}</span><span>${md(x.pos)}</span></li></ul></div>` : ''}
         ${x.b.map(bBlock).join('')}
         ${x.key ? `<div class="chips">${x.key.map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>` : ''}
-        ${x.tip ? `<div class="ctip">💡 ${md(x.tip)}</div>` : ''}
+        ${x.tip ? `<div class="ctip">${ico('bulb')} ${md(x.tip)}</div>` : ''}
       </section>
       ${pager(n > 1 ? `#/clin/b/${n - 1}` : '#/clin/b', `<button class="btn grow ${doneB(n) ? 'ghost' : ''}" id="bknow" style="--c:var(--p6)">${doneB(n) ? '✓ Su · à revoir ?' : 'Je la connais'}</button>`, n < BL.length ? `#/clin/b/${n + 1}` : '')}</div>`;
   }
@@ -730,7 +731,7 @@
         <div class="row2">${b('again', '↻ Rejouer')}${b('pick', 'Autre région', 'var(--card)')}</div>`; }
     const head = `<div class="kicker">${esc(REG_SHORT[x.reg]).toUpperCase()} · ${x.group === 'Os' ? 'OS' : 'MUSCLE / TENDON'} · Q${x.q}</div>`;
     if (Q3.st === 'q') return `${head}<div class="question">Touche : ${esc(x.name)}</div>
-      <div class="row2">${b('help', '💡 La zone', 'var(--card)')}${b('skip', 'Je ne sais pas', 'var(--card)')}</div>`;
+      <div class="row2">${b('help', ico('bulb') + ' La zone', 'var(--card)')}${b('skip', 'Je ne sais pas', 'var(--card)')}</div>`;
     return `${head}<div class="question">${Q3.good ? '✓ Bien vu : ' : '✗ '}${esc(x.name)}</div>${!Q3.good && Q3.hit ? `<div class="muted small">Tu as touché : ${esc(Q3.hit)}</div>` : ''}
       <div class="small">${md(x.how || '')}</div><div class="row2"><a class="btn ghost grow" href="#/anat/${x.q}">La fiche</a>${b('next', Q3.i + 1 < Q3.list.length ? 'Suivant →' : 'Résultat')}</div>`;
   }

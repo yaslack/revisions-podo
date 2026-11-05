@@ -617,3 +617,14 @@ nav.tabs .tico { flex: none; width: 28px; height: 28px; }
 nav.tabs .tico .sk { fill: #f6cba8; stroke: #2b2730; stroke-width: 1.3; stroke-linejoin: round; }
 nav.tabs .tico .ins { fill: var(--p8); stroke: #2b2730; stroke-width: 1.3; }
 nav.tabs .tico .ln { fill: none; stroke: #c98d66; stroke-width: 1.1; stroke-linecap: round; }
+
+/* ---------- icônes dessinées (icons.js) à la place des emojis ---------- */
+.ico { display: inline-block; width: 1.2em; height: 1.2em; vertical-align: -.24em; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.7;   /* le trait prend la couleur du texte : lisible en clair comme en sombre */ stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.ico .k { fill: currentColor; }
+.ico .a { fill: #ffd84d; } .ico .s { fill: #f6cba8; } .ico .o { fill: #f2994a; } .ico .r { fill: #e05a4e; }
+.ico .b { fill: #8fc1e3; } .ico .g { fill: #7cc58f; } .ico .w { fill: #fffaf0; } .ico .p { fill: #f4a6c0; } .ico .n { fill: #b07a50; }
+.ico .dim { stroke-opacity: .45; } .ico .th { stroke-width: 2.4; } .ico .th3 { stroke-width: 3; } .ico .dot { stroke-width: 2.6; }
+.ico .wl { stroke: #fffaf0; }
+.ico .cp { stroke: #e57aa0; stroke-width: 2.2; } .ico .cn { stroke: #a0683e; stroke-width: 2.4; } .ico .cd { stroke: #5b4636; stroke-width: 3; }
+.ico .cw { stroke: #9aa3ad; stroke-width: 1.5; } .ico .cb { stroke: #4f8fd0; stroke-width: 2.1; }
