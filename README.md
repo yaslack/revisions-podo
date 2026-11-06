@@ -42,7 +42,7 @@ node tools/build-sw.js VERSION && echo '{"v": "VERSION"}' > version.json
 ## Podologie : ajouter une fiche quand sa vidéo est finie
 
 Les 40 fiches sont dans `data/podo.js` (généré). Une fiche s'ouvre dès que son épisode `pNN-…` est extrait ; les autres sont « coming soon ». Les numéros sont ceux de la liste du livret et des vidéos, qui saute 8 et 9 (1 à 7, puis 10 à 42) ; un épisode va à sa fiche par les mots de son nom (`p10-fractures-fatigue` → `fractures-fatigue`), pas par son numéro.
-1. Texte : `node tools/extract-videos.js VIDEO_PLAN '^p(0[1-7]|1[0-9]|20)-' > raw.json` (mettre tous les épisodes dont la vidéo est finie, selon les MP4 du bureau), puis `node tools/build-podo.js raw.json tools/src/livret-podo.txt`.
+1. Texte : `node tools/extract-videos.js VIDEO_PLAN '^p(0[1-7]|1[0-9]|2[01])-' > raw.json` (mettre tous les épisodes dont la vidéo est finie, selon les MP4 du bureau), puis `node tools/build-podo.js raw.json tools/src/livret-podo.txt`.
 2. Dessins, pris dans la vidéo finie (rien n'est relancé dans le projet vidéo) :
    `node tools/podo-frames.js VIDEO_PLAN p03-… | swift tools/grab-frames.swift "~/Desktop/Podologie/03 - ….mp4" illus/<id>`, puis relancer `build-podo.js`.
 3. Quiz : ajouter `QUIZ['<id>']` en bas de `data/quiz.js` (une entrée par partie).

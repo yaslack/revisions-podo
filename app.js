@@ -344,6 +344,9 @@
     { v: 74, items: [
       ['leg', 'Podologie : nouvelle fiche 20. La fasciite plantaire, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 75, items: [
+      ['leg', 'Podologie : nouvelle fiche 21. L\'os naviculaire accessoire, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
