@@ -44,5 +44,6 @@ window.VIDEOS = {
  "haglund": "1CcKt4_wzm95GNxTI18f27YM9ZQE72i0O",
  "sever-osgood": "1G1eBuR4wbgYGtf4VyLwcI-nyZEWU2u9D",
  "map": "1H03DR4LAO8xVgOBAoplS8IaObfcs3KJr",
- "naviculaire-accessoire": "1bK8bD6QQzp-tSP8PAVN13eegzBxDIZPA"
+ "naviculaire-accessoire": "1bK8bD6QQzp-tSP8PAVN13eegzBxDIZPA",
+ "osteochondrose": "1dUE_USpeWocWn9qEzARNQPQ9YVJA6jrv"
 };

@@ -353,6 +353,9 @@
     { v: 77, items: [
       ['play', 'Podologie : les vidéos des fiches 18 à 21 sont en ligne (Haglund, Sever et Osgood-Schlatter, fasciite plantaire, os naviculaire accessoire).'],
     ] },
+    { v: 78, items: [
+      ['play', 'Podologie : la vidéo de la fiche 22 est en ligne (les ostéochondroses).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
