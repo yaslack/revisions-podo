@@ -350,6 +350,9 @@
     { v: 76, items: [
       ['leg', 'Podologie : nouvelle fiche 22. Les ostéochondroses, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 77, items: [
+      ['play', 'Podologie : les vidéos des fiches 18 à 21 sont en ligne (Haglund, Sever et Osgood-Schlatter, fasciite plantaire, os naviculaire accessoire).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

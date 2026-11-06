@@ -40,5 +40,9 @@ window.VIDEOS = {
  "hallux-valgus": "1ExQ6NOU6yNyO1IvMP6d8lN6n8Ru_U01j",
  "ilm": "1yK7Qgj7Tcee0PBLeLTGyvZ3KnWHwyGPc",
  "insuffisance-1er-rayon": "1uprwf-r7cJAQB57pzHaRTiZutvyJAVvh",
- "kyste-poplite": "1QAXvAVxpW7ClSh7dPY7WKFGTOy2cMhG1"
+ "kyste-poplite": "1QAXvAVxpW7ClSh7dPY7WKFGTOy2cMhG1",
+ "haglund": "1CcKt4_wzm95GNxTI18f27YM9ZQE72i0O",
+ "sever-osgood": "1G1eBuR4wbgYGtf4VyLwcI-nyZEWU2u9D",
+ "map": "1H03DR4LAO8xVgOBAoplS8IaObfcs3KJr",
+ "naviculaire-accessoire": "1bK8bD6QQzp-tSP8PAVN13eegzBxDIZPA"
 };
