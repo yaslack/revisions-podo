@@ -1362,3 +1362,26 @@ QUIZ.talalgies = [
     q: ["Les 2 conseils conservés dans le livret | chaussures bien ajustées qui soutiennent le pied ; échauffement",
         "Sur quoi repose la prévention ? | la gestion des facteurs de risque"] },
 ];
+
+QUIZ.talonnade = [
+  { k: ["= CALCANÉODYNIE : terme générique", "Douleur du talon, en général à l'ARRIÈRE ou SOUS le calcanéum", "Origine : anomalies biomécaniques, lésions, inflammations, pathologies du talon", "Causes principales : fasciite plantaire, tendinopathies d'Achille, pathologies osseuses (fractures, Haglund)", "Pire à la mise en CHARGE ; peut devenir chronique si mal prise en charge"],
+    q: ["L'autre nom de la talonnade | la calcanéodynie || la métatarsalgie ; la tarsalgie ; la gonalgie",
+        "Les causes principales | fasciite plantaire ; tendinopathies d'Achille ; pathologies osseuses (fractures, Haglund)"] },
+  { k: ["CAUSE N° 1 : FASCIITE PLANTAIRE", "Tendinopathie d'Achille ; bursite rétro-calcanéenne (entre Achille et calcanéum)", "Maladie de Haglund ; fractures de stress du calcanéum ; canal tarsien", "ÉPINE CALCANÉENNE : excroissance osseuse sous le talon", "FACTEURS DE RISQUE : surpoids, pied plat, pied creux, hyperpronation, chaussures sans soutien, sport intense, VIEILLISSEMENT (Achille et fascia moins élastiques)"],
+    q: ["L'épine calcanéenne, c'est… | une excroissance osseuse sous le talon || une fracture du talus ; un os accessoire ; une bourse enflammée",
+        "Pourquoi le vieillissement est-il un facteur de risque ? | l'Achille et le fascia deviennent moins élastiques"] },
+  { k: ["Fascia, Achille ou bourse : SURCHARGE, microtraumatismes répétés → lésion, INFLAMMATION", "FASCIITE : microdéchirures du fascia, douleur intense aux premiers pas du matin", "ACHILLE : microdéchirures puis tendinite chronique, à l'arrière", "BURSITE : douleur aiguë à la friction ou à la pression", "HAGLUND : la bosse frotte sur l'Achille ; FRACTURE DE STRESS : monte à l'effort", "ÉPINE : appuie sur les tissus voisins"],
+    q: ["Dans Haglund, que se passe-t-il ? | la bosse osseuse frotte sur le tendon d'Achille",
+        "Associe cause et mécanisme | fasciite : microdéchirures du fascia ; bursite : friction ou pression ; fracture de stress : douleur qui monte à l'effort ; épine : appuie sur les tissus"] },
+  { k: ["Douleur SOUS le talon ou à l'ARRIÈRE près de l'Achille, selon la cause", "Plus forte au RÉVEIL ou après un repos, puis ↓ en bougeant", "Pire à la mise en charge : marche, course, après une immobilité", "RAIDEUR du talon après un long repos", "Gonflement + chaleur dans la tendinopathie ou la bursite", "Démarche modifiée, parfois BOITERIE"],
+    q: ["Quand la douleur est-elle la plus forte ? | au réveil ou après un repos, puis elle diminue en bougeant || seulement la nuit ; jamais au repos ; uniquement en descente"] },
+  { k: ["CLINIQUE : interrogatoire, palpation du talon pour trouver la structure en cause", "EXTENSION DORSALE du pied : tend le fascia → douleur = FASCIITE", "TEST DE THOMPSON : intégrité de l'ACHILLE", "RADIO : exclure une fracture ou une excroissance", "IRM / ÉCHO : tendons, fascia, inflammation, lésions"],
+    q: ["À quoi sert le test de Thompson ? | vérifier l'intégrité du tendon d'Achille",
+        "Que cherche la radio ? | une fracture ou une excroissance (épine)"] },
+  { k: ["Selon la cause : du conservateur à la chirurgie (cas graves)", "REPOS avec pauses régulières", "GLACE + AINS", "ORTHÈSES sur mesure : corriger la biomécanique, soulager le talon, améliorer l'alignement", "Physiothérapie + étirements (la fiche du livret s'arrête là)"],
+    q: ["Le rôle des orthèses | corriger la biomécanique ; soulager le talon ; améliorer l'alignement"] },
+  { k: ["Fiche COUPÉE dans le livret : pas de pronostic pour la talonnade", "Réviser avec la fiche 39, TALALGIES (mêmes causes)", "En général favorable, mais semaines voire mois"],
+    q: ["Avec quelle fiche réviser le pronostic ? | la fiche 39, les talalgies"] },
+  { k: ["Rien dans le livret pour la talonnade", "On surveille les FACTEURS DE RISQUE de la fiche", "POIDS, statique du pied, CHAUSSURES, intensité du sport"],
+    q: ["Les facteurs à surveiller | le poids ; la statique du pied ; les chaussures ; l'intensité du sport"] },
+];
