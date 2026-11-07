@@ -16,7 +16,8 @@
   let usedBefore = false; try { usedBefore = !!(localStorage.getItem('podo:v2') || localStorage.getItem(KEY)); } catch (e) {}
   let S = { pedi: {}, anat: {} };
   try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+  let fbUser = null, fbTimer = 0;   // sauvegarde en ligne (plus bas) : envoyée 2 s après le dernier changement
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (fbUser) { clearTimeout(fbTimer); fbTimer = setTimeout(fbPush, 2000); } };
   // Reprendre la progression de l'ancienne version du site (clé « podo:v2 », avec sa copie de secours dans IndexedDB) :
   // une seule fois, en ajoutant sans rien effacer, et sans toucher à l'ancienne sauvegarde.
   function fromOld(o) {
@@ -191,7 +192,10 @@
       <div class="lbl">Thème</div><div class="skin">${b('skin', 'drawn', S.skin || 'drawn', ico('pencil') + ' Dessiné')}${b('skin', 'classic', S.skin || 'drawn', 'Classique')}</div>
       <div class="lbl">Couleurs</div><div class="skin">${b('theme', '', S.theme || '', 'Auto')}${b('theme', 'light', S.theme || '', 'Clair')}${b('theme', 'dark', S.theme || '', 'Sombre')}</div>
       <div class="lbl">Texte</div><div class="skin">${b('size', '', S.size || '', 'Normal')}${b('size', 'big', S.size || '', 'Grand')}</div>
-      <div class="lbl">Sauvegarde</div><div class="muted small">Ta progression reste sur ce téléphone. Sur iPhone, Safari et l'icône de l'écran d'accueil ne la partagent pas : copie ton code d'un côté, restaure-le de l'autre (ou garde-le dans tes Notes).</div>
+      <div class="lbl">Sauvegarde</div><div class="muted small">${fbUser ? `Connecté(e) : ${esc(fbUser.email)}. Ta progression est sauvegardée en ligne et revient sur tous tes appareils où tu te connectes.` : "Connecte-toi avec Google pour retrouver ta progression sur tous tes appareils (et entre Safari et l'icône de l'écran d'accueil)."}</div>
+      <div class="skin">${fbUser ? '<button class="btn ghost" id="fbout">Se déconnecter</button>' : '<button class="btn" id="fbin" style="--c:var(--hl)">Se connecter avec Google</button>'}</div>
+      <div class="muted small" id="fbmsg"></div>
+      <div class="muted small">Sans compte : copie ton code d'un côté, restaure-le de l'autre (ou garde-le dans tes Notes).</div>
       <div class="skin"><button class="btn ghost" id="bkcopy">${ico('clipboard')} Copier mon code</button><button class="btn ghost" id="bkopen">Restaurer</button></div>
       <div id="bkzone" hidden><textarea id="bkta" rows="3" placeholder="Colle ton code ici"></textarea><button class="btn" id="bkload" style="--c:var(--hl)">Restaurer ce code</button></div>
       <div class="muted small" id="bkmsg"></div>
@@ -210,6 +214,48 @@
     if (!o || !o.pedi || !o.anat) throw new Error('code');
     S = Object.assign({ pedi: {}, anat: {} }, o);
   }
+
+  // ---------- sauvegarde en ligne : connexion Google (Firebase), progression dans Firestore (doc progress/<uid>) ----------
+  // Firebase n'est chargé que si le réseau répond ; sans réseau, l'appli marche comme avant sur le téléphone.
+  const FB_CFG = { apiKey: 'AIzaSyAGcjr5BQvlr6SexnTFnRRNAMJqwKqWLck', authDomain: 'revisonpodo.firebaseapp.com', projectId: 'revisonpodo', appId: '1:226593516493:web:f22825b1cc9afc4b163284' };
+  const FB_URL = 'https://www.gstatic.com/firebasejs/10.14.1/firebase-';
+  let fbx = null;   // { Au, auth } une fois chargé : la fenêtre Google doit s'ouvrir tout de suite au toucher (sinon Safari la bloque)
+  const fbHome = () => { if (!location.hash || location.hash === '#/') render(); };   // pas de re-rendu au milieu d'un quiz
+  function fbLoad() {
+    if (fbx) return;
+    Promise.all([import(FB_URL + 'app.js'), import(FB_URL + 'auth.js')]).then(([A, Au]) => {
+      const auth = Au.getAuth(A.initializeApp(FB_CFG));
+      fbx = { Au, auth };
+      Au.onAuthStateChanged(auth, u => { fbUser = u; fbHome(); if (u) fbPull(); });
+    }).catch(() => {});
+  }
+  // ponytail: Firestore par son API REST (pas le SDK, trop lourd pour une seule fiche par élève)
+  async function fbDoc(method, d) {
+    const r = await fetch(`https://firestore.googleapis.com/v1/projects/${FB_CFG.projectId}/databases/(default)/documents/progress/${fbUser.uid}`, {
+      method, keepalive: method === 'PATCH', headers: { Authorization: 'Bearer ' + await fbUser.getIdToken(), 'Content-Type': 'application/json' },
+      body: d ? JSON.stringify({ fields: { d: { stringValue: d } } }) : undefined });
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error('firestore ' + r.status);
+    return r.json();
+  }
+  // deux progressions réunies sans rien perdre : listes réunies, compteurs au plus haut, sinon la valeur de ce téléphone
+  // ponytail: une case décochée sur un autre appareil peut revenir ; un vrai suivi des suppressions si ça gêne
+  function merge(a, b) {
+    if (Array.isArray(a) && Array.isArray(b)) return [...new Map([...b, ...a].map(x => [JSON.stringify(x), x])).values()];
+    if (a && b && typeof a === 'object' && typeof b === 'object') { const o = { ...b }; for (const k in a) o[k] = k in b ? merge(a[k], b[k]) : a[k]; return o; }
+    if (typeof a === 'number' && typeof b === 'number') return Math.max(a, b);
+    return a === undefined ? b : a;
+  }
+  async function fbPull() {
+    try {
+      const j = await fbDoc('GET');
+      if (j && j.fields && j.fields.d) { S = merge(S, JSON.parse(j.fields.d.stringValue)); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} setSkin(); fbHome(); }
+      await fbPush();
+    } catch (e) { const m = $('#fbmsg'); if (m) m.textContent = 'Sauvegarde en ligne indisponible pour le moment : ta progression reste sur ce téléphone.'; }
+  }
+  function fbPush() { clearTimeout(fbTimer); fbTimer = 0; if (fbUser) return fbDoc('PATCH', JSON.stringify(S)).catch(() => {}); }
+  document.addEventListener('visibilitychange', () => { if (document.hidden && fbTimer) fbPush(); });   // appli fermée : on envoie tout de suite
+  setTimeout(fbLoad, 1500);
 
   // ---------- révisions espacées : une fiche (quiz) ou un repère revient après 1, 3, 6, 12 puis 25 jours ----------
   // Raté : il revient demain. Rien n'est prévu après l'oral : ce qui tomberait après revient la veille.
@@ -355,6 +401,9 @@
     ] },
     { v: 78, items: [
       ['play', 'Podologie : la vidéo de la fiche 22 est en ligne (les ostéochondroses).'],
+    ] },
+    { v: 79, items: [
+      ['refresh', 'Nouveau : connecte-toi avec Google (Réglages, en bas de l\'accueil) pour retrouver ta progression sur tous tes appareils.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -951,6 +1000,11 @@
     if (t.id === 'upcheck') { const m = $('#upmsg'); m.textContent = 'Vérification…'; latestV().then(v => { if (!v) m.textContent = 'Pas de réseau : réessaie plus tard.'; else if (v > APP_V) { m.innerHTML = `Version ${v} disponible. <button class="btn" id="upgo" style="--c:var(--hl)">Mettre à jour</button>`; } else m.textContent = 'Tu as la dernière version ✓'; }); return; }
     if (t.id === 'upgo') { t.textContent = 'Mise à jour…'; applyUpdate(); return; }
     if (t.id === 'upx') { t.closest('.upbar').remove(); return; }
+    if (t.id === 'fbin') { const m = $('#fbmsg');
+      if (!fbx) { fbLoad(); m.textContent = 'Connexion impossible sans réseau : réessaie dans un instant.'; return; }
+      fbx.Au.signInWithPopup(fbx.auth, new fbx.Au.GoogleAuthProvider()).catch(er => { if (!/cancelled|closed/.test(er.code || '')) m.textContent = 'La connexion a échoué : réessaie.'; });
+      return; }
+    if (t.id === 'fbout') { Promise.resolve(fbPush()).then(() => fbx.Au.signOut(fbx.auth)); return; }
     if (t.id === 'bkopen') { $('#bkzone').hidden = false; $('#bkta').value = ''; $('#bkta').focus(); return; }
     if (t.id === 'bkload') { try { fromCode($('#bkta').value); save(); setSkin(); render(); const m = $('#bkmsg'); if (m) m.textContent = 'Progression restaurée ✓'; } catch (er) { $('#bkmsg').textContent = "Ce code n'est pas valide : vérifie que tu l'as collé en entier."; } return; }
     if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; if (t.closest('.note')) closeNote(); save(); setSkin(); render(); return; }
