@@ -480,6 +480,9 @@
     { v: 94, items: [
       ['leg', 'Podologie : nouvelle fiche 41. Les tendinites, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 95, items: [
+      ['leg', 'Podologie : nouvelle fiche 42. Les tendinopathies d\'Achille, avec dessins et quiz (la vidéo arrive). Les 40 fiches sont prêtes !'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
