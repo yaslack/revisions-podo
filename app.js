@@ -16,8 +16,8 @@
   let usedBefore = false; try { usedBefore = !!(localStorage.getItem('podo:v2') || localStorage.getItem(KEY)); } catch (e) {}
   let S = { pedi: {}, anat: {} };
   try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) {}
-  let fbUser = null, fbTimer = 0;   // sauvegarde en ligne (plus bas) : envoyée 2 s après le dernier changement
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (fbUser) { clearTimeout(fbTimer); fbTimer = setTimeout(fbPush, 2000); } };
+  let fbUser = null, fbOk = false, fbTimer = 0;   // sauvegarde en ligne (plus bas) : envoyée 2 s après le dernier changement, une fois le choix fait
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (fbOk) { clearTimeout(fbTimer); fbTimer = setTimeout(fbPush, 2000); } };
   // Reprendre la progression de l'ancienne version du site (clé « podo:v2 », avec sa copie de secours dans IndexedDB) :
   // une seule fois, en ajoutant sans rien effacer, et sans toucher à l'ancienne sauvegarde.
   function fromOld(o) {
@@ -193,12 +193,13 @@
       <div class="lbl">Couleurs</div><div class="skin">${b('theme', '', S.theme || '', 'Auto')}${b('theme', 'light', S.theme || '', 'Clair')}${b('theme', 'dark', S.theme || '', 'Sombre')}</div>
       <div class="lbl">Texte</div><div class="skin">${b('size', '', S.size || '', 'Normal')}${b('size', 'big', S.size || '', 'Grand')}</div>
       <div class="lbl">Sauvegarde</div><div class="muted small">${fbUser ? `Connecté(e) : ${esc(fbUser.email)}. Ta progression est sauvegardée en ligne et revient sur tous tes appareils où tu te connectes.` : "Connecte-toi avec Google pour retrouver ta progression sur tous tes appareils (et entre Safari et l'icône de l'écran d'accueil)."}</div>
-      <div class="skin">${fbUser ? '<button class="btn ghost" id="fbout">Se déconnecter</button>' : '<button class="btn" id="fbin" style="--c:var(--hl)">Se connecter avec Google</button>'}</div>
+      <div class="skin">${fbUser ? '<button class="btn ghost" id="fbout">Se déconnecter</button>' : '<button class="btn" id="fbin" style="--c:var(--hl)">Se connecter avec Google</button>'}<button class="btn ghost" id="bkshow" aria-expanded="false">Sauvegarder sans Google (hors ligne)</button></div>
       <div class="muted small" id="fbmsg"></div>
-      <div class="muted small">Sans compte : copie ton code d'un côté, restaure-le de l'autre (ou garde-le dans tes Notes).</div>
+      ${(() => { try { return localStorage.getItem(SPARE) ? '<div class="skin"><button class="btn ghost" id="fbundo">Revenir à la progression d\'avant</button></div>' : ''; } catch (e) { return ''; } })()}
+      <div id="bkbox" hidden><div class="muted small">Sans compte : copie ton code d'un côté, restaure-le de l'autre (ou garde-le dans tes Notes).</div>
       <div class="skin"><button class="btn ghost" id="bkcopy">${ico('clipboard')} Copier mon code</button><button class="btn ghost" id="bkopen">Restaurer</button></div>
       <div id="bkzone" hidden><textarea id="bkta" rows="3" placeholder="Colle ton code ici"></textarea><button class="btn" id="bkload" style="--c:var(--hl)">Restaurer ce code</button></div>
-      <div class="muted small" id="bkmsg"></div>
+      <div class="muted small" id="bkmsg"></div></div>
       <div class="lbl">Mise à jour</div><div class="skin"><span class="muted small" style="margin:0">Version ${APP_V}</span><button class="btn ghost" id="upcheck">${ico('refresh')} Vérifier</button></div>
       <div class="muted small" id="upmsg"></div>
       <div class="lbl">Partager</div><div class="skin"><button class="btn" id="share" style="--c:var(--hl)">${ico('share')} Partager l'appli à un ami</button></div>
@@ -226,7 +227,7 @@
     Promise.all([import(FB_URL + 'app.js'), import(FB_URL + 'auth.js')]).then(([A, Au]) => {
       const auth = Au.getAuth(A.initializeApp(FB_CFG));
       fbx = { Au, auth };
-      Au.onAuthStateChanged(auth, u => { fbUser = u; fbHome(); if (u) fbPull(); });
+      Au.onAuthStateChanged(auth, u => { fbUser = u; fbOk = false; fbHome(); if (u) fbPull(); });
     }).catch(() => {});
   }
   // ponytail: Firestore par son API REST (pas le SDK, trop lourd pour une seule fiche par élève)
@@ -246,14 +247,41 @@
     if (typeof a === 'number' && typeof b === 'number') return Math.max(a, b);
     return a === undefined ? b : a;
   }
+  // en cas de pépin : la progression remplacée reste en secours sur le téléphone (bouton « Revenir à la progression d'avant »)
+  const SPARE = 'podo:v3:avant', LINK = 'podo:fbuid';
+  function fbUse(next, spare) {
+    try { localStorage.setItem(SPARE, JSON.stringify(spare)); } catch (e) {}
+    S = Object.assign({ pedi: {}, anat: {} }, next, { mig: S.mig, noteV: S.noteV }); save(); setSkin(); fbHome();
+  }
+  const fbLink = () => { fbOk = true; try { localStorage.setItem(LINK, fbUser.uid); } catch (e) {} return fbPush(); };
+  const hasProg = o => ['pedi', 'anat', 'days', 'qz', 'rv', 'bil', 'clin'].some(k => o[k] && Object.keys(o[k]).length);
+  function sumUp(o) {   // « 3 fiches finies · 12 repères sus · 5 jours de révision · la dernière fois le 06/11/2026 »
+    const f = Object.values(o.pedi || {}).filter(x => x && x.done).length, a = Object.values(o.anat || {}).filter(Boolean).length, d = Object.keys(o.days || {}).map(Number), s = x => x > 1 ? 's' : '';
+    return `${f} fiche${s(f)} finie${s(f)} · ${a} repère${s(a)} su${s(a)} · ${d.length} jour${s(d.length)} de révision${d.length ? ` · la dernière fois le ${new Date(Math.max(...d) * 864e5).toLocaleDateString('fr-FR')}` : ''}`;
+  }
+  let fbCloud = null;
   async function fbPull() {
     try {
-      const j = await fbDoc('GET');
-      if (j && j.fields && j.fields.d) { S = merge(S, JSON.parse(j.fields.d.stringValue)); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} setSkin(); fbHome(); }
-      await fbPush();
+      const j = await fbDoc('GET'), cloud = j && j.fields && j.fields.d ? JSON.parse(j.fields.d.stringValue) : null;
+      let linked = null; try { linked = localStorage.getItem(LINK); } catch (e) {}
+      // première connexion sur ce téléphone, avec une progression des deux côtés : l'élève choisit (comme dans un jeu)
+      if (cloud && linked !== fbUser.uid && hasProg(S) && hasProg(cloud) && JSON.stringify(merge(S, cloud)) !== JSON.stringify(S)) return fbAsk(cloud);
+      if (cloud) fbUse(merge(S, cloud), S);
+      await fbLink();
     } catch (e) { const m = $('#fbmsg'); if (m) m.textContent = 'Sauvegarde en ligne indisponible pour le moment : ta progression reste sur ce téléphone.'; }
   }
-  function fbPush() { clearTimeout(fbTimer); fbTimer = 0; if (fbUser) return fbDoc('PATCH', JSON.stringify(S)).catch(() => {}); }
+  function fbAsk(cloud) {
+    fbCloud = cloud; if ($('#fbask')) return;
+    const d = document.createElement('div'); d.className = 'note'; d.id = 'fbask';
+    d.innerHTML = `<div class="card" role="dialog" aria-label="Quelle progression garder ?"><div class="kicker">SAUVEGARDE</div><h2>Quelle progression garder ?</h2>
+      <div class="lbl">Sur ce téléphone</div><div class="muted small">${sumUp(S)}</div>
+      <div class="lbl">En ligne</div><div class="muted small">${sumUp(cloud)}</div>
+      <button class="btn wide" data-fb="mix" style="--c:var(--hl)">Réunir les deux (rien n'est perdu)</button>
+      <div class="row2"><button class="btn ghost grow" data-fb="local">Celle du téléphone</button><button class="btn ghost grow" data-fb="cloud">Celle en ligne</button></div>
+      <div class="muted small">Celle que tu ne gardes pas reste en secours sur ce téléphone (Réglages).</div></div>`;
+    document.body.appendChild(d);
+  }
+  function fbPush() { clearTimeout(fbTimer); fbTimer = 0; if (fbUser && fbOk) return fbDoc('PATCH', JSON.stringify(S)).catch(() => {}); }
   document.addEventListener('visibilitychange', () => { if (document.hidden && fbTimer) fbPush(); });   // appli fermée : on envoie tout de suite
   setTimeout(fbLoad, 1500);
 
@@ -404,6 +432,11 @@
     ] },
     { v: 79, items: [
       ['refresh', 'Nouveau : connecte-toi avec Google (Réglages, en bas de l\'accueil) pour retrouver ta progression sur tous tes appareils.'],
+    ] },
+    { v: 80, items: [
+      ['refresh', 'Connexion Google : si tu as déjà une progression sur ce téléphone et une en ligne, tu choisis laquelle garder (ou tu réunis les deux).'],
+      ['check', 'Celle que tu ne gardes pas reste en secours : « Revenir à la progression d\'avant » dans Réglages.'],
+      ['clipboard', 'Le code de sauvegarde est toujours là : « Sauvegarder sans Google (hors ligne) ».'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -1004,9 +1037,12 @@
       if (!fbx) { fbLoad(); m.textContent = 'Connexion impossible sans réseau : réessaie dans un instant.'; return; }
       fbx.Au.signInWithPopup(fbx.auth, new fbx.Au.GoogleAuthProvider()).catch(er => { if (!/cancelled|closed/.test(er.code || '')) m.textContent = 'La connexion a échoué : réessaie.'; });
       return; }
+    if (t.dataset.fb) { const c = fbCloud, k = t.dataset.fb; fbCloud = null; $('#fbask').remove(); fbUse(k === 'local' ? S : k === 'cloud' ? c : merge(S, c), k === 'local' ? c : S); fbLink(); return; }
+    if (t.id === 'fbundo') { let o = null; try { o = JSON.parse(localStorage.getItem(SPARE)); } catch (er) {} if (o && confirm('Remplacer ta progression actuelle par celle d\'avant ? (l\'actuelle sera gardée en secours)')) { fbUse(o, S); render(); } return; }
     if (t.id === 'fbout') { Promise.resolve(fbPush()).then(() => fbx.Au.signOut(fbx.auth)); return; }
+    if (t.id === 'bkshow') { const x = $('#bkbox'); x.hidden = !x.hidden; t.setAttribute('aria-expanded', !x.hidden); return; }
     if (t.id === 'bkopen') { $('#bkzone').hidden = false; $('#bkta').value = ''; $('#bkta').focus(); return; }
-    if (t.id === 'bkload') { try { fromCode($('#bkta').value); save(); setSkin(); render(); const m = $('#bkmsg'); if (m) m.textContent = 'Progression restaurée ✓'; } catch (er) { $('#bkmsg').textContent = "Ce code n'est pas valide : vérifie que tu l'as collé en entier."; } return; }
+    if (t.id === 'bkload') { try { fromCode($('#bkta').value); save(); setSkin(); render(); const m = $('#bkmsg'); if (m) { $('#bkbox').hidden = false; m.textContent = 'Progression restaurée ✓'; } } catch (er) { $('#bkmsg').textContent = "Ce code n'est pas valide : vérifie que tu l'as collé en entier."; } return; }
     if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; if (t.closest('.note')) closeNote(); save(); setSkin(); render(); return; }
     if (t.dataset.v3l) { const k = t.dataset.v3l; on3()[k] = on3()[k] ? 0 : 1; save(); t.classList.toggle('on', !!on3()[k]); if (V3) V3.layers(); return; }
     if (t.classList.contains('reveal')) { t.closest('[data-quiz]').classList.add('shown'); return; }
