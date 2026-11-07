@@ -477,6 +477,9 @@
     { v: 93, items: [
       ['leg', 'Podologie : nouvelle fiche 40. La talonnade, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 94, items: [
+      ['leg', 'Podologie : nouvelle fiche 41. Les tendinites, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

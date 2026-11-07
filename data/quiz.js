@@ -1385,3 +1385,27 @@ QUIZ.talonnade = [
   { k: ["Rien dans le livret pour la talonnade", "On surveille les FACTEURS DE RISQUE de la fiche", "POIDS, statique du pied, CHAUSSURES, intensité du sport"],
     q: ["Les facteurs à surveiller | le poids ; la statique du pied ; les chaussures ; l'intensité du sport"] },
 ];
+
+QUIZ.tendinites = [
+  { k: ["INFLAMMATION ou irritation d'un TENDON : structure fibreuse qui relie le muscle à l'os", "Après des gestes RÉPÉTÉS ou des microtraumatismes", "Sportifs, mais aussi gestes du quotidien et du travail", "Épaule, coude, poignet, hanche, genou, cheville", "Causes : surcharge, mauvaise technique, parfois facteurs biologiques ; douleur + limitation fonctionnelle"],
+    q: ["Un tendon relie… | le muscle à l'os || l'os à l'os ; le muscle au nerf ; la peau à l'os",
+        "Les localisations citées | épaule ; coude ; poignet ; hanche ; genou ; cheville"] },
+  { k: ["SURCHARGE : dépasse la capacité du tendon à se régénérer", "GESTES RÉPÉTÉS : raquette, lancer, course, certains métiers", "TRAUMATISME : choc, chute, tension brutale", "VIEILLISSEMENT : tendon moins élastique ; mauvaise TECHNIQUE ou posture", "BIOLOGIE : collagène moins résistant", "FACTEURS DE RISQUE : âge, mauvaise biomécanique (pied plat), mauvais équipement, hausse brutale de l'entraînement, manque de préparation physique"],
+    q: ["La surcharge, c'est… | une sollicitation qui dépasse la capacité du tendon à se régénérer",
+        "Les causes | surcharge ; gestes répétés ; traumatisme ; vieillissement ; mauvaise technique ; facteurs biologiques (collagène)"] },
+  { k: ["Microtraumatismes répétés : fibres abîmées, dégâts accumulés, réparation insuffisante", "① AIGUË : hypervascularisation, œdème, afflux de LEUCOCYTES", "② DÉGÉNÉRESCENCE si ça dure : fibres de collagène désorganisées, fragiles", "③ Collagène de MAUVAISE qualité, moins résistant → nouvelles blessures"],
+    q: ["Les signes de la phase aiguë | hypervascularisation ; œdème ; afflux de leucocytes",
+        "Pourquoi le tendon se re-blesse-t-il ? | il fabrique un collagène de mauvaise qualité, moins résistant || il s'allonge trop ; il se calcifie toujours ; il perd ses nerfs"] },
+  { k: ["DOULEUR aiguë localisée sur le tendon, ↑ à l'effort et à la mise en charge", "Pire au RÉVEIL, mieux en bougeant", "Sensibilité à la palpation, gonflement", "RAIDEUR de l'articulation voisine, surtout après un repos", "CHALEUR après l'effort", "Parfois CRÉPITATION (craquement) s'il y a des microdéchirures"],
+    q: ["La crépitation, c'est… | un craquement au mouvement, s'il y a des microdéchirures || une fièvre ; une rougeur de la peau ; une perte de sensibilité"] },
+  { k: ["ANAMNÈSE : activités déclenchantes, intensité, durée de l'effort", "EXAMEN CLINIQUE : douleur, raideur, gonflement, mobilité + tests de COMPRESSION ou d'ÉTIREMENT", "TESTS FONCTIONNELS : NEER (épaule), PHALEN (poignet)", "RADIO : exclure un problème osseux (pas toujours utile)", "ÉCHO : lésions, épanchements, inflammation ; IRM : gravité, DÉGÉNÉRESCENCE", "SCINTIGRAPHIE : rare, cas complexes"],
+    q: ["Associe test et articulation | Neer : épaule ; Phalen : poignet",
+        "Quel examen évalue la gravité et la dégénérescence ? | l'IRM || la radiographie ; la scintigraphie en 1re intention ; la prise de sang"] },
+  { k: ["Surtout CONSERVATEUR", "REPOS : moins solliciter le tendon ; GLACE + AINS", "COMPRESSION (bandage élastique) + SURÉLÉVATION", "PHYSIO : renforcement, mobilité, étirements", "SEMELLES si la cause est biomécanique (mauvais alignement du pied)", "Infiltrations : cas RÉSISTANTS ; CHIRURGIE si persistance, RUPTURE ou dégénérescence sévère (réparer, enlever le tissu abîmé)"],
+    q: ["Quand fait-on des semelles ? | si la cause est biomécanique, comme un mauvais alignement du pied",
+        "Les indications de la chirurgie | persistance ; rupture ; dégénérescence sévère"] },
+  { k: ["Dépend de la GRAVITÉ, d'une prise en charge PRÉCOCE, des habitudes de PRÉVENTION", "La majorité répond bien au conservateur", "RÉCIDIVE si la cause n'est pas réglée"],
+    q: ["Quand une tendinite récidive-t-elle ? | si la cause n'est pas réglée"] },
+  { k: ["MOINS de gestes répétitifs, meilleure technique", "ÉCHAUFFEMENT + étirements avant l'effort", "RENFORCER les muscles : pas de déséquilibres", "Assez de REPOS et de récupération", "Matériel ADAPTÉ : chaussures, équipement de sport"],
+    q: ["Les gestes de prévention | moins de gestes répétitifs et meilleure technique ; échauffement et étirements ; renforcement musculaire ; repos et récupération ; matériel adapté"] },
+];
