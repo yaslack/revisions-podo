@@ -471,6 +471,9 @@
     { v: 91, items: [
       ['leg', 'Podologie : nouvelle fiche 39. Les talalgies, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 92, items: [
+      ['play', 'Podologie : les vidéos des fiches 37 à 39 sont en ligne (sinus du tarse, synostoses, talalgies).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

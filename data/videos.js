@@ -59,5 +59,8 @@ window.VIDEOS = {
  "patte-oie": "1wdi3kx2QZa3uHcsTYQsWcWothgrUuZ3_",
  "essuie-glace": "19Ok98A4T9Sgcu2khzMU5FnFVigz4wV2u",
  "syndrome-loges": "1Dncw1uSGGCMIS5lMk2ztgohs6SSPgr_3",
- "syndrome-2e-rayon": "1TcHQECJEnJk6fZOpe09kcyCD-LsLxvjl"
+ "syndrome-2e-rayon": "1TcHQECJEnJk6fZOpe09kcyCD-LsLxvjl",
+ "sinus-tarse": "1EXjr0JrHQdS6prEBbpyTi1xtRUO3QXWx",
+ "synostoses": "1PTOE9sazwEDc0P3UGcCxu29p96LN_0A2",
+ "talalgies": "1TE1iJEwHQx4F5vIFLRdoeFuBMCt-Iz0u"
 };
