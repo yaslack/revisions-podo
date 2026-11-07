@@ -203,7 +203,8 @@
       <div class="lbl">Mise à jour</div><div class="skin"><span class="muted small" style="margin:0">Version ${APP_V}</span><button class="btn ghost" id="upcheck">${ico('refresh')} Vérifier</button></div>
       <div class="muted small" id="upmsg"></div>
       <div class="lbl">Partager</div><div class="skin"><button class="btn" id="share" style="--c:var(--hl)">${ico('share')} Partager l'appli à un ami</button></div>
-      <div class="muted small" id="shmsg">Chacun garde sa propre progression sur son téléphone.</div>
+      <div class="muted small" id="shmsg">Chacun garde sa propre progression.</div>
+      <div class="lbl">Sur tous tes appareils</div><div class="muted small">Utilise l'appli sur ton téléphone, ta tablette et ton ordi : <a href="https://yaslack.github.io/revisions-podo/"><b>yaslack.github.io/revisions-podo</b></a>. Connecte-toi avec Google pour retrouver ta progression partout.</div>
       ${matchMedia('(display-mode: standalone)').matches || navigator.standalone ? '' : `<div class="lbl">L'installer comme une appli</div><div class="muted small">Sur iPhone : ouvre le site dans Safari, touche Partager puis « Sur l'écran d'accueil ». Sur Android : menu ⋮ puis « Ajouter à l'écran d'accueil ». Elle marche ensuite sans réseau.</div>`}</div>`;
   }
   function setSkin() { const r = document.documentElement; r.dataset.skin = S.skin || 'drawn'; S.theme ? (r.dataset.theme = S.theme) : delete r.dataset.theme; S.size ? (r.dataset.size = S.size) : delete r.dataset.size; }
