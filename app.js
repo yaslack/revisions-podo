@@ -243,19 +243,21 @@
   // deux progressions réunies sans rien perdre : listes réunies, compteurs au plus haut, sinon la valeur de ce téléphone
   // ponytail: une case décochée sur un autre appareil peut revenir ; un vrai suivi des suppressions si ça gêne
   function merge(a, b) {
-    if (Array.isArray(a) && Array.isArray(b)) return [...new Map([...b, ...a].map(x => [JSON.stringify(x), x])).values()];
-    if (a && b && typeof a === 'object' && typeof b === 'object') { const o = { ...b }; for (const k in a) o[k] = k in b ? merge(a[k], b[k]) : a[k]; return o; }
+    // (ce téléphone d'abord : si l'autre côté n'apporte rien, le résultat est identique à ce téléphone)
+    if (Array.isArray(a) && Array.isArray(b)) return [...new Map([...a, ...b].map(x => [JSON.stringify(x), x])).values()];
+    if (a && b && typeof a === 'object' && typeof b === 'object') { const o = {}; for (const k in a) o[k] = k in b ? merge(a[k], b[k]) : a[k]; for (const k in b) if (!(k in a)) o[k] = b[k]; return o; }
     if (typeof a === 'number' && typeof b === 'number') return Math.max(a, b);
     return a === undefined ? b : a;
   }
   // en cas de pépin : la progression remplacée reste en secours sur le téléphone (bouton « Revenir à la progression d'avant »)
   const SPARE = 'podo:v3:avant', LINK = 'podo:fbuid';
-  function fbUse(next, spare) {
-    try { localStorage.setItem(SPARE, JSON.stringify(spare)); } catch (e) {}
+  function fbUse(next, spare) {   // spare : la progression remplacée par un choix de l'élève, gardée en secours
+    if (spare) try { localStorage.setItem(SPARE, JSON.stringify(spare)); } catch (e) {}
     S = Object.assign({ pedi: {}, anat: {} }, next, { mig: S.mig, noteV: S.noteV, skin: S.skin, theme: S.theme, size: S.size });   // le look reste celui de cet appareil
     save(); setSkin(); fbHome();
   }
-  const fbLink = () => { fbOk = true; try { localStorage.setItem(LINK, fbUser.uid); } catch (e) {} return fbPush(); };
+  const fbLink = keep => { fbOk = true; try { localStorage.setItem(LINK, fbUser.uid); } catch (e) {} return fbPush(keep); };
+  const fbGet = async () => { const j = await fbDoc('GET'); return j && j.fields && j.fields.d ? JSON.parse(j.fields.d.stringValue) : null; };
   const hasProg = o => ['pedi', 'anat', 'days', 'qz', 'rv', 'bil', 'clin'].some(k => o[k] && Object.keys(o[k]).length);
   function sumUp(o) {   // « 3 fiches finies · 12 repères sus · 5 jours de révision · la dernière fois le 06/11/2026 »
     const f = Object.values(o.pedi || {}).filter(x => x && x.done).length, a = Object.values(o.anat || {}).filter(Boolean).length, d = Object.keys(o.days || {}).map(Number), s = x => x > 1 ? 's' : '';
@@ -264,11 +266,9 @@
   let fbCloud = null;
   async function fbPull() {
     try {
-      const j = await fbDoc('GET'), cloud = j && j.fields && j.fields.d ? JSON.parse(j.fields.d.stringValue) : null;
       let linked = null; try { linked = localStorage.getItem(LINK); } catch (e) {}
       // première connexion sur ce téléphone, avec une progression des deux côtés : l'élève choisit (comme dans un jeu)
-      if (cloud && linked !== fbUser.uid && hasProg(S) && hasProg(cloud) && JSON.stringify(merge(S, cloud)) !== JSON.stringify(S)) return fbAsk(cloud);
-      if (cloud) fbUse(merge(S, cloud), S);
+      if (linked !== fbUser.uid) { const cloud = await fbGet(); if (cloud && hasProg(S) && hasProg(cloud) && JSON.stringify(merge(S, cloud)) !== JSON.stringify(S)) return fbAsk(cloud); }
       await fbLink();
     } catch (e) { const m = $('#fbmsg'); if (m) m.textContent = 'Sauvegarde en ligne indisponible pour le moment : ta progression reste sur ce téléphone.'; }
   }
@@ -283,8 +283,20 @@
       <div class="muted small">Celle que tu ne gardes pas reste en secours sur ce téléphone (Réglages).</div></div>`;
     document.body.appendChild(d);
   }
-  function fbPush() { clearTimeout(fbTimer); fbTimer = 0; if (fbUser && fbOk) return fbDoc('PATCH', JSON.stringify(S)).catch(() => {}); }
-  document.addEventListener('visibilitychange', () => { if (document.hidden && fbTimer) fbPush(); });   // appli fermée : on envoie tout de suite
+  // envoi : on relit d'abord la sauvegarde en ligne et on la réunit avec ce téléphone, pour ne jamais effacer ce qu'un autre appareil a envoyé
+  // (keep : après un choix de l'élève, sa progression remplace celle en ligne telle quelle)
+  let fbBusy = Promise.resolve();
+  function fbPush(keep) {
+    clearTimeout(fbTimer); fbTimer = 0;
+    if (!fbUser || !fbOk) return;
+    return fbBusy = fbBusy.then(async () => {
+      const c = keep ? null : await fbGet(), m = c && merge(S, c);
+      if (m && JSON.stringify(m) !== JSON.stringify(S)) { fbUse(m); clearTimeout(fbTimer); fbTimer = 0; }
+      await fbDoc('PATCH', JSON.stringify(S));
+    }).catch(() => { const x = $('#fbmsg'); if (x) x.textContent = 'Sauvegarde en ligne indisponible pour le moment : ta progression reste sur ce téléphone.'; });
+  }
+  // appli fermée : on envoie tout de suite ; appli qui revient à l'écran : on récupère ce que les autres appareils ont fait
+  document.addEventListener('visibilitychange', () => { if (document.hidden ? fbTimer : fbOk) fbPush(); });
   setTimeout(fbLoad, 1500);
 
   // ---------- révisions espacées : une fiche (quiz) ou un repère revient après 1, 3, 6, 12 puis 25 jours ----------
@@ -1048,8 +1060,8 @@
       if (!fbx) { fbLoad(); m.textContent = 'Connexion impossible sans réseau : réessaie dans un instant.'; return; }
       fbx.Au.signInWithPopup(fbx.auth, new fbx.Au.GoogleAuthProvider()).catch(er => { if (!/cancelled|closed/.test(er.code || '')) m.textContent = 'La connexion a échoué : réessaie.'; });
       return; }
-    if (t.dataset.fb) { const c = fbCloud, k = t.dataset.fb; fbCloud = null; $('#fbask').remove(); fbUse(k === 'local' ? S : k === 'cloud' ? c : merge(S, c), k === 'local' ? c : S); fbLink(); return; }
-    if (t.id === 'fbundo') { let o = null; try { o = JSON.parse(localStorage.getItem(SPARE)); } catch (er) {} if (o && confirm('Remplacer ta progression actuelle par celle d\'avant ? (l\'actuelle sera gardée en secours)')) { fbUse(o, S); render(); } return; }
+    if (t.dataset.fb) { const c = fbCloud, k = t.dataset.fb; fbCloud = null; $('#fbask').remove(); fbUse(k === 'local' ? S : k === 'cloud' ? c : merge(S, c), k === 'local' ? c : S); fbLink(true); return; }
+    if (t.id === 'fbundo') { let o = null; try { o = JSON.parse(localStorage.getItem(SPARE)); } catch (er) {} if (o && confirm('Remplacer ta progression actuelle par celle d\'avant ? (l\'actuelle sera gardée en secours)')) { fbUse(o, S); render(); fbPush(true); } return; }
     if (t.id === 'fbout') { Promise.resolve(fbPush()).then(() => fbx.Au.signOut(fbx.auth)); return; }
     if (t.id === 'bkshow') { const x = $('#bkbox'); x.hidden = !x.hidden; t.setAttribute('aria-expanded', !x.hidden); return; }
     if (t.id === 'bkopen') { $('#bkzone').hidden = false; $('#bkta').value = ''; $('#bkta').focus(); return; }
