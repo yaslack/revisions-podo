@@ -483,6 +483,9 @@
     { v: 95, items: [
       ['leg', 'Podologie : nouvelle fiche 42. Les tendinopathies d\'Achille, avec dessins et quiz (la vidéo arrive). Les 40 fiches sont prêtes !'],
     ] },
+    { v: 97, items: [
+      ['play', 'Podologie : les vidéos des fiches 40 à 42 sont là (talonnade, tendinites, Achille). Toutes les vidéos sont maintenant en ligne !'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

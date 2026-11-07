@@ -62,5 +62,8 @@ window.VIDEOS = {
  "syndrome-2e-rayon": "1TcHQECJEnJk6fZOpe09kcyCD-LsLxvjl",
  "sinus-tarse": "1EXjr0JrHQdS6prEBbpyTi1xtRUO3QXWx",
  "synostoses": "1PTOE9sazwEDc0P3UGcCxu29p96LN_0A2",
- "talalgies": "1TE1iJEwHQx4F5vIFLRdoeFuBMCt-Iz0u"
+ "talalgies": "1TE1iJEwHQx4F5vIFLRdoeFuBMCt-Iz0u",
+ "talonnade": "17Wyfw_5zJNZI6gfL6-d8davP8GgyWFrZ",
+ "tendinites": "1gTwLzSUUl9KOB_JodPBMa2-67_nWnwaV",
+ "tendinopathie-achille": "1oGcCZzUoLE2Rdm1O9VNtImskzhJpK0PM"
 };
