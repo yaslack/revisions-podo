@@ -465,6 +465,9 @@
     { v: 89, items: [
       ['leg', 'Podologie : nouvelle fiche 37. Le sinus du tarse, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 90, items: [
+      ['leg', 'Podologie : nouvelle fiche 38. Les synostoses, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

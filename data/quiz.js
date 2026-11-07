@@ -1311,3 +1311,28 @@ QUIZ['sinus-tarse'] = [
   { k: ["Chaussures AJUSTÉES qui soutiennent le pied, surtout pour le sport", "ÉCHAUFFEMENT + étirements avant l'effort", "Évaluer la biomécanique, corriger une hyperpronation par des SEMELLES", "Alterner entraînement et REPOS ; renforcer muscles + tendons du pied", "DÉPISTAGE : douleur persistante ou récurrente → consulter VITE"],
     q: ["Les gestes de prévention | chaussures ajustées ; échauffement et étirements ; semelles si hyperpronation ; alterner entraînement et repos ; renforcer le pied"] },
 ];
+
+QUIZ.synostoses = [
+  { k: ["FUSION anormale de 2 os normalement séparés par une articulation", "Au pied : interphalangiennes, articulations du tarse, métatarses", "CONGÉNITALE (dès la naissance) ou ACQUISE (traumatisme, infection)", "Douleurs, mobilité limitée, parfois DÉFORMATION du pied"],
+    q: ["Une synostose, c'est… | la fusion anormale de deux os normalement séparés par une articulation || une inflammation de la synoviale ; une luxation ; un os accessoire",
+        "Où au pied ? | interphalangiennes ; tarse ; métatarses"] },
+  { k: ["CONGÉNITALE : défaut du développement embryonnaire, parfois génétique (CROUZON, APERT)", "TRAUMATIQUE : fracture mal consolidée, fracture ouverte, traumatismes répétés", "INFECTIEUSE : infection de l'articulation", "INFLAMMATOIRE : arthrite rhumatismale, psoriasique", "POST-CHIRURGICALE : fixation, remplacement articulaire", "FACTEURS DE RISQUE : antécédents familiaux, fractures du pied, polyarthrite rhumatoïde, anomalies génétiques, chirurgie du pied ou de la cheville"],
+    q: ["Quels syndromes génétiques sont cités ? | Crouzon ; Apert",
+        "Les 5 origines | congénitale ; traumatique ; infectieuse ; inflammatoire ; post-chirurgicale"] },
+  { k: ["La fusion empêche le mouvement entre les 2 os : perte de mobilité, déformation, douleur des bords soudés", "① Fusion PRÉMATURÉE : croissance anormale dans l'enfance ou réparation anormale après fracture", "② Articulation BLOQUÉE : la démarche change, les autres articulations COMPENSENT", "③ Nouvelles structures : bourses, dépôts de CALCIUM, qui aggravent la douleur"],
+    q: ["Que font les autres articulations quand une est bloquée ? | elles compensent || elles se bloquent aussi ; rien ; elles fusionnent toutes",
+        "Les 3 mécanismes | fusion prématurée ; articulation bloquée compensée par les autres ; nouvelles structures (bourses, calcium)"] },
+  { k: ["Selon la localisation et la gravité", "DOULEUR locale autour de l'articulation : mise en charge, effort, certains mouvements", "Mobilité RÉDUITE, ex. un orteil qui fléchit et s'étend mal", "DÉFORMATION si la fusion touche les os distaux", "Marche difficile, BOITERIE", "Douleurs des tendons et ligaments voisins, trop contraints"],
+    q: ["Les signes cliniques | douleur locale ; mobilité réduite ; déformation ; marche difficile ou boiterie ; tendons et ligaments voisins douloureux"] },
+  { k: ["CLINIQUE : douleur, mobilité, déformations, HISTOIRE du patient (fractures, infections, maladies inflammatoires)", "RADIOGRAPHIE = examen DE BASE : montre la fusion et son étendue, exclut fracture ou tumeur", "IRM : tissus mous, inflammation", "SCANNER : vue DÉTAILLÉE de la fusion et des structures voisines"],
+    q: ["L'examen de base | la radiographie || l'IRM ; l'échographie ; l'EMG",
+        "Quel examen donne la vue la plus détaillée de la fusion ? | le scanner"] },
+  { k: ["Selon la localisation, les symptômes, la gêne", "CONSERVATEUR : REPOS (moins solliciter l'articulation), ORTHÈSES pour redistribuer les forces", "PHYSIO : garder la mobilité des AUTRES articulations ; AINS", "CHIRURGIE si déformation ou gêne importante : RÉSECTION de la fusion, ou ARTHRODÈSE pour la stabilité", "Parfois TRANSFERT de tendon, réparation de l'articulation"],
+    q: ["Le but de la physiothérapie | garder la mobilité des autres articulations || refaire bouger l'articulation soudée ; muscler le mollet ; soigner l'infection",
+        "Les gestes chirurgicaux | résection de la fusion ; arthrodèse ; transfert de tendon ou réparation"] },
+  { k: ["Dépend de l'ORIGINE, de la localisation, du traitement", "CONGÉNITALE : parfois chirurgie PRÉCOCE", "TRAUMATIQUE ou POST-OP : meilleur pronostic si traitée VITE", "Sans intervention ni rééducation → limitations fonctionnelles"],
+    q: ["Quelle forme peut demander une chirurgie précoce ? | la forme congénitale || la forme post-opératoire ; la forme infectieuse guérie ; aucune"] },
+  { k: ["SUIVI après fracture : vérifier la consolidation, éviter une synostose secondaire", "Dépister TÔT les formes congénitales, avant les déformations", "Chaussures adaptées contre les traumatismes répétés", "Traiter tôt les maladies inflammatoires (polyarthrite)", "DÉPISTAGE surtout si antécédents familiaux ou troubles génétiques des os"],
+    q: ["Pourquoi suivre une fracture ? | vérifier la consolidation et éviter une synostose secondaire",
+        "Qui dépister en priorité ? | antécédents familiaux ; troubles génétiques des os"] },
+];
