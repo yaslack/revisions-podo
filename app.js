@@ -462,6 +462,9 @@
     { v: 87, items: [
       ['play', 'Podologie : les vidéos des fiches 34 à 36 sont en ligne (essuie-glace, syndrome des loges, syndrome du 2e rayon).'],
     ] },
+    { v: 89, items: [
+      ['leg', 'Podologie : nouvelle fiche 37. Le sinus du tarse, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

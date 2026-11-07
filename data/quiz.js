@@ -1286,3 +1286,28 @@ QUIZ['syndrome-2e-rayon'] = [
   { k: ["Chaussures bien AJUSTÉES : soutien de voûte + amorti", "Contrôle régulier de la BIOMÉCANIQUE, surtout chez le sportif", "Renforcer pied et orteils", "Entraînement VARIÉ, sans surcharge continue", "DÉPISTAGE PRÉCOCE : douleurs chroniques du pied, troubles de la posture"],
     q: ["Les gestes de prévention | chaussures ajustées avec soutien de voûte et amorti ; contrôle biomécanique ; renforcer pied et orteils ; entraînement varié"] },
 ];
+
+QUIZ['sinus-tarse'] = [
+  { k: ["SINUS DU TARSE : région entre le talon et le pied (talus / calcanéum)", "Ligaments, tendons, artères : compte pour la MOBILITÉ et l'ABSORPTION des chocs", "Structures irritées ou enflammées : traumatismes répétés, déséquilibres biomécaniques, surcharge (sportifs)", "Douleur LOCALE, aggravée par certaines activités ou positions prolongées"],
+    q: ["Entre quels os se trouve le sinus du tarse ? | le talus et le calcanéum || le tibia et la fibula ; le naviculaire et le cuboïde ; les métatarsiens",
+        "Les 2 rôles du sinus du tarse | mobilité du pied ; absorption des chocs"] },
+  { k: ["TRAUMATISME aigu : coup direct, accident de sport, ENTORSE", "SURCHARGE : course, saut, sol dur", "BIOMÉCANIQUE : pieds plats, hyperpronation, supination excessive", "CHAUSSURES mal ajustées, sans soutien ni amorti", "INFLAMMATIONS chroniques : tendinites, bursites, déformations (hallux valgus)", "FACTEURS DE RISQUE : entraînement intensif, pieds plats ou creux, pronation ou supination, chaussures de sport inadaptées"],
+    q: ["Le traumatisme le plus typique | une entorse || une fracture du fémur ; une piqûre ; une brûlure",
+        "Les causes | traumatisme aigu ; surcharge ; déséquilibres biomécaniques ; chaussures inadaptées ; inflammations chroniques"] },
+  { k: ["Petite CAVITÉ entre CALCANÉUM et TALUS", "Contient ligaments, tendons, vaisseaux, nerfs ; gère les forces de compression à la marche et à la course", "Irrité : ligaments et tendons COMPRIMÉS ou tendus", "Trop tendus : long fléchisseur de l'hallux, ligament talo-calcanéen", "HYPERPRONATION → microtraumatismes", "Irritation prolongée → inflammation, douleur, RAIDEUR"],
+    q: ["Quel trouble d'appui crée des microtraumatismes ? | l'hyperpronation || la supination légère ; le pied normal ; la marche pieds nus",
+        "Quel ligament est cité ? | le ligament talo-calcanéen || le ligament croisé antérieur ; le ligament deltoïde ; le ligament rotulien"] },
+  { k: ["Douleur sur le côté LATÉRAL du pied, juste DEVANT la cheville", "Pire : marche, course, mouvements de pronation ou supination", "Palpation du sinus TRÈS douloureuse ; léger gonflement", "Douleur à la mise en charge, surtout pendant la PROPULSION", "RAIDEUR, surtout en flexion dorsale", "Parfois douleur au repos, la NUIT"],
+    q: ["Où siège la douleur ? | sur le côté latéral du pied, juste devant la cheville || sous le talon ; à l'intérieur de la cheville ; sous les orteils",
+        "Dans quel mouvement la raideur se voit-elle ? | la flexion dorsale"] },
+  { k: ["SIGNE CLÉ : palpation directe du sinus → douleur localisée", "Test de PRONATION-SUPINATION peut provoquer la douleur", "Tests de mouvement : flexion dorsale RAIDE ou douloureuse", "RADIO : ne montre pas l'inflammation, mais EXCLUT une fracture", "IRM : inflammation, œdème, lésions des tissus mous ; parfois ÉCHO : tendons, ligaments"],
+    q: ["Le signe clé du diagnostic | la palpation directe du sinus réveille une douleur localisée",
+        "Quel examen montre l'inflammation et l'œdème ? | l'IRM || la radiographie ; la podographie ; l'EMG"] },
+  { k: ["REPOS : pas de course ni de sports de choc", "GLACE, AINS", "ORTHÈSES plantaires sur mesure : corriger les déséquilibres, soulager le sinus", "PHYSIO : renforcement, étirements, mobilité", "PROPRIOCEPTION : équilibre, contre la récidive", "Infiltration de corticoïdes si ça persiste ; cas graves après échec : chirurgie de DÉCOMPRESSION ou libération du sinus"],
+    q: ["À quoi sert la proprioception ? | travailler l'équilibre et éviter la récidive",
+        "La chirurgie des cas graves | décompression ou libération du sinus du tarse || prothèse de cheville ; ténotomie d'Achille ; arthrodèse du genou"] },
+  { k: ["GÉNÉRALEMENT BON avec un traitement adapté", "La plupart récupèrent COMPLÈTEMENT avec le conservateur", "Mais ça peut prendre plusieurs semaines, voire plusieurs mois", "Traitement retardé ou insuffisant → CHRONIQUE"],
+    q: ["Le délai de récupération | plusieurs semaines, voire plusieurs mois || 2 jours ; plusieurs années ; jamais complète"] },
+  { k: ["Chaussures AJUSTÉES qui soutiennent le pied, surtout pour le sport", "ÉCHAUFFEMENT + étirements avant l'effort", "Évaluer la biomécanique, corriger une hyperpronation par des SEMELLES", "Alterner entraînement et REPOS ; renforcer muscles + tendons du pied", "DÉPISTAGE : douleur persistante ou récurrente → consulter VITE"],
+    q: ["Les gestes de prévention | chaussures ajustées ; échauffement et étirements ; semelles si hyperpronation ; alterner entraînement et repos ; renforcer le pied"] },
+];
