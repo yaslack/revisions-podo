@@ -470,6 +470,9 @@
     { v: 84, items: [
       ['leg', 'Podologie : nouvelle fiche 36. Le syndrome du 2e rayon, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 87, items: [
+      ['play', 'Podologie : les vidéos des fiches 34 à 36 sont en ligne (essuie-glace, syndrome des loges, syndrome du 2e rayon).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

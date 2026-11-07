@@ -56,5 +56,8 @@ window.VIDEOS = {
  "canal-tarsien": "1a3CqMpeiDBBpynwnTa35toHI1FhvkE7K",
  "bursite-icm": "12K1atcbKQ_-9tb50-EJDHp-7yYbKSSFF",
  "morton": "1E_ATdZ12gvxykLcFwaWj5-y0cVQbwIKQ",
- "patte-oie": "1wdi3kx2QZa3uHcsTYQsWcWothgrUuZ3_"
+ "patte-oie": "1wdi3kx2QZa3uHcsTYQsWcWothgrUuZ3_",
+ "essuie-glace": "19Ok98A4T9Sgcu2khzMU5FnFVigz4wV2u",
+ "syndrome-loges": "1Dncw1uSGGCMIS5lMk2ztgohs6SSPgr_3",
+ "syndrome-2e-rayon": "1TcHQECJEnJk6fZOpe09kcyCD-LsLxvjl"
 };
