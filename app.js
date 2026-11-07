@@ -251,7 +251,8 @@
   const SPARE = 'podo:v3:avant', LINK = 'podo:fbuid';
   function fbUse(next, spare) {
     try { localStorage.setItem(SPARE, JSON.stringify(spare)); } catch (e) {}
-    S = Object.assign({ pedi: {}, anat: {} }, next, { mig: S.mig, noteV: S.noteV, skin: S.skin, theme: S.theme, size: S.size });   // le look reste celui de cet appareil save(); setSkin(); fbHome();
+    S = Object.assign({ pedi: {}, anat: {} }, next, { mig: S.mig, noteV: S.noteV, skin: S.skin, theme: S.theme, size: S.size });   // le look reste celui de cet appareil
+    save(); setSkin(); fbHome();
   }
   const fbLink = () => { fbOk = true; try { localStorage.setItem(LINK, fbUser.uid); } catch (e) {} return fbPush(); };
   const hasProg = o => ['pedi', 'anat', 'days', 'qz', 'rv', 'bil', 'clin'].some(k => o[k] && Object.keys(o[k]).length);
