@@ -468,6 +468,9 @@
     { v: 90, items: [
       ['leg', 'Podologie : nouvelle fiche 38. Les synostoses, avec dessins et quiz (la vidéo arrive).'],
     ] },
+    { v: 91, items: [
+      ['leg', 'Podologie : nouvelle fiche 39. Les talalgies, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
