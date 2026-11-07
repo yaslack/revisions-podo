@@ -97,9 +97,9 @@
   const hasIll = f => f.sec !== 'podo' || !!f.ill;
   const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
-  // vidéo Drive : la couverture dessinée ouvre un calque plein écran. On essaie d'abord le fichier lui-même dans un <video> :
-  // ce sont les commandes du téléphone (celles d'Apple sur iPhone), à leur vraie taille. Si Drive ne le donne pas (gros fichier,
-  // trop de vues, pas de réseau…), on retombe sur le lecteur Drive à la forme exacte de la vidéo.
+  // vidéo : la couverture dessinée ouvre un calque plein écran. Un fichier du site (« videos/x.mp4 ») est lu par le téléphone
+  // (commandes d'Apple sur iPhone, à leur vraie taille) ; sinon c'est l'identifiant d'un fichier Drive, dans le lecteur Drive
+  // à la forme exacte de la vidéo (Drive envoie ses fichiers en téléchargement : l'iPhone ne les lit pas lui-même).
   // Drive recadre son image et grossit ses commandes dans un petit cadre : le lecteur est dessiné plus grand puis réduit
   // (fitLayer). Il est seul dans le calque (rien ne défile dessous) et supprimé en fermant, pour que rien ne tourne après.
   // icônes en SVG : les polices dessinées n'ont pas ▶ ✕ 📱, l'iPhone affiche alors « ? »
@@ -115,19 +115,14 @@
     closeVideo();
     const d = document.createElement('div'); d.className = 'vlayer' + (yt ? ' yt' : '');
     d.innerHTML = `<div class="vbox">${yt ? `<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>`
-      : `<video src="https://drive.usercontent.google.com/download?id=${id}&export=download" controls playsinline preload="metadata" title="Vidéo"></video>`}</div>
+      : /\.mp4$/.test(id) ? `<video src="${id}" controls playsinline preload="metadata" title="Vidéo"></video>`
+      : `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>`}</div>
       <div class="vrot">${IC.rotate} Tourne ton téléphone pour voir la vidéo en grand.</div>
       <button class="vclose" id="vclose" aria-label="Fermer la vidéo">${IC.close}</button>
-      ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">${lab || 'Fiche du test sur piriforme.fr'} ↗</a>` : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
+      ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">${lab || 'Fiche du test sur piriforme.fr'} ↗</a>` : /\.mp4$/.test(id) ? '' : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
     document.body.appendChild(d); document.body.classList.add('vopen'); document.documentElement.classList.add('vopen');
     zoomLock(true); fitLayer(); window.addEventListener('resize', fitLayer); window.addEventListener('orientationchange', refit);
-    const v = d.querySelector('video');
-    if (v) {
-      const drive = () => { if (!v.isConnected || v.readyState) return; v.removeAttribute('src'); v.load();   // le lecteur Drive à la place
-        d.querySelector('.vbox').innerHTML = `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>`; fitLayer(); };
-      v.addEventListener('error', drive); setTimeout(drive, 10000);   // ponytail: 10 s sans image = Drive ne la donne pas ; à raccourcir si c'est long à l'usage
-      v.play().catch(() => {});   // au toucher : le téléphone accepte le son
-    }
+    const v = d.querySelector('video'); if (v) v.play().catch(() => {});   // au toucher : le téléphone accepte le son
     try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
   }
   // le lecteur est dessiné à 1024 px de large au moins, puis réduit : sur iPhone, Drive montre alors une barre fine au lieu de
