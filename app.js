@@ -97,9 +97,7 @@
   const hasIll = f => f.sec !== 'podo' || !!f.ill;
   const RETRY = `onerror="if(!this.dataset.r){this.dataset.r=1;this.src=this.src.split('?')[0]+'?r=1'}else(this.closest('.drawn')||this).remove()"`;
   const img = (src, alt, cls = '') => `<img class="${cls}" src="${src}" alt="${esc(alt)}" loading="lazy" ${RETRY}>`;
-  // vidéo : la couverture dessinée ouvre un calque plein écran. Un fichier du site (« videos/x.mp4 ») est lu par le téléphone
-  // (commandes d'Apple sur iPhone, à leur vraie taille) ; sinon c'est l'identifiant d'un fichier Drive, dans le lecteur Drive
-  // à la forme exacte de la vidéo (Drive envoie ses fichiers en téléchargement : l'iPhone ne les lit pas lui-même).
+  // vidéo Drive : la couverture dessinée ouvre un calque plein écran avec le lecteur Drive à la forme exacte de la vidéo.
   // Drive recadre son image et grossit ses commandes dans un petit cadre : le lecteur est dessiné plus grand puis réduit
   // (fitLayer). Il est seul dans le calque (rien ne défile dessous) et supprimé en fermant, pour que rien ne tourne après.
   // icônes en SVG : les polices dessinées n'ont pas ▶ ✕ 📱, l'iPhone affiche alors « ? »
@@ -114,15 +112,12 @@
   function openVideo(id, yt, src, lab) {
     closeVideo();
     const d = document.createElement('div'); d.className = 'vlayer' + (yt ? ' yt' : '');
-    d.innerHTML = `<div class="vbox">${yt ? `<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>`
-      : /\.mp4$/.test(id) ? `<video src="${id}" controls playsinline preload="metadata" title="Vidéo"></video>`
-      : `<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe>`}</div>
+    d.innerHTML = `<div class="vbox"><iframe src="${yt ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1` : `https://drive.google.com/file/d/${id}/preview`}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="Vidéo"></iframe></div>
       <div class="vrot">${IC.rotate} Tourne ton téléphone pour voir la vidéo en grand.</div>
       <button class="vclose" id="vclose" aria-label="Fermer la vidéo">${IC.close}</button>
-      ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">${lab || 'Fiche du test sur piriforme.fr'} ↗</a>` : /\.mp4$/.test(id) ? '' : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
+      ${yt ? `<a class="vdrive" href="${src}" target="_blank" rel="noopener">${lab || 'Fiche du test sur piriforme.fr'} ↗</a>` : `<a class="vdrive" href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a>`}`;
     document.body.appendChild(d); document.body.classList.add('vopen'); document.documentElement.classList.add('vopen');
     zoomLock(true); fitLayer(); window.addEventListener('resize', fitLayer); window.addEventListener('orientationchange', refit);
-    const v = d.querySelector('video'); if (v) v.play().catch(() => {});   // au toucher : le téléphone accepte le son
     try { if (screen.orientation && screen.orientation.lock && d.requestFullscreen) d.requestFullscreen().then(() => screen.orientation.lock('landscape')).catch(() => {}); } catch (e) {}
   }
   // le lecteur est dessiné à 1024 px de large au moins, puis réduit : sur iPhone, Drive montre alors une barre fine au lieu de
@@ -130,8 +125,8 @@
   // Le lecteur est dans une boîte à la taille exacte de l'écran qui cache ce qui dépasse : sinon le lecteur de 1024 px rend
   // la page plus large que l'écran et l'iPhone dézoome en tournant, puis garde ce zoom en revenant en portrait.
   function fitLayer() {
-    const d = $('.vlayer'), b = d && d.querySelector('.vbox'), f = b && b.querySelector('iframe, video'); if (!f) return;
-    const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = d.classList.contains('yt') || f.tagName === 'VIDEO' ? fw : Math.max(fw, 1024), k = fw / VW;
+    const d = $('.vlayer'), b = d && d.querySelector('.vbox'), f = b && b.querySelector('iframe'); if (!f) return;
+    const W = d.clientWidth, H = d.clientHeight, fw = Math.min(W, H * 16 / 9), fh = fw * 9 / 16, VW = d.classList.contains('yt') ? fw : Math.max(fw, 1024), k = fw / VW;
     Object.assign(b.style, { width: fw + 'px', height: fh + 'px', left: (W - fw) / 2 + 'px', top: (H - fh) / 2 + 'px' });
     Object.assign(f.style, { width: VW + 'px', height: VW * 9 / 16 + 'px', transform: k < 1 ? `scale(${k})` : '' });
   }
@@ -143,8 +138,7 @@
   function closeVideo() {
     window.removeEventListener('resize', fitLayer); window.removeEventListener('orientationchange', refit);
     const d = $('.vlayer'); if (!d) return;
-    const m = d.querySelector('iframe, video'); if (m.tagName === 'VIDEO') { m.pause(); m.removeAttribute('src'); m.load(); } else m.src = 'about:blank';
-    d.remove(); document.body.classList.remove('vopen'); document.documentElement.classList.remove('vopen');
+    d.querySelector('iframe').src = 'about:blank'; d.remove(); document.body.classList.remove('vopen'); document.documentElement.classList.remove('vopen');
     zoomLock(true); setTimeout(() => zoomLock(false), 300);
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
   }
