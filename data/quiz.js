@@ -1261,3 +1261,28 @@ QUIZ['syndrome-loges'] = [
   { k: ["GÉRER l'activité, repérer tôt les facteurs favorisants", "Augmenter PROGRESSIVEMENT intensité et durée ; pas de changement BRUTAL de charge", "Bonne préparation musculaire", "Bon équipement : CHAUSSURES de course adaptées", "Corriger les troubles biomécaniques : APPUI et FOULÉE"],
     q: ["Les gestes de prévention | augmenter progressivement ; pas de changement brutal de charge ; préparation musculaire ; chaussures adaptées ; corriger appui et foulée"] },
 ];
+
+QUIZ['syndrome-2e-rayon'] = [
+  { k: ["Pathologie de l'avant-pied : douleur du 2e ORTEIL", "Par tension mécanique ou SURCHARGE de ce rayon", "Douleur, inflammation, parfois DÉFORMATION du 2e orteil", "Sportif, pied plat, hallux valgus", "Gêne marche et posture : le 2e orteil compte pour la PROPULSION et l'ÉQUILIBRE"],
+    q: ["Pourquoi le 2e orteil est-il important ? | il joue un rôle clé dans la propulsion et l'équilibre",
+        "Chez qui le voit-on souvent ? | sportif ; pied plat ; hallux valgus"] },
+  { k: ["MULTIFACTORIEL", "SURCHARGE : le 2e rayon compense les autres orteils (orteils longs, pieds plats) → callosités, cors, ampoules", "BIOMÉCANIQUE : orteils en marteau, 1er rayon HYPERMOBILE", "CHAUSSURES étroites ou à talons ; pathologies associées : HALLUX VALGUS", "FACTEURS DE RISQUE : pied plat ou pronateur, 2e orteil plus LONG, chaussures étroites, sports répétitifs (course, danse, ballon), déformations de l'avant-pied"],
+    q: ["Quel 1er rayon favorise le syndrome ? | un 1er rayon hypermobile || un 1er rayon rigide ; un 1er rayon court opéré ; un 1er rayon normal",
+        "Les facteurs de risque | pied plat ou pronateur ; 2e orteil plus long ; chaussures étroites ; sports répétitifs ; déformations de l'avant-pied"] },
+  { k: ["PRESSION excessive sur le 2e orteil ou sa MTP", "→ inflammation, peau irritée, contraction musculaire excessive, déformation", "Le 2e rayon porte une grande part de la PROPULSION : toute mauvaise répartition fait mal", "Rayon plus LONG ou trop sollicité → se déforme", "Surcharge prolongée → BURSITE + TENDINITE voisines", "À force : ORTEIL EN MARTEAU, callosités, cors"],
+    q: ["Vers quelle déformation évolue l'orteil ? | l'orteil en marteau || l'hallux valgus ; le quintus varus ; l'orteil en maillet du 5e",
+        "Quelles structures voisines s'enflamment ? | la bourse et les tendons"] },
+  { k: ["Douleur à la BASE du 2e orteil (MTP), pire à la marche, à la course, à la pression", "Gonflement, sensible au toucher", "Avancé : ORTEIL EN MARTEAU, tendons ou ligaments rétractés", "Callosités + cors : sous l'orteil, sous la plante, sur le dessus", "Douleur MÉCANIQUE : calmée au repos, revient à l'effort", "RAIDEUR en flexion de la MTP"],
+    q: ["Où siège la douleur ? | à la base du 2e orteil, sur la métatarso-phalangienne || sous le talon ; entre M3 et M4 ; sur l'hallux",
+        "Le type de douleur | mécanique : calmée au repos, revient à l'effort"] },
+  { k: ["EXAMEN CLINIQUE : palper la MTP2 (douleur, œdème), orteil en marteau ?", "ÉVALUATION BIOMÉCANIQUE : l'analyse de la marche montre la SURCHARGE du 2e rayon", "RADIOGRAPHIE : fracture, malformation, déformation osseuse", "IRM : tendinite, inflammation des tissus mous"],
+    q: ["Que montre l'analyse de la marche ? | une surcharge du 2e rayon",
+        "Que cherche la radiographie ? | fracture ; malformation ; déformation osseuse"] },
+  { k: ["Surtout CONSERVATEUR", "REPOS : moins de course, natation ou vélo", "CHALEUR + massages : détendre les muscles, améliorer la circulation", "ORTHÈSES sur mesure : redistribuer les pressions de l'avant-pied, aligner les orteils, éviter la récidive", "Étirer + renforcer pied et orteils ; chaussures LARGES, confortables, amorties", "Infiltrations si inflammation sévère ; CHIRURGIE si grave : orteil en marteau, lésions irréversibles"],
+    q: ["Le rôle des orthèses | redistribuer les pressions de l'avant-pied ; aligner les orteils ; éviter la récidive",
+        "Quand opère-t-on ? | cas graves : orteil en marteau, lésions irréversibles || dès la première douleur ; jamais ; seulement chez l'enfant"] },
+  { k: ["FAVORABLE avec une prise en charge PRÉCOCE", "La plupart reprennent le SPORT après rééducation et soins", "Négligé → déformations PERMANENTES, pied moins fonctionnel"],
+    q: ["Le risque s'il est négligé | des déformations permanentes et un pied moins fonctionnel"] },
+  { k: ["Chaussures bien AJUSTÉES : soutien de voûte + amorti", "Contrôle régulier de la BIOMÉCANIQUE, surtout chez le sportif", "Renforcer pied et orteils", "Entraînement VARIÉ, sans surcharge continue", "DÉPISTAGE PRÉCOCE : douleurs chroniques du pied, troubles de la posture"],
+    q: ["Les gestes de prévention | chaussures ajustées avec soutien de voûte et amorti ; contrôle biomécanique ; renforcer pied et orteils ; entraînement varié"] },
+];

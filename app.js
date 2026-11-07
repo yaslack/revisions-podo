@@ -444,6 +444,9 @@
       ['leg', 'Podologie : 13 nouvelles fiches (23 à 35), de la périostite tibiale au syndrome des loges, avec dessins et quiz.'],
       ['play', 'Podologie : les vidéos des fiches 23 à 33 sont en ligne (34 et 35 arrivent).'],
     ] },
+    { v: 84, items: [
+      ['leg', 'Podologie : nouvelle fiche 36. Le syndrome du 2e rayon, avec dessins et quiz (la vidéo arrive).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
