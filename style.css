@@ -468,7 +468,8 @@ body.vopen { overflow: hidden; }
 .vlayer { position: fixed; inset: 0; z-index: 70; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
 .vlayer { overflow: hidden; }
 .vlayer .vbox { position: absolute; overflow: hidden; background: #000; }
-.vlayer iframe { position: absolute; left: 0; top: 0; border: 0; background: #000; transform-origin: 0 0; }
+.vlayer :is(iframe, video) { position: absolute; left: 0; top: 0; border: 0; background: #000; transform-origin: 0 0; }
+.vlayer video { object-fit: contain; }
 html.vopen, html.vopen body { overflow: hidden; }
 .vrot { display: none; position: absolute; left: 0; right: 0; bottom: calc(48px + env(safe-area-inset-bottom)); color: #f4ecd9; font: 400 17px var(--marker); text-align: center; padding: 0 24px; }
 @media (orientation: portrait) { .vrot { display: block; } }
