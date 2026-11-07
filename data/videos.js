@@ -45,5 +45,16 @@ window.VIDEOS = {
  "sever-osgood": "1G1eBuR4wbgYGtf4VyLwcI-nyZEWU2u9D",
  "map": "1H03DR4LAO8xVgOBAoplS8IaObfcs3KJr",
  "naviculaire-accessoire": "1bK8bD6QQzp-tSP8PAVN13eegzBxDIZPA",
- "osteochondrose": "1dUE_USpeWocWn9qEzARNQPQ9YVJA6jrv"
+ "osteochondrose": "1dUE_USpeWocWn9qEzARNQPQ9YVJA6jrv",
+ "periostite-tibiale": "1JmXTDT5x0416UXpN5DvPKsBrYyAjJ-mg",
+ "pied-bot": "1WXZeklFF0TAmWUCwn1VrJGgn9nucLB3U",
+ "pied-creux": "1ciEPuYU4VMGSIecs2vI537v725P0IZ3l",
+ "pied-plat": "130-i1B8mukpvHfh-E7f6vmCpp8KoXuba",
+ "scoliose": "1o9VpfOXJnljdTFUE4vJIXHV0tvPRJsjK",
+ "attitudes-scoliotiques": "1akxtYA8cCanFu9QIALmzCS9Bvb9KoIog",
+ "carrefour-posterieur": "1eNW6lVggo1akEQuz3LIPTDU0LQNMxE7u",
+ "canal-tarsien": "1a3CqMpeiDBBpynwnTa35toHI1FhvkE7K",
+ "bursite-icm": "12K1atcbKQ_-9tb50-EJDHp-7yYbKSSFF",
+ "morton": "1E_ATdZ12gvxykLcFwaWj5-y0cVQbwIKQ",
+ "patte-oie": "1wdi3kx2QZa3uHcsTYQsWcWothgrUuZ3_"
 };

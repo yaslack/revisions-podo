@@ -432,7 +432,7 @@
     { v: 78, items: [
       ['play', 'Podologie : la vidéo de la fiche 22 est en ligne (les ostéochondroses).'],
     ] },
-    { v: 79, items: [
+    { v: 79, until: '2026-11-11', items: [
       ['refresh', 'Nouveau : connecte-toi avec Google (Réglages, en bas de l\'accueil) pour retrouver ta progression sur tous tes appareils.'],
     ] },
     { v: 80, items: [
@@ -440,12 +440,18 @@
       ['check', 'Celle que tu ne gardes pas reste en secours : « Revenir à la progression d\'avant » dans Réglages.'],
       ['clipboard', 'Le code de sauvegarde est toujours là : « Sauvegarder sans Google (hors ligne) ».'],
     ] },
+    { v: 83, items: [
+      ['leg', 'Podologie : 13 nouvelles fiches (23 à 35), de la périostite tibiale au syndrome des loges, avec dessins et quiz.'],
+      ['play', 'Podologie : les vidéos des fiches 23 à 33 sont en ligne (34 et 35 arrivent).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
   function showNote() {
-    const news = NOTES.filter(n => n.v > (S.noteV || 0));
+    let news = NOTES.filter(n => n.v > (S.noteV || 0));
     if (!news.length || $('.note')) return;
+    // une annonce importante (until) revient en tête de chaque nouvelle note jusqu'à sa date, même déjà vue
+    news = [...NOTES.filter(n => n.until && Date.now() < Date.parse(n.until) && !news.includes(n)), ...news];
     const d = document.createElement('div'); d.className = 'note';
     d.innerHTML = `<div class="card" role="dialog" aria-label="Quoi de neuf"><div class="kicker">MISE À JOUR</div><h2>Quoi de neuf ?</h2>
       <ul>${news.flatMap(n => n.items).map(([e, t]) => `<li><span>${ico(e) || esc(e)}</span><span>${esc(nightly(t))}</span></li>`).join('')}</ul>
