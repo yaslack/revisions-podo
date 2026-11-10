@@ -144,12 +144,13 @@
       <div class="sndh">SONS DES BOUTONS ET DES JEUX</div><button class="btn ghost" data-sndfx aria-pressed="${st.fx !== false}">${st.fx !== false ? 'Activés : toucher pour couper' : 'Coupés : toucher pour remettre'}</button>
     </div>`;
   }
-  function ui() {
-    const c = document.getElementById('sndcard'); if (c) c.outerHTML = card();
+  function ui(animMin) {
+    if (!animMin) { const c = document.getElementById('sndcard'); if (c) c.outerHTML = card(); }
     let b = document.getElementById('sndbar');
     const cur = byId(st.id);
     if (!st.on || !cur) { if (b) b.remove(); document.body.classList.remove('sndon'); return; }
     if (!b) { b = document.createElement('div'); b.id = 'sndbar'; b.className = 'sndbar'; document.body.appendChild(b); }
+    const r0 = animMin ? b.getBoundingClientRect() : null;
     if (b.dataset.id !== st.id) {
       b.dataset.id = st.id;
       b.innerHTML = `<span class="sndgrip" aria-label="Déplacer le lecteur" title="Déplacer">${IC.grip}</span><button class="sndpp" data-sndpp></button><button class="sndexp" data-sndmin aria-label="Agrandir le lecteur">${ico(cur.e)}</button><div class="sndfull"><span class="sndn">${ico(cur.e)} ${esc(cur.n)}</span>${vol()}<button class="sndmin" data-sndmin aria-label="Réduire le lecteur">${IC.min}</button><button class="sndx" data-sndx aria-label="Arrêter le son">${IC.close}</button></div>`;
@@ -157,6 +158,12 @@
     const pp = b.querySelector('.sndpp'); if (pp) { pp.setAttribute('aria-label', playing ? 'Pause' : 'Lecture'); pp.innerHTML = playing ? IC.pause : IC.play; }
     b.classList.toggle('paused', !playing); b.classList.toggle('mini', !!st.mini); document.body.classList.add('sndon');
     place(b);
+    if (r0 && b.animate) {
+      const r1 = b.getBoundingClientRect();
+      const kf0 = { width: r0.width + 'px' }, kf1 = { width: r1.width + 'px' };
+      if (st.pos) { kf0.left = r0.left + 'px'; kf0.top = r0.top + 'px'; kf1.left = r1.left + 'px'; kf1.top = r1.top + 'px'; }
+      b.animate([kf0, kf1], { duration: 420, easing: 'cubic-bezier(.22, 1.28, .36, 1)' });
+    }
   }
   // le lecteur se déplace en le tenant par la poignée ⠿ ; sa place est gardée (en fraction de l'écran) et reste dans l'écran
   function place(b) {
@@ -185,7 +192,7 @@
       if (busy) return; busy = want; ensure(); ctx.resume(); ui();
       setTimeout(() => { try { cache[want] = gen(want); } catch (er) {} busy = ''; if (cache[want]) start(want); else ui(); }, 60); return;
     }
-    if (t.hasAttribute('data-sndmin')) { st.mini = !st.mini; save(); ui(); return; }
+    if (t.hasAttribute('data-sndmin')) { st.mini = !st.mini; save(); ui(true); return; }
     if (t.dataset.snd) { if (st.on && st.id === t.dataset.snd) (playing ? pause : resume)(); else start(t.dataset.snd); }
     else if (t.hasAttribute('data-sndpp')) (playing ? pause : resume)();
     else stop();
