@@ -87,8 +87,21 @@
     const g = master.gain; g.setValueAtTime(0, at); g.linearRampToValueAtTime(gainOf(st.vol), at + 1);
     playing = true; ui();
   }
-  function pause() { if (!ctx || !playing) return; ramp(0, .25); setTimeout(() => { if (!playing) ctx.suspend(); }, 300); playing = false; ui(); }
-  function resume() { if (!st.id) return; if (!ctx || !src.length) return start(st.id); ctx.resume(); ramp(gainOf(st.vol), .5); playing = true; ui(); }
+  function pause(now) {
+    if (!ctx || !playing) return;
+    playing = false;
+    if (now) {
+      master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setValueAtTime(0, ctx.currentTime);
+      src.forEach(x => { try { x.stop(); x.disconnect(); } catch (e) {} }); src = [];
+      ctx.suspend(); session('ambient');
+    } else { ramp(0, .25); setTimeout(() => { if (!playing) { ctx.suspend(); session('ambient'); } }, 300); }
+    ui();
+  }
+  const onLeave = () => { if (playing) pause(true); };
+  document.addEventListener('visibilitychange', () => { if (document.hidden) onLeave(); });
+  addEventListener('pagehide', onLeave);
+  addEventListener('blur', () => { if (document.activeElement?.tagName !== 'IFRAME') onLeave(); });
+  function resume() { if (!st.id) return; if (!ctx || !src.length) return start(st.id); session('playback'); ctx.resume(); ramp(gainOf(st.vol), .5); playing = true; ui(); }
   function stop() {
     if (ctx && src.length) { ramp(0, .3); const n = ctx.currentTime + .35; src.forEach(x => { try { x.stop(n); } catch (e) {} }); src = []; }
     playing = false; st.on = false; save(); ui(); session('ambient');
@@ -190,7 +203,7 @@
     const want = t.dataset.snd || (t.hasAttribute('data-sndpp') && !src.length && st.id);
     if (want && byId(want) && byId(want).m && !cache[want]) {   // première écoute d'une musique : on affiche « Je prépare… », puis on la calcule
       if (busy) return; busy = want; ensure(); ctx.resume(); ui();
-      setTimeout(() => { try { cache[want] = gen(want); } catch (er) {} busy = ''; if (cache[want]) start(want); else ui(); }, 60); return;
+      setTimeout(() => { try { cache[want] = gen(want); } catch (er) {} busy = ''; if (cache[want] && !document.hidden) start(want); else ui(); }, 60); return;
     }
     if (t.hasAttribute('data-sndmin')) { st.mini = !st.mini; save(); ui(true); return; }
     if (t.dataset.snd) { if (st.on && st.id === t.dataset.snd) (playing ? pause : resume)(); else start(t.dataset.snd); }

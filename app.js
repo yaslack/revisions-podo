@@ -696,7 +696,7 @@
       case 'again': startQuiz(f, Q.key, Q.key === 'all' ? f.parts.map((_, i) => i + 1) : [+Q.key]); break;
     }
     if (!wasEnd && Q.i >= Q.steps.length) setTimeout(() => fx('win'), 350);   // quiz terminé
-    render();
+    render(['show', 'pick', 'ck', 'frev', 'fok', 'fko'].includes(qa));
   }
 
   function video(f) {
@@ -1144,7 +1144,7 @@
     if (ok) { G.combo++; G.score += Math.min(G.combo, 5); }
     else { G.combo = 0; G.lives--; G.deck.splice(Math.max(0, G.deck.length - 5), 0, G.cur); }   // ratée : elle revient 5 questions plus loin
     fx(ok ? 'good' : 'life', ok ? Math.min(G.combo - 1, 5) * 2 : 0);   // les bonnes réponses d'affilée montent
-    render();
+    render(true);
     gTimer = setTimeout(() => { if (G.lives > 0) svDraw(); else { G.over = true; G.isRec = best('survie', G.score); fx(G.isRec ? 'record' : 'over'); } render(); }, ok ? 800 : 2200);
   }
   // --- les paires : 60 s pour relier 4 fiches à leurs mots-clés (ou 4 muscles à leur nerf) ; une erreur coûte 3 s
@@ -1163,7 +1163,7 @@
     if (!G.sel || G.sel.side === side) { G.sel = { side, j, id }; G.bad = null; fx('tick'); }
     else if (G.sel.id === id) { fx('pair', Object.keys(G.found).length * 2); G.found[id] = 1; G.score++; G.sel = null; if (Object.keys(G.found).length === G.L.length) { did(1); prDraw(); } }
     else { fx('bad'); G.bad = { [side]: j, [G.sel.side]: G.sel.j }; G.sel = null; G.t0 -= 3000; clearTimeout(gTimer); gTimer = setTimeout(G.fn, Math.max(0, G.t0 + G.dur * 1000 - Date.now())); }
-    render();
+    render(true);
   }
 
   // --- qui suis-je ? : 4 indices progressifs (4, 3, 2, 1 pt), on cherche dans sa tête avant de dévoiler les 4 choix ; 10 énigmes par partie
@@ -1232,7 +1232,7 @@
     if (ok) fx(pts === 4 ? 'star' : 'good', (pts - 1) * 2);
     else { fx('bad'); if (!G.miss.some(m => m.id === G.cur.id)) G.miss.push(G.cur); }
     if (G.cur.kind === 'f' || G.cur.kind === 'a') review(G.cur.id, ok);
-    render();
+    render(true);
   }
   function qsNext() {
     if (G.n >= G.tot) { G.over = true; G.isRec = best('quisuisje', G.score); fx(G.isRec ? 'record' : G.score >= G.tot * 2.5 ? 'win' : 'over'); }
@@ -1380,11 +1380,13 @@
     } else if (a === 'ptstep') {
       fx('tap'); G.step++;
       if (G.step === 6) { review('f:' + G.f.id, G.pScore >= 7); setTimeout(() => fx(G.pScore >= 8 ? 'star' : G.pScore >= 6 ? 'win' : 'tap'), 180); }
+      return render();
     } else if (a === 'ptnext') {
       if (G.n >= G.tot) { G.over = true; G.isRec = best('patient', G.score); fx(G.isRec ? 'record' : G.score >= G.tot * 7 ? 'win' : 'over'); }
       else { fx('tap'); ptDraw(); }
+      return render();
     }
-    render();
+    render(true);
   }
 
   function gStart(a) {
@@ -1437,7 +1439,7 @@
   }
   function apAnswer(j) {
     if (G.pick != null) return;
-    const ok = G.opts[j] === G.ok; G.pick = j; fx(ok ? 'good' : 'bad'); render();
+    const ok = G.opts[j] === G.ok; G.pick = j; fx(ok ? 'good' : 'bad'); render(true);
     gTimer = setTimeout(() => { apNext(ok ? 1 : 0); render(); }, ok ? 800 : G.st.full ? 3000 : 2200);
   }
   function apprendre(id, m) {
@@ -1477,8 +1479,8 @@
     if (a === 'setup') { fx('tap'); G = { game: G.game, setup: true }; return render(); }
     if (a === 'again') { fx('start'); if (G.game === 'apprendre') G.key = ''; else gStart(G.game); return render(); }
     if (a === 'pick') return G.game === 'survie' ? svAnswer(j) : G.game === 'quisuisje' ? qsAnswer(j) : apAnswer(j);
-    if (a === 'qshint') { if (G.rev < 4 && G.pick == null) { fx('reveal'); G.rev++; render(); } return; }
-    if (a === 'qsopts') { fx('tap'); G.showOpts = true; return render(); }
+    if (a === 'qshint') { if (G.rev < 4 && G.pick == null) { fx('reveal'); G.rev++; render(true); } return; }
+    if (a === 'qsopts') { fx('tap'); G.showOpts = true; return render(true); }
     if (a === 'qsnext') { fx('tap'); return qsNext(); }
     if (a.startsWith('pt')) return ptAct(a, j);
     if (a === 'L' || a === 'R') return prTap(a, j);
@@ -1487,7 +1489,7 @@
     if (a === 'mk') st.ticks = st.ticks.includes(j) ? st.ticks.filter(x => x !== j) : st.ticks.concat(j);
     else if (a === 'mval') { st.done = true; st.v = Math.max(0, st.ticks.reduce((s, k) => s + (st.items[k][1] ? 1 : -1), 0) / st.nYes); fx(st.v >= 0.8 ? 'good' : 'bad'); }
     else if (a === 'mnext') apNext(st.v);
-    render();
+    render(a !== 'mnext');
   }
   function jeu(a, b, c) {
     if (!GAMES[a]) return notFound();
@@ -1533,7 +1535,8 @@
   }
 
   // ---------- routeur ----------
-  function render() {
+  function render(keepScroll) {
+    const sy = window.scrollY || 0, dosOpen = !!(document.querySelector('.ptdos') && document.querySelector('.ptdos').open);
     const [, sec, a, b, c] = (location.hash || '#/').split('/');
     let html;
     if (!sec) html = home();
@@ -1551,6 +1554,7 @@
     if (V3) { V3.dispose(); V3 = null; }
     closeVideo();
     $('#app').innerHTML = html;
+    if (dosOpen && $('.ptdos')) $('.ptdos').open = true;
     document.body.classList.toggle('v3on', !!$('#v3c'));
     if ($('#v3c')) start3d();
     gSync();
@@ -1559,7 +1563,7 @@
     tabMenu(false);
     const f = (sec === 'podo' ? PODO_OK : PEDI).find(x => x.id === a);
     document.title = (sec === 'pedi' || sec === 'podo') && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
-    window.scrollTo(0, 0);
+    window.scrollTo(0, keepScroll === true ? sy : 0);
     showNote();
   }
 
@@ -1612,13 +1616,13 @@
     if (t.classList.contains('reveal')) { t.closest('[data-quiz]').classList.add('shown'); return; }
     if (!t.matches('button')) { t.classList.toggle('shown'); return; }
     const [, sec, a] = location.hash.split('/');
-    if (t.id === 'revise') { S.revise = !S.revise; save(); render(); }
-    if (t.id === 'done') { const p = S.pedi[a] = S.pedi[a] || {}; p.done = !p.done; save(); render(); }
-    if (t.id === 'bknow') { const m = S.bil = S.bil || {}, k = location.hash.split('/')[3]; m[k] = !m[k]; if (m[k]) did(1); save(); render(); }
-    if (t.id === 'cknow') { const m = S.clin = S.clin || {}; m[a] = !m[a]; if (m[a]) did(1); save(); render(); }
+    if (t.id === 'revise') { S.revise = !S.revise; save(); render(true); }
+    if (t.id === 'done') { const p = S.pedi[a] = S.pedi[a] || {}; p.done = !p.done; save(); render(true); }
+    if (t.id === 'bknow') { const m = S.bil = S.bil || {}, k = location.hash.split('/')[3]; m[k] = !m[k]; if (m[k]) did(1); save(); render(true); }
+    if (t.id === 'cknow') { const m = S.clin = S.clin || {}; m[a] = !m[a]; if (m[a]) did(1); save(); render(true); }
     if (t.id === 'crand') { const left = CL.map((_, i) => i + 1).filter(i => !doneC(i)), pool = left.length ? left : CL.map((_, i) => i + 1); S.revise = true; save(); location.hash = '#/clin/' + pool[Math.floor(Math.random() * pool.length)]; }
-    if (t.id === 'aknow') { S.anat[a] = !S.anat[a]; save(); render(); }
-    if (t.id === 'qshow') { shown = true; render(); }
+    if (t.id === 'aknow') { S.anat[a] = !S.anat[a]; save(); render(true); }
+    if (t.id === 'qshow') { shown = true; render(true); }
     if (t.id === 'qok' || t.id === 'qko') { S.anat[card.q] = t.id === 'qok'; review('a:' + card.q, t.id === 'qok'); card = null; render(); }
     if (t.id === 'drawO') { draw = { kind: 'p', f: PODO_OK[Math.floor(Math.random() * PODO_OK.length)] }; render(); }
     if (t.id === 'drawP') { draw = { kind: 'p', f: PEDI[Math.floor(Math.random() * PEDI.length)] }; render(); }
