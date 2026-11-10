@@ -9,7 +9,7 @@
   const $ = s => document.querySelector(s);
   const ico = (n, c) => window.ico ? window.ico(n, c) : '';   // icônes dessinées (icons.js)
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
 
   // progression, gardée sur le téléphone ; l'appli marche sans (navigation privée)
   const KEY = 'podo:v3';
@@ -169,6 +169,14 @@
       ${todayCard()}
       ${last ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
         <span class="rt"><span class="kicker">${IC.play} REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
+      <div class="sec">JOUER</div>
+      <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">3 manches d'une minute · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
+      <div class="sec">POUR RÉVISER CE QUE TU CHOISIS</div>
+      <div class="quick three">
+        <a class="qb" href="#/jeu/survie" style="--c:var(--red)"><span class="em">${ico('flame')}</span><span class="t">Survie</span><span class="s">3 vies${(S.rec || {}).survie ? ' · record ' + S.rec.survie : ''}</span></a>
+        <a class="qb" href="#/jeu/paires" style="--c:var(--p5)"><span class="em">${ico('stopwatch')}</span><span class="t">Les paires</span><span class="s">60 secondes${(S.rec || {}).paires ? ' · record ' + S.rec.paires : ''}</span></a>
+        <a class="qb" href="#/jeu/patient" style="--c:var(--p4)"><span class="em">${ico('person')}</span><span class="t">Le patient</span><span class="s">trouve ce qu'il a</span></a>
+      </div>
       <div class="sec">OÙ J'EN SUIS</div>
       <a class="card prog" href="#/pedi">${ring(vP, 'var(--p6)')}<span class="rt"><span class="t">Pédicurie</span><span class="s">${nP}/24 fiches sues · ${PEDI.reduce((s, f) => s + nSeen(f), 0)} parties lues</span>${bar(nP / 24, 'var(--p6)')}</span><span class="chev">›</span></a>
       <a class="card prog" href="#/podo">${ring(PODO_OK.length ? PODO_OK.reduce((s, f) => s + pctP(f), 0) / PODO.length : 0, 'var(--p8)')}<span class="rt"><span class="t">Podologie</span><span class="s">${PODO_OK.filter(f => doneP(f.id)).length}/${PODO.length} fiches sues · ${PODO_OK.length} prête${PODO_OK.length > 1 ? 's' : ''}, les autres arrivent</span>${bar(PODO_OK.filter(f => doneP(f.id)).length / PODO.length, 'var(--p8)')}</span><span class="chev">›</span></a>
@@ -331,7 +339,7 @@
       <div class="todos">
         ${dueF.map(f => item(`${FB(f)}/quiz`, ico('repeat'), `À revoir : ${esc(f.title)}`, 'le quiz de la fiche')).join('')}
         ${dueA ? item('#/anat/quiz', ico('bone'), `${dueA} repère${dueA > 1 ? 's' : ''} d'anatomie à revoir`, "Je m'interroge") : ''}
-        ${nf ? item(`${FB(nf)}`, ico('sparkle'), `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `pour tout voir avant l'oral : ${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour` : 'lis-la, puis fais son quiz') : ''}
+        ${nf ? item(`#/jeu/apprendre/${nf.id}`, ico('sparkle'), `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `pour tout voir avant l'oral : ${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour` : 'apprends-la en jouant') : ''}
         ${!dueF.length && !dueA && !nf ? '<div class="muted small">Rien à revoir aujourd\'hui. Tire un sujet au sort pour t\'entraîner !</div>' : ''}
       </div>
       <div class="exam">${ico('calendar')} Mon oral : <input type="date" id="examdate" value="${S.exam || ''}" aria-label="Date de mon oral"></div></div>`;
@@ -486,6 +494,14 @@
     { v: 97, items: [
       ['play', 'Podologie : les vidéos des fiches 40 à 42 sont là (talonnade, tendinites, Achille). Toutes les vidéos sont maintenant en ligne !'],
     ] },
+    { v: 98, items: [
+      ['sparkle', 'Nouveau : apprends une fiche en jouant. 3 manches d\'une minute (le tri, les trous, de mémoire), une étoile par manche réussie.'],
+      ['flame', 'Survie : 3 vies, le chrono raccourcit, bats ton record.'],
+      ['stopwatch', 'Les paires : 60 secondes pour relier chaque fiche à ses mots-clés, ou chaque muscle à son nerf.'],
+      ['person', 'Le patient : tu vois ses signes, tu trouves ce qu\'il a, puis ce que tu fais.'],
+      ['check', 'Dans ces 3 jeux, tu choisis ce que tu révises : pédicurie, podologie, anatomie, ou seulement telles fiches.'],
+      ['bone', 'Anatomie : EIPS, crête iliaque et EIAS expliquent maintenant l\'antéversion, la rétroversion, la bascule latérale et la torsion du bassin.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -509,7 +525,7 @@
     return `<div class="wrap">${top('#/', 'Pédicurie · 24 fiches', count(nP, 24))}
       <div class="row2" style="margin:0 0 12px"><a class="btn ghost grow" href="#/search">${ico('search')} Rechercher</a><a class="btn ghost grow" href="#/lexique">${ico('book')} Lexique (${(window.LEXIQUE || []).length})</a></div>
       <div class="entries">${PEDI.map(f => `<a class="entry" href="${FB(f)}">${thumb(ill(f.id, 'cover'), f.title)}
-        <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div></div>`;
+        <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}${nStars(f.id) ? ' ' + stars(f.id) : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div></div>`;
   }
 
   // podologie : les 40 fiches du livret ; celles dont la vidéo n'est pas encore finie sont « coming soon »
@@ -518,7 +534,7 @@
     return `<div class="wrap">${top('#/', `Podologie · ${PODO.length} fiches`, count(nP, PODO.length))}
       <div class="muted lead">${PODO_OK.length} fiche${PODO_OK.length > 1 ? 's' : ''} prête${PODO_OK.length > 1 ? 's' : ''} : les autres arrivent au fur et à mesure des vidéos.</div>
       <div class="entries">${PODO.map(f => f.ready ? `<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(ill(f.id, 'cover'), f.title) : `<span class="stamp xs" style="--c:var(--p8)">${f.n}</span>`}
-        <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`
+        <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}${nStars(f.id) ? ' ' + stars(f.id) : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`
         : `<div class="entry soon"><span class="stamp xs">${f.n}</span><span class="rt"><span class="t">${esc(f.title)}</span><span class="n">${ico('hourglass')} Coming soon</span></span></div>`).join('')}</div></div>`;
   }
 
@@ -531,6 +547,7 @@
     return `<div class="wrap">${top('#/' + (f.sec || 'pedi'), `Fiche ${f.n}${f.sec === 'podo' ? '' : ' / ' + PEDI.length} · ${esc(f.catName)}`, count(k, n))}
       <div class="fhead">${hasIll(f) ? `<span class="drawn th zoomable">${img(ill(f.id, 'cover'), f.title)}</span>` : `<span class="stamp" style="--c:var(--p8)">${f.n}</span>`}<div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
       <a class="btn wide" href="${FB(f)}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
+      <a class="btn wide" href="#/jeu/apprendre/${f.id}" style="--c:var(--p4);margin-top:10px">${ico('sparkle')} Apprendre en jouant ${stars(f.id)}</a>
       <a class="btn wide quizbtn" href="${FB(f)}/quiz" style="--c:var(--p5)">${ico('target')} Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
       ${dueIn('f:' + f.id) != null ? `<div class="muted small center-t">${dueIn('f:' + f.id) <= 0 ? ico('repeat') + ' À revoir aujourd\'hui' : `${ico('repeat')} Prochaine révision dans ${dueIn('f:' + f.id)} jour${dueIn('f:' + f.id) > 1 ? 's' : ''}`}</div>` : ''}
       <div class="tools">
@@ -1022,6 +1039,249 @@
     return api;
   }
 
+  // ---------- jeux : apprendre une fiche, survie, les paires, le patient ----------
+  // Rien à écrire à la main : tout est tiré des fiches (parts, memo), de data/quiz.js et des 59 repères d'anatomie.
+  let G = null, gTimer = 0;
+  const GAMES = { apprendre: 'Apprendre une fiche', survie: 'Survie', paires: 'Les paires', patient: 'Le patient' };
+  const QZ = window.QUIZ || {};
+  const STD = ALLF.filter(f => f.parts.length === 8 && f.memo && f.memo.length === 8 && /^Signes cliniques/.test(f.parts[3].title) && /^Traitement/.test(f.parts[5].title)
+    && f.memo[3].q === 'On voit quoi ?' && f.memo[4].q === 'Sûr comment ?' && f.memo[5].q === 'On fait quoi ?');   // les fiches au plan classique
+  const MUS = AQ.filter(x => x.nerf);
+  const rnd = a => a[Math.floor(Math.random() * a.length)];
+  const distinct = (list, n, key) => shuffle(list).filter((y, i, a) => a.findIndex(z => key(z) === key(y)) === i).slice(0, n);
+  const best = (k, v) => { const r = S.rec = S.rec || {}; if (v > (r[k] || 0)) { r[k] = v; save(); return true; } return false; };
+  const gStop = () => { clearTimeout(gTimer); G = null; };
+  // chrono : la barre est une animation CSS décalée du temps déjà écoulé, pour survivre à un nouveau rendu
+  function gClock(sec, fn) { clearTimeout(gTimer); G.t0 = Date.now(); G.dur = sec; G.el = null; G.fn = fn; gTimer = setTimeout(fn, sec * 1000); }
+  const gFreeze = () => { clearTimeout(gTimer); G.el = (Date.now() - G.t0) / 1000; };
+  const gBar = () => `<div class="gtime"><i style="animation-duration:${G.dur}s;animation-delay:${-(G.el != null ? G.el : (Date.now() - G.t0) / 1000)}s${G.el != null ? ';animation-play-state:paused' : ''}"></i></div>`;
+  const gOpts = () => `<div class="opts">${G.opts.map((o, j) => `<button class="opt ${G.pick != null ? (o === G.ok ? 'good' : j === G.pick ? 'bad' : 'dim') : ''}" data-g="pick" data-j="${j}" ${G.pick != null ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div>`;
+  const gEnd = (big, msg, extra = '', btns = '') => `<div class="card gover"><div class="gscore">${big}</div><div class="question">${msg}</div></div>${extra}
+    <div class="pager fixed">${btns || '<button class="btn grow" data-g="again" style="--c:var(--hl)">↻ Rejouer</button><button class="btn ghost grow" data-g="setup">Changer le choix</button>'}</div>`;
+  const HEART = on => `<svg class="hrt${on ? ' on' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-8-5-8-10.8a4.5 4.5 0 0 1 8-2.8 4.5 4.5 0 0 1 8 2.8c0 5.8-8 10.8-8 10.8z"/></svg>`;
+  const STAR = on => `<svg class="star${on ? ' on' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5l-5.9 3.1 1.2-6.5L2.5 9.5l6.6-.9z"/></svg>`;
+
+  // --- le choix du joueur : les matières, puis telle fiche ou telle région. S.goff = ce qui est décoché (rien = tout).
+  const akey = x => `a:${x.reg}:${x.kind === 'os' ? 'os' : 'mus'}`;
+  const GROUPS = [
+    { k: 'pedi', n: 'Pédicurie', c: 'var(--p6)', it: PEDI.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
+    { k: 'podo', n: 'Podologie', c: 'var(--p8)', it: PODO_OK.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
+    { k: 'anat', n: 'Anatomie', c: 'var(--p1)', it: REG_ORDER.flatMap(r => [[`a:${r}:os`, `${REG_SHORT[r]} · les os`], [`a:${r}:mus`, `${REG_SHORT[r]} · les muscles`]]) },
+  ];
+  const groupsOf = a => GROUPS.filter(g => g.it.length && (a !== 'patient' || g.k !== 'anat'));
+  const on = k => !(S.goff || {})[k];
+  const selF = () => ALLF.filter(f => on('f:' + f.id)), selA = () => AQ.filter(x => on(akey(x)));
+  // ce que chaque jeu peut tirer du choix
+  const anatQ = x => {   // une question d'anatomie fabriquée : le nerf, la terminaison, ou « on palpe quoi ? »
+    const same = AQ.filter(y => y !== x && (x.kind === 'os') === (y.kind === 'os')), kinds = x.nerf ? ['nerf', 't', 'how'] : ['how'], k = rnd(kinds);
+    const mk = (q, ok, bad) => ({ q, ok, opts: shuffle([ok, ...distinct(bad.filter(b => b && b !== ok), 3, b => b)]) });
+    if (k === 'nerf') return mk(`Quel nerf innerve : **${x.name}** ?`, x.nerf, MUS.map(y => y.nerf));
+    if (k === 't' && x.t) return mk(`Où se termine : **${x.name}** ?`, x.t, MUS.map(y => y.t));
+    return mk(`On palpe quoi ? ${x.how}`, x.name, same.map(y => y.name));
+  };
+  const poolSurvie = () => [
+    ...selF().flatMap(f => (QZ[f.id] || []).flatMap((z, p) => z.q.filter(s => s.includes(' || ')).map(s => ({ lab: `${f.n}. ${f.title}`, c: PCOL(p), link: `${FB(f)}/p${p + 1}`, mk: () => mkStep(p + 1, s) })))),
+    ...selA().map(x => ({ lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}`, mk: () => anatQ(x) }))];
+  const poolPairesF = () => selF().filter(f => STD.includes(f)), poolPairesA = () => selA().filter(x => x.nerf);
+  const poolOf = a => a === 'survie' ? poolSurvie() : a === 'paires' ? [...poolPairesF(), ...poolPairesA()] : selF().filter(f => CASES.includes(f));
+  function setup(a) {
+    const r = (S.rec || {})[a];
+    return `<div class="wrap qz">${top('#/', GAMES[a], r ? `<span class="count">record ${r}</span>` : '')}
+      <div class="qpart" style="--c:var(--ink)">Tu révises quoi ?</div>
+      ${groupsOf(a).map(g => `<div class="gsel" style="--c:${g.c}"><button class="ck gh" data-g="grp" data-k="${g.k}"><span class="box"></span><b>${g.n}</b><span class="muted gn"></span></button>
+        <details><summary>Choisir dans la liste</summary><div class="checks">${g.it.map(([k, t]) => `<button class="ck" data-g="tog" data-k="${k}"><span class="box"></span><span>${esc(t)}</span></button>`).join('')}</div></details></div>`).join('')}
+      <div class="pager fixed"><button class="btn grow" id="ggo" data-g="go" style="--c:var(--hl)">Jouer →</button></div></div>`;
+  }
+  function gSync() {   // met les cases à jour sans tout redessiner (les listes restent ouvertes)
+    if (!G || !G.setup) return;
+    document.querySelectorAll('.gsel').forEach(el => {
+      const bs = [...el.querySelectorAll('[data-g="tog"]')]; bs.forEach(b => b.classList.toggle('on', on(b.dataset.k)));
+      const n = bs.filter(b => on(b.dataset.k)).length; el.querySelector('.gh').classList.toggle('on', n > 0); el.querySelector('.gn').textContent = `${n}/${bs.length}`;
+    });
+    const go = $('#ggo'), n = poolOf(G.game).length; if (go) { go.disabled = !n; go.innerHTML = n ? 'Jouer →' : 'Rien à jouer avec ce choix'; }
+  }
+  function setupAct(t) {
+    const off = S.goff = S.goff || {}, k = t.dataset.k;
+    if (t.dataset.g === 'tog') { if (off[k]) delete off[k]; else off[k] = 1; }
+    else { const it = GROUPS.find(g => g.k === k).it, all = it.every(x => on(x[0])); it.forEach(x => { if (all) off[x[0]] = 1; else delete off[x[0]]; }); }   // tout coché → tout décocher, sinon tout cocher
+    save(); gSync();
+  }
+
+  // --- survie : 3 vies, le temps par question raccourcit (15 s → 7 s), les bonnes réponses d'affilée rapportent plus (jusqu'à ×5)
+  function svDraw() {
+    if (!G.deck.length) G.deck = shuffle(G.pool);
+    const c = G.cur = G.deck.pop(), st = c.mk();
+    Object.assign(G, { opts: st.opts, ok: st.ok, q: st.q, pick: null }); G.n++;
+    gClock(Math.max(7, 15 - (G.n - 1) * 0.5), () => svAnswer(-1));
+  }
+  function svAnswer(j) {
+    if (!G || G.pick != null) return;
+    const ok = G.opts[j] === G.ok; gFreeze(); G.pick = j; did(1);
+    if (ok) { G.combo++; G.score += Math.min(G.combo, 5); }
+    else { G.combo = 0; G.lives--; G.deck.splice(Math.max(0, G.deck.length - 5), 0, G.cur); }   // ratée : elle revient 5 questions plus loin
+    render();
+    gTimer = setTimeout(() => { if (G.lives > 0) svDraw(); else { G.over = true; G.isRec = best('survie', G.score); } render(); }, ok ? 800 : 2200);
+  }
+  // --- les paires : 60 s pour relier 4 fiches à leurs mots-clés (ou 4 muscles à leur nerf) ; une erreur coûte 3 s
+  function prDraw() {
+    const fs = poolPairesF(), ms = poolPairesA(), anat = Math.random() * (fs.length + ms.length) < ms.length;
+    // 4 du choix ; s'il y en a moins, on complète avec d'autres de la même matière
+    const four = (mine, all, key) => { const a = distinct(mine, 4, key); return a.concat(distinct(all.filter(y => !a.some(z => key(z) === key(y))), 4 - a.length, key)); };
+    let it, label;
+    if (anat) { it = four(ms, MUS, x => x.nerf).map(x => [x.q, x.name, x.nerf]); label = 'Quel nerf pour quel muscle ?'; }
+    else { const j = rnd([1, 3, 4, 5]), f0 = rnd(fs), a = four(fs.filter(f => f.sec === f0.sec), STD.filter(f => f.sec === f0.sec), f => f.memo[j].k); it = a.map(f => [f.id, f.title, f.memo[j].k]); label = a[0].memo[j].q; }
+    Object.assign(G, { L: shuffle(it.map(x => [x[0], x[1]])), R: shuffle(it.map(x => [x[0], x[2]])), label, sel: null, found: {}, bad: null });
+  }
+  function prTap(side, j) {
+    if (G.over) return;
+    const id = G[side][j][0]; if (G.found[id]) return;
+    if (!G.sel || G.sel.side === side) { G.sel = { side, j, id }; G.bad = null; }
+    else if (G.sel.id === id) { G.found[id] = 1; G.score++; G.sel = null; if (Object.keys(G.found).length === G.L.length) { did(1); prDraw(); } }
+    else { G.bad = { [side]: j, [G.sel.side]: G.sel.j }; G.sel = null; G.t0 -= 3000; clearTimeout(gTimer); gTimer = setTimeout(G.fn, Math.max(0, G.t0 + G.dur * 1000 - Date.now())); }
+    render();
+  }
+  // --- le patient : les signes cliniques d'une fiche (sans son nom) → le diagnostic, puis la prise en charge ; 5 patients par partie
+  // ponytail: cas tirés tout seuls des signes de la fiche ; pour de vrais récits (âge, métier, plainte), écrire un cas par fiche dans data/
+  function signs(f) {
+    const w = (norm(f.title).match(/[a-z]{5,}/g) || []).map(x => x.slice(0, 6)), z = (QZ[f.id] || [])[3];
+    const all = z && z.k.length ? z.k : f.memo[3].k.split(' · ');
+    return all.filter(x => !w.some(y => norm(x).includes(y)));   // on retire ce qui donne le nom
+  }
+  const CASES = STD.filter(f => signs(f).length >= 2);   // sans les fiches dont tous les signes donnent le nom
+  function ptDraw() {
+    if (!G.step) { if (!G.deck.length) G.deck = shuffle(G.pool); G.f = G.deck.pop(); G.n++; }
+    const f = G.f, key = G.step ? (x => x.memo[5].k) : (x => x.title), same = STD.filter(x => x.sec === f.sec && key(x) !== key(f));
+    Object.assign(G, { ok: key(f), opts: shuffle([f, ...distinct(same, 3, key)].map(key)), pick: null });
+  }
+  function ptAnswer(j) {
+    if (G.pick != null) return;
+    const ok = G.opts[j] === G.ok; G.pick = j; did(1);
+    if (ok) G.score++; else if (!G.miss.includes(G.f)) G.miss.push(G.f);
+    render();
+    gTimer = setTimeout(() => { G.step = G.step ? 0 : 1; if (!G.step && G.n >= 5) G.over = true; else ptDraw(); render(); }, ok ? 900 : 2400);
+  }
+  function gStart(a) {
+    const pool = poolOf(a); gStop();
+    if (!pool.length) { G = { game: a, setup: true }; return; }
+    if (a === 'survie') { G = { game: a, pool, lives: 3, score: 0, combo: 0, n: 0, deck: shuffle(pool) }; svDraw(); }
+    else if (a === 'paires') { G = { game: a, score: 0 }; prDraw(); gClock(60, () => { G.over = true; G.isRec = best('paires', G.score); render(); }); }
+    else { G = { game: a, pool, score: 0, n: 0, step: 0, deck: shuffle(pool), miss: [] }; ptDraw(); }
+  }
+
+  // --- apprendre une fiche : 3 manches sur UNE fiche, une étoile par manche réussie à 80 % (S.st[id] = [meilleur score de chaque manche])
+  const MANCHES = [['Le tri', 'Chaque idée va dans quelle partie ?'], ['Les trous', 'Retrouve le mot qui manque dans ce que tu dis à l\'oral.'], ['De mémoire', 'Garde seulement les idées de cette fiche.']];
+  const nStars = id => ((S.st || {})[id] || []).filter(v => v >= 0.8).length;
+  const stars = id => `<span class="stars">${[0, 1, 2].map(i => STAR(i < nStars(id))).join('')}</span>`;
+  const partLab = (f, p) => `${p}. ${f.parts[p - 1].q}`;
+  // les mots d'une partie qu'on peut cacher : ses mots-clés et ses termes, quand ils sont dits tels quels dans le texte de l'oral
+  function terms(f, i) {
+    const p = f.parts[i], m = f.memo && f.memo.length === f.parts.length ? f.memo[i].k.split(' · ') : [];
+    const all = [...m, ...p.blocks.flatMap(b => b.t === 'chips' ? b.items : b.t === 'li' ? [b.term] : [])].map(x => String(x).trim()).filter(x => x.length >= 4 && x.length <= 32 && !/[→:]/.test(x));
+    return distinct(all.filter(t => p.say.toLowerCase().includes(t.toLowerCase())), 99, t => t.toLowerCase());
+  }
+  function mancheSteps(f, m) {
+    const Z = QZ[f.id] || [], np = f.parts.length, idx = [...Array(np).keys()];
+    if (m === 1) return distinct(Z.flatMap((z, i) => z.k.map(k => [i + 1, k])), 10, x => x[1]).map(([p, k]) => ({
+      kicker: 'ÇA VA DANS QUELLE PARTIE ?', q: k, ok: partLab(f, p), opts: [p, ...shuffle(idx.map(i => i + 1).filter(i => i !== p)).slice(0, 3)].sort((a, b) => a - b).map(i => partLab(f, i)) }));
+    if (m === 2) return shuffle(idx).map(i => {
+      const ts = terms(f, i); if (!ts.length) return null;
+      const say = f.parts[i].say, t = rnd(ts), at = say.toLowerCase().indexOf(t.toLowerCase()), word = say.slice(at, at + t.length);
+      const d = say.lastIndexOf('. ', at), a = d < 0 ? 0 : d + 2, b = say.indexOf('. ', at + t.length), sent = say.slice(a, b < 0 ? say.length : b + 1);   // la phrase autour du trou
+      const low = sent.toLowerCase(), bad = distinct(idx.filter(k => k !== i).flatMap(k => terms(f, k)).filter(x => !low.includes(x.toLowerCase())), 3, x => x.toLowerCase());
+      return bad.length < 2 ? null : { kicker: partLab(f, i + 1).toUpperCase(), q: sent.replace(word, '_____'), ok: word, opts: shuffle([word, ...bad]), full: sent };
+    }).filter(Boolean).slice(0, 6);
+    // de mémoire : les vraies idées d'une partie, mélangées à autant d'idées de la même partie d'autres fiches
+    return shuffle(idx.filter(i => Z[i] && Z[i].k.length >= 2)).slice(0, 3).map(i => {
+      const yes = shuffle(Z[i].k).slice(0, 5), have = Z[i].k.map(norm);
+      const oth = ALLF.filter(g => g !== f && g.sec === f.sec && g.parts[i] && g.parts[i].title === f.parts[i].title), src = oth.length >= 2 ? oth : ALLF.filter(g => g !== f && g.sec === f.sec && g.parts[i]);
+      const no = distinct(src.flatMap(g => ((QZ[g.id] || [])[i] || { k: [] }).k).filter(x => !have.includes(norm(x))), yes.length, norm);
+      return { multi: true, kicker: 'DE MÉMOIRE', q: f.parts[i].q, sub: f.parts[i].title, items: shuffle([...yes.map(x => [x, 1]), ...no.map(x => [x, 0])]), ticks: [], nYes: yes.length };
+    });
+  }
+  function apDraw() { const st = G.steps[G.i]; Object.assign(G, { st, opts: st.opts, ok: st.ok, pick: null }); }
+  function apNext(v) {
+    G.sum += v; G.tot++; G.i++; did(1);
+    if (G.i < G.steps.length) return apDraw();
+    const f = G.f, was = nStars(f.id), a = (S.st = S.st || {})[f.id] = (S.st[f.id] || [0, 0, 0]);
+    G.v = G.sum / G.tot; G.over = true; a[G.m - 1] = Math.max(a[G.m - 1] || 0, G.v); save();
+    if (was < 3 && nStars(f.id) === 3) review('f:' + f.id, true);   // 3 étoiles : la fiche entre dans les révisions espacées
+  }
+  function apAnswer(j) {
+    if (G.pick != null) return;
+    const ok = G.opts[j] === G.ok; G.pick = j; render();
+    gTimer = setTimeout(() => { apNext(ok ? 1 : 0); render(); }, ok ? 800 : G.st.full ? 3000 : 2200);
+  }
+  function apprendre(id, m) {
+    const f = ALLF.find(x => x.id === id);
+    if (!f) {   // la liste : on choisit la fiche
+      gStop();
+      const list = (t, fs) => fs.length ? `<div class="sec">${t}</div><div class="entries">${fs.map(x => `<a class="entry" href="#/jeu/apprendre/${x.id}"><span class="stamp sm" style="--c:${x.sec === 'podo' ? 'var(--p8)' : 'var(--p6)'}">${x.n}</span><span class="rt"><span class="t">${esc(x.title)}</span></span>${stars(x.id)}</a>`).join('')}</div>` : '';
+      return `<div class="wrap">${top('#/', 'Apprendre une fiche', count(ALLF.filter(x => nStars(x.id) === 3).length, ALLF.length))}<div class="muted small">Choisis la fiche. 3 manches d'une minute, une étoile par manche réussie.</div>${list('PÉDICURIE', PEDI)}${list('PODOLOGIE', PODO_OK)}</div>`;
+    }
+    m = +m;
+    if (!MANCHES[m - 1]) {   // la fiche : ses 3 manches
+      gStop();
+      const a = (S.st || {})[f.id] || [];
+      return `<div class="wrap">${top('#/jeu/apprendre', `${f.n}. ${esc(f.title)}`, stars(f.id))}
+        <div class="entries">${MANCHES.map(([n, d], i) => `<a class="entry" href="#/jeu/apprendre/${f.id}/${i + 1}"><span class="stamp sm" style="--c:${PCOL(i * 2 + 1)}">${i + 1}</span><span class="rt"><span class="t">${n}</span><span class="s">${d}${a[i] ? ` · meilleur ${pc(a[i])} %` : ''}</span></span>${STAR(a[i] >= 0.8)}</a>`).join('')}</div>
+        <div class="row2" style="margin-top:14px"><a class="btn ghost grow" href="${FB(f)}">${ico('book')} Lire la fiche</a><a class="btn ghost grow" href="${FB(f)}/quiz">${ico('speak')} La réciter</a></div></div>`;
+    }
+    if (!G || G.key !== id + '/' + m) { gStop(); G = { game: 'apprendre', key: id + '/' + m, f, m, steps: mancheSteps(f, m), i: 0, sum: 0, tot: 0 }; if (G.steps.length) apDraw(); else G.over = true; }
+    const back = `#/jeu/apprendre/${f.id}`, head = `<div class="wrap qz">${top(back, `${f.n}. ${esc(f.title)} · ${MANCHES[m - 1][0]}`, G.over ? '' : count(G.i + 1, G.steps.length))}`;
+    if (G.over) {
+      const v = G.v || 0, won = v >= 0.8;
+      return `${head}${gEnd(`${pc(v)} %`, won ? `${STAR(true)} Manche réussie !${nStars(f.id) === 3 ? ' Les 3 étoiles : tu connais la fiche. Récite-la maintenant à voix haute.' : ''}` : 'Il faut 80 % pour l\'étoile. Encore un essai ?', '',
+        `${won && m < 3 ? `<a class="btn grow" href="#/jeu/apprendre/${f.id}/${m + 1}" style="--c:var(--hl)">Manche ${m + 1} →</a>` : won && nStars(f.id) === 3 ? `<a class="btn grow" href="${FB(f)}/quiz" style="--c:var(--hl)">${ico('speak')} La réciter</a>` : ''}<button class="btn ${won ? 'ghost ' : ''}grow" data-g="again" ${won ? '' : 'style="--c:var(--hl)"'}>↻ Rejouer</button><a class="btn ghost grow" href="${back}">Manches</a>`)}</div>`;
+    }
+    const st = G.st, bar = `<div class="qbar">${G.steps.map((x, j) => `<i class="${j < G.i ? 'on' : j === G.i ? 'now' : ''}" style="--c:${PCOL(m * 2 - 1)}"></i>`).join('')}</div>`;
+    if (st.multi) return `${head}${bar}<div class="card qc"><div class="kicker">${st.kicker} · ${esc(st.sub).toUpperCase()}</div><div class="question">${esc(st.q)}</div>
+        <div class="muted small">${st.done ? 'En vert ce qu\'il fallait garder, barré ce qui vient d\'une autre fiche.' : `Touche les ${st.nYes} idées de cette fiche.`}</div>
+        <div class="checks">${st.items.map(([x, y], j) => `<button class="ck ${st.ticks.includes(j) ? 'on' : ''} ${st.done ? (y ? 'yes' : 'no') : ''}" data-g="mk" data-j="${j}" ${st.done ? 'disabled' : ''}><span class="box"></span><span>${md(x)}</span></button>`).join('')}</div></div>
+      <div class="pager fixed"><button class="btn grow" data-g="${st.done ? 'mnext' : 'mval'}" style="--c:${st.done ? 'var(--hl)' : 'var(--p6)'}">${st.done ? 'Continuer →' : `Valider · ${st.ticks.length}/${st.nYes}`}</button></div></div>`;
+    return `${head}${bar}<div class="card qc"><div class="kicker">${esc(st.kicker)}</div><div class="question${st.full ? ' trou' : ''}">${md(G.pick != null && st.full ? st.full : st.q)}</div>${gOpts()}</div></div>`;
+  }
+
+  function gameAct(t) {
+    const j = +t.dataset.j, a = t.dataset.g;
+    if (a === 'tog' || a === 'grp') return setupAct(t);
+    if (a === 'go') { gStart(G.game); return render(); }
+    if (a === 'setup') { G = { game: G.game, setup: true }; return render(); }
+    if (a === 'again') { if (G.game === 'apprendre') G.key = ''; else gStart(G.game); return render(); }
+    if (a === 'pick') return G.game === 'survie' ? svAnswer(j) : G.game === 'patient' ? ptAnswer(j) : apAnswer(j);
+    if (a === 'L' || a === 'R') return prTap(a, j);
+    const st = G.st;   // « de mémoire » : cocher, valider (bonnes cochées moins fausses cochées), continuer
+    if (a === 'mk') st.ticks = st.ticks.includes(j) ? st.ticks.filter(x => x !== j) : st.ticks.concat(j);
+    else if (a === 'mval') { st.done = true; st.v = Math.max(0, st.ticks.reduce((s, k) => s + (st.items[k][1] ? 1 : -1), 0) / st.nYes); }
+    else if (a === 'mnext') apNext(st.v);
+    render();
+  }
+  function jeu(a, b, c) {
+    if (!GAMES[a]) return notFound();
+    if (a === 'apprendre') return apprendre(b, c);
+    if (!G || G.game !== a) { gStop(); G = { game: a, setup: true }; }
+    if (G.setup) return setup(a);
+    const r = (S.rec || {})[a] || 0, head = right => `<div class="wrap qz">${top('#/', GAMES[a], right)}`;
+    if (a === 'survie') {
+      if (G.over) return `${head('')}${gEnd(G.score, G.isRec ? 'Nouveau record !' : `Ton record : ${r}. Encore une ?`, `<div class="muted small">${G.n} question${G.n > 1 ? 's' : ''} · la dernière : ${esc(G.cur.lab)}. <a href="${G.cur.link}">La revoir</a></div>`)}</div>`;
+      return `${head(count(G.score, 'record ' + Math.max(r, G.score)))}${gBar()}
+        <div class="ghud"><span>${[0, 1, 2].map(i => HEART(i < G.lives)).join('')}</span>${G.combo > 1 ? `<span class="combo">×${Math.min(G.combo, 5)}</span>` : ''}</div>
+        <div class="qpart" style="--c:${G.cur.c}">${esc(G.cur.lab)}</div>
+        <div class="card qc"><div class="question">${md(G.q)}</div>${gOpts()}${G.pick === -1 ? '<div class="muted small">Trop tard !</div>' : ''}</div></div>`;
+    }
+    if (a === 'paires') {
+      if (G.over) return `${head('')}${gEnd(G.score, G.isRec ? 'Nouveau record de paires !' : `Ton record : ${r} paires. Encore une ?`)}</div>`;
+      const col = side => `<div class="pcol">${G[side].map((x, j) => `<button class="pr ${G.found[x[0]] ? 'ok' : G.sel && G.sel.side === side && G.sel.j === j ? 'sel' : G.bad && G.bad[side] === j ? 'bad' : ''}" data-g="${side}" data-j="${j}">${md(x[1])}</button>`).join('')}</div>`;
+      return `${head(count(G.score, 'record ' + Math.max(r, G.score)))}${gBar()}
+        <div class="qpart" style="--c:var(--p5)">${esc(G.label)} Relie chaque paire.</div><div class="pairs">${col('L')}${col('R')}</div></div>`;
+    }
+    if (G.over) return `${head('')}${gEnd(`${G.score}/10`, G.score >= 9 ? 'Tes patients sont entre de bonnes mains !' : G.score >= 6 ? 'Pas mal. Revois les fiches ci-dessous.' : 'Normal au début : revois ces fiches, puis rejoue.',
+      G.miss.length ? `<div class="sec">À REVOIR</div><div class="entries">${G.miss.map(f => `<a class="entry" href="#/jeu/apprendre/${f.id}"><span class="rt"><span class="t">${f.n}. ${esc(f.title)}</span></span>${stars(f.id)}</a>`).join('')}</div>` : '')}</div>`;
+    return `${head(count(G.n, 5))}
+      <div class="qpart" style="--c:var(--p4)">${ico('person')} Patient ${G.n} · ${G.f.sec === 'podo' ? 'Podologie' : 'Pédicurie'}</div>
+      <div class="card qc">${G.step ? `<div class="kicker">C'EST BIEN : ${esc(G.f.title).toUpperCase()}</div><div class="question">Tu fais quoi ?</div>`
+        : `<div class="kicker">TU OBSERVES</div><ul class="signs">${signs(G.f).map(x => `<li>${md(x)}</li>`).join('')}</ul><div class="question">C'est quoi ?</div>`}${gOpts()}</div></div>`;
+  }
+
   // ---------- routeur ----------
   function render() {
     const [, sec, a, b, c] = (location.hash || '#/').split('/');
@@ -1035,12 +1295,15 @@
     else if (sec === 'tirage') html = tirage();
     else if (sec === 'lexique') html = lexique();
     else if (sec === 'search') html = search();
+    else if (sec === 'jeu') html = jeu(a, b, c);
     else html = notFound();
+    if (sec !== 'jeu' && G) gStop();
     if (V3) { V3.dispose(); V3 = null; }
     closeVideo();
     $('#app').innerHTML = html;
     document.body.classList.toggle('v3on', !!$('#v3c'));
     if ($('#v3c')) start3d();
+    gSync();
     document.body.classList.toggle('reading', !!$('#app .pager.fixed'));
     document.querySelectorAll('nav.tabs a').forEach(t => t.classList.toggle('on', t.dataset.s === (sec || '') || (t.dataset.s === 'tirage' && sec === 'plan') || (t.dataset.s === 'fiches' && (sec === 'pedi' || sec === 'podo'))));
     tabMenu(false);
@@ -1067,6 +1330,7 @@
     const t = e.target.closest('button, .revise .part .body li, .revise .part .body .chip, .revise .part .body .badge, .revise .part .body td');
     if (!t) return;
     if (t.dataset.qa) { quizAct(t); return; }
+    if (t.dataset.g && G) { gameAct(t); return; }
     if (t.dataset.q3) { q3Act(t); return; }
     if (t.dataset.note) { closeNote(); return; }
     if (t.dataset.size !== undefined) { S.size = t.dataset.size; save(); setSkin(); render(); return; }

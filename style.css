@@ -628,3 +628,39 @@ nav.tabs .tico .ln { fill: none; stroke: #c98d66; stroke-width: 1.1; stroke-line
 .ico .wl { stroke: #fffaf0; }
 .ico .cp { stroke: #e57aa0; stroke-width: 2.2; } .ico .cn { stroke: #a0683e; stroke-width: 2.4; } .ico .cd { stroke: #5b4636; stroke-width: 3; }
 .ico .cw { stroke: #9aa3ad; stroke-width: 1.5; } .ico .cb { stroke: #4f8fd0; stroke-width: 2.1; }
+
+/* ---------- jeux : survie, les paires, le patient ---------- */
+.quick.three { grid-template-columns: repeat(3, 1fr); }
+.gtime { height: 9px; border: 2px solid var(--ink); border-radius: 6px; overflow: hidden; margin: -2px 0 12px; }
+.gtime i { display: block; height: 100%; background: var(--red); transform-origin: left; animation: gshrink linear forwards; }
+@keyframes gshrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+.ghud { display: flex; justify-content: space-between; align-items: center; min-height: 30px; margin-bottom: 8px; }
+.hrt { width: 26px; height: 26px; margin-right: 3px; fill: none; stroke: var(--ink); stroke-width: 2.2; opacity: .35; }
+.hrt.on { fill: var(--red); opacity: 1; }
+.combo { font: 400 22px var(--marker); color: var(--red); }
+.gover { text-align: center; margin-bottom: 14px; }
+.gscore { font: 400 64px/1 var(--marker); color: var(--red); margin-bottom: 8px; }
+.signs { margin: 6px 0 14px; padding-left: 22px; font-size: 21px; line-height: 1.25; }
+.pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pcol { display: grid; gap: 9px; align-content: start; }
+.pr { min-height: 76px; padding: 8px 10px; background: var(--card); color: var(--ink); border: 2.5px solid var(--ink); border-radius: 12px 10px 13px 11px; font: inherit; font-size: 18px; line-height: 1.15; }
+.pr.sel { background: var(--hl); color: #25232d; }
+.pr.ok { border-color: var(--p6); opacity: .4; }
+.pr.bad { border-color: var(--red); animation: gshake .3s; }
+@keyframes gshake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.gsel { margin-bottom: 10px; }
+.gsel .gh { width: 100%; font-size: 22px; border-color: var(--c); }
+.gsel .gh .gn { margin-left: auto; font-size: 18px; }
+.gsel details > summary { display: inline-block; margin: 6px 0 6px 6px; font-size: 18px; color: var(--muted); text-decoration: underline; }
+.gsel .checks .ck { font-size: 18px; padding: 6px 10px; }
+.star { width: 20px; height: 20px; fill: none; stroke: var(--ink); stroke-width: 1.8; opacity: .3; vertical-align: -3px; }
+.star.on { fill: var(--hl); opacity: 1; }
+.stars { flex: none; white-space: nowrap; }
+.entry > .star { flex: none; width: 26px; height: 26px; }
+.rt .n .star { width: 14px; height: 14px; }
+.question.trou { font-family: var(--hand); font-size: 23px; line-height: 1.25; }
+.ck.yes { border-color: var(--p6); border-width: 3px; }
+.ck.no { opacity: .55; }
+.ck.no > span:last-child { text-decoration: line-through; }
+.ck.no.on { border-color: var(--red); opacity: 1; }
+#ggo:disabled { opacity: .5; }
