@@ -11,9 +11,13 @@ Site de révision de l’oral UEM de pédicurie-podologie, dans le style des vid
 
 **Pour apprendre** : un quiz par fiche (partie par partie, puis toute la fiche de mémoire), la séance du jour (date de l’oral, révisions espacées à 1, 3, 6, 12 et 25 jours, objectif, série de jours), le quiz 3D des 59 repères, le lexique (215 mots) et la recherche.
 
-**Pour jouer** (en haut de l’accueil, tout est tiré des fiches, de `data/quiz.js` et des repères d’anatomie) :
+**Pour jouer** (en haut de l’accueil, tout est tiré des fiches, de `data/quiz.js`, de `data/cas.js`, des repères d’anatomie et des tests cliniques) :
 - Apprendre une fiche : 3 manches sur une seule fiche (le tri des idées par partie, les trous dans le texte de l’oral, de mémoire avec des idées d’autres fiches à écarter). Une étoile par manche réussie à 80 % ; à 3 étoiles la fiche entre dans les révisions espacées.
-- Survie (questions à choix multiple, 3 vies, chrono qui raccourcit, record), Les paires (60 secondes pour relier fiches et mots-clés, ou muscles et nerfs) et Le patient (ses signes → le diagnostic, puis la prise en charge). Avant chaque partie on choisit ce qu’on révise : pédicurie, podologie, anatomie, ou telle fiche et telle région ; le choix est gardé.
+- Le patient : 64 consultations cliniques réalistes en 5 étapes (interrogatoire, examen clinique avec les tests dessinés, diagnostic et pourquoi pas les diagnostics différentiels, orientation, prise en charge et question du patient en partant).
+- Qui suis-je ? : 4 indices progressifs (4, 3, 2, 1 pt) sur les fiches, les 59 repères d’anatomie et les 41 tests cliniques, en cherchant d’abord sans voir les 4 choix.
+- Survie (questions à choix multiple, 3 vies, chrono qui raccourcit, record) et Les paires (60 secondes pour relier fiches et mots-clés, ou muscles et nerfs). Avant chaque partie on choisit ce qu’on révise ; le choix est gardé.
+
+**Sons** : 4 musiques composées pour le site (`musique.js` : les notes et un petit synthé, aucun fichier audio) en plus des bruits de `sons.js`, et des sons d’interface (boutons, réponses, vie perdue, étoile, record, objectif du jour) qu’on peut couper dans la carte « Sons pour réviser ».
 
 **Examen clinique** : les 41 tests du « Guide complet de l'Examen Clinique en Pédicurie-Podologie », en 7 sections ; pour chaque test un dessin (patient, mains du praticien, ce qui bouge), l'installation, les étapes, les chiffres, le résultat normal ou positif, et une vidéo YouTube pour 13 d'entre eux (choisies par piriforme.fr).
 

@@ -664,3 +664,47 @@ nav.tabs .tico .ln { fill: none; stroke: #c98d66; stroke-width: 1.1; stroke-line
 .ck.no > span:last-child { text-decoration: line-through; }
 .ck.no.on { border-color: var(--red); opacity: 1; }
 #ggo:disabled { opacity: .5; }
+.sndh { font: 400 13px var(--marker); letter-spacing: 1px; color: var(--muted); margin: 14px 0 -4px; }
+.sndcard [data-sndfx] { margin-top: 12px; padding: 7px 12px; font-size: 15px; }
+
+/* ---------- qui suis-je ? & le patient ---------- */
+.qsbadge { font: 400 15px var(--marker); background: var(--hl); color: #25232d; border: 2px solid var(--ink); border-radius: 99px; padding: 2px 10px; }
+.qsclues { display: grid; gap: 8px; margin-top: 8px; }
+.qsclue { display: flex; gap: 10px; align-items: flex-start; padding: 9px 12px; border: 2px solid var(--ink); border-radius: 12px; background: color-mix(in srgb, var(--hl) 16%, var(--card)); }
+.qsclue.extra { background: var(--card); border-style: dashed; opacity: .88; }
+.qsclue.locked { opacity: .48; border-style: dashed; align-items: center; background: transparent; }
+.qsnum { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--card); display: grid; place-items: center; font: 400 14px var(--marker); }
+.qslab { font: 400 13px var(--marker); color: var(--muted); letter-spacing: .5px; text-transform: uppercase; }
+.qstxt { font-size: 20px; line-height: 1.22; margin-top: 2px; }
+
+.ptcard { margin-bottom: 12px; padding: 14px 16px; }
+.pttop { display: flex; gap: 12px; align-items: center; }
+.ptwho { flex: 1; min-width: 0; }
+.ptname { font-size: 22px; line-height: 1.15; }
+.ptmotif { margin-top: 10px; padding: 10px 14px; background: color-mix(in srgb, var(--p4) 14%, var(--card)); border-left: 4px solid var(--p4); border-radius: 6px 12px 12px 6px; font-size: 21px; line-height: 1.22; }
+.ptsteps { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+.ptst { font: 400 12px var(--marker); padding: 3px 8px; border-radius: 8px; border: 1.8px solid rgba(37,35,45,.3); color: var(--muted); }
+.ptst.now { background: var(--hl); color: #25232d; border-color: var(--ink); }
+.ptst.done { background: color-mix(in srgb, var(--p6) 22%, var(--card)); color: var(--ink); border-color: var(--p6); }
+.ptdos { margin-top: 10px; border-top: 1.5px dashed rgba(37,35,45,.25); padding-top: 8px; font-size: 18px; }
+.ptdos > summary { cursor: pointer; font: 400 14px var(--marker); color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.ptdosb { display: grid; gap: 8px; margin-top: 6px; font-size: 18px; line-height: 1.2; }
+.ptdosb ul { margin: 3px 0 0; padding-left: 18px; }
+.ptlist { display: grid; gap: 8px; margin-top: 8px; }
+.ptitem { width: 100%; text-align: left; padding: 10px 12px; background: var(--card); border: 2.3px solid var(--ink); border-radius: 12px; transition: transform .08s; }
+.ptitem:not(:disabled):active { transform: scale(.985); }
+.ptitem.good { border-color: var(--p6); background: color-mix(in srgb, var(--p6) 12%, var(--card)); }
+.ptitem.sec { opacity: .78; }
+.ptitem.missed { border-style: dashed; border-color: var(--p4); background: color-mix(in srgb, var(--p4) 10%, var(--card)); }
+.ptq { display: flex; gap: 9px; align-items: center; font-size: 20px; line-height: 1.2; }
+.ptbul { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; font: 400 14px var(--marker); background: var(--paper); }
+.ptitem.good .ptbul { background: var(--p6); color: #fff; border-color: var(--p6); }
+.pttag { margin-left: auto; flex: none; font: 400 12px var(--marker); padding: 2px 7px; border-radius: 99px; background: var(--paper); color: var(--muted); }
+.pttag.ok { background: var(--p6); color: #fff; }
+.pta { margin: 7px 0 0 35px; padding-top: 6px; border-top: 1.5px dashed rgba(37,35,45,.2); font-size: 19px; line-height: 1.22; color: var(--ink); }
+.ptclin { display: flex; gap: 10px; align-items: center; }
+.ptsvg { flex: none; width: 88px; height: 55px; border: 1.5px solid var(--ink); border-radius: 8px; background: var(--paper); }
+.ptddx { margin-top: 12px; padding: 10px 12px; border: 2px dashed rgba(37,35,45,.35); border-radius: 10px; display: grid; gap: 6px; font-size: 19px; line-height: 1.2; }
+.ptddxi b { color: var(--red); }
+.ptcle { margin-top: 10px; padding: 10px 12px; background: color-mix(in srgb, var(--p6) 14%, var(--card)); border-radius: 10px; font-size: 20px; line-height: 1.22; text-align: left; }
+html[data-skin="classic"] :is(.qsclue, .ptitem, .ptddx, .ptcle) { border-radius: 12px; border-width: 1px; border-color: var(--line); }

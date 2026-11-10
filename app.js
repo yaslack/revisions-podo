@@ -172,10 +172,11 @@
       <div class="sec">JOUER</div>
       <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">3 manches d'une minute · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
       <div class="sec">POUR RÉVISER CE QUE TU CHOISIS</div>
-      <div class="quick three">
+      <div class="quick">
+        <a class="qb" href="#/jeu/patient" style="--c:var(--p4)"><span class="em">${ico('stetho')}</span><span class="t">Le patient</span><span class="s">64 consultations${(S.rec || {}).patient ? ' · record ' + S.rec.patient + '/30' : ''}</span></a>
+        <a class="qb" href="#/jeu/quisuisje" style="--c:var(--p3)"><span class="em">${ico('bulb')}</span><span class="t">Qui suis-je ?</span><span class="s">4 indices${(S.rec || {}).quisuisje ? ' · record ' + S.rec.quisuisje + '/40' : ''}</span></a>
         <a class="qb" href="#/jeu/survie" style="--c:var(--red)"><span class="em">${ico('flame')}</span><span class="t">Survie</span><span class="s">3 vies${(S.rec || {}).survie ? ' · record ' + S.rec.survie : ''}</span></a>
         <a class="qb" href="#/jeu/paires" style="--c:var(--p5)"><span class="em">${ico('stopwatch')}</span><span class="t">Les paires</span><span class="s">60 secondes${(S.rec || {}).paires ? ' · record ' + S.rec.paires : ''}</span></a>
-        <a class="qb" href="#/jeu/patient" style="--c:var(--p4)"><span class="em">${ico('person')}</span><span class="t">Le patient</span><span class="s">trouve ce qu'il a</span></a>
       </div>
       <div class="sec">OÙ J'EN SUIS</div>
       <a class="card prog" href="#/pedi">${ring(vP, 'var(--p6)')}<span class="rt"><span class="t">Pédicurie</span><span class="s">${nP}/24 fiches sues · ${PEDI.reduce((s, f) => s + nSeen(f), 0)} parties lues</span>${bar(nP / 24, 'var(--p6)')}</span><span class="chev">›</span></a>
@@ -323,7 +324,8 @@
   const dueIn = key => { const r = (S.rv || {})[key]; return r ? r.d - today() : null; };
   // activité du jour (pour l'objectif et la série de jours)
   const GOAL = 20;
-  function did(n) { const d = S.days = S.days || {}, k = String(today()); d[k] = (d[k] || 0) + n; save(); }
+  const fx = (n, up) => { if (window.SONS && SONS.fx) SONS.fx(n, up); };   // sons d'interface (sons.js)
+  function did(n) { const d = S.days = S.days || {}, k = String(today()), was = d[k] || 0; d[k] = was + n; save(); if (was < GOAL && d[k] >= GOAL) setTimeout(() => fx('record'), 900); }   // objectif du jour atteint : fanfare
   const doneToday = () => (S.days || {})[String(today())] || 0;
   function streak() { const d = S.days || {}; let t = today(), n = 0; if (!d[t]) t--; while (d[t]) { n++; t--; } return n; }
   function todayCard() {
@@ -502,6 +504,14 @@
       ['check', 'Dans ces 3 jeux, tu choisis ce que tu révises : pédicurie, podologie, anatomie, ou seulement telles fiches.'],
       ['bone', 'Anatomie : EIPS, crête iliaque et EIAS expliquent maintenant l\'antéversion, la rétroversion, la bascule latérale et la torsion du bassin.'],
     ] },
+    { v: 99, items: [
+      ['phones', 'De la musique pour réviser : 4 morceaux composés pour l\'appli (Café lo-fi, Nuit calme, Bonne humeur, Piano du soir), dans « Sons pour réviser » en bas de l\'accueil. Ils marchent hors ligne.'],
+      ['spkhigh', 'L\'appli fait du bruit : boutons, bonnes et mauvaises réponses, vie perdue, étoile gagnée, record, objectif du jour. Tu peux les couper au même endroit.'],
+    ] },
+    { v: 100, items: [
+      ['stetho', 'Le patient, refait de A à Z : 64 vraies consultations cliniques (interrogatoire, examen avec les tests cliniques, diagnostic + pourquoi pas les diagnostics différentiels, orientation, prise en charge et question du patient).'],
+      ['bulb', 'Nouveau jeu « Qui suis-je ? » : 4 indices progressifs sur les fiches, les 59 repères d\'anatomie et les 41 tests cliniques. Trouve avec le moins d\'indices possible (avant même de voir les 4 choix !).'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -667,7 +677,9 @@
       <div class="pager fixed">${weak.length ? `<button class="btn grow" data-qa="weak" data-w="${weak.join(',')}" style="--c:var(--hl)">↻ Refaire ${weak.length > 1 ? 'les ' + weak.length + ' parties ratées' : 'la partie ratée'}</button>` : `<button class="btn grow" data-qa="again" style="--c:var(--hl)">↻ Recommencer</button>`}<a class="btn ghost grow" href="${FB(f)}">Fiche</a></div>`;
   }
   function quizAct(t) {
-    const st = Q && Q.steps[Q.i], j = +t.dataset.j, f = ALLF.find(x => x.id === Q.id);
+    const st = Q && Q.steps[Q.i], j = +t.dataset.j, f = ALLF.find(x => x.id === Q.id), qa = t.dataset.qa, wasEnd = Q.i >= Q.steps.length;
+    fx(qa === 'yes' || qa === 'fok' ? 'good' : qa === 'no' || qa === 'fko' ? 'bad' : qa === 'pick' ? (st.opts[j] === st.ok ? 'good' : 'bad') : qa === 'ck' ? 'tick' : qa === 'show' || qa === 'frev' ? 'reveal'
+      : qa === 'valid' ? (!st.items.length || (st.ticks || []).length / st.items.length >= 0.8 ? 'good' : 'bad') : qa === 'weak' || qa === 'again' ? 'start' : 'tap');
     switch (t.dataset.qa) {
       case 'show': st.shown = true; break;
       case 'yes': quizScore(st, 1); break;
@@ -683,6 +695,7 @@
       case 'weak': { const key = Q.key; startQuiz(f, key, t.dataset.w.split(',').map(Number)); Q.full = false; break; }
       case 'again': startQuiz(f, Q.key, Q.key === 'all' ? f.parts.map((_, i) => i + 1) : [+Q.key]); break;
     }
+    if (!wasEnd && Q.i >= Q.steps.length) setTimeout(() => fx('win'), 350);   // quiz terminé
     render();
   }
 
@@ -939,13 +952,13 @@
   }
   function q3Answer(good, hit) {
     const x = Q3.list[Q3.i], a3 = S.a3 = S.a3 || {}, r = a3[x.q] = a3[x.q] || { ok: 0, ko: 0 };
-    good ? r.ok++ : r.ko++; review('a:' + x.q, good);
+    good ? r.ok++ : r.ko++; review('a:' + x.q, good); fx(good ? 'good' : 'bad');
     Object.assign(Q3, { st: 'a', good, hit }); if (good) { Q3.ok++; Q3.res[x.q] = 1; }
     if (V3) V3.show(x.q);
     upd3();
   }
   function q3Act(t) {
-    const a = t.dataset.q3;
+    const a = t.dataset.q3; fx(a === 'go' || a === 'again' ? 'start' : 'tap');
     if (a === 'go') q3Start(t.dataset.r);
     else if (a === 'again') q3Start(Q3.reg);
     else if (a === 'pick') Q3 = { st: 'pick' };
@@ -1039,11 +1052,10 @@
     return api;
   }
 
-  // ---------- jeux : apprendre une fiche, survie, les paires, le patient ----------
-  // Rien à écrire à la main : tout est tiré des fiches (parts, memo), de data/quiz.js et des 59 repères d'anatomie.
+  // ---------- jeux : apprendre une fiche, survie, les paires, qui suis-je, le patient ----------
   let G = null, gTimer = 0;
-  const GAMES = { apprendre: 'Apprendre une fiche', survie: 'Survie', paires: 'Les paires', patient: 'Le patient' };
-  const QZ = window.QUIZ || {};
+  const GAMES = { apprendre: 'Apprendre une fiche', survie: 'Survie', paires: 'Les paires', quisuisje: 'Qui suis-je ?', patient: 'Le patient' };
+  const QZ = window.QUIZ || {}, CAS = window.CAS || {};
   const STD = ALLF.filter(f => f.parts.length === 8 && f.memo && f.memo.length === 8 && /^Signes cliniques/.test(f.parts[3].title) && /^Traitement/.test(f.parts[5].title)
     && f.memo[3].q === 'On voit quoi ?' && f.memo[4].q === 'Sûr comment ?' && f.memo[5].q === 'On fait quoi ?');   // les fiches au plan classique
   const MUS = AQ.filter(x => x.nerf);
@@ -1067,10 +1079,11 @@
     { k: 'pedi', n: 'Pédicurie', c: 'var(--p6)', it: PEDI.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
     { k: 'podo', n: 'Podologie', c: 'var(--p8)', it: PODO_OK.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
     { k: 'anat', n: 'Anatomie', c: 'var(--p1)', it: REG_ORDER.flatMap(r => [[`a:${r}:os`, `${REG_SHORT[r]} · les os`], [`a:${r}:mus`, `${REG_SHORT[r]} · les muscles`]]) },
+    { k: 'clin', n: 'Examen clinique', c: 'var(--p4)', it: CS.map((s, i) => [`c:${i}`, `${i + 1}. ${s.t}`]) },
   ];
-  const groupsOf = a => GROUPS.filter(g => g.it.length && (a !== 'patient' || g.k !== 'anat'));
+  const groupsOf = a => GROUPS.filter(g => g.it.length && (a === 'patient' ? (g.k === 'pedi' || g.k === 'podo') : a === 'paires' ? g.k !== 'clin' : true));
   const on = k => !(S.goff || {})[k];
-  const selF = () => ALLF.filter(f => on('f:' + f.id)), selA = () => AQ.filter(x => on(akey(x)));
+  const selF = () => ALLF.filter(f => on('f:' + f.id)), selA = () => AQ.filter(x => on(akey(x))), selC = () => CL.filter(c => on('c:' + c.s));
   // ce que chaque jeu peut tirer du choix
   const anatQ = x => {   // une question d'anatomie fabriquée : le nerf, la terminaison, ou « on palpe quoi ? »
     const same = AQ.filter(y => y !== x && (x.kind === 'os') === (y.kind === 'os')), kinds = x.nerf ? ['nerf', 't', 'how'] : ['how'], k = rnd(kinds);
@@ -1079,15 +1092,26 @@
     if (k === 't' && x.t) return mk(`Où se termine : **${x.name}** ?`, x.t, MUS.map(y => y.t));
     return mk(`On palpe quoi ? ${x.how}`, x.name, same.map(y => y.name));
   };
+  const clinQ = c => {
+    const n = CL.indexOf(c) + 1, oth = CL.filter(y => y !== c);
+    return Math.random() < 0.5
+      ? { q: `Quel test cherche : **${c.cherche}** ?`, ok: c.n, opts: shuffle([c.n, ...distinct(oth.map(y => y.n), 3, x => x)]) }
+      : { q: `Que cherche le test : **${c.n}** ?`, ok: c.cherche, opts: shuffle([c.cherche, ...distinct(oth.map(y => y.cherche), 3, x => x)]) };
+  };
   const poolSurvie = () => [
     ...selF().flatMap(f => (QZ[f.id] || []).flatMap((z, p) => z.q.filter(s => s.includes(' || ')).map(s => ({ lab: `${f.n}. ${f.title}`, c: PCOL(p), link: `${FB(f)}/p${p + 1}`, mk: () => mkStep(p + 1, s) })))),
-    ...selA().map(x => ({ lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}`, mk: () => anatQ(x) }))];
+    ...selA().map(x => ({ lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}`, mk: () => anatQ(x) })),
+    ...selC().map(c => ({ lab: `Clinique · ${CS[c.s].t}`, c: SCOL(c.s), link: `#/clin/${CL.indexOf(c) + 1}`, mk: () => clinQ(c) }))];
   const poolPairesF = () => selF().filter(f => STD.includes(f)), poolPairesA = () => selA().filter(x => x.nerf);
-  const poolOf = a => a === 'survie' ? poolSurvie() : a === 'paires' ? [...poolPairesF(), ...poolPairesA()] : selF().filter(f => CASES.includes(f));
+  const poolQsj = () => [
+    ...selF().map(f => ({ kind: 'f', f, id: 'f:' + f.id, title: f.title, lab: `${SECN(f)} · fiche`, c: f.sec === 'podo' ? 'var(--p8)' : 'var(--p6)', link: FB(f) })),
+    ...selA().map(x => ({ kind: 'a', x, id: 'a:' + x.q, title: x.name, lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}` })),
+    ...selC().map(c => ({ kind: 'c', cl: c, id: 'c:' + (CL.indexOf(c) + 1), title: c.n, lab: `Examen clinique · ${CS[c.s].t}`, c: SCOL(c.s), link: `#/clin/${CL.indexOf(c) + 1}` }))];
+  const poolOf = a => a === 'survie' ? poolSurvie() : a === 'paires' ? [...poolPairesF(), ...poolPairesA()] : a === 'quisuisje' ? poolQsj() : selF().filter(f => CAS[f.id] || CASES.includes(f));
   function setup(a) {
-    const r = (S.rec || {})[a];
-    return `<div class="wrap qz">${top('#/', GAMES[a], r ? `<span class="count">record ${r}</span>` : '')}
-      <div class="qpart" style="--c:var(--ink)">Tu révises quoi ?</div>
+    const r = (S.rec || {})[a], sub = a === 'patient' ? ' · 3 consultations (/30)' : a === 'quisuisje' ? ' · 10 énigmes (/40)' : '';
+    return `<div class="wrap qz">${top('#/', GAMES[a], r ? `<span class="count">record ${r}${a === 'patient' ? '/30' : a === 'quisuisje' ? '/40' : ''}</span>` : '')}
+      <div class="qpart" style="--c:var(--ink)">Tu révises quoi ?${sub}</div>
       ${groupsOf(a).map(g => `<div class="gsel" style="--c:${g.c}"><button class="ck gh" data-g="grp" data-k="${g.k}"><span class="box"></span><b>${g.n}</b><span class="muted gn"></span></button>
         <details><summary>Choisir dans la liste</summary><div class="checks">${g.it.map(([k, t]) => `<button class="ck" data-g="tog" data-k="${k}"><span class="box"></span><span>${esc(t)}</span></button>`).join('')}</div></details></div>`).join('')}
       <div class="pager fixed"><button class="btn grow" id="ggo" data-g="go" style="--c:var(--hl)">Jouer →</button></div></div>`;
@@ -1119,8 +1143,9 @@
     const ok = G.opts[j] === G.ok; gFreeze(); G.pick = j; did(1);
     if (ok) { G.combo++; G.score += Math.min(G.combo, 5); }
     else { G.combo = 0; G.lives--; G.deck.splice(Math.max(0, G.deck.length - 5), 0, G.cur); }   // ratée : elle revient 5 questions plus loin
+    fx(ok ? 'good' : 'life', ok ? Math.min(G.combo - 1, 5) * 2 : 0);   // les bonnes réponses d'affilée montent
     render();
-    gTimer = setTimeout(() => { if (G.lives > 0) svDraw(); else { G.over = true; G.isRec = best('survie', G.score); } render(); }, ok ? 800 : 2200);
+    gTimer = setTimeout(() => { if (G.lives > 0) svDraw(); else { G.over = true; G.isRec = best('survie', G.score); fx(G.isRec ? 'record' : 'over'); } render(); }, ok ? 800 : 2200);
   }
   // --- les paires : 60 s pour relier 4 fiches à leurs mots-clés (ou 4 muscles à leur nerf) ; une erreur coûte 3 s
   function prDraw() {
@@ -1135,37 +1160,240 @@
   function prTap(side, j) {
     if (G.over) return;
     const id = G[side][j][0]; if (G.found[id]) return;
-    if (!G.sel || G.sel.side === side) { G.sel = { side, j, id }; G.bad = null; }
-    else if (G.sel.id === id) { G.found[id] = 1; G.score++; G.sel = null; if (Object.keys(G.found).length === G.L.length) { did(1); prDraw(); } }
-    else { G.bad = { [side]: j, [G.sel.side]: G.sel.j }; G.sel = null; G.t0 -= 3000; clearTimeout(gTimer); gTimer = setTimeout(G.fn, Math.max(0, G.t0 + G.dur * 1000 - Date.now())); }
+    if (!G.sel || G.sel.side === side) { G.sel = { side, j, id }; G.bad = null; fx('tick'); }
+    else if (G.sel.id === id) { fx('pair', Object.keys(G.found).length * 2); G.found[id] = 1; G.score++; G.sel = null; if (Object.keys(G.found).length === G.L.length) { did(1); prDraw(); } }
+    else { fx('bad'); G.bad = { [side]: j, [G.sel.side]: G.sel.j }; G.sel = null; G.t0 -= 3000; clearTimeout(gTimer); gTimer = setTimeout(G.fn, Math.max(0, G.t0 + G.dur * 1000 - Date.now())); }
     render();
   }
-  // --- le patient : les signes cliniques d'une fiche (sans son nom) → le diagnostic, puis la prise en charge ; 5 patients par partie
-  // ponytail: cas tirés tout seuls des signes de la fiche ; pour de vrais récits (âge, métier, plainte), écrire un cas par fiche dans data/
+
+  // --- qui suis-je ? : 4 indices progressifs (4, 3, 2, 1 pt), on cherche dans sa tête avant de dévoiler les 4 choix ; 10 énigmes par partie
+  const STOP_W = new Set(['les', 'des', 'une', 'dans', 'pour', 'avec', 'sur', 'aux', 'par', 'plus', 'sous', 'entre', 'chez', 'son', 'ses', 'syndrome', 'maladie', 'test', 'signe', 'signes', 'atteinte', 'atteintes', 'trouble', 'troubles', 'pied', 'pieds', 'membre', 'membres', 'examen', 'clinique', 'bilan', 'douleur', 'douleurs', 'jambe', 'cuisse', 'hanche', 'bassin', 'genou', 'cheville', 'orteil', 'orteils', 'tendon', 'muscle', 'muscles', 'nerf', 'artere', 'veine', 'inter', 'capito', 'posterieur', 'anterieur', 'medial', 'lateral', 'interne', 'externe']);
+  function maskTitle(txt, title) {
+    if (!txt) return '';
+    const stems = (norm(title).match(/[a-z0-9]{4,}/g) || []).filter(w => !STOP_W.has(w)).map(w => w.slice(0, Math.max(4, w.length - 2)));
+    if (!stems.length) return String(txt);
+    return String(txt).replace(/[a-zA-ZÀ-ÿ0-9]{4,}/g, w => stems.some(s => norm(w).startsWith(s)) ? '•••' : w);
+  }
+  function qsjClues(it) {
+    if (it.kind === 'f') {
+      const f = it.f, Z = QZ[f.id] || [], m = f.memo || [];
+      const pick = i => {
+        const ks = (Z[i] && Z[i].k || []).map(x => maskTitle(x, f.title)).filter(x => x.replace(/•|\s|·/g, '').length > 4);
+        return ks.length ? ks.slice(0, 3).join(' · ') : maskTitle((m[i] && m[i].k) || '', f.title);
+      };
+      return f.parts.length === 8
+        ? [['Terrain & cause', pick(1)], ['Mécanisme dans le corps', pick(2)], ['Signes cliniques', pick(3)], ['Prise en charge', pick(5)]]
+        : [[m[1] ? m[1].q : 'Indice 1', pick(1)], [m[2] ? m[2].q : 'Indice 2', pick(2)], [m[3] ? m[3].q : 'Indice 3', pick(3)], [m[5] ? m[5].q : 'Indice 4', pick(5)]];
+    }
+    if (it.kind === 'a') {
+      const x = it.x;
+      if (x.nerf) return [
+        ['Action principale', maskTitle(x.act || x.regName, x.name)],
+        ['Innervation', maskTitle(x.nerf, x.name)],
+        ['Insertions', maskTitle(`Origine : ${x.o || '—'} → Terminaison : ${x.t || '—'}`, x.name)],
+        ['Comment le palper', maskTitle(x.how, x.name)],
+      ];
+      return [
+        ['Région & groupe', `${x.regName} · ${x.group}`],
+        ['Insertions / rapports', maskTitle(x.ins || x.chk || x.pos || 'Repère osseux', x.name).split('\n')[0]],
+        ['Position & repérage', maskTitle([x.pos, (x.chk || '').split('\n')[0]].filter(Boolean).join(' · '), x.name)],
+        ['Comment le palper', maskTitle(x.how, x.name)],
+      ];
+    }
+    const c = it.cl;
+    return [
+      ['Section & installation', `${CS[c.s].t} · ${maskTitle(c.pat, c.n)}`],
+      ['Le geste', maskTitle(c.steps.slice(0, 2).join(' '), c.n)],
+      ['Positif si…', maskTitle(c.pos && c.pos[0] ? c.pos[0].join(' → ') : c.norm, c.n)],
+      ['Ce qu\'on cherche', maskTitle(c.cherche, c.n)],
+    ];
+  }
+  function qsjOpts(it) {
+    if (it.kind === 'f') {
+      const f = it.f, same = ALLF.filter(x => x !== f && x.sec === f.sec);
+      return shuffle([f.title, ...distinct((same.length >= 3 ? same : ALLF.filter(x => x !== f)).map(x => x.title), 3, x => x)]);
+    }
+    if (it.kind === 'a') {
+      const x = it.x, same = AQ.filter(y => y !== x && (y.kind === 'os') === (x.kind === 'os'));
+      return shuffle([x.name, ...distinct(same.map(y => y.name), 3, y => y)]);
+    }
+    const c = it.cl, same = CL.filter(y => y !== c && y.s === c.s), pool = same.length >= 3 ? same : CL.filter(y => y !== c);
+    return shuffle([c.n, ...distinct(pool.map(y => y.n), 3, y => y)]);
+  }
+  function qsDraw() {
+    if (!G.deck.length) G.deck = shuffle(G.pool);
+    const cur = G.cur = G.deck.pop(); G.n++;
+    Object.assign(G, { clues: qsjClues(cur), opts: qsjOpts(cur), ok: cur.title, rev: 1, showOpts: false, pick: null, pts: 0 });
+  }
+  function qsAnswer(j) {
+    if (G.pick != null) return;
+    const ok = G.opts[j] === G.ok, pts = ok ? 5 - G.rev : 0;
+    G.pick = j; G.pts = pts; G.score += pts; did(1);
+    if (ok) fx(pts === 4 ? 'star' : 'good', (pts - 1) * 2);
+    else { fx('bad'); if (!G.miss.some(m => m.id === G.cur.id)) G.miss.push(G.cur); }
+    if (G.cur.kind === 'f' || G.cur.kind === 'a') review(G.cur.id, ok);
+    render();
+  }
+  function qsNext() {
+    if (G.n >= G.tot) { G.over = true; G.isRec = best('quisuisje', G.score); fx(G.isRec ? 'record' : G.score >= G.tot * 2.5 ? 'win' : 'over'); }
+    else qsDraw();
+    render();
+  }
+
+  // --- le patient : consultation clinique complète en 5 étapes (anamnèse, examen, diagnostic + ddx, orientation + traitement, question du patient)
   function signs(f) {
     const w = (norm(f.title).match(/[a-z]{5,}/g) || []).map(x => x.slice(0, 6)), z = (QZ[f.id] || [])[3];
     const all = z && z.k.length ? z.k : f.memo[3].k.split(' · ');
-    return all.filter(x => !w.some(y => norm(x).includes(y)));   // on retire ce qui donne le nom
+    return all.filter(x => !w.some(y => norm(x).includes(y)));
   }
-  const CASES = STD.filter(f => signs(f).length >= 2);   // sans les fiches dont tous les signes donnent le nom
+  const CASES = STD.filter(f => signs(f).length >= 2);
+  const ORIENTS = [
+    ['Cabinet : je prends en charge', 'Soins de pédicurie, semelles ou conseils au cabinet, sans urgence médicale.'],
+    ['Cabinet + avis médical', 'Je réalise les soins / conseils utiles et j\'adresse au médecin (sans urgence vitale).'],
+    ['Urgence médicale immédiate', 'Drapeau rouge : j\'adresse tout de suite au médecin ou aux urgences.'],
+  ];
   function ptDraw() {
-    if (!G.step) { if (!G.deck.length) G.deck = shuffle(G.pool); G.f = G.deck.pop(); G.n++; }
-    const f = G.f, key = G.step ? (x => x.memo[5].k) : (x => x.title), same = STD.filter(x => x.sec === f.sec && key(x) !== key(f));
-    Object.assign(G, { ok: key(f), opts: shuffle([f, ...distinct(same, 3, key)].map(key)), pick: null });
+    if (!G.deck.length) G.deck = shuffle(G.pool);
+    const f = G.f = G.deck.pop(), c = G.c = CAS[f.id]; G.n++;
+    const ask = shuffle(c.ask.map((a, i) => ({ q: a[0], r: a[1], ok: a[2], i })));
+    const exam = shuffle(c.exam.map((a, i) => ({ q: a[0], r: a[1], ok: a[2], cl: a[3], i })));
+    const dxOpts = shuffle([c.dx, ...c.ddx.map(d => d[0])]);
+    const tt = shuffle(c.tt.map(a => [a[0], a[1]])), nYes = tt.filter(a => a[1]).length;
+    const csOpts = shuffle([c.conseil.ok, ...c.conseil.ko]);
+    Object.assign(G, { step: 0, pScore: 0, ask, asked: [], exam, examed: [], dxOpts, dxPick: null, orPick: null, tt, ticks: [], ttDone: false, nYes, csOpts, csPick: null });
   }
-  function ptAnswer(j) {
-    if (G.pick != null) return;
-    const ok = G.opts[j] === G.ok; G.pick = j; did(1);
-    if (ok) G.score++; else if (!G.miss.includes(G.f)) G.miss.push(G.f);
+  function ptStepBar() {
+    const labs = ['1. Anamnèse', '2. Examen', '3. Diagnostic', '4. Traitement', '5. Conseil'];
+    const cur = G.step === 0 ? 0 : G.step === 1 ? 1 : G.step === 2 ? 2 : G.step === 3 || G.step === 4 ? 3 : 4;
+    return `<div class="ptsteps">${labs.map((l, i) => `<span class="ptst ${i < cur ? 'done' : i === cur ? 'now' : ''}">${l}</span>`).join('')}</div>`;
+  }
+  function ptDossier() {   // les indices déjà recueillis (repliable à partir de l'étape 2 pour toujours les avoir sous les yeux)
+    if (G.step < 2) return '';
+    const aYes = G.c.ask.filter(a => a[2]), eYes = G.c.exam.filter(a => a[2]);
+    return `<details class="ptdos"><summary>${ico('clipboard')} Dossier recueilli (${aYes.length + eYes.length} indices clés)</summary>
+      <div class="ptdosb"><div><b>Interrogatoire :</b><ul>${aYes.map(a => `<li><i>« ${esc(a[1])} »</i></li>`).join('')}</ul></div>
+      <div><b>Examen clinique :</b><ul>${eYes.map(a => `<li>${md(a[1])}</li>`).join('')}</ul></div></div></details>`;
+  }
+  function ptView() {
+    const f = G.f, c = G.c, head = `<div class="wrap qz">${top('#/', 'Le patient', count(`Patient ${G.n}/${G.tot}`, `${G.score} pts`))}`;
+    if (G.step === 6) {   // bilan de fin de consultation de CE patient
+      const won = G.pScore >= 7;
+      return `${head}<div class="card gover"><div class="kicker">${esc(c.nom.toUpperCase())}, ${c.age} ANS · ${SECN(f).toUpperCase()}</div>
+        <div class="gscore">${G.pScore}/10</div><div class="question">${esc(f.n + '. ' + f.title)}</div>
+        <div class="ptcle">${md(c.cle)}</div>
+        <div class="row2" style="margin-top:12px"><a class="btn ghost grow" href="${FB(f)}">${ico('book')} Voir la fiche</a><a class="btn ghost grow" href="#/jeu/apprendre/${f.id}">${ico('sparkle')} Apprendre ${stars(f.id)}</a></div></div>
+        <div class="pager fixed"><button class="btn grow" data-g="ptnext" style="--c:var(--hl)">${G.n < G.tot ? `Patient suivant (${G.n + 1}/${G.tot}) →` : 'Voir le bilan final →'}</button></div></div>`;
+    }
+    const banner = `<div class="card ptcard"><div class="pttop"><span class="stamp sm" style="--c:${f.sec === 'podo' ? 'var(--p8)' : 'var(--p6)'}">${ico('person')}</span>
+      <div class="ptwho"><div class="kicker">PATIENT ${G.n}/${G.tot} · ${SECN(f).toUpperCase()} · ${G.pScore} PT${G.pScore > 1 ? 'S' : ''}</div>
+      <div class="ptname"><b>${esc(c.nom)}</b>, ${c.age} ans <span class="muted">· ${esc(c.qui)}</span></div></div></div>
+      <div class="ptmotif">« ${esc(c.motif)} »</div>${ptStepBar()}${ptDossier()}</div>`;
+
+    if (G.step === 0) {   // Étape 1 : Anamnèse (choisir 3 questions sur 6)
+      const done = G.asked.length >= 3, missed = done ? G.ask.filter((a, j) => a.ok && !G.asked.includes(j)) : [];
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 1 · INTERROGATOIRE (${G.asked.length}/3 QUESTIONS)</div>
+        <div class="question">Que demandes-tu à ${esc(c.nom)} ?</div>
+        <div class="muted small">${done ? 'Interrogatoire terminé. Lis les réponses avant de passer à l\'examen.' : 'Touche les 3 questions les plus utiles pour orienter ton diagnostic.'}</div>
+        <div class="ptlist">${G.ask.map((a, j) => {
+          const pk = G.asked.includes(j), extra = done && a.ok && !pk;
+          return `<button class="ptitem ${pk ? (a.ok ? 'good' : 'sec') : extra ? 'missed' : ''}" data-g="ptask" data-j="${j}" ${pk || done ? 'disabled' : ''}>
+            <div class="ptq"><span class="ptbul">${pk ? (a.ok ? '✓' : '•') : extra ? '!' : '?'}</span><span>${esc(a.q)}</span>${pk ? `<span class="pttag ${a.ok ? 'ok' : ''}">${a.ok ? '+1 pt' : 'secondaire'}</span>` : extra ? '<span class="pttag">à demander aussi</span>' : ''}</div>
+            ${pk || extra ? `<div class="pta">« ${esc(a.r)} »</div>` : ''}</button>`;
+        }).join('')}</div></div>
+        ${done ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Passer à l'examen clinique →</button></div>` : ''}</div>`;
+    }
+    if (G.step === 1) {   // Étape 2 : Examen clinique (choisir 2 examens sur 5)
+      const done = G.examed.length >= 2;
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 2 · EXAMEN CLINIQUE (${G.examed.length}/2 EXAMENS)</div>
+        <div class="question">Quels gestes ou tests réalises-tu ?</div>
+        <div class="muted small">${done ? 'Examen terminé. Voici tous les signes cliniques observés.' : 'Choisis les 2 gestes les plus pertinents pour ce patient.'}</div>
+        <div class="ptlist">${G.exam.map((a, j) => {
+          const pk = G.examed.includes(j), extra = done && a.ok && !pk, cl = a.cl ? CL[a.cl - 1] : null;
+          return `<button class="ptitem ${pk ? (a.ok ? 'good' : 'sec') : extra ? 'missed' : ''}" data-g="ptex" data-j="${j}" ${pk || done ? 'disabled' : ''}>
+            <div class="ptq"><span class="ptbul">${pk ? (a.ok ? '✓' : '•') : extra ? '!' : ico('stetho')}</span><span>${esc(a.q)}</span>${pk ? `<span class="pttag ${a.ok ? 'ok' : ''}">${a.ok ? '+1 pt' : 'normal'}</span>` : extra ? '<span class="pttag">signe clé</span>' : ''}</div>
+            ${pk || extra ? `<div class="pta">${cl ? `<div class="ptclin">${pic(a.cl, 'ptsvg')}<div><b>Test : ${esc(cl.n)}</b><br>${md(a.r)}</div></div>` : md(a.r)}</div>` : ''}</button>`;
+        }).join('')}</div></div>
+        ${done ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Poser le diagnostic →</button></div>` : ''}</div>`;
+    }
+    if (G.step === 2) {   // Étape 3 : Diagnostic + explication des diagnostics différentiels
+      const pk = G.dxPick;
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 3 · DIAGNOSTIC (2 PTS)</div>
+        <div class="question">${esc(c.dxq || `Qu'est-ce qu'${c.sexe === 'f' ? 'elle' : 'il'} a ?`)}</div>
+        <div class="opts">${G.dxOpts.map((o, j) => `<button class="opt ${pk != null ? (o === c.dx ? 'good' : j === pk ? 'bad' : 'dim') : ''}" data-g="ptdx" data-j="${j}" ${pk != null ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div>
+        ${pk != null ? `<div class="answer">${md(c.cle)}</div>
+          <div class="ptddx"><div class="kicker">POURQUOI PAS LES DIAGNOSTICS DIFFÉRENTIELS ?</div>
+          ${c.ddx.map(d => `<div class="ptddxi"><b>✗ ${esc(d[0])}</b> : ${md(d[1])}</div>`).join('')}</div>` : ''}</div>
+        ${pk != null ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Continuer : orientation →</button></div>` : ''}</div>`;
+    }
+    if (G.step === 3) {   // Étape 4a : Orientation (cabinet / médecin / urgence)
+      const pk = G.orPick;
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 4 · ORIENTATION DU PATIENT (1 PT)</div>
+        <div class="question">Quelle est ta décision d'orientation ?</div>
+        <div class="opts">${ORIENTS.map((o, j) => `<button class="opt ${pk != null ? (j === c.orient ? 'good' : j === pk ? 'bad' : 'dim') : ''}" data-g="ptor" data-j="${j}" ${pk != null ? 'disabled' : ''}><b>${esc(o[0])}</b><br><span class="muted" style="font-size:18px">${esc(o[1])}</span></button>`).join('')}</div>
+        ${pk != null ? `<div class="answer">${md(c.orientWhy)}</div>` : ''}</div>
+        ${pk != null ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Continuer : prise en charge →</button></div>` : ''}</div>`;
+    }
+    if (G.step === 4) {   // Étape 4b : Prise en charge & traitement (cocher les bonnes actions parmi 6)
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 4 (SUITE) · PRISE EN CHARGE & TRAITEMENT (1 PT)</div>
+        <div class="question">Quels gestes et traitements retiens-tu ?</div>
+        <div class="muted small">${G.ttDone ? 'En vert les bons gestes de la fiche, barrés les pièges ou gestes hors compétence.' : `Coche les ${G.nYes} bonnes actions pour ${esc(c.nom)}.`}</div>
+        <div class="checks">${G.tt.map(([x, y], j) => `<button class="ck ${G.ticks.includes(j) ? 'on' : ''} ${G.ttDone ? (y ? 'yes' : 'no') : ''}" data-g="pttk" data-j="${j}" ${G.ttDone ? 'disabled' : ''}><span class="box"></span><span>${md(x)}</span></button>`).join('')}</div></div>
+        <div class="pager fixed"><button class="btn grow" data-g="${G.ttDone ? 'ptstep' : 'pttval'}" style="--c:${G.ttDone ? 'var(--hl)' : 'var(--p6)'}">${G.ttDone ? 'Dernière étape : le conseil →' : `Valider · ${G.ticks.length}/${G.nYes}`}</button></div></div>`;
+    }
+    // Étape 5 : La question du patient en partant (éducation thérapeutique & prévention)
+    const pk = G.csPick;
+    return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 5 · LA QUESTION DE ${esc(c.nom.toUpperCase())} (1 PT)</div>
+      <div class="ptmotif" style="margin:6px 0 12px">« ${esc(c.conseil.q)} »</div>
+      <div class="question">Que lui réponds-tu ?</div>
+      <div class="opts">${G.csOpts.map((o, j) => `<button class="opt ${pk != null ? (o === c.conseil.ok ? 'good' : j === pk ? 'bad' : 'dim') : ''}" data-g="ptcs" data-j="${j}" ${pk != null ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div></div>
+      ${pk != null ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Voir le bilan de ${esc(c.nom)} →</button></div>` : ''}</div>`;
+  }
+  function ptAct(a, j) {
+    const c = G.c;
+    if (a === 'ptask' && G.asked.length < 3 && !G.asked.includes(j)) {
+      G.asked.push(j); const ok = G.ask[j].ok;
+      if (ok) { G.pScore++; G.score++; }
+      did(1); fx(ok ? 'good' : 'tick');
+    } else if (a === 'ptex' && G.examed.length < 2 && !G.examed.includes(j)) {
+      G.examed.push(j); const ok = G.exam[j].ok;
+      if (ok) { G.pScore++; G.score++; }
+      did(1); fx(ok ? 'good' : 'tick');
+    } else if (a === 'ptdx' && G.dxPick == null) {
+      G.dxPick = j; const ok = G.dxOpts[j] === c.dx;
+      if (ok) { G.pScore += 2; G.score += 2; } else if (!G.miss.includes(G.f)) G.miss.push(G.f);
+      did(1); fx(ok ? 'good' : 'bad');
+    } else if (a === 'ptor' && G.orPick == null) {
+      G.orPick = j; const ok = j === c.orient;
+      if (ok) { G.pScore++; G.score++; }
+      did(1); fx(ok ? 'good' : 'bad');
+    } else if (a === 'pttk' && !G.ttDone) {
+      fx('tick'); G.ticks = G.ticks.includes(j) ? G.ticks.filter(x => x !== j) : G.ticks.concat(j);
+    } else if (a === 'pttval' && !G.ttDone) {
+      G.ttDone = true;
+      const v = Math.max(0, G.ticks.reduce((s, k) => s + (G.tt[k][1] ? 1 : -1), 0) / G.nYes), ok = v >= 0.75;
+      if (ok) { G.pScore++; G.score++; }
+      did(1); fx(ok ? 'good' : 'bad');
+    } else if (a === 'ptcs' && G.csPick == null) {
+      G.csPick = j; const ok = G.csOpts[j] === c.conseil.ok;
+      if (ok) { G.pScore++; G.score++; }
+      did(1); fx(ok ? 'good' : 'bad');
+    } else if (a === 'ptstep') {
+      fx('tap'); G.step++;
+      if (G.step === 6) { review('f:' + G.f.id, G.pScore >= 7); setTimeout(() => fx(G.pScore >= 8 ? 'star' : G.pScore >= 6 ? 'win' : 'tap'), 180); }
+    } else if (a === 'ptnext') {
+      if (G.n >= G.tot) { G.over = true; G.isRec = best('patient', G.score); fx(G.isRec ? 'record' : G.score >= G.tot * 7 ? 'win' : 'over'); }
+      else { fx('tap'); ptDraw(); }
+    }
     render();
-    gTimer = setTimeout(() => { G.step = G.step ? 0 : 1; if (!G.step && G.n >= 5) G.over = true; else ptDraw(); render(); }, ok ? 900 : 2400);
   }
+
   function gStart(a) {
     const pool = poolOf(a); gStop();
     if (!pool.length) { G = { game: a, setup: true }; return; }
     if (a === 'survie') { G = { game: a, pool, lives: 3, score: 0, combo: 0, n: 0, deck: shuffle(pool) }; svDraw(); }
-    else if (a === 'paires') { G = { game: a, score: 0 }; prDraw(); gClock(60, () => { G.over = true; G.isRec = best('paires', G.score); render(); }); }
-    else { G = { game: a, pool, score: 0, n: 0, step: 0, deck: shuffle(pool), miss: [] }; ptDraw(); }
+    else if (a === 'paires') { G = { game: a, score: 0 }; prDraw(); gClock(60, () => { G.over = true; G.isRec = best('paires', G.score); fx(G.isRec ? 'record' : 'win'); render(); }); }
+    else if (a === 'quisuisje') { G = { game: a, pool, score: 0, n: 0, tot: Math.min(10, pool.length), deck: shuffle(pool), miss: [] }; qsDraw(); }
+    else { G = { game: a, pool, score: 0, n: 0, tot: Math.min(3, pool.length), deck: shuffle(pool), miss: [] }; ptDraw(); }
   }
 
   // --- apprendre une fiche : 3 manches sur UNE fiche, une étoile par manche réussie à 80 % (S.st[id] = [meilleur score de chaque manche])
@@ -1205,10 +1433,11 @@
     const f = G.f, was = nStars(f.id), a = (S.st = S.st || {})[f.id] = (S.st[f.id] || [0, 0, 0]);
     G.v = G.sum / G.tot; G.over = true; a[G.m - 1] = Math.max(a[G.m - 1] || 0, G.v); save();
     if (was < 3 && nStars(f.id) === 3) review('f:' + f.id, true);   // 3 étoiles : la fiche entre dans les révisions espacées
+    setTimeout(() => fx(nStars(f.id) > was ? (nStars(f.id) === 3 ? 'record' : 'star') : G.v >= 0.8 ? 'win' : 'over'), 250);
   }
   function apAnswer(j) {
     if (G.pick != null) return;
-    const ok = G.opts[j] === G.ok; G.pick = j; render();
+    const ok = G.opts[j] === G.ok; G.pick = j; fx(ok ? 'good' : 'bad'); render();
     gTimer = setTimeout(() => { apNext(ok ? 1 : 0); render(); }, ok ? 800 : G.st.full ? 3000 : 2200);
   }
   function apprendre(id, m) {
@@ -1243,15 +1472,20 @@
 
   function gameAct(t) {
     const j = +t.dataset.j, a = t.dataset.g;
-    if (a === 'tog' || a === 'grp') return setupAct(t);
-    if (a === 'go') { gStart(G.game); return render(); }
-    if (a === 'setup') { G = { game: G.game, setup: true }; return render(); }
-    if (a === 'again') { if (G.game === 'apprendre') G.key = ''; else gStart(G.game); return render(); }
-    if (a === 'pick') return G.game === 'survie' ? svAnswer(j) : G.game === 'patient' ? ptAnswer(j) : apAnswer(j);
+    if (a === 'tog' || a === 'grp') { fx('tick'); return setupAct(t); }
+    if (a === 'go') { fx('start'); gStart(G.game); return render(); }
+    if (a === 'setup') { fx('tap'); G = { game: G.game, setup: true }; return render(); }
+    if (a === 'again') { fx('start'); if (G.game === 'apprendre') G.key = ''; else gStart(G.game); return render(); }
+    if (a === 'pick') return G.game === 'survie' ? svAnswer(j) : G.game === 'quisuisje' ? qsAnswer(j) : apAnswer(j);
+    if (a === 'qshint') { if (G.rev < 4 && G.pick == null) { fx('reveal'); G.rev++; render(); } return; }
+    if (a === 'qsopts') { fx('tap'); G.showOpts = true; return render(); }
+    if (a === 'qsnext') { fx('tap'); return qsNext(); }
+    if (a.startsWith('pt')) return ptAct(a, j);
     if (a === 'L' || a === 'R') return prTap(a, j);
     const st = G.st;   // « de mémoire » : cocher, valider (bonnes cochées moins fausses cochées), continuer
+    if (a === 'mk') fx('tick'); else if (a === 'mnext') fx('tap');
     if (a === 'mk') st.ticks = st.ticks.includes(j) ? st.ticks.filter(x => x !== j) : st.ticks.concat(j);
-    else if (a === 'mval') { st.done = true; st.v = Math.max(0, st.ticks.reduce((s, k) => s + (st.items[k][1] ? 1 : -1), 0) / st.nYes); }
+    else if (a === 'mval') { st.done = true; st.v = Math.max(0, st.ticks.reduce((s, k) => s + (st.items[k][1] ? 1 : -1), 0) / st.nYes); fx(st.v >= 0.8 ? 'good' : 'bad'); }
     else if (a === 'mnext') apNext(st.v);
     render();
   }
@@ -1274,12 +1508,28 @@
       return `${head(count(G.score, 'record ' + Math.max(r, G.score)))}${gBar()}
         <div class="qpart" style="--c:var(--p5)">${esc(G.label)} Relie chaque paire.</div><div class="pairs">${col('L')}${col('R')}</div></div>`;
     }
-    if (G.over) return `${head('')}${gEnd(`${G.score}/10`, G.score >= 9 ? 'Tes patients sont entre de bonnes mains !' : G.score >= 6 ? 'Pas mal. Revois les fiches ci-dessous.' : 'Normal au début : revois ces fiches, puis rejoue.',
-      G.miss.length ? `<div class="sec">À REVOIR</div><div class="entries">${G.miss.map(f => `<a class="entry" href="#/jeu/apprendre/${f.id}"><span class="rt"><span class="t">${f.n}. ${esc(f.title)}</span></span>${stars(f.id)}</a>`).join('')}</div>` : '')}</div>`;
-    return `${head(count(G.n, 5))}
-      <div class="qpart" style="--c:var(--p4)">${ico('person')} Patient ${G.n} · ${G.f.sec === 'podo' ? 'Podologie' : 'Pédicurie'}</div>
-      <div class="card qc">${G.step ? `<div class="kicker">C'EST BIEN : ${esc(G.f.title).toUpperCase()}</div><div class="question">Tu fais quoi ?</div>`
-        : `<div class="kicker">TU OBSERVES</div><ul class="signs">${signs(G.f).map(x => `<li>${md(x)}</li>`).join('')}</ul><div class="question">C'est quoi ?</div>`}${gOpts()}</div></div>`;
+    if (a === 'quisuisje') {
+      const maxS = G.tot * 4;
+      if (G.over) return `${head('')}${gEnd(`${G.score}/${maxS}`, G.isRec ? `Nouveau record : ${G.score}/${maxS} !` : G.score >= maxS * 0.75 ? `Solide ! Record : ${Math.max(r, G.score)}/${maxS}.` : `Ton record : ${Math.max(r, G.score)}/${maxS}. Revois les fiches ci-dessous.`,
+        G.miss.length ? `<div class="sec">À REVOIR</div><div class="entries">${G.miss.map(m => `<a class="entry" href="${m.link}"><span class="stamp sm" style="--c:${m.c}">?</span><span class="rt"><span class="t">${esc(m.title)}</span><span class="s">${esc(m.lab)}</span></span><span class="chev">›</span></a>`).join('')}</div>` : '')}</div>`;
+      const done = G.pick != null, ptsNow = 5 - G.rev, shown = done ? 4 : G.rev, clIdx = G.cur.kind === 'c' ? CL.indexOf(G.cur.cl) + 1 : 0;
+      return `${head(count(`${G.n}/${G.tot}`, `${G.score} pts`))}
+        <div class="ghud"><span class="qpart" style="--c:${G.cur.c};margin:0">${ico('bulb')} ${esc(G.cur.lab)}</span>
+          <span class="qsbadge">${done ? (G.pts ? `+${G.pts} pt${G.pts > 1 ? 's' : ''} !` : '0 pt') : `Vaut ${ptsNow} pt${ptsNow > 1 ? 's' : ''}`}</span></div>
+        <div class="card qc"><div class="kicker">QUI SUIS-JE ? · INDICE ${shown}/4</div>
+          <div class="qsclues">${G.clues.map((c, i) => i < shown ? `<div class="qsclue ${done && i >= G.rev ? 'extra' : ''}"><span class="qsnum">${i + 1}</span><div><div class="qslab">${esc(c[0])}</div><div class="qstxt">${md(c[1])}</div></div></div>`
+            : `<div class="qsclue locked"><span class="qsnum">${i + 1}</span><div class="qslab">Indice ${i + 1} caché (${4 - i} pt${4 - i > 1 ? 's' : ''})</div></div>`).join('')}</div>
+          ${done && clIdx ? `<div style="margin-top:10px">${pic(clIdx)}</div>` : ''}
+          ${!done && G.rev < 4 ? `<button class="btn ghost wide" data-g="qshint" style="margin-top:10px">+ Dévoiler l'indice ${G.rev + 1}/4 (vaut ${ptsNow - 1} pt${ptsNow - 1 > 1 ? 's' : ''})</button>` : ''}
+          ${!done && !G.showOpts ? `<button class="btn wide" data-g="qsopts" style="--c:var(--hl);margin-top:10px">${ico('bulb')} J'ai une idée → Voir les 4 choix</button>`
+            : `<div style="margin-top:12px">${gOpts()}</div>`}
+          ${done ? `<div class="row2" style="margin-top:12px"><a class="btn ghost grow" href="${G.cur.link}">${ico('book')} Voir la fiche</a></div>` : ''}</div>
+        ${done ? `<div class="pager fixed"><button class="btn grow" data-g="qsnext" style="--c:var(--hl)">${G.n < G.tot ? `Énigme suivante (${G.n + 1}/${G.tot}) →` : 'Voir mon score →'}</button></div>` : ''}</div>`;
+    }
+    const maxP = G.tot * 10;
+    if (G.over) return `${head('')}${gEnd(`${G.score}/${maxP}`, G.isRec ? `Nouveau record : ${G.score}/${maxP} !` : G.score >= maxP * 0.8 ? 'Tes patients sont entre de bonnes mains !' : 'Revois les fiches ci-dessous, puis relance une consultation.',
+      G.miss.length ? `<div class="sec">À REVOIR</div><div class="entries">${G.miss.map(f => `<a class="entry" href="#/jeu/apprendre/${f.id}"><span class="stamp sm" style="--c:${f.sec === 'podo' ? 'var(--p8)' : 'var(--p6)'}">${f.n}</span><span class="rt"><span class="t">${esc(f.title)}</span></span>${stars(f.id)}</a>`).join('')}</div>` : '')}</div>`;
+    return ptView();
   }
 
   // ---------- routeur ----------
