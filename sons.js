@@ -150,16 +150,18 @@
     const cur = byId(st.id);
     if (!st.on || !cur) { if (b) b.remove(); document.body.classList.remove('sndon'); return; }
     if (!b) { b = document.createElement('div'); b.id = 'sndbar'; b.className = 'sndbar'; document.body.appendChild(b); }
-    const pp = `<button class="sndpp" data-sndpp aria-label="${playing ? 'Pause' : 'Lecture'}">${playing ? IC.pause : IC.play}</button>`, grip = `<span class="sndgrip" aria-label="Déplacer le lecteur" title="Déplacer">${IC.grip}</span>`;
-    b.innerHTML = st.mini ? `${grip}${pp}<button class="sndexp" data-sndmin aria-label="Agrandir le lecteur">${ico(cur.e)}</button>`
-      : `${grip}${pp}<span class="sndn">${ico(cur.e)} ${esc(cur.n)}</span>${vol()}<button class="sndmin" data-sndmin aria-label="Réduire le lecteur">${IC.min}</button><button class="sndx" data-sndx aria-label="Arrêter le son">${IC.close}</button>`;
+    if (b.dataset.id !== st.id) {
+      b.dataset.id = st.id;
+      b.innerHTML = `<span class="sndgrip" aria-label="Déplacer le lecteur" title="Déplacer">${IC.grip}</span><button class="sndpp" data-sndpp></button><button class="sndexp" data-sndmin aria-label="Agrandir le lecteur">${ico(cur.e)}</button><div class="sndfull"><span class="sndn">${ico(cur.e)} ${esc(cur.n)}</span>${vol()}<button class="sndmin" data-sndmin aria-label="Réduire le lecteur">${IC.min}</button><button class="sndx" data-sndx aria-label="Arrêter le son">${IC.close}</button></div>`;
+    }
+    const pp = b.querySelector('.sndpp'); if (pp) { pp.setAttribute('aria-label', playing ? 'Pause' : 'Lecture'); pp.innerHTML = playing ? IC.pause : IC.play; }
     b.classList.toggle('paused', !playing); b.classList.toggle('mini', !!st.mini); document.body.classList.add('sndon');
     place(b);
   }
   // le lecteur se déplace en le tenant par la poignée ⠿ ; sa place est gardée (en fraction de l'écran) et reste dans l'écran
   function place(b) {
     if (!st.pos) { b.style.left = b.style.top = ''; b.classList.remove('moved'); return; }
-    const W = innerWidth, H = innerHeight, w = b.offsetWidth, h = b.offsetHeight;
+    const W = innerWidth, H = innerHeight, w = st.mini ? 106 : Math.min(W * 0.92, 400), h = b.offsetHeight || 50;
     b.classList.add('moved');
     b.style.left = Math.max(6, Math.min(W - w - 6, st.pos.x * W)) + 'px'; b.style.top = Math.max(6, Math.min(H - h - 6, st.pos.y * H)) + 'px';
   }
@@ -167,13 +169,13 @@
   document.addEventListener('pointerdown', e => {
     const g = e.target.closest('.sndgrip'); if (!g) return;
     const b = g.closest('.sndbar'), r = b.getBoundingClientRect();
-    drag = { dx: e.clientX - r.left, dy: e.clientY - r.top, b }; e.preventDefault(); try { g.setPointerCapture(e.pointerId); } catch (er) {}
+    drag = { dx: e.clientX - r.left, dy: e.clientY - r.top, b }; b.classList.add('dragging'); e.preventDefault(); try { g.setPointerCapture(e.pointerId); } catch (er) {}
   });
   document.addEventListener('pointermove', e => {
     if (!drag) return; e.preventDefault();
     st.pos = { x: (e.clientX - drag.dx) / innerWidth, y: (e.clientY - drag.dy) / innerHeight }; place(drag.b);
   }, { passive: false });
-  document.addEventListener('pointerup', () => { if (drag) { drag = null; save(); } });
+  document.addEventListener('pointerup', () => { if (drag) { drag.b.classList.remove('dragging'); drag = null; save(); } });
   addEventListener('resize', () => { const b = document.getElementById('sndbar'); if (b) place(b); });
   document.addEventListener('click', e => {
     const t = e.target.closest('[data-snd], [data-sndpp], [data-sndx], [data-sndmin], [data-sndfx]'); if (!t) return;
