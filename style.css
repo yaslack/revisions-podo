@@ -574,20 +574,22 @@ html[data-skin="classic"] .ctab th { font-family: var(--hand); font-weight: 700;
 .sndchip.on { border-color: var(--p8); background: color-mix(in srgb, var(--p8) 16%, var(--card)); font-weight: 700; }
 .sndd { margin-top: 10px; }
 .sndvol { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 18px; }
-.sndvol input, .sndbar input { flex: 1; accent-color: var(--p8); }
+.sndvol input, .sndbar input { flex: 1 1 56px; min-width: 0; width: 100%; margin: 0; accent-color: var(--p8); }
 .sndbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(78px + env(safe-area-inset-bottom)); z-index: 60; width: min(92vw, 400px);
-  display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 6px; border-radius: 999px; background: var(--card); color: var(--ink);
-  border: 2px solid var(--p8); box-shadow: 0 6px 18px rgba(0, 0, 0, .22); }
+  display: flex; align-items: center; gap: 6px; padding: 6px 8px 6px 6px; border-radius: 999px; background: var(--card); color: var(--ink);
+  border: 2px solid var(--p8); box-shadow: 0 6px 18px rgba(0, 0, 0, .22); overflow: hidden; }
 body.reading .sndbar { bottom: calc(84px + env(safe-area-inset-bottom)); }
-.sndbar .sndpp { flex: none; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--p8); color: #fff; font-size: 16px; cursor: pointer; }
-.sndbar .sndn { flex: none; max-width: 38%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; font-weight: 700; }
-.sndbar .sndx { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); font-size: 17px; cursor: pointer; }
+.sndbar :is(.sndpp, .sndmin, .sndx, .sndexp, .sndgrip) { display: inline-grid; place-items: center; padding: 0; line-height: 1; }
+.sndbar :is(.sndpp, .sndmin, .sndx, .sndgrip) .ic { width: 17px; height: 17px; vertical-align: 0; }
+.sndbar .sndpp { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--p8); color: #fff; font-size: 16px; cursor: pointer; }
+.sndbar .sndn { flex: 0 1 auto; max-width: 34%; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; font-weight: 700; }
+.sndbar .sndx { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 0; background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink); font-size: 16px; cursor: pointer; }
 .sndbar.paused .sndn { opacity: .6; }
 body.sndon #app { padding-bottom: 70px; }
 .sndbar.moved, body.reading .sndbar.moved { transform: none; bottom: auto; }
-.sndbar .sndgrip { flex: none; width: 22px; text-align: center; font-size: 18px; color: var(--muted); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; padding: 6px 0; }
+.sndbar .sndgrip { flex: none; width: 20px; height: 32px; color: var(--muted); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
 .sndbar .sndgrip:active { cursor: grabbing; }
-.sndbar .sndmin { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); font-size: 22px; line-height: 1; cursor: pointer; }
+.sndbar .sndmin { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 0; background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink); font-size: 16px; cursor: pointer; }
 .sndbar.mini { width: auto; gap: 4px; padding: 5px 6px 5px 4px; }
 .sndbar .sndexp { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 0; background: color-mix(in srgb, var(--p8) 15%, var(--card)); font-size: 17px; cursor: pointer; }
 
