@@ -856,3 +856,13 @@ body:has(.av) nav.tabs { display: none; }
 .av .pager.fixed { background: linear-gradient(transparent, #17142a 50%); }
 .av .kicker, .av .sec, .av .avclues b { color: var(--hl); }
 .av .avclues div > b:not(:first-child) { display: inline; font: inherit; font-weight: 800; color: inherit; text-transform: none; letter-spacing: 0; }
+/* Podo Quest : les images du dossier jeu/ (décors lissés, personnages en pixels nets) */
+.wrap.av, .av .avscene, .av .avcamp, .av .card.avmap { image-rendering: auto; }
+.av img.avspr { image-rendering: pixelated; object-fit: contain; object-position: 50% 100%; }
+.av .avspr.art { filter: hue-rotate(var(--hr, 0deg)); } .av .avspr.avhero { filter: none; }
+.av .avscene .avspr.art.sil { filter: brightness(0) drop-shadow(0 0 3px rgba(255,255,255,.8)); }
+.av .avscene.boss .avpos.foe img.art { filter: hue-rotate(var(--hr, 0deg)) drop-shadow(0 0 5px #ff3d6e) drop-shadow(0 0 14px #b5173a); }
+.av .avspr.ko { transform: none; opacity: 1; }
+.av .avscene .avpos { bottom: 11%; width: 30%; } .av .avscene .avpos.me { left: 6%; } .av .avscene .avpos.foe { right: 5%; width: 40%; }
+.av .avscene.boss .avpos.foe { width: 58%; right: 1%; bottom: 9%; } .av .avscene.boss .avpos.me { width: 26%; left: 3%; bottom: 9%; }
+.av .avscene .avpos::after { bottom: -2%; height: 8%; background: rgba(0,0,0,.45); }

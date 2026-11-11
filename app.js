@@ -537,6 +537,9 @@
     { v: 111, items: [
       ['flame', 'Podo Quest : cadres en pixels à coins crantés, palette nuit violette, bouton orange, et le décor du monde en fond de tout l\'écran.'],
     ] },
+    { v: 112, items: [
+      ['flame', 'Podo Quest avec de vraies images : 5 décors (forêt, marais, canyon, grotte, arène du boss), un nouveau héros, et 8 monstres qui réagissent quand ils sont touchés et quand ils sont K.O.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

@@ -27,30 +27,8 @@ window.AVENTURE = A => {
   const soins = r => Object.keys(ITEMS).filter(k => ITEMS[k].s === 'soin' && r.items[k] > 0);
 
   // ---------- les dessins : un héros, 8 familles de monstres (la couleur change avec le monstre) ----------
-  const eyes = (x1, x2, y, r = 7) => [x1, x2].map(x => `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff"/><circle cx="${x + 1.5}" cy="${y + 1}" r="${r * .45}" fill="#222" stroke="none"/>`).join('')
-    + `<path d="M${x1 - r - 2} ${y - r - 4}l${r + 6} 5M${x2 + r + 2} ${y - r - 4}l${-r - 6} 5"/>`;
-  const SPR = {
-    peau: `<path d="M22 88c-10-22 2-58 38-60 34-2 50 32 40 60-4 12-70 14-78 0z" fill="var(--m)"/><circle cx="33" cy="52" r="6" fill="var(--m2)"/><circle cx="90" cy="58" r="5" fill="var(--m2)"/><circle cx="62" cy="36" r="4" fill="var(--m2)"/><circle cx="78" cy="42" r="3" fill="var(--m2)"/>${eyes(48, 74, 64)}<path d="M46 82q15 10 30 0"/><path d="M52 84l3 5 4-4M64 85l3 4 4-5" fill="#fff"/>`,
-    ongle: `<path d="M30 56l-15-8 4 12-8 3 17 8M90 56l15-8-4 12 8 3-17 8" fill="var(--m2)"/><path d="M30 40c0-18 60-18 60 0v38c0 18-60 18-60 0z" fill="var(--m)"/><path d="M40 42c6-8 34-8 40 0" stroke-width="2"/><path d="M38 86c8 7 36 7 44 0" stroke-width="2"/>${eyes(50, 70, 58, 6)}<path d="M47 76l5-4 5 4 5-4 5 4 5-4"/><path d="M46 95v11M74 95v11"/>`,
-    vasc: `<path d="M24 98c30 8 46-6 36-20s-28-14-18-32 34-18 46-8" stroke-width="21"/><path d="M24 98c30 8 46-6 36-20s-28-14-18-32 34-18 46-8" stroke="var(--m)" stroke-width="15"/><ellipse cx="92" cy="36" rx="18" ry="14" fill="var(--m)"/>${eyes(86, 100, 32, 5)}<path d="M108 42l10 3-5 2 4 5-11-4" fill="#e5484d"/>`,
-    med: `<rect x="48" y="12" width="24" height="15" rx="3" fill="var(--m2)"/><path d="M40 27h40v8c10 6 14 14 14 26v32c0 8-6 12-12 12H38c-6 0-12-4-12-12V61c0-12 4-20 14-26z" fill="var(--m)"/><rect x="36" y="76" width="48" height="20" rx="3" fill="#fff"/><path d="M52 86h16M60 80v12" stroke="#e5484d"/>${eyes(48, 72, 54, 6)}<path d="M52 67q8 5 16 0"/>`,
-    podo: `<path d="M32 22c16-6 32 0 32 14l-2 30c14 2 40 8 44 22 2 8-2 13-10 13H30c-10 0-14-8-12-18z" fill="var(--m)"/><path d="M76 88v13M86 89v12M96 92v9" stroke-width="2"/>${eyes(38, 56, 44, 6)}<path d="M35 60q11 9 24 0"/><path d="M40 62l3 5 4-4" fill="#fff"/>`,
-    os: `<path d="M14 100l92-80M14 20l92 80" stroke-width="10"/><path d="M14 100l92-80M14 20l92 80" stroke="var(--m2)" stroke-width="5"/><path d="M28 54c0-40 64-40 64 0 0 14-6 20-12 24v14H40V78c-6-4-12-10-12-24z" fill="var(--m)"/><path d="M50 92v-8M60 92v-8M70 92v-8" stroke-width="2"/><circle cx="46" cy="56" r="9" fill="#222"/><circle cx="74" cy="56" r="9" fill="#222"/><circle cx="48" cy="54" r="3" fill="#e5484d" stroke="none"/><circle cx="76" cy="54" r="3" fill="#e5484d" stroke="none"/><path d="M57 71l3-6 3 6z" fill="#222"/>`,
-    mus: `<path d="M34 72c-18-4-24-22-17-36 3-6 13-5 12 3 0 6 4 10 11 12M86 72c18-4 24-22 17-36-3-6-13-5-12 3 0 6-4 10-11 12" fill="var(--m)"/><path d="M30 98c-6-24 6-42 30-42s36 18 30 42z" fill="var(--m)"/><path d="M21 50c6-4 10 0 10 6M99 50c-6-4-10 0-10 6" stroke-width="2"/><path d="M46 80c8 6 20 6 28 0M48 89c8 4 16 4 24 0" stroke-width="2"/><circle cx="60" cy="42" r="17" fill="var(--m)"/>${eyes(53, 67, 40, 4.5)}<path d="M53 51h14"/>`,
-    test: `<path d="M20 40l-8-10M40 28l-4-12M60 24V10M80 28l4-12M100 40l8-10M40 88q-4 12 4 20M60 92v17M80 88q4 12-4 20"/><path d="M12 60c20-34 76-34 96 0-20 34-76 34-96 0z" fill="#fff"/><circle cx="60" cy="60" r="21" fill="var(--m)"/><circle cx="60" cy="60" r="9" fill="#222"/><circle cx="54" cy="54" r="4" fill="#fff" stroke="none"/>`,
-  };
-  const EXTRA = {
-    peau: '<path d="M30 92q4 12 8 0M80 93q4 12 8 0" fill="var(--m)"/><path d="M33 44q6-11 17-13" stroke="#fff" stroke-width="3"/><circle cx="44" cy="92" r="3" fill="var(--m2)"/>',
-    ongle: '<path d="M36 30l4-13 6 10 6-13 6 13 6-13 6 13 6-10 4 13" fill="var(--m2)"/>',
-    vasc: '<path d="M100 44v7M106 44v6" stroke="#fff" stroke-width="3"/><path d="M30 92l6 8M44 96l4 8M56 84l8 4" stroke="var(--m2)" stroke-width="3"/>',
-    med: '<path d="M28 66l-13-7M92 66l13-7" stroke-width="6"/><circle cx="12" cy="57" r="6" fill="var(--m)"/><circle cx="108" cy="57" r="6" fill="var(--m)"/>',
-    podo: '<path d="M104 92l10 3M100 100l8 6" stroke-width="4"/><path d="M34 30h30M33 36h31" stroke="var(--m2)" stroke-width="3"/>',
-    os: '<path d="M60 16l-5 9 7 4-4 9" stroke-width="2"/>',
-    mus: '<path d="M43 33h34" stroke="#e5484d" stroke-width="6"/><path d="M77 33l10-4-2 8" fill="#e5484d"/>',
-    test: '<path d="M12 60L2 44l5 17-7 4 13 3M108 60l10-16-5 17 7 4-13 3" fill="var(--m2)"/>',
-  };
-  const CROWN = '<path d="M38 22l-3-18 12 10 13-14 13 14 12-10-3 18z" fill="#f6d84a"/>';
-  const fam = it => it.kind === 'f' ? (it.f.sec === 'podo' ? 'podo' : SPR[it.f.cat] ? it.f.cat : 'peau') : it.kind === 'a' ? (it.x.nerf ? 'mus' : 'os') : 'test';
+  const FAMS = ['peau', 'ongle', 'vasc', 'med'];
+  const fam = it => it.kind === 'f' ? (it.f.sec === 'podo' ? 'podo' : FAMS.includes(it.f.cat) ? it.f.cat : 'peau') : it.kind === 'a' ? (it.x.nerf ? 'mus' : 'os') : 'test';
   const hue = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
   // Le rendu pixel art : chaque dessin vectoriel est redessiné en 48×48 pixels nets, avec un contour sombre, la lumière en haut à gauche et l'ombre en bas à droite.
   const PX = {}, BUSY = {}, BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', N = 56;
@@ -70,49 +48,12 @@ window.AVENTURE = A => {
     return BLANK;
   }
   const img = (key, inner, cls) => `<img class="avspr ${cls}" alt="" src="${pixify(key, inner)}">`;
-  const sprite = (it, cls = '', boss) => { const h = hue(it.id); return img(it.id + (boss ? 'B2' : '2'), (SPR[fam(it)] + EXTRA[fam(it)] + (boss ? CROWN : '')).replace(/var\(--m2\)/g, `hsl(${(h + 40) % 360},55%,42%)`).replace(/var\(--m\)/g, `hsl(${h},72%,60%)`), cls); };
-  const HERO = (cls = '') => img('hero3', `<path d="M50 94v18M70 94v18" stroke-width="9"/><path d="M50 94v17M70 94v17" stroke="#2c3e6b" stroke-width="5"/><path d="M41 114h15M64 114h15" stroke="#3b2a20" stroke-width="7"/><path d="M38 68l-13 14M82 68l14-12" stroke-width="8"/><path d="M38 68l-12 13M82 68l13-11" stroke="#ffffff" stroke-width="4"/><path d="M94 58l14-27 6 3-13 27z" fill="#e6eef8"/><path d="M37 98V64c0-9 8-14 23-14s23 5 23 14v34z" fill="#ffffff"/><path d="M60 52v46" stroke-width="2"/><path d="M51 52c-4 12 2 19 9 19s13-7 9-19" stroke="#2f9be0" stroke-width="3"/><circle cx="60" cy="73" r="3.5" fill="#2f9be0"/><circle cx="60" cy="31" r="19" fill="#f1c9a5"/><path d="M41 32c-2-17 9-25 21-25s21 8 17 23c-5-7-14-10-22-10-6 0-12 4-16 12z" fill="#3b2a20"/><circle cx="53" cy="35" r="2.6" fill="#222" stroke="none"/><circle cx="68" cy="35" r="2.6" fill="#222" stroke="none"/><path d="M55 43q6 4 12 0" stroke-width="2"/>`, 'avhero ' + cls);
+  // Les images (dossier jeu/) : un monstre par famille en 3 poses (normal, touché, K.O.), teinté un peu différemment selon le monstre ; le héros en 2 poses.
+  const sprite = (it, cls = '') => `<img class="avspr art ${cls}" alt="" style="--hr:${hue(it.id) % 5 * 14 - 28}deg" src="jeu/monstre-${fam(it)}${/\bko\b/.test(cls) ? '-ko' : /\bhit\b/.test(cls) ? '-touche' : ''}.png">`;
+  const HERO = (cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/heros${/lunge/.test(cls) ? '-attaque' : ''}.png">`;
   const CHEST = cls => img('chest', '<path d="M16 54c0-22 88-22 88 0v10H16z" fill="#c98a3c"/><rect x="16" y="64" width="88" height="40" rx="4" fill="#9a5f24"/><path d="M16 78h88M34 64v40M86 64v40" stroke-width="3"/><rect x="51" y="56" width="18" height="22" rx="3" fill="#f6d84a"/>', cls);
 
-  // Les décors, peints pixel par pixel (160×100) : un par biome, plus l'arène néon des boss. Calculés une fois, gardés en mémoire.
-  const PAL = {
-    foret: { sky: ['#3b4f8a', '#6a6fb0', '#c9799a', '#f0a070', '#f8cf8a'], sun: '#fff1b8', cloud: '#f6b48f', far: '#8d7bbd', mid: '#5b5a9a', leaf: ['#14503f', '#1f7a5c', '#39a877'], trunk: '#5a3220', ground: ['#2f8a55', '#1f6a43', '#164d33'], dot: '#f472b6' },
-    marais: { sky: ['#12263a', '#1d4350', '#2f6f6a', '#6fae8d', '#cfe8a8'], sun: '#eaffc2', cloud: '#4d8c80', far: '#2a5560', mid: '#1d3f47', leaf: ['#0f3a34', '#1b5a4a', '#2f8a66'], trunk: '#2b241c', ground: ['#35605a', '#254a48', '#183636'], dot: '#9ef0c0' },
-    canyon: { sky: ['#3a2a5c', '#7a3e73', '#d6604d', '#f4a261', '#ffd98a'], sun: '#fff6cf', cloud: '#f7b27a', far: '#b5543c', mid: '#8a3b2e', leaf: ['#3d5a2a', '#56803a', '#7fae4d'], trunk: '#6b3e26', ground: ['#d9a05b', '#b97f43', '#8f5f32'], dot: '#fff1b8' },
-    grotte: { sky: ['#0b0a1f', '#141235', '#1f1b4d', '#2a2566', '#3a3080'], sun: '#9fd8ff', cloud: '#2a2566', far: '#1a1740', mid: '#120f2e', leaf: ['#3aa0d8', '#7fd6ff', '#c9f1ff'], trunk: '#2a2452', ground: ['#2d2a5a', '#211e46', '#161432'], dot: '#7fd6ff' },
-  };
-  const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, SC = {};
-  function scene(kind) {
-    if (SC[kind]) return SC[kind];
-    const W = 160, H = 100, GY = kind === 'boss' ? 68 : 72, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
-    let seed = kind.charCodeAt(0) * 7919 + kind.length * 131; const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
-    const px = (X, Y, col, w = 1, h = 1) => { x.fillStyle = col; x.fillRect(Math.round(X), Math.round(Y), Math.round(w), Math.round(h)); };
-    const disc = (cx, cy, r, col) => { for (let y = -r; y <= r; y++) { const w = Math.round(Math.sqrt(r * r - y * y)); px(cx - w, cy + y, col, 2 * w + 1, 1); } };
-    const bands = sky => { for (let y = 0; y < GY; y++) { const f = y / GY * sky.length, i = Math.min(sky.length - 1, f | 0), edge = f - i > .75 && i < sky.length - 1; for (let X = 0; X < W; X++) px(X, y, edge && (X + y) % 2 ? sky[i + 1] : sky[i]); } };   // dégradé en bandes tramées
-    const ridge = (base, amp, fr, col, hi) => { let prev = 0; for (let X = 0; X < W; X++) { const h = Math.round(base - amp * (.6 * Math.abs(Math.sin(X * fr + seed % 7)) + .4 * Math.abs(Math.sin(X * fr * 2.7 + 1)))); px(X, h, col, 1, GY - h); if (hi && h < prev) px(X, h, hi, 1, 2); prev = h; } };
-    if (kind === 'boss') {
-      bands(['#12002b', '#2a0845', '#5a0f6e', '#a31a86', '#ff4d9d']);
-      for (let k = 0; k < 46; k++) px(rnd() * W, rnd() * 40, k % 5 ? '#d9c7ff' : '#fff');
-      for (let y = -24; y <= 24; y++) { if (y > 2 && y % 5 < 2) continue; const w = Math.round(Math.sqrt(576 - y * y)); px(80 - w, 44 + y, y < -6 ? '#ffe45e' : y < 8 ? '#ff9e3d' : '#ff4d6d', 2 * w + 1, 1); }   // le soleil rayé
-      ridge(66, 16, .09, '#0a0518'); px(0, GY, '#0a0518', W, H - GY); px(0, GY, '#ff3df0', W, 1);
-      for (let k = 1; k < 8; k++) px(0, GY + k * k * .55, '#b517c9', W, 1);
-      for (let v = -9; v <= 9; v++) for (let y = GY + 1; y < H; y++) { const X = 80 + v * (y - GY) * .62; if (X >= 0 && X < W) px(X, y, '#b517c9'); }
-    } else {
-      const P = PAL[kind]; bands(P.sky); disc(120, 24, 10, P.sun);
-      for (let k = 0; k < 5; k++) { const cx = rnd() * W - 10, cy = 8 + rnd() * 28, w = 16 + rnd() * 14; px(cx, cy, P.cloud, w, 2); px(cx + 3, cy - 2, P.cloud, w - 7, 2); px(cx + 7, cy - 4, P.cloud, w - 14, 2); }
-      ridge(58, 34, .035, P.far, P.cloud); ridge(66, 16, .06, P.mid);
-      const tree = (X, h, r) => { px(X - 1, GY - h, P.trunk, 3, h); px(X + 1, GY - h, '#00000033', 1, h); disc(X, GY - h, r, P.leaf[0]); disc(X - 2, GY - h - 2, r - 3, P.leaf[1]); disc(X - 4, GY - h - 4, Math.max(1, r - 7), P.leaf[2]); };
-      const spike = (X, h) => { for (let y = 0; y < h; y++) { const w = 1 + (y / 3 | 0); px(X - w / 2, GY - h + y, (X + y) % 4 < 2 ? P.leaf[1] : P.leaf[0], w, 1); } px(X, GY - h, P.leaf[2], 1, h * .6); };
-      const cactus = X => { px(X, GY - 16, P.leaf[1], 3, 16); px(X - 4, GY - 11, P.leaf[1], 2, 6); px(X - 4, GY - 6, P.leaf[1], 5, 2); px(X + 5, GY - 13, P.leaf[1], 2, 6); px(X + 3, GY - 8, P.leaf[1], 4, 2); px(X, GY - 16, P.leaf[2], 1, 16); };
-      if (kind === 'grotte') { for (let k = 0; k < 9; k++) px(rnd() * W, 0, P.far, 3, 4 + rnd() * 14); [10, 26, 134, 150, 96].forEach((X, i) => spike(X, 12 + (i * 7) % 16)); }
-      else if (kind === 'canyon') { cactus(16); cactus(146); cactus(98); }
-      else { tree(96, 12, 6); tree(150, 30, 12); tree(12, 42, 17); }
-      for (let y = GY; y < H; y++) px(0, y, P.ground[Math.min(2, (y - GY) / 9 | 0)], W, 1);
-      for (let k = 0; k < 110; k++) { const X = rnd() * W, y = GY + rnd() * (H - GY - 2); px(X, y, P.ground[k % 3 ? 0 : 2], 1, 2); px(X + 1, y + 1, P.ground[0]); }
-      for (let k = 0; k < 14; k++) px(rnd() * W, GY + 4 + rnd() * 22, P.dot);
-    }
-    return SC[kind] = c.toDataURL();
-  }
+  const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, scene = kind => `jeu/decor-${kind}.jpg`;
 
   // ---------- ce qu'un monstre fait réviser : ses questions (attaque), ses récitations (spécial), son coup de grâce (les gestes du livret) ----------
   const flat = st => st.kind === 'list' ? { kind: 'ticks', q: st.q, items: st.items } : st;
