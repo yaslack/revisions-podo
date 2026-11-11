@@ -716,3 +716,8 @@ nav.tabs .tico .ln { fill: none; stroke: #c98d66; stroke-width: 1.1; stroke-line
 .ptddxi b { color: var(--red); }
 .ptcle { margin-top: 10px; padding: 10px 12px; background: color-mix(in srgb, var(--p6) 14%, var(--card)); border-radius: 10px; font-size: 20px; line-height: 1.22; text-align: left; }
 html[data-skin="classic"] :is(.qsclue, .ptitem, .ptddx, .ptcle) { border-radius: 12px; border-width: 1px; border-color: var(--line); }
+/* apprendre une fiche : la liste des idées à lire, puis la même avec seulement les initiales */
+.aplist { margin: 12px 0 0; padding-left: 22px; display: grid; gap: 7px; font-size: 21px; line-height: 1.22; }
+.aplist.hid { color: var(--muted); letter-spacing: .5px; }
+.ptfold { padding: 10px 12px; border: 2.3px solid var(--p6); border-radius: 12px; background: color-mix(in srgb, var(--p6) 10%, var(--card)); font-size: 19px; line-height: 1.22; display: grid; gap: 8px; }
+.ptfold ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }

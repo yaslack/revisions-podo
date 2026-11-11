@@ -1207,7 +1207,7 @@ window.CAS = {
     ],
     "cle": "**Diabétique** + perte de sensibilité au **monofilament** + **plaie plantaire profonde indolore** entourée d'un **halo hyperkératosique** : mal perforant plantaire.",
     "orient": 1,
-    "orientWhy": "Toute plaie du pied diabétique impose une mise en décharge et une orientation vers une équipe pluridisciplinaire sous 48 h (hospitalisation d'urgence si infection sévère).",
+    "orientWhy": "Toute plaie du pied diabétique impose une mise en décharge et une orientation rapide vers une équipe pluridisciplinaire (hospitalisation d'urgence si infection sévère).",
     "tt": [
       [
         "Mettre immédiatement le pied en décharge stricte",
@@ -1342,7 +1342,7 @@ window.CAS = {
         1
       ],
       [
-        "Réaliser des soins de pédicurie très prudents sans blesser la peau",
+        "Rappeler le contrôle des facteurs de risque (tension, diabète, cholestérol)",
         1
       ],
       [
@@ -1462,11 +1462,11 @@ window.CAS = {
         1
       ],
       [
-        "Installer la patiente au repos en attendant la prise en charge",
+        "Expliquer la base du traitement : les anticoagulants (héparine, puis relais)",
         1
       ],
       [
-        "Ne surtout pas masser le mollet",
+        "Prévoir des bas de contention élastique et une mobilisation précoce",
         1
       ],
       [
@@ -2958,7 +2958,7 @@ window.CAS = {
         1
       ],
       [
-        "Enseigner l'autosurveillance cutanée (règle ABCDE)",
+        "Enseigner l'autosurveillance de la peau pour repérer tôt une lésion suspecte",
         1
       ],
       [

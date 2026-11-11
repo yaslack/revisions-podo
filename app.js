@@ -170,10 +170,10 @@
       ${last ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
         <span class="rt"><span class="kicker">${IC.play} REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
       <div class="sec">JOUER</div>
-      <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">3 manches d'une minute · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
+      <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">Lire, cacher, réciter · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
       <div class="sec">POUR RÉVISER CE QUE TU CHOISIS</div>
       <div class="quick">
-        <a class="qb" href="#/jeu/patient" style="--c:var(--p4)"><span class="em">${ico('stetho')}</span><span class="t">Le patient</span><span class="s">64 consultations${(S.rec || {}).patient ? ' · record ' + S.rec.patient + '/30' : ''}</span></a>
+        <a class="qb" href="#/jeu/patient" style="--c:var(--p4)"><span class="em">${ico('stetho')}</span><span class="t">Le patient</span><span class="s">64 patients${(S.rec || {}).patient ? ' · record ' + S.rec.patient + '/30' : ''}</span></a>
         <a class="qb" href="#/jeu/quisuisje" style="--c:var(--p3)"><span class="em">${ico('bulb')}</span><span class="t">Qui suis-je ?</span><span class="s">4 indices${(S.rec || {}).quisuisje ? ' · record ' + S.rec.quisuisje + '/40' : ''}</span></a>
         <a class="qb" href="#/jeu/survie" style="--c:var(--red)"><span class="em">${ico('flame')}</span><span class="t">Survie</span><span class="s">3 vies${(S.rec || {}).survie ? ' · record ' + S.rec.survie : ''}</span></a>
         <a class="qb" href="#/jeu/paires" style="--c:var(--p5)"><span class="em">${ico('stopwatch')}</span><span class="t">Les paires</span><span class="s">60 secondes${(S.rec || {}).paires ? ' · record ' + S.rec.paires : ''}</span></a>
@@ -511,6 +511,13 @@
     { v: 100, items: [
       ['stetho', 'Le patient, refait de A à Z : 64 vraies consultations cliniques (interrogatoire, examen avec les tests cliniques, diagnostic + pourquoi pas les diagnostics différentiels, orientation, prise en charge et question du patient).'],
       ['bulb', 'Nouveau jeu « Qui suis-je ? » : 4 indices progressifs sur les fiches, les 59 repères d\'anatomie et les 41 tests cliniques. Trouve avec le moins d\'indices possible (avant même de voir les 4 choix !).'],
+    ] },
+    { v: 105, items: [
+      ['sparkle', 'Apprendre une fiche, refait pour vraiment retenir : tu lis une partie, tu la caches, tu la redis avec les initiales ; puis les questions ; puis toute la fiche de mémoire. Fini les réponses qu\'on devinait parce que les autres étaient hors sujet.'],
+      ['repeat', 'Ce que tu rates revient à la fin de la manche, et une fiche récitée de mémoire revient toute seule dans ta séance du jour.'],
+      ['stetho', 'Le patient, plus court : tu cherches d\'abord quoi demander et quoi examiner, tu dévoiles le dossier, puis diagnostic, orientation, traitement, conseil. À la fin, la fiche en mots-clés à redire.'],
+      ['bulb', 'Qui suis-je ? : des indices courts, et des pièges pris dans les fiches qui se ressemblent le plus. Les paires aussi. Survie te montre tes 3 erreurs à la fin.'],
+      ['book', 'Les 64 patients ont été relus face au livret : 5 phrases qui n\'y étaient pas ont été remplacées par ce que dit le livret.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -1059,6 +1066,9 @@
   const STD = ALLF.filter(f => f.parts.length === 8 && f.memo && f.memo.length === 8 && /^Signes cliniques/.test(f.parts[3].title) && /^Traitement/.test(f.parts[5].title)
     && f.memo[3].q === 'On voit quoi ?' && f.memo[4].q === 'Sûr comment ?' && f.memo[5].q === 'On fait quoi ?');   // les fiches au plan classique
   const MUS = AQ.filter(x => x.nerf);
+  // les fiches qui ressemblent le plus à une fiche (mots en commun dans le titre et les mots-clés) : c'est là qu'on prend les pièges, pour qu'ils soient du même sujet
+  const wordsOf = f => new Set(norm(f.title + ' ' + (f.memo || []).map(m => m.k).join(' ')).match(/[a-z]{5,}/g) || []), NEAR = {};
+  const near = f => NEAR[f.id] = NEAR[f.id] || ALLF.filter(g => g !== f && g.sec === f.sec).map(g => [[...wordsOf(g)].filter(w => wordsOf(f).has(w)).length, g]).sort((x, y) => y[0] - x[0]).map(x => x[1]);
   const rnd = a => a[Math.floor(Math.random() * a.length)];
   const distinct = (list, n, key) => shuffle(list).filter((y, i, a) => a.findIndex(z => key(z) === key(y)) === i).slice(0, n);
   const best = (k, v) => { const r = S.rec = S.rec || {}; if (v > (r[k] || 0)) { r[k] = v; save(); return true; } return false; };
@@ -1107,7 +1117,7 @@
     ...selF().map(f => ({ kind: 'f', f, id: 'f:' + f.id, title: f.title, lab: `${SECN(f)} · fiche`, c: f.sec === 'podo' ? 'var(--p8)' : 'var(--p6)', link: FB(f) })),
     ...selA().map(x => ({ kind: 'a', x, id: 'a:' + x.q, title: x.name, lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}` })),
     ...selC().map(c => ({ kind: 'c', cl: c, id: 'c:' + (CL.indexOf(c) + 1), title: c.n, lab: `Examen clinique · ${CS[c.s].t}`, c: SCOL(c.s), link: `#/clin/${CL.indexOf(c) + 1}` }))];
-  const poolOf = a => a === 'survie' ? poolSurvie() : a === 'paires' ? [...poolPairesF(), ...poolPairesA()] : a === 'quisuisje' ? poolQsj() : selF().filter(f => CAS[f.id] || CASES.includes(f));
+  const poolOf = a => a === 'survie' ? poolSurvie() : a === 'paires' ? [...poolPairesF(), ...poolPairesA()] : a === 'quisuisje' ? poolQsj() : selF().filter(f => CAS[f.id]);
   function setup(a) {
     const r = (S.rec || {})[a], sub = a === 'patient' ? ' · 3 consultations (/30)' : a === 'quisuisje' ? ' · 10 énigmes (/40)' : '';
     return `<div class="wrap qz">${top('#/', GAMES[a], r ? `<span class="count">record ${r}${a === 'patient' ? '/30' : a === 'quisuisje' ? '/40' : ''}</span>` : '')}
@@ -1142,7 +1152,7 @@
     if (!G || G.pick != null) return;
     const ok = G.opts[j] === G.ok; gFreeze(); G.pick = j; did(1);
     if (ok) { G.combo++; G.score += Math.min(G.combo, 5); }
-    else { G.combo = 0; G.lives--; G.deck.splice(Math.max(0, G.deck.length - 5), 0, G.cur); }   // ratée : elle revient 5 questions plus loin
+    else { G.combo = 0; G.lives--; G.missed.push([G.q, G.ok, G.cur.link]); G.deck.splice(Math.max(0, G.deck.length - 5), 0, G.cur); }   // ratée : elle revient 5 questions plus loin
     fx(ok ? 'good' : 'life', ok ? Math.min(G.combo - 1, 5) * 2 : 0);   // les bonnes réponses d'affilée montent
     render(true);
     gTimer = setTimeout(() => { if (G.lives > 0) svDraw(); else { G.over = true; G.isRec = best('survie', G.score); fx(G.isRec ? 'record' : 'over'); } render(); }, ok ? 800 : 2200);
@@ -1154,7 +1164,7 @@
     const four = (mine, all, key) => { const a = distinct(mine, 4, key); return a.concat(distinct(all.filter(y => !a.some(z => key(z) === key(y))), 4 - a.length, key)); };
     let it, label;
     if (anat) { it = four(ms, MUS, x => x.nerf).map(x => [x.q, x.name, x.nerf]); label = 'Quel nerf pour quel muscle ?'; }
-    else { const j = rnd([1, 3, 4, 5]), f0 = rnd(fs), a = four(fs.filter(f => f.sec === f0.sec), STD.filter(f => f.sec === f0.sec), f => f.memo[j].k); it = a.map(f => [f.id, f.title, f.memo[j].k]); label = a[0].memo[j].q; }
+    else { const j = rnd([1, 3, 4, 5]), f0 = rnd(fs), fam = [f0, ...near(f0).slice(0, 6)].filter(f => fs.includes(f)), a = four(fam.length >= 4 ? fam : fs.filter(f => f.sec === f0.sec), STD.filter(f => f.sec === f0.sec), f => f.memo[j].k); it = a.map(f => [f.id, f.title, f.memo[j].k]); label = a[0].memo[j].q; }
     Object.assign(G, { L: shuffle(it.map(x => [x[0], x[1]])), R: shuffle(it.map(x => [x[0], x[2]])), label, sel: null, found: {}, bad: null });
   }
   function prTap(side, j) {
@@ -1176,14 +1186,8 @@
   }
   function qsjClues(it) {
     if (it.kind === 'f') {
-      const f = it.f, Z = QZ[f.id] || [], m = f.memo || [];
-      const pick = i => {
-        const ks = (Z[i] && Z[i].k || []).map(x => maskTitle(x, f.title)).filter(x => x.replace(/•|\s|·/g, '').length > 4);
-        return ks.length ? ks.slice(0, 3).join(' · ') : maskTitle((m[i] && m[i].k) || '', f.title);
-      };
-      return f.parts.length === 8
-        ? [['Terrain & cause', pick(1)], ['Mécanisme dans le corps', pick(2)], ['Signes cliniques', pick(3)], ['Prise en charge', pick(5)]]
-        : [[m[1] ? m[1].q : 'Indice 1', pick(1)], [m[2] ? m[2].q : 'Indice 2', pick(2)], [m[3] ? m[3].q : 'Indice 3', pick(3)], [m[5] ? m[5].q : 'Indice 4', pick(5)]];
+      const f = it.f, m = f.memo || [];   // les mots-clés de la fiche (courts), du moins parlant au plus parlant : mécanisme, cause, traitement, signes
+      return [2, 1, 5, 3].map((i, n) => [m[i] ? m[i].q : 'Indice ' + (n + 1), maskTitle((m[i] && m[i].k) || '', f.title)]);
     }
     if (it.kind === 'a') {
       const x = it.x;
@@ -1210,8 +1214,8 @@
   }
   function qsjOpts(it) {
     if (it.kind === 'f') {
-      const f = it.f, same = ALLF.filter(x => x !== f && x.sec === f.sec);
-      return shuffle([f.title, ...distinct((same.length >= 3 ? same : ALLF.filter(x => x !== f)).map(x => x.title), 3, x => x)]);
+      const f = it.f;   // les pièges : 3 des 6 fiches les plus proches
+      return shuffle([f.title, ...distinct(near(f).slice(0, 6).map(x => x.title), 3, x => x)]);
     }
     if (it.kind === 'a') {
       const x = it.x, same = AQ.filter(y => y !== x && (y.kind === 'os') === (x.kind === 'os'));
@@ -1240,13 +1244,7 @@
     render();
   }
 
-  // --- le patient : consultation clinique complète en 5 étapes (anamnèse, examen, diagnostic + ddx, orientation + traitement, question du patient)
-  function signs(f) {
-    const w = (norm(f.title).match(/[a-z]{5,}/g) || []).map(x => x.slice(0, 6)), z = (QZ[f.id] || [])[3];
-    const all = z && z.k.length ? z.k : f.memo[3].k.split(' · ');
-    return all.filter(x => !w.some(y => norm(x).includes(y)));
-  }
-  const CASES = STD.filter(f => signs(f).length >= 2);
+  // --- le patient : une consultation en 5 étapes (le dossier qu'on dévoile, diagnostic + pourquoi pas les autres, orientation, traitement, question du patient) puis la fiche en mots-clés
   const ORIENTS = [
     ['Cabinet : je prends en charge', 'Soins de pédicurie, semelles ou conseils au cabinet, sans urgence médicale.'],
     ['Cabinet + avis médical', 'Je réalise les soins / conseils utiles et j\'adresse au médecin (sans urgence vitale).'],
@@ -1255,32 +1253,28 @@
   function ptDraw() {
     if (!G.deck.length) G.deck = shuffle(G.pool);
     const f = G.f = G.deck.pop(), c = G.c = CAS[f.id]; G.n++;
-    const ask = shuffle(c.ask.map((a, i) => ({ q: a[0], r: a[1], ok: a[2], i })));
-    const exam = shuffle(c.exam.map((a, i) => ({ q: a[0], r: a[1], ok: a[2], cl: a[3], i })));
-    const dxOpts = shuffle([c.dx, ...c.ddx.map(d => d[0])]);
-    const tt = shuffle(c.tt.map(a => [a[0], a[1]])), nYes = tt.filter(a => a[1]).length;
-    const csOpts = shuffle([c.conseil.ok, ...c.conseil.ko]);
-    Object.assign(G, { step: 0, pScore: 0, ask, asked: [], exam, examed: [], dxOpts, dxPick: null, orPick: null, tt, ticks: [], ttDone: false, nYes, csOpts, csPick: null });
+    const tt = shuffle(c.tt.map(a => [a[0], a[1]]));
+    Object.assign(G, { step: 0, pScore: 0, seen: {}, dxOpts: shuffle([c.dx, ...c.ddx.map(d => d[0])]), dxPick: null, orPick: null, tt, ticks: [], ttDone: false, nYes: tt.filter(a => a[1]).length, csOpts: shuffle([c.conseil.ok, ...c.conseil.ko]), csPick: null });
   }
   function ptStepBar() {
-    const labs = ['1. Anamnèse', '2. Examen', '3. Diagnostic', '4. Traitement', '5. Conseil'];
-    const cur = G.step === 0 ? 0 : G.step === 1 ? 1 : G.step === 2 ? 2 : G.step === 3 || G.step === 4 ? 3 : 4;
-    return `<div class="ptsteps">${labs.map((l, i) => `<span class="ptst ${i < cur ? 'done' : i === cur ? 'now' : ''}">${l}</span>`).join('')}</div>`;
+    const labs = ['1. Dossier', '2. Diagnostic', '3. Orientation', '4. Traitement', '5. Conseil'];
+    return `<div class="ptsteps">${labs.map((l, i) => `<span class="ptst ${i < G.step ? 'done' : i === G.step ? 'now' : ''}">${l}</span>`).join('')}</div>`;
   }
-  function ptDossier() {   // les indices déjà recueillis (repliable à partir de l'étape 2 pour toujours les avoir sous les yeux)
-    if (G.step < 2) return '';
-    const aYes = G.c.ask.filter(a => a[2]), eYes = G.c.exam.filter(a => a[2]);
-    return `<details class="ptdos"><summary>${ico('clipboard')} Dossier recueilli (${aYes.length + eYes.length} indices clés)</summary>
-      <div class="ptdosb"><div><b>Interrogatoire :</b><ul>${aYes.map(a => `<li><i>« ${esc(a[1])} »</i></li>`).join('')}</ul></div>
-      <div><b>Examen clinique :</b><ul>${eYes.map(a => `<li>${md(a[1])}</li>`).join('')}</ul></div></div></details>`;
+  // ce que le patient répond et ce qu'on trouve à l'examen : seulement ce qui compte (plus de fausses questions hors sujet à écarter)
+  const ptAsk = c => `<ul>${c.ask.filter(a => a[2]).map(a => `<li>${esc(a[0])}<br><i>« ${esc(a[1])} »</i></li>`).join('')}</ul>`;
+  const ptExam = c => c.exam.filter(a => a[2]).map(a => a[3] && CL[a[3] - 1] ? `<div class="ptclin">${pic(a[3], 'ptsvg')}<div><b>${esc(CL[a[3] - 1].n)}</b><br>${md(a[1])}</div></div>` : `<div class="ptfind"><b>${esc(a[0])}</b><br>${md(a[1])}</div>`).join('');
+  function ptDossier() {   // le dossier reste sous les yeux, replié, après l'étape 1
+    if (G.step < 1) return '';
+    return `<details class="ptdos"><summary>${ico('clipboard')} Revoir le dossier</summary><div class="ptdosb"><div><b>Interrogatoire :</b>${ptAsk(G.c)}</div><div><b>Examen clinique :</b>${ptExam(G.c)}</div></div></details>`;
   }
   function ptView() {
     const f = G.f, c = G.c, head = `<div class="wrap qz">${top('#/', 'Le patient', count(`Patient ${G.n}/${G.tot}`, `${G.score} pts`))}`;
-    if (G.step === 6) {   // bilan de fin de consultation de CE patient
-      const won = G.pScore >= 7;
+    const next = txt => `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">${txt}</button></div>`;
+    if (G.step === 5) {   // bilan de CE patient, avec la fiche en mots-clés à redire
       return `${head}<div class="card gover"><div class="kicker">${esc(c.nom.toUpperCase())}, ${c.age} ANS · ${SECN(f).toUpperCase()}</div>
         <div class="gscore">${G.pScore}/10</div><div class="question">${esc(f.n + '. ' + f.title)}</div>
-        <div class="ptcle">${md(c.cle)}</div>
+        <div class="ptcle">${md(c.cle)}</div></div>
+        <div class="card"><div class="kicker">LA FICHE EN MOTS-CLÉS : REDIS-LA À VOIX HAUTE</div><ul class="aplist">${(f.memo || []).map(r => `<li><b>${esc(r.q)}</b> ${md(r.k)}</li>`).join('')}</ul>
         <div class="row2" style="margin-top:12px"><a class="btn ghost grow" href="${FB(f)}">${ico('book')} Voir la fiche</a><a class="btn ghost grow" href="#/jeu/apprendre/${f.id}">${ico('sparkle')} Apprendre ${stars(f.id)}</a></div></div>
         <div class="pager fixed"><button class="btn grow" data-g="ptnext" style="--c:var(--hl)">${G.n < G.tot ? `Patient suivant (${G.n + 1}/${G.tot}) →` : 'Voir le bilan final →'}</button></div></div>`;
     }
@@ -1288,98 +1282,60 @@
       <div class="ptwho"><div class="kicker">PATIENT ${G.n}/${G.tot} · ${SECN(f).toUpperCase()} · ${G.pScore} PT${G.pScore > 1 ? 'S' : ''}</div>
       <div class="ptname"><b>${esc(c.nom)}</b>, ${c.age} ans <span class="muted">· ${esc(c.qui)}</span></div></div></div>
       <div class="ptmotif">« ${esc(c.motif)} »</div>${ptStepBar()}${ptDossier()}</div>`;
+    const opts = (list, pk, good, act, fmt = md) => `<div class="opts">${list.map((o, j) => `<button class="opt ${pk != null ? (good(o, j) ? 'good' : j === pk ? 'bad' : 'dim') : ''}" data-g="${act}" data-j="${j}" ${pk != null ? 'disabled' : ''}>${fmt(o)}</button>`).join('')}</div>`;
 
-    if (G.step === 0) {   // Étape 1 : Anamnèse (choisir 3 questions sur 6)
-      const done = G.asked.length >= 3, missed = done ? G.ask.filter((a, j) => a.ok && !G.asked.includes(j)) : [];
-      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 1 · INTERROGATOIRE (${G.asked.length}/3 QUESTIONS)</div>
-        <div class="question">Que demandes-tu à ${esc(c.nom)} ?</div>
-        <div class="muted small">${done ? 'Interrogatoire terminé. Lis les réponses avant de passer à l\'examen.' : 'Touche les 3 questions les plus utiles pour orienter ton diagnostic.'}</div>
-        <div class="ptlist">${G.ask.map((a, j) => {
-          const pk = G.asked.includes(j), extra = done && a.ok && !pk;
-          return `<button class="ptitem ${pk ? (a.ok ? 'good' : 'sec') : extra ? 'missed' : ''}" data-g="ptask" data-j="${j}" ${pk || done ? 'disabled' : ''}>
-            <div class="ptq"><span class="ptbul">${pk ? (a.ok ? '✓' : '•') : extra ? '!' : '?'}</span><span>${esc(a.q)}</span>${pk ? `<span class="pttag ${a.ok ? 'ok' : ''}">${a.ok ? '+1 pt' : 'secondaire'}</span>` : extra ? '<span class="pttag">à demander aussi</span>' : ''}</div>
-            ${pk || extra ? `<div class="pta">« ${esc(a.r)} »</div>` : ''}</button>`;
-        }).join('')}</div></div>
-        ${done ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Passer à l'examen clinique →</button></div>` : ''}</div>`;
+    if (G.step === 0) {   // 1. le dossier : on cherche d'abord dans sa tête ce qu'on demanderait et ce qu'on examinerait, puis on dévoile
+      const sec = (k, t, hint, html) => G.seen[k] ? `<div class="ptfold"><div class="kicker">${t}</div>${html}</div>`
+        : `<button class="ptitem" data-g="ptsee" data-k="${k}"><div class="ptq"><span class="ptbul">?</span><span><b>${t}</b><br><span class="muted">${hint}</span></span></div></button>`;
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 1 · LE DOSSIER</div>
+        <div class="question">Tu penses à quoi ?</div>
+        <div class="muted small">Dis d'abord ce que tu demanderais et ce que tu chercherais, puis touche pour voir ce que ça donne.</div>
+        <div class="ptlist">${sec('a', 'INTERROGATOIRE', 'Quelles questions tu lui poses ?', ptAsk(c))}${sec('e', 'EXAMEN CLINIQUE', 'Tu regardes quoi, tu testes quoi ?', ptExam(c))}</div></div>
+        ${G.seen.a && G.seen.e ? next('Poser le diagnostic →') : ''}</div>`;
     }
-    if (G.step === 1) {   // Étape 2 : Examen clinique (choisir 2 examens sur 5)
-      const done = G.examed.length >= 2;
-      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 2 · EXAMEN CLINIQUE (${G.examed.length}/2 EXAMENS)</div>
-        <div class="question">Quels gestes ou tests réalises-tu ?</div>
-        <div class="muted small">${done ? 'Examen terminé. Voici tous les signes cliniques observés.' : 'Choisis les 2 gestes les plus pertinents pour ce patient.'}</div>
-        <div class="ptlist">${G.exam.map((a, j) => {
-          const pk = G.examed.includes(j), extra = done && a.ok && !pk, cl = a.cl ? CL[a.cl - 1] : null;
-          return `<button class="ptitem ${pk ? (a.ok ? 'good' : 'sec') : extra ? 'missed' : ''}" data-g="ptex" data-j="${j}" ${pk || done ? 'disabled' : ''}>
-            <div class="ptq"><span class="ptbul">${pk ? (a.ok ? '✓' : '•') : extra ? '!' : ico('stetho')}</span><span>${esc(a.q)}</span>${pk ? `<span class="pttag ${a.ok ? 'ok' : ''}">${a.ok ? '+1 pt' : 'normal'}</span>` : extra ? '<span class="pttag">signe clé</span>' : ''}</div>
-            ${pk || extra ? `<div class="pta">${cl ? `<div class="ptclin">${pic(a.cl, 'ptsvg')}<div><b>Test : ${esc(cl.n)}</b><br>${md(a.r)}</div></div>` : md(a.r)}</div>` : ''}</button>`;
-        }).join('')}</div></div>
-        ${done ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Poser le diagnostic →</button></div>` : ''}</div>`;
-    }
-    if (G.step === 2) {   // Étape 3 : Diagnostic + explication des diagnostics différentiels
+    if (G.step === 1) {   // 2. diagnostic, puis pourquoi pas les autres
       const pk = G.dxPick;
-      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 3 · DIAGNOSTIC (2 PTS)</div>
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 2 · DIAGNOSTIC (4 PTS)</div>
         <div class="question">${esc(c.dxq || `Qu'est-ce qu'${c.sexe === 'f' ? 'elle' : 'il'} a ?`)}</div>
-        <div class="opts">${G.dxOpts.map((o, j) => `<button class="opt ${pk != null ? (o === c.dx ? 'good' : j === pk ? 'bad' : 'dim') : ''}" data-g="ptdx" data-j="${j}" ${pk != null ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div>
+        ${opts(G.dxOpts, pk, o => o === c.dx, 'ptdx')}
         ${pk != null ? `<div class="answer">${md(c.cle)}</div>
-          <div class="ptddx"><div class="kicker">POURQUOI PAS LES DIAGNOSTICS DIFFÉRENTIELS ?</div>
+          <div class="ptddx"><div class="kicker">POURQUOI PAS LES AUTRES ?</div>
           ${c.ddx.map(d => `<div class="ptddxi"><b>✗ ${esc(d[0])}</b> : ${md(d[1])}</div>`).join('')}</div>` : ''}</div>
-        ${pk != null ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Continuer : orientation →</button></div>` : ''}</div>`;
+        ${pk != null ? next('Continuer : orientation →') : ''}</div>`;
     }
-    if (G.step === 3) {   // Étape 4a : Orientation (cabinet / médecin / urgence)
+    if (G.step === 2) {   // 3. orientation (cabinet / médecin / urgence)
       const pk = G.orPick;
-      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 4 · ORIENTATION DU PATIENT (1 PT)</div>
-        <div class="question">Quelle est ta décision d'orientation ?</div>
-        <div class="opts">${ORIENTS.map((o, j) => `<button class="opt ${pk != null ? (j === c.orient ? 'good' : j === pk ? 'bad' : 'dim') : ''}" data-g="ptor" data-j="${j}" ${pk != null ? 'disabled' : ''}><b>${esc(o[0])}</b><br><span class="muted" style="font-size:18px">${esc(o[1])}</span></button>`).join('')}</div>
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 3 · ORIENTATION (2 PTS)</div>
+        <div class="question">Tu l'orientes comment ?</div>
+        ${opts(ORIENTS, pk, (o, j) => j === c.orient, 'ptor', o => `<b>${esc(o[0])}</b><br><span class="muted" style="font-size:18px">${esc(o[1])}</span>`)}
         ${pk != null ? `<div class="answer">${md(c.orientWhy)}</div>` : ''}</div>
-        ${pk != null ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Continuer : prise en charge →</button></div>` : ''}</div>`;
+        ${pk != null ? next('Continuer : traitement →') : ''}</div>`;
     }
-    if (G.step === 4) {   // Étape 4b : Prise en charge & traitement (cocher les bonnes actions parmi 6)
-      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 4 (SUITE) · PRISE EN CHARGE & TRAITEMENT (1 PT)</div>
-        <div class="question">Quels gestes et traitements retiens-tu ?</div>
-        <div class="muted small">${G.ttDone ? 'En vert les bons gestes de la fiche, barrés les pièges ou gestes hors compétence.' : `Coche les ${G.nYes} bonnes actions pour ${esc(c.nom)}.`}</div>
+    if (G.step === 3) {   // 4. prise en charge : les bons gestes parmi des pièges du même sujet
+      return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 4 · TRAITEMENT (2 PTS)</div>
+        <div class="question">Qu'est-ce que tu fais ?</div>
+        <div class="muted small">${G.ttDone ? 'En vert les bons gestes de la fiche, barrés les pièges ou les gestes hors compétence.' : `Coche les ${G.nYes} bons gestes pour ${esc(c.nom)}.`}</div>
         <div class="checks">${G.tt.map(([x, y], j) => `<button class="ck ${G.ticks.includes(j) ? 'on' : ''} ${G.ttDone ? (y ? 'yes' : 'no') : ''}" data-g="pttk" data-j="${j}" ${G.ttDone ? 'disabled' : ''}><span class="box"></span><span>${md(x)}</span></button>`).join('')}</div></div>
         <div class="pager fixed"><button class="btn grow" data-g="${G.ttDone ? 'ptstep' : 'pttval'}" style="--c:${G.ttDone ? 'var(--hl)' : 'var(--p6)'}">${G.ttDone ? 'Dernière étape : le conseil →' : `Valider · ${G.ticks.length}/${G.nYes}`}</button></div></div>`;
     }
-    // Étape 5 : La question du patient en partant (éducation thérapeutique & prévention)
-    const pk = G.csPick;
-    return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 5 · LA QUESTION DE ${esc(c.nom.toUpperCase())} (1 PT)</div>
+    const pk = G.csPick;   // 5. la question du patient en partant
+    return `${head}${banner}<div class="card qc"><div class="kicker">ÉTAPE 5 · LA QUESTION DE ${esc(c.nom.toUpperCase())} (2 PTS)</div>
       <div class="ptmotif" style="margin:6px 0 12px">« ${esc(c.conseil.q)} »</div>
-      <div class="question">Que lui réponds-tu ?</div>
-      <div class="opts">${G.csOpts.map((o, j) => `<button class="opt ${pk != null ? (o === c.conseil.ok ? 'good' : j === pk ? 'bad' : 'dim') : ''}" data-g="ptcs" data-j="${j}" ${pk != null ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div></div>
-      ${pk != null ? `<div class="pager fixed"><button class="btn grow" data-g="ptstep" style="--c:var(--hl)">Voir le bilan de ${esc(c.nom)} →</button></div>` : ''}</div>`;
+      <div class="question">Tu lui réponds quoi ?</div>
+      ${opts(G.csOpts, pk, o => o === c.conseil.ok, 'ptcs')}</div>
+      ${pk != null ? next(`Voir le bilan de ${esc(c.nom)} →`) : ''}</div>`;
   }
-  function ptAct(a, j) {
-    const c = G.c;
-    if (a === 'ptask' && G.asked.length < 3 && !G.asked.includes(j)) {
-      G.asked.push(j); const ok = G.ask[j].ok;
-      if (ok) { G.pScore++; G.score++; }
-      did(1); fx(ok ? 'good' : 'tick');
-    } else if (a === 'ptex' && G.examed.length < 2 && !G.examed.includes(j)) {
-      G.examed.push(j); const ok = G.exam[j].ok;
-      if (ok) { G.pScore++; G.score++; }
-      did(1); fx(ok ? 'good' : 'tick');
-    } else if (a === 'ptdx' && G.dxPick == null) {
-      G.dxPick = j; const ok = G.dxOpts[j] === c.dx;
-      if (ok) { G.pScore += 2; G.score += 2; } else if (!G.miss.includes(G.f)) G.miss.push(G.f);
-      did(1); fx(ok ? 'good' : 'bad');
-    } else if (a === 'ptor' && G.orPick == null) {
-      G.orPick = j; const ok = j === c.orient;
-      if (ok) { G.pScore++; G.score++; }
-      did(1); fx(ok ? 'good' : 'bad');
-    } else if (a === 'pttk' && !G.ttDone) {
-      fx('tick'); G.ticks = G.ticks.includes(j) ? G.ticks.filter(x => x !== j) : G.ticks.concat(j);
-    } else if (a === 'pttval' && !G.ttDone) {
-      G.ttDone = true;
-      const v = Math.max(0, G.ticks.reduce((s, k) => s + (G.tt[k][1] ? 1 : -1), 0) / G.nYes), ok = v >= 0.75;
-      if (ok) { G.pScore++; G.score++; }
-      did(1); fx(ok ? 'good' : 'bad');
-    } else if (a === 'ptcs' && G.csPick == null) {
-      G.csPick = j; const ok = G.csOpts[j] === c.conseil.ok;
-      if (ok) { G.pScore++; G.score++; }
-      did(1); fx(ok ? 'good' : 'bad');
-    } else if (a === 'ptstep') {
+  function ptAct(a, j, t) {
+    const c = G.c, win = (ok, pts) => { if (ok) { G.pScore += pts; G.score += pts; } did(1); fx(ok ? 'good' : 'bad'); return ok; };
+    if (a === 'ptsee') { G.seen[t.dataset.k] = 1; fx('reveal'); }
+    else if (a === 'ptdx' && G.dxPick == null) { G.dxPick = j; if (!win(G.dxOpts[j] === c.dx, 4) && !G.miss.includes(G.f)) G.miss.push(G.f); }
+    else if (a === 'ptor' && G.orPick == null) { G.orPick = j; win(j === c.orient, 2); }
+    else if (a === 'pttk' && !G.ttDone) { fx('tick'); G.ticks = G.ticks.includes(j) ? G.ticks.filter(x => x !== j) : G.ticks.concat(j); }
+    else if (a === 'pttval' && !G.ttDone) { G.ttDone = true; win(Math.max(0, G.ticks.reduce((s, k) => s + (G.tt[k][1] ? 1 : -1), 0) / G.nYes) >= 0.75, 2); }
+    else if (a === 'ptcs' && G.csPick == null) { G.csPick = j; win(G.csOpts[j] === c.conseil.ok, 2); }
+    else if (a === 'ptstep') {
       fx('tap'); G.step++;
-      if (G.step === 6) { review('f:' + G.f.id, G.pScore >= 7); setTimeout(() => fx(G.pScore >= 8 ? 'star' : G.pScore >= 6 ? 'win' : 'tap'), 180); }
+      if (G.step === 5) { review('f:' + G.f.id, G.pScore >= 8); setTimeout(() => fx(G.pScore >= 8 ? 'star' : G.pScore >= 6 ? 'win' : 'tap'), 180); }
       return render();
     } else if (a === 'ptnext') {
       if (G.n >= G.tot) { G.over = true; G.isRec = best('patient', G.score); fx(G.isRec ? 'record' : G.score >= G.tot * 7 ? 'win' : 'over'); }
@@ -1392,62 +1348,52 @@
   function gStart(a) {
     const pool = poolOf(a); gStop();
     if (!pool.length) { G = { game: a, setup: true }; return; }
-    if (a === 'survie') { G = { game: a, pool, lives: 3, score: 0, combo: 0, n: 0, deck: shuffle(pool) }; svDraw(); }
+    if (a === 'survie') { G = { game: a, pool, lives: 3, score: 0, combo: 0, n: 0, deck: shuffle(pool), missed: [] }; svDraw(); }
     else if (a === 'paires') { G = { game: a, score: 0 }; prDraw(); gClock(60, () => { G.over = true; G.isRec = best('paires', G.score); fx(G.isRec ? 'record' : 'win'); render(); }); }
     else if (a === 'quisuisje') { G = { game: a, pool, score: 0, n: 0, tot: Math.min(10, pool.length), deck: shuffle(pool), miss: [] }; qsDraw(); }
     else { G = { game: a, pool, score: 0, n: 0, tot: Math.min(3, pool.length), deck: shuffle(pool), miss: [] }; ptDraw(); }
   }
 
-  // --- apprendre une fiche : 3 manches sur UNE fiche, une étoile par manche réussie à 80 % (S.st[id] = [meilleur score de chaque manche])
-  const MANCHES = [['Le tri', 'Chaque idée va dans quelle partie ?'], ['Les trous', 'Retrouve le mot qui manque dans ce que tu dis à l\'oral.'], ['De mémoire', 'Garde seulement les idées de cette fiche.']];
+  // --- apprendre une fiche : 3 manches sur UNE fiche, de la plus aidée à la moins aidée. On dit les idées soi-même (pas de choix à deviner),
+  //     ce qui est raté revient en fin de manche ; une étoile par manche réussie à 80 % du premier coup (S.st[id] = [meilleur score de chaque manche])
+  const MANCHES = [['Lire, cacher, retrouver', 'Tu lis une partie, tu la caches, tu la redis avec les initiales.'], ['Les questions', 'Toutes les questions de la fiche ; les ratées reviennent.'], ['De mémoire', 'Seulement la question du plan : tu récites sans aide, comme à l\'oral.']];
   const nStars = id => ((S.st || {})[id] || []).filter(v => v >= 0.8).length;
   const stars = id => `<span class="stars">${[0, 1, 2].map(i => STAR(i < nStars(id))).join('')}</span>`;
-  const partLab = (f, p) => `${p}. ${f.parts[p - 1].q}`;
-  // les mots d'une partie qu'on peut cacher : ses mots-clés et ses termes, quand ils sont dits tels quels dans le texte de l'oral
-  function terms(f, i) {
-    const p = f.parts[i], m = f.memo && f.memo.length === f.parts.length ? f.memo[i].k.split(' · ') : [];
-    const all = [...m, ...p.blocks.flatMap(b => b.t === 'chips' ? b.items : b.t === 'li' ? [b.term] : [])].map(x => String(x).trim()).filter(x => x.length >= 4 && x.length <= 32 && !/[→:]/.test(x));
-    return distinct(all.filter(t => p.say.toLowerCase().includes(t.toLowerCase())), 99, t => t.toLowerCase());
-  }
+  const initials = s => String(s).replace(/[A-Za-zÀ-ÿ]{4,}/g, w => w[0] + '•'.repeat(Math.min(w.length - 1, 6))).replace(/\d/g, '•');   // « HPV 1 → myrmécie » devient « HPV • → m•••••• »
   function mancheSteps(f, m) {
-    const Z = QZ[f.id] || [], np = f.parts.length, idx = [...Array(np).keys()];
-    if (m === 1) return distinct(Z.flatMap((z, i) => z.k.map(k => [i + 1, k])), 10, x => x[1]).map(([p, k]) => ({
-      kicker: 'ÇA VA DANS QUELLE PARTIE ?', q: k, ok: partLab(f, p), opts: [p, ...shuffle(idx.map(i => i + 1).filter(i => i !== p)).slice(0, 3)].sort((a, b) => a - b).map(i => partLab(f, i)) }));
-    if (m === 2) return shuffle(idx).map(i => {
-      const ts = terms(f, i); if (!ts.length) return null;
-      const say = f.parts[i].say, t = rnd(ts), at = say.toLowerCase().indexOf(t.toLowerCase()), word = say.slice(at, at + t.length);
-      const d = say.lastIndexOf('. ', at), a = d < 0 ? 0 : d + 2, b = say.indexOf('. ', at + t.length), sent = say.slice(a, b < 0 ? say.length : b + 1);   // la phrase autour du trou
-      const low = sent.toLowerCase(), bad = distinct(idx.filter(k => k !== i).flatMap(k => terms(f, k)).filter(x => !low.includes(x.toLowerCase())), 3, x => x.toLowerCase());
-      return bad.length < 2 ? null : { kicker: partLab(f, i + 1).toUpperCase(), q: sent.replace(word, '_____'), ok: word, opts: shuffle([word, ...bad]), full: sent };
-    }).filter(Boolean).slice(0, 6);
-    // de mémoire : les vraies idées d'une partie, mélangées à autant d'idées de la même partie d'autres fiches
-    return shuffle(idx.filter(i => Z[i] && Z[i].k.length >= 2)).slice(0, 3).map(i => {
-      const yes = shuffle(Z[i].k).slice(0, 5), have = Z[i].k.map(norm);
-      const oth = ALLF.filter(g => g !== f && g.sec === f.sec && g.parts[i] && g.parts[i].title === f.parts[i].title), src = oth.length >= 2 ? oth : ALLF.filter(g => g !== f && g.sec === f.sec && g.parts[i]);
-      const no = distinct(src.flatMap(g => ((QZ[g.id] || [])[i] || { k: [] }).k).filter(x => !have.includes(norm(x))), yes.length, norm);
-      return { multi: true, kicker: 'DE MÉMOIRE', q: f.parts[i].q, sub: f.parts[i].title, items: shuffle([...yes.map(x => [x, 1]), ...no.map(x => [x, 0])]), ticks: [], nYes: yes.length };
-    });
+    const Z = QZ[f.id] || [], ps = f.parts.map((_, i) => i).filter(i => Z[i] && Z[i].k.length);
+    const say = (i, hint) => ({ t: 'say', p: i + 1, q: f.parts[i].q, items: Z[i].k, hint });
+    if (m === 1) return ps.flatMap(i => [{ t: 'read', p: i + 1, items: Z[i].k }, say(i, true)]);
+    if (m === 2) return ps.flatMap(i => Z[i].q.map(s => mkStep(i + 1, s)));
+    return ps.map(i => say(i, false));
   }
   function apDraw() { const st = G.steps[G.i]; Object.assign(G, { st, opts: st.opts, ok: st.ok, pick: null }); }
-  function apNext(v) {
-    G.sum += v; G.tot++; G.i++; did(1);
-    if (G.i < G.steps.length) return apDraw();
+  function apNext(v) {   // v : la note de l'étape (rien pour une lecture)
+    const st = G.st;
+    if (v != null) {
+      did(1); if (!st.retry) { G.sum += v; G.tot++; }
+      if (v < 0.8 && !st.retry) {   // ratée : elle revient à la fin (avec sa lecture dans la manche 1), sans compter dans la note
+        const again = x => Object.assign({}, x, { retry: true, shown: false, ticks: [] });
+        if (st.hint) G.steps.push(again(G.steps[G.i - 1])); G.steps.push(again(st));
+      }
+    }
+    if (++G.i < G.steps.length) return apDraw();
     const f = G.f, was = nStars(f.id), a = (S.st = S.st || {})[f.id] = (S.st[f.id] || [0, 0, 0]);
-    G.v = G.sum / G.tot; G.over = true; a[G.m - 1] = Math.max(a[G.m - 1] || 0, G.v); save();
-    if (was < 3 && nStars(f.id) === 3) review('f:' + f.id, true);   // 3 étoiles : la fiche entre dans les révisions espacées
+    G.v = G.tot ? G.sum / G.tot : 0; G.over = true; a[G.m - 1] = Math.max(a[G.m - 1] || 0, G.v); save();
+    if (G.m === 3 || (was < 3 && nStars(f.id) === 3)) review('f:' + f.id, G.v >= 0.8);   // récitée de mémoire : la fiche entre dans les révisions espacées
     setTimeout(() => fx(nStars(f.id) > was ? (nStars(f.id) === 3 ? 'record' : 'star') : G.v >= 0.8 ? 'win' : 'over'), 250);
   }
   function apAnswer(j) {
     if (G.pick != null) return;
     const ok = G.opts[j] === G.ok; G.pick = j; fx(ok ? 'good' : 'bad'); render(true);
-    gTimer = setTimeout(() => { apNext(ok ? 1 : 0); render(); }, ok ? 800 : G.st.full ? 3000 : 2200);
+    gTimer = setTimeout(() => { apNext(ok ? 1 : 0); render(); }, ok ? 800 : 2200);
   }
   function apprendre(id, m) {
     const f = ALLF.find(x => x.id === id);
     if (!f) {   // la liste : on choisit la fiche
       gStop();
       const list = (t, fs) => fs.length ? `<div class="sec">${t}</div><div class="entries">${fs.map(x => `<a class="entry" href="#/jeu/apprendre/${x.id}"><span class="stamp sm" style="--c:${x.sec === 'podo' ? 'var(--p8)' : 'var(--p6)'}">${x.n}</span><span class="rt"><span class="t">${esc(x.title)}</span></span>${stars(x.id)}</a>`).join('')}</div>` : '';
-      return `<div class="wrap">${top('#/', 'Apprendre une fiche', count(ALLF.filter(x => nStars(x.id) === 3).length, ALLF.length))}<div class="muted small">Choisis la fiche. 3 manches d'une minute, une étoile par manche réussie.</div>${list('PÉDICURIE', PEDI)}${list('PODOLOGIE', PODO_OK)}</div>`;
+      return `<div class="wrap">${top('#/', 'Apprendre une fiche', count(ALLF.filter(x => nStars(x.id) === 3).length, ALLF.length))}<div class="muted small">Choisis la fiche. 3 manches : tu lis, tu caches, tu récites. Une étoile par manche réussie.</div>${list('PÉDICURIE', PEDI)}${list('PODOLOGIE', PODO_OK)}</div>`;
     }
     m = +m;
     if (!MANCHES[m - 1]) {   // la fiche : ses 3 manches
@@ -1455,21 +1401,38 @@
       const a = (S.st || {})[f.id] || [];
       return `<div class="wrap">${top('#/jeu/apprendre', `${f.n}. ${esc(f.title)}`, stars(f.id))}
         <div class="entries">${MANCHES.map(([n, d], i) => `<a class="entry" href="#/jeu/apprendre/${f.id}/${i + 1}"><span class="stamp sm" style="--c:${PCOL(i * 2 + 1)}">${i + 1}</span><span class="rt"><span class="t">${n}</span><span class="s">${d}${a[i] ? ` · meilleur ${pc(a[i])} %` : ''}</span></span>${STAR(a[i] >= 0.8)}</a>`).join('')}</div>
-        <div class="row2" style="margin-top:14px"><a class="btn ghost grow" href="${FB(f)}">${ico('book')} Lire la fiche</a><a class="btn ghost grow" href="${FB(f)}/quiz">${ico('speak')} La réciter</a></div></div>`;
+        <div class="muted small" style="margin-top:12px">Dis les réponses à voix haute avant de regarder : c'est ça qui fait retenir.</div>
+        <div class="row2" style="margin-top:14px"><a class="btn ghost grow" href="${FB(f)}">${ico('book')} Lire la fiche</a>${f.video ? `<a class="btn ghost grow" href="${FB(f)}/video">${ico('play')} La vidéo</a>` : ''}</div></div>`;
     }
     if (!G || G.key !== id + '/' + m) { gStop(); G = { game: 'apprendre', key: id + '/' + m, f, m, steps: mancheSteps(f, m), i: 0, sum: 0, tot: 0 }; if (G.steps.length) apDraw(); else G.over = true; }
     const back = `#/jeu/apprendre/${f.id}`, head = `<div class="wrap qz">${top(back, `${f.n}. ${esc(f.title)} · ${MANCHES[m - 1][0]}`, G.over ? '' : count(G.i + 1, G.steps.length))}`;
     if (G.over) {
       const v = G.v || 0, won = v >= 0.8;
-      return `${head}${gEnd(`${pc(v)} %`, won ? `${STAR(true)} Manche réussie !${nStars(f.id) === 3 ? ' Les 3 étoiles : tu connais la fiche. Récite-la maintenant à voix haute.' : ''}` : 'Il faut 80 % pour l\'étoile. Encore un essai ?', '',
-        `${won && m < 3 ? `<a class="btn grow" href="#/jeu/apprendre/${f.id}/${m + 1}" style="--c:var(--hl)">Manche ${m + 1} →</a>` : won && nStars(f.id) === 3 ? `<a class="btn grow" href="${FB(f)}/quiz" style="--c:var(--hl)">${ico('speak')} La réciter</a>` : ''}<button class="btn ${won ? 'ghost ' : ''}grow" data-g="again" ${won ? '' : 'style="--c:var(--hl)"'}>↻ Rejouer</button><a class="btn ghost grow" href="${back}">Manches</a>`)}</div>`;
+      return `${head}${gEnd(`${pc(v)} %`, won ? `${STAR(true)} Manche réussie !${nStars(f.id) === 3 ? ' Les 3 étoiles : tu connais la fiche. Elle reviendra dans ta séance du jour pour ne pas l\'oublier.' : ''}` : 'Il faut 80 % du premier coup pour l\'étoile. Encore un essai ?', '',
+        `${won && m < 3 ? `<a class="btn grow" href="#/jeu/apprendre/${f.id}/${m + 1}" style="--c:var(--hl)">Manche ${m + 1} →</a>` : ''}<button class="btn ${won && m < 3 ? 'ghost ' : ''}grow" data-g="again" ${won && m < 3 ? '' : 'style="--c:var(--hl)"'}>↻ Rejouer</button><a class="btn ghost grow" href="${back}">Manches</a>`)}</div>`;
     }
-    const st = G.st, bar = `<div class="qbar">${G.steps.map((x, j) => `<i class="${j < G.i ? 'on' : j === G.i ? 'now' : ''}" style="--c:${PCOL(m * 2 - 1)}"></i>`).join('')}</div>`;
-    if (st.multi) return `${head}${bar}<div class="card qc"><div class="kicker">${st.kicker} · ${esc(st.sub).toUpperCase()}</div><div class="question">${esc(st.q)}</div>
-        <div class="muted small">${st.done ? 'En vert ce qu\'il fallait garder, barré ce qui vient d\'une autre fiche.' : `Touche les ${st.nYes} idées de cette fiche.`}</div>
-        <div class="checks">${st.items.map(([x, y], j) => `<button class="ck ${st.ticks.includes(j) ? 'on' : ''} ${st.done ? (y ? 'yes' : 'no') : ''}" data-g="mk" data-j="${j}" ${st.done ? 'disabled' : ''}><span class="box"></span><span>${md(x)}</span></button>`).join('')}</div></div>
-      <div class="pager fixed"><button class="btn grow" data-g="${st.done ? 'mnext' : 'mval'}" style="--c:${st.done ? 'var(--hl)' : 'var(--p6)'}">${st.done ? 'Continuer →' : `Valider · ${st.ticks.length}/${st.nYes}`}</button></div></div>`;
-    return `${head}${bar}<div class="card qc"><div class="kicker">${esc(st.kicker)}</div><div class="question${st.full ? ' trou' : ''}">${md(G.pick != null && st.full ? st.full : st.q)}</div>${gOpts()}</div></div>`;
+    const st = G.st, P = f.parts[st.p - 1], n = (st.ticks || []).length;
+    const bar = `<div class="qbar">${G.steps.map((x, j) => `<i class="${j < G.i ? 'on' : j === G.i ? 'now' : ''}" style="--c:${PCOL(x.p - 1)}"></i>`).join('')}</div>`;
+    const label = `<div class="qpart" style="--c:${PCOL(st.p - 1)}"><span class="stamp xs">${st.p}</span>${esc(P.title)}${st.retry ? ' <span class="again">↻ encore une fois</span>' : ''}</div>`;
+    const btn = (g, txt, c) => `<button class="btn grow" data-g="${g}" style="--c:${c}">${txt}</button>`;
+    const checks = `<div class="muted small">Coche ce que tu as dit (sois honnête) :</div><div class="checks">${(st.items || []).map((x, j) => `<button class="ck ${(st.ticks || []).includes(j) ? 'on' : ''}" data-g="mk" data-j="${j}"><span class="box"></span><span>${md(x)}</span></button>`).join('')}</div>`;
+    const valid = () => btn('mval', `Valider · ${n}/${st.items.length}`, 'var(--p6)');
+    let body, foot = '';
+    if (st.t === 'read') {
+      body = `<div class="kicker">LIS ET RETIENS · ${st.items.length} IDÉES</div><div class="question">${esc(P.q)}</div><ul class="aplist">${st.items.map(x => `<li>${md(x)}</li>`).join('')}</ul>`;
+      foot = btn('apgo', 'C\'est en tête → je cache', 'var(--hl)');
+    } else if (st.t === 'say') {
+      body = `<div class="kicker">${st.hint ? 'REDIS-LA AVEC LES INITIALES' : 'RÉCITE DE MÉMOIRE'}</div><div class="question">${esc(P.q)}</div>${st.shown ? `${checks}<details class="say"><summary>${ico('speak')} Le texte complet de la partie</summary><p>${md(P.say)}</p></details>`
+        : st.hint ? `<ul class="aplist hid">${st.items.map(x => `<li>${esc(initials(x))}</li>`).join('')}</ul>` : `<div class="say-it">${ico('speak')} Dis la partie à voix haute : ${st.items.length} idées.</div>`}`;
+      foot = st.shown ? valid() : btn('apshow', 'J\'ai récité → voir', 'var(--hl)');
+    } else if (st.kind === 'list') {
+      body = `<div class="question">${md(st.q)}</div>${st.shown ? checks : `<div class="say-it">${ico('speak')} Cite-les à voix haute (${st.items.length})</div>`}`;
+      foot = st.shown ? valid() : btn('apshow', 'Voir la réponse', 'var(--hl)');
+    } else if (st.kind === 'flip') {
+      body = `<div class="question">${md(st.q)}</div>${st.shown ? `<div class="answer">${md(st.a)}</div>` : `<div class="say-it">${ico('speak')} Réponds à voix haute</div>`}`;
+      foot = st.shown ? btn('apno', '✗ Pas su', '#f6c3b9') + btn('apyes', '✓ Je savais', 'var(--p6)') : btn('apshow', 'Voir la réponse', 'var(--hl)');
+    } else body = `<div class="question">${md(st.q)}</div>${gOpts()}`;
+    return `${head}${bar}${label}<div class="card qc">${body}</div>${foot ? `<div class="pager fixed">${foot}</div>` : ''}</div>`;
   }
 
   function gameAct(t) {
@@ -1482,14 +1445,14 @@
     if (a === 'qshint') { if (G.rev < 4 && G.pick == null) { fx('reveal'); G.rev++; render(true); } return; }
     if (a === 'qsopts') { fx('tap'); G.showOpts = true; return render(true); }
     if (a === 'qsnext') { fx('tap'); return qsNext(); }
-    if (a.startsWith('pt')) return ptAct(a, j);
+    if (a.startsWith('pt')) return ptAct(a, j, t);
     if (a === 'L' || a === 'R') return prTap(a, j);
-    const st = G.st;   // « de mémoire » : cocher, valider (bonnes cochées moins fausses cochées), continuer
-    if (a === 'mk') fx('tick'); else if (a === 'mnext') fx('tap');
-    if (a === 'mk') st.ticks = st.ticks.includes(j) ? st.ticks.filter(x => x !== j) : st.ticks.concat(j);
-    else if (a === 'mval') { st.done = true; st.v = Math.max(0, st.ticks.reduce((s, k) => s + (st.items[k][1] ? 1 : -1), 0) / st.nYes); fx(st.v >= 0.8 ? 'good' : 'bad'); }
-    else if (a === 'mnext') apNext(st.v);
-    render(a !== 'mnext');
+    const st = G.st;   // apprendre : lire, dévoiler, cocher ce qu'on a dit, valider
+    if (a === 'apgo') { fx('tap'); apNext(); return render(); }
+    if (a === 'apshow') { fx('reveal'); st.shown = true; return render(); }
+    if (a === 'apyes' || a === 'apno') { fx(a === 'apyes' ? 'good' : 'bad'); apNext(a === 'apyes' ? 1 : 0); return render(); }
+    if (a === 'mk') { fx('tick'); const k = st.ticks || []; st.ticks = k.includes(j) ? k.filter(x => x !== j) : k.concat(j); return render(true); }
+    if (a === 'mval') { const v = (st.ticks || []).length / st.items.length; fx(v >= 0.8 ? 'good' : 'bad'); apNext(v); render(); }
   }
   function jeu(a, b, c) {
     if (!GAMES[a]) return notFound();
@@ -1498,7 +1461,7 @@
     if (G.setup) return setup(a);
     const r = (S.rec || {})[a] || 0, head = right => `<div class="wrap qz">${top('#/', GAMES[a], right)}`;
     if (a === 'survie') {
-      if (G.over) return `${head('')}${gEnd(G.score, G.isRec ? 'Nouveau record !' : `Ton record : ${r}. Encore une ?`, `<div class="muted small">${G.n} question${G.n > 1 ? 's' : ''} · la dernière : ${esc(G.cur.lab)}. <a href="${G.cur.link}">La revoir</a></div>`)}</div>`;
+      if (G.over) return `${head('')}${gEnd(G.score, G.isRec ? 'Nouveau record !' : `Ton record : ${r}. Encore une ?`, `<div class="sec">TES 3 ERREURS, À RETENIR</div><div class="entries">${G.missed.map(m => `<a class="entry" href="${m[2]}"><span class="rt"><span class="s">${md(m[0])}</span><span class="t">${md(m[1])}</span></span><span class="chev">›</span></a>`).join('')}</div>`)}</div>`;
       return `${head(count(G.score, 'record ' + Math.max(r, G.score)))}${gBar()}
         <div class="ghud"><span>${[0, 1, 2].map(i => HEART(i < G.lives)).join('')}</span>${G.combo > 1 ? `<span class="combo">×${Math.min(G.combo, 5)}</span>` : ''}</div>
         <div class="qpart" style="--c:${G.cur.c}">${esc(G.cur.lab)}</div>
