@@ -133,7 +133,9 @@ window.AVENTURE = A => {
     if (a === 'avhub') { A.setG({ game: 'aventure', scr: 'hub' }); fx('tap'); return hard(); }
     if (a === 'avbest') { g.scr = g.scr === 'best' ? 'hub' : 'best'; fx('tap'); return hard(); }
     if (a === 'aveq') { const k = el.dataset.k, s = ITEMS[k].s; r[s] = r[s] === k ? null : k; save(); fx('tick'); return soft(); }
-    if (a === 'avmus') { const M = window.SONS; if (M && M.play) { M.playing() === 'combat' ? M.stop() : M.play('combat'); } return soft(); }
+    const M = window.SONS && SONS.play ? SONS : null;
+    if (a === 'avmus') { r.mus = r.mus === false; save(); if (M) r.mus ? M.play('combat') : M.stop(); return soft(); }
+    if (M && r.mus !== false && M.playing() !== 'combat') M.play('combat');
     if (a === 'avgo') { enter(); return hard(); }
     if (g.scr === 'chest') {
       if (a === 'avpick' && !t.done) { t.pick = j; t.done = true; t.won = st.opts[j] === st.ok; did(1);
@@ -163,7 +165,7 @@ window.AVENTURE = A => {
   // ---------- l'affichage ----------
   const bar = (now, was, max, cls = '') => `<div class="avhp ${cls}"><i style="--f:${100 * was / max}%;--t:${100 * now / max}%"></i></div>`;
   const btn = (g, txt, c = 'var(--hl)', more = '') => `<button class="btn grow" data-g="${g}" style="--c:${c}" ${more}>${txt}</button>`;
-  const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', '<img class="avlogo" src="jeu/ui-logo.png" alt="Podo Quest">', right || '')}`;
+  const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', '<img class="avlogo" src="jeu/ui-logo.png" alt="Podo Quest">', (right || '') + `<button class="avmusb ${R().mus === false ? 'off' : ''}" data-g="avmus" aria-label="Musique" aria-pressed="${R().mus !== false}">♪</button>`)}`;
   const stats = r => `<span class="avstat">${ico('flame')} Attaque ${atk(r)}</span><span class="avstat">Défense ${def(r)}</span>`;
   function qcard(t) {   // la question en cours, selon son type : choix, carte à retourner, liste à cocher, gestes à choisir
     const st = t.st, k = t.ticks || [], say = txt => `<div class="say-it">${ico('speak')} ${txt}</div>`;
@@ -220,7 +222,6 @@ window.AVENTURE = A => {
       ${gear.length ? `<div class="sec">TON ÉQUIPEMENT (TOUCHE POUR ÉQUIPER)</div><div class="avlist">${gear.map(k => { const it = ITEMS[k], on = r[it.s] === k; return `<button class="ptitem ${on ? 'good' : ''}" data-g="aveq" data-k="${k}"><b>${esc(it.n)}</b> · ${it.s === 'arme' ? 'attaque' : 'défense'} +${it.v}${on ? ' · équipé' : ''}<br><span class="muted">${esc(it.use)}</span></button>`; }).join('')}</div>` : ''}
       ${heal.length ? `<div class="sec">TES SOINS</div><div class="avlist">${heal.map(k => `<div class="ptitem"><b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></div>`).join('')}</div>` : ''}
       <div class="row2" style="margin-top:14px"><button class="btn ghost grow" data-g="setup">Ce que je révise (${n})</button><button class="btn ghost grow" data-g="avbest">Bestiaire (${seen})</button></div>
-      ${M && M.play ? `<button class="btn ghost wide" data-g="avmus" style="margin-top:10px">${ico('phones')} ${M.playing() === 'combat' ? 'Couper la musique' : 'Musique de l\'aventure'}</button>` : ''}
       <div class="pager fixed">${btn('go', n ? 'Partir en expédition →' : 'Rien à combattre avec ce choix', 'var(--hl)', n ? '' : 'disabled')}</div></div>`;
   }
   function best() {

@@ -876,3 +876,6 @@ body:has(.av) nav.tabs { display: none; }
 .av .avfic { float: left; width: 58px; height: 58px; margin: 0 10px 4px 0; image-rendering: pixelated; }
 .av .avban { display: block; height: 58px; margin: 0 auto 6px; image-rendering: pixelated; }
 .av .avplate.foe { left: auto; right: 6px; }
+/* Podo Quest : le bouton musique, toujours en haut du jeu */
+.av .avmusb { flex: none; margin-left: 6px; width: 38px; height: 34px; clip-path: var(--cut); background: #2b2745; border: 3px solid var(--hl); color: var(--hl); font: 900 17px var(--marker); display: grid; place-items: center; position: relative; }
+.av .avmusb.off { border-color: var(--line); color: #7d7896; } .av .avmusb.off::after { content: ''; position: absolute; left: 5px; right: 5px; top: 50%; border-top: 3px solid #ff6b81; transform: rotate(-35deg); }

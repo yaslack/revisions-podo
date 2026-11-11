@@ -543,6 +543,9 @@
     { v: 113, items: [
       ['flame', 'Podo Quest : la vraie interface dessinée. Logo, cadres, icônes des attaques et des familles de monstres, bannières Victoire, Défaite et Niveau.'],
     ] },
+    { v: 114, items: [
+      ['phones', 'Podo Quest : la musique démarre toute seule, et un bouton ♪ en haut du jeu la coupe ou la remet à tout moment. Ton choix est gardé.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -1543,7 +1546,7 @@
     else if (sec === 'search') html = search();
     else if (sec === 'jeu') html = jeu(a, b, c);
     else html = notFound();
-    if (sec !== 'jeu' && G) gStop();
+    if (sec !== 'jeu' && G) { if (G.game === 'aventure' && window.SONS && SONS.playing && SONS.playing() === 'combat') SONS.stop(); gStop(); }   // on quitte Podo Quest : sa musique s'arrête
     if (V3) { V3.dispose(); V3 = null; }
     closeVideo();
     $('#app').innerHTML = html;
