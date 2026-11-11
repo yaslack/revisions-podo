@@ -550,6 +550,9 @@
       ['flame', 'Podo Quest : une vraie carte du monde, des décors en hauteur, un coffre qui s\'ouvre, les 12 objets dessinés et de nouveaux boutons.'],
       ['phones', 'Dans le jeu, le lecteur de musique ne s\'affiche plus : seul le bouton ♪ reste, pour couper ou remettre le son.'],
     ] },
+    { v: 116, items: [
+      ['flame', 'Podo Quest : le voile sombre qui montait et descendait pendant les combats est corrigé.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

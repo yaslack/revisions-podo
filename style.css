@@ -912,3 +912,5 @@ body:has(.av) .sndbar { display: none !important; }
 .av .avact:not(:disabled) { animation: avglow 2.2s ease-in-out infinite; }
 .av .avban { animation: avburstin .5s cubic-bezier(.2,1.6,.4,1) both; } @keyframes avburstin { from { transform: scale(.3); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .av *, .av *::before, .av *::after { animation-duration: .01s !important; animation-iteration-count: 1 !important; } }
+/* correctif : le voile sombre qui montait et descendait sur la scène (il était animé avec les lucioles). Les lucioles restent, sans voile. */
+.av .avscene::after { background: radial-gradient(2px 2px at 20% 80%, rgba(255,255,220,.9), transparent 60%), radial-gradient(2px 2px at 70% 60%, rgba(200,230,255,.8), transparent 60%), radial-gradient(3px 3px at 45% 90%, rgba(255,240,170,.7), transparent 60%); background-size: 180px 180px, 240px 240px, 300px 300px; }
