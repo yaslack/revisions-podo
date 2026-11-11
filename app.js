@@ -160,6 +160,7 @@
     const nP = PEDI.filter(f => doneP(f.id)).length, vP = PEDI.reduce((s, f) => s + pctP(f), 0) / PEDI.length;
     const nA = AQ.filter(x => doneA(x.q)).length;
     const last = S.last && ALLF.find(f => f.id === S.last.id);
+    if (last && !(last.parts || [])[S.last.k - 1]) S.last.k = 0;   // la fiche a perdu cette partie : on reprend au plan
     const nextF = PEDI.find(f => !doneP(f.id) && f !== last);
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap">
@@ -560,6 +561,9 @@
     { v: 118, items: [
       ['sparkle', 'Podo Quest : nouvelle interface de combat, portraits et panneaux inspirés de la maquette, avec une pose d’attaque pour le héros.'],
       ['flame', 'La carte est mieux cadrée et ses étapes sont plus faciles à distinguer.'],
+    ] },
+    { v: 119, items: [
+      ['flame', 'Correction : l’accueil ne plante plus quand la fiche à reprendre avait changé de découpage.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
