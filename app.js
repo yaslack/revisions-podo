@@ -565,6 +565,9 @@
     { v: 119, items: [
       ['flame', 'Correction : l’accueil ne plante plus quand la fiche à reprendre avait changé de découpage.'],
     ] },
+    { v: 120, items: [
+      ['flame', 'Podo Quest : les décors pèsent 6 fois moins lourd et les nouveaux monstres marchent aussi hors ligne.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
