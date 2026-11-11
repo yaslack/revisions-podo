@@ -541,8 +541,8 @@ ul.res .kor::before { content: '!'; background: var(--p2); }
 #apptitle.swap { filter: blur(12px); opacity: 0; letter-spacing: 6px; transform: scale(.97); }
 .brand h1 span { color: var(--red); }
 .brand .kicker { margin-top: 4px; font-size: 13px; }
-.team { display: flex; gap: 18px; margin: 12px 0 4px; }
-.mate { display: flex; align-items: center; gap: 9px; font-size: 18px; line-height: 1.1; }
+.team { display: flex; justify-content: space-around; gap: 8px; margin: 12px 0 4px; }   /* 3 têtes côte à côte : la photo, le nom dessous */
+.mate { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; font-size: 18px; line-height: 1.1; }
 .mate small { font-size: 15px; color: var(--muted); }
 .mate img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 3px solid var(--card); box-shadow: 0 0 0 2.5px var(--ink); cursor: zoom-in; background: var(--card); }
 html[data-skin="classic"] .brand h1 { font-weight: 700; }
