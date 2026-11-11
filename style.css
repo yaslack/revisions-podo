@@ -866,3 +866,13 @@ body:has(.av) nav.tabs { display: none; }
 .av .avscene .avpos { bottom: 11%; width: 30%; } .av .avscene .avpos.me { left: 6%; } .av .avscene .avpos.foe { right: 5%; width: 40%; }
 .av .avscene.boss .avpos.foe { width: 58%; right: 1%; bottom: 9%; } .av .avscene.boss .avpos.me { width: 26%; left: 3%; bottom: 9%; }
 .av .avscene .avpos::after { bottom: -2%; height: 8%; background: rgba(0,0,0,.45); }
+/* Podo Quest : l'interface dessinée (planche fournie) : logo, cadres en 9 tranches, icônes, bannières */
+.av .top .tt { display: flex; justify-content: center; } .av .avlogo { height: 46px; image-rendering: pixelated; margin: -8px 0 -6px; }
+.av .card, .av .avbox, .av .avplate, .av .avact { clip-path: none; background: none; box-shadow: none; border: 14px solid transparent; border-image: url(jeu/ui-cadre.png) 22 fill / 14px / 0 stretch; image-rendering: pixelated; }
+.av .card { padding: 6px 6px 8px; } .av .avbox { padding: 2px 6px; border-left-width: 14px; } .av .avplate { padding: 0 2px; top: 6px; left: 6px; width: 47.5%; } .av .avplate.foe { right: 6px; }
+.av .avact { padding: 0 2px 2px; display: grid; grid-template-columns: 38px 1fr; column-gap: 8px; align-items: center; text-align: left; } .av .avact img { grid-row: 1 / 3; width: 38px; height: 38px; image-rendering: pixelated; }
+.av .avact:not(:disabled) { border-image-source: url(jeu/ui-cadre-or.png); } .av .avact:disabled img { filter: grayscale(1); }
+.av .card.avmap, .av .avcamp { border-image: none; border: 3px solid var(--line); background-size: cover; background-position: 50% 70%; padding: 12px; }
+.av .avfic { float: left; width: 58px; height: 58px; margin: 0 10px 4px 0; image-rendering: pixelated; }
+.av .avban { display: block; height: 58px; margin: 0 auto 6px; image-rendering: pixelated; }
+.av .avplate.foe { left: auto; right: 6px; }

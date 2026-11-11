@@ -540,6 +540,9 @@
     { v: 112, items: [
       ['flame', 'Podo Quest avec de vraies images : 5 décors (forêt, marais, canyon, grotte, arène du boss), un nouveau héros, et 8 monstres qui réagissent quand ils sont touchés et quand ils sont K.O.'],
     ] },
+    { v: 113, items: [
+      ['flame', 'Podo Quest : la vraie interface dessinée. Logo, cadres, icônes des attaques et des familles de monstres, bannières Victoire, Défaite et Niveau.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

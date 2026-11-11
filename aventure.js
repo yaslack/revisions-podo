@@ -88,7 +88,7 @@ window.AVENTURE = A => {
     const boss = n.t === 'boss', it = n.it, small = it.kind === 'a' && !it.x.nerf, max = Math.round((26 + 7 * r.lvl + 4 * g.i) * (boss ? 2.4 : small ? .6 : 1));
     Object.assign(g, { scr: 'fight', anim: {}, msg: boss ? 'Le boss te barre la route. Qui est-ce ?' : 'Un monstre surgit ! Qui est-ce ?',
       foe: { it, boss, max, hp: max, was: max, atk: Math.round((5 + 1.2 * r.lvl + .5 * g.i) * (boss ? 1.3 : 1)), kit: kit(it), miss: 0, si: 0 },
-      t: { mode: 'id', st: { kind: 'qcm', clues: qsjClues(it).slice(0, 2), opts: qsjOpts(it), ok: it.title } } });
+      t: { mode: 'id', st: { kind: 'qcm', ic: fam(it), clues: qsjClues(it).slice(0, 2), opts: qsjOpts(it), ok: it.title } } });
     fx(boss ? 'boss' : 'start');
   }
   function chest(last) {
@@ -163,13 +163,13 @@ window.AVENTURE = A => {
   // ---------- l'affichage ----------
   const bar = (now, was, max, cls = '') => `<div class="avhp ${cls}"><i style="--f:${100 * was / max}%;--t:${100 * now / max}%"></i></div>`;
   const btn = (g, txt, c = 'var(--hl)', more = '') => `<button class="btn grow" data-g="${g}" style="--c:${c}" ${more}>${txt}</button>`;
-  const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', 'Podo Quest', right || '')}`;
+  const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', '<img class="avlogo" src="jeu/ui-logo.png" alt="Podo Quest">', right || '')}`;
   const stats = r => `<span class="avstat">${ico('flame')} Attaque ${atk(r)}</span><span class="avstat">Défense ${def(r)}</span>`;
   function qcard(t) {   // la question en cours, selon son type : choix, carte à retourner, liste à cocher, gestes à choisir
     const st = t.st, k = t.ticks || [], say = txt => `<div class="say-it">${ico('speak')} ${txt}</div>`;
     const opts = () => `<div class="opts">${st.opts.map((o, j) => `<button class="opt ${t.done ? (o === st.ok ? 'good' : j === t.pick ? 'bad' : 'dim') : ''}" data-g="avpick" data-j="${j}" ${t.done ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div>`;
     const checks = pick => `<div class="checks">${st.items.map((x, j) => `<button class="ck ${k.includes(j) ? 'on' : ''} ${pick && t.done ? (x[1] ? 'yes' : 'no') : ''}" data-g="avtk" data-j="${j}" ${t.done ? 'disabled' : ''}><span class="box"></span><span>${md(pick ? x[0] : x)}</span></button>`).join('')}</div>`;
-    if (st.clues) return `<div class="avclues">${st.clues.map(c => `<div><b>${esc(c[0])}</b> ${md(c[1])}</div>`).join('')}</div>${opts()}`;
+    if (st.clues) return `<div class="avclues">${['mus', 'os', 'podo', 'med', 'peau', 'test'].includes(st.ic) ? `<img class="avfic" alt="" src="jeu/ui-ic-${st.ic}.png">` : ''}${st.clues.map(c => `<div><b>${esc(c[0])}</b> ${md(c[1])}</div>`).join('')}</div>${opts()}`;
     if (st.kind === 'qcm') return `<div class="question">${md(st.q)}</div>${opts()}`;
     if (st.kind === 'flip') return `<div class="question">${md(st.q)}</div>${t.shown ? `<div class="answer">${md(st.a)}</div>${t.done ? '' : `<div class="row2" style="margin-top:10px">${btn('avno', '✗ Pas su', '#f6c3b9')}${btn('avyes', '✓ Je savais', 'var(--p6)')}</div>`}` : `${say('Réponds à voix haute')}${btn('avshow', 'Voir la réponse')}`}`;
     if (st.kind === 'pick') return `<div class="question">${esc(st.q)}</div>${checks(true)}${t.done ? '' : btn('avval', `Frapper · ${k.length} coché${k.length > 1 ? 's' : ''}`, 'var(--p6)')}`;
@@ -194,7 +194,7 @@ window.AVENTURE = A => {
         m.push(['avspe', 'Récitation', g.focus >= 2 && spe ? 'Dégâts ×3 · coûte 2 de concentration' : 'Il faut 2 de concentration (2 bonnes réponses)', 'var(--p3)', g.focus < 2 || !spe]);
         m.push(['avfin', 'Coup de grâce', p <= .35 ? 'Le bon traitement le termine d\'un coup' : 'Quand il est sous 35 % de PV', 'var(--red)', p > .35]); }
       m.push(['avobj', 'Soins', soins(r).length ? `${soins(r).reduce((s, k) => s + r.items[k], 0)} dans le sac` : 'Sac vide', 'var(--p6)', !soins(r).length]);
-      body = `<div class="avmenu">${m.map(([a, n, d, c, off]) => `<button class="avact" data-g="${a}" style="--c:${c}" ${off ? 'disabled' : ''}><b>${n}</b><span>${d}</span></button>`).join('')}</div>`;
+      body = `<div class="avmenu">${m.map(([a, n, d, c, off]) => `<button class="avact" data-g="${a}" style="--c:${c}" ${off ? 'disabled' : ''}><img alt="" src="jeu/ui-act-${{ avatk: 'atk', avspe: 'spe', avfin: 'fin', avobj: 'soin' }[a]}.png"><b>${n}</b><span>${d}</span></button>`).join('')}</div>`;
     }
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length), kind)}${arena}${body}</div>`;
   }
@@ -241,10 +241,10 @@ window.AVENTURE = A => {
         ${t.done ? `<div class="muted">${t.won ? `${it.s === 'soin' ? `Soin : +${it.v} PV` : it.s === 'arme' ? `Arme : attaque +${it.v}` : `Protection : défense +${it.v}`}. ` : 'Tu ne sais pas encore t\'en servir. '}Il sert à : ${esc(it.use.toLowerCase())}.</div>` : ''}</div>
         <div class="card qc">${qcard(t)}</div>${t.done ? `<div class="pager fixed">${btn('avnext', g.last ? 'Fin de l\'expédition →' : 'Continuer →')}</div>` : ''}</div>`; }
     const f = g.foe, w = f.kit.weak;
-    if (g.scr === 'win') return `${head('')}<div class="card gover">${sprite(f.it, 'ko', f.boss)}<div class="kicker">${f.boss ? 'BOSS VAINCU' : 'VICTOIRE'}${f.miss ? '' : ' · SANS FAUTE'}</div><div class="question">${esc(f.it.title)}</div>
+    if (g.scr === 'win') return `${head('')}<div class="card gover">${sprite(f.it, 'ko', f.boss)}<img class="avban" alt="Victoire" src="jeu/ui-ban-victoire.png">${g.up ? '<img class="avban" alt="Niveau supérieur" src="jeu/ui-ban-niveau.png">' : ''}<div class="kicker">${f.boss ? 'BOSS VAINCU' : 'MONSTRE BATTU'}${f.miss ? '' : ' · SANS FAUTE'}</div><div class="question">${esc(f.it.title)}</div>
         ${w ? `<div class="ptcle"><b>${esc(w[0])}</b> ${md(w[1])}</div>` : ''}<div class="muted" style="margin-top:8px">Tu souffles : +30 % de PV · +${(f.boss ? 45 : 18) + (f.miss ? 0 : 8)} XP${g.up ? ` · <b>Niveau ${r.lvl} !</b> PV rendus, attaque +2` : ''}</div></div>
         <div class="pager fixed">${btn('avcont', f.boss ? 'Ouvrir son trésor →' : 'Continuer →')}</div></div>`;
-    if (g.scr === 'ko') return `${head('')}<div class="card gover">${sprite(f.it, 'idle', f.boss)}<div class="kicker">K.O.</div><div class="question">${esc(f.it.title)} t'a eu.</div>
+    if (g.scr === 'ko') return `${head('')}<div class="card gover">${sprite(f.it, 'idle', f.boss)}<img class="avban" alt="Défaite" src="jeu/ui-ban-defaite.png"><div class="question">${esc(f.it.title)} t'a eu.</div>
         ${w ? `<div class="ptcle"><b>${esc(w[0])}</b> ${md(w[1])}</div>` : ''}<div class="muted" style="margin-top:8px">Tu gardes tes ${g.gain} XP et tes objets. Revois sa fiche et reviens te venger.</div>
         <div class="row2" style="margin-top:12px"><a class="btn ghost grow" href="${f.it.link}">${ico('book')} Sa fiche</a></div></div>
         <div class="pager fixed">${btn('go', '↻ Nouvelle expédition')}<button class="btn ghost grow" data-g="avhub">Camp</button></div></div>`;
