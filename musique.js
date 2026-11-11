@@ -14,6 +14,7 @@
     piano: (f, len) => ({ dur: len + 1.2, fn: t => { const w = TAU * f * t; let v = 0; for (let h = 1; h <= 5; h++) v += Math.sin(w * h * (1 + .0004 * h * h)) / h * Math.exp(-t * (.45 + .55 * h)); return Math.min(1, t / .003) * rel(t, len, .3) * v; } }),
     pluck: f => ({ dur: 1.8, fn: t => { const w = TAU * f * t; return Math.min(1, t / .002) * Math.exp(-t / .5) * Math.sin(w + .9 * Math.exp(-t / .06) * Math.sin(3 * w)); } }),
     bell: f => ({ dur: 3.2, fn: t => { const w = TAU * f * t; return Math.min(1, t / .002) * Math.exp(-t / 1.1) * Math.sin(w + .5 * Math.exp(-t / .3) * Math.sin(3.5 * w)); } }),
+    chip: (f, len) => ({ dur: len + .05, fn: t => (Math.sin(TAU * f * t) > .35 ? .5 : -.5) * Math.min(1, t / .003) * rel(t, len, .02) * (.7 + .3 * Math.exp(-t / .12)) }),   // onde carrée, comme une vieille console
     bass: (f, len) => ({ dur: len + .25, fn: t => { const w = TAU * f * t; return Math.min(1, t / .008) * Math.exp(-t / .8) * rel(t, len, .06) * Math.tanh(1.4 * (Math.sin(w) + .5 * Math.sin(2 * w) + .2 * Math.sin(3 * w))); } }),
   };
 
@@ -116,7 +117,8 @@
           for (let k = 0; k < 16; k += 2) n('bass', s + k, B[b] + (k % 8 === 6 ? 12 : 0), 2, k % 4 ? .34 : .46);
           kick(s, .9); kick(s + 8, .85); kick(s + 11, .5); snare(s + 4, .4); snare(s + 12, .44); if (b % 4 === 3) { snare(s + 14, .3); snare(s + 15, .34); }
           for (let h = 0; h < 16; h++) hat(s + h, h % 4 === 2 ? .12 : .05, h === 14);
-          MEL[b].forEach(([st, m]) => { n('pluck', s + st, m, 2, .3, .6); n('bell', s + st, m + 12, 1, .05, .4); });
+          MEL[b].forEach(([st, m]) => { n('chip', s + st, m, 2, .13, .58); n('chip', s + st + 1, m + 12, 1, .05, .42); });
+          CH[b].forEach((m, i) => n('chip', s + 12 + i, m + 12, 1, .05, .3));
         } } },
   ];
   const api = { LIST, render: (id, SR) => render(LIST.find(t => t.id === id), SR) };

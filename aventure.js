@@ -40,11 +40,69 @@ window.AVENTURE = A => {
     test: `<path d="M20 40l-8-10M40 28l-4-12M60 24V10M80 28l4-12M100 40l8-10M40 88q-4 12 4 20M60 92v17M80 88q4 12-4 20"/><path d="M12 60c20-34 76-34 96 0-20 34-76 34-96 0z" fill="#fff"/><circle cx="60" cy="60" r="21" fill="var(--m)"/><circle cx="60" cy="60" r="9" fill="#222"/><circle cx="54" cy="54" r="4" fill="#fff" stroke="none"/>`,
   };
   const CROWN = '<path d="M38 22l-3-18 12 10 13-14 13 14 12-10-3 18z" fill="#f6d84a"/>';
-  const svg = (cls, style, inner) => `<svg class="avspr ${cls}" viewBox="0 0 120 120" style="${style}" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${inner}</svg>`;
   const fam = it => it.kind === 'f' ? (it.f.sec === 'podo' ? 'podo' : SPR[it.f.cat] ? it.f.cat : 'peau') : it.kind === 'a' ? (it.x.nerf ? 'mus' : 'os') : 'test';
   const hue = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
-  const sprite = (it, cls = '', boss) => svg(cls, `--m:hsl(${hue(it.id)} 62% 64%);--m2:hsl(${(hue(it.id) + 40) % 360} 55% 46%)`, SPR[fam(it)] + (boss ? CROWN : ''));
-  const HERO = (cls = '') => svg('avhero ' + cls, '', `<path d="M38 84l-13 15M82 84l15-13"/><path d="M95 73l12-23 5 3-11 23z" fill="#cfd8e3"/><path d="M38 114V80c0-11 8-17 22-17s22 6 22 17v34z" fill="#fff"/><path d="M60 64v50M51 67l9 11 9-11" stroke-width="2"/><circle cx="60" cy="40" r="20" fill="#f1c9a5"/><path d="M40 40c-2-18 10-27 22-27s22 9 18 24c-6-8-15-11-24-11-6 0-12 5-16 14z" fill="#3b2a20"/><circle cx="53" cy="43" r="2.6" fill="#222" stroke="none"/><circle cx="68" cy="43" r="2.6" fill="#222" stroke="none"/><path d="M54 51q6 5 13 0" stroke-width="2"/>`);
+  // Le rendu pixel art : chaque dessin vectoriel est redessiné en 48×48 pixels nets, avec un contour sombre, la lumière en haut à gauche et l'ombre en bas à droite.
+  const PX = {}, BUSY = {}, BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', N = 48;
+  function pixify(key, inner) {
+    if (PX[key]) return PX[key]; if (BUSY[key]) return BLANK; BUSY[key] = 1;
+    const im = new Image();
+    im.onload = () => {
+      const c = document.createElement('canvas'); c.width = c.height = N; const x = c.getContext('2d'); x.drawImage(im, 0, 0, N, N);
+      const d = x.getImageData(0, 0, N, N), p = d.data, solid = new Uint8Array(N * N); for (let i = 0; i < N * N; i++) solid[i] = p[i * 4 + 3] > 120 ? 1 : 0;
+      const at = (X, Y) => X >= 0 && Y >= 0 && X < N && Y < N && solid[Y * N + X];
+      for (let Y = 0; Y < N; Y++) for (let X = 0; X < N; X++) { const i = (Y * N + X) * 4;
+        if (solid[Y * N + X]) { const k = !at(X + 1, Y + 1) || !at(X, Y + 2) ? .7 : !at(X - 1, Y - 1) || !at(X, Y - 2) ? 1.2 : 1; for (let q = 0; q < 3; q++) p[i + q] = Math.min(255, Math.round(p[i + q] * k / 28) * 28); p[i + 3] = 255; }
+        else if (at(X - 1, Y) || at(X + 1, Y) || at(X, Y - 1) || at(X, Y + 1)) { p[i] = 22; p[i + 1] = 14; p[i + 2] = 34; p[i + 3] = 255; } else p[i + 3] = 0; }
+      x.putImageData(d, 0, 0); PX[key] = c.toDataURL(); if (G() && G().game === 'aventure') A.render(true);
+    };
+    im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none" stroke="#1a1423" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">${inner}</svg>`);
+    return BLANK;
+  }
+  const img = (key, inner, cls) => `<img class="avspr ${cls}" alt="" src="${pixify(key, inner)}">`;
+  const sprite = (it, cls = '', boss) => { const h = hue(it.id); return img(it.id + (boss ? 'B' : ''), (SPR[fam(it)] + (boss ? CROWN : '')).replace(/var\(--m2\)/g, `hsl(${(h + 40) % 360},55%,42%)`).replace(/var\(--m\)/g, `hsl(${h},72%,60%)`), cls); };
+  const HERO = (cls = '') => img('hero', `<path d="M38 84l-13 15M82 84l15-13"/><path d="M95 73l12-23 5 3-11 23z" fill="#cfd8e3"/><path d="M38 114V80c0-11 8-17 22-17s22 6 22 17v34z" fill="#fff"/><path d="M60 64v50M51 67l9 11 9-11" stroke-width="2"/><circle cx="60" cy="40" r="20" fill="#f1c9a5"/><path d="M40 40c-2-18 10-27 22-27s22 9 18 24c-6-8-15-11-24-11-6 0-12 5-16 14z" fill="#3b2a20"/><circle cx="53" cy="43" r="2.6" fill="#222" stroke="none"/><circle cx="68" cy="43" r="2.6" fill="#222" stroke="none"/><path d="M54 51q6 5 13 0" stroke-width="2"/>`, 'avhero ' + cls);
+  const CHEST = cls => img('chest', '<path d="M16 54c0-22 88-22 88 0v10H16z" fill="#c98a3c"/><rect x="16" y="64" width="88" height="40" rx="4" fill="#9a5f24"/><path d="M16 78h88M34 64v40M86 64v40" stroke-width="3"/><rect x="51" y="56" width="18" height="22" rx="3" fill="#f6d84a"/>', cls);
+
+  // Les décors, peints pixel par pixel (160×100) : un par biome, plus l'arène néon des boss. Calculés une fois, gardés en mémoire.
+  const PAL = {
+    foret: { sky: ['#3b4f8a', '#6a6fb0', '#c9799a', '#f0a070', '#f8cf8a'], sun: '#fff1b8', cloud: '#f6b48f', far: '#8d7bbd', mid: '#5b5a9a', leaf: ['#14503f', '#1f7a5c', '#39a877'], trunk: '#5a3220', ground: ['#2f8a55', '#1f6a43', '#164d33'], dot: '#f472b6' },
+    marais: { sky: ['#12263a', '#1d4350', '#2f6f6a', '#6fae8d', '#cfe8a8'], sun: '#eaffc2', cloud: '#4d8c80', far: '#2a5560', mid: '#1d3f47', leaf: ['#0f3a34', '#1b5a4a', '#2f8a66'], trunk: '#2b241c', ground: ['#35605a', '#254a48', '#183636'], dot: '#9ef0c0' },
+    canyon: { sky: ['#3a2a5c', '#7a3e73', '#d6604d', '#f4a261', '#ffd98a'], sun: '#fff6cf', cloud: '#f7b27a', far: '#b5543c', mid: '#8a3b2e', leaf: ['#3d5a2a', '#56803a', '#7fae4d'], trunk: '#6b3e26', ground: ['#d9a05b', '#b97f43', '#8f5f32'], dot: '#fff1b8' },
+    grotte: { sky: ['#0b0a1f', '#141235', '#1f1b4d', '#2a2566', '#3a3080'], sun: '#9fd8ff', cloud: '#2a2566', far: '#1a1740', mid: '#120f2e', leaf: ['#3aa0d8', '#7fd6ff', '#c9f1ff'], trunk: '#2a2452', ground: ['#2d2a5a', '#211e46', '#161432'], dot: '#7fd6ff' },
+  };
+  const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, SC = {};
+  function scene(kind) {
+    if (SC[kind]) return SC[kind];
+    const W = 160, H = 100, GY = kind === 'boss' ? 68 : 72, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+    let seed = kind.charCodeAt(0) * 7919 + kind.length * 131; const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
+    const px = (X, Y, col, w = 1, h = 1) => { x.fillStyle = col; x.fillRect(Math.round(X), Math.round(Y), Math.round(w), Math.round(h)); };
+    const disc = (cx, cy, r, col) => { for (let y = -r; y <= r; y++) { const w = Math.round(Math.sqrt(r * r - y * y)); px(cx - w, cy + y, col, 2 * w + 1, 1); } };
+    const bands = sky => { for (let y = 0; y < GY; y++) { const f = y / GY * sky.length, i = Math.min(sky.length - 1, f | 0), edge = f - i > .75 && i < sky.length - 1; for (let X = 0; X < W; X++) px(X, y, edge && (X + y) % 2 ? sky[i + 1] : sky[i]); } };   // dégradé en bandes tramées
+    const ridge = (base, amp, fr, col, hi) => { let prev = 0; for (let X = 0; X < W; X++) { const h = Math.round(base - amp * (.6 * Math.abs(Math.sin(X * fr + seed % 7)) + .4 * Math.abs(Math.sin(X * fr * 2.7 + 1)))); px(X, h, col, 1, GY - h); if (hi && h < prev) px(X, h, hi, 1, 2); prev = h; } };
+    if (kind === 'boss') {
+      bands(['#12002b', '#2a0845', '#5a0f6e', '#a31a86', '#ff4d9d']);
+      for (let k = 0; k < 46; k++) px(rnd() * W, rnd() * 40, k % 5 ? '#d9c7ff' : '#fff');
+      for (let y = -24; y <= 24; y++) { if (y > 2 && y % 5 < 2) continue; const w = Math.round(Math.sqrt(576 - y * y)); px(80 - w, 44 + y, y < -6 ? '#ffe45e' : y < 8 ? '#ff9e3d' : '#ff4d6d', 2 * w + 1, 1); }   // le soleil rayé
+      ridge(66, 16, .09, '#0a0518'); px(0, GY, '#0a0518', W, H - GY); px(0, GY, '#ff3df0', W, 1);
+      for (let k = 1; k < 8; k++) px(0, GY + k * k * .55, '#b517c9', W, 1);
+      for (let v = -9; v <= 9; v++) for (let y = GY + 1; y < H; y++) { const X = 80 + v * (y - GY) * .62; if (X >= 0 && X < W) px(X, y, '#b517c9'); }
+    } else {
+      const P = PAL[kind]; bands(P.sky); disc(120, 24, 10, P.sun);
+      for (let k = 0; k < 5; k++) { const cx = rnd() * W - 10, cy = 8 + rnd() * 28, w = 16 + rnd() * 14; px(cx, cy, P.cloud, w, 2); px(cx + 3, cy - 2, P.cloud, w - 7, 2); px(cx + 7, cy - 4, P.cloud, w - 14, 2); }
+      ridge(58, 34, .035, P.far, P.cloud); ridge(66, 16, .06, P.mid);
+      const tree = (X, h, r) => { px(X - 1, GY - h, P.trunk, 3, h); px(X + 1, GY - h, '#00000033', 1, h); disc(X, GY - h, r, P.leaf[0]); disc(X - 2, GY - h - 2, r - 3, P.leaf[1]); disc(X - 4, GY - h - 4, Math.max(1, r - 7), P.leaf[2]); };
+      const spike = (X, h) => { for (let y = 0; y < h; y++) { const w = 1 + (y / 3 | 0); px(X - w / 2, GY - h + y, (X + y) % 4 < 2 ? P.leaf[1] : P.leaf[0], w, 1); } px(X, GY - h, P.leaf[2], 1, h * .6); };
+      const cactus = X => { px(X, GY - 16, P.leaf[1], 3, 16); px(X - 4, GY - 11, P.leaf[1], 2, 6); px(X - 4, GY - 6, P.leaf[1], 5, 2); px(X + 5, GY - 13, P.leaf[1], 2, 6); px(X + 3, GY - 8, P.leaf[1], 4, 2); px(X, GY - 16, P.leaf[2], 1, 16); };
+      if (kind === 'grotte') { for (let k = 0; k < 9; k++) px(rnd() * W, 0, P.far, 3, 4 + rnd() * 14); [10, 26, 134, 150, 96].forEach((X, i) => spike(X, 12 + (i * 7) % 16)); }
+      else if (kind === 'canyon') { cactus(16); cactus(146); cactus(98); }
+      else { tree(96, 12, 6); tree(150, 30, 12); tree(12, 42, 17); }
+      for (let y = GY; y < H; y++) px(0, y, P.ground[Math.min(2, (y - GY) / 9 | 0)], W, 1);
+      for (let k = 0; k < 110; k++) { const X = rnd() * W, y = GY + rnd() * (H - GY - 2); px(X, y, P.ground[k % 3 ? 0 : 2], 1, 2); px(X + 1, y + 1, P.ground[0]); }
+      for (let k = 0; k < 14; k++) px(rnd() * W, GY + 4 + rnd() * 22, P.dot);
+    }
+    return SC[kind] = c.toDataURL();
+  }
 
   // ---------- ce qu'un monstre fait réviser : ses questions (attaque), ses récitations (spécial), son coup de grâce (les gestes du livret) ----------
   const flat = st => st.kind === 'list' ? { kind: 'ticks', q: st.q, items: st.items } : st;
@@ -168,11 +226,12 @@ window.AVENTURE = A => {
   }
   function fight() {
     const g = G(), r = R(), f = g.foe, t = g.t, an = g.anim || {}, idp = t && t.mode === 'id' && !t.done, p = f.hp / f.max, max = hpMax(r);
-    const arena = `<div class="avarena ${f.boss ? 'boss' : ''}">
-      <div class="avfoe"><div class="avhud"><b>${idp ? '???' : esc(f.it.title)}</b><span class="muted">${f.boss ? 'BOSS · ' : ''}${esc(f.it.lab)}</span>${bar(f.hp, f.was, f.max)}</div>
-        <div class="avpos">${sprite(f.it, (idp ? 'sil ' : '') + (an.foe ? 'hit' : 'idle'), f.boss)}${an.dF ? `<span class="avdmg ${an.crit ? 'crit' : ''}">-${an.dF}</span>` : ''}</div></div>
-      <div class="avme"><div class="avpos">${HERO(an.foe ? 'lunge' : an.me ? 'hurt' : '')}${an.dM ? `<span class="avdmg me">-${an.dM}</span>` : an.heal ? `<span class="avdmg heal">+${an.heal}</span>` : ''}</div>
-        <div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.was == null ? g.hp : g.was, max, 'me')}<span class="muted">${g.hp}/${max} PV · concentration ${[0, 1, 2].map(i => `<i class="avpip ${i < g.focus ? 'on' : ''}"></i>`).join('')}${g.combo > 1 ? ` · série ×${g.combo}` : ''}</span></div></div></div>
+    const kind = f.boss ? 'boss' : BIOME[fam(f.it)];
+    const arena = `<div class="avscene ${kind} ${an.crit ? 'flash' : ''}" style="background-image:url(${scene(kind)})">
+      <div class="avplate"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.was == null ? g.hp : g.was, max, 'me')}<span>${g.hp}/${max} PV ${[0, 1, 2].map(i => `<i class="avpip ${i < g.focus ? 'on' : ''}"></i>`).join('')}${g.combo > 1 ? ` ×${g.combo}` : ''}</span></div>
+      <div class="avplate foe"><b>${idp ? '???' : esc(f.it.title)}</b>${bar(f.hp, f.was, f.max)}<span>${f.boss ? 'BOSS · ' : ''}${esc(f.it.lab)}</span></div>
+      <div class="avpos me">${HERO(an.foe ? 'lunge' : an.me ? 'hurt' : 'idle')}${an.dM ? `<span class="avdmg me">-${an.dM}</span>` : an.heal ? `<span class="avdmg heal">+${an.heal}</span>` : ''}</div>
+      <div class="avpos foe">${sprite(f.it, (idp ? 'sil ' : '') + (an.foe ? 'hit' : 'idle'), f.boss)}${an.dF ? `<span class="avdmg ${an.crit ? 'crit' : ''}">-${an.dF}</span>` : ''}</div></div>
       <div class="avbox">${esc(g.msg || '')}</div>`;
     let body;
     if (t && t.mode === 'obj') body = `<div class="card qc"><div class="kicker">TES SOINS</div><div class="avlist">${soins(r).map(k => `<button class="ptitem" data-g="avuse" data-k="${k}"><b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></button>`).join('')}</div><button class="btn ghost wide" data-g="avobj" style="margin-top:10px">Retour</button></div>`;
@@ -226,7 +285,7 @@ window.AVENTURE = A => {
     if (g.scr === 'map') return map();
     if (g.scr === 'fight') return fight();
     if (g.scr === 'chest') { const t = g.t, it = ITEMS[t.item];
-      return `${head('')}<div class="card gover avchest"><svg class="avspr ${t.done && t.won ? 'idle' : 'shake'}" viewBox="0 0 120 120" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M18 56c0-20 84-20 84 0v8H18z" fill="#c98a3c"/><rect x="18" y="64" width="84" height="38" rx="4" fill="#a86b2a"/><rect x="52" y="56" width="16" height="20" rx="3" fill="#f6d84a"/></svg>
+      return `${head('')}<div class="card gover avchest">${CHEST(t.done && t.won ? 'idle' : 'shake')}
         <div class="kicker">${t.done ? (t.won ? 'OBJET GAGNÉ' : 'LE COFFRE SE REFERME') : 'DANS LE COFFRE'}</div><div class="question">${esc(it.n)}</div>
         ${t.done ? `<div class="muted">${t.won ? `${it.s === 'soin' ? `Soin : +${it.v} PV` : it.s === 'arme' ? `Arme : attaque +${it.v}` : `Protection : défense +${it.v}`}. ` : 'Tu ne sais pas encore t\'en servir. '}Il sert à : ${esc(it.use.toLowerCase())}.</div>` : ''}</div>
         <div class="card qc">${qcard(t)}</div>${t.done ? `<div class="pager fixed">${btn('avnext', g.last ? 'Fin de l\'expédition →' : 'Continuer →')}</div>` : ''}</div>`; }
