@@ -534,6 +534,9 @@
     { v: 110, items: [
       ['flame', 'Podo Quest : nouvelle interface, sombre et sobre, avec la scène de combat bord à bord. Héros redessiné en pied, monstres plus détaillés (crocs, piques, ailes) avec du volume.'],
     ] },
+    { v: 111, items: [
+      ['flame', 'Podo Quest : cadres en pixels à coins crantés, palette nuit violette, bouton orange, et le décor du monde en fond de tout l\'écran.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

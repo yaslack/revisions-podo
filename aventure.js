@@ -222,7 +222,7 @@ window.AVENTURE = A => {
   // ---------- l'affichage ----------
   const bar = (now, was, max, cls = '') => `<div class="avhp ${cls}"><i style="--f:${100 * was / max}%;--t:${100 * now / max}%"></i></div>`;
   const btn = (g, txt, c = 'var(--hl)', more = '') => `<button class="btn grow" data-g="${g}" style="--c:${c}" ${more}>${txt}</button>`;
-  const head = right => `<div class="wrap qz av">${top('#/', 'Podo Quest', right || '')}`;
+  const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', 'Podo Quest', right || '')}`;
   const stats = r => `<span class="avstat">${ico('flame')} Attaque ${atk(r)}</span><span class="avstat">Défense ${def(r)}</span>`;
   function qcard(t) {   // la question en cours, selon son type : choix, carte à retourner, liste à cocher, gestes à choisir
     const st = t.st, k = t.ticks || [], say = txt => `<div class="say-it">${ico('speak')} ${txt}</div>`;
@@ -255,7 +255,7 @@ window.AVENTURE = A => {
       m.push(['avobj', 'Soins', soins(r).length ? `${soins(r).reduce((s, k) => s + r.items[k], 0)} dans le sac` : 'Sac vide', 'var(--p6)', !soins(r).length]);
       body = `<div class="avmenu">${m.map(([a, n, d, c, off]) => `<button class="avact" data-g="${a}" style="--c:${c}" ${off ? 'disabled' : ''}><b>${n}</b><span>${d}</span></button>`).join('')}</div>`;
     }
-    return `${head(count(`Étape ${g.i + 1}`, g.nodes.length))}${arena}${body}</div>`;
+    return `${head(count(`Étape ${g.i + 1}`, g.nodes.length), kind)}${arena}${body}</div>`;
   }
   const NODE = { foe: '<path d="M-6 6L6-6M1-6h5v5M-7 3l4 4"/>', chest: '<rect x="-7" y="-5" width="14" height="10" rx="2"/><path d="M-7-1h14M0-2v3"/>', boss: '<path d="M-8 5l-1-10 5 5 4-7 4 7 5-5-1 10z"/>' };
   const PTS = [[32, 112], [96, 58], [160, 108], [224, 52], [288, 96]];
