@@ -39,11 +39,21 @@ window.AVENTURE = A => {
     mus: `<path d="M34 72c-18-4-24-22-17-36 3-6 13-5 12 3 0 6 4 10 11 12M86 72c18-4 24-22 17-36-3-6-13-5-12 3 0 6-4 10-11 12" fill="var(--m)"/><path d="M30 98c-6-24 6-42 30-42s36 18 30 42z" fill="var(--m)"/><path d="M21 50c6-4 10 0 10 6M99 50c-6-4-10 0-10 6" stroke-width="2"/><path d="M46 80c8 6 20 6 28 0M48 89c8 4 16 4 24 0" stroke-width="2"/><circle cx="60" cy="42" r="17" fill="var(--m)"/>${eyes(53, 67, 40, 4.5)}<path d="M53 51h14"/>`,
     test: `<path d="M20 40l-8-10M40 28l-4-12M60 24V10M80 28l4-12M100 40l8-10M40 88q-4 12 4 20M60 92v17M80 88q4 12-4 20"/><path d="M12 60c20-34 76-34 96 0-20 34-76 34-96 0z" fill="#fff"/><circle cx="60" cy="60" r="21" fill="var(--m)"/><circle cx="60" cy="60" r="9" fill="#222"/><circle cx="54" cy="54" r="4" fill="#fff" stroke="none"/>`,
   };
+  const EXTRA = {
+    peau: '<path d="M30 92q4 12 8 0M80 93q4 12 8 0" fill="var(--m)"/><path d="M33 44q6-11 17-13" stroke="#fff" stroke-width="3"/><circle cx="44" cy="92" r="3" fill="var(--m2)"/>',
+    ongle: '<path d="M36 30l4-13 6 10 6-13 6 13 6-13 6 13 6-10 4 13" fill="var(--m2)"/>',
+    vasc: '<path d="M100 44v7M106 44v6" stroke="#fff" stroke-width="3"/><path d="M30 92l6 8M44 96l4 8M56 84l8 4" stroke="var(--m2)" stroke-width="3"/>',
+    med: '<path d="M28 66l-13-7M92 66l13-7" stroke-width="6"/><circle cx="12" cy="57" r="6" fill="var(--m)"/><circle cx="108" cy="57" r="6" fill="var(--m)"/>',
+    podo: '<path d="M104 92l10 3M100 100l8 6" stroke-width="4"/><path d="M34 30h30M33 36h31" stroke="var(--m2)" stroke-width="3"/>',
+    os: '<path d="M60 16l-5 9 7 4-4 9" stroke-width="2"/>',
+    mus: '<path d="M43 33h34" stroke="#e5484d" stroke-width="6"/><path d="M77 33l10-4-2 8" fill="#e5484d"/>',
+    test: '<path d="M12 60L2 44l5 17-7 4 13 3M108 60l10-16-5 17 7 4-13 3" fill="var(--m2)"/>',
+  };
   const CROWN = '<path d="M38 22l-3-18 12 10 13-14 13 14 12-10-3 18z" fill="#f6d84a"/>';
   const fam = it => it.kind === 'f' ? (it.f.sec === 'podo' ? 'podo' : SPR[it.f.cat] ? it.f.cat : 'peau') : it.kind === 'a' ? (it.x.nerf ? 'mus' : 'os') : 'test';
   const hue = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
   // Le rendu pixel art : chaque dessin vectoriel est redessiné en 48×48 pixels nets, avec un contour sombre, la lumière en haut à gauche et l'ombre en bas à droite.
-  const PX = {}, BUSY = {}, BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', N = 48;
+  const PX = {}, BUSY = {}, BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', N = 56;
   function pixify(key, inner) {
     if (PX[key]) return PX[key]; if (BUSY[key]) return BLANK; BUSY[key] = 1;
     const im = new Image();
@@ -52,7 +62,7 @@ window.AVENTURE = A => {
       const d = x.getImageData(0, 0, N, N), p = d.data, solid = new Uint8Array(N * N); for (let i = 0; i < N * N; i++) solid[i] = p[i * 4 + 3] > 120 ? 1 : 0;
       const at = (X, Y) => X >= 0 && Y >= 0 && X < N && Y < N && solid[Y * N + X];
       for (let Y = 0; Y < N; Y++) for (let X = 0; X < N; X++) { const i = (Y * N + X) * 4;
-        if (solid[Y * N + X]) { const k = !at(X + 1, Y + 1) || !at(X, Y + 2) ? .7 : !at(X - 1, Y - 1) || !at(X, Y - 2) ? 1.2 : 1; for (let q = 0; q < 3; q++) p[i + q] = Math.min(255, Math.round(p[i + q] * k / 28) * 28); p[i + 3] = 255; }
+        if (solid[Y * N + X]) { const vol = 1.12 - .28 * Y / N - .1 * X / N + ((X + Y) % 2 ? .035 : -.035), k = vol * (!at(X + 1, Y + 1) || !at(X, Y + 2) ? .72 : !at(X - 1, Y - 1) || !at(X, Y - 2) ? 1.18 : 1); for (let q = 0; q < 3; q++) p[i + q] = Math.min(255, Math.round(p[i + q] * k / 24) * 24); p[i + 3] = 255; }
         else if (at(X - 1, Y) || at(X + 1, Y) || at(X, Y - 1) || at(X, Y + 1)) { p[i] = 22; p[i + 1] = 14; p[i + 2] = 34; p[i + 3] = 255; } else p[i + 3] = 0; }
       x.putImageData(d, 0, 0); PX[key] = c.toDataURL(); if (G() && G().game === 'aventure') A.render(true);
     };
@@ -60,8 +70,8 @@ window.AVENTURE = A => {
     return BLANK;
   }
   const img = (key, inner, cls) => `<img class="avspr ${cls}" alt="" src="${pixify(key, inner)}">`;
-  const sprite = (it, cls = '', boss) => { const h = hue(it.id); return img(it.id + (boss ? 'B' : ''), (SPR[fam(it)] + (boss ? CROWN : '')).replace(/var\(--m2\)/g, `hsl(${(h + 40) % 360},55%,42%)`).replace(/var\(--m\)/g, `hsl(${h},72%,60%)`), cls); };
-  const HERO = (cls = '') => img('hero', `<path d="M38 84l-13 15M82 84l15-13"/><path d="M95 73l12-23 5 3-11 23z" fill="#cfd8e3"/><path d="M38 114V80c0-11 8-17 22-17s22 6 22 17v34z" fill="#fff"/><path d="M60 64v50M51 67l9 11 9-11" stroke-width="2"/><circle cx="60" cy="40" r="20" fill="#f1c9a5"/><path d="M40 40c-2-18 10-27 22-27s22 9 18 24c-6-8-15-11-24-11-6 0-12 5-16 14z" fill="#3b2a20"/><circle cx="53" cy="43" r="2.6" fill="#222" stroke="none"/><circle cx="68" cy="43" r="2.6" fill="#222" stroke="none"/><path d="M54 51q6 5 13 0" stroke-width="2"/>`, 'avhero ' + cls);
+  const sprite = (it, cls = '', boss) => { const h = hue(it.id); return img(it.id + (boss ? 'B2' : '2'), (SPR[fam(it)] + EXTRA[fam(it)] + (boss ? CROWN : '')).replace(/var\(--m2\)/g, `hsl(${(h + 40) % 360},55%,42%)`).replace(/var\(--m\)/g, `hsl(${h},72%,60%)`), cls); };
+  const HERO = (cls = '') => img('hero3', `<path d="M50 94v18M70 94v18" stroke-width="9"/><path d="M50 94v17M70 94v17" stroke="#2c3e6b" stroke-width="5"/><path d="M41 114h15M64 114h15" stroke="#3b2a20" stroke-width="7"/><path d="M38 68l-13 14M82 68l14-12" stroke-width="8"/><path d="M38 68l-12 13M82 68l13-11" stroke="#ffffff" stroke-width="4"/><path d="M94 58l14-27 6 3-13 27z" fill="#e6eef8"/><path d="M37 98V64c0-9 8-14 23-14s23 5 23 14v34z" fill="#ffffff"/><path d="M60 52v46" stroke-width="2"/><path d="M51 52c-4 12 2 19 9 19s13-7 9-19" stroke="#2f9be0" stroke-width="3"/><circle cx="60" cy="73" r="3.5" fill="#2f9be0"/><circle cx="60" cy="31" r="19" fill="#f1c9a5"/><path d="M41 32c-2-17 9-25 21-25s21 8 17 23c-5-7-14-10-22-10-6 0-12 4-16 12z" fill="#3b2a20"/><circle cx="53" cy="35" r="2.6" fill="#222" stroke="none"/><circle cx="68" cy="35" r="2.6" fill="#222" stroke="none"/><path d="M55 43q6 4 12 0" stroke-width="2"/>`, 'avhero ' + cls);
   const CHEST = cls => img('chest', '<path d="M16 54c0-22 88-22 88 0v10H16z" fill="#c98a3c"/><rect x="16" y="64" width="88" height="40" rx="4" fill="#9a5f24"/><path d="M16 78h88M34 64v40M86 64v40" stroke-width="3"/><rect x="51" y="56" width="18" height="22" rx="3" fill="#f6d84a"/>', cls);
 
   // Les décors, peints pixel par pixel (160×100) : un par biome, plus l'arène néon des boss. Calculés une fois, gardés en mémoire.
@@ -252,7 +262,7 @@ window.AVENTURE = A => {
   function map() {
     const g = G(), r = R(), n = g.nodes[g.i], max = hpMax(r);
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length))}
-      <div class="card avmap"><svg viewBox="0 0 320 150" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div class="card avmap" style="background-image:linear-gradient(rgba(14,13,19,.25),rgba(14,13,19,.9)),url(${scene(n.t === 'boss' ? 'boss' : n.it ? BIOME[fam(n.it)] : 'foret')})"><svg viewBox="0 0 320 150" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M${PTS.map(p => p.join(' ')).join(' L')}" stroke-dasharray="2 9" stroke-width="4" opacity=".5"/>
         ${g.nodes.map((x, i) => `<g transform="translate(${PTS[i]})" class="avnode ${i < g.i ? 'done' : i === g.i ? 'now' : ''}"><circle r="17" fill="${i < g.i ? 'var(--p6)' : x.t === 'boss' ? 'var(--red)' : x.t === 'chest' ? 'var(--hl)' : 'var(--card)'}"/>${i < g.i ? '<path d="M-7 0l5 5 9-10"/>' : NODE[x.t]}</g>`).join('')}
       </svg><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
@@ -264,7 +274,7 @@ window.AVENTURE = A => {
   function hub() {
     const r = R(), gear = Object.keys(ITEMS).filter(k => ITEMS[k].s !== 'soin' && r.items[k]), heal = soins(r), M = window.SONS, n = A.pool().length, seen = Object.keys(r.seen).length;
     return `${head(`<span class="count">Nv ${r.lvl}</span>`)}
-      <div class="card avcamp">${HERO('idle')}<div class="avhud"><div class="kicker">TON PODOLOGUE · ${r.runs} EXPÉDITION${r.runs > 1 ? 'S' : ''}</div><b>Niveau ${r.lvl}</b>${bar(r.xp, r.xp, xpNext(r), 'xp')}<span class="muted">${r.xp}/${xpNext(r)} XP · ${hpMax(r)} PV</span><div>${stats(r)}</div></div></div>
+      <div class="card avcamp" style="background-image:linear-gradient(90deg,rgba(14,13,19,.2),rgba(14,13,19,.92) 62%),url(${scene('foret')})">${HERO('idle')}<div class="avhud"><div class="kicker">TON PODOLOGUE · ${r.runs} EXPÉDITION${r.runs > 1 ? 'S' : ''}</div><b>Niveau ${r.lvl}</b>${bar(r.xp, r.xp, xpNext(r), 'xp')}<span class="muted">${r.xp}/${xpNext(r)} XP · ${hpMax(r)} PV</span><div>${stats(r)}</div></div></div>
       <div class="muted small">Chaque monstre est une fiche, un repère ou un test. Reconnais-le, réponds pour l'attaquer, récite pour frapper fort, et finis-le avec son vrai traitement.</div>
       ${gear.length ? `<div class="sec">TON ÉQUIPEMENT (TOUCHE POUR ÉQUIPER)</div><div class="avlist">${gear.map(k => { const it = ITEMS[k], on = r[it.s] === k; return `<button class="ptitem ${on ? 'good' : ''}" data-g="aveq" data-k="${k}"><b>${esc(it.n)}</b> · ${it.s === 'arme' ? 'attaque' : 'défense'} +${it.v}${on ? ' · équipé' : ''}<br><span class="muted">${esc(it.use)}</span></button>`; }).join('')}</div>` : ''}
       ${heal.length ? `<div class="sec">TES SOINS</div><div class="avlist">${heal.map(k => `<div class="ptitem"><b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></div>`).join('')}</div>` : ''}

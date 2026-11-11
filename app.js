@@ -531,6 +531,9 @@
       ['flame', 'Podo Quest change de look : un vrai jeu en pixel art. Des décors par monde (forêt, marais, canyon, grotte de cristal), des monstres et un héros en pixels, des fenêtres dorées, une arène néon pour les boss et une carte au trésor en parchemin.'],
       ['phones', 'La musique de l\'aventure passe en chiptune, comme sur une vieille console.'],
     ] },
+    { v: 110, items: [
+      ['flame', 'Podo Quest : nouvelle interface, sombre et sobre, avec la scène de combat bord à bord. Héros redessiné en pied, monstres plus détaillés (crocs, piques, ailes) avec du volume.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
