@@ -557,6 +557,10 @@
       ['sparkle', 'Podo Quest : nouveaux décors, héros et monstres en pixel art, avec des combats plus vivants.'],
       ['flame', 'Interface, barres de vie, animations et effets de combat retravaillés pour mieux suivre ton aventure.'],
     ] },
+    { v: 118, items: [
+      ['sparkle', 'Podo Quest : nouvelle interface de combat, portraits et panneaux inspirés de la maquette, avec une pose d’attaque pour le héros.'],
+      ['flame', 'La carte est mieux cadrée et ses étapes sont plus faciles à distinguer.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

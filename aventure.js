@@ -32,7 +32,9 @@ window.AVENTURE = A => {
   const hue = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
   // Un sprite par famille, animé par les classes de combat ; chaque adversaire reçoit une légère variation de teinte.
   const sprite = (it, cls = '') => `<img class="avspr art ${cls}" alt="" style="--hr:${hue(it.id) % 5 * 14 - 28}deg" src="jeu/monstre-${fam(it)}-v2.png">`;
-  const HERO = (cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/heros-v2.png">`;
+  const HERO = (cls = '') => /\blunge\b/.test(cls)
+    ? `<img class="avspr art avhero avhero-base" alt="" src="jeu/heros-v2.png"><img class="avspr art avhero avhero-strike" alt="" src="jeu/heros-attaque-v2.png">`
+    : `<img class="avspr art avhero ${cls}" alt="" src="jeu/heros-v2.png">`;
   const CHEST = (open, cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/coffre${open ? '-ouvert' : ''}.png">`, OBJ = k => `<img class="avobj" alt="" src="jeu/obj-${k}.png">`;
 
   const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, scene = kind => `jeu/decor-${kind}-v2.png`;
@@ -163,8 +165,8 @@ window.AVENTURE = A => {
     const g = G(), r = R(), f = g.foe, t = g.t, an = g.anim || {}, idp = t && t.mode === 'id' && !t.done, p = f.hp / f.max, max = hpMax(r);
     const kind = f.boss ? 'boss' : BIOME[fam(f.it)];
     const arena = `<div class="avscene ${kind} ${an.crit ? 'flash' : ''}" style="background-image:url(${scene(kind)})">
-      <div class="avplate"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.was == null ? g.hp : g.was, max, 'me')}<span>${g.hp}/${max} PV ${[0, 1, 2].map(i => `<i class="avpip ${i < g.focus ? 'on' : ''}"></i>`).join('')}${g.combo > 1 ? ` ×${g.combo}` : ''}</span></div>
-      <div class="avplate foe"><b>${idp ? '???' : esc(f.it.title)}</b>${bar(f.hp, f.was, f.max)}<span>${f.boss ? 'BOSS · ' : ''}${esc(f.it.lab)}</span></div>
+      <div class="avplate"><span class="avportrait"><img src="jeu/heros-v2.png" alt=""></span><div class="avplate-info"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.was == null ? g.hp : g.was, max, 'me')}<span><i class="avheart" aria-hidden="true">♥</i> ${g.hp}/${max} PV ${[0, 1, 2].map(i => `<i class="avpip ${i < g.focus ? 'on' : ''}"></i>`).join('')}${g.combo > 1 ? ` ×${g.combo}` : ''}</span></div></div>
+      <div class="avplate foe"><span class="avportrait ${idp ? 'unknown' : ''}"><img src="jeu/monstre-${fam(f.it)}-v2.png" alt=""></span><div class="avplate-info"><b>${idp ? '???' : esc(f.it.title)}</b>${bar(f.hp, f.was, f.max)}<span>${f.boss ? 'BOSS · ' : ''}${esc(f.it.lab)}</span></div></div>
       <div class="avpos me ${an.me ? 'ouch' : an.heal ? 'heal' : ''}">${HERO(an.foe ? 'lunge' : an.me ? 'hurt' : 'idle')}${an.dM ? `<span class="avdmg me">-${an.dM}</span>` : an.heal ? `<span class="avdmg heal">+${an.heal}</span>` : ''}</div>
       <div class="avpos foe ${an.foe ? 'slash' : ''} ${an.crit ? 'rays' : ''}">${sprite(f.it, (idp ? 'sil ' : '') + (an.foe ? 'hit' : 'idle'), f.boss)}${an.dF ? `<span class="avdmg ${an.crit ? 'crit' : ''}">-${an.dF}</span>` : ''}</div></div>
       <div class="avbox">${esc(g.msg || '')}</div>`;
@@ -187,7 +189,7 @@ window.AVENTURE = A => {
   function map() {
     const g = G(), r = R(), n = g.nodes[g.i], max = hpMax(r);
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length))}
-      <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%">${i < g.i ? '✓' : x.t === 'boss' ? 'B' : x.t === 'chest' ? '?' : i + 1}</span>`).join('')}<img class="avspr art avwho" alt="" src="jeu/heros-v2.png" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
+      <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%" aria-label="Étape ${i + 1}${i < g.i ? ', terminée' : i === g.i ? ', en cours' : ''}">${i < g.i ? '✓' : `<svg viewBox="-12 -12 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${NODE[x.t]}</svg>`}</span>`).join('')}<img class="avspr art avwho" alt="" src="jeu/heros-v2.png" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
       <div class="card qc"><div class="kicker">${n.t === 'chest' ? 'UN COFFRE' : n.t === 'boss' ? 'LE BOSS' : 'UN MONSTRE'}</div>
         <div class="question">${n.t === 'chest' ? 'Un coffre au bord du chemin.' : n.t === 'boss' ? 'Une ombre énorme garde la sortie.' : 'Quelque chose bouge devant toi…'}</div>
         <div class="muted small">${n.t === 'chest' ? 'Pour garder l\'objet, il faut savoir à quoi il sert.' : n.t === 'boss' ? 'Trois phases : les questions, la récitation, puis le bon traitement.' : 'Reconnais-le à ses signes pour frapper le premier.'}</div></div>

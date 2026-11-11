@@ -984,3 +984,86 @@ body:has(.av) .sndbar { display: none !important; }
 .av .avspr.ko:not(.avhero) { transform: rotate(80deg) scale(.78); opacity: .72; filter: hue-rotate(var(--hr, 0deg)) grayscale(.35); }
 .av .gover .avspr.ko { transform-origin: 50% 65%; }
 .av .avscene.boss .avpos.foe img.art.sil { filter: brightness(0) drop-shadow(0 0 4px #ffe7bc); }
+
+/* Repères et effets de combat : chaque type d'étape a sa silhouette. */
+.av .avpin { width: 38px; height: 38px; border: 3px solid #ffedc6; color: #fff5d9; background: linear-gradient(#62557f, #302744); box-shadow: 0 3px 0 #372339, 0 0 0 2px #735b68, inset 0 1px 2px rgba(255,255,255,.4); z-index: 1; }
+.av .avpin svg { width: 22px; height: 22px; filter: drop-shadow(0 1px #3a293a); }
+.av .avpin.chest { background: linear-gradient(#ffd272, #cf7628); }
+.av .avpin.boss { background: linear-gradient(#ee6874, #9e293f); }
+.av .avpin.done { background: linear-gradient(#87d998, #2d996a); }
+.av .avpin.now { border-color: #fff4b5; box-shadow: 0 3px 0 #372339, 0 0 0 4px rgba(255,214,115,.5), 0 0 18px #ffe19c; }
+.av .avwho { filter: drop-shadow(0 3px 0 rgba(0,0,0,.55)) drop-shadow(0 0 5px rgba(255,230,161,.6)); }
+/* Les coups des boss doivent prendre le pas sur leur animation d'attente. */
+.av .avscene.boss .avpos.foe.slash img.art.hit { animation: avhit .5s ease-out; }
+@keyframes avstrike { 0% { transform: translate(0, 0) scale(1); } 20% { transform: translate(-5%, 1%) scale(.96, 1.04); } 50% { transform: translate(28%, -8%) rotate(8deg) scale(1.08); } 100% { transform: translate(0, 0) scale(1); } }
+@keyframes avimpact { 0% { transform: scale(.35) rotate(-20deg); opacity: 0; } 22% { opacity: .95; } 100% { transform: scale(1.4) rotate(18deg); opacity: 0; } }
+.av .avscene .avhero.lunge { animation: avstrike .55s cubic-bezier(.2,.7,.3,1); transform-origin: 50% 90%; }
+.av .avscene .avpos.slash { isolation: isolate; }
+.av .avscene .avpos.slash .avspr { animation-timing-function: steps(2, end); }
+.av .avscene .avpos.slash:not(.rays)::after { content: ''; position: absolute; z-index: 2; left: 20%; top: 20%; width: 60%; height: 60%; background: repeating-conic-gradient(from 12deg, #fff4bb 0deg 7deg, transparent 7deg 45deg); mask: radial-gradient(circle, transparent 14%, #000 20%, transparent 62%); -webkit-mask: radial-gradient(circle, transparent 14%, #000 20%, transparent 62%); animation: avimpact .5s ease-out both; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .av *, .av *::before, .av *::after { animation-duration: .01s !important; animation-iteration-count: 1 !important; } }
+/* Garder tout le parcours visible sur les grands écrans et en mode paysage. */
+.av .avworld { width: min(100%, clamp(260px, calc(75dvh - 158px), 520px)); margin: 0 auto; }
+
+/* Podo Quest · écran de combat inspiré de la maquette d'aventure. */
+.av .avscene { border: 0; border-radius: 0; box-shadow: none; background-position: 50% 58%; }
+.av .avscene .avplate { display: flex; align-items: stretch; gap: 8px; padding: 5px; top: 10px; width: calc(50% - 15px); border: 2px solid #b78bd4; border-radius: 12px; background: linear-gradient(155deg, rgba(59,48,113,.97), rgba(24,24,69,.97)); box-shadow: inset 0 0 0 2px #2a235d, 0 3px 0 #251841, 0 0 9px rgba(241,164,94,.35); }
+.av .avscene .avplate.foe { right: 10px; }
+.av .avportrait { flex: 0 0 54px; width: 54px; height: 58px; overflow: hidden; border-radius: 9px; border: 2px solid #e9bd73; background: radial-gradient(circle at 50% 30%, #6556a3, #262453); box-shadow: inset 0 0 0 2px #563962; }
+.av .avportrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 8%; transform: scale(1.2); image-rendering: pixelated; }
+.av .avportrait.unknown img { filter: brightness(0) drop-shadow(0 0 2px #fff1d7); }
+.av .avplate-info { display: grid; align-content: center; gap: 4px; flex: 1; min-width: 0; }
+.av .avplate-info b { color: #fffaf1; font-size: 13px; line-height: 1.15; text-shadow: 0 2px #17163b; }
+.av .avplate-info span { color: #e7ddf6; font-size: 11px; line-height: 1.15; }
+.av .avheart { color: #ff6c7e; font-style: normal; text-shadow: 0 1px #66283e; }
+.av .avplate .avhp { height: 11px; border: 2px solid #a88bd2; border-radius: 8px; background: #17163e; }
+.av .avplate .avhp i { border-radius: 5px; }
+.av .avscene .avpos.me { left: 6%; }
+.av .avscene .avpos.foe { right: 5%; }
+.av .avscene .avhero-base { animation: avhero-base-frame .65s steps(1,end) both; }
+.av .avscene .avhero-strike { position: absolute; inset: 0; opacity: 0; animation: avhero-attack-frame .65s steps(1,end) both, avstrike .65s ease-out; transform-origin: 50% 90%; }
+@keyframes avhero-base-frame { 0%, 72%, 100% { opacity: 1; } 18%, 71% { opacity: 0; } }
+@keyframes avhero-attack-frame { 0%, 72%, 100% { opacity: 0; } 18%, 71% { opacity: 1; } }
+.av .avbox { min-height: 48px; display: flex; align-items: center; margin: 14px 0 16px; padding: 10px 18px 10px 43px; border: 2px solid #a78adb; border-radius: 14px; background: linear-gradient(110deg, #393073, #201d52); box-shadow: inset 0 1px rgba(255,255,255,.2), 0 4px 0 #151337; color: #fff0c3; font-weight: 800; }
+.av .avbox::before { left: 14px; font-size: 21px; text-shadow: 0 0 10px #ffb64e; }
+.av .card.qc { position: relative; padding: 20px; border: 2px solid #f2bb75; border-radius: 16px; background: linear-gradient(145deg, #484078, #282655 70%); box-shadow: inset 0 0 0 3px #5a4686, inset 0 0 0 5px #26244e, 0 5px 0 #161439, 0 9px 22px rgba(0,0,0,.25); }
+.av .qc .kicker { display: inline-block; margin-bottom: 9px; padding: 5px 12px; border: 1px solid #d6adeb; border-radius: 7px; color: #ffe59e; background: linear-gradient(#7760a6, #493b7c); text-shadow: 0 2px #3a2450; }
+.av .qc .question { font-size: clamp(17px, 2.3vw, 21px); line-height: 1.35; }
+.av .opts { gap: 9px; margin-top: 14px; }
+.av .opt, .av .ck, .av .ptitem { border: 2px solid #8274b8; border-radius: 999px; background: linear-gradient(180deg, #494579, #302c60); box-shadow: inset 0 2px 0 rgba(255,255,255,.13), 0 3px 0 rgba(17,14,53,.6); }
+.av .opt { min-height: 52px; padding: 8px 14px; font-size: 15px; text-align: left; }
+.av .opt::before { width: 30px; height: 30px; border: 2px solid #b5a9e6; border-radius: 50%; background: #30295e; color: #fff; font-size: 15px; }
+.av .opt.good { border-color: #b5f481; background: linear-gradient(#287b4d, #15533e); box-shadow: inset 0 2px rgba(255,255,255,.24), 0 0 14px rgba(112,255,144,.6), 0 3px 0 #122e2a; }
+.av .opt.good::before { background: #55dd6e; border: 2px solid #a8f6b0; color: #fff; }
+.av .opt.bad { border-color: #ff9f9d; background: linear-gradient(#9f4a5d, #642d4a); }
+.av .opt.bad::before { color: #fff; }
+.av .opt.dim { opacity: .8; }
+.av .ck, .av .ptitem { border-radius: 13px; }
+.av .btn, .av .btn.ghost, .av .btn[style*="--c:var(--p6)"], .av .btn[style*="#f6c3b9"] { border-image: none; border: 3px solid #ffe2a6; border-radius: 999px; background: linear-gradient(#ffd765 0%, #ffac20 45%, #e9750e 52%, #ffac26 100%); box-shadow: inset 0 0 0 2px #bd550b, 0 4px 0 #7c3c1b, 0 7px 14px rgba(0,0,0,.35); padding: 10px 18px; color: #54210e; text-shadow: 0 1px #ffe5a7; }
+.av .btn.ghost { border-color: #a99ad0; background: linear-gradient(#6d6295, #403765); color: #fff; text-shadow: 0 2px #211c43; box-shadow: inset 0 1px rgba(255,255,255,.2), 0 4px 0 #221b3d; }
+.av .btn[style*="--c:var(--p6)"] { border-color: #c8f8b4; background: linear-gradient(#a1ed86, #3ab75f); color: #113b27; text-shadow: 0 1px #c4f8ca; }
+.av .btn[style*="#f6c3b9"] { border-color: #ffccd0; background: linear-gradient(#ff9c9d, #dd5263); color: #4b152c; text-shadow: 0 1px #ffd8d5; }
+.av .pager.fixed { padding-left: 20px; padding-right: 20px; }
+@media (max-width: 480px) {
+  .av .avscene .avplate { gap: 4px; padding: 4px; width: calc(50% - 12px); left: 6px; top: 6px; }
+  .av .avscene .avplate.foe { left: auto; right: 6px; }
+  .av .avportrait { flex-basis: 38px; width: 38px; height: 43px; border-radius: 6px; }
+  .av .avplate-info { gap: 3px; }
+  .av .avplate-info b { font-size: 11px; }
+  .av .avplate-info span { font-size: 10px; }
+  .av .avplate .avhp { height: 9px; }
+  .av .card.qc { padding: 15px; }
+  .av .opt { padding: 8px 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .av .avscene .avhero-base { animation: none !important; opacity: 1; }
+  .av .avscene .avhero-strike { animation: none !important; opacity: 0; }
+}
+/* Les couleurs de réponse restent visibles avec les thèmes clair et sombre du site. */
+html[data-skin] .av .opt.good { background: linear-gradient(#287b4d, #15533e); color: #fff; }
+html[data-skin] .av .opt.bad { background: linear-gradient(#9f4a5d, #642d4a); color: #fff; }
+html[data-skin] .av .ck.on { background: #215c4a; color: #fff; }
+.av .card.qc::before, .av .card.qc::after { content: '✦'; position: absolute; color: #edc28a; font-size: 16px; line-height: 1; text-shadow: 0 0 8px #ffb853; pointer-events: none; }
+.av .card.qc::before { top: 7px; right: 11px; }
+.av .card.qc::after { bottom: 7px; right: 11px; }
+.av .avportrait img { transform: scale(1.65); transform-origin: 50% 18%; }
