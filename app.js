@@ -553,6 +553,10 @@
     { v: 116, items: [
       ['flame', 'Podo Quest : le voile sombre qui montait et descendait pendant les combats est corrigé.'],
     ] },
+    { v: 117, items: [
+      ['sparkle', 'Podo Quest : nouveaux décors, héros et monstres en pixel art, avec des combats plus vivants.'],
+      ['flame', 'Interface, barres de vie, animations et effets de combat retravaillés pour mieux suivre ton aventure.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

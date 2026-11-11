@@ -30,12 +30,12 @@ window.AVENTURE = A => {
   const FAMS = ['peau', 'ongle', 'vasc', 'med'];
   const fam = it => it.kind === 'f' ? (it.f.sec === 'podo' ? 'podo' : FAMS.includes(it.f.cat) ? it.f.cat : 'peau') : it.kind === 'a' ? (it.x.nerf ? 'mus' : 'os') : 'test';
   const hue = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
-  // Les images (dossier jeu/) : un monstre par famille en 3 poses (normal, touché, K.O.), teinté un peu différemment selon le monstre ; le héros en 2 poses.
-  const sprite = (it, cls = '') => `<img class="avspr art ${cls}" alt="" style="--hr:${hue(it.id) % 5 * 14 - 28}deg" src="jeu/monstre-${fam(it)}${/\bko\b/.test(cls) ? '-ko' : /\bhit\b/.test(cls) ? '-touche' : ''}.png">`;
-  const HERO = (cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/heros${/lunge/.test(cls) ? '-attaque' : ''}.png">`;
+  // Un sprite par famille, animé par les classes de combat ; chaque adversaire reçoit une légère variation de teinte.
+  const sprite = (it, cls = '') => `<img class="avspr art ${cls}" alt="" style="--hr:${hue(it.id) % 5 * 14 - 28}deg" src="jeu/monstre-${fam(it)}-v2.png">`;
+  const HERO = (cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/heros-v2.png">`;
   const CHEST = (open, cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/coffre${open ? '-ouvert' : ''}.png">`, OBJ = k => `<img class="avobj" alt="" src="jeu/obj-${k}.png">`;
 
-  const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, scene = kind => `jeu/decor-${kind}.jpg`;
+  const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, scene = kind => `jeu/decor-${kind}-v2.png`;
 
   // ---------- ce qu'un monstre fait réviser : ses questions (attaque), ses récitations (spécial), son coup de grâce (les gestes du livret) ----------
   const flat = st => st.kind === 'list' ? { kind: 'ticks', q: st.q, items: st.items } : st;
@@ -145,7 +145,7 @@ window.AVENTURE = A => {
   }
 
   // ---------- l'affichage ----------
-  const bar = (now, was, max, cls = '') => `<div class="avhp ${cls}"><i style="--f:${100 * was / max}%;--t:${100 * now / max}%"></i></div>`;
+  const bar = (now, was, max, cls = '') => `<div class="avhp ${cls}" role="progressbar" aria-label="${cls === 'xp' ? 'Expérience' : 'Points de vie'}" aria-valuemin="0" aria-valuemax="${max}" aria-valuenow="${now}"><i style="--f:${100 * was / max}%;--t:${100 * now / max}%"></i></div>`;
   const btn = (g, txt, c = 'var(--hl)', more = '') => `<button class="btn grow" data-g="${g}" style="--c:${c}" ${more}>${txt}</button>`;
   const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', '<img class="avlogo" src="jeu/ui-logo.png" alt="Podo Quest">', (right || '') + `<button class="avmusb ${R().mus === false ? 'off' : ''}" data-g="avmus" aria-label="Musique" aria-pressed="${R().mus !== false}">♪</button>`)}`;
   const stats = r => `<span class="avstat">${ico('flame')} Attaque ${atk(r)}</span><span class="avstat">Défense ${def(r)}</span>`;
@@ -187,7 +187,7 @@ window.AVENTURE = A => {
   function map() {
     const g = G(), r = R(), n = g.nodes[g.i], max = hpMax(r);
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length))}
-      <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%">${i < g.i ? '✓' : x.t === 'boss' ? 'B' : x.t === 'chest' ? '?' : i + 1}</span>`).join('')}<img class="avspr art avwho" alt="" src="jeu/heros.png" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
+      <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%">${i < g.i ? '✓' : x.t === 'boss' ? 'B' : x.t === 'chest' ? '?' : i + 1}</span>`).join('')}<img class="avspr art avwho" alt="" src="jeu/heros-v2.png" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
       <div class="card qc"><div class="kicker">${n.t === 'chest' ? 'UN COFFRE' : n.t === 'boss' ? 'LE BOSS' : 'UN MONSTRE'}</div>
         <div class="question">${n.t === 'chest' ? 'Un coffre au bord du chemin.' : n.t === 'boss' ? 'Une ombre énorme garde la sortie.' : 'Quelque chose bouge devant toi…'}</div>
         <div class="muted small">${n.t === 'chest' ? 'Pour garder l\'objet, il faut savoir à quoi il sert.' : n.t === 'boss' ? 'Trois phases : les questions, la récitation, puis le bon traitement.' : 'Reconnais-le à ses signes pour frapper le premier.'}</div></div>

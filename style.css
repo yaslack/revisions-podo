@@ -914,3 +914,73 @@ body:has(.av) .sndbar { display: none !important; }
 @media (prefers-reduced-motion: reduce) { .av *, .av *::before, .av *::after { animation-duration: .01s !important; animation-iteration-count: 1 !important; } }
 /* correctif : le voile sombre qui montait et descendait sur la scène (il était animé avec les lucioles). Les lucioles restent, sans voile. */
 .av .avscene::after { background: radial-gradient(2px 2px at 20% 80%, rgba(255,255,220,.9), transparent 60%), radial-gradient(2px 2px at 70% 60%, rgba(200,230,255,.8), transparent 60%), radial-gradient(3px 3px at 45% 90%, rgba(255,240,170,.7), transparent 60%); background-size: 180px 180px, 240px 240px, 300px 300px; }
+
+/* Podo Quest · carnet d'aventure : une interface lisible sur les décors pixel art. */
+.wrap.av { --card: #211d38; --line: #62577e; --muted: #c9c1d7; --hl: #ffd078; color: #fff8e9; background: linear-gradient(180deg, rgba(19,17,35,.83), rgba(19,17,35,.97) 70%), var(--bg) center top / cover fixed #171426; }
+.av .top { align-items: center; padding: 7px 0 14px; }
+.av .avlogo { height: 50px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 3px 0 #25162a) drop-shadow(0 0 9px rgba(255,189,94,.25)); }
+.av .top .back, .av .count, .av .avmusb { border: 2px solid #86749a; background: #29223d; color: #fff3d5 !important; box-shadow: inset 0 0 0 2px #171427, 0 3px 0 #100d1c; }
+.av .avmusb { color: #ffd078 !important; width: 40px; height: 38px; }
+.av .card, .av .avbox, .av .avplate, .av .avact, .av .card.avmap { border-image: none; border: 2px solid #716084; background: linear-gradient(155deg, #39304e, #211d35 65%); box-shadow: inset 0 0 0 2px #181528, inset 0 1px 0 3px rgba(255,223,168,.14), 0 5px 0 rgba(9,8,20,.5); image-rendering: auto; }
+.av .card { padding: 16px; margin-top: 14px; }
+.av .kicker, .av .sec, .av .avclues b { color: #ffd078; letter-spacing: .1em; }
+.av .question { color: #fff7e6; font-size: 18px; line-height: 1.35; }
+.av .muted, .av .small, .av .avact span { color: #c9c1d7; }
+.av .opt, .av .ck, .av .ptitem { border: 2px solid #554a6c; background: #29243e; color: #fff8ed; box-shadow: inset 0 1px rgba(255,255,255,.05); }
+.av .opt { min-height: 52px; padding: 10px 12px; }
+.av .opt::before { background: #181528; border: 2px solid #8e7ba1; color: #f7daa4; }
+.av .opt:not(:disabled):hover, .av .ck:not(:disabled):hover, .av .ptitem:hover { border-color: #e9b96b; background: #3d324d; }
+.av button:focus-visible, .av a:focus-visible { outline: 3px solid #fff0a8; outline-offset: 3px; }
+.av .opt.good, .av .ck.on, .av .ptitem.good { background: #174d3b; border-color: #69dba2; }
+.av .opt.bad, .av .ck.no.on { background: #602e40; border-color: #ff8792; }
+.av .avscene { height: clamp(260px, 43dvh, 440px); border: 2px solid #78648a; border-radius: 4px; box-shadow: 0 8px 0 #151224, 0 18px 30px rgba(0,0,0,.38); overflow: hidden; }
+.av .avplate { width: 46%; top: 10px; left: 10px; padding: 8px 10px; font-size: 12px; background: linear-gradient(145deg, rgba(49,41,66,.96), rgba(25,22,39,.96)); }
+.av .avplate.foe { right: 10px; left: auto; }
+.av .avplate span { color: #e0d4dd; }
+.av .avplate .avhp { height: 11px; border: 2px solid #151322; }
+.av .avbox { position: relative; margin: 18px 0 12px; padding: 12px 16px 12px 20px; color: #fff2d9; font-size: 15px; }
+.av .avbox::before { content: '✦'; position: absolute; left: 5px; color: #ffcf72; }
+.av .avmenu { gap: 10px; }
+.av .avact { min-height: 76px; padding: 9px; grid-template-columns: 42px 1fr; border-left: 3px solid var(--c); animation: none !important; }
+.av .avact img { width: 42px; height: 42px; }
+.av .avact b { color: #fff3d9; }
+.av .avact:not(:disabled):hover { border-color: #ffd078; transform: translateY(-2px); }
+.av .avact:disabled { opacity: .55; }
+.av .avcamp { border: 2px solid #b18a6f; min-height: 170px; padding: 16px; position: relative; box-shadow: inset 0 0 0 3px rgba(28,20,31,.7), 0 7px 0 #151224; }
+.av .avcamp img.avspr { width: 125px; height: 135px; filter: drop-shadow(0 5px 3px rgba(0,0,0,.5)); }
+.av .avcamp .avhud b { font-size: 21px; color: #fff7df; }
+.av .avcamp .muted, .av .avcamp .avstat { color: #eee0d6; }
+.av .avworld { border: 2px solid #a78779; box-shadow: 0 7px 0 #151224; }
+.av .avpin { border-color: #f8e8c3; box-shadow: 0 3px 0 #392639, 0 0 0 2px #543d56; }
+.av .avpin.now { box-shadow: 0 3px 0 #392639, 0 0 0 4px rgba(255,211,112,.45); }
+.av .card.avmap { padding: 12px 14px; }
+.av .avhp { background: #171423; }
+.av .btn { min-height: 48px; }
+.av .btn:not(:disabled):hover { filter: brightness(1.1); }
+.av .pager.fixed { background: linear-gradient(transparent, #171426 45%); }
+.av .gover { padding: 24px 18px; }
+.av .gover::before { opacity: .38; }
+.av .avmon { gap: 14px; }
+.av .avmon img.avspr { width: 66px; height: 66px; }
+@media (max-width: 360px) { .av .avscene { min-height: 235px; } .av .avplate { width: 47%; font-size: 11px; padding: 6px; } .av .avact { grid-template-columns: 32px 1fr; gap: 6px; } .av .avact img { width: 32px; height: 32px; } .av .avcamp img.avspr { width: 95px; height: 110px; } }
+/* Animation et retour visuel des actions. */
+@keyframes avhero-breathe { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.025,.98); } }
+@keyframes avfoe-breathe { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-7px) rotate(1deg); } }
+@keyframes avmap-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -55%) scale(1.12); } }
+@keyframes avhp-shine { from { background-position: -90px 0, 0 0; } to { background-position: 220px 0, 0 0; } }
+.av .avscene .avhero.idle, .av .avcamp .avhero.idle { animation: avhero-breathe 2.5s ease-in-out infinite; transform-origin: 50% 100%; }
+.av .avscene .avpos.foe .avspr.idle:not(.sil) { animation: avfoe-breathe 2.7s ease-in-out infinite; transform-origin: 50% 100%; }
+.av .avscene.boss .avpos.foe .avspr.idle:not(.sil) { animation: avfoe-breathe 2.7s ease-in-out infinite, avaura 1.8s ease-in-out infinite; }
+.av .avpin.now { animation: avmap-pulse 1.4s ease-in-out infinite; }
+.av .avhp { position: relative; height: 11px; border: 2px solid #151322; border-radius: 3px; box-shadow: 0 1px rgba(255,255,255,.16); }
+.av .avhp i { border-radius: 1px; background-image: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.35) 40%, transparent 60%), linear-gradient(#ff9c91, #d23d57); background-size: 90px 100%, 100% 100%; animation: avhp .55s ease-out, avhp-shine 3s linear infinite; }
+.av .avhp.me i { background-image: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.38) 40%, transparent 60%), linear-gradient(#99f5a8, #2caf70); }
+.av .avhp.xp i { background-image: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.4) 40%, transparent 60%), linear-gradient(#ffe493, #e99c41); }
+.av .avscene .avpos.slash::before { height: 12px; box-shadow: 0 0 5px #fff, 0 0 18px #ffcf75, 0 0 38px #ff895b; }
+.av .avdmg { z-index: 5; font-size: clamp(28px, 6vw, 42px); text-shadow: -2px -2px #291d30, 2px -2px #291d30, -2px 2px #291d30, 2px 2px #291d30, 0 4px 0 #291d30; }
+.av .pager.fixed { max-width: 860px; left: 50%; right: auto; width: 100%; transform: translateX(-50%); }
+@media (prefers-reduced-motion: reduce) { .av *, .av *::before, .av *::after { animation-duration: .01s !important; animation-iteration-count: 1 !important; transition-duration: .01s !important; } }
+/* Les nouvelles créatures gardent leur identité pendant les impacts et la victoire. */
+.av .avspr.ko:not(.avhero) { transform: rotate(80deg) scale(.78); opacity: .72; filter: hue-rotate(var(--hr, 0deg)) grayscale(.35); }
+.av .gover .avspr.ko { transform-origin: 50% 65%; }
+.av .avscene.boss .avpos.foe img.art.sil { filter: brightness(0) drop-shadow(0 0 4px #ffe7bc); }
