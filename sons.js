@@ -111,6 +111,9 @@
   // ---------- sons d'interface : de petites notes jouées à la volée (forme d'onde, puis [fréquence, départ, durée, volume, glisse vers]) ----------
   const FX = {
     tap: ['sine', [[440, 0, .05, .1, 620]]], nav: ['sine', [[330, 0, .06, .07, 440]]], tick: ['sine', [[900, 0, .03, .07]]], reveal: ['sine', [[523, 0, .09, .09, 660]]],
+    hit: ['square', [[196, 0, .05, .13, 98], [131, .04, .1, .12, 65]]], crit: ['square', [[262, 0, .05, .14, 131], [523, .05, .07, .12], [784, .11, .22, .13]]], hurt: ['sawtooth', [[147, 0, .14, .13, 73], [98, .1, .2, .11, 55]]],
+    loot: ['sine', [[659, 0, .08, .13], [880, .08, .08, .13], [1109, .16, .08, .13], [1319, .24, .4, .15]]], lvl: ['sine', [[523, 0, .1, .15], [659, .1, .1, .15], [784, .2, .1, .15], [1047, .3, .12, .16], [1319, .42, .6, .17], [1568, .42, .6, .08]]],
+    boss: ['sawtooth', [[110, 0, .3, .13, 104], [104, .3, .3, .13, 98], [98, .6, .7, .15, 65]]],
     good: ['sine', [[784, 0, .09, .15], [1047, .07, .18, .15]]], pair: ['sine', [[880, 0, .07, .13], [1319, .05, .14, .11]]],
     bad: ['triangle', [[233, 0, .16, .2, 175], [175, .12, .22, .16, 131]]],
     life: ['triangle', [[392, 0, .12, .2, 294], [294, .11, .12, .2, 220], [220, .22, .32, .2, 139]]],
@@ -213,5 +216,5 @@
   document.addEventListener('input', e => { if (e.target.hasAttribute && e.target.hasAttribute('data-sndvol')) setVol(+e.target.value); });
   // un son choisi avant de fermer l'appli revient en pause : un toucher sur ▶ le relance (le navigateur interdit de jouer tout seul)
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ui); else ui();
-  window.SONS = { card, LIST, fx };
+  window.SONS = { card, LIST, fx, play: start, stop, playing: () => playing ? st.id : '' };
 })();

@@ -106,6 +106,18 @@
           PAD[c].forEach((m, i) => n('pad', s, m, 15, .045, .2 + i * .3));
           MEL[b].forEach(([st, m, l]) => n('piano', s + st, m, l, .34, .58));
         } } },
+    { id: 'combat', n: 'Podo Quest', e: 'flame', d: 'Le thème de l\'aventure : une basse qui galope et une mélodie héroïque, pour combattre les monstres.', bpm: 112, lp: 7000, wet: .14, seed: 53,
+      make: ({ n, kick, snare, hat }) => {
+        const CH = [[57, 60, 64], [53, 57, 60], [55, 60, 64], [55, 59, 62], [57, 60, 64], [53, 57, 60], [50, 53, 57], [52, 56, 59]], B = [45, 41, 48, 43, 45, 41, 38, 40];   // Am F C G · Am F Dm E
+        const MEL = [[[0, 69], [4, 72], [6, 76], [10, 74], [12, 72]], [[0, 69], [4, 72], [8, 77], [12, 76]], [[0, 79], [4, 76], [6, 72], [10, 74], [12, 76]], [[0, 74], [6, 71], [8, 74], [12, 79]],
+          [[0, 81], [4, 79], [6, 76], [10, 79], [12, 81]], [[0, 84], [6, 81], [8, 77], [12, 76]], [[0, 74], [4, 77], [6, 81], [10, 77], [12, 74]], [[0, 76], [4, 80], [8, 83], [12, 88]]];
+        for (let b = 0; b < 8; b++) { const s = b * 16;
+          CH[b].forEach((m, i) => { for (const k of [2, 6, 10, 14]) n('rhodes', s + k, m, 2, .13, .3 + i * .2); n('pad', s, m + 12, 15, .03, .2 + i * .3); });
+          for (let k = 0; k < 16; k += 2) n('bass', s + k, B[b] + (k % 8 === 6 ? 12 : 0), 2, k % 4 ? .34 : .46);
+          kick(s, .9); kick(s + 8, .85); kick(s + 11, .5); snare(s + 4, .4); snare(s + 12, .44); if (b % 4 === 3) { snare(s + 14, .3); snare(s + 15, .34); }
+          for (let h = 0; h < 16; h++) hat(s + h, h % 4 === 2 ? .12 : .05, h === 14);
+          MEL[b].forEach(([st, m]) => { n('pluck', s + st, m, 2, .3, .6); n('bell', s + st, m + 12, 1, .05, .4); });
+        } } },
   ];
   const api = { LIST, render: (id, SR) => render(LIST.find(t => t.id === id), SR) };
   if (typeof window !== 'undefined') window.MUSIQUE = api;

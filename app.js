@@ -172,6 +172,7 @@
         <span class="rt"><span class="kicker">${IC.play} REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
       <div class="sec">JOUER</div>
       <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">Lire, cacher, réciter · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
+      <a class="card resume" href="#/jeu/aventure"><span class="stamp sm" style="--c:var(--red)">${ico('flame')}</span><span class="rt"><span class="kicker">L'AVENTURE</span><span class="t">Podo Quest</span><span class="s">Bats les monstres en récitant leurs fiches · niveau ${(S.rpg || {}).lvl || 1} · ${Object.keys((S.rpg || {}).seen || {}).length} monstres battus</span></span><span class="chev">›</span></a>
       <div class="sec">POUR RÉVISER CE QUE TU CHOISIS</div>
       <div class="quick">
         <a class="qb" href="#/jeu/patient" style="--c:var(--p4)"><span class="em">${ico('stetho')}</span><span class="t">Le patient</span><span class="s">64 patients${(S.rec || {}).patient ? ' · record ' + S.rec.patient + '/30' : ''}</span></a>
@@ -519,6 +520,12 @@
       ['stetho', 'Le patient, plus court : tu cherches d\'abord quoi demander et quoi examiner, tu dévoiles le dossier, puis diagnostic, orientation, traitement, conseil. À la fin, la fiche en mots-clés à redire.'],
       ['bulb', 'Qui suis-je ? : des indices courts, et des pièges pris dans les fiches qui se ressemblent le plus. Les paires aussi. Survie te montre tes 3 erreurs à la fin.'],
       ['book', 'Les 64 patients ont été relus face au livret : 5 phrases qui n\'y étaient pas ont été remplacées par ce que dit le livret.'],
+    ] },
+    { v: 108, items: [
+      ['flame', 'Nouveau : Podo Quest, un jeu d\'aventure au tour par tour ! Ton podologue monte de niveau en battant des monstres : chaque monstre est une fiche, un repère d\'anatomie ou un test clinique.'],
+      ['target', 'Tu le reconnais à ses signes, tu l\'attaques avec ses questions, tu frappes fort en récitant une partie, et tu le finis avec son vrai traitement. Les boss se battent en 3 phases.'],
+      ['sparkle', 'Les objets sont de vrais instruments et soins du livret (bistouri, gouge, bas de contention, méthode RICE…) : pour les garder, il faut savoir à quoi ils servent. Bestiaire, niveaux, musique d\'aventure.'],
+      ['cone', 'Bienvenue à Hugo dans l\'équipe, sur l\'accueil.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -1062,7 +1069,7 @@
 
   // ---------- jeux : apprendre une fiche, survie, les paires, qui suis-je, le patient ----------
   let G = null, gTimer = 0;
-  const GAMES = { apprendre: 'Apprendre une fiche', survie: 'Survie', paires: 'Les paires', quisuisje: 'Qui suis-je ?', patient: 'Le patient' };
+  const GAMES = { apprendre: 'Apprendre une fiche', survie: 'Survie', paires: 'Les paires', quisuisje: 'Qui suis-je ?', patient: 'Le patient', aventure: 'Podo Quest' };
   const QZ = window.QUIZ || {}, CAS = window.CAS || {};
   const STD = ALLF.filter(f => f.parts.length === 8 && f.memo && f.memo.length === 8 && /^Signes cliniques/.test(f.parts[3].title) && /^Traitement/.test(f.parts[5].title)
     && f.memo[3].q === 'On voit quoi ?' && f.memo[4].q === 'Sûr comment ?' && f.memo[5].q === 'On fait quoi ?');   // les fiches au plan classique
@@ -1114,11 +1121,11 @@
     ...selA().map(x => ({ lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}`, mk: () => anatQ(x) })),
     ...selC().map(c => ({ lab: `Clinique · ${CS[c.s].t}`, c: SCOL(c.s), link: `#/clin/${CL.indexOf(c) + 1}`, mk: () => clinQ(c) }))];
   const poolPairesF = () => selF().filter(f => STD.includes(f)), poolPairesA = () => selA().filter(x => x.nerf);
-  const poolQsj = () => [
-    ...selF().map(f => ({ kind: 'f', f, id: 'f:' + f.id, title: f.title, lab: `${SECN(f)} · fiche`, c: f.sec === 'podo' ? 'var(--p8)' : 'var(--p6)', link: FB(f) })),
-    ...selA().map(x => ({ kind: 'a', x, id: 'a:' + x.q, title: x.name, lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}` })),
-    ...selC().map(c => ({ kind: 'c', cl: c, id: 'c:' + (CL.indexOf(c) + 1), title: c.n, lab: `Examen clinique · ${CS[c.s].t}`, c: SCOL(c.s), link: `#/clin/${CL.indexOf(c) + 1}` }))];
-  const poolOf = a => a === 'survie' ? poolSurvie() : a === 'paires' ? [...poolPairesF(), ...poolPairesA()] : a === 'quisuisje' ? poolQsj() : selF().filter(f => CAS[f.id]);
+  const poolQsj = all => [
+    ...(all ? ALLF : selF()).map(f => ({ kind: 'f', f, id: 'f:' + f.id, title: f.title, lab: `${SECN(f)} · fiche`, c: f.sec === 'podo' ? 'var(--p8)' : 'var(--p6)', link: FB(f) })),
+    ...(all ? AQ : selA()).map(x => ({ kind: 'a', x, id: 'a:' + x.q, title: x.name, lab: `Anatomie · ${REG_SHORT[x.reg]}`, c: RCOL[x.reg], link: `#/anat/${x.q}` })),
+    ...(all ? CL : selC()).map(c => ({ kind: 'c', cl: c, id: 'c:' + (CL.indexOf(c) + 1), title: c.n, lab: `Examen clinique · ${CS[c.s].t}`, c: SCOL(c.s), link: `#/clin/${CL.indexOf(c) + 1}` }))];
+  const poolOf = a => a === 'survie' ? poolSurvie() : a === 'paires' ? [...poolPairesF(), ...poolPairesA()] : a === 'quisuisje' || a === 'aventure' ? poolQsj() : selF().filter(f => CAS[f.id]);
   function setup(a) {
     const r = (S.rec || {})[a], sub = a === 'patient' ? ' · 3 consultations (/30)' : a === 'quisuisje' ? ' · 10 énigmes (/40)' : '';
     return `<div class="wrap qz">${top('#/', GAMES[a], r ? `<span class="count">record ${r}${a === 'patient' ? '/30' : a === 'quisuisje' ? '/40' : ''}</span>` : '')}
@@ -1346,9 +1353,13 @@
     render(true);
   }
 
+  // --- Podo Quest : le jeu d'aventure (aventure.js), branché sur les mêmes données et le même choix de matières
+  const AV = window.AVENTURE && window.AVENTURE({ S, save, esc, md, ico, shuffle, rnd, fx, did, review, top, count, QZ, CAS, mkStep, anatQ, clinQ, qsjClues, qsjOpts,
+    g: () => G, setG: x => { G = x; }, render: k => render(k), pool: () => poolQsj(), all: () => poolQsj(true) });
   function gStart(a) {
     const pool = poolOf(a); gStop();
     if (!pool.length) { G = { game: a, setup: true }; return; }
+    if (a === 'aventure') { G = AV.start(pool); return; }
     if (a === 'survie') { G = { game: a, pool, lives: 3, score: 0, combo: 0, n: 0, deck: shuffle(pool), missed: [] }; svDraw(); }
     else if (a === 'paires') { G = { game: a, score: 0 }; prDraw(); gClock(60, () => { G.over = true; G.isRec = best('paires', G.score); fx(G.isRec ? 'record' : 'win'); render(); }); }
     else if (a === 'quisuisje') { G = { game: a, pool, score: 0, n: 0, tot: Math.min(10, pool.length), deck: shuffle(pool), miss: [] }; qsDraw(); }
@@ -1446,6 +1457,7 @@
     if (a === 'qshint') { if (G.rev < 4 && G.pick == null) { fx('reveal'); G.rev++; render(true); } return; }
     if (a === 'qsopts') { fx('tap'); G.showOpts = true; return render(true); }
     if (a === 'qsnext') { fx('tap'); return qsNext(); }
+    if (a.startsWith('av')) return AV.act(a, j, t);
     if (a.startsWith('pt')) return ptAct(a, j, t);
     if (a === 'L' || a === 'R') return prTap(a, j);
     const st = G.st;   // apprendre : lire, dévoiler, cocher ce qu'on a dit, valider
@@ -1458,8 +1470,9 @@
   function jeu(a, b, c) {
     if (!GAMES[a]) return notFound();
     if (a === 'apprendre') return apprendre(b, c);
-    if (!G || G.game !== a) { gStop(); G = { game: a, setup: true }; }
+    if (!G || G.game !== a) { gStop(); G = a === 'aventure' ? { game: a, scr: 'hub' } : { game: a, setup: true }; }
     if (G.setup) return setup(a);
+    if (a === 'aventure') return AV.view();
     const r = (S.rec || {})[a] || 0, head = right => `<div class="wrap qz">${top('#/', GAMES[a], right)}`;
     if (a === 'survie') {
       if (G.over) return `${head('')}${gEnd(G.score, G.isRec ? 'Nouveau record !' : `Ton record : ${r}. Encore une ?`, `<div class="sec">TES 3 ERREURS, À RETENIR</div><div class="entries">${G.missed.map(m => `<a class="entry" href="${m[2]}"><span class="rt"><span class="s">${md(m[0])}</span><span class="t">${md(m[1])}</span></span><span class="chev">›</span></a>`).join('')}</div>`)}</div>`;

@@ -14,6 +14,7 @@ Site de révision de l’oral UEM de pédicurie-podologie, dans le style des vid
 **Pour jouer** (en haut de l’accueil, tout est tiré des fiches, de `data/quiz.js`, de `data/cas.js`, des repères d’anatomie et des tests cliniques) :
 - Apprendre une fiche : 3 manches sur une seule fiche, de la plus aidée à la moins aidée (lire une partie, la cacher, la redire avec les initiales ; les questions de `data/quiz.js` ; toute la fiche de mémoire). On dit la réponse avant de la voir, ce qui est raté revient en fin de manche. Une étoile par manche réussie à 80 % du premier coup ; la manche « De mémoire » met la fiche dans les révisions espacées.
 - Le patient : 64 consultations en 5 étapes (le dossier qu'on dévoile après avoir cherché quoi demander et quoi examiner, diagnostic et pourquoi pas les autres, orientation, traitement, question du patient), puis la fiche en mots-clés à redire.
+- Podo Quest (`aventure.js`) : un jeu d'aventure au tour par tour. Chaque monstre est une fiche, un repère d'anatomie ou un test clinique : on le reconnaît à ses signes, on l'attaque avec ses questions, on frappe fort en récitant une partie, on le finit avec les bons gestes du livret (`data/cas.js`). Une expédition = 3 monstres, un coffre, un boss en 3 phases. Les objets (`ITEMS`) sont de vrais instruments et soins du livret : on les garde si on sait à quoi ils servent. Niveaux, PV, bestiaire ; la progression est dans `S.rpg`. Musique « Podo Quest » dans `musique.js`.
 - Qui suis-je ? : 4 indices progressifs (4, 3, 2, 1 pt) sur les fiches, les 59 repères d’anatomie et les 41 tests cliniques, en cherchant d’abord sans voir les 4 choix.
 - Survie (questions à choix multiple, 3 vies, chrono qui raccourcit, record) et Les paires (60 secondes pour relier fiches et mots-clés, ou muscles et nerfs). Avant chaque partie on choisit ce qu’on révise ; le choix est gardé.
 
@@ -25,7 +26,7 @@ Site de révision de l’oral UEM de pédicurie-podologie, dans le style des vid
 
 ## Fichiers
 
-- `index.html`, `style.css`, `app.js` : le site.
+- `index.html`, `style.css`, `app.js` : le site ; `aventure.js` : le jeu Podo Quest (branché dans `app.js` par `window.AVENTURE`).
 - `data/pedi.js`, `data/anat.js`, `data/anat3d.js` : le contenu, généré (ne pas éditer à la main) ; `data/quiz.js` : les questions des quiz de fiche (écrites à la main) ; `data/lexique.js` : le lexique ; `data/videos.js` : liens Drive des vidéos. `data/clinique.js` : les 41 tests (écrits à la main) ; `data/bilan.js` : le bilan du pied en 15 étapes ; `data/clinique-dessins.js` : les dessins en SVG des tests (CLIN_PIC) et du bilan (BILAN_PIC), même numéro.
 - `vendor/three-mini.js`, `anat/jambe3d.bin` : le modèle 3D (BodyParts3D, © DBCLS, CC BY-SA 2.1 JP).
 - Mise à jour : ajouter une entrée à `NOTES` dans `app.js` (fenêtre « Quoi de neuf ? »), changer `?v=` dans `index.html`, puis `node tools/build-sw.js N` et `version.json`.
