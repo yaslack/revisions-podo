@@ -546,6 +546,10 @@
     { v: 114, items: [
       ['phones', 'Podo Quest : la musique démarre toute seule, et un bouton ♪ en haut du jeu la coupe ou la remet à tout moment. Ton choix est gardé.'],
     ] },
+    { v: 115, items: [
+      ['flame', 'Podo Quest : une vraie carte du monde, des décors en hauteur, un coffre qui s\'ouvre, les 12 objets dessinés et de nouveaux boutons.'],
+      ['phones', 'Dans le jeu, le lecteur de musique ne s\'affiche plus : seul le bouton ♪ reste, pour couper ou remettre le son.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

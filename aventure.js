@@ -30,28 +30,10 @@ window.AVENTURE = A => {
   const FAMS = ['peau', 'ongle', 'vasc', 'med'];
   const fam = it => it.kind === 'f' ? (it.f.sec === 'podo' ? 'podo' : FAMS.includes(it.f.cat) ? it.f.cat : 'peau') : it.kind === 'a' ? (it.x.nerf ? 'mus' : 'os') : 'test';
   const hue = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
-  // Le rendu pixel art : chaque dessin vectoriel est redessiné en 48×48 pixels nets, avec un contour sombre, la lumière en haut à gauche et l'ombre en bas à droite.
-  const PX = {}, BUSY = {}, BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', N = 56;
-  function pixify(key, inner) {
-    if (PX[key]) return PX[key]; if (BUSY[key]) return BLANK; BUSY[key] = 1;
-    const im = new Image();
-    im.onload = () => {
-      const c = document.createElement('canvas'); c.width = c.height = N; const x = c.getContext('2d'); x.drawImage(im, 0, 0, N, N);
-      const d = x.getImageData(0, 0, N, N), p = d.data, solid = new Uint8Array(N * N); for (let i = 0; i < N * N; i++) solid[i] = p[i * 4 + 3] > 120 ? 1 : 0;
-      const at = (X, Y) => X >= 0 && Y >= 0 && X < N && Y < N && solid[Y * N + X];
-      for (let Y = 0; Y < N; Y++) for (let X = 0; X < N; X++) { const i = (Y * N + X) * 4;
-        if (solid[Y * N + X]) { const vol = 1.12 - .28 * Y / N - .1 * X / N + ((X + Y) % 2 ? .035 : -.035), k = vol * (!at(X + 1, Y + 1) || !at(X, Y + 2) ? .72 : !at(X - 1, Y - 1) || !at(X, Y - 2) ? 1.18 : 1); for (let q = 0; q < 3; q++) p[i + q] = Math.min(255, Math.round(p[i + q] * k / 24) * 24); p[i + 3] = 255; }
-        else if (at(X - 1, Y) || at(X + 1, Y) || at(X, Y - 1) || at(X, Y + 1)) { p[i] = 22; p[i + 1] = 14; p[i + 2] = 34; p[i + 3] = 255; } else p[i + 3] = 0; }
-      x.putImageData(d, 0, 0); PX[key] = c.toDataURL(); if (G() && G().game === 'aventure') A.render(true);
-    };
-    im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none" stroke="#1a1423" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">${inner}</svg>`);
-    return BLANK;
-  }
-  const img = (key, inner, cls) => `<img class="avspr ${cls}" alt="" src="${pixify(key, inner)}">`;
   // Les images (dossier jeu/) : un monstre par famille en 3 poses (normal, touché, K.O.), teinté un peu différemment selon le monstre ; le héros en 2 poses.
   const sprite = (it, cls = '') => `<img class="avspr art ${cls}" alt="" style="--hr:${hue(it.id) % 5 * 14 - 28}deg" src="jeu/monstre-${fam(it)}${/\bko\b/.test(cls) ? '-ko' : /\bhit\b/.test(cls) ? '-touche' : ''}.png">`;
   const HERO = (cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/heros${/lunge/.test(cls) ? '-attaque' : ''}.png">`;
-  const CHEST = cls => img('chest', '<path d="M16 54c0-22 88-22 88 0v10H16z" fill="#c98a3c"/><rect x="16" y="64" width="88" height="40" rx="4" fill="#9a5f24"/><path d="M16 78h88M34 64v40M86 64v40" stroke-width="3"/><rect x="51" y="56" width="18" height="22" rx="3" fill="#f6d84a"/>', cls);
+  const CHEST = (open, cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/coffre${open ? '-ouvert' : ''}.png">`, OBJ = k => `<img class="avobj" alt="" src="jeu/obj-${k}.png">`;
 
   const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, scene = kind => `jeu/decor-${kind}.jpg`;
 
@@ -171,7 +153,7 @@ window.AVENTURE = A => {
     const st = t.st, k = t.ticks || [], say = txt => `<div class="say-it">${ico('speak')} ${txt}</div>`;
     const opts = () => `<div class="opts">${st.opts.map((o, j) => `<button class="opt ${t.done ? (o === st.ok ? 'good' : j === t.pick ? 'bad' : 'dim') : ''}" data-g="avpick" data-j="${j}" ${t.done ? 'disabled' : ''}>${md(o)}</button>`).join('')}</div>`;
     const checks = pick => `<div class="checks">${st.items.map((x, j) => `<button class="ck ${k.includes(j) ? 'on' : ''} ${pick && t.done ? (x[1] ? 'yes' : 'no') : ''}" data-g="avtk" data-j="${j}" ${t.done ? 'disabled' : ''}><span class="box"></span><span>${md(pick ? x[0] : x)}</span></button>`).join('')}</div>`;
-    if (st.clues) return `<div class="avclues">${['mus', 'os', 'podo', 'med', 'peau', 'test'].includes(st.ic) ? `<img class="avfic" alt="" src="jeu/ui-ic-${st.ic}.png">` : ''}${st.clues.map(c => `<div><b>${esc(c[0])}</b> ${md(c[1])}</div>`).join('')}</div>${opts()}`;
+    if (st.clues) return `<div class="avclues">${t.done ? `<img class="avfic" alt="" src="jeu/ui-ic-${st.ic}.png">` : ''}${st.clues.map(c => `<div><b>${esc(c[0])}</b> ${md(c[1])}</div>`).join('')}</div>${opts()}`;
     if (st.kind === 'qcm') return `<div class="question">${md(st.q)}</div>${opts()}`;
     if (st.kind === 'flip') return `<div class="question">${md(st.q)}</div>${t.shown ? `<div class="answer">${md(st.a)}</div>${t.done ? '' : `<div class="row2" style="margin-top:10px">${btn('avno', '✗ Pas su', '#f6c3b9')}${btn('avyes', '✓ Je savais', 'var(--p6)')}</div>`}` : `${say('Réponds à voix haute')}${btn('avshow', 'Voir la réponse')}`}`;
     if (st.kind === 'pick') return `<div class="question">${esc(st.q)}</div>${checks(true)}${t.done ? '' : btn('avval', `Frapper · ${k.length} coché${k.length > 1 ? 's' : ''}`, 'var(--p6)')}`;
@@ -183,11 +165,11 @@ window.AVENTURE = A => {
     const arena = `<div class="avscene ${kind} ${an.crit ? 'flash' : ''}" style="background-image:url(${scene(kind)})">
       <div class="avplate"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.was == null ? g.hp : g.was, max, 'me')}<span>${g.hp}/${max} PV ${[0, 1, 2].map(i => `<i class="avpip ${i < g.focus ? 'on' : ''}"></i>`).join('')}${g.combo > 1 ? ` ×${g.combo}` : ''}</span></div>
       <div class="avplate foe"><b>${idp ? '???' : esc(f.it.title)}</b>${bar(f.hp, f.was, f.max)}<span>${f.boss ? 'BOSS · ' : ''}${esc(f.it.lab)}</span></div>
-      <div class="avpos me">${HERO(an.foe ? 'lunge' : an.me ? 'hurt' : 'idle')}${an.dM ? `<span class="avdmg me">-${an.dM}</span>` : an.heal ? `<span class="avdmg heal">+${an.heal}</span>` : ''}</div>
-      <div class="avpos foe">${sprite(f.it, (idp ? 'sil ' : '') + (an.foe ? 'hit' : 'idle'), f.boss)}${an.dF ? `<span class="avdmg ${an.crit ? 'crit' : ''}">-${an.dF}</span>` : ''}</div></div>
+      <div class="avpos me ${an.me ? 'ouch' : an.heal ? 'heal' : ''}">${HERO(an.foe ? 'lunge' : an.me ? 'hurt' : 'idle')}${an.dM ? `<span class="avdmg me">-${an.dM}</span>` : an.heal ? `<span class="avdmg heal">+${an.heal}</span>` : ''}</div>
+      <div class="avpos foe ${an.foe ? 'slash' : ''} ${an.crit ? 'rays' : ''}">${sprite(f.it, (idp ? 'sil ' : '') + (an.foe ? 'hit' : 'idle'), f.boss)}${an.dF ? `<span class="avdmg ${an.crit ? 'crit' : ''}">-${an.dF}</span>` : ''}</div></div>
       <div class="avbox">${esc(g.msg || '')}</div>`;
     let body;
-    if (t && t.mode === 'obj') body = `<div class="card qc"><div class="kicker">TES SOINS</div><div class="avlist">${soins(r).map(k => `<button class="ptitem" data-g="avuse" data-k="${k}"><b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></button>`).join('')}</div><button class="btn ghost wide" data-g="avobj" style="margin-top:10px">Retour</button></div>`;
+    if (t && t.mode === 'obj') body = `<div class="card qc"><div class="kicker">TES SOINS</div><div class="avlist">${soins(r).map(k => `<button class="ptitem" data-g="avuse" data-k="${k}">${OBJ(k)}<b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></button>`).join('')}</div><button class="btn ghost wide" data-g="avobj" style="margin-top:10px">Retour</button></div>`;
     else if (t) body = `<div class="card qc">${t.mode === 'id' ? '' : `<div class="kicker">${t.mode === 'atk' ? 'ATTAQUE' : t.mode === 'spe' ? 'RÉCITATION · DÉGÂTS ×3' : 'COUP DE GRÂCE'}</div>`}${qcard(t)}</div>${t.done ? `<div class="pager fixed">${btn('avnext', f.hp <= 0 ? 'Victoire →' : g.hp <= 0 ? 'Aïe…' : 'Suite →')}</div>` : ''}`;
     else {   // le menu : face au boss, c'est lui qui impose le style (3 phases) ; sinon on choisit
       const spe = f.kit.says.length, m = [];
@@ -201,14 +183,11 @@ window.AVENTURE = A => {
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length), kind)}${arena}${body}</div>`;
   }
   const NODE = { foe: '<path d="M-6 6L6-6M1-6h5v5M-7 3l4 4"/>', chest: '<rect x="-7" y="-5" width="14" height="10" rx="2"/><path d="M-7-1h14M0-2v3"/>', boss: '<path d="M-8 5l-1-10 5 5 4-7 4 7 5-5-1 10z"/>' };
-  const PTS = [[32, 112], [96, 58], [160, 108], [224, 52], [288, 96]];
+  const POS = [[38.7, 64.2], [66.8, 52.8], [43.3, 42.1], [53.4, 28.3], [69.5, 15.9]];   // les 5 étapes sur la carte dessinée, en % (le rond du bas est le départ)
   function map() {
     const g = G(), r = R(), n = g.nodes[g.i], max = hpMax(r);
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length))}
-      <div class="card avmap" style="background-image:linear-gradient(rgba(14,13,19,.25),rgba(14,13,19,.9)),url(${scene(n.t === 'boss' ? 'boss' : n.it ? BIOME[fam(n.it)] : 'foret')})"><svg viewBox="0 0 320 150" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M${PTS.map(p => p.join(' ')).join(' L')}" stroke-dasharray="2 9" stroke-width="4" opacity=".5"/>
-        ${g.nodes.map((x, i) => `<g transform="translate(${PTS[i]})" class="avnode ${i < g.i ? 'done' : i === g.i ? 'now' : ''}"><circle r="17" fill="${i < g.i ? 'var(--p6)' : x.t === 'boss' ? 'var(--red)' : x.t === 'chest' ? 'var(--hl)' : 'var(--card)'}"/>${i < g.i ? '<path d="M-7 0l5 5 9-10"/>' : NODE[x.t]}</g>`).join('')}
-      </svg><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
+      <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%">${i < g.i ? '✓' : x.t === 'boss' ? 'B' : x.t === 'chest' ? '?' : i + 1}</span>`).join('')}<img class="avspr art avwho" alt="" src="jeu/heros.png" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
       <div class="card qc"><div class="kicker">${n.t === 'chest' ? 'UN COFFRE' : n.t === 'boss' ? 'LE BOSS' : 'UN MONSTRE'}</div>
         <div class="question">${n.t === 'chest' ? 'Un coffre au bord du chemin.' : n.t === 'boss' ? 'Une ombre énorme garde la sortie.' : 'Quelque chose bouge devant toi…'}</div>
         <div class="muted small">${n.t === 'chest' ? 'Pour garder l\'objet, il faut savoir à quoi il sert.' : n.t === 'boss' ? 'Trois phases : les questions, la récitation, puis le bon traitement.' : 'Reconnais-le à ses signes pour frapper le premier.'}</div></div>
@@ -219,8 +198,8 @@ window.AVENTURE = A => {
     return `${head(`<span class="count">Nv ${r.lvl}</span>`)}
       <div class="card avcamp" style="background-image:linear-gradient(90deg,rgba(14,13,19,.2),rgba(14,13,19,.92) 62%),url(${scene('foret')})">${HERO('idle')}<div class="avhud"><div class="kicker">TON PODOLOGUE · ${r.runs} EXPÉDITION${r.runs > 1 ? 'S' : ''}</div><b>Niveau ${r.lvl}</b>${bar(r.xp, r.xp, xpNext(r), 'xp')}<span class="muted">${r.xp}/${xpNext(r)} XP · ${hpMax(r)} PV</span><div>${stats(r)}</div></div></div>
       <div class="muted small">Chaque monstre est une fiche, un repère ou un test. Reconnais-le, réponds pour l'attaquer, récite pour frapper fort, et finis-le avec son vrai traitement.</div>
-      ${gear.length ? `<div class="sec">TON ÉQUIPEMENT (TOUCHE POUR ÉQUIPER)</div><div class="avlist">${gear.map(k => { const it = ITEMS[k], on = r[it.s] === k; return `<button class="ptitem ${on ? 'good' : ''}" data-g="aveq" data-k="${k}"><b>${esc(it.n)}</b> · ${it.s === 'arme' ? 'attaque' : 'défense'} +${it.v}${on ? ' · équipé' : ''}<br><span class="muted">${esc(it.use)}</span></button>`; }).join('')}</div>` : ''}
-      ${heal.length ? `<div class="sec">TES SOINS</div><div class="avlist">${heal.map(k => `<div class="ptitem"><b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></div>`).join('')}</div>` : ''}
+      ${gear.length ? `<div class="sec">TON ÉQUIPEMENT (TOUCHE POUR ÉQUIPER)</div><div class="avlist">${gear.map(k => { const it = ITEMS[k], on = r[it.s] === k; return `<button class="ptitem ${on ? 'good' : ''}" data-g="aveq" data-k="${k}">${OBJ(k)}<b>${esc(it.n)}</b> · ${it.s === 'arme' ? 'attaque' : 'défense'} +${it.v}${on ? ' · équipé' : ''}<br><span class="muted">${esc(it.use)}</span></button>`; }).join('')}</div>` : ''}
+      ${heal.length ? `<div class="sec">TES SOINS</div><div class="avlist">${heal.map(k => `<div class="ptitem">${OBJ(k)}<b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></div>`).join('')}</div>` : ''}
       <div class="row2" style="margin-top:14px"><button class="btn ghost grow" data-g="setup">Ce que je révise (${n})</button><button class="btn ghost grow" data-g="avbest">Bestiaire (${seen})</button></div>
       <div class="pager fixed">${btn('go', n ? 'Partir en expédition →' : 'Rien à combattre avec ce choix', 'var(--hl)', n ? '' : 'disabled')}</div></div>`;
   }
@@ -237,7 +216,7 @@ window.AVENTURE = A => {
     if (g.scr === 'map') return map();
     if (g.scr === 'fight') return fight();
     if (g.scr === 'chest') { const t = g.t, it = ITEMS[t.item];
-      return `${head('')}<div class="card gover avchest">${CHEST(t.done && t.won ? 'idle' : 'shake')}
+      return `${head('')}<div class="card gover avchest">${CHEST(t.done && t.won, t.done ? '' : 'shake')}${t.done && t.won ? OBJ(t.item) : ''}
         <div class="kicker">${t.done ? (t.won ? 'OBJET GAGNÉ' : 'LE COFFRE SE REFERME') : 'DANS LE COFFRE'}</div><div class="question">${esc(it.n)}</div>
         ${t.done ? `<div class="muted">${t.won ? `${it.s === 'soin' ? `Soin : +${it.v} PV` : it.s === 'arme' ? `Arme : attaque +${it.v}` : `Protection : défense +${it.v}`}. ` : 'Tu ne sais pas encore t\'en servir. '}Il sert à : ${esc(it.use.toLowerCase())}.</div>` : ''}</div>
         <div class="card qc">${qcard(t)}</div>${t.done ? `<div class="pager fixed">${btn('avnext', g.last ? 'Fin de l\'expédition →' : 'Continuer →')}</div>` : ''}</div>`; }
