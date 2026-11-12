@@ -9,7 +9,7 @@
   button, select, label.btn { font: inherit; color: inherit; background: #363b47; border: 1px solid #4a5060; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
   button[aria-pressed=true] { background: #4c8a3a; border-color: #7fc04a; }
   input[type=color] { width: 36px; height: 32px; padding: 0; border: 0; background: none; }
-  #pal { display: flex; flex-wrap: wrap; gap: 2px; max-width: 440px; }
+  #pal { display: flex; flex-wrap: wrap; gap: 2px; max-width: 640px; }
   #pal i { width: 16px; height: 16px; border: 1px solid #0006; cursor: pointer; }
   main { padding: 16px; overflow: auto; }
   #stage { position: relative; display: inline-block; line-height: 0;
@@ -29,7 +29,8 @@
   <label>Zoom <input type="range" id="zoom" min="2" max="16" value="3"></label>
   <label><input type="checkbox" id="showGrid" checked> Grille</label>
   <button id="undo">Annuler</button>
-  <button id="gen">Nouveau cube</button>
+  <button id="gen2">Forêt</button>
+  <button id="gen">Cube</button>
   <select id="size" aria-label="Taille d'une toile vide">
     <option value="">Toile vide…</option><option>16</option><option>32</option><option>64</option><option>128</option><option>256</option>
   </select>
@@ -40,6 +41,7 @@
 </header>
 <main><div id="stage"><canvas id="c" width="128" height="128"></canvas><div id="grid"></div></div></main>
 <script src="pixel-cube.js"></script>
+<script src="pixel-forest.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 const c = $('c'), ctx = c.getContext('2d', { willReadFrequently: true }), prev = $('prev');
@@ -54,7 +56,7 @@ function layout() {
 }
 function saved() {
   prev.width = c.width; prev.height = c.height; prev.getContext('2d').drawImage(c, 0, 0);
-  try { localStorage.setItem('pixel-editor-2', c.toDataURL()); } catch {}
+  try { localStorage.setItem('pixel-editor-3', c.toDataURL()); } catch {}
 }
 function load(source, w, h) { snap(); c.width = w; c.height = h; source instanceof ImageData ? ctx.putImageData(source, 0, 0) : ctx.drawImage(source, 0, 0); layout(); saved(); }
 const rgba = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)).concat(255);
@@ -92,10 +94,11 @@ c.onpointerup = c.onpointercancel = () => { if (last) { last = null; saved(); } 
 
 function setTool(t) { tool = t; document.querySelectorAll('[data-tool]').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === t)); }
 document.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => setTool(b.dataset.tool));
-for (const h of [...GRASS, ...DIRT, ...WATER, ...WALL, ...ROOF, OUTLINE, '#ffffff']) { const i = document.createElement('i'); i.style.background = h; i.onclick = () => { $('color').value = h; if (tool !== 'fill') setTool('pen'); }; $('pal').append(i); }
+for (const h of [...GRASS, ...DIRT, ...WATER, ...WALL, ...ROOF, ...Object.values(FOREST).flat(), OUTLINE, '#ffffff']) { const i = document.createElement('i'); i.style.background = h; i.onclick = () => { $('color').value = h; if (tool !== 'fill') setTool('pen'); }; $('pal').append(i); }
 $('zoom').oninput = $('showGrid').onchange = layout;
 $('undo').onclick = () => { const u = undoStack.pop(); if (u) { c.width = u.width; c.height = u.height; ctx.putImageData(u, 0, 0); layout(); saved(); } };
 addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'z') { e.preventDefault(); $('undo').click(); } });
+$('gen2').onclick = () => load(forest(Math.random() * 1e9 | 0), 320, 200);
 $('gen').onclick = () => load(cube(Math.random() * 1e9 | 0), 256, 256);
 $('size').onchange = e => { const n = +e.target.value; e.target.value = ''; if (n) load(new ImageData(n, n), n, n); };
 $('imp').onchange = e => {
@@ -111,8 +114,8 @@ function exportPng(k) {
 $('exp').onclick = () => exportPng(1); $('exp8').onclick = () => exportPng(8);
 
 // démarrage : reprend le dessin enregistré, sinon le cube
-let stored = null; try { stored = localStorage.getItem('pixel-editor-2'); } catch {}
+let stored = null; try { stored = localStorage.getItem('pixel-editor-3'); } catch {}
 if (stored) { const im = new Image(); im.onload = () => { load(im, im.width, im.height); undoStack = []; }; im.src = stored; }
-else { load(cube(7), 256, 256); undoStack = []; }
+else { load(forest(3), 320, 200); undoStack = []; }
 </script>
 </html>
