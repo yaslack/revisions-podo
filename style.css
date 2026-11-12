@@ -1067,3 +1067,17 @@ html[data-skin] .av .ck.on { background: #215c4a; color: #fff; }
 .av .card.qc::before { top: 7px; right: 11px; }
 .av .card.qc::after { bottom: 7px; right: 11px; }
 .av .avportrait img { transform: scale(1.65); transform-origin: 50% 18%; }
+/* Podo Quest : les défis (texte à trous et sa banque de mots, étapes à ordonner), la leçon après une faute, la barre de temps d'un monstre vif */
+.av .avtxt { margin-top: 12px; font: 600 16px/2.1 var(--marker); }
+.av .avgap { display: inline-block; min-width: 62px; min-height: 30px; padding: 0 9px; margin: 0 2px; border: 1.5px dashed #6b6480; border-radius: 9px; background: #0e0d13; color: var(--ink); font: inherit; line-height: 1.75; vertical-align: middle; text-align: center; }
+.av .avgap.on { border-style: solid; border-color: var(--hl); background: #2e2a3b; }
+.av .avgap.good { border: 1.5px solid var(--ok); background: #143d2e; } .av .avgap.bad { border: 1.5px solid var(--ko); background: #47202b; } .av .avgap s { opacity: .6; }
+.av .avbank { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.av .avchip { padding: 9px 12px; border: 1px solid #4a4558; border-radius: 12px; background: #2e2a3b; color: var(--ink); font: 600 15px/1.25 var(--marker); text-align: left; } .av .avchip:disabled { opacity: .22; }
+.av .ck.num .box { color: var(--ink); font: 800 13px var(--marker); } .av .ck.num .box::after { content: none; } .av .ck.num.on .box, .av .ck.num.yes .box { color: #0e0d13; background: var(--ok); border-color: var(--ok); }
+.av .ck.miss { border-color: var(--ko); background: #47202b; } .av .ck.miss .box { background: var(--ko); border-color: var(--ko); color: #0e0d13; }
+.av div.ck { display: flex; gap: 10px; align-items: center; }
+.av .avles { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--hl); border-radius: 10px; background: #24212e; font-size: 14px; line-height: 1.4; text-align: left; }
+.av .avles ul { margin: 6px 0 0; padding-left: 18px; } .av .avles p { margin: 8px 0 0; } .av .avles b { color: var(--ink); }
+.av .avtime { height: 5px; margin-bottom: 10px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
+.av .avtime i { display: block; height: 100%; background: #6fd3ff; transform-origin: 0 50%; animation: avtime linear forwards; } @keyframes avtime { to { transform: scaleX(0); } }

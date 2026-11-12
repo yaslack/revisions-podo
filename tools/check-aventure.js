@@ -1,0 +1,73 @@
+// Vérifie les défis de Podo Quest : fabrique 10 fois chaque carte de chaque monstre (fiches, anatomie, tests) et arrête à la première carte cassée.
+// usage : node tools/check-aventure.js        (ajouter un identifiant pour voir les défis d'un monstre : node tools/check-aventure.js f:verrues)
+const path = require('path'), assert = require('assert');
+global.window = global;
+for (const f of ['pedi', 'podo', 'anat', 'clinique', 'quiz', 'cas']) require(path.resolve('data', f + '.js'));
+require(path.resolve('aventure.js'));
+
+const shuffle = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+const mkStep = (p, s) => { const [q, a] = s.split(' | '), [ok, bad] = a.split(' || '); return { kind: 'qcm', q, ok, opts: shuffle([ok, ...bad.split(' ; ')]) }; };
+const all = [
+  ...PEDI.concat((window.PODO || []).filter(f => f.ready)).map(f => ({ kind: 'f', f, id: 'f:' + f.id, title: f.title, lab: 'fiche', link: '#' })),
+  ...ANAT_Q.map(x => ({ kind: 'a', x, id: 'a:' + x.q, title: x.name, lab: 'anatomie', link: '#' })),
+  ...CLIN.map((c, i) => ({ kind: 'c', cl: c, id: 'c:' + (i + 1), title: c.n, lab: 'test', link: '#' }))];
+// le jeu tourne ici sans navigateur : les outils d'app.js sont remplacés par des versions minimales
+let G = null; const S = {}, rnd = a => a[Math.floor(Math.random() * a.length)];
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])), md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+const AV = window.AVENTURE({ S, shuffle, rnd, mkStep, esc, md, QZ: window.QUIZ, CAS: window.CAS, all: () => all, pool: () => all, g: () => G, setG: x => { G = x; }, render() {}, save() {}, fx() {}, did() {}, review() {},
+  ico: () => '', top: (a, b, c) => b + c, count: (a, b) => `${a}/${b}`, qsjClues: () => [['Indice', 'un'], ['Indice', 'deux']], qsjOpts: it => shuffle([it.title, 'x', 'y', 'z']) });
+
+const show = process.argv[2], n = { qcm: 0, tri: 0, ordre: 0, trous: 0 }, few = [];
+const text = st => st.kind === 'trous' ? `${st.segs.map(s => typeof s === 'string' ? s : `[${st.ok[s]}]`).join('')}\n     banque : ${st.bank.join(' | ')}` : st.kind === 'pick' ? st.items.map(x => (x[1] ? '+ ' : '- ') + x[0]).join(' | ') : st.kind === 'ordre' ? st.items.join(' > ') : `${st.ok}  /  ${st.opts.filter(o => o !== st.ok).join(' | ')}`;
+for (const it of all) {
+  const k = AV.kit(it), cards = [...k.qs, ...k.says, ...(k.fin ? [k.fin] : [])];
+  if (k.qs.length < 2) few.push(it.id);
+  assert(k.qs.length, `${it.id} : aucune carte d'attaque`);
+  assert(k.says.length, `${it.id} : aucune récitation`);
+  for (const c of cards) for (let i = 0; i < 10; i++) {
+    const st = c.mk(), at = `${it.id} · ${c.k} · ${c.lab}`;
+    if (!st) continue;   // une carte peut rater un tirage (le jeu retente) ; elle doit en réussir au moins un, vérifié par `make` à la construction
+    if (!i) n[c.k]++;
+    if (show === it.id && !i) console.log(`\n[${c.k}] ${c.lab}\n  ${st.q}\n  -> ${text(st)}`);
+    assert(st.q, at + ' : pas de question');
+    if (st.kind === 'qcm') { assert(st.opts.includes(st.ok), at + ' : bonne réponse absente'); assert(new Set(st.opts).size === st.opts.length && st.opts.length >= 3, `${at} : choix en double ou trop peu (${st.opts.length})`); }
+    else if (st.kind === 'pick') { const good = st.items.filter(x => x[1]).length; assert(good && st.items.length - good >= 2, at + ' : il faut du vrai et au moins 2 pièges'); }
+    else if (st.kind === 'ordre') assert(st.items.length > 2 && st.sh.some((x, j) => x !== j), at + ' : rien à remettre en ordre');
+    else { assert(st.ok.length && st.ok.every(w => st.bank.includes(w)), at + ' : mot caché absent de la banque'); assert(st.bank.length - st.ok.length >= 2, `${at} : pas assez de pièges dans la banque (${st.bank.join(' | ')})`); assert(st.segs.filter(s => typeof s === 'number').length === st.ok.length, at + ' : trous mal comptés'); }
+  }
+}
+console.log(`\nOK : ${all.length} monstres, cartes : ${JSON.stringify(n)}`);
+if (few.length) console.log(`Monstres avec une seule carte d'attaque : ${few.join(', ')}`);
+
+// ---------- 40 expéditions jouées en entier, avec 70 % de bonnes réponses : rien ne doit planter, chaque écran doit s'afficher, chaque partie doit finir ----------
+const seen = { win: 0, ko: 0, end: 0, revanche: 0, spe: 0, fin: 0, vif: 0, cuir: 0, soin: 0 };
+const screen = () => { const h = AV.view(); assert(typeof h === 'string' && !/undefined|NaN|\[object/.test(h), `écran « ${G.scr} » mal affiché : ${(h.match(/.{0,60}(undefined|NaN|\[object).{0,60}/) || [h])[0]}`); return h; };
+const answer = good => {   // répond au défi en cours, juste ou faux
+  const t = G.t, st = t.st, tap = (a, j) => { AV.act(a, j); screen(); };
+  if (st.kind === 'qcm') return AV.act('avpick', good ? st.opts.indexOf(st.ok) : st.opts.findIndex(o => o !== st.ok));
+  if (st.kind === 'pick') st.items.forEach((x, j) => { if (good ? x[1] : !x[1]) tap('avtk', j); });
+  else if (st.kind === 'ordre') st.items.forEach((x, i) => tap('avtk', good ? st.sh.indexOf(i) : st.sh.indexOf(st.items.length - 1 - i)));
+  else st.ok.forEach((w, i) => tap('avbk', good ? st.bank.findIndex((b, j) => b === w && !(t.fill || []).includes(j)) : st.bank.findIndex((b, j) => b !== w && !(t.fill || []).includes(j))));
+  AV.act('avval');
+};
+for (let run = 0; run < 40; run++) {
+  G = AV.start(all); let steps = 0;
+  while (G.scr !== 'end' && G.scr !== 'ko') {
+    assert(++steps < 3000, 'expédition sans fin');
+    const html = screen(), t = G.t, f = G.foe;
+    if (G.scr === 'map') AV.act('avgo');
+    else if (G.scr === 'win') { seen.win++; AV.act('avcont'); }
+    else if (G.scr === 'chest') t.done ? AV.act('avnext') : AV.act('avpick', Math.random() < .7 ? t.st.opts.indexOf(t.st.ok) : 0);
+    else if (t && t.done) AV.act('avnext');
+    else if (t) { if (t.rv) seen.revanche++; if (t.mode === 'spe') seen.spe++; if (t.mode === 'fin') seen.fin++; if (f.style) seen[f.style]++; answer(Math.random() < .7); }
+    else {   // le menu : on joue un des boutons proposés (pas les grisés)
+      const on = [...html.matchAll(/<button class="avact" data-g="(\w+)" (?:data-j="(\d)")? ?style="[^"]*" >/g)].map(m => [m[1], +m[2] || 0]).filter(m => m[0] !== 'avobj');
+      assert(on.length, 'menu de combat sans bouton jouable : ' + html.slice(-600));
+      if (G.hp < 15 && /data-g="avobj" +style="[^"]*" >/.test(html) && Math.random() < .5) { AV.act('avobj'); screen(); AV.act('avuse', 0, { dataset: { k: Object.keys(S.rpg.items).find(k => S.rpg.items[k] > 0 && /hexo|dexeryl|hydro|rice/.test(k)) } }); seen.soin++; }
+      else AV.act(...(on.find(m => m[0] === 'avfin') || rnd(on)));
+    }
+  }
+  seen[G.scr]++; screen();
+}
+for (const k in seen) assert(seen[k], `la simulation n'est jamais passée par : ${k}`);
+console.log(`OK : 40 expéditions jouées ${JSON.stringify(seen)}, niveau atteint ${S.rpg.lvl}, revenants en attente ${Object.keys(S.rpg.miss || {}).length}`);

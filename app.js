@@ -568,6 +568,12 @@
     { v: 120, items: [
       ['flame', 'Podo Quest : les décors pèsent 6 fois moins lourd et les nouveaux monstres marchent aussi hors ligne.'],
     ] },
+    { v: 121, items: [
+      ['flame', 'Podo Quest : nouveaux combats. À chaque tour tu choisis ton défi parmi 3 cartes : Question, Tri, Ordre ou Trous. Plus le défi est dur, plus tu frappes fort.'],
+      ['sparkle', 'Fini les cases à cocher « sur l’honneur » : c’est le jeu qui corrige. Les pièges viennent de la même fiche, des muscles voisins ou de la même section de tests.'],
+      ['book', 'Un défi raté montre ce qu’il fallait retenir, puis revient en revanche. Un monstre battu avec des fautes revient à l’expédition suivante.'],
+      ['flame', 'Certains monstres ont un caractère (vif, cuirassé) qui change la façon de les combattre. Et la même question ne revient plus deux fois de suite.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
