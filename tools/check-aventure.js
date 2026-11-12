@@ -39,7 +39,7 @@ for (const it of all) {
 console.log(`\nOK : ${all.length} monstres, cartes : ${JSON.stringify(n)}`);
 if (few.length) console.log(`Monstres avec une seule carte d'attaque : ${few.join(', ')}`);
 
-// ---------- 40 expéditions jouées en entier, avec 70 % de bonnes réponses : rien ne doit planter, chaque écran doit s'afficher, chaque partie doit finir ----------
+// ---------- 40 expéditions jouées en entier avec 70 % de bonnes réponses, puis une perdue exprès (tout faux, en se soignant) : rien ne doit planter, chaque écran doit s'afficher, chaque partie doit finir ----------
 const seen = { win: 0, ko: 0, end: 0, revanche: 0, spe: 0, fin: 0, vif: 0, cuir: 0, soin: 0 };
 const screen = () => { const h = AV.view(); assert(typeof h === 'string' && !/undefined|NaN|\[object/.test(h), `écran « ${G.scr} » mal affiché : ${(h.match(/.{0,60}(undefined|NaN|\[object).{0,60}/) || [h])[0]}`); return h; };
 const answer = good => {   // répond au défi en cours, juste ou faux
@@ -50,24 +50,27 @@ const answer = good => {   // répond au défi en cours, juste ou faux
   else st.ok.forEach((w, i) => tap('avbk', good ? st.bank.findIndex((b, j) => b === w && !(t.fill || []).includes(j)) : st.bank.findIndex((b, j) => b !== w && !(t.fill || []).includes(j))));
   AV.act('avval');
 };
-for (let run = 0; run < 40; run++) {
+function play(skill, heal, low) {   // skill : part de bonnes réponses ; heal : chance de se soigner quand les PV passent sous `low`
   G = AV.start(all); let steps = 0;
   while (G.scr !== 'end' && G.scr !== 'ko') {
     assert(++steps < 3000, 'expédition sans fin');
     const html = screen(), t = G.t, f = G.foe;
     if (G.scr === 'map') AV.act('avgo');
     else if (G.scr === 'win') { seen.win++; AV.act('avcont'); }
-    else if (G.scr === 'chest') t.done ? AV.act('avnext') : AV.act('avpick', Math.random() < .7 ? t.st.opts.indexOf(t.st.ok) : 0);
+    else if (G.scr === 'chest') t.done ? AV.act('avnext') : AV.act('avpick', Math.random() < skill ? t.st.opts.indexOf(t.st.ok) : 0);
     else if (t && t.done) AV.act('avnext');
-    else if (t) { if (t.rv) seen.revanche++; if (t.mode === 'spe') seen.spe++; if (t.mode === 'fin') seen.fin++; if (f.style) seen[f.style]++; answer(Math.random() < .7); }
+    else if (t) { if (t.rv) seen.revanche++; if (t.mode === 'spe') seen.spe++; if (t.mode === 'fin') seen.fin++; if (f.style) seen[f.style]++; answer(Math.random() < skill); }
     else {   // le menu : on joue un des boutons proposés (pas les grisés)
       const on = [...html.matchAll(/<button class="avact" data-g="(\w+)" (?:data-j="(\d)")? ?style="[^"]*" >/g)].map(m => [m[1], +m[2] || 0]).filter(m => m[0] !== 'avobj');
       assert(on.length, 'menu de combat sans bouton jouable : ' + html.slice(-600));
-      if (G.hp < 15 && /data-g="avobj" +style="[^"]*" >/.test(html) && Math.random() < .5) { AV.act('avobj'); screen(); AV.act('avuse', 0, { dataset: { k: Object.keys(S.rpg.items).find(k => S.rpg.items[k] > 0 && /hexo|dexeryl|hydro|rice/.test(k)) } }); seen.soin++; }
+      if (G.hp < low && /data-g="avobj" +style="[^"]*" >/.test(html) && Math.random() < heal) { AV.act('avobj'); screen(); AV.act('avuse', 0, { dataset: { k: Object.keys(S.rpg.items).find(k => S.rpg.items[k] > 0 && /hexo|dexeryl|hydro|rice/.test(k)) } }); seen.soin++; }
       else AV.act(...(on.find(m => m[0] === 'avfin') || rnd(on)));
     }
   }
-  seen[G.scr]++; screen();
+  seen[G.scr]++; screen(); return G.scr;
 }
+for (let run = 0; run < 40; run++) play(.7, .5, 15);
+S.rpg.items.hexo = 3;
+assert(play(0, 1, 1e9) === 'ko', 'tout faux : la partie devait finir par une défaite');
 for (const k in seen) assert(seen[k], `la simulation n'est jamais passée par : ${k}`);
 console.log(`OK : 40 expéditions jouées ${JSON.stringify(seen)}, niveau atteint ${S.rpg.lvl}, revenants en attente ${Object.keys(S.rpg.miss || {}).length}`);
