@@ -17,7 +17,7 @@
   canvas { image-rendering: pixelated; touch-action: none; cursor: crosshair; }
   #grid { position: absolute; inset: 0; pointer-events: none;
     background-image: linear-gradient(#0003 1px, transparent 1px), linear-gradient(90deg, #0003 1px, transparent 1px); }
-  #prev { image-rendering: pixelated; background: #5b8fd6; border-radius: 6px; margin-left: auto; }
+  #prev { max-height: 128px; image-rendering: pixelated; background: #5b8fd6; border-radius: 6px; margin-left: auto; }
 </style>
 <header>
   <button data-tool="pen" aria-pressed="true">Crayon</button>
@@ -26,12 +26,12 @@
   <button data-tool="pick">Pipette</button>
   <input type="color" id="color" value="#66bf2e" aria-label="Couleur">
   <div id="pal"></div>
-  <label>Zoom <input type="range" id="zoom" min="2" max="16" value="6"></label>
+  <label>Zoom <input type="range" id="zoom" min="2" max="16" value="3"></label>
   <label><input type="checkbox" id="showGrid" checked> Grille</label>
   <button id="undo">Annuler</button>
   <button id="gen">Nouveau cube</button>
   <select id="size" aria-label="Taille d'une toile vide">
-    <option value="">Toile vide…</option><option>16</option><option>32</option><option>64</option><option>128</option>
+    <option value="">Toile vide…</option><option>16</option><option>32</option><option>64</option><option>128</option><option>256</option>
   </select>
   <label class="btn">Importer <input type="file" id="imp" accept="image/*" hidden></label>
   <button id="exp">PNG</button>
@@ -39,76 +39,10 @@
   <canvas id="prev" aria-label="Aperçu taille réelle"></canvas>
 </header>
 <main><div id="stage"><canvas id="c" width="128" height="128"></canvas><div id="grid"></div></div></main>
+<script src="pixel-cube.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 const c = $('c'), ctx = c.getContext('2d', { willReadFrequently: true }), prev = $('prev');
-const GRASS = ['#0f4d38', '#17683a', '#22853b', '#38a136', '#5cb82f', '#8ccb2b', '#c6dd35', '#f3ec68'];
-const DIRT = ['#2a1a1b', '#432822', '#5f372a', '#804b32', '#a2653d', '#c2844c', '#dda662', '#f0c98c'];
-const OUTLINE = '#10231f';
-
-// ---------- Le cube, calculé pixel par pixel ----------
-function cube(seed) {
-  const W = 128, H = 128, img = new ImageData(W, H), px = new Uint32Array(img.data.buffer);
-  const hsh = (x, y) => { let n = Math.imul(x | 0, 374761393) + Math.imul(y | 0, 668265263) + seed | 0; n = Math.imul(n ^ n >>> 13, 1274126177); return ((n ^ n >>> 16) >>> 0) / 4294967296; };
-  const vn = (x, y) => {
-    const xi = Math.floor(x), yi = Math.floor(y), fx = x - xi, fy = y - yi, sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
-    const a = hsh(xi, yi), b = hsh(xi + 1, yi), cc = hsh(xi, yi + 1), d = hsh(xi + 1, yi + 1);
-    return a + (b - a) * sx + (cc - a) * sy + (a - b - cc + d) * sx * sy;
-  };
-  const fbm = (x, y) => vn(x, y) * .55 + vn(x * 2.1 + 9, y * 2.1 + 4) * .3 + vn(x * 4.3 + 3, y * 4.3 + 7) * .15;
-  const abgr = s => { const n = parseInt(s.slice(1), 16); return (0xff000000 | (n & 255) << 16 | n & 0xff00 | n >> 16) >>> 0; };
-  const G = GRASS.map(abgr), D = DIRT.map(abgr), pick = (P, i) => P[Math.max(0, Math.min(P.length - 1, Math.round(i)))];
-  const CX = 64, CY = 36, HW = 56, HH = 28, SH = 56;
-
-  // herbe : grandes taches de lumière + touffes de 2 px + pointes jaunes dans les zones éclairées
-  const grassI = (x, y, sh) => {
-    const L = fbm(x / 18, y / 10);
-    let t = (L - .3) / .4 * 5 + (hsh(x >> 1, y) - .5) * 1.7 + (hsh(x, y) - .5) * .8 + sh;
-    if (L > .5 && hsh(x + 7, y + 3) > .85) t += 1.6;
-    return t;
-  };
-  // terre : strates, grain, cailloux éclairés par le haut, plus sombre vers le bas
-  const dirtI = (x, y, d, sh) => {
-    let t = 2.3 + fbm(x / 9, y / 6) * 3.2 + (hsh(x, y) - .5) * 1.1 + Math.sin(d / 3.5 + vn(x / 10, 2) * 4) * .5 - d / SH * 1.6 + sh;
-    const cx = Math.floor(x / 8), cy = Math.floor(y / 7), r = hsh(cx + 9, cy + 9) * 2.7;
-    const qx = cx * 8 + 1 + hsh(cx, cy + 50) * 6, qy = cy * 7 + 1 + hsh(cx + 50, cy) * 5, dd = Math.hypot(x - qx, (y - qy) * 1.3);
-    if (r > 1.1) { if (dd < r) t += y < qy ? 2.2 : 1; else if (dd < r + 1 && y > qy) t -= 1.6; }
-    return t;
-  };
-  // chemin de terre qui serpente sur le dessus (u, v = coordonnées de la face)
-  const pathD = (u, v, x, y) => Math.abs(v - .3 * Math.sin(u * 2.6 + .5)) + (vn(x / 3, y / 3) - .5) * .1;
-
-  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-    const dx = x - CX, dy = y - CY, u = dx / HW + dy / HH, v = -dx / HW + dy / HH;
-    let col = 0;
-    if (Math.abs(u) <= 1 && Math.abs(v) <= 1) {                     // dessus
-      const pd = pathD(u, v, x, y), rim = u > .93 || v > .93 ? 1 : 0;
-      col = pd < .11 ? pick(D, 4.6 + fbm(x / 6, y / 4) * 2.4 + (hsh(x, y) - .5) * 1.3 - (pd > .08 ? 1.5 : 0))
-                     : pick(G, grassI(x, y, (pd < .16 ? -2 : 0) + rim));
-    } else if (Math.abs(dx) <= HW) {                                 // côtés
-      const left = dx < 0, y0 = left ? CY + (dx + HW) / 2 : CY + HH - dx / 2, d = y - y0;
-      if (d > 0 && d <= SH) {
-        const onPath = !left && pathD(1, 1 - dx / 28, x, y0) < .11;
-        const g = onPath ? 0 : 5 + Math.floor(vn(x / 2.5, 7) * 6) + (hsh(x, 3) > .7 ? 2 : 0);   // herbe qui déborde
-        const edge = (dx === -1 ? 1 : dx === 0 ? .5 : 0) - (d > SH - 2 ? 1 : 0);
-        col = d < g ? pick(G, grassI(x, y, (left ? -.5 : -2) - (d >= g - 1 ? 1.5 : 0) + (d < 2 ? 1 : 0)))
-                    : pick(D, dirtI(x, y, d, (left ? .6 : -1) + (d < g + 2 ? -1.5 : 0) + edge));
-      }
-    }
-    px[y * W + x] = col;
-  }
-  // brins qui dépassent en haut, puis contour sombre
-  for (let x = CX - HW; x <= CX + HW; x++) if (hsh(x, 99) > .55) {
-    let y = 0; while (y < H && !px[y * W + x]) y++;
-    px[(y - 1) * W + x] = G[4 + (hsh(x, 97) * 3 | 0)];
-    if (hsh(x, 98) > .6) px[(y - 2) * W + x] = G[6];
-  }
-  const src = px.slice(), o = abgr(OUTLINE), at = (x, y) => x >= 0 && y >= 0 && x < W && y < H && src[y * W + x];
-  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++)
-    if (!src[y * W + x] && (at(x - 1, y) || at(x + 1, y) || at(x, y - 1) || at(x, y + 1))) px[y * W + x] = o;
-  return img;
-}
-
 // ---------- L'éditeur ----------
 let tool = 'pen', undoStack = [], last = null;
 const snap = () => { undoStack.push(ctx.getImageData(0, 0, c.width, c.height)); if (undoStack.length > 50) undoStack.shift(); };
@@ -120,7 +54,7 @@ function layout() {
 }
 function saved() {
   prev.width = c.width; prev.height = c.height; prev.getContext('2d').drawImage(c, 0, 0);
-  try { localStorage.setItem('pixel-editor', c.toDataURL()); } catch {}
+  try { localStorage.setItem('pixel-editor-2', c.toDataURL()); } catch {}
 }
 function load(source, w, h) { snap(); c.width = w; c.height = h; source instanceof ImageData ? ctx.putImageData(source, 0, 0) : ctx.drawImage(source, 0, 0); layout(); saved(); }
 const rgba = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)).concat(255);
@@ -162,7 +96,7 @@ for (const h of [...GRASS, ...DIRT, OUTLINE, '#ffffff']) { const i = document.cr
 $('zoom').oninput = $('showGrid').onchange = layout;
 $('undo').onclick = () => { const u = undoStack.pop(); if (u) { c.width = u.width; c.height = u.height; ctx.putImageData(u, 0, 0); layout(); saved(); } };
 addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'z') { e.preventDefault(); $('undo').click(); } });
-$('gen').onclick = () => load(cube(Math.random() * 1e9 | 0), 128, 128);
+$('gen').onclick = () => load(cube(Math.random() * 1e9 | 0), 256, 256);
 $('size').onchange = e => { const n = +e.target.value; e.target.value = ''; if (n) load(new ImageData(n, n), n, n); };
 $('imp').onchange = e => {
   const f = e.target.files[0]; if (!f) return;
@@ -177,8 +111,8 @@ function exportPng(k) {
 $('exp').onclick = () => exportPng(1); $('exp8').onclick = () => exportPng(8);
 
 // démarrage : reprend le dessin enregistré, sinon le cube
-let stored = null; try { stored = localStorage.getItem('pixel-editor'); } catch {}
+let stored = null; try { stored = localStorage.getItem('pixel-editor-2'); } catch {}
 if (stored) { const im = new Image(); im.onload = () => { load(im, im.width, im.height); undoStack = []; }; im.src = stored; }
-else { load(cube(7), 128, 128); undoStack = []; }
+else { load(cube(7), 256, 256); undoStack = []; }
 </script>
 </html>
