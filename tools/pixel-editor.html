@@ -9,7 +9,7 @@
   button, select, label.btn { font: inherit; color: inherit; background: #363b47; border: 1px solid #4a5060; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
   button[aria-pressed=true] { background: #4c8a3a; border-color: #7fc04a; }
   input[type=color] { width: 36px; height: 32px; padding: 0; border: 0; background: none; }
-  #pal { display: flex; flex-wrap: wrap; gap: 2px; max-width: 290px; }
+  #pal { display: flex; flex-wrap: wrap; gap: 2px; max-width: 440px; }
   #pal i { width: 16px; height: 16px; border: 1px solid #0006; cursor: pointer; }
   main { padding: 16px; overflow: auto; }
   #stage { position: relative; display: inline-block; line-height: 0;
@@ -92,7 +92,7 @@ c.onpointerup = c.onpointercancel = () => { if (last) { last = null; saved(); } 
 
 function setTool(t) { tool = t; document.querySelectorAll('[data-tool]').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === t)); }
 document.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => setTool(b.dataset.tool));
-for (const h of [...GRASS, ...DIRT, OUTLINE, '#ffffff']) { const i = document.createElement('i'); i.style.background = h; i.onclick = () => { $('color').value = h; if (tool !== 'fill') setTool('pen'); }; $('pal').append(i); }
+for (const h of [...GRASS, ...DIRT, ...WATER, ...WALL, ...ROOF, OUTLINE, '#ffffff']) { const i = document.createElement('i'); i.style.background = h; i.onclick = () => { $('color').value = h; if (tool !== 'fill') setTool('pen'); }; $('pal').append(i); }
 $('zoom').oninput = $('showGrid').onchange = layout;
 $('undo').onclick = () => { const u = undoStack.pop(); if (u) { c.width = u.width; c.height = u.height; ctx.putImageData(u, 0, 0); layout(); saved(); } };
 addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'z') { e.preventDefault(); $('undo').click(); } });
