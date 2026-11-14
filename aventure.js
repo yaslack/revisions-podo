@@ -133,7 +133,7 @@ window.AVENTURE = A => {
     }
     if (it.kind === 'a') {
       const x = it.x, sib = ALL().filter(y => y.kind === 'a' && y.x !== x && !y.x.nerf === !x.nerf).map(y => y.x), reg = sib.filter(y => y.reg === x.reg), by = () => [...shuffle(reg), ...shuffle(sib)];
-      const N = `**${x.name}**`, les = x.nerf ? [['Origine', x.o], ['Terminaison', x.t], ['Nerf', x.nerf], ['Action', x.act]].filter(a => a[1]).map(a => `**${a[0]}** : ${a[1]}`) : [x.pos, x.how, x.chk, x.ins].filter(Boolean).map(line);
+      const N = `**${x.name}**`, les = x.nerf ? [['Origine', x.o], ['Terminaison', x.t], ['Nerf', x.nerf], ['Action', x.act], ['Loge', A.logeOf && A.logeOf(x) && A.logeTxt(A.logeOf(x))]].filter(a => a[1]).map(a => `**${a[0]}** : ${a[1]}`) : [x.pos, x.how, x.chk, x.ins].filter(Boolean).map(line);
       const Q = (lab, q, ok, key) => ok ? card('qcm', lab, les, () => qcm(q, ok, by().map(key))) : null;
       const palp = Q('Palpation', `On palpe quoi ?\n${plain(x.how)}`, x.name, y => y.name);
       if (x.nerf) {   // un muscle : ses 4 lignes d'identité, face à celles des muscles voisins
@@ -142,7 +142,7 @@ window.AVENTURE = A => {
           const traps = [...new Set(rows.flatMap(r => o.map(y => plain(y[r[1]]))))].filter(d => d && !ok.some(w => norm(w) === norm(d)));
           return { kind: 'trous', q: `Fiche d'identité : ${x.name}`, segs: [...rows.flatMap((r, i) => [`${i ? '\n' : ''}${r[0]} : `, i]), ''], ok, bank: shuffle([...ok, ...traps]) }; };
         // l'anatomie doit être dure : l'origine, la terminaison et l'action se DISENT (plus de choix à deviner), et il faut les trois pour l'achever
-        const say = oral('Fiche d\'identité', `Dis sa fiche d'identité : ${N}\nOrigine, terminaison, nerf, action.`, les, null, 'id');
+        const say = oral('Fiche d\'identité', `Dis sa fiche d'identité : ${N}\nOrigine, terminaison, nerf, action, loge.`, les, null, 'id');
         const ot = x.o && x.t ? oral('Origine, terminaison, action', `Origine, terminaison et action : ${N}\nDis d'où il part, où il se termine, puis ce qu'il fait.`, [`**Origine** : ${x.o}`, `**Terminaison** : ${x.t}`, ...(x.act ? [`**Action** : ${x.act}`] : [])], null, 'ot') : null;
         const plan = [ot, say].filter(Boolean);
         return { qs: [Q('Nerf', `Quel nerf innerve : ${N} ?`, x.nerf, y => y.nerf), Q('Action', `Que fait : ${N} ?`, x.act, y => y.act), palp,

@@ -596,6 +596,7 @@
     { v: 126, items: [
       ['cube', 'Quiz 3D : le vrai sacrum (avec le coccyx à sa pointe) et le long ligament plantaire, pris dans BodyParts3D, la même source que tout le modèle. Les formes dessinées à la main de la version 125 sont retirées.'],
       ['bone', 'Les os : à la réponse du quiz 3D, les muscles qui s\'y insèrent (ou, s\'il n\'y en a aucun, ce qui passe par lui). Dans Podo Quest, il faut les dire pour achever un os.'],
+      ['muscle', 'Les loges des muscles : dans chaque région, les muscles sont rangés par loge (touche une loge pour voir son contenu, son nerf et son artère) ; chaque muscle a sa carte « Sa loge » (contenu, parois, nerf, artère, voisins). La loge est aussi dans « Je m\'interroge », la réponse du quiz 3D et la fiche d\'identité à réciter dans Podo Quest.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -815,6 +816,11 @@
         <div class="dd"><figure class="drawn slide">${img(ill('plan', `p${i + 1}b`), p.title, 'crop')}</figure><p>${md(p.say)}</p></div></details>`).join('')}</div></div>`;
   }
 
+  // ---------- les loges des muscles (data/loges.js) ----------
+  const LOGES = window.LOGES || {}, LOGE_OF = window.LOGE_OF || {};
+  const logeOf = x => { const l = x && LOGE_OF[x.q]; return l && LOGES[l[0]] ? Object.assign({ id: l[0], d: l[1] || '' }, LOGES[l[0]]) : null; };
+  const logeTxt = lg => lg.n + (lg.d ? ` · ${lg.d}` : '');
+
   // ---------- anatomie : une région à la fois (pied, jambe, cuisse), puis os et muscles ----------
   function anatList(r) {
     r = REG_ORDER.includes(r) ? r : (REG_ORDER.includes(S.areg) ? S.areg : 'pied');
@@ -827,8 +833,16 @@
     for (const g of ['Os', 'Muscles']) {
       const it = items.filter(x => x.group === g);
       if (!it.length) continue;
-      h += `<div class="sec" style="color:${RCOL[r]}">${g === 'Os' ? ico('bone') + ' OS & REPÈRES OSSEUX' : ico('muscle') + ' MUSCLES & TENDONS'} · ${it.filter(x => doneA(x.q)).length}/${it.length}</div>
-        <div class="entries">${it.map(x => `<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[r]}">${zoomThumb(x, 52)}<span class="rt"><span class="n">Question ${x.q}</span><span class="t">${esc(x.name)}</span></span>${doneA(x.q) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div>`;
+      const row = x => `<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[r]}">${zoomThumb(x, 52)}<span class="rt"><span class="n">Question ${x.q}</span><span class="t">${esc(x.name)}</span></span>${doneA(x.q) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`;
+      h += `<div class="sec" style="color:${RCOL[r]}">${g === 'Os' ? ico('bone') + ' OS & REPÈRES OSSEUX' : ico('muscle') + ' MUSCLES & TENDONS, PAR LOGE'} · ${it.filter(x => doneA(x.q)).length}/${it.length}</div>`;
+      if (g === 'Os') { h += `<div class="entries">${it.map(row).join('')}</div>`; continue; }
+      // les muscles rangés par loge, dans l'ordre des loges ; avec chaque loge, ce qu'elle contient, son nerf et son artère
+      for (const id of [...Object.keys(LOGES), null]) {
+        const li = it.filter(x => (LOGE_OF[x.q] || [null])[0] === id), L = LOGES[id];
+        if (!li.length) continue;
+        h += L ? `<details class="logeh" style="--c:${RCOL[r]}"><summary><b>${esc(L.n)}</b><span class="muted"> · ${li.length}</span></summary><div class="small">${md(L.c)}<br><b>Nerf</b> ${esc(L.nerf)} · <b>Artère</b> ${esc(L.art)}</div></details>` : `<div class="logeh none">Tendons</div>`;
+        h += `<div class="entries">${li.map(row).join('')}</div>`;
+      }
     }
     return h + '</div>';
   }
@@ -859,7 +873,9 @@
     return `<div class="wrap">${top(`#/anat/${x.reg}`, `${REG_SHORT[x.reg]} · ${x.group}`, count(AQ.filter(y => doneA(y.q)).length, AQ.length))}
       <div class="fhead">${zoomThumb(x, 64)}<div class="rt"><div class="n" style="color:${c}">QUESTION ${x.q}</div><h1>${esc(x.name)}</h1></div></div>
       <div class="fields">${f('Position du sujet', x.pos, 'var(--p1)')}${f('Comment le trouver', x.how, 'var(--p4)')}${f('Pour vérifier', x.chk, 'var(--p6)')}${f("Ce qui s'y insère", x.ins, 'var(--p3)')}</div>
-      ${mus}
+      ${mus}${(lg => lg ? `<div class="card ident loge"><div class="tt">Sa loge</div><div class="lgn">${esc(lg.n)}${lg.d ? ` <span class="muted">· ${esc(lg.d)}</span>` : ''}</div>
+        <div class="mcard">${[['Contenu', lg.c], ['Parois', lg.murs], ['Nerf', lg.nerf], ['Artère', lg.art]].filter(r => r[1]).map(([l, v]) => `<span class="l">${l}</span><span>${md(v)}</span>`).join('')}</div>
+        ${(o => o.length ? `<div class="lgo">Dans la même loge : ${o.map(y => `<a href="#/anat/${y.q}">${esc(y.name)}</a>`).join(', ')}</div>` : '')(AQ.filter(y => y !== x && (LOGE_OF[y.q] || [])[0] === lg.id))}</div>` : '')(logeOf(x))}
       <div class="sec">SUR LA PLANCHE</div>${x.plates.map(p => plateHTML(p, x.name)).join('')}
       ${pager(a ? `#/anat/${a.q}` : '', `<button class="btn grow ${doneA(x.q) ? 'ghost' : ''}" id="aknow" style="--c:var(--p6)">${doneA(x.q) ? '✓ Su · à revoir ?' : 'Je sais le palper'}</button>`, b ? `#/anat/${b.q}` : '')}</div>`;
   }
@@ -871,8 +887,8 @@
     const x = card, c = RCOL[x.reg], nA = AQ.filter(a => doneA(a.q)).length;
     return `<div class="wrap">${top(`#/anat/${x.reg}`, "Je m'interroge", count(nA, AQ.length))}${bar(nA / AQ.length, 'var(--p6)')}
       <div class="card draw"><span class="stamp" style="--c:${c}">${x.q}</span><div class="kicker" style="margin-top:12px">${esc(x.regName).toUpperCase()} · ${x.group.toUpperCase()}</div><div class="big">${esc(x.name)}</div>
-      <div class="muted">Position du sujet ? Comment le trouver ? Comment vérifier ?${x.o ? ' Origine, terminaison, nerf, action ?' : ''}${x.ins ? " Qu'est-ce qui s'y insère ?" : ''}</div>
-      ${shown ? `<div style="text-align:left;margin-top:16px" class="fields">${x.pos ? `<div class="tag" style="--c:var(--p1)"><div class="tt">Position</div>${md(x.pos)}</div>` : ''}<div class="tag" style="--c:var(--p4)"><div class="tt">Comment le trouver</div>${md(x.how)}</div>${x.chk ? `<div class="tag" style="--c:var(--p6)"><div class="tt">Vérifier</div>${md(x.chk)}</div>` : ''}${x.ins ? `<div class="tag" style="--c:var(--p3)"><div class="tt">Ce qui s'y insère</div>${md(x.ins)}</div>` : ''}${x.o ? `<div class="tag" style="--c:var(--p3)"><div class="tt">Identité</div><b>O :</b> ${md(x.o)}<br><b>T :</b> ${md(x.t)}<br><b>N :</b> ${md(x.nerf)}<br><b>A :</b> ${md(x.act)}</div>` : ''}</div>` : ''}
+      <div class="muted">Position du sujet ? Comment le trouver ? Comment vérifier ?${x.o ? ' Origine, terminaison, nerf, action ?' : ''}${logeOf(x) ? ' Sa loge ?' : ''}${x.ins ? " Qu'est-ce qui s'y insère ?" : ''}</div>
+      ${shown ? `<div style="text-align:left;margin-top:16px" class="fields">${x.pos ? `<div class="tag" style="--c:var(--p1)"><div class="tt">Position</div>${md(x.pos)}</div>` : ''}<div class="tag" style="--c:var(--p4)"><div class="tt">Comment le trouver</div>${md(x.how)}</div>${x.chk ? `<div class="tag" style="--c:var(--p6)"><div class="tt">Vérifier</div>${md(x.chk)}</div>` : ''}${x.ins ? `<div class="tag" style="--c:var(--p3)"><div class="tt">Ce qui s'y insère</div>${md(x.ins)}</div>` : ''}${x.o ? `<div class="tag" style="--c:var(--p3)"><div class="tt">Identité</div><b>O :</b> ${md(x.o)}<br><b>T :</b> ${md(x.t)}<br><b>N :</b> ${md(x.nerf)}<br><b>A :</b> ${md(x.act)}</div>` : ''}${logeOf(x) ? `<div class="tag" style="--c:var(--p5)"><div class="tt">Loge</div>${esc(logeTxt(logeOf(x)))}</div>` : ''}</div>` : ''}
       <div class="btns center"><a class="btn ghost" href="#/anat/${x.q}">Ouvrir la fiche</a></div></div>
       <div class="pager fixed">${shown ? `<button class="btn grow" id="qko" style="--c:#f6c3b9">À revoir</button><button class="btn grow" id="qok" style="--c:var(--p6)">✓ Je savais</button>` : `<button class="btn grow" id="qshow">Voir la réponse</button>`}</div></div>`;
   }
@@ -1028,7 +1044,7 @@
     if (Q3.st === 'q') return `${head}<div class="question">Touche : ${esc(x.name)}</div>
       <div class="row2">${b('help', ico('bulb') + ' La zone', 'var(--card)')}${b('skip', 'Je ne sais pas', 'var(--card)')}</div>`;
     return `${head}<div class="question">${Q3.good ? '✓ Bien vu : ' : '✗ '}${esc(x.name)}</div>${!Q3.good && Q3.hit ? `<div class="muted small">Tu as touché : ${esc(Q3.hit)}</div>` : ''}
-      ${x.o && x.t ? `<div class="v3ot"><div><i class="o">O</i><span><b>Origine</b> ${md(x.o)}</span></div><div><i class="t">T</i><span><b>Terminaison</b> ${md(x.t)}</span></div>${x.act ? `<div><i class="a">A</i><span><b>Action</b> ${md(x.act)}</span></div>` : ''}</div>` : ''}
+      ${x.o && x.t ? `<div class="v3ot"><div><i class="o">O</i><span><b>Origine</b> ${md(x.o)}</span></div><div><i class="t">T</i><span><b>Terminaison</b> ${md(x.t)}</span></div>${x.act ? `<div><i class="a">A</i><span><b>Action</b> ${md(x.act)}</span></div>` : ''}${logeOf(x) ? `<div><i class="l">L</i><span><b>Loge</b> ${esc(logeTxt(logeOf(x)))}</span></div>` : ''}</div>` : ''}
       ${!x.nerf && x.ins ? `<div class="v3ot"><div><i class="i">↳</i><span><b>${/aucun muscle/i.test(x.ins) ? 'Ce qui passe par lui' : 'S\'y insèrent'}</b> ${md(x.ins)}</span></div></div>` : ''}
       <div class="small">${md(x.how || '')}</div><div class="row2"><a class="btn ghost grow" href="#/anat/${x.q}">La fiche</a>${b('next', Q3.i + 1 < Q3.list.length ? 'Suivant →' : 'Résultat')}</div>`;
   }
@@ -1492,7 +1508,7 @@
   }
 
   // --- Podo Quest : le jeu d'aventure (aventure.js), branché sur les mêmes données et le même choix de matières
-  const AV = window.AVENTURE && window.AVENTURE({ S, save, esc, md, ico, shuffle, rnd, fx, did, review, top, count, QZ, CAS, mkStep, anatQ, clinQ, qsjClues, qsjOpts,
+  const AV = window.AVENTURE && window.AVENTURE({ S, save, logeOf, logeTxt, esc, md, ico, shuffle, rnd, fx, did, review, top, count, QZ, CAS, mkStep, anatQ, clinQ, qsjClues, qsjOpts,
     g: () => G, setG: x => { G = x; }, render: k => render(k), pool: () => poolQsj(), all: () => poolQsj(true) });
   function gStart(a) {
     const pool = poolOf(a); gStop();

@@ -2,7 +2,7 @@
 // usage : node tools/check-aventure.js        (ajouter un identifiant pour voir les défis d'un monstre : node tools/check-aventure.js f:verrues)
 const path = require('path'), assert = require('assert');
 global.window = global;
-for (const f of ['pedi', 'podo', 'anat', 'clinique', 'quiz', 'cas']) require(path.resolve('data', f + '.js'));
+for (const f of ['pedi', 'podo', 'anat', 'clinique', 'quiz', 'cas', 'loges']) require(path.resolve('data', f + '.js'));
 require(path.resolve('aventure.js'));
 
 const shuffle = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
@@ -14,7 +14,8 @@ const all = [
 // le jeu tourne ici sans navigateur : les outils d'app.js sont remplacés par des versions minimales
 let G = null; const S = {}, rnd = a => a[Math.floor(Math.random() * a.length)];
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])), md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
-const AV = window.AVENTURE({ S, shuffle, rnd, mkStep, esc, md, QZ: window.QUIZ, CAS: window.CAS, all: () => all, pool: () => all, g: () => G, setG: x => { G = x; }, render() {}, save() {}, fx() {}, did() {}, review() {},
+const logeOf = x => window.LOGE_OF[x.q] && Object.assign({ d: window.LOGE_OF[x.q][1] || '' }, window.LOGES[window.LOGE_OF[x.q][0]]), logeTxt = l => l.n + (l.d ? ` · ${l.d}` : '');
+const AV = window.AVENTURE({ S, logeOf, logeTxt, shuffle, rnd, mkStep, esc, md, QZ: window.QUIZ, CAS: window.CAS, all: () => all, pool: () => all, g: () => G, setG: x => { G = x; }, render() {}, save() {}, fx() {}, did() {}, review() {},
   ico: () => '', top: (a, b, c) => b + c, count: (a, b) => `${a}/${b}`, qsjClues: () => [['Indice', 'un'], ['Indice', 'deux']], qsjOpts: it => shuffle([it.title, 'x', 'y', 'z']) });
 
 const show = process.argv[2], n = { qcm: 0, tri: 0, ordre: 0, trous: 0, oral: 0 }, few = [];
@@ -121,3 +122,5 @@ G = AV.start([bo]); AV.act('avgo'); AV.act('avpick', G.t.st.opts.indexOf(G.t.st.
 G.foe.hp = Math.round(G.foe.max * .3); AV.act('avfin'); AV.act('avshow'); AV.act('avtk', 0); AV.act('avval');
 assert(G.foe.hp > 0, 'os : en oubliant le ligament inguinal, il ne tombe pas');
 console.log('OK : un os demande ce qui s\'y insère (ou y passe)');
+assert(AV.kit(mu).says[0].les.some(l => /^\*\*Loge\*\*/.test(l)), 'muscle : la loge fait partie de sa fiche d\'identité');
+console.log('OK : la loge est dans la fiche d\'identité des muscles');

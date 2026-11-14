@@ -336,7 +336,7 @@ body.v3on nav.tabs { display: none; }
 #v3mk i.good { background: #2FB36B; } #v3mk i.bad { background: #E04A3F; }
 /* origine (O, bleu) et terminaison (T, orange) d'un muscle : sur le modèle et dans le panneau */
 #v3mk i.o, #v3mk i.t, .v3ot i { display: grid; place-items: center; color: #fff; font: 800 12px/1 system-ui, sans-serif; font-style: normal; }
-#v3mk i.o, .v3ot i.o { background: #2F6FE0; } #v3mk i.t, .v3ot i.t { background: #E8891C; } .v3ot i.a { background: #2E9E6A; } .v3ot i.i { background: #7A5BC7; }
+#v3mk i.o, .v3ot i.o { background: #2F6FE0; } #v3mk i.t, .v3ot i.t { background: #E8891C; } .v3ot i.a { background: #2E9E6A; } .v3ot i.i { background: #7A5BC7; } .v3ot i.l { background: #B5466B; }
 .v3ot { display: grid; gap: 5px; margin: 4px 0 6px; font-size: 15px; line-height: 1.3; }
 .v3ot > div { display: flex; gap: 8px; align-items: flex-start; } .v3ot b { margin-right: 4px; }
 .v3ot i { flex: none; width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1.5px var(--ink); margin-top: 1px; }
@@ -1131,3 +1131,8 @@ body.ingame nav.tabs { display: none; }
 .v3chips { gap: 4px; left: 6px; right: 6px; }
 .v3l { padding: 3px 7px; gap: 4px; font-size: 12px; } .v3l i { width: 10px; height: 10px; }
 @media (max-width: 360px) { .v3l { padding: 3px 5px; font-size: 11px; } }
+/* les loges : en-tête de groupe dans la liste d'une région (on l'ouvre pour voir le contenu, le nerf et l'artère), et la carte « Sa loge » d'un muscle */
+.logeh { margin: 14px 0 6px; padding: 6px 10px; border-left: 4px solid var(--c, var(--ink)); border-radius: 8px; background: color-mix(in srgb, var(--card) 70%, transparent); font-size: 16px; }
+.logeh summary { cursor: pointer; list-style-position: inside; } .logeh .small { margin-top: 6px; font-size: 15px; line-height: 1.35; }
+.logeh.none { color: var(--muted); }
+.card.loge .lgn { font: 400 19px/1.2 var(--marker); margin: 4px 0 8px; } .card.loge .lgo { margin-top: 8px; font-size: 16px; } .card.loge .lgo a { text-decoration: underline; }
