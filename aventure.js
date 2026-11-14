@@ -103,7 +103,7 @@ window.AVENTURE = A => {
   const pisOf = it => it.kind === 'f' ? (QZ[it.f.id] || []).map((z, i) => z.k.length && it.f.parts[i] ? i : null).filter(x => x != null) : it.kind === 'a' && it.x.nerf ? [...(it.x.o && it.x.t ? ['ot'] : []), 'id'] : [];
   const nSue = it => pisOf(it).filter(pi => sue(it, pi)).length;
   const nextPart = it => pisOf(it).find(pi => !sue(it, pi));   // la prochaine partie à apprendre, dans l'ordre du plan
-  const partName = (it, pi) => it.kind === 'f' ? `Partie ${pi + 1} · ${it.f.parts[pi].title}` : pi === 'ot' ? 'Origine et terminaison' : 'Fiche d\'identité complète';
+  const partName = (it, pi) => it.kind === 'f' ? `Partie ${pi + 1} · ${it.f.parts[pi].title}` : pi === 'ot' ? 'Origine, terminaison et action' : 'Fiche d\'identité complète';
   const dots = it => { const ps = pisOf(it); return `<span class="avdots" role="img" aria-label="${nSue(it)} sur ${ps.length} sues">${ps.map(pi => `<i class="${sue(it, pi) ? 'on' : score(it, pi) ? 'half' : ''}"></i>`).join('')}</span>`; };
   const progress = it => { const ps = pisOf(it), n = nSue(it), nx = nextPart(it); if (!ps.length) return '';
     return `<div class="avprog"><div class="kicker">${it.kind === 'f' ? 'TON ORAL DE CETTE FICHE' : 'CE MUSCLE À L\'ORAL'}</div>${dots(it)}<div class="small">${n}/${ps.length} ${it.kind === 'f' ? `partie${n > 1 ? 's' : ''} sue${n > 1 ? 's' : ''}` : 'su'} · ${nx != null ? `prochaine fois : <b>${esc(partName(it, nx))}</b>` : '<b>tu sais tout le dire !</b>'}</div></div>`; };
@@ -139,9 +139,9 @@ window.AVENTURE = A => {
         const id = () => { const o = by().slice(0, 2), rows = [['Origine', 'o'], ['Terminaison', 't'], ['Nerf', 'nerf']].filter(r => x[r[1]]), ok = rows.map(r => plain(x[r[1]]));
           const traps = [...new Set(rows.flatMap(r => o.map(y => plain(y[r[1]]))))].filter(d => d && !ok.some(w => norm(w) === norm(d)));
           return { kind: 'trous', q: `Fiche d'identité : ${x.name}`, segs: [...rows.flatMap((r, i) => [`${i ? '\n' : ''}${r[0]} : `, i]), ''], ok, bank: shuffle([...ok, ...traps]) }; };
-        // l'anatomie doit être dure : l'origine et la terminaison se DISENT (plus de choix à deviner), et il faut les deux pour l'achever
+        // l'anatomie doit être dure : l'origine, la terminaison et l'action se DISENT (plus de choix à deviner), et il faut les trois pour l'achever
         const say = oral('Fiche d\'identité', `Dis sa fiche d'identité : ${N}\nOrigine, terminaison, nerf, action.`, les, null, 'id');
-        const ot = x.o && x.t ? oral('Origine et terminaison', `D'où part et où se termine : ${N} ?\nDis l'origine puis la terminaison, précisément.`, [`**Origine** : ${x.o}`, `**Terminaison** : ${x.t}`], null, 'ot') : null;
+        const ot = x.o && x.t ? oral('Origine, terminaison, action', `Origine, terminaison et action : ${N}\nDis d'où il part, où il se termine, puis ce qu'il fait.`, [`**Origine** : ${x.o}`, `**Terminaison** : ${x.t}`, ...(x.act ? [`**Action** : ${x.act}`] : [])], null, 'ot') : null;
         const plan = [ot, say].filter(Boolean);
         return { qs: [Q('Nerf', `Quel nerf innerve : ${N} ?`, x.nerf, y => y.nerf), Q('Action', `Que fait : ${N} ?`, x.act, y => y.act), palp,
           x.act && card('trous', 'Action', les, () => cloze(`Que fait : ${x.name} ?`, [x.act], P, 2)), card('trous', 'Fiche d\'identité', les, id), ...plan].filter(c => c && make(c)), says: [say], plan, fin: ot, hard: true };
@@ -168,7 +168,7 @@ window.AVENTURE = A => {
       says: [oral('Tout le test', `Décris le test : **${c.n}**\nCe qu'il cherche, le geste étape par étape, le résultat normal.`, les)], fin: ord };
   }
   // ce qu'il faut retenir d'un monstre (bestiaire, écrans de fin)
-  const weak = it => { if (it.kind === 'f') { const m = it.f.memo && it.f.memo[5]; return m ? [m.q, m.k] : null; } return it.kind === 'a' ? (it.x.nerf ? (it.x.o && it.x.t ? ['Origine → terminaison', `${it.x.o} → ${it.x.t}`] : ['Son nerf', it.x.nerf]) : ['On le trouve', line(it.x.how)]) : ['Il cherche', it.cl.cherche]; };
+  const weak = it => { if (it.kind === 'f') { const m = it.f.memo && it.f.memo[5]; return m ? [m.q, m.k] : null; } return it.kind === 'a' ? (it.x.nerf ? (it.x.o && it.x.t ? ['Origine → terminaison', `${it.x.o} → ${it.x.t}${it.x.act ? ` · **Action** : ${it.x.act}` : ''}`] : ['Son nerf', it.x.nerf]) : ['On le trouve', line(it.x.how)]) : ['Il cherche', it.cl.cherche]; };
   // la main : 3 cartes tirées du paquet du monstre, de genres différents si possible. Un défi raté revient seul, un tour plus tard : c'est la revanche.
   function deal(f) {
     if (f.hand) return f.hand;
