@@ -591,9 +591,11 @@
       ['bulb', 'Pendant les jeux, la barre d\'onglets disparaît : elle cachait les derniers choix de Qui suis-je ?. On revient avec la flèche en haut.'],
     ] },
     { v: 125, items: [
-      ['cube', 'Quiz 3D : le bassin complet. L\'os coxal est séparé en ilion, ischion et pubis (une couleur chacun), et le sacrum et le coccyx sont dessinés.'],
-      ['cube', 'Nouvelle couche « Ligaments » : patellaire, inguinal, collatéraux du genou, talo-fibulaires antérieur et postérieur, calcanéo-fibulaire, deltoïde, glénoïdien, aponévrose plantaire, sacro-tubéral et sacro-épineux.'],
       ['muscle', 'À chaque muscle, l\'action s\'ajoute à l\'origine et à la terminaison : dans la réponse du quiz 3D, et dans Podo Quest où il faut maintenant dire les trois pour l\'achever.'],
+    ] },
+    { v: 126, items: [
+      ['cube', 'Quiz 3D : le vrai sacrum (avec le coccyx à sa pointe) et le long ligament plantaire, pris dans BodyParts3D, la même source que tout le modèle. Les formes dessinées à la main de la version 125 sont retirées.'],
+      ['bone', 'Les os : à la réponse du quiz 3D, les muscles qui s\'y insèrent (ou, s\'il n\'y en a aucun, ce qui passe par lui). Dans Podo Quest, il faut les dire pour achever un os.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -1027,6 +1029,7 @@
       <div class="row2">${b('help', ico('bulb') + ' La zone', 'var(--card)')}${b('skip', 'Je ne sais pas', 'var(--card)')}</div>`;
     return `${head}<div class="question">${Q3.good ? '✓ Bien vu : ' : '✗ '}${esc(x.name)}</div>${!Q3.good && Q3.hit ? `<div class="muted small">Tu as touché : ${esc(Q3.hit)}</div>` : ''}
       ${x.o && x.t ? `<div class="v3ot"><div><i class="o">O</i><span><b>Origine</b> ${md(x.o)}</span></div><div><i class="t">T</i><span><b>Terminaison</b> ${md(x.t)}</span></div>${x.act ? `<div><i class="a">A</i><span><b>Action</b> ${md(x.act)}</span></div>` : ''}</div>` : ''}
+      ${!x.nerf && x.ins ? `<div class="v3ot"><div><i class="i">↳</i><span><b>${/aucun muscle/i.test(x.ins) ? 'Ce qui passe par lui' : 'S\'y insèrent'}</b> ${md(x.ins)}</span></div></div>` : ''}
       <div class="small">${md(x.how || '')}</div><div class="row2"><a class="btn ghost grow" href="#/anat/${x.q}">La fiche</a>${b('next', Q3.i + 1 < Q3.list.length ? 'Suivant →' : 'Résultat')}</div>`;
   }
   function upd3() { const s = $('#v3sheet'), n = $('#v3n'); if (s) s.innerHTML = sheet3(); if (n) n.textContent = Q3.list && Q3.st !== 'pick' && Q3.st !== 'end' ? `${Q3.i + 1}/${Q3.list.length}` : ''; if (V3) V3.mark(); }
@@ -1100,8 +1103,7 @@
     // chaque muscle a sa nuance (teinte et clarté) pour qu'on voie où l'un finit et où l'autre commence ; tendons et tractus en blanc nacré
     const addMesh = (key, fr, layer, g) => {
       g.computeVertexNormals(); g.computeBoundingSphere();
-      const BONE = { ilion: '#EBDDBB', ischion: '#CFAE78', pubis: '#E9C6B4', sacrum: '#DCCBA6', coccyx: '#C9B48C' };   // les os du bassin : chacun sa nuance, on voit où l'un finit
-      const n = meshes.length, c = new T.Color(BONE[key] || (/^(achille|tractus-it)$/.test(key) ? '#E2DACB' : L3[layer][1]));
+      const n = meshes.length, c = new T.Color(key === 'sacrum' ? '#DECDA8' : /^(achille|tractus-it)$/.test(key) ? '#E2DACB' : L3[layer][1]);   // le sacrum un peu plus foncé que l'os coxal, pour voir l'articulation
       if (layer !== 'os' && layer !== 'lig' && !/^(achille|tractus-it)$/.test(key)) c.offsetHSL(((n * 7) % 9 - 4) * .011, ((n * 5) % 7 - 3) * .03, ((n * 11) % 9 - 4) * .045);
       const veil = key === 'tractus-it';   // le tractus ilio-tibial est une lame : à moitié transparent, on voit (et on touche) le TFL et le vaste latéral dessous
       const mat = new T.MeshStandardMaterial({ color: c, roughness: layer === 'os' ? .82 : layer === 'lig' ? .35 : .55, metalness: 0, side: T.DoubleSide, transparent: veil, opacity: veil ? .45 : 1, depthWrite: !veil });
@@ -1111,12 +1113,6 @@
       if (!L3[layer]) return;   // artères et veines : pas dans les 59
       const p = new Float32Array(vc * 3); for (let i = 0; i < vc * 3; i++) p[i] = dv.getInt16(vo + i * 2, true) / 32767 * .5;
       const idx = isz === 4 ? new Uint32Array(buf.slice(io, io + ic * 4)) : new Uint16Array(buf.slice(io, io + ic * 2));
-      const sp = (window.ANAT3D_S || {})[key];
-      if (sp) {   // l'os coxal en trois os (ilion, ischion, pubis) : mêmes sommets, triangles répartis
-        sp.parts.forEach(([k2, fr2], n) => { const ix = []; for (let t = 0; t < sp.lab.length; t++) if (+sp.lab[t] === n) ix.push(idx[3 * t], idx[3 * t + 1], idx[3 * t + 2]);
-          const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(p, 3)); g.setIndex(new T.BufferAttribute(new Uint32Array(ix), 1)); addMesh(k2, fr2, layer, g); });
-        return;
-      }
       const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(p, 3)); g.setIndex(new T.BufferAttribute(idx, 1)); addMesh(key, fr, layer, g);
     });
     (window.ANAT3D_X || []).forEach(x => addMesh(x.key, x.fr, x.layer, tubeGeo(T, x.tubes)));   // les petits muscles du pied absents du modèle
@@ -1145,7 +1141,7 @@
     const fly = (pos, tgt) => { const p0 = cam.position.clone(), t0 = ctl.target.clone(), s0 = performance.now();
       anim = now => { const k = Math.min(1, (now - s0) / 650), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; cam.position.lerpVectors(p0, pos, e); ctl.target.lerpVectors(t0, tgt, e); if (k >= 1) anim = null; }; };
     // les régions : on arrive directement sur le pied, la jambe ou la cuisse, vues de trois quarts
-    const REG3 = { pied: [['calcaneus', 'talus', 'm1', 'm5', 'p1-3', 'p5-3'], [-.25, .85, 1]], jambe: [['tibia', 'fibula'], [-.25, .1, 1]], cuisse: [['ilion', 'ischion', 'pubis', 'femur'], [-.3, .1, 1]] };
+    const REG3 = { pied: [['calcaneus', 'talus', 'm1', 'm5', 'p1-3', 'p5-3'], [-.25, .85, 1]], jambe: [['tibia', 'fibula'], [-.25, .1, 1]], cuisse: [['os-coxal', 'femur'], [-.3, .1, 1]] };
     const view = r => { const R = REG3[r];
       if (!R) return [new T.Vector3(0, 0, dist(size.y, size.x)), new T.Vector3(0, 0, 0)];
       const b = new T.Box3(); R[0].forEach(k => byKey[k] && b.expandByObject(byKey[k])); const c = b.getCenter(new T.Vector3()), s = b.getSize(new T.Vector3());
@@ -1166,7 +1162,7 @@
         // on se place du côté de la cible : de l'os le plus proche vers elle (un muscle postérieur se montre de dos, un muscle plantaire par en dessous)
         const t = T3[q], g = tgtOf(q), cur = cam.position.clone().sub(ctl.target).normalize(), wc = m => m.geometry.boundingSphere.center.clone().applyMatrix4(m.matrixWorld);
         const bone = meshes.filter(m => m.userData.layer === 'os').reduce((b, m) => (!b || wc(m).distanceTo(g.c) < wc(b).distanceTo(g.c) ? m : b), null);
-        const out = bone ? g.c.clone().sub(wc(bone)) : new T.Vector3(); if (bone && /^(tibia|fibula|femur|ilion|ischion|pubis|sacrum|patella)$/.test(bone.userData.key)) out.y = 0;   // os long : seulement le côté (devant, derrière, dehors, dedans)
+        const out = bone ? g.c.clone().sub(wc(bone)) : new T.Vector3(); if (bone && /^(tibia|fibula|femur|os-coxal|sacrum|patella)$/.test(bone.userData.key)) out.y = 0;   // os long : seulement le côté (devant, derrière, dehors, dedans)
         const dir = out.length() > .004 ? out.normalize().multiplyScalar(.75).add(cur.multiplyScalar(.25)).add(new T.Vector3(0, .15, 0)).normalize() : cur;
         fly(g.c.clone().add(dir.multiplyScalar(Math.max(g.r * 1.15 / TAN, t.p ? .38 : .2))), g.c);   // on voit le muscle entier, de son origine à sa terminaison
         if (hintOnly) return;

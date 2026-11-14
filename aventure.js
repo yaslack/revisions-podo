@@ -99,14 +99,16 @@ window.AVENTURE = A => {
   // ---------- ce que tu sais dire à l'oral, gardé d'une partie à l'autre : S.rpg.oral[monstre][partie] = meilleure note SANS aide (indice ou lecture) ----------
   //   Une partie est « sue » à 80 %. Chaque victoire te fait dire la suivante : la fiche se récite un peu plus à chaque fois.
   const SUE = .8, score = (it, pi) => ((R().oral || {})[it.id] || {})[pi] || 0, sue = (it, pi) => score(it, pi) >= SUE;
-  // les parties d'un monstre qu'on peut dire à l'oral : les parties du plan d'une fiche ; pour un muscle, origine + terminaison puis toute sa fiche d'identité
-  const pisOf = it => it.kind === 'f' ? (QZ[it.f.id] || []).map((z, i) => z.k.length && it.f.parts[i] ? i : null).filter(x => x != null) : it.kind === 'a' && it.x.nerf ? [...(it.x.o && it.x.t ? ['ot'] : []), 'id'] : [];
+  // les parties d'un monstre qu'on peut dire à l'oral : les parties du plan d'une fiche ; pour un muscle, origine + terminaison + action puis toute sa fiche d'identité ;
+  // pour un os, ce qui s'y insère (ou, s'il n'y a aucun muscle, ce qui passe par lui) puis son repérage
+  const pisOf = it => it.kind === 'f' ? (QZ[it.f.id] || []).map((z, i) => z.k.length && it.f.parts[i] ? i : null).filter(x => x != null)
+    : it.kind === 'a' && it.x.nerf ? [...(it.x.o && it.x.t ? ['ot'] : []), 'id'] : it.kind === 'a' && it.x.ins ? ['ins', 'rep'] : [];
   const nSue = it => pisOf(it).filter(pi => sue(it, pi)).length;
   const nextPart = it => pisOf(it).find(pi => !sue(it, pi));   // la prochaine partie à apprendre, dans l'ordre du plan
-  const partName = (it, pi) => it.kind === 'f' ? `Partie ${pi + 1} · ${it.f.parts[pi].title}` : pi === 'ot' ? 'Origine, terminaison et action' : 'Fiche d\'identité complète';
+  const partName = (it, pi) => it.kind === 'f' ? `Partie ${pi + 1} · ${it.f.parts[pi].title}` : pi === 'ot' ? 'Origine, terminaison et action' : pi === 'ins' ? 'Ce qui s\'y insère (ou y passe)' : pi === 'rep' ? 'Le repérage' : 'Fiche d\'identité complète';
   const dots = it => { const ps = pisOf(it); return `<span class="avdots" role="img" aria-label="${nSue(it)} sur ${ps.length} sues">${ps.map(pi => `<i class="${sue(it, pi) ? 'on' : score(it, pi) ? 'half' : ''}"></i>`).join('')}</span>`; };
   const progress = it => { const ps = pisOf(it), n = nSue(it), nx = nextPart(it); if (!ps.length) return '';
-    return `<div class="avprog"><div class="kicker">${it.kind === 'f' ? 'TON ORAL DE CETTE FICHE' : 'CE MUSCLE À L\'ORAL'}</div>${dots(it)}<div class="small">${n}/${ps.length} ${it.kind === 'f' ? `partie${n > 1 ? 's' : ''} sue${n > 1 ? 's' : ''}` : 'su'} · ${nx != null ? `prochaine fois : <b>${esc(partName(it, nx))}</b>` : '<b>tu sais tout le dire !</b>'}</div></div>`; };
+    return `<div class="avprog"><div class="kicker">${it.kind === 'f' ? 'TON ORAL DE CETTE FICHE' : it.x && it.x.nerf ? 'CE MUSCLE À L\'ORAL' : 'CE REPÈRE À L\'ORAL'}</div>${dots(it)}<div class="small">${n}/${ps.length} ${it.kind === 'f' ? `partie${n > 1 ? 's' : ''} sue${n > 1 ? 's' : ''}` : 'su'} · ${nx != null ? `prochaine fois : <b>${esc(partName(it, nx))}</b>` : '<b>tu sais tout le dire !</b>'}</div></div>`; };
   const initials = s => plain(s).replace(/[A-Za-zÀ-ÿ]{4,}/g, w => w[0] + '•'.repeat(Math.min(w.length - 1, 6))).replace(/\d/g, '•');   // « HPV 1 → myrmécie » devient « HPV • → m•••••• »
 
   // ---------- ce qu'un monstre fait réviser : ses cartes d'attaque (qs), ses récitations à trous (says), son coup de grâce (fin) ----------
@@ -148,11 +150,13 @@ window.AVENTURE = A => {
       }
       // un repère (os, tendon) : comment on le trouve, comment on vérifie, ce qui s'y attache
       const P = bag((reg.length > 3 ? reg : sib).flatMap(y => [y.pos, y.how, y.chk, y.ins].filter(Boolean).map(line)));
-      const say = oral('Repérage', `Explique comment tu le palpes : ${N}\nLa position, comment le trouver, comment vérifier.`, les);
-      return { qs: [palp, Q('Rapports', `Qu'est-ce qui s'attache ou passe sur : ${N} ?`, x.ins && line(x.ins), y => y.ins && line(y.ins)),
+      const say = oral('Repérage', `Explique comment tu le palpes : ${N}\nLa position, comment le trouver, comment vérifier.`, les, null, x.ins ? 'rep' : null);
+      // un os, c'est dur aussi : les muscles qui s'y insèrent se DISENT (s'il n'y en a aucun, ce qui passe par lui), et il faut tout dire pour l'achever
+      const ins = x.ins ? oral('Ce qui s\'y insère', `Quels muscles s'insèrent sur : ${N} ?\nS'il n'y en a aucun, dis ce qui passe par lui.`, x.ins.split(' ; ').map(t => t.replace(/\.$/, '')), null, 'ins') : null;
+      return { qs: [palp, ins,
         x.how && card('trous', 'Palpation', les, () => cloze(`Comment trouver : ${x.name} ?`, [x.how], P, 2)), x.chk && card('trous', 'Vérification', les, () => cloze(`Comment vérifier : ${x.name} ?`, [line(x.chk)], P, 2)),
         card('trous', 'Repérage', les, () => cloze(`Tout le repérage : ${x.name}`, les, P, 1)), say].filter(c => c && make(c)),
-        says: [say], fin: null };
+        says: [say], plan: [ins, say].filter(Boolean), fin: ins, hard: !!ins };
     }
     // un test clinique : ce qu'il cherche, son geste dans l'ordre, ce que veut dire un test positif
     const c = it.cl, oth = ALL().filter(y => y.kind === 'c' && y.cl !== c).map(y => y.cl), sec = oth.filter(y => y.s === c.s), by = () => [...shuffle(sec), ...shuffle(oth)], pos = c.pos && c.pos[0];
@@ -168,7 +172,7 @@ window.AVENTURE = A => {
       says: [oral('Tout le test', `Décris le test : **${c.n}**\nCe qu'il cherche, le geste étape par étape, le résultat normal.`, les)], fin: ord };
   }
   // ce qu'il faut retenir d'un monstre (bestiaire, écrans de fin)
-  const weak = it => { if (it.kind === 'f') { const m = it.f.memo && it.f.memo[5]; return m ? [m.q, m.k] : null; } return it.kind === 'a' ? (it.x.nerf ? (it.x.o && it.x.t ? ['Origine → terminaison', `${it.x.o} → ${it.x.t}${it.x.act ? ` · **Action** : ${it.x.act}` : ''}`] : ['Son nerf', it.x.nerf]) : ['On le trouve', line(it.x.how)]) : ['Il cherche', it.cl.cherche]; };
+  const weak = it => { if (it.kind === 'f') { const m = it.f.memo && it.f.memo[5]; return m ? [m.q, m.k] : null; } return it.kind === 'a' ? (!it.x.nerf && it.x.ins ? ['S\'y insèrent (ou y passent)', it.x.ins] : it.x.nerf ? (it.x.o && it.x.t ? ['Origine → terminaison', `${it.x.o} → ${it.x.t}${it.x.act ? ` · **Action** : ${it.x.act}` : ''}`] : ['Son nerf', it.x.nerf]) : ['On le trouve', line(it.x.how)]) : ['Il cherche', it.cl.cherche]; };
   // la main : 3 cartes tirées du paquet du monstre, de genres différents si possible. Un défi raté revient seul, un tour plus tard : c'est la revanche.
   function deal(f) {
     if (f.hand) return f.hand;

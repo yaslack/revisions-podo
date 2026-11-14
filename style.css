@@ -336,7 +336,7 @@ body.v3on nav.tabs { display: none; }
 #v3mk i.good { background: #2FB36B; } #v3mk i.bad { background: #E04A3F; }
 /* origine (O, bleu) et terminaison (T, orange) d'un muscle : sur le modèle et dans le panneau */
 #v3mk i.o, #v3mk i.t, .v3ot i { display: grid; place-items: center; color: #fff; font: 800 12px/1 system-ui, sans-serif; font-style: normal; }
-#v3mk i.o, .v3ot i.o { background: #2F6FE0; } #v3mk i.t, .v3ot i.t { background: #E8891C; } .v3ot i.a { background: #2E9E6A; }
+#v3mk i.o, .v3ot i.o { background: #2F6FE0; } #v3mk i.t, .v3ot i.t { background: #E8891C; } .v3ot i.a { background: #2E9E6A; } .v3ot i.i { background: #7A5BC7; }
 .v3ot { display: grid; gap: 5px; margin: 4px 0 6px; font-size: 15px; line-height: 1.3; }
 .v3ot > div { display: flex; gap: 8px; align-items: flex-start; } .v3ot b { margin-right: 4px; }
 .v3ot i { flex: none; width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1.5px var(--ink); margin-top: 1px; }

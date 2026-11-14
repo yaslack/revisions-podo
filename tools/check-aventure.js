@@ -113,3 +113,11 @@ assert(G.foe.hp > 0, 'muscle : avec seulement l\'origine, il ne tombe pas');
 G.foe.hp = Math.round(G.foe.max * .3); G.t = null; G.foe.hand = null; AV.act('avfin'); AV.act('avshow'); AV.act('avtk', 0); AV.act('avtk', 1); AV.act('avval');
 assert(G.foe.hp > 0 || !mu.x.act, 'muscle : origine et terminaison sans l\'action, il ne tombe pas');
 console.log('OK : l\'oral progresse (boss 3 → 5 → complet), l\'aide ne compte pas, un muscle demande origine, terminaison et action');
+
+// ---------- un os : ce qui s'y insère se dit, et c'est son coup de grâce (tout dire) ----------
+const bo = all.find(x => x.id === 'a:3'), kb = AV.kit(bo);   // EIAS : sartorius et TFL ; le ligament inguinal
+assert(kb.fin && kb.fin.k === 'oral' && kb.fin.les.length === bo.x.ins.split(' ; ').length && kb.hard && !kb.qs.some(c => c.lab === 'Rapports'), 'os : ce qui s\'y insère se dit (plus de QCM « Rapports »)');
+G = AV.start([bo]); AV.act('avgo'); AV.act('avpick', G.t.st.opts.indexOf(G.t.st.ok)); AV.act('avnext');
+G.foe.hp = Math.round(G.foe.max * .3); AV.act('avfin'); AV.act('avshow'); AV.act('avtk', 0); AV.act('avval');
+assert(G.foe.hp > 0, 'os : en oubliant le ligament inguinal, il ne tombe pas');
+console.log('OK : un os demande ce qui s\'y insère (ou y passe)');

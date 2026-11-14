@@ -1,7 +1,8 @@
 // Écrit data/anat3d.js : la liste des pièces du modèle 3D (anat/jambe3d.bin, BodyParts3D © DBCLS, CC BY-SA 2.1 JP)
 // et, pour chacune des 59 questions, ce qu'il faut toucher : un muscle entier, ou un point calculé sur l'os.
 // Aussi : l'origine (o) et la terminaison (t) de chaque muscle, en points, et les petits muscles du pied absents du modèle (ANAT3D_X),
-// dessinés comme des tubes entre des points pris sur les os.
+// dessinés comme des tubes entre des points pris sur les os. Les pièces de BodyParts3D ajoutées après coup (sacrum, long ligament plantaire)
+// viennent de tools/add-bp3d.js.
 // usage: node tools/build-anat3d.js [ANCIEN_INDEX.html]   (index.html de la v32 : git show a4ceada:index.html ; sans lui, la liste des pièces est relue dans data/anat3d.js)
 const fs = require('fs');
 let M;   // [key, nom, couche, vo, vc, io, ic, isz]
@@ -79,41 +80,6 @@ const X = [
   { key: 'court-flechisseur-5', fr: 'Court fléchisseur du 5e orteil', layer: 'm3', q: 57, tubes: [
     { p: [plant('m5', .1), lift(plant('m5', .5), D, .002), plant('m5', .9), plant('p5-1', .25)], r: [.0028, .0045, .0035, .0018] }] },
 ];
-// ---------- le bassin : sacrum et coccyx (absents du modèle), sur la ligne médiane, calés contre l'articulation sacro-iliaque de l'os coxal ----------
-// une section en ellipse : [demi-épaisseur (avant-arrière), demi-largeur] ; les bosses à chaque vertèbre sacrée font les crêtes transverses
-const MID = Math.max(...V['os-coxal'].map(v => v[0])) + .003;   // la symphyse pubienne est le point le plus médial de l'os coxal : la ligne médiane passe juste à côté
-const SAC = [[.472, -.076, .016, .045], [.458, -.079, .015, .044], [.445, -.082, .013, .041], [.43, -.085, .012, .036], [.415, -.088, .011, .031], [.40, -.090, .0095, .026], [.385, -.091, .008, .021], [.37, -.090, .007, .016], [.356, -.088, .006, .011]];
-X.push({ key: 'sacrum', fr: 'Sacrum', layer: 'os', tubes: [{ flat: 1, p: SAC.map(([y, z]) => [MID, y, z]), r: SAC.map(([, , t, w], i) => [t * (i % 2 ? .92 : 1), w * (i % 2 ? .96 : 1)]) }] });
-X.push({ key: 'coccyx', fr: 'Coccyx', layer: 'os', tubes: [{ flat: 1, p: [[MID, .358, -.0875], [MID, .346, -.0845], [MID, .335, -.080], [MID, .326, -.074]], r: [[.0055, .010], [.005, .007], [.004, .005], [.003, .003]] }] });
-const sacL = (y, z) => [MID - SAC.reduce((b, s) => (Math.abs(s[0] - y) < Math.abs(b[0] - y) ? s : b))[3] * .85, y, z];   // le bord latéral du sacrum à la hauteur y
-
-// ---------- l'os coxal en trois : ilion (au-dessus de l'acétabulum), pubis (devant et en dedans), ischion (derrière et en dessous). Les trois se rejoignent au fond de l'acétabulum ----------
-const hd = V.femur.filter(v => v[0] > 0 && v[1] > .33), AC = [0, 1, 2].map(j => hd.reduce((t, v) => t + v[j], 0) / hd.length);   // centre de la tête fémorale = centre de l'acétabulum
-const coxIdx = (() => { const [, , , , , io, ic, isz] = M.find(m => m[0] === 'os-coxal'); return Array.from({ length: ic }, (_, i) => isz === 4 ? dv.getUint32(io + i * 4, true) : dv.getUint16(io + i * 2, true)); })();
-const coxPart = p => p[1] > AC[1] + .008 ? 0 : (p[2] - AC[2]) + .55 * (p[0] - AC[0]) - .012 > 0 ? 2 : 1;
-let lab = ''; for (let i = 0; i < coxIdx.length; i += 3) { const c = [0, 1, 2].map(j => (V['os-coxal'][coxIdx[i]][j] + V['os-coxal'][coxIdx[i + 1]][j] + V['os-coxal'][coxIdx[i + 2]][j]) / 3); lab += coxPart(c); }
-const S = { 'os-coxal': { parts: [['ilion', 'Ilion'], ['ischion', 'Ischion'], ['pubis', 'Pubis']], lab } };
-
-// ---------- les ligaments (absents du modèle) : des bandes entre leurs deux attaches sur les os. Rayon [a, b] : une bande plate ----------
-const yR = (k, lo, hi) => v => yRel(k, v) >= lo && yRel(k, v) <= hi;
-const malL = (d) => ext('fibula', d, yR('fibula', 0, .07)), malM = d => ext('tibia', d, yR('tibia', 0, .05));
-const isch = ext('os-coxal', D), spine = ext('os-coxal', add(P, Me), v => v[1] > AC[1] - .025 && v[1] < AC[1] + .005);
-const LIG = [
-  ['lig-patellaire', 'Ligament patellaire', [[ext('patella', D), T[17].p]], [[.003, .011], [.0025, .010]]],
-  ['lig-inguinal', 'Ligament inguinal', [[T[3].p, lift(mid(T[3].p, ext('os-coxal', add(A, U, Me), v => v[0] > MID - .03)), A, .004), ext('os-coxal', add(A, U, Me), v => v[0] > MID - .03)]], [.0022, .0026, .0022]],
-  ['lig-collateral-tibial', 'Ligament collatéral tibial (genou)', [[ext('femur', Me, yR('femur', 0, .1)), ext('tibia', Me, yR('tibia', .78, .85))]], [[.009, .0018], [.007, .0018]]],
-  ['lig-collateral-fibulaire', 'Ligament collatéral fibulaire (genou)', [[ext('femur', L, yR('femur', 0, .1)), ext('fibula', add(U, L))]], [.0024, .0024]],
-  ['lig-talo-fibulaire-ant', 'Ligament talo-fibulaire antérieur', [[malL(add(A, sc(D, .6))), ext('talus', add(L, A))]], [[.0022, .004], [.0022, .004]]],
-  ['lig-calcaneo-fibulaire', 'Ligament calcanéo-fibulaire', [[malL(D), ext('calcaneus', add(L, sc(P, .4), sc(U, .2)))]], [.0024, .0024]],
-  ['lig-talo-fibulaire-post', 'Ligament talo-fibulaire postérieur', [[malL(add(P, sc(D, .5))), ext('talus', add(P, sc(L, .3)))]], [.0026, .0026]],
-  ['lig-deltoide', 'Ligament deltoïde', [ext('naviculaire', Me), ext('calcaneus', Me), ext('talus', add(P, Me))].map(t => [malM(add(D, sc(Me, .4))), t]), [[.0022, .004], [.0022, .004]]],
-  ['lig-calcaneo-naviculaire', 'Ligament calcanéo-naviculaire plantaire (glénoïdien)', [[ext('calcaneus', add(Me, A)), ext('naviculaire', add(D, Me))]], [.003, .003]],
-  ['aponevrose-plantaire', 'Aponévrose plantaire', ['1', '2', '3', '4', '5'].map(n => [lift(T[40].p, D, .003), lift(mid(T[40].p, ext('m' + n, D, near('m' + n, z => z > .75))), D, .006), lift(ext('m' + n, D, near('m' + n, z => z > .75)), D, .002)]), [[.006, .0012], [.0035, .0012], [.0025, .001]]],
-  ['lig-sacro-tuberal', 'Ligament sacro-tubéral', [[sacL(.40, -.093), isch]], [[.004, .0035], [.0035, .003]]],
-  ['lig-sacro-epineux', 'Ligament sacro-épineux', [[sacL(.375, -.088), spine]], [.003, .003]],
-];
-for (const [key, fr, paths, r] of LIG) X.push({ key, fr, layer: 'lig', tubes: paths.map(p => ({ p, r: p.length === r.length ? r : p.map((_, i) => r[Math.min(r.length - 1, i)]) })) });
-T[24] = { m: ['lig-patellaire'] };
 for (const x of X) V[x.key] = V[x.key] || x.tubes.flatMap(t => t.p);   // le ligament patellaire : on touche la bande elle-même
 
 for (const x of X) if (x.q) { T[x.q] = { m: [x.key], o: x.tubes[0].p[0], t: x.tubes.length > 2 ? x.tubes.slice(1).map(t => t.p[t.p.length - 1]) : x.tubes[0].p[x.tubes[0].p.length - 1] }; V[x.key] = x.tubes.flatMap(t => t.p); }
@@ -131,5 +97,5 @@ if (miss.length) throw new Error('questions sans cible 3D : ' + miss);
 const r4 = p => Array.isArray(p[0]) ? p.map(r4) : p.map(x => +x.toFixed(4));
 for (const [q, t] of Object.entries(T)) { if (t.m) t.m.forEach(k => { if (!V[k]) throw new Error('pièce inconnue ' + k); }); for (const f of ['p', 'o', 't']) if (t[f]) t[f] = r4(t[f]); }
 for (const x of X) { delete x.q; x.tubes.forEach(t => { t.p = r4(t.p); t.r = t.r.map(v => Array.isArray(v) ? r4(v) : +v.toFixed(4)); }); }
-fs.writeFileSync('data/anat3d.js', '// Généré par tools/build-anat3d.js : pièces du modèle 3D et cible de chaque question. Ne pas éditer à la main.\nwindow.ANAT3D=' + JSON.stringify(M) + ';\nwindow.ANAT3D_T=' + JSON.stringify(T) + ';\nwindow.ANAT3D_X=' + JSON.stringify(X) + ';\nwindow.ANAT3D_S=' + JSON.stringify(S) + ';\n');
-console.log(M.length, 'pièces +', X.length, 'pièces dessinées (muscles, bassin, ligaments),', Object.keys(T).length, 'cibles :', Object.values(T).filter(t => t.p).length, 'points,', Object.values(T).filter(t => t.m).length, 'pièces entières');
+fs.writeFileSync('data/anat3d.js', '// Généré par tools/build-anat3d.js : pièces du modèle 3D et cible de chaque question. Ne pas éditer à la main.\nwindow.ANAT3D=' + JSON.stringify(M) + ';\nwindow.ANAT3D_T=' + JSON.stringify(T) + ';\nwindow.ANAT3D_X=' + JSON.stringify(X) + ';\n');
+console.log(M.length, 'pièces +', X.length, 'muscles dessinés,', Object.keys(T).length, 'cibles :', Object.values(T).filter(t => t.p).length, 'points,', Object.values(T).filter(t => t.m).length, 'pièces entières');
