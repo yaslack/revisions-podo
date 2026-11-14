@@ -574,6 +574,11 @@
       ['book', 'Un défi raté montre ce qu’il fallait retenir, puis revient en revanche. Un monstre battu avec des fautes revient à l’expédition suivante.'],
       ['flame', 'Certains monstres ont un caractère (vif, cuirassé) qui change la façon de les combattre. Et la même question ne revient plus deux fois de suite.'],
     ] },
+    { v: 122, items: [
+      ['speak', 'Podo Quest t\'entraîne pour l\'oral : la nouvelle carte Oral (la plus forte) te fait dire une partie de la fiche à voix haute, sans choix à deviner. Touche « Parler » : le micro du téléphone écoute et retrouve les idées que tu as dites. Ensuite tu vois en rouge ce que tu as oublié.'],
+      ['flame', 'Le boss, c\'est maintenant l\'oral blanc : sa fiche entière, partie par partie, dans l\'ordre du plan. Une partie ratée revient à la fin. Le coup de grâce d\'une fiche, c\'est dire tout son traitement.'],
+      ['sparkle', 'Fini de tomber toujours sur les mêmes : les expéditions passent par tout ce que tu as choisi avant de revenir aux mêmes monstres. Un monstre raté revient, mais un seul à la fois et pas à chaque fois.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -1127,7 +1132,7 @@
   const rnd = a => a[Math.floor(Math.random() * a.length)];
   const distinct = (list, n, key) => shuffle(list).filter((y, i, a) => a.findIndex(z => key(z) === key(y)) === i).slice(0, n);
   const best = (k, v) => { const r = S.rec = S.rec || {}; if (v > (r[k] || 0)) { r[k] = v; save(); return true; } return false; };
-  const gStop = () => { clearTimeout(gTimer); G = null; };
+  const gStop = () => { clearTimeout(gTimer); if (G && G.game === 'aventure') AV.stop(); G = null; };   // on quitte Podo Quest : le micro se coupe
   // chrono : la barre est une animation CSS décalée du temps déjà écoulé, pour survivre à un nouveau rendu
   function gClock(sec, fn) { clearTimeout(gTimer); G.t0 = Date.now(); G.dur = sec; G.el = null; G.fn = fn; gTimer = setTimeout(fn, sec * 1000); }
   const gFreeze = () => { clearTimeout(gTimer); G.el = (Date.now() - G.t0) / 1000; };

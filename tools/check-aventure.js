@@ -17,8 +17,8 @@ const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '
 const AV = window.AVENTURE({ S, shuffle, rnd, mkStep, esc, md, QZ: window.QUIZ, CAS: window.CAS, all: () => all, pool: () => all, g: () => G, setG: x => { G = x; }, render() {}, save() {}, fx() {}, did() {}, review() {},
   ico: () => '', top: (a, b, c) => b + c, count: (a, b) => `${a}/${b}`, qsjClues: () => [['Indice', 'un'], ['Indice', 'deux']], qsjOpts: it => shuffle([it.title, 'x', 'y', 'z']) });
 
-const show = process.argv[2], n = { qcm: 0, tri: 0, ordre: 0, trous: 0 }, few = [];
-const text = st => st.kind === 'trous' ? `${st.segs.map(s => typeof s === 'string' ? s : `[${st.ok[s]}]`).join('')}\n     banque : ${st.bank.join(' | ')}` : st.kind === 'pick' ? st.items.map(x => (x[1] ? '+ ' : '- ') + x[0]).join(' | ') : st.kind === 'ordre' ? st.items.join(' > ') : `${st.ok}  /  ${st.opts.filter(o => o !== st.ok).join(' | ')}`;
+const show = process.argv[2], n = { qcm: 0, tri: 0, ordre: 0, trous: 0, oral: 0 }, few = [];
+const text = st => st.kind === 'oral' ? st.items.join(' | ') : st.kind === 'trous' ? `${st.segs.map(s => typeof s === 'string' ? s : `[${st.ok[s]}]`).join('')}\n     banque : ${st.bank.join(' | ')}` : st.kind === 'pick' ? st.items.map(x => (x[1] ? '+ ' : '- ') + x[0]).join(' | ') : st.kind === 'ordre' ? st.items.join(' > ') : `${st.ok}  /  ${st.opts.filter(o => o !== st.ok).join(' | ')}`;
 for (const it of all) {
   const k = AV.kit(it), cards = [...k.qs, ...k.says, ...(k.fin ? [k.fin] : [])];
   if (k.qs.length < 2) few.push(it.id);
@@ -32,6 +32,7 @@ for (const it of all) {
     assert(st.q, at + ' : pas de question');
     if (st.kind === 'qcm') { assert(st.opts.includes(st.ok), at + ' : bonne réponse absente'); assert(new Set(st.opts).size === st.opts.length && st.opts.length >= 3, `${at} : choix en double ou trop peu (${st.opts.length})`); }
     else if (st.kind === 'pick') { const good = st.items.filter(x => x[1]).length; assert(good && st.items.length - good >= 2, at + ' : il faut du vrai et au moins 2 pièges'); }
+    else if (st.kind === 'oral') assert(st.items.length && st.items.every(x => typeof x === 'string' && x), at + ' : oral sans idées');
     else if (st.kind === 'ordre') assert(st.items.length > 2 && st.sh.some((x, j) => x !== j), at + ' : rien à remettre en ordre');
     else { assert(st.ok.length && st.ok.every(w => st.bank.includes(w)), at + ' : mot caché absent de la banque'); assert(st.bank.length - st.ok.length >= 2, `${at} : pas assez de pièges dans la banque (${st.bank.join(' | ')})`); assert(st.segs.filter(s => typeof s === 'number').length === st.ok.length, at + ' : trous mal comptés'); }
   }
@@ -40,12 +41,13 @@ console.log(`\nOK : ${all.length} monstres, cartes : ${JSON.stringify(n)}`);
 if (few.length) console.log(`Monstres avec une seule carte d'attaque : ${few.join(', ')}`);
 
 // ---------- 40 expéditions jouées en entier avec 70 % de bonnes réponses, puis une perdue exprès (tout faux, en se soignant) : rien ne doit planter, chaque écran doit s'afficher, chaque partie doit finir ----------
-const seen = { win: 0, ko: 0, end: 0, revanche: 0, spe: 0, fin: 0, vif: 0, cuir: 0, soin: 0 };
+const seen = { win: 0, ko: 0, end: 0, revanche: 0, spe: 0, fin: 0, vif: 0, cuir: 0, soin: 0, oral: 0, boss: 0 };
 const screen = () => { const h = AV.view(); assert(typeof h === 'string' && !/undefined|NaN|\[object/.test(h), `écran « ${G.scr} » mal affiché : ${(h.match(/.{0,60}(undefined|NaN|\[object).{0,60}/) || [h])[0]}`); return h; };
 const answer = good => {   // répond au défi en cours, juste ou faux
   const t = G.t, st = t.st, tap = (a, j) => { AV.act(a, j); screen(); };
   if (st.kind === 'qcm') return AV.act('avpick', good ? st.opts.indexOf(st.ok) : st.opts.findIndex(o => o !== st.ok));
-  if (st.kind === 'pick') st.items.forEach((x, j) => { if (good ? x[1] : !x[1]) tap('avtk', j); });
+  if (st.kind === 'oral') { if (Math.random() < .3) tap('avhint'); tap('avshow'); if (good) st.items.forEach((x, j) => { if (!(t.ticks || []).includes(j)) tap('avtk', j); }); }
+  else if (st.kind === 'pick') st.items.forEach((x, j) => { if (good ? x[1] : !x[1]) tap('avtk', j); });
   else if (st.kind === 'ordre') st.items.forEach((x, i) => tap('avtk', good ? st.sh.indexOf(i) : st.sh.indexOf(st.items.length - 1 - i)));
   else st.ok.forEach((w, i) => tap('avbk', good ? st.bank.findIndex((b, j) => b === w && !(t.fill || []).includes(j)) : st.bank.findIndex((b, j) => b !== w && !(t.fill || []).includes(j))));
   AV.act('avval');
@@ -59,7 +61,7 @@ function play(skill, heal, low) {   // skill : part de bonnes réponses ; heal :
     else if (G.scr === 'win') { seen.win++; AV.act('avcont'); }
     else if (G.scr === 'chest') t.done ? AV.act('avnext') : AV.act('avpick', Math.random() < skill ? t.st.opts.indexOf(t.st.ok) : 0);
     else if (t && t.done) AV.act('avnext');
-    else if (t) { if (t.rv) seen.revanche++; if (t.mode === 'spe') seen.spe++; if (t.mode === 'fin') seen.fin++; if (f.style) seen[f.style]++; answer(Math.random() < skill); }
+    else if (t) { if (t.rv) seen.revanche++; if (t.mode === 'spe') seen.spe++; if (t.mode === 'fin') seen.fin++; if (t.mode === 'boss') seen.boss++; if (t.st.kind === 'oral') seen.oral++; if (f.style) seen[f.style]++; answer(Math.random() < skill); }
     else {   // le menu : on joue un des boutons proposés (pas les grisés)
       const on = [...html.matchAll(/<button class="avact" data-g="(\w+)" (?:data-j="(\d)")? ?style="[^"]*" >/g)].map(m => [m[1], +m[2] || 0]).filter(m => m[0] !== 'avobj');
       assert(on.length, 'menu de combat sans bouton jouable : ' + html.slice(-600));
@@ -74,3 +76,21 @@ S.rpg.items.hexo = 3;
 assert(play(0, 1, 1e9) === 'ko', 'tout faux : la partie devait finir par une défaite');
 for (const k in seen) assert(seen[k], `la simulation n'est jamais passée par : ${k}`);
 console.log(`OK : 40 expéditions jouées ${JSON.stringify(seen)}, niveau atteint ${S.rpg.lvl}, revenants en attente ${Object.keys(S.rpg.miss || {}).length}`);
+
+// ---------- le micro : les idées dites doivent être retrouvées, celles qu'on n'a pas dites non ----------
+const items = QUIZ.verrues[1].k;   // HPV 1 → myrmécie, HPV 2 → mosaïques, contact piscines/douches, microtraumatismes…, fatigue/stress…
+const got = AV.heardIdx(items, "alors le h p v 1 donne la myrmécie, et la contamination se fait par contact direct ou indirect dans les piscines et les douches");
+assert(got.includes(0) && got.includes(2) && !got.includes(3) && !got.includes(4), 'micro : idées mal retrouvées ' + JSON.stringify(got));
+assert(!AV.heardIdx(items, 'je ne sais pas').length, 'micro : une phrase vide ne doit rien cocher');
+
+// ---------- la rotation : avec 12 fiches choisies, en perdant et en faisant des fautes, toutes doivent passer, et aucune ne doit tout envahir ----------
+for (const k in S) delete S[k];
+const twelve = all.filter(x => x.kind === 'f').slice(0, 12), met = {};
+for (let e = 0; e < 6; e++) {
+  G = AV.start(twelve); const ids = G.nodes.filter(x => x.it).map(x => x.it.id);
+  ids.forEach(i => met[i] = (met[i] || 0) + 1);
+  S.rpg.miss = S.rpg.miss || {}; for (const i of ids.slice(0, 2)) S.rpg.miss[i] = (S.rpg.miss[i] || 0) + 3;   // des fautes sur les 2 premiers, puis défaite : personne n'est « battu »
+}
+assert(Object.keys(met).length === 12, `rotation : seulement ${Object.keys(met).length}/12 fiches rencontrées en 6 expéditions`);
+assert(Math.max(...Object.values(met)) <= 3, 'rotation : une fiche revient trop souvent ' + JSON.stringify(met));
+console.log(`OK : micro et rotation (12 fiches en 6 expéditions : ${Object.values(met).sort().join(' ')})`);
