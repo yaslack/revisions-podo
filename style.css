@@ -1092,17 +1092,13 @@ html[data-skin] .av .ck.on { background: #215c4a; color: #fff; }
 .av div.ck { display: flex; gap: 10px; align-items: center; }
 .av .avles { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--hl); border-radius: 10px; background: #24212e; font-size: 14px; line-height: 1.4; text-align: left; }
 .av .avles ul { margin: 6px 0 0; padding-left: 18px; } .av .avles p { margin: 8px 0 0; } .av .avles b { color: var(--ink); }
-/* Podo Quest : l'oral (la consigne, les initiales si on prend l'indice, ce que le micro entend, le bouton micro qui pulse pendant l'écoute) */
+/* Podo Quest : l'oral (la consigne, les initiales si on prend l'indice, les boutons d'aide) */
 .av .avsay { margin-top: 12px; display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 15px; } .av .avsay svg { width: 22px; height: 22px; flex: none; }
 .av .avini { margin: 12px 0 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); font: 600 16px/1.3 var(--marker); letter-spacing: .5px; }
-.av .avheard { margin-top: 12px; padding: 10px 12px; min-height: 44px; border: 1px dashed #6b6480; border-radius: 10px; background: #0e0d13; font-size: 15px; line-height: 1.4; text-align: left; }
-.av .avheard[hidden] { display: none; }
 .av .avoral { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; } .av .avoral .btn { min-width: 0; }
 .av .avoral .btn svg { width: 20px; height: 20px; vertical-align: -4px; margin-right: 4px; }
-.av .avmic.on { animation: avmic 1.2s ease-in-out infinite; } @keyframes avmic { 50% { box-shadow: 0 0 0 6px rgba(255,90,90,.25); } }
 .av .avheardd { margin-top: 10px; font-size: 14px; line-height: 1.45; text-align: left; } .av .avheardd summary { cursor: pointer; color: var(--muted); } .av .avheardd summary svg { width: 18px; height: 18px; vertical-align: -4px; } .av .avheardd p { margin: 6px 0 0; }
 .av div.ck.yes:not(.num) { background: #143d2e; } .av div.ck.yes:not(.num) .box { background: var(--ok); border-color: var(--ok); color: #0e0d13; } .av div.ck.yes:not(.num) .box::after { content: '✓'; }
-@media (prefers-reduced-motion: reduce) { .av .avmic.on { animation: none; box-shadow: 0 0 0 4px rgba(255,90,90,.35); } }
 .av .avtime { height: 5px; margin-bottom: 10px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
 .av .avtime i { display: block; height: 100%; background: #6fd3ff; transform-origin: 0 50%; animation: avtime linear forwards; } @keyframes avtime { to { transform: scaleX(0); } }
 

@@ -94,7 +94,7 @@ window.AVENTURE = A => {
   const card = (k, lab, les, mk) => ({ k, lab, les, mk });   // une carte d'attaque : son genre, ce qu'elle fait réviser, la leçon à montrer si on la rate, et de quoi fabriquer le défi
   const make = c => { for (let i = 0; i < 6; i++) { const st = c.mk(); if (st) return st; } };
 
-  // ---------- l'oral : on dit une partie à voix haute. Le micro du téléphone (dictée) écoute et retrouve les idées dites ; sans micro, on coche soi-même. ----------
+  // ---------- l'oral : on dit une partie à voix haute, sans regarder, puis on coche les idées qu'on a vraiment dites. ----------
   const oral = (lab, q, items, full, pi) => items && items.length ? Object.assign(card('oral', lab, items, () => ({ kind: 'oral', q, items, full })), { pi }) : null;
   // ---------- ce que tu sais dire à l'oral, gardé d'une partie à l'autre : S.rpg.oral[monstre][partie] = meilleure note SANS aide (indice ou lecture) ----------
   //   Une partie est « sue » à 80 %. Chaque victoire te fait dire la suivante : la fiche se récite un peu plus à chaque fois.
@@ -108,31 +108,6 @@ window.AVENTURE = A => {
   const progress = it => { const ps = pisOf(it), n = nSue(it), nx = nextPart(it); if (!ps.length) return '';
     return `<div class="avprog"><div class="kicker">${it.kind === 'f' ? 'TON ORAL DE CETTE FICHE' : 'CE MUSCLE À L\'ORAL'}</div>${dots(it)}<div class="small">${n}/${ps.length} ${it.kind === 'f' ? `partie${n > 1 ? 's' : ''} sue${n > 1 ? 's' : ''}` : 'su'} · ${nx != null ? `prochaine fois : <b>${esc(partName(it, nx))}</b>` : '<b>tu sais tout le dire !</b>'}</div></div>`; };
   const initials = s => plain(s).replace(/[A-Za-zÀ-ÿ]{4,}/g, w => w[0] + '•'.repeat(Math.min(w.length - 1, 6))).replace(/\d/g, '•');   // « HPV 1 → myrmécie » devient « HPV • → m•••••• »
-  const NUMW = { un: 1, une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6, sept: 7, huit: 8, neuf: 9, dix: 10, onze: 11, douze: 12, quinze: 15, vingt: 20, trente: 30, quarante: 40, cinquante: 50, soixante: 60, cent: 100 };
-  const SMALLW = new Set('avec dans pour plus sans sous entre vers chez leur leurs cette elle elles sont etre avoir fait faire tres bien aussi mais donc comme quand alors entre apres avant contre sur'.split(' '));
-  // les mots qui portent une idée : mots de 4 lettres et plus (comparés sur leurs 5 premières lettres, pour accepter pluriels et accords), chiffres, sigles (HPV, AINS)
-  const toks = s => { const t = plain(String(s).replace(/^\*\*[^*]+\*\* : /, '')), out = new Set((t.match(/\b[A-Z]{3,}\b/g) || []).map(w => w.toLowerCase()));
-    for (const w of norm(t).match(/[a-z0-9]+/g) || []) if (/^\d+$/.test(w)) out.add(w); else if (w.length >= 4 && !STOPW.has(w) && !SMALLW.has(w)) out.add(w.slice(0, 5));
-    return [...out]; };
-  function heardIdx(items, said) {   // les idées retrouvées dans ce qui a été dit : au moins la moitié de leurs mots (4 suffisent pour une longue phrase)
-    const words = norm(said).replace(/\b([a-z]) (?=[a-z]\b)/g, '$1').match(/[a-z0-9]+/g) || [], got = new Set();
-    for (const w of words) { got.add(w); got.add(w.slice(0, 5)); if (NUMW[w]) got.add(String(NUMW[w])); }
-    return items.map((x, j) => { const tk = toks(x), hit = tk.filter(w => got.has(w)).length; return tk.length && hit >= Math.max(1, Math.min(Math.ceil(tk.length / 2), 4)) ? j : -1; }).filter(j => j >= 0);
-  }
-  const SR = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
-  let REC = null, NOMIC = null;   // NOMIC : pourquoi le micro ne marche pas (refusé, indisponible…)
-  const mic = () => !!SR && !NOMIC;
-  function micStop() { const r = REC; REC = null; if (r) try { r.stop(); } catch (e) { /* déjà arrêté */ } }
-  function micStart(t) {
-    micStop();
-    const rec = new SR(), base = t.heard || '';
-    Object.assign(rec, { lang: 'fr-FR', continuous: true, interimResults: true });
-    rec.onresult = e => { if (REC !== rec) return; let fin = '', tmp = ''; for (const x of e.results) if (x.isFinal) fin += x[0].transcript + ' '; else tmp += x[0].transcript;
-      t.heard = (base + ' ' + fin).trim(); t.tmp = tmp; const el = document.getElementById('avheard'); if (el) { el.hidden = false; el.textContent = (t.heard + ' ' + tmp).trim(); } };
-    rec.onerror = e => { if (/not-allowed|service-not-allowed|audio-capture|language-not-supported/.test(e.error)) NOMIC = e.error; };
-    rec.onend = () => { if (REC !== rec) return; REC = null; t.listening = false; if (t.tmp) { t.heard = ((t.heard || '') + ' ' + t.tmp).trim(); t.tmp = ''; } A.render(true); };
-    try { rec.start(); REC = rec; t.listening = true; } catch (e) { NOMIC = 'start'; }
-  }
 
   // ---------- ce qu'un monstre fait réviser : ses cartes d'attaque (qs), ses récitations à trous (says), son coup de grâce (fin) ----------
   function kit(it) {
@@ -307,7 +282,6 @@ window.AVENTURE = A => {
 
   function act(a, j, el) {
     const g = G(), r = R(), t = g.t, st = t && t.st, soft = () => A.render(true), hard = () => A.render();
-    if (a !== 'avmic') micStop();   // toute autre touche coupe le micro
     if (a === 'avhub') { A.setG({ game: 'aventure', scr: 'hub' }); fx('tap'); return hard(); }
     if (a === 'avbest') { g.scr = g.scr === 'best' ? 'hub' : 'best'; fx('tap'); return hard(); }
     if (a === 'aveq') { const k = el.dataset.k, s = ITEMS[k].s; r[s] = r[s] === k ? null : k; save(); fx('tick'); return soft(); }
@@ -332,12 +306,11 @@ window.AVENTURE = A => {
     if (a === 'avspe') { if (!f.boss) g.focus -= 2; return go('spe', f.kit.says[f.si++ % f.kit.says.length]); }
     if (a === 'avfin') return go('fin', f.kit.fin || f.kit.says[0] || f.kit.qs[0]);
     if (a === 'avboss') return go('boss', f.kit.plan[f.q[0]], { part: f.q[0] });
-    if (st && st.kind === 'oral' && !t.done) {   // l'oral : parler (micro), demander l'indice, puis vérifier ce qu'on a dit
-      if (a === 'avmic' && !t.shown && mic()) { if (t.listening) { micStop(); t.listening = false; if (t.tmp) { t.heard = ((t.heard || '') + ' ' + t.tmp).trim(); t.tmp = ''; } } else { micStart(t); fx('tick'); } return soft(); }
+    if (st && st.kind === 'oral' && !t.done) {   // l'oral : demander l'indice ou lire d'abord, réciter, puis vérifier ce qu'on a dit
       if (a === 'avhint' && !t.shown) { t.hint = true; fx('tick'); return soft(); }
       if (a === 'avread' && !t.shown) { t.reading = true; t.read = true; fx('tick'); return soft(); }   // une partie nouvelle : on la lit, on la cache, puis on la redit
       if (a === 'avhide') { t.reading = false; fx('tap'); return soft(); }
-      if (a === 'avshow' && !t.shown) { t.heard = ((t.heard || '') + ' ' + (t.tmp || '')).trim(); t.tmp = ''; t.listening = false; t.shown = true; t.ticks = t.heard ? heardIdx(st.items, t.heard) : []; t.auto = t.ticks.length; fx('reveal'); return soft(); }
+      if (a === 'avshow' && !t.shown && !t.reading) { t.shown = true; t.ticks = []; fx('reveal'); return soft(); }
       if ((!t.shown || t.reading) && (a === 'avtk' || a === 'avval' || a === 'avshow')) return;
     }
     if (a === 'avobj') { g.t = t && t.mode === 'obj' ? null : { mode: 'obj' }; g.anim = {}; fx('tap'); return soft(); }
@@ -364,21 +337,19 @@ window.AVENTURE = A => {
     const les = t.done && t.bad && c && c.les && c.les.length ? `<div class="avles"><div class="kicker">À retenir · ${esc(c.lab)}</div><ul>${c.les.slice(0, 6).map(x => `<li>${md(x)}</li>`).join('')}</ul></div>` : '';
     if (st.clues) return `<div class="avclues">${t.done ? `<img class="avfic" alt="" src="jeu/ui-ic-${st.ic}.png">` : ''}${st.clues.map(c => `<div><b>${esc(c[0])}</b> ${md(c[1])}</div>`).join('')}</div>${opts()}`;
     if (st.kind === 'qcm') return q + opts() + les;
-    if (st.kind === 'oral') {   // avant : la question seule (ou les initiales si on a pris l'indice), le micro ; après : les idées, cochées si le micro les a entendues
-      const n = st.items.length, said = ((t.heard || '') + ' ' + (t.tmp || '')).trim(), f = G().foe, it = f && f.it, pi = c && c.pi;
+    if (st.kind === 'oral') {   // avant : la question seule (ou les initiales si on a pris l'indice) ; après : les idées, à cocher
+      const n = st.items.length, f = G().foe, it = f && f.it, pi = c && c.pi;
       const fresh = it && pi != null && !sue(it, pi), noHelp = t.mode === 'spe' || (t.mode === 'boss' && f.final);
       if (t.reading) return `${q}<div class="kicker" style="margin-top:10px">LIS ET RETIENS · ${n} IDÉE${n > 1 ? 'S' : ''}</div><ul class="aplist avread">${st.items.map(x => `<li>${md(x)}</li>`).join('')}</ul>
         ${btn('avhide', 'C\'est en tête → je cache et je récite', 'var(--hl)')}`;
       if (!t.shown) return `${fresh && !t.read ? `<div class="avnew">Nouvelle partie à apprendre</div>` : ''}${q}${t.hint ? `<ul class="avini">${st.items.map(x => `<li>${esc(initials(x))}</li>`).join('')}</ul>` : `<div class="avsay">${ico('speak')} ${n} idée${n > 1 ? 's' : ''} à dire. À voix haute, sans regarder.</div>`}
-        <div class="avheard" id="avheard" ${said || t.listening ? '' : 'hidden'}>${esc(said || '…')}</div>
-        ${SR && NOMIC ? `<div class="muted small">${/not-allowed/.test(NOMIC) ? 'Micro refusé : autorise-le dans les réglages du téléphone (Safari › Micro), ou récite sans et coche toi-même.' : 'La dictée ne marche pas ici : récite quand même à voix haute, puis coche ce que tu as dit.'}</div>` : ''}
-        <div class="avoral">${mic() ? `<button class="btn grow avmic ${t.listening ? 'on' : 'ghost'}" data-g="avmic" style="--c:var(--red)">${t.listening ? '■ J\'ai fini de parler' : `${ico('speak')} Parler`}</button>` : ''}${!noHelp && !t.hint && !t.read ? `<button class="btn ghost grow" data-g="avhint">Indice : les initiales (−40 %)</button>` : ''}${!noHelp && fresh && !t.read && !t.hint ? `<button class="btn ghost grow" data-g="avread">La lire d'abord (−50 %)</button>` : ''}</div>
+        <div class="avoral">${!noHelp && !t.hint && !t.read ? `<button class="btn ghost grow" data-g="avhint">Indice : les initiales (−40 %)</button>` : ''}${!noHelp && fresh && !t.read && !t.hint ? `<button class="btn ghost grow" data-g="avread">La lire d'abord (−50 %)</button>` : ''}</div>
         ${t.read ? '<div class="muted small">Tu l\'as lue : redis-la maintenant sans regarder. Elle comptera comme sue quand tu la diras sans aide.</div>' : ''}
-        ${btn('avshow', t.heard ? 'Vérifier ce que j\'ai dit →' : 'J\'ai récité → vérifier', 'var(--hl)')}`;
+        ${btn('avshow', 'J\'ai récité → vérifier', 'var(--hl)')}`;
       const k = t.ticks || [], miss = n - k.length;
       const rows = st.items.map((x, j) => t.done ? `<div class="ck ${k.includes(j) ? 'yes' : 'miss'}"><span class="box"></span><span>${md(x)}</span></div>` : `<button class="ck ${k.includes(j) ? 'on' : ''}" data-g="avtk" data-j="${j}"><span class="box"></span><span>${md(x)}</span></button>`).join('');
-      return `${q}<div class="muted small">${t.done ? (miss ? `En rouge, ce que tu as oublié (${miss}) : redis-le une fois à voix haute.` : 'Tout y était.') : t.heard ? `Le micro a retrouvé ${t.auto}/${n} idées. Il comprend mal les mots savants : touche une idée que tu as dite et qu'il a ratée.` : 'Touche chaque idée que tu as vraiment dite (pas celles que tu reconnais en les lisant).'}</div>
-        <div class="checks">${rows}</div>${t.heard ? `<details class="avheardd"><summary>Ce que le micro a entendu</summary><p>${esc(t.heard)}</p></details>` : ''}${t.done && st.full ? `<details class="avheardd" ${miss ? 'open' : ''}><summary>${ico('speak')} Ce qu'on dit à l'oral</summary><p>${md(st.full)}</p></details>` : ''}${t.done ? '' : hit(false, `${k.length}/${n}`)}`;
+      return `${q}<div class="muted small">${t.done ? (miss ? `En rouge, ce que tu as oublié (${miss}) : redis-le une fois à voix haute.` : 'Tout y était.') : 'Touche chaque idée que tu as vraiment dite (pas celles que tu reconnais en les lisant).'}</div>
+        <div class="checks">${rows}</div>${t.done && st.full ? `<details class="avheardd" ${miss ? 'open' : ''}><summary>${ico('speak')} Ce qu'on dit à l'oral</summary><p>${md(st.full)}</p></details>` : ''}${t.done ? '' : hit(false, `${k.length}/${n}`)}`;
     }
     if (st.kind === 'pick') return `${q}<div class="checks">${st.items.map((x, j) => `<button class="ck ${k.includes(j) ? 'on' : ''} ${t.done ? (x[1] ? 'yes' : 'no') : ''}" data-g="avtk" data-j="${j}" ${t.done ? 'disabled' : ''}><span class="box"></span><span>${md(x[0])}</span></button>`).join('')}</div>${t.done ? les : hit(!k.length, k.length)}`;
     if (st.kind === 'ordre') return q + (t.done   // après la réponse : le bon ordre, en rouge les étapes qui n'étaient pas à leur place
@@ -472,5 +443,5 @@ window.AVENTURE = A => {
       <div class="avbest">${g.kills.map(x => `<a class="card avmon" href="${x.link}">${sprite(x)}<span><b>${esc(x.title)}</b><span class="muted">${esc(x.lab)}</span></span></a>`).join('')}</div>
       <div class="pager fixed">${btn('go', '↻ Nouvelle expédition')}<button class="btn ghost grow" data-g="avhub">Camp</button></div></div>`;
   }
-  return { start, view, act, kit, stop: micStop, heardIdx };   // kit, heardIdx : pour tools/check-aventure.js ; stop : app.js coupe le micro quand on quitte le jeu
+  return { start, view, act, kit };   // kit : pour tools/check-aventure.js
 };

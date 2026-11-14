@@ -77,12 +77,6 @@ assert(play(0, 1, 1e9) === 'ko', 'tout faux : la partie devait finir par une dé
 for (const k in seen) assert(seen[k], `la simulation n'est jamais passée par : ${k}`);
 console.log(`OK : 40 expéditions jouées ${JSON.stringify(seen)}, niveau atteint ${S.rpg.lvl}, revenants en attente ${Object.keys(S.rpg.miss || {}).length}`);
 
-// ---------- le micro : les idées dites doivent être retrouvées, celles qu'on n'a pas dites non ----------
-const items = QUIZ.verrues[1].k;   // HPV 1 → myrmécie, HPV 2 → mosaïques, contact piscines/douches, microtraumatismes…, fatigue/stress…
-const got = AV.heardIdx(items, "alors le h p v 1 donne la myrmécie, et la contamination se fait par contact direct ou indirect dans les piscines et les douches");
-assert(got.includes(0) && got.includes(2) && !got.includes(3) && !got.includes(4), 'micro : idées mal retrouvées ' + JSON.stringify(got));
-assert(!AV.heardIdx(items, 'je ne sais pas').length, 'micro : une phrase vide ne doit rien cocher');
-
 // ---------- la rotation : avec 12 fiches choisies, en perdant et en faisant des fautes, toutes doivent passer, et aucune ne doit tout envahir ----------
 for (const k in S) delete S[k];
 const twelve = all.filter(x => x.kind === 'f').slice(0, 12), met = {};
@@ -93,7 +87,7 @@ for (let e = 0; e < 6; e++) {
 }
 assert(Object.keys(met).length === 12, `rotation : seulement ${Object.keys(met).length}/12 fiches rencontrées en 6 expéditions`);
 assert(Math.max(...Object.values(met)) <= 3, 'rotation : une fiche revient trop souvent ' + JSON.stringify(met));
-console.log(`OK : micro et rotation (12 fiches en 6 expéditions : ${Object.values(met).sort().join(' ')})`);
+console.log(`OK : rotation (12 fiches en 6 expéditions : ${Object.values(met).sort().join(' ')})`);
 
 // ---------- l'oral progresse : le boss grandit avec ce que tu sais, une partie dite avec aide ne compte pas, un muscle s'achève avec origine ET terminaison ----------
 for (const k in S) delete S[k];

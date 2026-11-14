@@ -575,7 +575,7 @@
       ['flame', 'Certains monstres ont un caractère (vif, cuirassé) qui change la façon de les combattre. Et la même question ne revient plus deux fois de suite.'],
     ] },
     { v: 122, items: [
-      ['speak', 'Podo Quest t\'entraîne pour l\'oral : la nouvelle carte Oral (la plus forte) te fait dire une partie de la fiche à voix haute, sans choix à deviner. Touche « Parler » : le micro du téléphone écoute et retrouve les idées que tu as dites. Ensuite tu vois en rouge ce que tu as oublié.'],
+      ['speak', 'Podo Quest t\'entraîne pour l\'oral : la nouvelle carte Oral (la plus forte) te fait dire une partie de la fiche à voix haute, sans choix à deviner. Ensuite tu coches ce que tu as dit et tu vois en rouge ce que tu as oublié.'],
       ['flame', 'Le boss, c\'est maintenant l\'oral blanc : sa fiche entière, partie par partie, dans l\'ordre du plan. Une partie ratée revient à la fin. Le coup de grâce d\'une fiche, c\'est dire tout son traitement.'],
       ['sparkle', 'Fini de tomber toujours sur les mêmes : les expéditions passent par tout ce que tu as choisi avant de revenir aux mêmes monstres. Un monstre raté revient, mais un seul à la fois et pas à chaque fois.'],
     ] },
@@ -584,7 +584,7 @@
       ['muscle', 'Les muscles sont plus durs : l\'origine et la terminaison se disent à voix haute (plus de choix à deviner), et il faut les deux pour donner le coup de grâce.'],
       ['cube', 'Quiz 3D : les 4 petits muscles du pied qui manquaient (courts extenseurs, courts fléchisseurs de l\'hallux et du 5e) sont dessinés. Le TFL se voit à travers le tractus ilio-tibial, chaque muscle a sa nuance, et à la réponse tu vois l\'origine (O) et la terminaison (T) sur le modèle, avec les muscles du dessus en transparence.'],
       ['target', 'Quiz 3D plus facile à viser : le modèle tient entre les boutons et le panneau, le pied, la jambe ou la cuisse s\'affichent en grand, boutons + et −, le pincement zoome vers tes doigts, et toucher juste à côté compte.'],
-      ['check', 'La barre du bas ne remonte plus et le titre de Podo Quest ne descend plus quand tu arrives en bas de la page.'],
+      ['check', 'La barre du bas ne remonte plus et le titre de Podo Quest ne descend plus quand tu arrives en bas de la page. Dans les jeux (Qui suis-je ?, Survie…), quand tu réponds, la page défile : la réponse n\'est plus cachée sous le bouton « Suivant ».'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -1206,7 +1206,7 @@
   const rnd = a => a[Math.floor(Math.random() * a.length)];
   const distinct = (list, n, key) => shuffle(list).filter((y, i, a) => a.findIndex(z => key(z) === key(y)) === i).slice(0, n);
   const best = (k, v) => { const r = S.rec = S.rec || {}; if (v > (r[k] || 0)) { r[k] = v; save(); return true; } return false; };
-  const gStop = () => { clearTimeout(gTimer); if (G && G.game === 'aventure') AV.stop(); G = null; };   // on quitte Podo Quest : le micro se coupe
+  const gStop = () => { clearTimeout(gTimer); G = null; };
   // chrono : la barre est une animation CSS décalée du temps déjà écoulé, pour survivre à un nouveau rendu
   function gClock(sec, fn) { clearTimeout(gTimer); G.t0 = Date.now(); G.dur = sec; G.el = null; G.fn = fn; gTimer = setTimeout(fn, sec * 1000); }
   const gFreeze = () => { clearTimeout(gTimer); G.el = (Date.now() - G.t0) / 1000; };
@@ -1656,6 +1656,7 @@
     if (sec !== 'jeu' && G) { if (G.game === 'aventure' && window.SONS && SONS.playing && SONS.playing() === 'combat') SONS.stop(); gStop(); }   // on quitte Podo Quest : sa musique s'arrête
     if (V3) { V3.dispose(); V3 = null; }
     closeVideo();
+    const hadPager = !!$('#app .pager.fixed');
     $('#app').innerHTML = html;
     if (dosOpen && $('.ptdos')) $('.ptdos').open = true;
     document.body.classList.toggle('v3on', !!$('#v3c'));
@@ -1667,6 +1668,14 @@
     const f = (sec === 'podo' ? PODO_OK : PEDI).find(x => x.id === a);
     document.title = (sec === 'pedi' || sec === 'podo') && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     window.scrollTo(0, keepScroll === true ? sy : 0);
+    // une réponse fait apparaître la barre du bas (« Suivant ») : on fait défiler pour que la réponse et sa correction restent au-dessus, pas cachées dessous
+    const pg = $('#app .pager.fixed');
+    if (keepScroll === true && pg && !hadPager) requestAnimationFrame(() => {
+      const card = [...document.querySelectorAll('#app .card.qc')].pop(); if (!card) return;
+      const over = card.getBoundingClientRect().bottom - pg.getBoundingClientRect().top + 12;
+      const keep = card.querySelector('.opt.good, .opt.bad, .ck.yes, .ck.miss') || card, room = keep.getBoundingClientRect().top - 80;   // sans faire sortir la bonne réponse par le haut
+      if (over > 0) window.scrollBy({ top: Math.max(0, Math.min(over, room)), behavior: 'smooth' });
+    });
     showNote();
   }
 
