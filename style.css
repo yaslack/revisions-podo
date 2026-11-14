@@ -1105,8 +1105,19 @@ html[data-skin] .av .ck.on { background: #215c4a; color: #fff; }
 /* ---------- v123 : barres qui ne bougent plus au défilement ----------
    Sur iPhone, l'effet élastique en bas de page emportait la barre du bas (elle remontait) et le titre de Podo Quest (il descendait).
    Plus d'effet élastique ; et dans Podo Quest le titre reste en haut de la page au lieu de suivre le défilement par-dessus le jeu. */
-html, body { overscroll-behavior-y: none; }
-body { min-height: 100dvh; }
+/* v124 : la page ne défile plus, c'est #app qui défile, dans un cadre fixe de la taille de l'écran.
+   Les barres du bas (onglets, « Suivant », sons) sont posées sur une page immobile : ni l'effet élastique ni le sélecteur de date ne les déplacent. */
+html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+body, body.reading, body.v3on, body:has(.av) { padding: 0; min-height: 0; }
+#app { position: fixed; inset: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+body.reading #app { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+body.ingame #app { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+body.ingame.reading #app { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+body.sndon #app { padding-bottom: calc(154px + env(safe-area-inset-bottom)); }
+body.sndon.reading #app { padding-bottom: calc(146px + env(safe-area-inset-bottom)); }
+body:has(.av) #app, body.ingame:has(.av) #app, body.ingame.reading:has(.av) #app { padding-bottom: 0; }
+body.v3on #app, body.vopen #app, html.vopen #app { overflow: hidden; padding-bottom: 0; }
+body.ingame nav.tabs { display: none; }
 .av .top { position: relative; top: auto; }
 /* Podo Quest : la progression à l'oral (un rond par partie : plein = sue, demi = commencée), la partie nouvelle, la lecture avant de réciter */
 .av .avdots { display: inline-flex; gap: 4px; margin: 6px 0 2px; vertical-align: middle; } .av .avdots i { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid #6b6480; }

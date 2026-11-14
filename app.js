@@ -586,6 +586,10 @@
       ['target', 'Quiz 3D plus facile à viser : le modèle tient entre les boutons et le panneau, le pied, la jambe ou la cuisse s\'affichent en grand, boutons + et −, le pincement zoome vers tes doigts, et toucher juste à côté compte.'],
       ['check', 'La barre du bas ne remonte plus et le titre de Podo Quest ne descend plus quand tu arrives en bas de la page. Dans les jeux (Qui suis-je ?, Survie…), quand tu réponds, la page défile : la réponse n\'est plus cachée sous le bouton « Suivant ».'],
     ] },
+    { v: 124, items: [
+      ['check', 'La barre du bas reste vraiment en bas : seul le contenu défile, la page ne bouge plus (ni l\'effet élastique ni le choix de la date de l\'oral ne la font remonter).'],
+      ['bulb', 'Pendant les jeux, la barre d\'onglets disparaît : elle cachait les derniers choix de Qui suis-je ?. On revient avec la flèche en haut.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -1639,7 +1643,7 @@
 
   // ---------- routeur ----------
   function render(keepScroll) {
-    const sy = window.scrollY || 0, dosOpen = !!(document.querySelector('.ptdos') && document.querySelector('.ptdos').open);
+    const SC = $('#app'), sy = SC.scrollTop || 0, dosOpen = !!(document.querySelector('.ptdos') && document.querySelector('.ptdos').open);
     const [, sec, a, b, c] = (location.hash || '#/').split('/');
     let html;
     if (!sec) html = home();
@@ -1667,14 +1671,15 @@
     tabMenu(false);
     const f = (sec === 'podo' ? PODO_OK : PEDI).find(x => x.id === a);
     document.title = (sec === 'pedi' || sec === 'podo') && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
-    window.scrollTo(0, keepScroll === true ? sy : 0);
+    document.body.classList.toggle('ingame', sec === 'jeu');   // pendant un jeu, pas de barre d'onglets : elle cachait les derniers choix (on revient par la flèche)
+    SC.scrollTo(0, keepScroll === true ? sy : 0);
     // une réponse fait apparaître la barre du bas (« Suivant ») : on fait défiler pour que la réponse et sa correction restent au-dessus, pas cachées dessous
     const pg = $('#app .pager.fixed');
     if (keepScroll === true && pg && !hadPager) requestAnimationFrame(() => {
       const card = [...document.querySelectorAll('#app .card.qc')].pop(); if (!card) return;
       const over = card.getBoundingClientRect().bottom - pg.getBoundingClientRect().top + 12;
       const keep = card.querySelector('.opt.good, .opt.bad, .ck.yes, .ck.miss') || card, room = keep.getBoundingClientRect().top - 80;   // sans faire sortir la bonne réponse par le haut
-      if (over > 0) window.scrollBy({ top: Math.max(0, Math.min(over, room)), behavior: 'smooth' });
+      if (over > 0) SC.scrollBy({ top: Math.max(0, Math.min(over, room)), behavior: 'smooth' });
     });
     showNote();
   }
@@ -1753,6 +1758,9 @@
     if (l) location.hash = l.getAttribute('href');
   }, { passive: true });
 
+  // c'est #app qui défile, pas la page : la page reste immobile et les barres fixées en bas ne bougent plus (effet élastique, sélecteur de date).
+  // Après un champ (date de l'oral, recherche), l'iPhone peut laisser la page décalée pour faire place au clavier : on la remet en place.
+  document.addEventListener('focusout', e => { if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) setTimeout(() => { const a = document.activeElement; if (!a || !/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) window.scrollTo(0, 0); }, 120); });
   window.addEventListener('hashchange', render);
   render();
 })();
