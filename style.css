@@ -326,12 +326,25 @@ body.v3on nav.tabs { display: none; }
 .v3 .top { position: absolute; top: 0; left: 0; right: 0; margin: 0; z-index: 3; }
 #v3c { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
 .v3load { position: absolute; inset: 0; display: grid; place-items: center; font: 400 18px var(--marker); color: var(--muted); text-align: center; padding: 30px; }
-.v3chips { position: absolute; top: calc(64px + env(safe-area-inset-top)); left: 10px; right: 10px; z-index: 3; display: flex; gap: 6px; flex-wrap: wrap; }
-.v3l { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 2px solid var(--ink); border-radius: 10px; background: rgba(255,250,240,.85); font: 400 13px var(--marker); opacity: .5; }
+/* les 4 couches tiennent sur une seule ligne (sinon « Superficiels » passait dessous et cachait le modèle) */
+.v3chips { position: absolute; top: calc(64px + env(safe-area-inset-top)); left: 8px; right: 8px; z-index: 3; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.v3chips::-webkit-scrollbar { display: none; }
+.v3l { flex: none; display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; white-space: nowrap; border: 2px solid var(--ink); border-radius: 10px; background: rgba(255,250,240,.85); font: 400 13px var(--marker); opacity: .5; }
 .v3l.on { opacity: 1; }
 .v3l i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--ink); }
 #v3mk i { position: absolute; left: 0; top: 0; z-index: 2; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--ink); pointer-events: none; }
 #v3mk i.good { background: #2FB36B; } #v3mk i.bad { background: #E04A3F; }
+/* origine (O, bleu) et terminaison (T, orange) d'un muscle : sur le modèle et dans le panneau */
+#v3mk i.o, #v3mk i.t, .v3ot i { display: grid; place-items: center; color: #fff; font: 800 12px/1 system-ui, sans-serif; font-style: normal; }
+#v3mk i.o, .v3ot i.o { background: #2F6FE0; } #v3mk i.t, .v3ot i.t { background: #E8891C; }
+.v3ot { display: grid; gap: 5px; margin: 4px 0 6px; font-size: 15px; line-height: 1.3; }
+.v3ot > div { display: flex; gap: 8px; align-items: flex-start; } .v3ot b { margin-right: 4px; }
+.v3ot i { flex: none; width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1.5px var(--ink); margin-top: 1px; }
+/* zoom : +, −, recentrer (à droite, au milieu de la bande libre) */
+.v3zoom { position: absolute; right: 8px; top: 42%; z-index: 3; display: grid; gap: 8px; transform: translateY(-50%); }
+.v3zoom button { width: 42px; height: 42px; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: 12px; background: rgba(255,250,240,.9); color: var(--ink); font: 700 22px/1 system-ui, sans-serif; }
+.v3zoom button svg { width: 24px; height: 24px; }
+html[data-skin="classic"] .v3zoom button { border: 1px solid var(--line); background: var(--card); }
 .v3sheet { position: absolute; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom)); z-index: 3; max-height: 46vh; overflow: auto;
   background: var(--card); border: 3px solid var(--ink); border-radius: 16px 13px 17px 12px; padding: 12px 14px; box-shadow: 4px 6px 0 rgba(37,35,45,.18); }
 .v3sheet .question { font: 400 20px/1.2 var(--marker); margin: 2px 0 6px; }
@@ -1092,3 +1105,18 @@ html[data-skin] .av .ck.on { background: #215c4a; color: #fff; }
 @media (prefers-reduced-motion: reduce) { .av .avmic.on { animation: none; box-shadow: 0 0 0 4px rgba(255,90,90,.35); } }
 .av .avtime { height: 5px; margin-bottom: 10px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
 .av .avtime i { display: block; height: 100%; background: #6fd3ff; transform-origin: 0 50%; animation: avtime linear forwards; } @keyframes avtime { to { transform: scaleX(0); } }
+
+/* ---------- v123 : barres qui ne bougent plus au défilement ----------
+   Sur iPhone, l'effet élastique en bas de page emportait la barre du bas (elle remontait) et le titre de Podo Quest (il descendait).
+   Plus d'effet élastique ; et dans Podo Quest le titre reste en haut de la page au lieu de suivre le défilement par-dessus le jeu. */
+html, body { overscroll-behavior-y: none; }
+body { min-height: 100dvh; }
+.av .top { position: relative; top: auto; }
+/* Podo Quest : la progression à l'oral (un rond par partie : plein = sue, demi = commencée), la partie nouvelle, la lecture avant de réciter */
+.av .avdots { display: inline-flex; gap: 4px; margin: 6px 0 2px; vertical-align: middle; } .av .avdots i { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid #6b6480; }
+.av .avdots i.on { background: var(--ok); border-color: var(--ok); } .av .avdots i.half { background: linear-gradient(90deg, #d9a440 50%, transparent 50%); border-color: #d9a440; }
+.av .avprog { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--ok); border-radius: 10px; background: #1b2a26; text-align: left; font-size: 14px; line-height: 1.4; }
+.av .card.avprog { padding: 12px 14px; } .av .avprog .small { font-size: 14px; }
+.av .avnew { display: inline-block; margin-bottom: 8px; padding: 3px 9px; border-radius: 999px; background: #3a2f12; color: #ffd27a; font: 800 11px var(--marker); letter-spacing: .8px; text-transform: uppercase; }
+.av .aplist.avread { font-size: 16px; color: var(--ink); margin-bottom: 14px; }
+.av .avmon .avdots { display: flex; }

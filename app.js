@@ -579,6 +579,13 @@
       ['flame', 'Le boss, c\'est maintenant l\'oral blanc : sa fiche entière, partie par partie, dans l\'ordre du plan. Une partie ratée revient à la fin. Le coup de grâce d\'une fiche, c\'est dire tout son traitement.'],
       ['sparkle', 'Fini de tomber toujours sur les mêmes : les expéditions passent par tout ce que tu as choisi avant de revenir aux mêmes monstres. Un monstre raté revient, mais un seul à la fois et pas à chaque fois.'],
     ] },
+    { v: 123, items: [
+      ['speak', 'Podo Quest t\'apprend la fiche un peu plus à chaque victoire : la carte Oral te fait dire la prochaine partie que tu ne sais pas encore (tu peux la lire d\'abord). Une partie est sue quand tu la dis à 80 % sans aide. Le boss te fait réciter tout ce que tu sais, plus 2 parties nouvelles ; quand tu sais tout, c\'est l\'oral complet sans indice.'],
+      ['muscle', 'Les muscles sont plus durs : l\'origine et la terminaison se disent à voix haute (plus de choix à deviner), et il faut les deux pour donner le coup de grâce.'],
+      ['cube', 'Quiz 3D : les 4 petits muscles du pied qui manquaient (courts extenseurs, courts fléchisseurs de l\'hallux et du 5e) sont dessinés. Le TFL se voit à travers le tractus ilio-tibial, chaque muscle a sa nuance, et à la réponse tu vois l\'origine (O) et la terminaison (T) sur le modèle, avec les muscles du dessus en transparence.'],
+      ['target', 'Quiz 3D plus facile à viser : le modèle tient entre les boutons et le panneau, le pied, la jambe ou la cuisse s\'affichent en grand, boutons + et −, le pincement zoome vers tes doigts, et toucher juste à côté compte.'],
+      ['check', 'La barre du bas ne remonte plus et le titre de Podo Quest ne descend plus quand tu arrives en bas de la page.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -995,12 +1002,13 @@
     return `<div class="v3"><canvas id="v3c" aria-label="Modèle 3D du membre inférieur droit : glisse pour tourner, pince pour zoomer"></canvas>
       <div class="v3load" id="v3load">Chargement du modèle 3D…</div><div id="v3mk"></div>
       ${top('#/anat', 'Quiz 3D · les 59 repères', `<span class="count" id="v3n"></span>`)}
-      <div class="v3chips">${Object.entries(L3).map(([k, [l, c]]) => `<button class="v3l ${on3()[k] ? 'on' : ''}" data-v3l="${k}"><i style="background:${c}"></i>${l}</button>`).join('')}</div>
+      <div class="v3chips">${Object.entries(L3).map(([k, [l, c]]) => `<button class="v3l ${on3()[k] ? 'on' : ''}" data-v3l="${k}" aria-pressed="${!!on3()[k]}"><i style="background:${c}"></i>${l}</button>`).join('')}</div>
+      <div class="v3zoom"><button data-v3z="1.6" aria-label="Zoomer">+</button><button data-v3z="0.625" aria-label="Dézoomer">−</button><button data-v3z="home" aria-label="Recentrer">${ico('refresh')}</button></div>
       <div class="v3sheet" id="v3sheet">${sheet3()}</div></div>`;
   }
   function sheet3() {
     const x = Q3.list && Q3.list[Q3.i], b = (a, t, c = 'var(--hl)', cls = 'grow') => `<button class="btn ${cls}" data-q3="${a}" style="--c:${c}">${t}</button>`;
-    if (Q3.st === 'pick') return `<div class="kicker">TROUVE-LES SUR LE MODÈLE</div><div class="muted small">Glisse pour tourner, pince pour zoomer. Enlève des couches en haut pour atteindre les muscles profonds.</div>
+    if (Q3.st === 'pick') return `<div class="kicker">TROUVE-LES SUR LE MODÈLE</div><div class="muted small">Glisse pour tourner, pince pour zoomer (ou + et −). Enlève des couches en haut pour atteindre les muscles profonds.</div>
       <div class="regpick">${['tout', ...REG_ORDER].map(r => { const it = r === 'tout' ? AQ : AQ.filter(a => a.reg === r); return `<button class="btn ghost" data-q3="go" data-r="${r}">${r === 'tout' ? 'Tout' : REG_SHORT[r]} <small>${it.length}</small></button>`; }).join('')}</div>`;
     if (Q3.st === 'end') { const n = Q3.list.length, miss = Q3.list.filter(a => !Q3.res[a.q]);
       return `<div class="qend">${ring(Q3.ok / n, Q3.ok / n >= .8 ? 'var(--p6)' : 'var(--p4)')}<div><div class="question">${Q3.ok} / ${n} trouvés</div>${miss.length ? `<div class="muted small">À revoir : ${miss.map(a => `<a href="#/anat/${a.q}">${esc(a.name)}</a>`).join(', ')}</div>` : ''}</div></div>
@@ -1009,6 +1017,7 @@
     if (Q3.st === 'q') return `${head}<div class="question">Touche : ${esc(x.name)}</div>
       <div class="row2">${b('help', ico('bulb') + ' La zone', 'var(--card)')}${b('skip', 'Je ne sais pas', 'var(--card)')}</div>`;
     return `${head}<div class="question">${Q3.good ? '✓ Bien vu : ' : '✗ '}${esc(x.name)}</div>${!Q3.good && Q3.hit ? `<div class="muted small">Tu as touché : ${esc(Q3.hit)}</div>` : ''}
+      ${x.o && x.t ? `<div class="v3ot"><div><i class="o">O</i><span><b>Origine</b> ${md(x.o)}</span></div><div><i class="t">T</i><span><b>Terminaison</b> ${md(x.t)}</span></div></div>` : ''}
       <div class="small">${md(x.how || '')}</div><div class="row2"><a class="btn ghost grow" href="#/anat/${x.q}">La fiche</a>${b('next', Q3.i + 1 < Q3.list.length ? 'Suivant →' : 'Résultat')}</div>`;
   }
   function upd3() { const s = $('#v3sheet'), n = $('#v3n'); if (s) s.innerHTML = sheet3(); if (n) n.textContent = Q3.list && Q3.st !== 'pick' && Q3.st !== 'end' ? `${Q3.i + 1}/${Q3.list.length}` : ''; if (V3) V3.mark(); }
@@ -1042,6 +1051,31 @@
       V3 = make3d(T, buf, cv); const l = $('#v3load'); if (l) l.remove(); upd3();
     } catch (e) { const l = $('#v3load'); if (l) l.textContent = 'Impossible de charger le modèle 3D : vérifie ta connexion, puis rouvre la page.'; }
   }
+  // un muscle absent du modèle : des tubes lissés (Catmull-Rom) le long d'un chemin de points, avec un rayon à chaque point, fermés aux deux bouts
+  function tubeGeo(T, tubes) {
+    const pos = [], idx = [], N = 10, S = 8, sub = (a, b) => a.map((x, i) => x - b[i]), dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]], unit = a => { const l = Math.hypot(...a) || 1; return a.map(x => x / l); };
+    for (const { p, r } of tubes) {
+      const pts = [], rad = [];
+      for (let i = 0; i < p.length - 1; i++) for (let s = 0; s < S; s++) {
+        const u = s / S, P0 = p[Math.max(0, i - 1)], P1 = p[i], P2 = p[i + 1], P3 = p[Math.min(p.length - 1, i + 2)];
+        pts.push([0, 1, 2].map(j => .5 * (2 * P1[j] + (P2[j] - P0[j]) * u + (2 * P0[j] - 5 * P1[j] + 4 * P2[j] - P3[j]) * u * u + (3 * P1[j] - P0[j] - 3 * P2[j] + P3[j]) * u * u * u)));
+        rad.push(r[i] + (r[i + 1] - r[i]) * u);
+      }
+      pts.push(p[p.length - 1]); rad.push(r[r.length - 1]);
+      const base = pos.length / 3, n = pts.length; let nr = null;
+      pts.forEach((c, i) => {
+        const t = unit(sub(pts[Math.min(n - 1, i + 1)], pts[Math.max(0, i - 1)]));
+        nr = unit(nr ? sub(nr, t.map(x => x * dot(nr, t))) : cross(t, Math.abs(t[1]) < .9 ? [0, 1, 0] : [1, 0, 0]));
+        const bi = cross(t, nr), rr = rad[i] * (i && i < n - 1 ? 1 : .4);
+        for (let k = 0; k < N; k++) { const a = k / N * 2 * Math.PI, cs = Math.cos(a) * rr, sn = Math.sin(a) * rr; pos.push(c[0] + cs * nr[0] + sn * bi[0], c[1] + cs * nr[1] + sn * bi[1], c[2] + cs * nr[2] + sn * bi[2]); }
+      });
+      for (let i = 0; i < n - 1; i++) for (let k = 0; k < N; k++) { const a = base + i * N + k, b = base + i * N + (k + 1) % N; idx.push(a, a + N, b, b, a + N, b + N); }
+      const c0 = pos.length / 3; pos.push(...pts[0], ...pts[n - 1]);
+      for (let k = 0; k < N; k++) { idx.push(c0, base + (k + 1) % N, base + k, c0 + 1, base + (n - 1) * N + k, base + (n - 1) * N + (k + 1) % N); }
+    }
+    const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(new Float32Array(pos), 3)); g.setIndex(new T.BufferAttribute(new Uint32Array(idx), 1)); return g;
+  }
   function make3d(T, buf, cv) {
     const stage = cv.parentNode, mk = $('#v3mk');
     const renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
@@ -1050,64 +1084,104 @@
     scene.add(new T.HemisphereLight(0xfff6ea, 0x6d5b55, 1.15));
     const d1 = new T.DirectionalLight(0xffffff, 1.6); d1.position.set(1.5, 2, 2.5); scene.add(d1);
     const d2 = new T.DirectionalLight(0xffe2cf, .7); d2.position.set(-2, .5, -2); scene.add(d2);
-    const ctl = new T.OrbitControls(cam, cv); ctl.enableDamping = true; ctl.dampingFactor = .09; ctl.minDistance = .06; ctl.maxDistance = 4;
+    // le pincement zoome vers les doigts (pas vers le centre) : on va droit à la zone qu'on regarde
+    const ctl = new T.OrbitControls(cam, cv); ctl.enableDamping = true; ctl.dampingFactor = .09; ctl.minDistance = .05; ctl.maxDistance = 4; ctl.zoomToCursor = true; ctl.zoomSpeed = 1.15;
     const grp = new T.Group(); scene.add(grp);
     const dv = new DataView(buf), meshes = [], byKey = {};
+    // chaque muscle a sa nuance (teinte et clarté) pour qu'on voie où l'un finit et où l'autre commence ; tendons et tractus en blanc nacré
+    const addMesh = (key, fr, layer, g) => {
+      g.computeVertexNormals(); g.computeBoundingSphere();
+      const n = meshes.length, c = new T.Color(/^(achille|tractus-it)$/.test(key) ? '#E2DACB' : L3[layer][1]);
+      if (layer !== 'os' && !/^(achille|tractus-it)$/.test(key)) c.offsetHSL(((n * 7) % 9 - 4) * .011, ((n * 5) % 7 - 3) * .03, ((n * 11) % 9 - 4) * .045);
+      const veil = key === 'tractus-it';   // le tractus ilio-tibial est une lame : à moitié transparent, on voit (et on touche) le TFL et le vaste latéral dessous
+      const mat = new T.MeshStandardMaterial({ color: c, roughness: layer === 'os' ? .82 : .55, metalness: 0, side: T.DoubleSide, transparent: veil, opacity: veil ? .45 : 1, depthWrite: !veil });
+      const m = new T.Mesh(g, mat); m.userData = { key, fr, layer, mat, veil }; if (veil) m.renderOrder = 2; grp.add(m); meshes.push(m); byKey[key] = m;
+    };
     window.ANAT3D.forEach(([key, fr, layer, vo, vc, io, ic, isz]) => {
       if (!L3[layer]) return;   // artères et veines : pas dans les 59
       const p = new Float32Array(vc * 3); for (let i = 0; i < vc * 3; i++) p[i] = dv.getInt16(vo + i * 2, true) / 32767 * .5;
       const idx = isz === 4 ? new Uint32Array(buf.slice(io, io + ic * 4)) : new Uint16Array(buf.slice(io, io + ic * 2));
-      const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(p, 3)); g.setIndex(new T.BufferAttribute(idx, 1)); g.computeVertexNormals(); g.computeBoundingSphere();
-      const c = new T.Color(/^(achille|tractus-it)$/.test(key) ? '#E2DACB' : L3[layer][1]);
-      if (layer !== 'os') c.offsetHSL(((meshes.length * 37) % 11 - 5) * .004, 0, ((meshes.length * 53) % 9 - 4) * .018);
-      const mat = new T.MeshStandardMaterial({ color: c, roughness: layer === 'os' ? .82 : .55, metalness: 0, side: T.DoubleSide });
-      const m = new T.Mesh(g, mat); m.userData = { key, fr, layer, mat }; grp.add(m); meshes.push(m); byKey[key] = m;
+      const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(p, 3)); g.setIndex(new T.BufferAttribute(idx, 1)); addMesh(key, fr, layer, g);
     });
+    (window.ANAT3D_X || []).forEach(x => addMesh(x.key, x.fr, x.layer, tubeGeo(T, x.tubes)));   // les petits muscles du pied absents du modèle
     const box = new T.Box3().setFromObject(grp), size = box.getSize(new T.Vector3());
     grp.position.sub(box.getCenter(new T.Vector3())); grp.updateMatrixWorld(true);
     const mat = (c, e) => new T.MeshStandardMaterial({ color: c, emissive: e, emissiveIntensity: .45, roughness: .45, side: T.DoubleSide });
     const mGood = mat(0x2FB36B, 0x0b5a2c), mBad = mat(0xE04A3F, 0x6a120c);
+    const mGhost = new T.MeshStandardMaterial({ color: 0xC2504D, roughness: .6, transparent: true, opacity: .16, depthWrite: false, side: T.DoubleSide }), DEPTH = { m1: 1, m2: 2, m3: 3, os: 0 };
     const layers = () => meshes.forEach(m => (m.visible = !!on3()[m.userData.layer]));
     layers();
-    let W = 1, H = 1;
-    const fit = () => { W = stage.clientWidth; H = stage.clientHeight; renderer.setSize(W, H, false); cam.aspect = W / H; cam.updateProjectionMatrix(); };
+    // le modèle se cadre dans la bande libre, entre les boutons du haut et le panneau du bas (décalage de l'image, sans bouger la caméra)
+    let W = 1, H = 1, BH = 1;
+    const TAN = Math.tan(16 * Math.PI / 180);
+    const fit = () => {
+      W = stage.clientWidth; H = stage.clientHeight; renderer.setSize(W, H, false);
+      const sr = stage.getBoundingClientRect(), ch = $('.v3chips'), sh = $('#v3sheet');
+      const t = ch ? ch.getBoundingClientRect().bottom - sr.top + 4 : 0, b = sh ? sh.getBoundingClientRect().top - sr.top - 4 : H;
+      BH = Math.max(120, b - t); const d = (t + b) / 2 - H / 2, H2 = H + 2 * Math.abs(d);
+      cam.fov = 2 * Math.atan(TAN * H2 / BH) * 180 / Math.PI; cam.aspect = W / H2; cam.setViewOffset(W, H2, 0, d > 0 ? 0 : -2 * d, W, H); cam.updateProjectionMatrix();
+    };
     const ro = new ResizeObserver(fit); ro.observe(stage); fit();
-    const full = () => size.y * .62 / Math.tan(cam.fov * Math.PI / 360);
+    const shRo = new ResizeObserver(fit); if ($('#v3sheet')) shRo.observe($('#v3sheet'));
+    // la distance pour voir une boîte (hauteur h, largeur w) dans la bande libre
+    const dist = (h, w) => Math.max(h * .56, w * .56 * BH / W) / TAN;
     let anim = null;
     const fly = (pos, tgt) => { const p0 = cam.position.clone(), t0 = ctl.target.clone(), s0 = performance.now();
       anim = now => { const k = Math.min(1, (now - s0) / 650), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; cam.position.lerpVectors(p0, pos, e); ctl.target.lerpVectors(t0, tgt, e); if (k >= 1) anim = null; }; };
-    cam.position.set(0, 0, full()); ctl.target.set(0, 0, 0); ctl.update();
+    // les régions : on arrive directement sur le pied, la jambe ou la cuisse, vues de trois quarts
+    const REG3 = { pied: [['calcaneus', 'talus', 'm1', 'm5', 'p1-3', 'p5-3'], [-.25, .85, 1]], jambe: [['tibia', 'fibula'], [-.25, .1, 1]], cuisse: [['os-coxal', 'femur'], [-.3, .1, 1]] };
+    const view = r => { const R = REG3[r];
+      if (!R) return [new T.Vector3(0, 0, dist(size.y, size.x)), new T.Vector3(0, 0, 0)];
+      const b = new T.Box3(); R[0].forEach(k => byKey[k] && b.expandByObject(byKey[k])); const c = b.getCenter(new T.Vector3()), s = b.getSize(new T.Vector3());
+      return [c.clone().add(new T.Vector3(...R[1]).normalize().multiplyScalar(dist(s.y, Math.hypot(s.x, s.z)) * 1.1)), c]; };
+    { const [p, t] = view(); cam.position.copy(p); ctl.target.copy(t); ctl.update(); }
     // cible d'une question : centre des pièces, ou point sur l'os
-    const T3 = window.ANAT3D_T, R0 = .03;
+    const T3 = window.ANAT3D_T, R0 = .03, W3 = v => grp.localToWorld(new T.Vector3(...v));
     const tgtOf = q => { const t = T3[q];
-      if (t.p) return { c: grp.localToWorld(new T.Vector3(...t.p)), r: .06 };
-      const ms = t.m.map(k => byKey[k]).filter(Boolean), c = new T.Vector3();
-      ms.forEach(m => c.add(m.geometry.boundingSphere.center.clone().applyMatrix4(m.matrixWorld))); c.divideScalar(ms.length);
-      return { c, r: Math.max(...ms.map(m => m.geometry.boundingSphere.radius)) }; };
-    const pts = [];   // repères affichés : { v: Vector3, cls }
+      if (t.p) return { c: W3(t.p), r: .06 };
+      const ms = t.m.map(k => byKey[k]).filter(Boolean), b = new T.Box3(); ms.forEach(m => b.expandByObject(m));
+      return { c: b.getCenter(new T.Vector3()), r: b.getSize(new T.Vector3()).length() / 2 }; };
+    const pts = [];   // repères affichés : { v: Vector3, cls, txt }
     const reset = () => { meshes.forEach(m => (m.material = m.userData.mat)); pts.length = 0; };
     const api = {
-      home() { reset(); fly(new T.Vector3(0, 0, full()), new T.Vector3(0, 0, 0)); },
+      home() { reset(); fly(...view(Q3 && Q3.reg)); },
+      zoom(k) { const tg = ctl.target, off = cam.position.clone().sub(tg); fly(tg.clone().add(off.multiplyScalar(k)), tg.clone()); },
       show(q, hintOnly) {
-        const t = T3[q], g = tgtOf(q), dir = cam.position.clone().sub(ctl.target).normalize();
-        fly(g.c.clone().add(dir.multiplyScalar(Math.max(g.r * 4.5, .22))), g.c);
+        // on se place du côté de la cible : de l'os le plus proche vers elle (un muscle postérieur se montre de dos, un muscle plantaire par en dessous)
+        const t = T3[q], g = tgtOf(q), cur = cam.position.clone().sub(ctl.target).normalize(), wc = m => m.geometry.boundingSphere.center.clone().applyMatrix4(m.matrixWorld);
+        const bone = meshes.filter(m => m.userData.layer === 'os').reduce((b, m) => (!b || wc(m).distanceTo(g.c) < wc(b).distanceTo(g.c) ? m : b), null);
+        const out = bone ? g.c.clone().sub(wc(bone)) : new T.Vector3(); if (bone && /^(tibia|fibula|femur|os-coxal|patella)$/.test(bone.userData.key)) out.y = 0;   // os long : seulement le côté (devant, derrière, dehors, dedans)
+        const dir = out.length() > .004 ? out.normalize().multiplyScalar(.75).add(cur.multiplyScalar(.25)).add(new T.Vector3(0, .15, 0)).normalize() : cur;
+        fly(g.c.clone().add(dir.multiplyScalar(Math.max(g.r * 1.15 / TAN, t.p ? .38 : .2))), g.c);   // on voit le muscle entier, de son origine à sa terminaison
         if (hintOnly) return;
-        if (t.m) t.m.forEach(k => byKey[k] && (byKey[k].material = mGood)); else pts.push({ v: g.c, cls: 'good' });
+        if (t.m) { t.m.forEach(k => byKey[k] && (byKey[k].material = mGood));
+          // rayons X : les muscles plus superficiels que la réponse deviennent transparents, on voit le muscle profond en entier
+          const deep = Math.max(...t.m.map(k => byKey[k] ? DEPTH[byKey[k].userData.layer] : 0));
+          meshes.forEach(m => { const d = DEPTH[m.userData.layer]; if (d && d < deep && !t.m.includes(m.userData.key)) m.material = mGhost; }); }
+        else pts.push({ v: g.c, cls: 'good' });
+        if (t.o) pts.push({ v: W3(t.o), cls: 'o', txt: 'O' });
+        if (t.t) (Array.isArray(t.t[0]) ? t.t : [t.t]).forEach(p => pts.push({ v: W3(p), cls: 't', txt: 'T' }));
       },
-      mark() { mk.innerHTML = pts.map(p => `<i class="${p.cls}"></i>`).join(''); },
-      dispose() { cancelAnimationFrame(raf); ro.disconnect(); ctl.dispose && ctl.dispose(); meshes.forEach(m => m.geometry.dispose()); renderer.dispose(); },
+      mark() { mk.innerHTML = pts.map(p => `<i class="${p.cls}">${p.txt || ''}</i>`).join(''); },
+      fit,
+      dispose() { cancelAnimationFrame(raf); ro.disconnect(); shRo.disconnect(); ctl.dispose && ctl.dispose(); meshes.forEach(m => m.geometry.dispose()); renderer.dispose(); },
     };
-    // un toucher (pas un glissement) : on regarde ce qui est sous le doigt
+    // un toucher (pas un glissement) : on regarde ce qui est sous le doigt. Pour aider, on regarde aussi un peu autour (14 px)
+    // et juste derrière une lame fine : toucher le muscle à travers le tractus ou un tendon compte.
     const rc = new T.Raycaster(); let down = null;
+    const hits = (x, y) => { const r = cv.getBoundingClientRect(); rc.setFromCamera(new T.Vector2((x - r.left) / r.width * 2 - 1, -(y - r.top) / r.height * 2 + 1), cam);
+      return rc.intersectObjects(meshes.filter(m => m.visible && !m.userData.veil), false); };
     cv.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY, performance.now()]; });
     cv.addEventListener('pointerup', e => {
       if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 8 || performance.now() - down[2] > 450 || !Q3 || Q3.st !== 'q') return;
-      const r = cv.getBoundingClientRect();
-      rc.setFromCamera(new T.Vector2((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1), cam);
-      const hit = rc.intersectObjects(meshes.filter(m => m.visible), false)[0];
+      const h0 = hits(e.clientX, e.clientY), hit = h0[0];
       if (!hit) return;
-      const x = Q3.list[Q3.i], t = T3[x.q];
-      const good = t.m ? t.m.includes(hit.object.userData.key) : hit.point.distanceTo(tgtOf(x.q).c) < R0 * (t.r || 1);
+      const x = Q3.list[Q3.i], t = T3[x.q], R = 14;
+      let good;
+      if (t.m) { const inT = h => h && t.m.includes(h.object.userData.key);
+        good = inT(hit) || h0.some(h => inT(h) && h.distance - hit.distance < .012) || [[R, 0], [-R, 0], [0, R], [0, -R]].some(([dx, dy]) => inT(hits(e.clientX + dx, e.clientY + dy)[0])); }
+      else { const c = tgtOf(x.q).c, v = c.clone().project(cam), r = cv.getBoundingClientRect(), sx = (v.x + 1) / 2 * r.width + r.left, sy = (1 - v.y) / 2 * r.height + r.top;
+        good = hit.point.distanceTo(c) < R0 * 1.25 * (t.r || 1) || (Math.hypot(sx - e.clientX, sy - e.clientY) < 26 && hit.point.distanceTo(c) < R0 * 3); }
       if (!good) { if (t.m) hit.object.material = mBad; else pts.push({ v: hit.point.clone(), cls: 'bad' }); }
       q3Answer(good, good ? null : hit.object.userData.fr);
     });
@@ -1641,7 +1715,8 @@
     if (t.id === 'bkopen') { $('#bkzone').hidden = false; $('#bkta').value = ''; $('#bkta').focus(); return; }
     if (t.id === 'bkload') { try { fromCode($('#bkta').value); save(); setSkin(); render(); const m = $('#bkmsg'); if (m) { $('#bkbox').hidden = false; m.textContent = 'Progression restaurée ✓'; } } catch (er) { $('#bkmsg').textContent = "Ce code n'est pas valide : vérifie que tu l'as collé en entier."; } return; }
     if (t.dataset.skin || t.dataset.theme !== undefined) { if (t.dataset.skin) S.skin = t.dataset.skin; else S.theme = t.dataset.theme; if (t.closest('.note')) closeNote(); save(); setSkin(); render(); return; }
-    if (t.dataset.v3l) { const k = t.dataset.v3l; on3()[k] = on3()[k] ? 0 : 1; save(); t.classList.toggle('on', !!on3()[k]); if (V3) V3.layers(); return; }
+    if (t.dataset.v3l) { const k = t.dataset.v3l; on3()[k] = on3()[k] ? 0 : 1; save(); t.classList.toggle('on', !!on3()[k]); t.setAttribute('aria-pressed', !!on3()[k]); if (V3) V3.layers(); return; }
+    if (t.dataset.v3z) { fx('tap'); if (V3) t.dataset.v3z === 'home' ? V3.home() : V3.zoom(1 / +t.dataset.v3z); return; }
     if (t.classList.contains('reveal')) { t.closest('[data-quiz]').classList.add('shown'); return; }
     if (!t.matches('button')) { t.classList.toggle('shown'); return; }
     const [, sec, a] = location.hash.split('/');

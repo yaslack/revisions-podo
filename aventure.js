@@ -95,7 +95,18 @@ window.AVENTURE = A => {
   const make = c => { for (let i = 0; i < 6; i++) { const st = c.mk(); if (st) return st; } };
 
   // ---------- l'oral : on dit une partie à voix haute. Le micro du téléphone (dictée) écoute et retrouve les idées dites ; sans micro, on coche soi-même. ----------
-  const oral = (lab, q, items, full) => items && items.length ? card('oral', lab, items, () => ({ kind: 'oral', q, items, full })) : null;
+  const oral = (lab, q, items, full, pi) => items && items.length ? Object.assign(card('oral', lab, items, () => ({ kind: 'oral', q, items, full })), { pi }) : null;
+  // ---------- ce que tu sais dire à l'oral, gardé d'une partie à l'autre : S.rpg.oral[monstre][partie] = meilleure note SANS aide (indice ou lecture) ----------
+  //   Une partie est « sue » à 80 %. Chaque victoire te fait dire la suivante : la fiche se récite un peu plus à chaque fois.
+  const SUE = .8, score = (it, pi) => ((R().oral || {})[it.id] || {})[pi] || 0, sue = (it, pi) => score(it, pi) >= SUE;
+  // les parties d'un monstre qu'on peut dire à l'oral : les parties du plan d'une fiche ; pour un muscle, origine + terminaison puis toute sa fiche d'identité
+  const pisOf = it => it.kind === 'f' ? (QZ[it.f.id] || []).map((z, i) => z.k.length && it.f.parts[i] ? i : null).filter(x => x != null) : it.kind === 'a' && it.x.nerf ? [...(it.x.o && it.x.t ? ['ot'] : []), 'id'] : [];
+  const nSue = it => pisOf(it).filter(pi => sue(it, pi)).length;
+  const nextPart = it => pisOf(it).find(pi => !sue(it, pi));   // la prochaine partie à apprendre, dans l'ordre du plan
+  const partName = (it, pi) => it.kind === 'f' ? `Partie ${pi + 1} · ${it.f.parts[pi].title}` : pi === 'ot' ? 'Origine et terminaison' : 'Fiche d\'identité complète';
+  const dots = it => { const ps = pisOf(it); return `<span class="avdots" role="img" aria-label="${nSue(it)} sur ${ps.length} sues">${ps.map(pi => `<i class="${sue(it, pi) ? 'on' : score(it, pi) ? 'half' : ''}"></i>`).join('')}</span>`; };
+  const progress = it => { const ps = pisOf(it), n = nSue(it), nx = nextPart(it); if (!ps.length) return '';
+    return `<div class="avprog"><div class="kicker">${it.kind === 'f' ? 'TON ORAL DE CETTE FICHE' : 'CE MUSCLE À L\'ORAL'}</div>${dots(it)}<div class="small">${n}/${ps.length} ${it.kind === 'f' ? `partie${n > 1 ? 's' : ''} sue${n > 1 ? 's' : ''}` : 'su'} · ${nx != null ? `prochaine fois : <b>${esc(partName(it, nx))}</b>` : '<b>tu sais tout le dire !</b>'}</div></div>`; };
   const initials = s => plain(s).replace(/[A-Za-zÀ-ÿ]{4,}/g, w => w[0] + '•'.repeat(Math.min(w.length - 1, 6))).replace(/\d/g, '•');   // « HPV 1 → myrmécie » devient « HPV • → m•••••• »
   const NUMW = { un: 1, une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6, sept: 7, huit: 8, neuf: 9, dix: 10, onze: 11, douze: 12, quinze: 15, vingt: 20, trente: 30, quarante: 40, cinquante: 50, soixante: 60, cent: 100 };
   const SMALLW = new Set('avec dans pour plus sans sous entre vers chez leur leurs cette elle elles sont etre avoir fait faire tres bien aussi mais donc comme quand alors entre apres avant contre sur'.split(' '));
@@ -138,9 +149,9 @@ window.AVENTURE = A => {
         return bad.length > 2 ? mk('tri', () => tri(q, good, bad)) : mk('trous', () => cloze(q, some(good, 4), P, 1));
       })).filter(make);
       // l'oral : chaque partie du plan, à dire avec ses idées clés (c'est ce que le jury demande)
-      const plan = Z.map((z, i) => f.parts[i] ? oral(`${i + 1}. ${f.parts[i].title}`, `**${f.title}**\nPartie ${i + 1} · ${f.parts[i].title} : ${f.parts[i].q}`, z.k, f.parts[i].say) : null).filter(Boolean);
+      const plan = Z.map((z, i) => f.parts[i] ? oral(`${i + 1}. ${f.parts[i].title}`, `**${f.title}**\nPartie ${i + 1} · ${f.parts[i].title} : ${f.parts[i].q}`, z.k, f.parts[i].say, i) : null).filter(Boolean);
       const gestes = c ? card('tri', 'Les bons gestes', ti >= 0 && Z[ti] ? Z[ti].k : null, () => ({ kind: 'pick', q: 'Quels sont les bons gestes ?', items: shuffle(c.tt) })) : null;
-      const fin = ti >= 0 && Z[ti] && Z[ti].k.length ? oral('Traitement', `Coup de grâce · **${f.title}**\n${f.parts[ti].title} : ${f.parts[ti].q}`, Z[ti].k, f.parts[ti].say) : gestes;
+      const fin = ti >= 0 && Z[ti] && Z[ti].k.length ? oral('Traitement', `Coup de grâce · **${f.title}**\n${f.parts[ti].title} : ${f.parts[ti].q}`, Z[ti].k, f.parts[ti].say, ti) : gestes;
       return { qs: [...qs, ...plan, ...(gestes && fin !== gestes ? [gestes] : [])], says: plan, plan, fin };
     }
     if (it.kind === 'a') {
@@ -153,9 +164,12 @@ window.AVENTURE = A => {
         const id = () => { const o = by().slice(0, 2), rows = [['Origine', 'o'], ['Terminaison', 't'], ['Nerf', 'nerf']].filter(r => x[r[1]]), ok = rows.map(r => plain(x[r[1]]));
           const traps = [...new Set(rows.flatMap(r => o.map(y => plain(y[r[1]]))))].filter(d => d && !ok.some(w => norm(w) === norm(d)));
           return { kind: 'trous', q: `Fiche d'identité : ${x.name}`, segs: [...rows.flatMap((r, i) => [`${i ? '\n' : ''}${r[0]} : `, i]), ''], ok, bank: shuffle([...ok, ...traps]) }; };
-        const say = oral('Fiche d\'identité', `Dis sa fiche d'identité : ${N}\nOrigine, terminaison, nerf, action.`, les);
-        return { qs: [Q('Nerf', `Quel nerf innerve : ${N} ?`, x.nerf, y => y.nerf), Q('Terminaison', `Où se termine : ${N} ?`, x.t, y => y.t), Q('Origine', `D'où part : ${N} ?`, x.o, y => y.o), Q('Action', `Que fait : ${N} ?`, x.act, y => y.act), palp,
-          x.act && card('trous', 'Action', les, () => cloze(`Que fait : ${x.name} ?`, [x.act], P, 2)), card('trous', 'Fiche d\'identité', les, id), say].filter(c => c && make(c)), says: [say], fin: null };
+        // l'anatomie doit être dure : l'origine et la terminaison se DISENT (plus de choix à deviner), et il faut les deux pour l'achever
+        const say = oral('Fiche d\'identité', `Dis sa fiche d'identité : ${N}\nOrigine, terminaison, nerf, action.`, les, null, 'id');
+        const ot = x.o && x.t ? oral('Origine et terminaison', `D'où part et où se termine : ${N} ?\nDis l'origine puis la terminaison, précisément.`, [`**Origine** : ${x.o}`, `**Terminaison** : ${x.t}`], null, 'ot') : null;
+        const plan = [ot, say].filter(Boolean);
+        return { qs: [Q('Nerf', `Quel nerf innerve : ${N} ?`, x.nerf, y => y.nerf), Q('Action', `Que fait : ${N} ?`, x.act, y => y.act), palp,
+          x.act && card('trous', 'Action', les, () => cloze(`Que fait : ${x.name} ?`, [x.act], P, 2)), card('trous', 'Fiche d\'identité', les, id), ...plan].filter(c => c && make(c)), says: [say], plan, fin: ot, hard: true };
       }
       // un repère (os, tendon) : comment on le trouve, comment on vérifie, ce qui s'y attache
       const P = bag((reg.length > 3 ? reg : sib).flatMap(y => [y.pos, y.how, y.chk, y.ins].filter(Boolean).map(line)));
@@ -179,7 +193,7 @@ window.AVENTURE = A => {
       says: [oral('Tout le test', `Décris le test : **${c.n}**\nCe qu'il cherche, le geste étape par étape, le résultat normal.`, les)], fin: ord };
   }
   // ce qu'il faut retenir d'un monstre (bestiaire, écrans de fin)
-  const weak = it => { if (it.kind === 'f') { const m = it.f.memo && it.f.memo[5]; return m ? [m.q, m.k] : null; } return it.kind === 'a' ? (it.x.nerf ? ['Son nerf', it.x.nerf] : ['On le trouve', line(it.x.how)]) : ['Il cherche', it.cl.cherche]; };
+  const weak = it => { if (it.kind === 'f') { const m = it.f.memo && it.f.memo[5]; return m ? [m.q, m.k] : null; } return it.kind === 'a' ? (it.x.nerf ? (it.x.o && it.x.t ? ['Origine → terminaison', `${it.x.o} → ${it.x.t}`] : ['Son nerf', it.x.nerf]) : ['On le trouve', line(it.x.how)]) : ['Il cherche', it.cl.cherche]; };
   // la main : 3 cartes tirées du paquet du monstre, de genres différents si possible. Un défi raté revient seul, un tour plus tard : c'est la revanche.
   function deal(f) {
     if (f.hand) return f.hand;
@@ -188,7 +202,8 @@ window.AVENTURE = A => {
     if (f.deck.length < 3) f.deck.push(...shuffle(f.kit.qs.filter(c => !f.deck.includes(c) && c !== f.last && !f.rev.some(r => r.c === c))));
     if (!f.deck.length) f.deck = f.kit.qs.slice();
     // il y a toujours une carte Oral dans la main quand le monstre en a une (la première du paquet : elles tournent)
-    const h = [], d = [...f.deck.filter(c => c.k === 'oral').slice(0, 1), ...f.deck];
+    const orals = f.deck.filter(c => c.k === 'oral').sort((a, b) => sue(f.it, a.pi) - sue(f.it, b.pi) || score(f.it, a.pi) - score(f.it, b.pi) || (a.pi < b.pi ? -1 : 1));   // d'abord ce que tu ne sais pas encore dire
+    const h = [], d = [...orals.slice(0, 1), ...f.deck];
     for (const strict of [1, 0]) for (const c of d) if (h.length < 3 && !h.includes(c) && !(strict && h.some(x => x.k === c.k))) h.push(c);
     return f.hand = h;
   }
@@ -217,11 +232,16 @@ window.AVENTURE = A => {
     const g = G(), r = R(), n = g.nodes[g.i];
     if (n.t === 'chest') return chest();
     const boss = n.t === 'boss', it = n.it, small = it.kind === 'a' && !it.x.nerf, max = Math.round((26 + 7 * r.lvl + 4 * g.i) * (boss ? 2.4 : small ? .6 : 1)), k = kit(it);
-    const style = boss || !g.i ? null : rnd([null, 'vif', 'cuir'].filter(s => s !== 'cuir' || k.qs.filter(c => c.k !== 'qcm').length > 1));
+    const style = boss ? null : k.hard ? 'cuir' : !g.i ? null : rnd([null, 'vif', 'cuir'].filter(s => s !== 'cuir' || k.qs.filter(c => c.k !== 'qcm').length > 1));
     Object.assign(g, { scr: 'fight', anim: {}, msg: boss ? 'Le boss te barre la route. Qui est-ce ?' : 'Un monstre surgit ! Qui est-ce ?',
       foe: { it, boss, max, hp: max, was: max, atk: Math.round((5 + 1.2 * r.lvl + .5 * g.i) * (boss ? 1.3 : 1)), kit: k, style, deck: shuffle(k.qs), rev: [], wrong: [], turn: 0, miss: 0, si: 0,
-        oral: boss && k.plan && k.plan.length > 1, q: k.plan ? k.plan.map((_, i) => i) : [], pv: {} },   // q : les parties de l'oral qui restent à dire, dans l'ordre du plan ; pv : la note de chacune
+        oral: boss && it.kind === 'f' && k.plan && k.plan.length > 1, q: [], pv: {}, scope: [], final: false },   // q : les parties de l'oral qui restent à dire, dans l'ordre du plan ; pv : la note de chacune
       t: { mode: 'id', st: { kind: 'qcm', ic: fam(it), clues: qsjClues(it).slice(0, 2), opts: qsjOpts(it), ok: it.title } } });
+    const f = g.foe;
+    if (f.oral) {   // l'oral blanc grandit à chaque fois : ce que tu sais déjà dire, plus 2 parties nouvelles
+      const all = k.plan.map((_, j) => j), know = all.filter(j => sue(it, k.plan[j].pi)), fresh = all.filter(j => !know.includes(j));
+      f.final = !fresh.length; f.scope = f.final ? all : [...know, ...fresh.slice(0, Math.max(2, 3 - know.length))].sort((a, b) => a - b); f.q = f.scope.slice();
+    }
     fx(boss ? 'boss' : 'start');
   }
   function chest(last) {
@@ -242,7 +262,11 @@ window.AVENTURE = A => {
     t.done = true; g.anim = {}; f.was = f.hp; g.was = g.hp; did(1);
     // raté : il riposte, la faute est notée (le monstre reviendra tant qu'il n'est pas battu sans faute) et le défi revient en revanche
     const fail = again => { hitMe(); t.bad = true; f.wrong.push(sol(t.st, t)); r.miss = r.miss || {}; r.miss[f.it.id] = (r.miss[f.it.id] || 0) + 1; if (again) f.rev.push({ c, due: f.turn + 1 }); };
-    const help = t.hint ? .6 : 1;   // à l'oral, l'indice (les initiales) coûte 40 % des dégâts
+    const help = t.read ? .5 : t.hint ? .6 : 1;   // à l'oral, l'indice (les initiales) coûte 40 % des dégâts, lire la partie avant coûte 50 %
+    if (t.st.kind === 'oral' && c && c.pi != null) {   // on garde la meilleure note de cette partie (avec une aide, elle ne peut pas passer « sue »)
+      const o = (r.oral = r.oral || {})[f.it.id] = r.oral[f.it.id] || {}, was = sue(f.it, c.pi);
+      o[c.pi] = Math.max(o[c.pi] || 0, +(v * help).toFixed(2)); t.learned = !was && sue(f.it, c.pi); save();
+    }
     if (t.mode === 'id') {
       if (v) { g.focus = Math.min(3, g.focus + 1); hitFoe(a * .8); g.msg = `Reconnu : ${name} ! Tu frappes en premier.`; } else { hitMe(); g.msg = `C'était : ${name}. Il frappe en premier.`; }
       return;
@@ -257,15 +281,16 @@ window.AVENTURE = A => {
       if (v > 0) hitFoe(a * 2.5 * v, v >= .8); if (v < .6) fail(true);
       g.msg = v >= .8 ? 'Récitation solide : dégâts énormes !' : v >= .6 ? 'Récitation correcte : gros dégâts.' : 'Trop d\'oublis dans la récitation : il en profite. Elle va revenir.';
     } else if (t.mode === 'boss') {   // l'oral blanc : chaque partie dite enlève sa part de PV ; une partie ratée revient à la fin
-      const n = f.kit.plan.length, i = f.q.shift(); f.pv[i] = Math.max(f.pv[i] || 0, v * help);
+      const n = f.scope.length, i = f.q.shift(); f.pv[i] = Math.max(f.pv[i] || 0, v * help);
       if (v > 0) hitFoe(f.max / n * 1.1 * v * help, v >= .99 && help === 1);
       if (v < .6) { fail(false); f.q.push(i); }
-      if (!f.q.length && f.hp > 0) f.q = f.kit.plan.map((_, j) => j).sort((x, y) => (f.pv[x] || 0) - (f.pv[y] || 0));   // tout est dit mais il tient encore : on reprend les parties les plus faibles
+      if (!f.q.length && f.hp > 0) f.q = f.scope.slice().sort((x, y) => (f.pv[x] || 0) - (f.pv[y] || 0));   // tout est dit mais il tient encore : on reprend les parties les plus faibles
       g.msg = v >= .8 ? (help < 1 ? 'Partie dite, avec l\'aide des initiales. La prochaine fois, sans !' : 'Partie solide : le boss recule !') : v >= .6 ? 'Correct, mais il manquait des idées : relis-les.' : 'Trop d\'oublis : il riposte. Cette partie reviendra à la fin de l\'oral.';
     } else if (v * help >= (c.k === 'oral' ? .8 : .99)) {   // à l'oral, 80 % des idées sans indice suffisent pour l'achever
       hitFoe(f.hp, true); g.msg = f.it.kind === 'f' ? 'Coup de grâce : le bon traitement !' : 'Coup de grâce : sans une faute !'; }
     else { if (v > 0) hitFoe(a * v * help); fail(false); g.msg = f.it.kind === 'f' ? 'Traitement incomplet : il résiste et riposte.' : 'Pas tout à fait : il résiste et riposte.'; }
   }
+  const resolve2 = v => { const t = G().t; resolve(v); if (t.learned) { G().msg = `Nouvelle partie sue : ${partName(G().foe.it, t.card.pi)} ! ` + G().msg; setTimeout(() => fx('star'), 350); } };
   function addXp(n) { const g = G(), r = R(); r.xp += n; g.gain += n; while (r.xp >= xpNext(r)) { r.xp -= xpNext(r); r.lvl++; g.up = true; g.hp = hpMax(r); } save(); }
   function after() {   // après un coup : victoire, K.O., ou retour au menu
     const g = G(), r = R(), f = g.foe;
@@ -310,8 +335,10 @@ window.AVENTURE = A => {
     if (st && st.kind === 'oral' && !t.done) {   // l'oral : parler (micro), demander l'indice, puis vérifier ce qu'on a dit
       if (a === 'avmic' && !t.shown && mic()) { if (t.listening) { micStop(); t.listening = false; if (t.tmp) { t.heard = ((t.heard || '') + ' ' + t.tmp).trim(); t.tmp = ''; } } else { micStart(t); fx('tick'); } return soft(); }
       if (a === 'avhint' && !t.shown) { t.hint = true; fx('tick'); return soft(); }
+      if (a === 'avread' && !t.shown) { t.reading = true; t.read = true; fx('tick'); return soft(); }   // une partie nouvelle : on la lit, on la cache, puis on la redit
+      if (a === 'avhide') { t.reading = false; fx('tap'); return soft(); }
       if (a === 'avshow' && !t.shown) { t.heard = ((t.heard || '') + ' ' + (t.tmp || '')).trim(); t.tmp = ''; t.listening = false; t.shown = true; t.ticks = t.heard ? heardIdx(st.items, t.heard) : []; t.auto = t.ticks.length; fx('reveal'); return soft(); }
-      if (!t.shown && (a === 'avtk' || a === 'avval')) return;
+      if ((!t.shown || t.reading) && (a === 'avtk' || a === 'avval' || a === 'avshow')) return;
     }
     if (a === 'avobj') { g.t = t && t.mode === 'obj' ? null : { mode: 'obj' }; g.anim = {}; fx('tap'); return soft(); }
     if (a === 'avuse') { const k = el.dataset.k; r.items[k]--; g.was = g.hp; g.hp = Math.min(hpMax(r), g.hp + ITEMS[k].v); g.t = null; g.anim = { heal: g.hp - g.was }; g.msg = `${ITEMS[k].n} : +${g.hp - g.was} PV. Dans la vraie vie : ${ITEMS[k].use.toLowerCase()}.`; save(); fx('good'); return soft(); }
@@ -321,7 +348,7 @@ window.AVENTURE = A => {
     if (a === 'avbk') { t.fill = t.fill || st.ok.map(() => null); const i = t.fill.indexOf(null); if (i >= 0 && !t.fill.includes(j)) { t.fill[i] = j; fx('tick'); } return soft(); }   // un mot de la banque va dans le premier trou libre
     if (a === 'avbl') { if (t.fill) t.fill[j] = null; fx('tick'); return soft(); }   // toucher un trou rempli le vide
     if (a === 'avval') { const k = t.ticks || [], fl = t.fill || [];
-      resolve(st.kind === 'oral' ? k.length / st.items.length : st.kind === 'pick' ? Math.max(0, k.reduce((s, i) => s + (st.items[i][1] ? 1 : -1), 0)) / st.items.filter(x => x[1]).length
+      resolve2(st.kind === 'oral' ? k.length / st.items.length : st.kind === 'pick' ? Math.max(0, k.reduce((s, i) => s + (st.items[i][1] ? 1 : -1), 0)) / st.items.filter(x => x[1]).length
         : st.kind === 'ordre' ? k.filter((d, i) => st.sh[d] === i).length / st.items.length
         : st.ok.filter((w, i) => fl[i] != null && st.bank[fl[i]] === w).length / st.ok.length); return soft(); }
   }
@@ -338,11 +365,15 @@ window.AVENTURE = A => {
     if (st.clues) return `<div class="avclues">${t.done ? `<img class="avfic" alt="" src="jeu/ui-ic-${st.ic}.png">` : ''}${st.clues.map(c => `<div><b>${esc(c[0])}</b> ${md(c[1])}</div>`).join('')}</div>${opts()}`;
     if (st.kind === 'qcm') return q + opts() + les;
     if (st.kind === 'oral') {   // avant : la question seule (ou les initiales si on a pris l'indice), le micro ; après : les idées, cochées si le micro les a entendues
-      const n = st.items.length, said = ((t.heard || '') + ' ' + (t.tmp || '')).trim();
-      if (!t.shown) return `${q}${t.hint ? `<ul class="avini">${st.items.map(x => `<li>${esc(initials(x))}</li>`).join('')}</ul>` : `<div class="avsay">${ico('speak')} ${n} idée${n > 1 ? 's' : ''} à dire. À voix haute, sans regarder.</div>`}
+      const n = st.items.length, said = ((t.heard || '') + ' ' + (t.tmp || '')).trim(), f = G().foe, it = f && f.it, pi = c && c.pi;
+      const fresh = it && pi != null && !sue(it, pi), noHelp = t.mode === 'spe' || (t.mode === 'boss' && f.final);
+      if (t.reading) return `${q}<div class="kicker" style="margin-top:10px">LIS ET RETIENS · ${n} IDÉE${n > 1 ? 'S' : ''}</div><ul class="aplist avread">${st.items.map(x => `<li>${md(x)}</li>`).join('')}</ul>
+        ${btn('avhide', 'C\'est en tête → je cache et je récite', 'var(--hl)')}`;
+      if (!t.shown) return `${fresh && !t.read ? `<div class="avnew">Nouvelle partie à apprendre</div>` : ''}${q}${t.hint ? `<ul class="avini">${st.items.map(x => `<li>${esc(initials(x))}</li>`).join('')}</ul>` : `<div class="avsay">${ico('speak')} ${n} idée${n > 1 ? 's' : ''} à dire. À voix haute, sans regarder.</div>`}
         <div class="avheard" id="avheard" ${said || t.listening ? '' : 'hidden'}>${esc(said || '…')}</div>
         ${SR && NOMIC ? `<div class="muted small">${/not-allowed/.test(NOMIC) ? 'Micro refusé : autorise-le dans les réglages du téléphone (Safari › Micro), ou récite sans et coche toi-même.' : 'La dictée ne marche pas ici : récite quand même à voix haute, puis coche ce que tu as dit.'}</div>` : ''}
-        <div class="avoral">${mic() ? `<button class="btn grow avmic ${t.listening ? 'on' : 'ghost'}" data-g="avmic" style="--c:var(--red)">${t.listening ? '■ J\'ai fini de parler' : `${ico('speak')} Parler`}</button>` : ''}${t.mode !== 'spe' && !t.hint ? `<button class="btn ghost grow" data-g="avhint">Indice : les initiales (−40 %)</button>` : ''}</div>
+        <div class="avoral">${mic() ? `<button class="btn grow avmic ${t.listening ? 'on' : 'ghost'}" data-g="avmic" style="--c:var(--red)">${t.listening ? '■ J\'ai fini de parler' : `${ico('speak')} Parler`}</button>` : ''}${!noHelp && !t.hint && !t.read ? `<button class="btn ghost grow" data-g="avhint">Indice : les initiales (−40 %)</button>` : ''}${!noHelp && fresh && !t.read && !t.hint ? `<button class="btn ghost grow" data-g="avread">La lire d'abord (−50 %)</button>` : ''}</div>
+        ${t.read ? '<div class="muted small">Tu l\'as lue : redis-la maintenant sans regarder. Elle comptera comme sue quand tu la diras sans aide.</div>' : ''}
         ${btn('avshow', t.heard ? 'Vérifier ce que j\'ai dit →' : 'J\'ai récité → vérifier', 'var(--hl)')}`;
       const k = t.ticks || [], miss = n - k.length;
       const rows = st.items.map((x, j) => t.done ? `<div class="ck ${k.includes(j) ? 'yes' : 'miss'}"><span class="box"></span><span>${md(x)}</span></div>` : `<button class="ck ${k.includes(j) ? 'on' : ''}" data-g="avtk" data-j="${j}"><span class="box"></span><span>${md(x)}</span></button>`).join('');
@@ -371,20 +402,20 @@ window.AVENTURE = A => {
     let body;
     if (t && t.mode === 'obj') body = `<div class="card qc"><div class="kicker">TES SOINS</div><div class="avlist">${soins(r).map(k => `<button class="ptitem" data-g="avuse" data-k="${k}">${OBJ(k)}<b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></button>`).join('')}</div><button class="btn ghost wide" data-g="avobj" style="margin-top:10px">Retour</button></div>`;
     else if (t) { const K = t.card && KIND[t.card.k], T = t.mode === 'atk' && f.style === 'vif' && !t.done ? TIME(t.card.k) : 0;   // monstre vif : la barre bleue se vide, il faut répondre avant
-      const kick = t.mode === 'spe' ? 'RÉCITATION SANS INDICE · DÉGÂTS ×2,5' : t.mode === 'fin' ? 'COUP DE GRÂCE' : t.mode === 'boss' ? `L'ORAL · PARTIE ${t.part + 1}/${f.kit.plan.length}` : K ? `${t.rv ? 'REVANCHE · ' : ''}${K[0]} · ${esc(t.card.lab)}` : '';
+      const kick = t.mode === 'spe' ? 'RÉCITATION SANS INDICE · DÉGÂTS ×2,5' : t.mode === 'fin' ? 'COUP DE GRÂCE' : t.mode === 'boss' ? `${f.final ? 'L\'ORAL COMPLET' : 'L\'ORAL'} · PARTIE ${t.card.pi + 1}/${f.it.f.parts.length}` : K ? `${t.rv ? 'REVANCHE · ' : ''}${K[0]} · ${esc(t.card.lab)}` : '';
       const tip = t.mode === 'spe' ? 'Toute la partie, de mémoire, à voix haute.' : t.mode === 'boss' ? 'Comme devant le jury : dis la partie à voix haute, sans regarder.' : K ? K[3] : '';
       body = `<div class="card qc">${T ? `<div class="avtime"><i style="animation-duration:${T}s;animation-delay:-${Math.min(T, (Date.now() - t.t0) / 1000).toFixed(1)}s"></i></div>` : ''}${t.mode === 'id' ? '' : `<div class="kicker">${kick}</div>${t.done || t.shown ? '' : `<div class="muted small">${tip}</div>`}`}${qcard(t)}</div>${t.done ? `<div class="pager fixed">${btn('avnext', f.hp <= 0 ? 'Victoire →' : g.hp <= 0 ? 'Aïe…' : 'Suite →')}</div>` : ''}`; }
     else {   // le menu : une main de défis (plus c'est dur, plus ça frappe), la revanche si un défi raté revient ; face au boss, c'est lui qui impose le style (3 phases)
       const spe = f.kit.says.length, m = [], hand = deal(f), x = n => String(n).replace('.', ',');
       const cards = () => hand.forEach((c, j) => m.push(f.rvNow ? ['avcard', 'Revanche', `Raté tout à l'heure : ${c.lab} · dégâts ×1,5`, 'var(--red)', 0, j] : ['avcard', KIND[c.k][0], `${c.lab} · dégâts ×${x(KIND[c.k][1])}`, KIND[c.k][2], 0, j]));
-      if (f.oral) { const i = f.q[0], c = f.kit.plan[i]; m.push(['avboss', `Partie ${i + 1}/${f.kit.plan.length}`, `${c.lab.replace(/^\d+\. /, '')} · à dire à voix haute${f.pv[i] != null ? ' · à reprendre' : ''}`, 'var(--p1)']); }
+      if (f.oral) { const i = f.q[0], c = f.kit.plan[i]; m.push(['avboss', `Partie ${c.pi + 1}${sue(f.it, c.pi) ? '' : ' · nouvelle'}`, `${c.lab.replace(/^\d+\. /, '')} · à dire à voix haute${f.pv[i] != null ? ' · à reprendre' : ''}`, 'var(--p1)']); }
       else if (f.boss) { if (f.rvNow || p > .66) cards(); else m.push(p > .33 && spe ? ['avspe', 'Récitation', 'Phase 2 : seule une partie récitée perce son armure', 'var(--p3)'] : ['avfin', 'Coup de grâce', 'Phase 3 : trouve le bon traitement', 'var(--red)']); }
       else { cards();
         m.push(['avspe', 'Récitation', g.focus >= 2 && spe ? 'Toute une partie · dégâts ×2,5 · coûte 2 de concentration' : 'Il faut 2 de concentration (2 bonnes réponses)', 'var(--p3)', g.focus < 2 || !spe]);
         m.push(['avfin', 'Coup de grâce', p <= .35 ? (f.kit.fin && f.kit.fin.k === 'oral' ? 'Dis tout le traitement : il tombe d\'un coup' : f.it.kind === 'f' ? 'Le bon traitement le termine d\'un coup' : 'Sans une faute, il tombe d\'un coup') : 'Quand il est sous 35 % de PV', 'var(--red)', p > .35]); }
       m.push(['avobj', 'Soins', soins(r).length ? `${soins(r).reduce((s, k) => s + r.items[k], 0)} dans le sac` : 'Sac vide', 'var(--p6)', !soins(r).length]);
-      const said = f.oral ? f.kit.plan.filter((_, i) => (f.pv[i] || 0) >= .6).length : 0;
-      body = `${f.oral ? `<div class="muted small" style="margin-bottom:8px">Le boss, c'est l'oral : sa fiche entière, partie par partie, dans l'ordre du plan. ${said}/${f.kit.plan.length} parties réussies.</div>` : f.boss && !f.rvNow && p > .66 ? '<div class="muted small" style="margin-bottom:8px">Phase 1 : brise sa garde avec tes défis.</div>' : ''}<div class="avmenu">${m.map(([a, n, d, c, off, j]) => `<button class="avact" data-g="${a}" ${j != null ? `data-j="${j}"` : ''} style="--c:${c}" ${off ? 'disabled' : ''}><img alt="" src="jeu/ui-act-${{ avcard: 'atk', avspe: 'spe', avfin: 'fin', avobj: 'soin', avboss: 'spe' }[a]}.png"><b>${n}</b><span>${esc(d)}</span></button>`).join('')}</div>`;
+      const said = f.oral ? f.scope.filter(i => (f.pv[i] || 0) >= .6).length : 0, newN = f.oral ? f.scope.filter(i => !sue(f.it, f.kit.plan[i].pi)).length : 0;
+      body = `${f.oral ? `<div class="muted small" style="margin-bottom:8px">${f.final ? `L'oral complet, sans aide : les ${f.scope.length} parties, dans l'ordre du plan.` : `Le boss, c'est l'oral : ${f.scope.length} parties aujourd'hui (${f.scope.length - newN} que tu sais, ${newN} nouvelle${newN > 1 ? 's' : ''}). À chaque victoire, la fiche grandit.`} ${said}/${f.scope.length} réussies. ${dots(f.it)}</div>` : f.boss && !f.rvNow && p > .66 ? '<div class="muted small" style="margin-bottom:8px">Phase 1 : brise sa garde avec tes défis.</div>' : ''}<div class="avmenu">${m.map(([a, n, d, c, off, j]) => `<button class="avact" data-g="${a}" ${j != null ? `data-j="${j}"` : ''} style="--c:${c}" ${off ? 'disabled' : ''}><img alt="" src="jeu/ui-act-${{ avcard: 'atk', avspe: 'spe', avfin: 'fin', avobj: 'soin', avboss: 'spe' }[a]}.png"><b>${n}</b><span>${esc(d)}</span></button>`).join('')}</div>`;
     }
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length), kind)}${arena}${body}</div>`;
   }
@@ -396,15 +427,17 @@ window.AVENTURE = A => {
       <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%" aria-label="Étape ${i + 1}${i < g.i ? ', terminée' : i === g.i ? ', en cours' : ''}">${i < g.i ? '✓' : `<svg viewBox="-12 -12 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${NODE[x.t]}</svg>`}</span>`).join('')}<img class="avspr art avwho" alt="" src="jeu/heros-v2.png" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
       <div class="card qc"><div class="kicker">${n.t === 'chest' ? 'UN COFFRE' : n.t === 'boss' ? 'LE BOSS' : back ? 'UN REVENANT' : 'UN MONSTRE'}</div>
         <div class="question">${n.t === 'chest' ? 'Un coffre au bord du chemin.' : n.t === 'boss' ? 'Une ombre énorme garde la sortie.' : 'Quelque chose bouge devant toi…'}</div>
-        <div class="muted small">${n.t === 'chest' ? 'Pour garder l\'objet, il faut savoir à quoi il sert.' : n.t === 'boss' ? (oralBoss(n.it) ? 'Le boss, c\'est l\'oral : tu récites sa fiche partie par partie, à voix haute, comme devant le jury.' : 'Trois phases : tes défis, la récitation, puis le coup de grâce.') : back ? 'Tu as fait des fautes contre lui : il revient tant que tu ne l\'as pas battu sans faute.' : 'Reconnais-le à ses signes pour frapper le premier.'}</div></div>
+        <div class="muted small">${n.t === 'chest' ? 'Pour garder l\'objet, il faut savoir à quoi il sert.' : n.t === 'boss' ? (oralBoss(n.it) ? `Le boss, c'est l'oral : tu récites sa fiche à voix haute, comme devant le jury. Les parties que tu sais, plus 2 nouvelles (tu en sais ${nSue(n.it)}/${pisOf(n.it).length}).` : 'Trois phases : tes défis, la récitation, puis le coup de grâce.') : back ? 'Tu as fait des fautes contre lui : il revient tant que tu ne l\'as pas battu sans faute.' : 'Reconnais-le à ses signes pour frapper le premier.'}</div></div>
       <div class="pager fixed">${btn('avgo', n.t === 'chest' ? 'Ouvrir le coffre →' : 'Avancer →')}</div></div>`;
   }
   function hub() {
     const r = R(), gear = Object.keys(ITEMS).filter(k => ITEMS[k].s !== 'soin' && r.items[k]), heal = soins(r), M = window.SONS, pool = A.pool(), n = pool.length, seen = Object.keys(r.seen).length, fresh = pool.filter(x => !(r.met || {})[x.id]).length;
+    const fs = pool.filter(x => x.kind === 'f' && pisOf(x).length), full = fs.filter(x => nextPart(x) == null).length, parts = fs.reduce((t, x) => t + nSue(x), 0), tot = fs.reduce((t, x) => t + pisOf(x).length, 0);
     return `${head(`<span class="count">Nv ${r.lvl}</span>`)}
       <div class="card avcamp" style="background-image:linear-gradient(90deg,rgba(14,13,19,.2),rgba(14,13,19,.92) 62%),url(${scene('foret')})">${HERO('idle')}<div class="avhud"><div class="kicker">TON PODOLOGUE · ${r.runs} EXPÉDITION${r.runs > 1 ? 'S' : ''}</div><b>Niveau ${r.lvl}</b>${bar(r.xp, r.xp, xpNext(r), 'xp')}<span class="muted">${r.xp}/${xpNext(r)} XP · ${hpMax(r)} PV</span><div>${stats(r)}</div></div></div>
       <div class="muted small">Chaque monstre est une fiche, un repère ou un test. Reconnais-le, puis choisis ton défi : la carte <b>Oral</b> (dire une partie à voix haute) frappe le plus fort. Le boss, c'est l'oral d'une fiche entière. Un défi raté revient en revanche.</div>
       ${n ? `<div class="muted small" style="margin-top:6px">Ta sélection : ${n} monstre${n > 1 ? 's' : ''}${fresh ? ` · ${fresh} jamais rencontré${fresh > 1 ? 's' : ''}` : ' · tous rencontrés'}. Les expéditions passent par tous avant de revenir aux mêmes.</div>` : ''}
+      ${fs.length ? `<div class="card avprog"><div class="kicker">TON ORAL</div><div><b>${full}/${fs.length}</b> fiche${fs.length > 1 ? 's' : ''} que tu sais réciter en entier · ${parts}/${tot} parties sues</div><div class="muted small">Une partie est sue quand tu la dis à 80 %, sans indice ni lecture. Chaque monstre battu t'en fait apprendre une de plus ; le boss te fait réciter tout ce que tu sais, plus 2 nouvelles.</div></div>` : ''}
       ${gear.length ? `<div class="sec">TON ÉQUIPEMENT (TOUCHE POUR ÉQUIPER)</div><div class="avlist">${gear.map(k => { const it = ITEMS[k], on = r[it.s] === k; return `<button class="ptitem ${on ? 'good' : ''}" data-g="aveq" data-k="${k}">${OBJ(k)}<b>${esc(it.n)}</b> · ${it.s === 'arme' ? 'attaque' : 'défense'} +${it.v}${on ? ' · équipé' : ''}<br><span class="muted">${esc(it.use)}</span></button>`; }).join('')}</div>` : ''}
       ${heal.length ? `<div class="sec">TES SOINS</div><div class="avlist">${heal.map(k => `<div class="ptitem">${OBJ(k)}<b>${esc(ITEMS[k].n)}</b> ×${r.items[k]} · +${ITEMS[k].v} PV<br><span class="muted">${esc(ITEMS[k].use)}</span></div>`).join('')}</div>` : ''}
       <div class="row2" style="margin-top:14px"><button class="btn ghost grow" data-g="setup">Ce que je révise (${n})</button><button class="btn ghost grow" data-g="avbest">Bestiaire (${seen})</button></div>
@@ -413,7 +446,7 @@ window.AVENTURE = A => {
   function best() {
     const r = R(), all = A.all(), seen = all.filter(x => r.seen[x.id]);
     return `${head(count(seen.length, all.length))}<div class="muted small">Les monstres que tu as battus, et ce qu'il faut retenir pour les battre. Touche-en un pour revoir sa fiche.</div>
-      <div class="avbest">${seen.map(x => { const w = weak(x); return `<a class="card avmon" href="${x.link}">${sprite(x)}<span><b>${esc(x.title)}</b><span class="muted">${esc(x.lab)} · battu ${r.seen[x.id]} fois</span>${w ? `<span class="avweak"><b>${esc(w[0])}</b> ${md(w[1])}</span>` : ''}</span></a>`; }).join('') || '<div class="muted">Aucun monstre battu pour l\'instant.</div>'}</div>
+      <div class="avbest">${seen.map(x => { const w = weak(x); return `<a class="card avmon" href="${x.link}">${sprite(x)}<span><b>${esc(x.title)}</b><span class="muted">${esc(x.lab)} · battu ${r.seen[x.id]} fois</span>${pisOf(x).length ? dots(x) : ''}${w ? `<span class="avweak"><b>${esc(w[0])}</b> ${md(w[1])}</span>` : ''}</span></a>`; }).join('') || '<div class="muted">Aucun monstre battu pour l\'instant.</div>'}</div>
       <div class="pager fixed"><button class="btn ghost grow" data-g="avbest">← Retour au camp</button></div></div>`;
   }
   function view() {
@@ -429,10 +462,10 @@ window.AVENTURE = A => {
         <div class="card qc">${qcard(t)}</div>${t.done ? `<div class="pager fixed">${btn('avnext', g.last ? 'Fin de l\'expédition →' : 'Continuer →')}</div>` : ''}</div>`; }
     const f = g.foe, w = weak(f.it);
     if (g.scr === 'win') return `${head('')}<div class="card gover">${sprite(f.it, 'ko', f.boss)}<img class="avban" alt="Victoire" src="jeu/ui-ban-victoire.png">${g.up ? '<img class="avban" alt="Niveau supérieur" src="jeu/ui-ban-niveau.png">' : ''}<div class="kicker">${f.boss ? 'BOSS VAINCU' : 'MONSTRE BATTU'}${f.miss ? '' : ' · SANS FAUTE'}</div><div class="question">${esc(f.it.title)}</div>
-        ${w ? `<div class="ptcle"><b>${esc(w[0])}</b> ${md(w[1])}</div>` : ''}${recap(f)}<div class="muted" style="margin-top:8px">Tu souffles : +30 % de PV · +${(f.boss ? 45 : 18) + (f.miss ? 0 : 8)} XP${g.up ? ` · <b>Niveau ${r.lvl} !</b> PV rendus, attaque +2` : ''}</div></div>
+        ${w ? `<div class="ptcle"><b>${esc(w[0])}</b> ${md(w[1])}</div>` : ''}${progress(f.it)}${recap(f)}<div class="muted" style="margin-top:8px">Tu souffles : +30 % de PV · +${(f.boss ? 45 : 18) + (f.miss ? 0 : 8)} XP${g.up ? ` · <b>Niveau ${r.lvl} !</b> PV rendus, attaque +2` : ''}</div></div>
         <div class="pager fixed">${btn('avcont', f.boss ? 'Ouvrir son trésor →' : 'Continuer →')}</div></div>`;
     if (g.scr === 'ko') return `${head('')}<div class="card gover">${sprite(f.it, 'idle', f.boss)}<img class="avban" alt="Défaite" src="jeu/ui-ban-defaite.png"><div class="question">${esc(f.it.title)} t'a eu.</div>
-        ${w ? `<div class="ptcle"><b>${esc(w[0])}</b> ${md(w[1])}</div>` : ''}${recap(f)}<div class="muted" style="margin-top:8px">Tu gardes tes ${g.gain} XP et tes objets. Revois sa fiche et reviens te venger.</div>
+        ${w ? `<div class="ptcle"><b>${esc(w[0])}</b> ${md(w[1])}</div>` : ''}${progress(f.it)}${recap(f)}<div class="muted" style="margin-top:8px">Tu gardes tes ${g.gain} XP et tes objets. Revois sa fiche et reviens te venger.</div>
         <div class="row2" style="margin-top:12px"><a class="btn ghost grow" href="${f.it.link}">${ico('book')} Sa fiche</a></div></div>
         <div class="pager fixed">${btn('go', '↻ Nouvelle expédition')}<button class="btn ghost grow" data-g="avhub">Camp</button></div></div>`;
     return `${head('')}<div class="card gover">${HERO('idle')}<div class="kicker">EXPÉDITION RÉUSSIE</div><div class="gscore">+${g.gain} XP</div><div class="question">Niveau ${r.lvl} · ${g.kills.length} monstres battus</div></div>

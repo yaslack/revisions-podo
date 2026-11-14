@@ -94,3 +94,26 @@ for (let e = 0; e < 6; e++) {
 assert(Object.keys(met).length === 12, `rotation : seulement ${Object.keys(met).length}/12 fiches rencontrées en 6 expéditions`);
 assert(Math.max(...Object.values(met)) <= 3, 'rotation : une fiche revient trop souvent ' + JSON.stringify(met));
 console.log(`OK : micro et rotation (12 fiches en 6 expéditions : ${Object.values(met).sort().join(' ')})`);
+
+// ---------- l'oral progresse : le boss grandit avec ce que tu sais, une partie dite avec aide ne compte pas, un muscle s'achève avec origine ET terminaison ----------
+for (const k in S) delete S[k];
+const fi = all.find(x => x.id === 'f:verrues'), toBoss = it => { G = AV.start([it]); G.i = 4; AV.act('avgo'); AV.act('avpick', G.t.st.opts.indexOf(G.t.st.ok)); AV.act('avnext'); };
+const sayPart = (help, good) => { if (help) AV.act(help); if (help === 'avread') AV.act('avhide'); AV.act('avshow'); if (good) G.t.st.items.forEach((x, j) => { if (!(G.t.ticks || []).includes(j)) AV.act('avtk', j); }); AV.act('avval'); screen(); };
+toBoss(fi);
+assert(G.foe.oral && G.foe.scope.join() === '0,1,2' && !G.foe.final, 'boss : la 1re fois, 3 parties (les 3 premières) ' + G.foe.scope);
+AV.act('avboss'); sayPart('avhint', true);
+assert(S.rpg.oral['f:verrues'][0] === .6, 'avec l\'indice, la partie ne doit pas passer sue ' + JSON.stringify(S.rpg.oral));
+AV.act('avnext'); AV.act('avboss'); sayPart(null, true);
+assert(S.rpg.oral['f:verrues'][1] === 1 && /Nouvelle partie sue/.test(G.msg), 'sans aide et complète, la partie devient sue');
+S.rpg.oral['f:verrues'] = { 0: 1, 1: 1, 2: 1 }; toBoss(fi);
+assert(G.foe.scope.join() === '0,1,2,3,4', 'boss : les 3 sues + 2 nouvelles ' + G.foe.scope);
+S.rpg.oral['f:verrues'] = Object.fromEntries(fi.f.parts.map((_, i) => [i, 1])); toBoss(fi);
+assert(G.foe.final && G.foe.scope.length === AV.kit(fi).plan.length && !/avhint|avread/.test(AV.view().replace(/data-g="avboss"/, '')), 'boss : tout est su, l\'oral complet');
+AV.act('avboss'); assert(!/data-g="avhint"/.test(AV.view()), 'oral complet : pas d\'indice');
+const mu = all.find(x => x.kind === 'a' && x.x.nerf && x.x.o && x.x.t), km = AV.kit(mu);
+assert(km.fin && km.fin.k === 'oral' && km.fin.les.length === 2 && !km.qs.some(c => /Origine|Terminaison/.test(c.lab) && c.k === 'qcm'), 'muscle : origine et terminaison se disent, plus de QCM dessus');
+G = AV.start([mu]); AV.act('avgo'); AV.act('avpick', G.t.st.opts.indexOf(G.t.st.ok)); AV.act('avnext');
+assert(G.foe.style === 'cuir', 'un muscle est cuirassé');
+G.foe.hp = Math.round(G.foe.max * .3); AV.act('avfin'); AV.act('avshow'); AV.act('avtk', 0); AV.act('avval');
+assert(G.foe.hp > 0, 'muscle : avec seulement l\'origine, il ne tombe pas');
+console.log('OK : l\'oral progresse (boss 3 → 5 → complet), l\'aide ne compte pas, un muscle demande origine et terminaison');
