@@ -598,6 +598,9 @@
       ['bone', 'Les os : à la réponse du quiz 3D, les muscles qui s\'y insèrent (ou, s\'il n\'y en a aucun, ce qui passe par lui). Dans Podo Quest, il faut les dire pour achever un os.'],
       ['muscle', 'Les loges des muscles : dans chaque région, les muscles sont rangés par loge (touche une loge pour voir son contenu, son nerf et son artère) ; chaque muscle a sa carte « Sa loge » (contenu, parois, nerf, artère, voisins). La loge est aussi dans « Je m\'interroge », la réponse du quiz 3D et la fiche d\'identité à réciter dans Podo Quest.'],
     ] },
+    { v: 127, items: [
+      ['cube', 'Quiz 3D : l\'innervation s\'affiche avec l\'origine, la terminaison, l\'action et la loge quand on donne la réponse d\'un muscle. Et le modèle ne disparaît plus derrière une longue réponse.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -1044,7 +1047,7 @@
     if (Q3.st === 'q') return `${head}<div class="question">Touche : ${esc(x.name)}</div>
       <div class="row2">${b('help', ico('bulb') + ' La zone', 'var(--card)')}${b('skip', 'Je ne sais pas', 'var(--card)')}</div>`;
     return `${head}<div class="question">${Q3.good ? '✓ Bien vu : ' : '✗ '}${esc(x.name)}</div>${!Q3.good && Q3.hit ? `<div class="muted small">Tu as touché : ${esc(Q3.hit)}</div>` : ''}
-      ${x.o && x.t ? `<div class="v3ot"><div><i class="o">O</i><span><b>Origine</b> ${md(x.o)}</span></div><div><i class="t">T</i><span><b>Terminaison</b> ${md(x.t)}</span></div>${x.act ? `<div><i class="a">A</i><span><b>Action</b> ${md(x.act)}</span></div>` : ''}${logeOf(x) ? `<div><i class="l">L</i><span><b>Loge</b> ${esc(logeTxt(logeOf(x)))}</span></div>` : ''}</div>` : ''}
+      ${x.o && x.t ? `<div class="v3ot"><div><i class="o">O</i><span><b>Origine</b> ${md(x.o)}</span></div><div><i class="t">T</i><span><b>Terminaison</b> ${md(x.t)}</span></div>${x.nerf ? `<div><i class="n">N</i><span><b>Innervation</b> ${md(x.nerf)}</span></div>` : ''}${x.act ? `<div><i class="a">A</i><span><b>Action</b> ${md(x.act)}</span></div>` : ''}${logeOf(x) ? `<div><i class="l">L</i><span><b>Loge</b> ${esc(logeTxt(logeOf(x)))}</span></div>` : ''}</div>` : ''}
       ${!x.nerf && x.ins ? `<div class="v3ot"><div><i class="i">↳</i><span><b>${/aucun muscle/i.test(x.ins) ? 'Ce qui passe par lui' : 'S\'y insèrent'}</b> ${md(x.ins)}</span></div></div>` : ''}
       <div class="small">${md(x.how || '')}</div><div class="row2"><a class="btn ghost grow" href="#/anat/${x.q}">La fiche</a>${b('next', Q3.i + 1 < Q3.list.length ? 'Suivant →' : 'Résultat')}</div>`;
   }
@@ -1142,12 +1145,13 @@
     // le modèle se cadre dans la bande libre, entre les boutons du haut et le panneau du bas (décalage de l'image, sans bouger la caméra)
     let W = 1, H = 1, BH = 1;
     const TAN = Math.tan(16 * Math.PI / 180);
+    // le canvas occupe juste la bande libre (sans décalage d'image : avec une grande carte de réponse, le décalage faisait disparaître le haut du modèle)
     const fit = () => {
-      W = stage.clientWidth; H = stage.clientHeight; renderer.setSize(W, H, false);
-      const sr = stage.getBoundingClientRect(), ch = $('.v3chips'), sh = $('#v3sheet');
-      const t = ch ? ch.getBoundingClientRect().bottom - sr.top + 4 : 0, b = sh ? sh.getBoundingClientRect().top - sr.top - 4 : H;
-      BH = Math.max(120, b - t); const d = (t + b) / 2 - H / 2, H2 = H + 2 * Math.abs(d);
-      cam.fov = 2 * Math.atan(TAN * H2 / BH) * 180 / Math.PI; cam.aspect = W / H2; cam.setViewOffset(W, H2, 0, d > 0 ? 0 : -2 * d, W, H); cam.updateProjectionMatrix();
+      const sr = stage.getBoundingClientRect(), ch = $('.v3chips'), sh = $('#v3sheet'), SH = stage.clientHeight;
+      const t = ch ? ch.getBoundingClientRect().bottom - sr.top + 4 : 0, b = sh ? sh.getBoundingClientRect().top - sr.top - 4 : SH;
+      W = stage.clientWidth; BH = H = Math.max(120, b - t);
+      cv.style.top = t + 'px'; cv.style.height = H + 'px'; mk.style.top = t + 'px';
+      renderer.setSize(W, H, false); cam.fov = 32; cam.aspect = W / H; cam.updateProjectionMatrix();
     };
     const ro = new ResizeObserver(fit); ro.observe(stage); fit();
     const shRo = new ResizeObserver(fit); if ($('#v3sheet')) shRo.observe($('#v3sheet'));
