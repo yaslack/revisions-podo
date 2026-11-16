@@ -601,6 +601,10 @@
     { v: 127, items: [
       ['cube', 'Quiz 3D : l\'innervation s\'affiche avec l\'origine, la terminaison, l\'action et la loge quand on donne la réponse d\'un muscle. Et le modèle ne disparaît plus derrière une longue réponse.'],
     ] },
+    { v: 128, items: [
+      ['speak', 'Les 514 textes de l’oral ont été réécrits pour être plus faciles à dire et à mémoriser. Retrouve-les dans les 64 fiches et le plan général.'],
+      ['check', 'Quelques réponses de quiz ont aussi été corrigées.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer

@@ -573,7 +573,7 @@ window.CAS = {
     "ddx": [
       [
         "Lui prescrire de l'ibuprofène par voie orale",
-        "Le pédicure-podologue ne peut pas prescrire d'AINS, et son antécédent d'ulcère gastro-duodénal les contre-indique."
+        "La prescription d'un AINS par voie orale relève du médecin. L'antécédent d'ulcère gastro-duodénal augmente le risque digestif."
       ],
       [
         "Appliquer le gel de kétoprofène sur la plaie sous pansement",

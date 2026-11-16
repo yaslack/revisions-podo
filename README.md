@@ -50,6 +50,8 @@ node tools/build-sw.js VERSION && echo '{"v": "VERSION"}' > version.json
 
 `ANCIEN_INDEX.html` est l’`index.html` de la version 32 (`git show a4ceada:index.html`) : il contient le texte du livret, les photos et les fiches d’anatomie d’origine.
 
+Les textes « Ce que je dis à l’oral » et ceux du plan général se modifient dans `tools/src/oral.json`, par identifiant de fiche et titre de partie. Les deux générateurs les reprennent quand ils reconstruisent les fiches.
+
 ## Podologie : ajouter une fiche quand sa vidéo est finie
 
 Les 40 fiches sont dans `data/podo.js` (généré). Une fiche s'ouvre dès que son épisode `pNN-…` est extrait ; les autres sont « coming soon ». Les numéros sont ceux de la liste du livret et des vidéos, qui saute 8 et 9 (1 à 7, puis 10 à 42) ; un épisode va à sa fiche par les mots de son nom (`p10-fractures-fatigue` → `fractures-fatigue`), pas par son numéro.

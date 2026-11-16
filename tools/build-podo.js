@@ -5,6 +5,7 @@
 //        node tools/build-podo.js raw.json livret-podo.txt                      (texte du PDF, une ligne par ligne du PDF)
 const fs = require('fs');
 const { blocks, stripPart } = require('./blocks');
+const oralText = require('./oral-text');
 const [raw, livretTxt] = process.argv.slice(2);
 const eps = JSON.parse(fs.readFileSync(raw, 'utf8'));
 
@@ -61,7 +62,10 @@ const PODO = LIST.map(([title, id], i) => {
   if (!e) return base;
   const ill = fs.existsSync(`illus/${id}/cover.jpg`) ? 'jpg' : fs.existsSync(`illus/${id}/cover.webp`) ? 'webp' : '';   // dessins pris dans la vidéo finie (tools/grab-frames.swift)
   return { ...base, ill, title: e.title, planTitle: e.planTitle, intro: e.intro, outro: e.outro,
-    parts: e.parts.map(p => ({ title: e.plan[p.k].title, q: e.plan[p.k].q, say: stripPart(p.say), blocks: blocks(p.screen) })),
+    parts: e.parts.map(p => {
+      const { title, q } = e.plan[p.k];
+      return { title, q, say: oralText(id, title, stripPart(p.say)), blocks: blocks(p.screen) };
+    }),
     memo: e.memo, quiz: e.quiz.map(q => ({ q: q.q, a: q.a })), photos: [], livret: chapter(i), video: '' };
 });
 fs.writeFileSync('data/podo.js', '// Généré par tools/build-podo.js : les 40 fiches de podologie (prêtes quand leur vidéo est finie). Ne pas éditer à la main.\nwindow.PODO=' + JSON.stringify(PODO) + ';\n');

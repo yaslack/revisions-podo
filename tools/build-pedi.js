@@ -14,12 +14,19 @@ const OLD_ID = { '18-sudoraux': 'sudoraux', '21-onychodystrophies': 'onychodys' 
 const CAT = { vasc: 'Vasculaire', peau: 'Peau', ongle: 'Ongle', med: 'Médicaments' };
 
 const { blocks, stripPart } = require('./blocks');
+const oralText = require('./oral-text');
 
 fs.mkdirSync('photos/livret', { recursive: true });
 const PEDI = [];
 let planOral = null;
 for (const e of eps) {
-  if (e.id === '00-plan') { planOral = e.parts.map((p, i) => ({ title: e.plan[i].title, q: e.plan[i].q, say: p.say })); continue; }
+  if (e.id === '00-plan') {
+    planOral = e.parts.map((p, i) => {
+      const { title, q } = e.plan[i];
+      return { title, q, say: oralText('plan', title, p.say) };
+    });
+    continue;
+  }
   const n = +e.id.slice(0, 2), oid = OLD_ID[e.id] || e.id.slice(3);
   const topic = TOPICS.find(t => t.id === oid);
   if (!topic) throw new Error('sujet ancien introuvable pour ' + e.id);
@@ -35,7 +42,10 @@ for (const e of eps) {
   PEDI.push({
     n, id: oid, title: e.title, cat: topic.cat, catName: CAT[topic.cat], planTitle: e.planTitle,
     intro: e.intro, outro: e.outro,
-    parts: e.parts.map(p => ({ title: e.plan[p.k].title, q: e.plan[p.k].q, say: stripPart(p.say), blocks: blocks(p.screen) })),
+    parts: e.parts.map(p => {
+      const { title, q } = e.plan[p.k];
+      return { title, q, say: oralText(oid, title, stripPart(p.say)), blocks: blocks(p.screen) };
+    }),
     memo: e.memo, quiz: e.quiz.map(q => ({ q: q.q, a: q.a })), photos, livret: LIVRET[oid] || '', video: '',
   });
 }
