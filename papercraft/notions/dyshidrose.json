@@ -1,0 +1,101 @@
+{
+  "id": "dyshidrose",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p1-1.webp",
+        "caption": "Vésicules des mains et des pieds",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p1-2.webp",
+        "caption": "Eczéma palmo-plantaire récurrent",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p2-1.webp",
+        "caption": "Irritants et allergènes",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p2-2.webp",
+        "caption": "Hyperhidrose et facteurs favorisants",
+        "after": 14
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p3-1.webp",
+        "caption": "Spongiose intra-épidermique",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p3-2.webp",
+        "caption": "Inflammation palmo-plantaire",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p4-1.webp",
+        "caption": "Petites vésicules profondes",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p4-2.webp",
+        "caption": "Desquamation en collerette",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p5-1.webp",
+        "caption": "Aspect typique et symétrique",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p5-2.webp",
+        "caption": "Distinguer les autres lésions palmo-plantaires",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p6-1.webp",
+        "caption": "Éviter les facteurs aggravants",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p6-2.webp",
+        "caption": "Soins locaux prescrits",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p7-1.webp",
+        "caption": "Poussées récidivantes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p7-2.webp",
+        "caption": "Améliorer le confort cutané",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p8-1.webp",
+        "caption": "Séchage et protection de la peau",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/dyshidrose/p8-2.webp",
+        "caption": "Surveiller les récidives",
+        "after": 7
+      }
+    ]
+  ]
+}
