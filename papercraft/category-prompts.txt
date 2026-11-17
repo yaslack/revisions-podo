@@ -1,0 +1,12 @@
+Built-in ImageGen; source: /Users/yaslack/.codex/generated_images/01a1eb14-1725-7dd2-af61-18c9cd9794e8/exec-3058e9a6-eaa1-45d8-82ed-a2ae9abdbd9a.png
+
+Use case: style-transfer.
+Asset type: one 2-by-2 production sprite atlas of decorative papercraft course category illustrations for the French Yanoé learning app.
+Input image 1 is the approved visual style reference only. Recreate its physically handmade paper theatre material and depth.
+Composition: exactly FOUR independent miniature landscape paper shadow-box scenes, arranged in a regular 2 column by 2 row grid. Every scene must be wholly contained inside its quadrant with clear transparent gutters, equal size, no overlapping between quadrants. Square atlas overall. True alpha transparent pixels outside the four separate scenes. Front-facing, no perspective.
+All scenes: thick irregular scalloped warm cream cardstock frame, 3 to 5 separated layers, gently fibrous paper surfaces, soft realistic contact shadows, beautiful moss green, sage, coral, peach, dusty blue and lavender palette from the reference. Premium hand-cut paper theatre, not flat vector icons.
+Top left: PEau category symbol, large peach paper sole of a foot with five separate raised toe shapes, simple healthy foot, dusty blue stage and low moss-green paper hills.
+Top right: ONGle category symbol, a large stylized peach big toe with a separate ivory fingernail-like toenail layered on top, coral and pale lavender paper stage, no disease depiction.
+Bottom left: MEDICAMENTS category symbol, generic little amber paper bottle with a blank cream label plus a plain cream ointment tube and one small sage leaf, dusty teal stage; no brand, no dosage, no symbols or letters.
+Bottom right: VASCULAIRE category symbol, simple peach lower-leg silhouette with two long red and blue curled cardstock ribbon tubes beside it as symbolic blood vessels, dusty lavender stage; no pathologies, no diagnostic diagram.
+Constraints: Decorative symbolic navigation art, no clinical claims. No text, no letters, no words, no UI controls, no numbers, no watermarks, no white or beige sheet behind the cards. Preserve genuine alpha transparency. Match the reference's tactile cut-paper edges and warm studio lighting.

@@ -1,0 +1,190 @@
+{
+  "id": "hallux-rigidus",
+  "title": "L'hallux rigidus",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "arthrose de la MÉTATARSO-PHALANGIENNE",
+        "after": 1,
+        "context": [
+          "arthrose de la MÉTATARSO-PHALANGIENNE : du gros orteil · dégénérative",
+          "RAIDEUR progressive · DOULEUR · mobilité ↓"
+        ]
+      },
+      {
+        "caption": "adulte",
+        "after": 3,
+        "context": [
+          "adulte : 40 – 60 ans : plus tôt si traumatisme · gêne marche et sport",
+          "≠ HALLUX VALGUS : ici : RAIDEUR + douleur articulaire"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "cause principale",
+        "after": 2,
+        "context": [
+          "cause principale : ARTHROSE de la métatarso-phalangienne",
+          "TRAUMATISMES",
+          "blessure · fracture du gros orteil",
+          "SURCHARGE",
+          "mouvements répétés : course, danse"
+        ]
+      },
+      {
+        "caption": "BIOMÉCANIQUE",
+        "after": 5,
+        "context": [
+          "BIOMÉCANIQUE",
+          "hallux valgus · pied plat · pied creux",
+          "GÉNÉTIQUE",
+          "antécédents familiaux",
+          "ÂGE",
+          "usure du cartilage · > 40 ans"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "cartilage USÉ progressivement",
+        "after": 1,
+        "context": [
+          "cartilage USÉ progressivement",
+          "frottements → inflammation · douleur · raideur"
+        ]
+      },
+      {
+        "caption": "OSTÉOPHYTES → mobilité ↓↓",
+        "after": 3,
+        "context": [
+          "OSTÉOPHYTES → mobilité ↓↓",
+          "synovite chronique + liquide synovial : entretient la douleur"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DOULEUR à la base du gros orteil",
+        "after": 2,
+        "context": [
+          "DOULEUR à la base du gros orteil : fin de journée · après effort · après assis",
+          "RAIDEUR flexion / extension : escaliers, course difficiles",
+          "douleur à la palpation"
+        ]
+      },
+      {
+        "caption": "ostéophytes visibles / palpables",
+        "after": 5,
+        "context": [
+          "ostéophytes visibles / palpables : formes avancées",
+          "BOITERIE",
+          "poussées : gonflé · chaud · rouge"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "raideur",
+          "douleur",
+          "ostéophytes",
+          "test de mobilité",
+          "RADIOGRAPHIE",
+          "usure",
+          "ostéophytes",
+          "pincement",
+          "CONFIRME + STADE"
+        ]
+      },
+      {
+        "caption": "pas systématique",
+        "after": 2,
+        "context": [
+          "IRM",
+          "pas systématique",
+          "cartilage + tissus mous",
+          "si CHIRURGIE envisagée"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "chaussures + SEMELLE RIGIDE",
+        "after": 5,
+        "context": [
+          "CONSERVATEUR",
+          "chaussures + SEMELLE RIGIDE",
+          "semelles orthopédiques (pressions)",
+          "AINS",
+          "infiltration de corticoïdes (douleur aiguë)",
+          "physio : renforcement · étirements · mobilisation"
+        ]
+      },
+      {
+        "caption": "cryothérapie · bains de pieds · plantes",
+        "after": 10,
+        "context": [
+          "cryothérapie · bains de pieds · plantes",
+          "CHIRURGIE",
+          "OSTÉOTOMIE",
+          "réaligner",
+          "ARTHROPLASTIE",
+          "cas graves",
+          "ARTHRODÈSE",
+          "fusion : soulage, mais 0 mobilité"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend du STADE + de la réponse au traitement",
+        "after": 1,
+        "context": [
+          "dépend du STADE + de la réponse au traitement",
+          "DÉBUT",
+          "conservateur : douleur + raideur contrôlées"
+        ]
+      },
+      {
+        "caption": "ÉVOLUTION",
+        "after": 3,
+        "context": [
+          "ÉVOLUTION",
+          "douleur + dure à gérer → chirurgie",
+          "FORME SÉVÈRE",
+          "arthrodèse : soulage, perte de mobilité"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "chaussures CONFORTABLES et adaptées",
+        "after": 4,
+        "context": [
+          "PRÉVENTION",
+          "pas de prévention totale, mais…",
+          "chaussures CONFORTABLES et adaptées",
+          "gestion du POIDS",
+          "éviter les traumatismes du gros orteil"
+        ]
+      },
+      {
+        "caption": "DÉPISTAGE PRÉCOCE",
+        "after": 8,
+        "context": [
+          "DÉPISTAGE PRÉCOCE",
+          "douleur persistante du gros orteil",
+          "antécédent de traumatisme",
+          "consulter + suivi régulier"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: L'hallux rigidus. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"arthrose de la MÉTATARSO-PHALANGIENNE\",\"context\":\"arthrose de la MÉTATARSO-PHALANGIENNE : du gros orteil · dégénérative; RAIDEUR progressive · DOULEUR · mobilité ↓\"},{\"cell\":2,\"focus\":\"adulte\",\"context\":\"adulte : 40 – 60 ans : plus tôt si traumatisme · gêne marche et sport; ≠ HALLUX VALGUS : ici : RAIDEUR + douleur articulaire\"},{\"cell\":3,\"focus\":\"cause principale\",\"context\":\"cause principale : ARTHROSE de la métatarso-phalangienne; TRAUMATISMES; blessure · fracture du gros orteil; SURCHARGE; mouvements répétés : course, danse\"},{\"cell\":4,\"focus\":\"BIOMÉCANIQUE\",\"context\":\"BIOMÉCANIQUE; hallux valgus · pied plat · pied creux; GÉNÉTIQUE; antécédents familiaux; ÂGE; usure du cartilage · > 40 ans\"},{\"cell\":5,\"focus\":\"cartilage USÉ progressivement\",\"context\":\"cartilage USÉ progressivement; frottements → inflammation · douleur · raideur\"},{\"cell\":6,\"focus\":\"OSTÉOPHYTES → mobilité ↓↓\",\"context\":\"OSTÉOPHYTES → mobilité ↓↓; synovite chronique + liquide synovial : entretient la douleur\"},{\"cell\":7,\"focus\":\"DOULEUR à la base du gros orteil\",\"context\":\"DOULEUR à la base du gros orteil : fin de journée · après effort · après assis; RAIDEUR flexion / extension : escaliers, course difficiles; douleur à la palpation\"},{\"cell\":8,\"focus\":\"ostéophytes visibles / palpables\",\"context\":\"ostéophytes visibles / palpables : formes avancées; BOITERIE; poussées : gonflé · chaud · rouge\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; raideur; douleur; ostéophytes; test de mobilité; RADIOGRAPHIE; usure; ostéophytes; pincement; CONFIRME + STADE\"},{\"cell\":10,\"focus\":\"pas systématique\",\"context\":\"IRM; pas systématique; cartilage + tissus mous; si CHIRURGIE envisagée\"},{\"cell\":11,\"focus\":\"chaussures + SEMELLE RIGIDE\",\"context\":\"CONSERVATEUR; chaussures + SEMELLE RIGIDE; semelles orthopédiques (pressions); AINS; infiltration de corticoïdes (douleur aiguë); physio : renforcement · étirements · mobilisation\"},{\"cell\":12,\"focus\":\"cryothérapie · bains de pieds · plantes\",\"context\":\"cryothérapie · bains de pieds · plantes; CHIRURGIE; OSTÉOTOMIE; réaligner; ARTHROPLASTIE; cas graves; ARTHRODÈSE; fusion : soulage, mais 0 mobilité\"},{\"cell\":13,\"focus\":\"dépend du STADE + de la réponse au traitement\",\"context\":\"dépend du STADE + de la réponse au traitement; DÉBUT; conservateur : douleur + raideur contrôlées\"},{\"cell\":14,\"focus\":\"ÉVOLUTION\",\"context\":\"ÉVOLUTION; douleur + dure à gérer → chirurgie; FORME SÉVÈRE; arthrodèse : soulage, perte de mobilité\"},{\"cell\":15,\"focus\":\"chaussures CONFORTABLES et adaptées\",\"context\":\"PRÉVENTION; pas de prévention totale, mais…; chaussures CONFORTABLES et adaptées; gestion du POIDS; éviter les traumatismes du gros orteil\"},{\"cell\":16,\"focus\":\"DÉPISTAGE PRÉCOCE\",\"context\":\"DÉPISTAGE PRÉCOCE; douleur persistante du gros orteil; antécédent de traumatisme; consulter + suivi régulier\"}]. Preserve exact 4-column grid and 4 rows."
+}

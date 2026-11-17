@@ -1,0 +1,17 @@
+Théâtre de papier — assets de production, 17 novembre 2026
+Outil : image_gen intégré, sorties transparentes. Les WebP de production sont
+dans jeu/theatre/. Les atlas ont seulement été découpés et redimensionnés.
+Référence : maquette « Théâtre de papier » validée dans la conversation
+« Create animated papercraft sprite ».
+
+1. Atlas des quatre matières
+Use case: style-transfer. Production asset extraction/recreation from the approved Yanoé papercraft reference. Four decorative navigation illustrations in a two-by-two atlas, transparent canvas, equal cells, no text. Miniature warm ivory thick fibrous cardstock theatres with realistic layers and contact shadows. Top left: peach paper sole with five separate toes on coral terracotta. Top right: perforated teal orthotic with ochre backing on moss-green. Bottom left: stylized ivory articulated foot skeleton on dusty blue. Bottom right: clinician's peach paper hand emerging from white cuff holding a small red and ochre reflex hammer on lavender. Clean straight-on view, all elements inside cells, no clinical labels.
+
+2. Feuillages de l’accueil
+Use case: style-transfer. Recreate only the decorative surround of the approved app reference as a standalone wide three-by-two production asset with actual transparent alpha. Two hand-cut cardstock branches along outer left and right edges, overlapping moss, olive and sage leaves, peach stems, fibrous paper edges and contact shadows. Leave central sixty percent transparent for live logo and portraits. Small ochre cut-paper sun at top center. Shallow curved peach, sage and lavender paper strips along bottom ten percent. No background paper rectangle, no text, no portraits, no interface.
+
+3. Théâtre des verrues plantaires
+Use case: style-transfer. Recreate only the central illustration from the right lesson screen of the approved reference. Standalone wide three-by-two theatre with scalloped warm ivory fibrous cardstock frame, dusty sky-blue backdrop, layered moss/sage paper hills and two cream clouds. Large vertical peach paper sole with five individually cut toes. Small warm cream circular spot near heel, raised red paper ring and a tiny blue label-shaped pointer with no words. Decorative classroom illustration matching reference, not a pathology photograph. Space above for live HTML heading. No text, no interface. Transparent outside the complete frame. Keep all toes and frame within canvas.
+
+Les prompts des lots délégués sont conservés dans section-prompts.txt,
+category-prompts.txt et ui-prompts.txt à côté de ce fichier.

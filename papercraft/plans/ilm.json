@@ -1,0 +1,194 @@
+{
+  "id": "ilm",
+  "title": "Inégalité de longueur des membres",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "PHYSIOLOGIQUE jusqu’à 5 mm",
+        "after": 2,
+        "context": [
+          "PHYSIOLOGIQUE jusqu’à 5 mm",
+          "< 1/4 : membres exactement égaux",
+          "1/3 : ILMI idiopathique 5 – 15 mm"
+        ]
+      },
+      {
+        "caption": "enfant",
+        "after": 4,
+        "context": [
+          "enfant : chirurgie possible dès 2 cm",
+          "ILMI ACTUELLE (mesurée) : vs ILMI PRÉDITE à maturité squelettique (calculée)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "en cabinet",
+        "after": 1,
+        "context": [
+          "en cabinet : surtout IDIOPATHIQUES et < 2 cm",
+          "CONGÉNITALES",
+          "hémiatrophie / hémihypertrophie",
+          "fémur ou tibia court",
+          "neuro : spina bifida"
+        ]
+      },
+      {
+        "caption": "DÉVELOPPEMENTALES",
+        "after": 3,
+        "context": [
+          "DÉVELOPPEMENTALES",
+          "pied bot varus équin",
+          "tumeurs",
+          "pseudarthrose congénitale",
+          "malformations vasculaires",
+          "ACQUISES",
+          "arrêt de croissance (trauma, infection)",
+          "cal vicieux raccourcissant",
+          "stimulation : fracture fémur",
+          "inflammation chronique"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "différence fémur / tibia / les deux",
+        "after": 1,
+        "context": [
+          "différence fémur / tibia / les deux : cartilages de croissance perturbés",
+          "COMPENSATIONS : bascule du bassin · rétractions · troubles statiques · attitude scoliotique · asymétrie podale"
+        ]
+      },
+      {
+        "caption": "long terme",
+        "after": 2,
+        "context": [
+          "long terme : DOULEURS : lombaires · pelviennes · hanche · genou · pied"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "STATIQUE",
+        "after": 1,
+        "context": [
+          "STATIQUE",
+          "debout",
+          "troubles statiques",
+          "bascule · anté/rétroversion",
+          "girations pelviennes",
+          "attitude scoliotique",
+          "test du PLONGEUR",
+          "DYNAMIQUE",
+          "marche",
+          "asymétrie",
+          "compensations"
+        ]
+      },
+      {
+        "caption": "DÉCHARGE",
+        "after": 3,
+        "context": [
+          "DÉCHARGE",
+          "allongé",
+          "mesure EIAS → malléole médiale",
+          "jambes fléchies 90° : fémur ou tibia ?",
+          "TALONNETTES de hauteur croissante → estimer la COMPENSATION"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "RADIOGRAPHIE",
+        "after": 0,
+        "context": [
+          "RADIOGRAPHIE",
+          "mesurer + comparer fémur / tibia",
+          "TÉLÉRADIOGRAPHIE · SCANOMÉTRIE",
+          "mesure + précise des longueurs et des axes",
+          "ÂGE OSSEUX",
+          "avance ou retard de croissance"
+        ]
+      },
+      {
+        "caption": "SYSTÈME EOS",
+        "after": 1,
+        "context": [
+          "SYSTÈME EOS",
+          "face + profil",
+          "DEBOUT (en charge)",
+          "3D",
+          "peu de rayons",
+          "enfant en croissance · ILMI · scolioses"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ORTHÈSES PLANTAIRES",
+        "after": 1,
+        "context": [
+          "selon la CORRECTION nécessaire",
+          "< 1 cm",
+          "ORTHÈSES PLANTAIRES"
+        ]
+      },
+      {
+        "caption": "CHAUSSURES ORTHOPÉDIQUES",
+        "after": 3,
+        "context": [
+          "> 1 cm",
+          "CHAUSSURES ORTHOPÉDIQUES",
+          "> 2 cm",
+          "± CHIRURGIE (croissance en cours)",
+          "allongement · épiphysiodèse"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend",
+        "after": 1,
+        "context": [
+          "dépend : importance · évolution en croissance · compensations",
+          "PETITES",
+          "bien tolérées · asymptomatiques"
+        ]
+      },
+      {
+        "caption": "MARQUÉES / PERSISTANTES",
+        "after": 3,
+        "context": [
+          "MARQUÉES / PERSISTANTES",
+          "lombaires",
+          "pelviennes",
+          "hanche",
+          "genou",
+          "pied",
+          "statique + marche",
+          "bonne prise en charge → limite les compensations"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DÉPISTAGE = examen clinique",
+        "after": 1,
+        "context": [
+          "DÉPISTAGE = examen clinique : bilan podologique · suivi de croissance enfant/ado",
+          "PRÉVENTION = détection PRÉCOCE : éviter les compensations prolongées"
+        ]
+      },
+      {
+        "caption": "ENFANT",
+        "after": 2,
+        "context": [
+          "ENFANT : surveiller de près : l’inégalité peut évoluer avec la croissance"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Inégalité de longueur des membres. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"PHYSIOLOGIQUE jusqu’à 5 mm\",\"context\":\"PHYSIOLOGIQUE jusqu’à 5 mm; < 1/4 : membres exactement égaux; 1/3 : ILMI idiopathique 5 – 15 mm\"},{\"cell\":2,\"focus\":\"enfant\",\"context\":\"enfant : chirurgie possible dès 2 cm; ILMI ACTUELLE (mesurée) : vs ILMI PRÉDITE à maturité squelettique (calculée)\"},{\"cell\":3,\"focus\":\"en cabinet\",\"context\":\"en cabinet : surtout IDIOPATHIQUES et < 2 cm; CONGÉNITALES; hémiatrophie / hémihypertrophie; fémur ou tibia court; neuro : spina bifida\"},{\"cell\":4,\"focus\":\"DÉVELOPPEMENTALES\",\"context\":\"DÉVELOPPEMENTALES; pied bot varus équin; tumeurs; pseudarthrose congénitale; malformations vasculaires; ACQUISES; arrêt de croissance (trauma, infection); cal vicieux raccourcissant; stimulation : fracture fémur; inflammation chronique\"},{\"cell\":5,\"focus\":\"différence fémur / tibia / les deux\",\"context\":\"différence fémur / tibia / les deux : cartilages de croissance perturbés; COMPENSATIONS : bascule du bassin · rétractions · troubles statiques · attitude scoliotique · asymétrie podale\"},{\"cell\":6,\"focus\":\"long terme\",\"context\":\"long terme : DOULEURS : lombaires · pelviennes · hanche · genou · pied\"},{\"cell\":7,\"focus\":\"STATIQUE\",\"context\":\"STATIQUE; debout; troubles statiques; bascule · anté/rétroversion; girations pelviennes; attitude scoliotique; test du PLONGEUR; DYNAMIQUE; marche; asymétrie; compensations\"},{\"cell\":8,\"focus\":\"DÉCHARGE\",\"context\":\"DÉCHARGE; allongé; mesure EIAS → malléole médiale; jambes fléchies 90° : fémur ou tibia ?; TALONNETTES de hauteur croissante → estimer la COMPENSATION\"},{\"cell\":9,\"focus\":\"RADIOGRAPHIE\",\"context\":\"RADIOGRAPHIE; mesurer + comparer fémur / tibia; TÉLÉRADIOGRAPHIE · SCANOMÉTRIE; mesure + précise des longueurs et des axes; ÂGE OSSEUX; avance ou retard de croissance\"},{\"cell\":10,\"focus\":\"SYSTÈME EOS\",\"context\":\"SYSTÈME EOS; face + profil; DEBOUT (en charge); 3D; peu de rayons; enfant en croissance · ILMI · scolioses\"},{\"cell\":11,\"focus\":\"ORTHÈSES PLANTAIRES\",\"context\":\"selon la CORRECTION nécessaire; < 1 cm; ORTHÈSES PLANTAIRES\"},{\"cell\":12,\"focus\":\"CHAUSSURES ORTHOPÉDIQUES\",\"context\":\"> 1 cm; CHAUSSURES ORTHOPÉDIQUES; > 2 cm; ± CHIRURGIE (croissance en cours); allongement · épiphysiodèse\"},{\"cell\":13,\"focus\":\"dépend\",\"context\":\"dépend : importance · évolution en croissance · compensations; PETITES; bien tolérées · asymptomatiques\"},{\"cell\":14,\"focus\":\"MARQUÉES / PERSISTANTES\",\"context\":\"MARQUÉES / PERSISTANTES; lombaires; pelviennes; hanche; genou; pied; statique + marche; bonne prise en charge → limite les compensations\"},{\"cell\":15,\"focus\":\"DÉPISTAGE = examen clinique\",\"context\":\"DÉPISTAGE = examen clinique : bilan podologique · suivi de croissance enfant/ado; PRÉVENTION = détection PRÉCOCE : éviter les compensations prolongées\"},{\"cell\":16,\"focus\":\"ENFANT\",\"context\":\"ENFANT : surveiller de près : l’inégalité peut évoluer avec la croissance\"}]. Preserve exact 4-column grid and 4 rows."
+}

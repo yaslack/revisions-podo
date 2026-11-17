@@ -1,0 +1,101 @@
+{
+  "id": "synostoses",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p1-1.webp",
+        "caption": "Deux os soudés",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p1-2.webp",
+        "caption": "Mobilité réduite",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p2-1.webp",
+        "caption": "Forme congénitale",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p2-2.webp",
+        "caption": "Après une lésion",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p3-1.webp",
+        "caption": "Articulation bloquée",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p3-2.webp",
+        "caption": "Compensation voisine",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p4-1.webp",
+        "caption": "Orteil raide",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p4-2.webp",
+        "caption": "Gêne à la marche",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p5-1.webp",
+        "caption": "Radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p5-2.webp",
+        "caption": "Préciser la soudure",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p6-1.webp",
+        "caption": "Redistribuer les appuis",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p6-2.webp",
+        "caption": "Mobiliser les articulations voisines",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p7-1.webp",
+        "caption": "Marche améliorée",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p7-2.webp",
+        "caption": "Raideur possible",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/synostoses/p8-1.webp",
+        "caption": "Suivi après fracture",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/synostoses/p8-2.webp",
+        "caption": "Dépistage chez l’enfant",
+        "after": 4
+      }
+    ]
+  ]
+}

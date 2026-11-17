@@ -1,0 +1,101 @@
+{
+  "id": "carrefour-posterieur",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p1-1.webp",
+        "caption": "Conflit postérieur de cheville",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p1-2.webp",
+        "caption": "Pointe forcée",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p2-1.webp",
+        "caption": "Origine osseuse",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p2-2.webp",
+        "caption": "Tissus mous",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p3-1.webp",
+        "caption": "Structures comprimées",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p3-2.webp",
+        "caption": "Geste répété",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p4-1.webp",
+        "caption": "Douleur en pointe",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p4-2.webp",
+        "caption": "Sensibilité postérieure",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p5-1.webp",
+        "caption": "Examen en flexion plantaire",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p5-2.webp",
+        "caption": "Radiographie",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p6-1.webp",
+        "caption": "Adapter les gestes",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p6-2.webp",
+        "caption": "Stabilité de la cheville",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p7-1.webp",
+        "caption": "Reprise progressive",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p7-2.webp",
+        "caption": "Récidive possible",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p8-1.webp",
+        "caption": "Contrôler le geste",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/carrefour-posterieur/p8-2.webp",
+        "caption": "Équilibre après entorse",
+        "after": 4
+      }
+    ]
+  ]
+}

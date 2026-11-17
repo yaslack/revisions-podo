@@ -1,0 +1,101 @@
+{
+  "id": "antiseptiques",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p1-1.webp",
+        "caption": "Antisepsie sur tissus vivants",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p1-2.webp",
+        "caption": "Inactiver les micro-organismes",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p2-1.webp",
+        "caption": "Antiseptiques à large spectre",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p2-2.webp",
+        "caption": "Familles à spectre plus étroit",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p3-1.webp",
+        "caption": "Choisir selon le site",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p3-2.webp",
+        "caption": "Spectre de la chlorhexidine",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p4-1.webp",
+        "caption": "Zones à protéger",
+        "after": 9
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p4-2.webp",
+        "caption": "Précautions selon le produit",
+        "after": 18
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p5-1.webp",
+        "caption": "Garder le flacon d’origine",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p5-2.webp",
+        "caption": "Nettoyer, rincer et sécher",
+        "after": 12
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p6-1.webp",
+        "caption": "Éviter les mélanges",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p6-2.webp",
+        "caption": "Actions selon le principe actif",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p7-1.webp",
+        "caption": "Choisir selon la lésion",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p7-2.webp",
+        "caption": "Soin autour de l’ongle",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p8-1.webp",
+        "caption": "Vérifier la conservation",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/antiseptiques/p8-2.webp",
+        "caption": "Noter l’ouverture du flacon",
+        "after": 7
+      }
+    ]
+  ]
+}

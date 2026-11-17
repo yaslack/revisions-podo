@@ -1,0 +1,197 @@
+{
+  "id": "map",
+  "title": "La fasciite plantaire",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "INFLAMMATION de l’aponévrose plantaire",
+        "after": 2,
+        "context": [
+          "INFLAMMATION de l’aponévrose plantaire : bande conjonctive talon → orteils, soutient la voûte",
+          "jonction TALON / VOÛTE : pire aux PREMIERS PAS du matin",
+          "cause très FRÉQUENTE de talalgie"
+        ]
+      },
+      {
+        "caption": "adulte · sportif · âge moyen · surpoids",
+        "after": 4,
+        "context": [
+          "adulte · sportif · âge moyen · surpoids",
+          "non traitée → CHRONIQUE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SURCHARGE MÉCANIQUE RÉPÉTÉE",
+        "after": 3,
+        "context": [
+          "SURCHARGE MÉCANIQUE RÉPÉTÉE",
+          "IMPACTS",
+          "course · saut · marche prolongée",
+          "BIOMÉCANIQUE",
+          "pied plat (hyperpronation) · voûte haute",
+          "SURPOIDS",
+          "pression en plus"
+        ]
+      },
+      {
+        "caption": "CHAUSSURES",
+        "after": 6,
+        "context": [
+          "CHAUSSURES",
+          "mal adaptées, sans soutien",
+          "FACTEURS DE RISQUE",
+          "sports à impact",
+          "anomalies du pied",
+          "surpoids",
+          "40 – 60 ans",
+          "talons hauts",
+          "plates sans amorti"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "inflammation à l’INSERTION calcanéenne",
+        "after": 2,
+        "context": [
+          "inflammation à l’INSERTION calcanéenne",
+          "traction → MICRODÉCHIRURES",
+          "ÉPAISSISSEMENT de l’aponévrose"
+        ]
+      },
+      {
+        "caption": "long terme",
+        "after": 4,
+        "context": [
+          "long terme : douleur chronique + RIGIDITÉ",
+          "parfois : ÉPINE CALCANÉENNE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DOULEUR du talon, lancinante ou aiguë",
+        "after": 2,
+        "context": [
+          "DOULEUR du talon, lancinante ou aiguë : PREMIERS PAS du matin · après repos",
+          "douleur à la PALPATION le long de l’aponévrose",
+          "RAIDEUR matinale : mise en charge difficile"
+        ]
+      },
+      {
+        "caption": "parfois léger gonflement plantaire",
+        "after": 5,
+        "context": [
+          "parfois léger gonflement plantaire",
+          "pire après course / marche prolongée",
+          "fonction LIMITÉE : marche, sport"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "douleur du talon",
+          "palpation",
+          "TEST DU TALON",
+          "RADIOGRAPHIE",
+          "PAS l’aponévrose",
+          "exclut une fracture",
+          "épine calcanéenne"
+        ]
+      },
+      {
+        "caption": "ÉCHOGRAPHIE",
+        "after": 3,
+        "context": [
+          "ÉCHOGRAPHIE",
+          "inflammation",
+          "déchirures",
+          "IRM",
+          "si ça persiste",
+          "étendue"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "essentiel",
+        "after": 3,
+        "context": [
+          "7 ÉTAPES",
+          "REPOS",
+          "essentiel",
+          "GLACE",
+          "+ élévation",
+          "AINS",
+          "anti-inflammatoires"
+        ]
+      },
+      {
+        "caption": "SEMELLES",
+        "after": 7,
+        "context": [
+          "SEMELLES",
+          "coussinets talonniers",
+          "PHYSIO",
+          "étirer Achille + voûte · massages",
+          "CORTICOÏDES",
+          "infiltrations si ça persiste",
+          "CHIRURGIE",
+          "retire l’épine · libère l’aponévrose"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GÉNÉRALEMENT FAVORABLE",
+        "after": 1,
+        "context": [
+          "GÉNÉRALEMENT FAVORABLE",
+          "LA MAJORITÉ",
+          "guérit SANS chirurgie",
+          "repos · orthèses · physio"
+        ]
+      },
+      {
+        "caption": "PLUSIEURS MOIS",
+        "after": 3,
+        "context": [
+          "PLUSIEURS MOIS",
+          "pour guérir complètement",
+          "mal traitée → récidive ou CHRONIQUE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "chaussures AJUSTÉES",
+        "after": 3,
+        "context": [
+          "PRÉVENTION",
+          "chaussures AJUSTÉES : soutien de la voûte + bon amorti",
+          "ÉTIREMENTS : Achille + muscles du pied",
+          "POIDS sain"
+        ]
+      },
+      {
+        "caption": "activités modérées et ALTERNÉES",
+        "after": 7,
+        "context": [
+          "activités modérées et ALTERNÉES",
+          "DÉPISTAGE",
+          "dès les PREMIERS symptômes",
+          "prise en charge PRÉCOCE"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: La fasciite plantaire. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"INFLAMMATION de l’aponévrose plantaire\",\"context\":\"INFLAMMATION de l’aponévrose plantaire : bande conjonctive talon → orteils, soutient la voûte; jonction TALON / VOÛTE : pire aux PREMIERS PAS du matin; cause très FRÉQUENTE de talalgie\"},{\"cell\":2,\"focus\":\"adulte · sportif · âge moyen · surpoids\",\"context\":\"adulte · sportif · âge moyen · surpoids; non traitée → CHRONIQUE\"},{\"cell\":3,\"focus\":\"SURCHARGE MÉCANIQUE RÉPÉTÉE\",\"context\":\"SURCHARGE MÉCANIQUE RÉPÉTÉE; IMPACTS; course · saut · marche prolongée; BIOMÉCANIQUE; pied plat (hyperpronation) · voûte haute; SURPOIDS; pression en plus\"},{\"cell\":4,\"focus\":\"CHAUSSURES\",\"context\":\"CHAUSSURES; mal adaptées, sans soutien; FACTEURS DE RISQUE; sports à impact; anomalies du pied; surpoids; 40 – 60 ans; talons hauts; plates sans amorti\"},{\"cell\":5,\"focus\":\"inflammation à l’INSERTION calcanéenne\",\"context\":\"inflammation à l’INSERTION calcanéenne; traction → MICRODÉCHIRURES; ÉPAISSISSEMENT de l’aponévrose\"},{\"cell\":6,\"focus\":\"long terme\",\"context\":\"long terme : douleur chronique + RIGIDITÉ; parfois : ÉPINE CALCANÉENNE\"},{\"cell\":7,\"focus\":\"DOULEUR du talon, lancinante ou aiguë\",\"context\":\"DOULEUR du talon, lancinante ou aiguë : PREMIERS PAS du matin · après repos; douleur à la PALPATION le long de l’aponévrose; RAIDEUR matinale : mise en charge difficile\"},{\"cell\":8,\"focus\":\"parfois léger gonflement plantaire\",\"context\":\"parfois léger gonflement plantaire; pire après course / marche prolongée; fonction LIMITÉE : marche, sport\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; douleur du talon; palpation; TEST DU TALON; RADIOGRAPHIE; PAS l’aponévrose; exclut une fracture; épine calcanéenne\"},{\"cell\":10,\"focus\":\"ÉCHOGRAPHIE\",\"context\":\"ÉCHOGRAPHIE; inflammation; déchirures; IRM; si ça persiste; étendue\"},{\"cell\":11,\"focus\":\"essentiel\",\"context\":\"7 ÉTAPES; REPOS; essentiel; GLACE; + élévation; AINS; anti-inflammatoires\"},{\"cell\":12,\"focus\":\"SEMELLES\",\"context\":\"SEMELLES; coussinets talonniers; PHYSIO; étirer Achille + voûte · massages; CORTICOÏDES; infiltrations si ça persiste; CHIRURGIE; retire l’épine · libère l’aponévrose\"},{\"cell\":13,\"focus\":\"GÉNÉRALEMENT FAVORABLE\",\"context\":\"GÉNÉRALEMENT FAVORABLE; LA MAJORITÉ; guérit SANS chirurgie; repos · orthèses · physio\"},{\"cell\":14,\"focus\":\"PLUSIEURS MOIS\",\"context\":\"PLUSIEURS MOIS; pour guérir complètement; mal traitée → récidive ou CHRONIQUE\"},{\"cell\":15,\"focus\":\"chaussures AJUSTÉES\",\"context\":\"PRÉVENTION; chaussures AJUSTÉES : soutien de la voûte + bon amorti; ÉTIREMENTS : Achille + muscles du pied; POIDS sain\"},{\"cell\":16,\"focus\":\"activités modérées et ALTERNÉES\",\"context\":\"activités modérées et ALTERNÉES; DÉPISTAGE; dès les PREMIERS symptômes; prise en charge PRÉCOCE\"}]. Preserve exact 4-column grid and 4 rows."
+}

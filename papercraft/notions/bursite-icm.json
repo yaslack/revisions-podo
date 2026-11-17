@@ -1,0 +1,101 @@
+{
+  "id": "bursite-icm",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p1-1.webp",
+        "caption": "Bourse entre les têtes métatarsiennes",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p1-2.webp",
+        "caption": "Douleur de l’avant-pied",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p2-1.webp",
+        "caption": "Surcharge répétée",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p2-2.webp",
+        "caption": "Avant-pied comprimé",
+        "after": 0
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p3-1.webp",
+        "caption": "Bourse gonflée",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p3-2.webp",
+        "caption": "Nerf voisin irrité",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p4-1.webp",
+        "caption": "Douleur à la marche",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p4-2.webp",
+        "caption": "Sensation de caillou",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p5-1.webp",
+        "caption": "Échographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p5-2.webp",
+        "caption": "Bilan osseux",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p6-1.webp",
+        "caption": "Barre rétro-capitale",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p6-2.webp",
+        "caption": "Chaussure large",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p7-1.webp",
+        "caption": "Appui mieux réparti",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p7-2.webp",
+        "caption": "Surveiller les récidives",
+        "after": 0
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p8-1.webp",
+        "caption": "Souplesse du mollet",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/bursite-icm/p8-2.webp",
+        "caption": "Repos après l’effort",
+        "after": 1
+      }
+    ]
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "id": "scoliose",
+  "title": "La scoliose",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "déformation en 3 D de la colonne",
+        "after": 2,
+        "context": [
+          "déformation en 3 D de la colonne : inclinaison · rotation · cyphose/lordose",
+          "2 – 4 % · surtout en CROISSANCE",
+          "STRUCTURELLE : rotation FIXÉE"
+        ]
+      },
+      {
+        "caption": "NON structurelle",
+        "after": 4,
+        "context": [
+          "NON structurelle : posturale, réductible",
+          "dépistage précoce → moins d’aggravation"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "IDIOPATHIQUE",
+        "after": 1,
+        "context": [
+          "IDIOPATHIQUE",
+          "80 – 90 %",
+          "cause INCONNUE",
+          "surtout l’ADOLESCENTE",
+          "hormones · génétique · croissance",
+          "SECONDAIRE",
+          "CONGÉNITALE",
+          "hémivertèbre · vertèbres soudées",
+          "NEUROMUSCULAIRE",
+          "paralysie cérébrale · myopathies",
+          "FONCTIONNELLE",
+          "ILMI · attitude · charges · posture"
+        ]
+      },
+      {
+        "caption": "CE QUI AGGRAVE",
+        "after": 3,
+        "context": [
+          "CE QUI AGGRAVE",
+          "croissance rapide",
+          "antécédents familiaux",
+          "mauvaise statique"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "compensations",
+        "after": 1,
+        "context": [
+          "3 plans : inclinaison · rotation (dorsale) : + cyphose / lordose modifiées",
+          "compensations : ÉPAULE haute, bassin"
+        ]
+      },
+      {
+        "caption": "STRUCTURELLE",
+        "after": 3,
+        "context": [
+          "STRUCTURELLE : fixée, toutes positions",
+          "FONCTIONNELLE : disparaît allongé / redressé"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "tronc ASYMÉTRIQUE",
+        "after": 2,
+        "context": [
+          "tronc ASYMÉTRIQUE : omoplate saillante · épaule / hanche haute",
+          "GIBBOSITÉ penché en avant = test d’ADAMS",
+          "bascule du bassin · compensation des MI"
+        ]
+      },
+      {
+        "caption": "parfois douleurs dorsales / lombaires",
+        "after": 5,
+        "context": [
+          "parfois douleurs dorsales / lombaires (adulte)",
+          "déséquilibres posturaux · fatigue",
+          "ENFANT : souvent RIEN → dépister !"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "test d’ADAMS",
+          "scoliomètre",
+          "posture",
+          "égalité des MI",
+          "RÉDUCTIBILITÉ",
+          "RADIO EN CHARGE",
+          "face + profil",
+          "ANGLE DE COBB",
+          "thoracique / lombaire / mixte",
+          "axe du bassin"
+        ]
+      },
+      {
+        "caption": "atypique · neurologique",
+        "after": 3,
+        "context": [
+          "IRM",
+          "atypique · neurologique",
+          "BILAN PODOLOGIQUE",
+          "appuis · ILMI · troubles statiques"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "LÉGÈRE",
+        "after": 2,
+        "context": [
+          "selon l’ANGLE DE COBB",
+          "< 20°",
+          "LÉGÈRE",
+          "surveillance",
+          "Schroth · RPG · kiné",
+          "corriger les troubles associés",
+          "20 – 40°",
+          "MODÉRÉE",
+          "CORSET (âge, croissance)",
+          "rééducation",
+          "semelles si besoin"
+        ]
+      },
+      {
+        "caption": "SÉVÈRE",
+        "after": 5,
+        "context": [
+          "> 40°",
+          "SÉVÈRE",
+          "centre spécialisé",
+          "arthrodèse · tiges de croissance",
+          "PODOLOGUE",
+          "corriger l’ILMI par semelles",
+          "recentrage postural",
+          "travail en équipe"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend du TYPE · de la CAUSE · du DEGRÉ",
+        "after": 1,
+        "context": [
+          "dépend du TYPE · de la CAUSE · du DEGRÉ",
+          "POSTURALE",
+          "BON pronostic",
+          "si cause trouvée + traitée tôt"
+        ]
+      },
+      {
+        "caption": "IDIOPATHIQUE",
+        "after": 3,
+        "context": [
+          "IDIOPATHIQUE",
+          "peut s’aggraver FORTEMENT",
+          "en croissance → SUIVI essentiel",
+          "évolutive non traitée → douleurs chroniques + RESPIRATOIRE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DÉPISTAGE systématique",
+        "after": 2,
+        "context": [
+          "DÉPISTAGE systématique : entrée au COLLÈGE : dos debout + penché",
+          "bilan podo + postural si appuis anormaux",
+          "hygiène posturale : SAC À DOS, position assise"
+        ]
+      },
+      {
+        "caption": "corriger VITE ILMI + troubles du pied",
+        "after": 4,
+        "context": [
+          "corriger VITE ILMI + troubles du pied",
+          "suivi : médecin · podo · kiné · orthoprothésiste"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: La scoliose. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"déformation en 3 D de la colonne\",\"context\":\"déformation en 3 D de la colonne : inclinaison · rotation · cyphose/lordose; 2 – 4 % · surtout en CROISSANCE; STRUCTURELLE : rotation FIXÉE\"},{\"cell\":2,\"focus\":\"NON structurelle\",\"context\":\"NON structurelle : posturale, réductible; dépistage précoce → moins d’aggravation\"},{\"cell\":3,\"focus\":\"IDIOPATHIQUE\",\"context\":\"IDIOPATHIQUE; 80 – 90 %; cause INCONNUE; surtout l’ADOLESCENTE; hormones · génétique · croissance; SECONDAIRE; CONGÉNITALE; hémivertèbre · vertèbres soudées; NEUROMUSCULAIRE; paralysie cérébrale · myopathies; FONCTIONNELLE; ILMI · attitude \"},{\"cell\":4,\"focus\":\"CE QUI AGGRAVE\",\"context\":\"CE QUI AGGRAVE; croissance rapide; antécédents familiaux; mauvaise statique\"},{\"cell\":5,\"focus\":\"compensations\",\"context\":\"3 plans : inclinaison · rotation (dorsale) : + cyphose / lordose modifiées; compensations : ÉPAULE haute, bassin\"},{\"cell\":6,\"focus\":\"STRUCTURELLE\",\"context\":\"STRUCTURELLE : fixée, toutes positions; FONCTIONNELLE : disparaît allongé / redressé\"},{\"cell\":7,\"focus\":\"tronc ASYMÉTRIQUE\",\"context\":\"tronc ASYMÉTRIQUE : omoplate saillante · épaule / hanche haute; GIBBOSITÉ penché en avant = test d’ADAMS; bascule du bassin · compensation des MI\"},{\"cell\":8,\"focus\":\"parfois douleurs dorsales / lombaires\",\"context\":\"parfois douleurs dorsales / lombaires (adulte); déséquilibres posturaux · fatigue; ENFANT : souvent RIEN → dépister !\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; test d’ADAMS; scoliomètre; posture; égalité des MI; RÉDUCTIBILITÉ; RADIO EN CHARGE; face + profil; ANGLE DE COBB; thoracique / lombaire / mixte; axe du bassin\"},{\"cell\":10,\"focus\":\"atypique · neurologique\",\"context\":\"IRM; atypique · neurologique; BILAN PODOLOGIQUE; appuis · ILMI · troubles statiques\"},{\"cell\":11,\"focus\":\"LÉGÈRE\",\"context\":\"selon l’ANGLE DE COBB; < 20°; LÉGÈRE; surveillance; Schroth · RPG · kiné; corriger les troubles associés; 20 – 40°; MODÉRÉE; CORSET (âge, croissance); rééducation; semelles si besoin\"},{\"cell\":12,\"focus\":\"SÉVÈRE\",\"context\":\"> 40°; SÉVÈRE; centre spécialisé; arthrodèse · tiges de croissance; PODOLOGUE; corriger l’ILMI par semelles; recentrage postural; travail en équipe\"},{\"cell\":13,\"focus\":\"dépend du TYPE · de la CAUSE · du DEGRÉ\",\"context\":\"dépend du TYPE · de la CAUSE · du DEGRÉ; POSTURALE; BON pronostic; si cause trouvée + traitée tôt\"},{\"cell\":14,\"focus\":\"IDIOPATHIQUE\",\"context\":\"IDIOPATHIQUE; peut s’aggraver FORTEMENT; en croissance → SUIVI essentiel; évolutive non traitée → douleurs chroniques + RESPIRATOIRE\"},{\"cell\":15,\"focus\":\"DÉPISTAGE systématique\",\"context\":\"DÉPISTAGE systématique : entrée au COLLÈGE : dos debout + penché; bilan podo + postural si appuis anormaux; hygiène posturale : SAC À DOS, position assise\"},{\"cell\":16,\"focus\":\"corriger VITE ILMI + troubles du pied\",\"context\":\"corriger VITE ILMI + troubles du pied; suivi : médecin · podo · kiné · orthoprothésiste\"}]. Preserve exact 4-column grid and 4 rows."
+}

@@ -1,0 +1,218 @@
+{
+  "id": "phlyctenes",
+  "title": "Les phlyctènes",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Ampoule remplie de liquide",
+        "after": 4,
+        "context": [
+          "épiderme soulevé",
+          "liquide séreux",
+          "= « ampoules »",
+          "Soulèvement localisé de l'épiderme : rempli de liquide séreux",
+          "après"
+        ]
+      },
+      {
+        "caption": "Frottement dans la chaussure",
+        "after": 8,
+        "context": [
+          "frottements répétés",
+          "brûlures",
+          "agressions mécaniques",
+          "bénigne",
+          "mais fréquente",
+          "chez",
+          "sportifs",
+          "militaires",
+          "chaussures inadaptées"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Agressions mécaniques répétées",
+        "after": 4,
+        "context": [
+          "CAUSES PRINCIPALES",
+          "Agressions mécaniques répétées : frottement peau / chaussure, outil…",
+          "Brûlures : thermiques ou chimiques",
+          "Frottements prolongés (sport) : course à pied, randonnée…",
+          "FACTEURS DE RISQUE"
+        ]
+      },
+      {
+        "caption": "Chaussures et transpiration",
+        "after": 9,
+        "context": [
+          "Chaussures neuves ou mal adaptées",
+          "Chaussettes à coutures internes",
+          "Transpiration excessive",
+          "Absence de pédicurie : avant un effort prolongé",
+          "Diabète, immunodépression : → risque accru d'infection"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Décollement de l’épiderme",
+        "after": 4,
+        "context": [
+          "couche cornée",
+          "Malpighi",
+          "derme",
+          "Décollement : couche cornée / corps muqueux de Malpighi",
+          "Espace sous-épidermique : → se remplit de liquide séreux clair"
+        ]
+      },
+      {
+        "caption": "Rupture et risque infectieux",
+        "after": 8,
+        "context": [
+          "Protection temporaire : contre les agressions extérieures",
+          "frottement persistant → RUPTURE → INFECTION",
+          "phlyctène asséchée → DURILLON",
+          "(fiche 8)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Bulle claire et sensible",
+        "after": 2,
+        "context": [
+          "Vésicule ou bulle : liquide clair = la sérosité",
+          "Douleur localisée à la pression",
+          "Sensation de brûlure"
+        ]
+      },
+      {
+        "caption": "Signes d’infection",
+        "after": 5,
+        "context": [
+          "Rougeur périphérique possible",
+          "SI INFECTION",
+          "écoulement purulent",
+          "douleur ↑",
+          "inflammation",
+          "voire fièvre"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Observer la bulle",
+        "after": 3,
+        "context": [
+          "Diagnostic CLINIQUE",
+          "basé sur l'inspection",
+          "bulle transparente",
+          "parfois tendue",
+          "Examens complémentaires"
+        ]
+      },
+      {
+        "caption": "Rechercher une infection si nécessaire",
+        "after": 6,
+        "context": [
+          "PAS nécessaires…",
+          "… SAUF suspicion d'infection",
+          "ex. : culture bactérienne chez le patient diabétique"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Protéger une ampoule fermée",
+        "after": 8,
+        "context": [
+          "FERMÉE",
+          "sans risque de rupture",
+          "pansement hydrocolloïde",
+          "guérison ≈ 5 jours",
+          "À RISQUE",
+          "de rupture",
+          "ponction douce",
+          "aiguille stérile",
+          "antiseptique asséchant"
+        ]
+      },
+      {
+        "caption": "Pansement et surveillance adaptée",
+        "after": 17,
+        "context": [
+          "pansement protecteur",
+          "sauf diabétiques / artéritiques",
+          "OUVERTE",
+          "soins de plaie classiques",
+          "antiseptique",
+          "pansement cicatrisant",
+          "ou asséchant, selon le cas",
+          "Diabétique / immunodéprimé",
+          "surveillance ↑ du risque infectieux",
+          "PAS de ponction",
+          "soins stériles",
+          "suivi médical"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Cicatrisation rapide habituelle",
+        "after": 3,
+        "context": [
+          "EXCELLENT",
+          "dans la majorité des cas",
+          "cicatrisation rapide : 3 à 7 jours",
+          "Complications possibles"
+        ]
+      },
+      {
+        "caption": "Infection et retard de cicatrisation",
+        "after": 6,
+        "context": [
+          "infection locale",
+          "retard de cicatrisation",
+          "durillon si frottements"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Chaussures et chaussettes adaptées",
+        "after": 9,
+        "context": [
+          "MESURES GÉNÉRALES",
+          "Chaussures adaptées à la morphologie",
+          "Chaussettes techniques sans couture",
+          "Éviter les pansements préventifs",
+          "CHEZ LE DIABÉTIQUE",
+          "surveillance quotidienne",
+          "des pieds",
+          "consultation médicale au",
+          "moindre signe de plaie",
+          "PROTOCOLE AVANT UN TRAIL"
+        ]
+      },
+      {
+        "caption": "Préparer les pieds à l’effort",
+        "after": 18,
+        "context": [
+          "J-21",
+          "J-quelques jours",
+          "COURSE",
+          "soin de pédicurie",
+          "TANNAGE",
+          "acide citrique (jus de citron ou « Tano »)",
+          "+ crème hydratante (type Nok)",
+          "arrêt du tannage",
+          "+ hydratation quotidienne"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les phlyctènes. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Ampoule remplie de liquide\",\"context\":\"épiderme soulevé; liquide séreux; = « ampoules »; Soulèvement localisé de l'épiderme : rempli de liquide séreux; après\"},{\"cell\":2,\"focus\":\"Frottement dans la chaussure\",\"context\":\"frottements répétés; brûlures; agressions mécaniques; bénigne; mais fréquente; chez; sportifs; militaires; chaussures inadaptées\"},{\"cell\":3,\"focus\":\"Agressions mécaniques répétées\",\"context\":\"CAUSES PRINCIPALES; Agressions mécaniques répétées : frottement peau / chaussure, outil…; Brûlures : thermiques ou chimiques; Frottements prolongés (sport) : course à pied, randonnée…; FACTEURS DE RISQUE\"},{\"cell\":4,\"focus\":\"Chaussures et transpiration\",\"context\":\"Chaussures neuves ou mal adaptées; Chaussettes à coutures internes; Transpiration excessive; Absence de pédicurie : avant un effort prolongé; Diabète, immunodépression : → risque accru d'infection\"},{\"cell\":5,\"focus\":\"Décollement de l’épiderme\",\"context\":\"couche cornée; Malpighi; derme; Décollement : couche cornée / corps muqueux de Malpighi; Espace sous-épidermique : → se remplit de liquide séreux clair\"},{\"cell\":6,\"focus\":\"Rupture et risque infectieux\",\"context\":\"Protection temporaire : contre les agressions extérieures; frottement persistant → RUPTURE → INFECTION; phlyctène asséchée → DURILLON; (fiche 8)\"},{\"cell\":7,\"focus\":\"Bulle claire et sensible\",\"context\":\"Vésicule ou bulle : liquide clair = la sérosité; Douleur localisée à la pression; Sensation de brûlure\"},{\"cell\":8,\"focus\":\"Signes d’infection\",\"context\":\"Rougeur périphérique possible; SI INFECTION; écoulement purulent; douleur ↑; inflammation; voire fièvre\"},{\"cell\":9,\"focus\":\"Observer la bulle\",\"context\":\"Diagnostic CLINIQUE; basé sur l'inspection; bulle transparente; parfois tendue; Examens complémentaires\"},{\"cell\":10,\"focus\":\"Rechercher une infection si nécessaire\",\"context\":\"PAS nécessaires…; … SAUF suspicion d'infection; ex. : culture bactérienne chez le patient diabétique\"},{\"cell\":11,\"focus\":\"Protéger une ampoule fermée\",\"context\":\"FERMÉE; sans risque de rupture; pansement hydrocolloïde; guérison ≈ 5 jours; À RISQUE; de rupture; ponction douce; aiguille stérile; antiseptique asséchant\"},{\"cell\":12,\"focus\":\"Pansement et surveillance adaptée\",\"context\":\"pansement protecteur; sauf diabétiques / artéritiques; OUVERTE; soins de plaie classiques; antiseptique; pansement cicatrisant; ou asséchant, selon le cas; Diabétique / immunodéprimé; surveillance ↑ du risque infectieux; PAS de ponction; so\"},{\"cell\":13,\"focus\":\"Cicatrisation rapide habituelle\",\"context\":\"EXCELLENT; dans la majorité des cas; cicatrisation rapide : 3 à 7 jours; Complications possibles\"},{\"cell\":14,\"focus\":\"Infection et retard de cicatrisation\",\"context\":\"infection locale; retard de cicatrisation; durillon si frottements\"},{\"cell\":15,\"focus\":\"Chaussures et chaussettes adaptées\",\"context\":\"MESURES GÉNÉRALES; Chaussures adaptées à la morphologie; Chaussettes techniques sans couture; Éviter les pansements préventifs; CHEZ LE DIABÉTIQUE; surveillance quotidienne; des pieds; consultation médicale au; moindre signe de plaie; PROTO\"},{\"cell\":16,\"focus\":\"Préparer les pieds à l’effort\",\"context\":\"J-21; J-quelques jours; COURSE; soin de pédicurie; TANNAGE; acide citrique (jus de citron ou « Tano »); + crème hydratante (type Nok); arrêt du tannage; + hydratation quotidienne\"}]. Preserve exact 4-column grid and 4 rows."
+}

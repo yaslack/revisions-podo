@@ -3,6 +3,7 @@
 // Classes : k = rempli encre ; a = accent jaune ; s = peau ; o = orange ; r = rouge ; b = bleu ; g = vert ; w = blanc ; p = rose ; n = brun.
 (() => {
   const I = {
+    home: '<path d="M2.8 10.7L12 3l9.2 7.7M5 9v12h5v-7h4v7h5V9" class="w"/>',
     target: '<circle cx="11" cy="13" r="8.5" class="w"/><circle cx="11" cy="13" r="5.2" class="r"/><circle cx="11" cy="13" r="1.8" class="w"/><path d="M11 13l9.5-9.5M17.2 3.6l3.3-.1-.1 3.3"/>',
     eye: '<path d="M2.5 12s3.6-6 9.5-6 9.5 6 9.5 6-3.6 6-9.5 6-9.5-6-9.5-6z" class="w"/><circle cx="12" cy="12" r="3.4" class="b"/><circle cx="12" cy="12" r="1.3" class="k"/>',
     eyeoff: '<path d="M3 11c2.4 3.3 5.4 4.9 9 4.9s6.6-1.6 9-4.9"/><path d="M5.6 14.2l-1.6 2.1M9.4 15.6l-.6 2.6M14.6 15.6l.6 2.6M18.4 14.2l1.6 2.1"/><path d="M8 7.5c1.3-.6 2.6-.9 4-.9s2.7.3 4 .9" class="dim"/>',

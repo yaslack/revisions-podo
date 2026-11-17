@@ -1,0 +1,101 @@
+{
+  "id": "morton",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p1-1.webp",
+        "caption": "Douleur inter-métatarsienne",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p1-2.webp",
+        "caption": "Un nerf de taille normale",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p2-1.webp",
+        "caption": "Surcharge de l’avant-pied",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p2-2.webp",
+        "caption": "Chaussure étroite",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p3-1.webp",
+        "caption": "Tissus mous comprimés",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p3-2.webp",
+        "caption": "Le nerf garde son calibre",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p4-1.webp",
+        "caption": "Brûlures vers les orteils",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p4-2.webp",
+        "caption": "Soulagement au déchaussage",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p5-1.webp",
+        "caption": "Échographie du nerf",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p5-2.webp",
+        "caption": "Examiner les appuis",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p6-1.webp",
+        "caption": "Barre rétro-capitale",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p6-2.webp",
+        "caption": "Avant-pied moins comprimé",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p7-1.webp",
+        "caption": "Amélioration mécanique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p7-2.webp",
+        "caption": "Réévaluer si cela persiste",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/morton/p8-1.webp",
+        "caption": "Répartir les pressions",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/morton/p8-2.webp",
+        "caption": "Conseils de chaussage",
+        "after": 3
+      }
+    ]
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "id": "entorses-cheville",
+  "title": "Les entorses de la cheville",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Étirement excessif des LIGAMENTS",
+        "after": 1,
+        "context": [
+          "Étirement excessif des LIGAMENTS : douleur · gonflement · marche difficile",
+          "sportifs : basket · foot · course : + faux mouvement, terrain accidenté"
+        ]
+      },
+      {
+        "caption": "incapacité temporaire ou permanente",
+        "after": 3,
+        "context": [
+          "incapacité temporaire ou permanente : consultation URGENTE fréquente",
+          "rapide → évite l’instabilité CHRONIQUE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "TORSION BRUTALE du pied",
+        "after": 2,
+        "context": [
+          "TORSION BRUTALE du pied",
+          "étire ou ROMPT les ligaments",
+          "mauvais atterrissage",
+          "inversion",
+          "sol irrégulier",
+          "accident domestique",
+          "SPORTS",
+          "fort impact · changements de direction",
+          "basket, football, tennis",
+          "CHAUSSURES",
+          "inadaptées",
+          "talons hauts · sport usées"
+        ]
+      },
+      {
+        "caption": "MUSCLES",
+        "after": 5,
+        "context": [
+          "MUSCLES",
+          "faiblesse autour",
+          "de la cheville",
+          "ANTÉCÉDENTS",
+          "entorse préalable",
+          "instabilité résiduelle",
+          "facteurs de risque"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ligaments ÉTIRÉS ou DÉCHIRÉS",
+        "after": 4,
+        "context": [
+          "TFA",
+          "TFP",
+          "ligaments ÉTIRÉS ou DÉCHIRÉS",
+          "LATÉRAUX (les + fréquents) : talo-fibulaire ant. · calcanéo-fibulaire · talo-fibulaire post.",
+          "médiaux : plus rares"
+        ]
+      },
+      {
+        "caption": "déchirure PARTIELLE",
+        "after": 8,
+        "context": [
+          "1er degré",
+          "déchirure PARTIELLE",
+          "2e / 3e degré",
+          "déchirure COMPLÈTE",
+          "± fracture associée",
+          "inflammation → douleur · œdème · perte de fonction"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DOULEUR aiguë immédiate",
+        "after": 2,
+        "context": [
+          "DOULEUR aiguë immédiate : puis persistante à la marche, à l’appui",
+          "ŒDÈME rapide : côté EXTERNE · parfois près du tendon d’Achille",
+          "hématome / ECCHYMOSE : rupture des petits vaisseaux"
+        ]
+      },
+      {
+        "caption": "mouvements limités",
+        "after": 5,
+        "context": [
+          "mouvements limités",
+          "appui difficile, voire impossible",
+          "INSTABILITÉ : « jeu » articulaire : entorses graves"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "douleur",
+          "œdème",
+          "mobilité",
+          "instabilité",
+          "TIROIR ANTÉRIEUR",
+          "RADIOGRAPHIE",
+          "ÉLIMINER une fracture",
+          "associée à une entorse grave"
+        ]
+      },
+      {
+        "caption": "IRM / ÉCHOGRAPHIE",
+        "after": 2,
+        "context": [
+          "IRM / ÉCHOGRAPHIE",
+          "gravité des lésions",
+          "ligaments + tissus mous"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "compression",
+        "after": 6,
+        "context": [
+          "CONSERVATEUR",
+          "repos",
+          "glace",
+          "compression",
+          "élévation",
+          "48 premières heures",
+          "AINS : douleur + inflammation"
+        ]
+      },
+      {
+        "caption": "RÉÉDUCATION = clé",
+        "after": 12,
+        "context": [
+          "± bandage de compression / ATTELLE : phase aiguë",
+          "RÉÉDUCATION = clé : renforcement + PROPRIOCEPTION → contre l’instabilité",
+          "CHIRURGIE",
+          "entorse GRAVE",
+          "rupture complète",
+          "ou instabilité persistante"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend de la GRAVITÉ",
+        "after": 2,
+        "context": [
+          "dépend de la GRAVITÉ",
+          "1er DEGRÉ",
+          "quelques SEMAINES",
+          "traitement conservateur",
+          "ENTORSES GRAVES",
+          "plusieurs MOIS",
+          "risque d’instabilité chronique"
+        ]
+      },
+      {
+        "caption": "RÉCIDIVES fréquentes",
+        "after": 4,
+        "context": [
+          "RÉCIDIVES fréquentes",
+          "sans soins adaptés · rééducation mal suivie"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "PRÉVENTION PRIMAIRE",
+        "after": 4,
+        "context": [
+          "PRÉVENTION PRIMAIRE",
+          "chaussures adaptées et STABLES",
+          "ÉCHAUFFEMENT avant l’effort",
+          "renforcement des chevilles",
+          "PROPRIOCEPTION régulière"
+        ]
+      },
+      {
+        "caption": "sportifs · antécédents d’entorse",
+        "after": 8,
+        "context": [
+          "DÉPISTAGE",
+          "sportifs · antécédents d’entorse",
+          "suivi podologique / médical régulier",
+          "repérer l’instabilité : → prévenir la prochaine entorse"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les entorses de la cheville. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Étirement excessif des LIGAMENTS\",\"context\":\"Étirement excessif des LIGAMENTS : douleur · gonflement · marche difficile; sportifs : basket · foot · course : + faux mouvement, terrain accidenté\"},{\"cell\":2,\"focus\":\"incapacité temporaire ou permanente\",\"context\":\"incapacité temporaire ou permanente : consultation URGENTE fréquente; rapide → évite l’instabilité CHRONIQUE\"},{\"cell\":3,\"focus\":\"TORSION BRUTALE du pied\",\"context\":\"TORSION BRUTALE du pied; étire ou ROMPT les ligaments; mauvais atterrissage; inversion; sol irrégulier; accident domestique; SPORTS; fort impact · changements de direction; basket, football, tennis; CHAUSSURES; inadaptées; talons hauts · sp\"},{\"cell\":4,\"focus\":\"MUSCLES\",\"context\":\"MUSCLES; faiblesse autour; de la cheville; ANTÉCÉDENTS; entorse préalable; instabilité résiduelle; facteurs de risque\"},{\"cell\":5,\"focus\":\"ligaments ÉTIRÉS ou DÉCHIRÉS\",\"context\":\"TFA; TFP; ligaments ÉTIRÉS ou DÉCHIRÉS; LATÉRAUX (les + fréquents) : talo-fibulaire ant. · calcanéo-fibulaire · talo-fibulaire post.; médiaux : plus rares\"},{\"cell\":6,\"focus\":\"déchirure PARTIELLE\",\"context\":\"1er degré; déchirure PARTIELLE; 2e / 3e degré; déchirure COMPLÈTE; ± fracture associée; inflammation → douleur · œdème · perte de fonction\"},{\"cell\":7,\"focus\":\"DOULEUR aiguë immédiate\",\"context\":\"DOULEUR aiguë immédiate : puis persistante à la marche, à l’appui; ŒDÈME rapide : côté EXTERNE · parfois près du tendon d’Achille; hématome / ECCHYMOSE : rupture des petits vaisseaux\"},{\"cell\":8,\"focus\":\"mouvements limités\",\"context\":\"mouvements limités; appui difficile, voire impossible; INSTABILITÉ : « jeu » articulaire : entorses graves\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; douleur; œdème; mobilité; instabilité; TIROIR ANTÉRIEUR; RADIOGRAPHIE; ÉLIMINER une fracture; associée à une entorse grave\"},{\"cell\":10,\"focus\":\"IRM / ÉCHOGRAPHIE\",\"context\":\"IRM / ÉCHOGRAPHIE; gravité des lésions; ligaments + tissus mous\"},{\"cell\":11,\"focus\":\"compression\",\"context\":\"CONSERVATEUR; repos; glace; compression; élévation; 48 premières heures; AINS : douleur + inflammation\"},{\"cell\":12,\"focus\":\"RÉÉDUCATION = clé\",\"context\":\"± bandage de compression / ATTELLE : phase aiguë; RÉÉDUCATION = clé : renforcement + PROPRIOCEPTION → contre l’instabilité; CHIRURGIE; entorse GRAVE; rupture complète; ou instabilité persistante\"},{\"cell\":13,\"focus\":\"dépend de la GRAVITÉ\",\"context\":\"dépend de la GRAVITÉ; 1er DEGRÉ; quelques SEMAINES; traitement conservateur; ENTORSES GRAVES; plusieurs MOIS; risque d’instabilité chronique\"},{\"cell\":14,\"focus\":\"RÉCIDIVES fréquentes\",\"context\":\"RÉCIDIVES fréquentes; sans soins adaptés · rééducation mal suivie\"},{\"cell\":15,\"focus\":\"PRÉVENTION PRIMAIRE\",\"context\":\"PRÉVENTION PRIMAIRE; chaussures adaptées et STABLES; ÉCHAUFFEMENT avant l’effort; renforcement des chevilles; PROPRIOCEPTION régulière\"},{\"cell\":16,\"focus\":\"sportifs · antécédents d’entorse\",\"context\":\"DÉPISTAGE; sportifs · antécédents d’entorse; suivi podologique / médical régulier; repérer l’instabilité : → prévenir la prochaine entorse\"}]. Preserve exact 4-column grid and 4 rows."
+}

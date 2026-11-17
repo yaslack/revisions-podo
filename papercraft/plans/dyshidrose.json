@@ -1,0 +1,200 @@
+{
+  "id": "dyshidrose",
+  "title": "La dyshidrose",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Dermatose chronique, récurrente",
+        "after": 1,
+        "context": [
+          "Dermatose chronique, récurrente : surtout mains et pieds",
+          "Vésicules prurigineuses : faces latérales des doigts · paumes · plantes"
+        ]
+      },
+      {
+        "caption": "Forme d'eczéma SPONGIOTIQUE",
+        "after": 3,
+        "context": [
+          "Forme d'eczéma SPONGIOTIQUE : souvent bilatérale",
+          "qualité de vie altérée",
+          "prise en charge parfois difficile",
+          "cause peu claire"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "cause MULTIFACTORIELLE",
+        "after": 7,
+        "context": [
+          "cause MULTIFACTORIELLE",
+          "LOCAUX",
+          "sensibilisation de contact : allergènes pro ou domestiques",
+          "infections locales : intertrigo dermatophytique (T. rubrum)",
+          "GÉNÉRAUX",
+          "stress, facteurs psychiques",
+          "médicaments, tabac",
+          "terrain atopique"
+        ]
+      },
+      {
+        "caption": "HORMONAUX",
+        "after": 14,
+        "context": [
+          "HORMONAUX",
+          "puberté, grossesse",
+          "cycle menstruel, ménopause",
+          "AUTRES",
+          "hyperhidrose",
+          "saisons chaudes, émotions, sport",
+          "survient entre 10 et 50 ans"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "œdème intercellulaire = spongiose",
+        "after": 2,
+        "context": [
+          "œdème intercellulaire = spongiose",
+          "Réaction spongiotique intra-épidermique",
+          "Vésicules à liquide clair"
+        ]
+      },
+      {
+        "caption": "Inflammation des zones sudoripares",
+        "after": 5,
+        "context": [
+          "Inflammation des zones sudoripares : paumes · plantes",
+          "la sueur : rôle SECONDAIRE",
+          "l'hyperhidrose AGGRAVE, mais ne CAUSE pas"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Petites vésicules ENCHÂSSÉES",
+        "after": 5,
+        "context": [
+          "Petites vésicules ENCHÂSSÉES : ≈ 1 mm · liquide jaune citron",
+          "grains de SAGOU / TAPIOCA",
+          "parfois bulles confluentes : symétriques",
+          "Douloureuses : précédées d’un prurit intense",
+          "ÉVOLUTION",
+          "2–3 semaines"
+        ]
+      },
+      {
+        "caption": "desquamation en COLLERETTE",
+        "after": 10,
+        "context": [
+          "desquamation en COLLERETTE",
+          "sans rupture des vésicules",
+          "À LONG TERME",
+          "poussées récidivantes",
+          "saisonnières : printemps, automne",
+          "Formes cliniques",
+          "de contact (professionnelle)",
+          "de contact systémique",
+          "atopique",
+          "fongique ou microbienne"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "CLINIQUE",
+        "after": 2,
+        "context": [
+          "CLINIQUE",
+          "Vésicules palmo-plantaires typiques",
+          "Récidivant et symétrique"
+        ]
+      },
+      {
+        "caption": "Terrain atopique / facteurs favorisants",
+        "after": 5,
+        "context": [
+          "Terrain atopique / facteurs favorisants",
+          "DIFFÉRENTIELS",
+          "psoriasis pustuleux palmo-plantaire de Barber",
+          "pustulose kératogène (Fiessinger-Leroy-Reiter)",
+          "syndrome SAPHO (arthrite)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "aucun traitement universel",
+        "after": 5,
+        "context": [
+          "aucun traitement universel",
+          "identifier et SUPPRIMER causes + facteurs aggravants",
+          "Éviter irritants et allergènes",
+          "Hygiène adaptée : savon pH alcalin (ex. Béta Scrub)",
+          "Hydratation : crèmes émollientes : pieds et mains",
+          "PENDANT LES CRISES"
+        ]
+      },
+      {
+        "caption": "Antitranspirants",
+        "after": 11,
+        "context": [
+          "Antitranspirants : si hyperhidrose",
+          "Corticoïdes locaux : crème ou pommade",
+          "Antiseptiques : éosine aqueuse · Bétadine",
+          "Huile essentielle de tea tree : application locale prudente",
+          "Antifongique : si mycose associée",
+          "PUVA-thérapie (cas sévères) : photothérapie + psoralène"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "BÉNIGNE",
+        "after": 2,
+        "context": [
+          "BÉNIGNE",
+          "mais CHRONIQUE et RÉCIDIVANTE",
+          "les poussées altèrent la qualité de vie"
+        ]
+      },
+      {
+        "caption": "douleur",
+        "after": 4,
+        "context": [
+          "douleur",
+          "gêne fonctionnelle",
+          "impact esthétique",
+          "FAVORABLE",
+          "si facteurs déclenchants identifiés + contrôlés"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "PRIMAIRE",
+        "after": 3,
+        "context": [
+          "PRIMAIRE",
+          "Hygiène des pieds et des mains",
+          "Limiter l'humidité : gants / chaussettes coton · séchage soigneux",
+          "Éviter stress, tabac, irritants"
+        ]
+      },
+      {
+        "caption": "SECONDAIRE",
+        "after": 7,
+        "context": [
+          "SECONDAIRE",
+          "Surveiller les signes de récidive",
+          "Traiter vite l'hyperhidrose : + les mycoses",
+          "Suivi dermatologique : si forme chronique"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: La dyshidrose. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Dermatose chronique, récurrente\",\"context\":\"Dermatose chronique, récurrente : surtout mains et pieds; Vésicules prurigineuses : faces latérales des doigts · paumes · plantes\"},{\"cell\":2,\"focus\":\"Forme d'eczéma SPONGIOTIQUE\",\"context\":\"Forme d'eczéma SPONGIOTIQUE : souvent bilatérale; qualité de vie altérée; prise en charge parfois difficile; cause peu claire\"},{\"cell\":3,\"focus\":\"cause MULTIFACTORIELLE\",\"context\":\"cause MULTIFACTORIELLE; LOCAUX; sensibilisation de contact : allergènes pro ou domestiques; infections locales : intertrigo dermatophytique (T. rubrum); GÉNÉRAUX; stress, facteurs psychiques; médicaments, tabac; terrain atopique\"},{\"cell\":4,\"focus\":\"HORMONAUX\",\"context\":\"HORMONAUX; puberté, grossesse; cycle menstruel, ménopause; AUTRES; hyperhidrose; saisons chaudes, émotions, sport; survient entre 10 et 50 ans\"},{\"cell\":5,\"focus\":\"œdème intercellulaire = spongiose\",\"context\":\"œdème intercellulaire = spongiose; Réaction spongiotique intra-épidermique; Vésicules à liquide clair\"},{\"cell\":6,\"focus\":\"Inflammation des zones sudoripares\",\"context\":\"Inflammation des zones sudoripares : paumes · plantes; la sueur : rôle SECONDAIRE; l'hyperhidrose AGGRAVE, mais ne CAUSE pas\"},{\"cell\":7,\"focus\":\"Petites vésicules ENCHÂSSÉES\",\"context\":\"Petites vésicules ENCHÂSSÉES : ≈ 1 mm · liquide jaune citron; grains de SAGOU / TAPIOCA; parfois bulles confluentes : symétriques; Douloureuses : précédées d’un prurit intense; ÉVOLUTION; 2–3 semaines\"},{\"cell\":8,\"focus\":\"desquamation en COLLERETTE\",\"context\":\"desquamation en COLLERETTE; sans rupture des vésicules; À LONG TERME; poussées récidivantes; saisonnières : printemps, automne; Formes cliniques; de contact (professionnelle); de contact systémique; atopique; fongique ou microbienne\"},{\"cell\":9,\"focus\":\"CLINIQUE\",\"context\":\"CLINIQUE; Vésicules palmo-plantaires typiques; Récidivant et symétrique\"},{\"cell\":10,\"focus\":\"Terrain atopique / facteurs favorisants\",\"context\":\"Terrain atopique / facteurs favorisants; DIFFÉRENTIELS; psoriasis pustuleux palmo-plantaire de Barber; pustulose kératogène (Fiessinger-Leroy-Reiter); syndrome SAPHO (arthrite)\"},{\"cell\":11,\"focus\":\"aucun traitement universel\",\"context\":\"aucun traitement universel; identifier et SUPPRIMER causes + facteurs aggravants; Éviter irritants et allergènes; Hygiène adaptée : savon pH alcalin (ex. Béta Scrub); Hydratation : crèmes émollientes : pieds et mains; PENDANT LES CRISES\"},{\"cell\":12,\"focus\":\"Antitranspirants\",\"context\":\"Antitranspirants : si hyperhidrose; Corticoïdes locaux : crème ou pommade; Antiseptiques : éosine aqueuse · Bétadine; Huile essentielle de tea tree : application locale prudente; Antifongique : si mycose associée; PUVA-thérapie (cas sévères\"},{\"cell\":13,\"focus\":\"BÉNIGNE\",\"context\":\"BÉNIGNE; mais CHRONIQUE et RÉCIDIVANTE; les poussées altèrent la qualité de vie\"},{\"cell\":14,\"focus\":\"douleur\",\"context\":\"douleur; gêne fonctionnelle; impact esthétique; FAVORABLE; si facteurs déclenchants identifiés + contrôlés\"},{\"cell\":15,\"focus\":\"PRIMAIRE\",\"context\":\"PRIMAIRE; Hygiène des pieds et des mains; Limiter l'humidité : gants / chaussettes coton · séchage soigneux; Éviter stress, tabac, irritants\"},{\"cell\":16,\"focus\":\"SECONDAIRE\",\"context\":\"SECONDAIRE; Surveiller les signes de récidive; Traiter vite l'hyperhidrose : + les mycoses; Suivi dermatologique : si forme chronique\"}]. Preserve exact 4-column grid and 4 rows."
+}

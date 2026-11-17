@@ -1,0 +1,187 @@
+{
+  "id": "chaussures-enfant",
+  "title": "Les chaussures de l’enfant",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Rôle ESSENTIEL",
+        "after": 1,
+        "context": [
+          "Rôle ESSENTIEL : développement et confort du pied de l’enfant",
+          "soutiennent la CROISSANCE · la POSTURE : préviennent les blessures"
+        ]
+      },
+      {
+        "caption": "l’enfant grandit très VITE",
+        "after": 3,
+        "context": [
+          "l’enfant grandit très VITE",
+          "mauvaise chaussure → : alignement · démarche · troubles musculosquelettiques"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "CROISSANCE RAPIDE",
+        "after": 1,
+        "context": [
+          "CROISSANCE RAPIDE",
+          "surtout 0 – 3 ans",
+          "la chaussure ne suit pas → déformation",
+          "MAUVAIS CHOIX",
+          "trop serrée / trop large",
+          "douleurs · callosités · hallux valgus · posture"
+        ]
+      },
+      {
+        "caption": "INADAPTÉE À L’ACTIVITÉ",
+        "after": 3,
+        "context": [
+          "INADAPTÉE À L’ACTIVITÉ",
+          "sport = chaussure spécifique",
+          "soutien + protection nécessaires",
+          "FAMILLE · ENVIRONNEMENT",
+          "pieds plats, hallux valgus familiaux",
+          "sols durs sans protection"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "pied SOUPLE, en développement",
+        "after": 1,
+        "context": [
+          "pied SOUPLE, en développement : → vulnérable",
+          "trop RIGIDE / trop PETITE : limite la croissance → pieds plats, orteils en griffe"
+        ]
+      },
+      {
+        "caption": "modifie MARCHE et POSTURE",
+        "after": 3,
+        "context": [
+          "modifie MARCHE et POSTURE : genoux · hanches · colonne vertébrale",
+          "frottements · douleurs : ampoules · cors · développement altéré"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DOULEUR · GÊNE",
+        "after": 1,
+        "context": [
+          "DOULEUR · GÊNE",
+          "blessures répétées (ampoules)",
+          "MARCHE DIFFICILE",
+          "course maladroite"
+        ]
+      },
+      {
+        "caption": "DÉFORMATIONS",
+        "after": 3,
+        "context": [
+          "DÉFORMATIONS",
+          "orteils tordus · pieds plats · enroulement",
+          "CHALEUR · HUMIDITÉ",
+          "mal aérée → mycoses, odeurs"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "pédiatre ou podologue",
+          "croissance",
+          "alignement",
+          "déformations",
+          "peau",
+          "DÉMARCHE",
+          "la chaussure influence-t-elle",
+          "posture et mobilité ?"
+        ]
+      },
+      {
+        "caption": "MESURE DU PIED",
+        "after": 2,
+        "context": [
+          "MESURE DU PIED",
+          "LONGUEUR",
+          "LARGEUR",
+          "PROFONDEUR",
+          "± scanner 3D"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "CHANGER DE CHAUSSURES",
+        "after": 1,
+        "context": [
+          "CHANGER DE CHAUSSURES",
+          "assez larges",
+          "confortables",
+          "soutien voûte + talon",
+          "ORTHÈSES / SEMELLES sur mesure",
+          "pieds plats · déviation du pied → posture et alignement"
+        ]
+      },
+      {
+        "caption": "ÉDUCATION DES PARENTS",
+        "after": 2,
+        "context": [
+          "ÉDUCATION DES PARENTS",
+          "adaptées à la croissance + aux activités · vérifier l’ajustement"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "FAVORABLE",
+        "after": 2,
+        "context": [
+          "FAVORABLE",
+          "si détecté et traité TÔT",
+          "prévenir ou corriger : croissance normale · marche confortable"
+        ]
+      },
+      {
+        "caption": "NON traité jeune",
+        "after": 5,
+        "context": [
+          "NON traité jeune",
+          "déformations PERMANENTES",
+          "troubles posturaux"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "BONNES CHAUSSURES",
+        "after": 4,
+        "context": [
+          "BONNES CHAUSSURES",
+          "respectent la forme NATURELLE du pied",
+          "soutien de la VOÛTE",
+          "semelle SOUPLE",
+          "bonne STABILITÉ"
+        ]
+      },
+      {
+        "caption": "RENOUVELER avec la croissance",
+        "after": 9,
+        "context": [
+          "RENOUVELER avec la croissance",
+          "DÉPISTAGE PRÉCOCE",
+          "pédiatre ou podologue",
+          "si douleur ou marche difficile",
+          "repérer tôt → traiter"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les chaussures de l’enfant. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Rôle ESSENTIEL\",\"context\":\"Rôle ESSENTIEL : développement et confort du pied de l’enfant; soutiennent la CROISSANCE · la POSTURE : préviennent les blessures\"},{\"cell\":2,\"focus\":\"l’enfant grandit très VITE\",\"context\":\"l’enfant grandit très VITE; mauvaise chaussure → : alignement · démarche · troubles musculosquelettiques\"},{\"cell\":3,\"focus\":\"CROISSANCE RAPIDE\",\"context\":\"CROISSANCE RAPIDE; surtout 0 – 3 ans; la chaussure ne suit pas → déformation; MAUVAIS CHOIX; trop serrée / trop large; douleurs · callosités · hallux valgus · posture\"},{\"cell\":4,\"focus\":\"INADAPTÉE À L’ACTIVITÉ\",\"context\":\"INADAPTÉE À L’ACTIVITÉ; sport = chaussure spécifique; soutien + protection nécessaires; FAMILLE · ENVIRONNEMENT; pieds plats, hallux valgus familiaux; sols durs sans protection\"},{\"cell\":5,\"focus\":\"pied SOUPLE, en développement\",\"context\":\"pied SOUPLE, en développement : → vulnérable; trop RIGIDE / trop PETITE : limite la croissance → pieds plats, orteils en griffe\"},{\"cell\":6,\"focus\":\"modifie MARCHE et POSTURE\",\"context\":\"modifie MARCHE et POSTURE : genoux · hanches · colonne vertébrale; frottements · douleurs : ampoules · cors · développement altéré\"},{\"cell\":7,\"focus\":\"DOULEUR · GÊNE\",\"context\":\"DOULEUR · GÊNE; blessures répétées (ampoules); MARCHE DIFFICILE; course maladroite\"},{\"cell\":8,\"focus\":\"DÉFORMATIONS\",\"context\":\"DÉFORMATIONS; orteils tordus · pieds plats · enroulement; CHALEUR · HUMIDITÉ; mal aérée → mycoses, odeurs\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; pédiatre ou podologue; croissance; alignement; déformations; peau; DÉMARCHE; la chaussure influence-t-elle; posture et mobilité ?\"},{\"cell\":10,\"focus\":\"MESURE DU PIED\",\"context\":\"MESURE DU PIED; LONGUEUR; LARGEUR; PROFONDEUR; ± scanner 3D\"},{\"cell\":11,\"focus\":\"CHANGER DE CHAUSSURES\",\"context\":\"CHANGER DE CHAUSSURES; assez larges; confortables; soutien voûte + talon; ORTHÈSES / SEMELLES sur mesure; pieds plats · déviation du pied → posture et alignement\"},{\"cell\":12,\"focus\":\"ÉDUCATION DES PARENTS\",\"context\":\"ÉDUCATION DES PARENTS; adaptées à la croissance + aux activités · vérifier l’ajustement\"},{\"cell\":13,\"focus\":\"FAVORABLE\",\"context\":\"FAVORABLE; si détecté et traité TÔT; prévenir ou corriger : croissance normale · marche confortable\"},{\"cell\":14,\"focus\":\"NON traité jeune\",\"context\":\"NON traité jeune; déformations PERMANENTES; troubles posturaux\"},{\"cell\":15,\"focus\":\"BONNES CHAUSSURES\",\"context\":\"BONNES CHAUSSURES; respectent la forme NATURELLE du pied; soutien de la VOÛTE; semelle SOUPLE; bonne STABILITÉ\"},{\"cell\":16,\"focus\":\"RENOUVELER avec la croissance\",\"context\":\"RENOUVELER avec la croissance; DÉPISTAGE PRÉCOCE; pédiatre ou podologue; si douleur ou marche difficile; repérer tôt → traiter\"}]. Preserve exact 4-column grid and 4 rows."
+}

@@ -1,0 +1,101 @@
+{
+  "id": "syndrome-loges",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p1-1.webp",
+        "caption": "Douleur chronique d’effort",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p1-2.webp",
+        "caption": "Loge antéro-latérale",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p2-1.webp",
+        "caption": "Muscle à l’étroit",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p2-2.webp",
+        "caption": "Sports prolongés",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p3-1.webp",
+        "caption": "Le muscle gonfle à l’effort",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p3-2.webp",
+        "caption": "La pression gêne la circulation",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p4-1.webp",
+        "caption": "Un seuil d’effort répétitif",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p4-2.webp",
+        "caption": "Soulagement au repos",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p5-1.webp",
+        "caption": "Reproduire l’effort",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p5-2.webp",
+        "caption": "Mesurer la pression",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p6-1.webp",
+        "caption": "Adapter l’activité",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p6-2.webp",
+        "caption": "Libérer la loge si nécessaire",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p7-1.webp",
+        "caption": "Reprise adaptée",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p7-2.webp",
+        "caption": "Gêne persistante",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p8-1.webp",
+        "caption": "Progression de l’entraînement",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-loges/p8-2.webp",
+        "caption": "Appuis et foulée",
+        "after": 5
+      }
+    ]
+  ]
+}

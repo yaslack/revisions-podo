@@ -1,0 +1,260 @@
+{
+  "id": "eczema",
+  "title": "L'eczéma",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Dermatose inflammatoire",
+        "after": 3,
+        "context": [
+          "Dermatose inflammatoire : fréquente · NON contagieuse · enfant et adulte",
+          "Lésions érythémato-vésiculeuses : prurigineuses · évoluent par POUSSÉES",
+          "3 formes principales",
+          "DERMATITE ATOPIQUE",
+          "enfant +++"
+        ]
+      },
+      {
+        "caption": "DERMITE DE CONTACT",
+        "after": 6,
+        "context": [
+          "DERMITE DE CONTACT",
+          "allergique ou irritative",
+          "DYSHIDROSE",
+          "paumes, plantes, doigts",
+          "+ formes moins communes : microbien · nummulaire · de stase"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DERMATITE ATOPIQUE",
+        "after": 7,
+        "context": [
+          "DERMATITE ATOPIQUE",
+          "terrain génétique → allergies",
+          "souvent + asthme, rhinite allergique",
+          "1 parent : 50 %",
+          "2 parents : 80 %",
+          "environnement",
+          "urbanisation",
+          "pollution",
+          "infections",
+          "allergènes (acariens, pollens)",
+          "déclenchants"
+        ]
+      },
+      {
+        "caption": "stress",
+        "after": 15,
+        "context": [
+          "stress",
+          "froid",
+          "irritants",
+          "vêtements synthétiques",
+          "produits nettoyants",
+          "DERMITE DE CONTACT",
+          "réaction allergique à une substance extérieure",
+          "nickel",
+          "parfums",
+          "cosmétiques",
+          "produits pro",
+          "contact répété → risque ↑",
+          "DYSHIDROSE",
+          "multifactorielle",
+          "chaleur",
+          "transpiration",
+          "allergie",
+          "infection fongique"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SPONGIOSE",
+        "after": 10,
+        "context": [
+          "3 mécanismes généraux",
+          "SPONGIOSE",
+          "œdème intra-épidermique",
+          "ACANTHOSE",
+          "épaississement de l'épiderme",
+          "PARAKÉRATOSE",
+          "maturation anormale de la kératine",
+          "vésicules",
+          "érosions",
+          "croûtes",
+          "DERMATITE ATOPIQUE"
+        ]
+      },
+      {
+        "caption": "Dysfonction immunitaire",
+        "after": 21,
+        "context": [
+          "Dysfonction immunitaire : lymphocytes T · cytokines IL-4 / IL-13",
+          "Barrière cutanée altérée : déficit en acides gras essentiels",
+          "Colonisation bactérienne : Staphylococcus aureus (staph. doré)",
+          "CONTACT",
+          "hypersensibilité RETARDÉE",
+          "sensibilisation",
+          "nouveau contact",
+          "INFLAMMATION",
+          "DYSHIDROSE",
+          "mécanisme mal compris",
+          "hyperactivité sudorale",
+          "terrain atopique"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "rougeur",
+        "after": 10,
+        "context": [
+          "rougeur",
+          "œdème",
+          "vésicules",
+          "suintement",
+          "croûtes",
+          "PRURIT intense",
+          "grattage → surinfection",
+          "ATOPIQUE",
+          "convexités (1ers mois)",
+          "puis plis (≥ 2 ans)",
+          "peau sèche"
+        ]
+      },
+      {
+        "caption": "poussées en hiver",
+        "after": 20,
+        "context": [
+          "poussées en hiver",
+          "CONTACT",
+          "zone exposée",
+          "bien limitée",
+          "récidive à chaque contact",
+          "DYSHIDROSE",
+          "vésicules profondes",
+          "doigts, paumes, plantes",
+          "symétriques, très prurigineuses",
+          "poussées printemps-été"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "CLINIQUE avant tout",
+        "after": 4,
+        "context": [
+          "CLINIQUE avant tout",
+          "interrogatoire",
+          "terrain atopique",
+          "exposition à des produits",
+          "contexte professionnel",
+          "TESTS ALLERGOLOGIQUES",
+          "Prick tests : → l'atopie"
+        ]
+      },
+      {
+        "caption": "Patch tests",
+        "after": 8,
+        "context": [
+          "Patch tests (chambres de Finn) : lus à 48 / 72 h → eczéma de contact",
+          "BIOPSIE",
+          "si doute",
+          "spongiose",
+          "Sévérité",
+          "score SCORAD"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "éviction de l'allergène",
+        "after": 5,
+        "context": [
+          "1. Supprimer la CAUSE",
+          "éviction de l'allergène",
+          "moins d’irritants",
+          "2. Référence des poussées",
+          "DERMOCORTICOÏDES",
+          "1×/jour jusqu’à amélioration",
+          "AIGU SUINTANT",
+          "antiseptiques aqueux + dermocorticoïde classe II (crème)"
+        ]
+      },
+      {
+        "caption": "CHRONIQUE",
+        "after": 11,
+        "context": [
+          "CHRONIQUE",
+          "dermocorticoïde + puissant classe III (pommade) + émollients",
+          "RÉSISTANT (DA sévère)",
+          "tacrolimus (Protopic) · immunosuppresseur local",
+          "ÉMOLLIENTS quotidiens",
+          "= ESSENTIELS",
+          "restaurent la barrière cutanée",
+          "FORMES RÉSISTANTES",
+          "photothérapie",
+          "immunosuppresseurs",
+          "corticothérapie générale (exceptionnel)",
+          "ÉDUCATION DU PATIENT",
+          "hygiène douce",
+          "sans savon agressif",
+          "vêtements en coton",
+          "éviction de l'allergène"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "FAVORABLE",
+        "after": 3,
+        "context": [
+          "FAVORABLE",
+          "dans la majorité des cas, avec un traitement adapté",
+          "ATOPIQUE",
+          "amélioration vers 4–5 ans",
+          "CONTACT",
+          "guérison après éviction de l'allergène"
+        ]
+      },
+      {
+        "caption": "chronique si exposition persistante",
+        "after": 7,
+        "context": [
+          "chronique si exposition persistante",
+          "Complications",
+          "surinfection bactérienne",
+          "lichénification (grattage)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "PRIMAIRE",
+        "after": 4,
+        "context": [
+          "PRIMAIRE",
+          "Éviter irritants / allergisants",
+          "Hydrater la peau",
+          "Hygiène douce : limiter les bains chauds",
+          "Gants en coton : milieu professionnel exposé"
+        ]
+      },
+      {
+        "caption": "SECONDAIRE",
+        "after": 8,
+        "context": [
+          "SECONDAIRE",
+          "Dépister tôt les terrains atopiques",
+          "Éducation thérapeutique : reconnaître les poussées · éviter le grattage",
+          "Suivi dermatologique régulier"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: L'eczéma. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Dermatose inflammatoire\",\"context\":\"Dermatose inflammatoire : fréquente · NON contagieuse · enfant et adulte; Lésions érythémato-vésiculeuses : prurigineuses · évoluent par POUSSÉES; 3 formes principales; DERMATITE ATOPIQUE; enfant +++\"},{\"cell\":2,\"focus\":\"DERMITE DE CONTACT\",\"context\":\"DERMITE DE CONTACT; allergique ou irritative; DYSHIDROSE; paumes, plantes, doigts; + formes moins communes : microbien · nummulaire · de stase\"},{\"cell\":3,\"focus\":\"DERMATITE ATOPIQUE\",\"context\":\"DERMATITE ATOPIQUE; terrain génétique → allergies; souvent + asthme, rhinite allergique; 1 parent : 50 %; 2 parents : 80 %; environnement; urbanisation; pollution; infections; allergènes (acariens, pollens); déclenchants\"},{\"cell\":4,\"focus\":\"stress\",\"context\":\"stress; froid; irritants; vêtements synthétiques; produits nettoyants; DERMITE DE CONTACT; réaction allergique à une substance extérieure; nickel; parfums; cosmétiques; produits pro; contact répété → risque ↑; DYSHIDROSE; multifactorielle; \"},{\"cell\":5,\"focus\":\"SPONGIOSE\",\"context\":\"3 mécanismes généraux; SPONGIOSE; œdème intra-épidermique; ACANTHOSE; épaississement de l'épiderme; PARAKÉRATOSE; maturation anormale de la kératine; vésicules; érosions; croûtes; DERMATITE ATOPIQUE\"},{\"cell\":6,\"focus\":\"Dysfonction immunitaire\",\"context\":\"Dysfonction immunitaire : lymphocytes T · cytokines IL-4 / IL-13; Barrière cutanée altérée : déficit en acides gras essentiels; Colonisation bactérienne : Staphylococcus aureus (staph. doré); CONTACT; hypersensibilité RETARDÉE; sensibilisat\"},{\"cell\":7,\"focus\":\"rougeur\",\"context\":\"rougeur; œdème; vésicules; suintement; croûtes; PRURIT intense; grattage → surinfection; ATOPIQUE; convexités (1ers mois); puis plis (≥ 2 ans); peau sèche\"},{\"cell\":8,\"focus\":\"poussées en hiver\",\"context\":\"poussées en hiver; CONTACT; zone exposée; bien limitée; récidive à chaque contact; DYSHIDROSE; vésicules profondes; doigts, paumes, plantes; symétriques, très prurigineuses; poussées printemps-été\"},{\"cell\":9,\"focus\":\"CLINIQUE avant tout\",\"context\":\"CLINIQUE avant tout; interrogatoire; terrain atopique; exposition à des produits; contexte professionnel; TESTS ALLERGOLOGIQUES; Prick tests : → l'atopie\"},{\"cell\":10,\"focus\":\"Patch tests\",\"context\":\"Patch tests (chambres de Finn) : lus à 48 / 72 h → eczéma de contact; BIOPSIE; si doute; spongiose; Sévérité; score SCORAD\"},{\"cell\":11,\"focus\":\"éviction de l'allergène\",\"context\":\"1. Supprimer la CAUSE; éviction de l'allergène; moins d’irritants; 2. Référence des poussées; DERMOCORTICOÏDES; 1×/jour jusqu’à amélioration; AIGU SUINTANT; antiseptiques aqueux + dermocorticoïde classe II (crème)\"},{\"cell\":12,\"focus\":\"CHRONIQUE\",\"context\":\"CHRONIQUE; dermocorticoïde + puissant classe III (pommade) + émollients; RÉSISTANT (DA sévère); tacrolimus (Protopic) · immunosuppresseur local; ÉMOLLIENTS quotidiens; = ESSENTIELS; restaurent la barrière cutanée; FORMES RÉSISTANTES; photot\"},{\"cell\":13,\"focus\":\"FAVORABLE\",\"context\":\"FAVORABLE; dans la majorité des cas, avec un traitement adapté; ATOPIQUE; amélioration vers 4–5 ans; CONTACT; guérison après éviction de l'allergène\"},{\"cell\":14,\"focus\":\"chronique si exposition persistante\",\"context\":\"chronique si exposition persistante; Complications; surinfection bactérienne; lichénification (grattage)\"},{\"cell\":15,\"focus\":\"PRIMAIRE\",\"context\":\"PRIMAIRE; Éviter irritants / allergisants; Hydrater la peau; Hygiène douce : limiter les bains chauds; Gants en coton : milieu professionnel exposé\"},{\"cell\":16,\"focus\":\"SECONDAIRE\",\"context\":\"SECONDAIRE; Dépister tôt les terrains atopiques; Éducation thérapeutique : reconnaître les poussées · éviter le grattage; Suivi dermatologique régulier\"}]. Preserve exact 4-column grid and 4 rows."
+}

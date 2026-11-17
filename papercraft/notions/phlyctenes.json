@@ -1,0 +1,101 @@
+{
+  "id": "phlyctenes",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p1-1.webp",
+        "caption": "Ampoule remplie de liquide",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p1-2.webp",
+        "caption": "Frottement dans la chaussure",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p2-1.webp",
+        "caption": "Agressions mécaniques répétées",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p2-2.webp",
+        "caption": "Chaussures et transpiration",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p3-1.webp",
+        "caption": "Décollement de l’épiderme",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p3-2.webp",
+        "caption": "Rupture et risque infectieux",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p4-1.webp",
+        "caption": "Bulle claire et sensible",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p4-2.webp",
+        "caption": "Signes d’infection",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p5-1.webp",
+        "caption": "Observer la bulle",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p5-2.webp",
+        "caption": "Rechercher une infection si nécessaire",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p6-1.webp",
+        "caption": "Protéger une ampoule fermée",
+        "after": 8
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p6-2.webp",
+        "caption": "Pansement et surveillance adaptée",
+        "after": 17
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p7-1.webp",
+        "caption": "Cicatrisation rapide habituelle",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p7-2.webp",
+        "caption": "Infection et retard de cicatrisation",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p8-1.webp",
+        "caption": "Chaussures et chaussettes adaptées",
+        "after": 9
+      },
+      {
+        "src": "jeu/theatre/notions/phlyctenes/p8-2.webp",
+        "caption": "Préparer les pieds à l’effort",
+        "after": 18
+      }
+    ]
+  ]
+}

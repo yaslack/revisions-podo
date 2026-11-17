@@ -1,0 +1,199 @@
+{
+  "id": "pied-plat",
+  "title": "Le pied plat valgus",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "déformation FRÉQUENTE",
+        "after": 2,
+        "context": [
+          "déformation FRÉQUENTE : enfant + ado",
+          "voûte EFFONDRÉE (platitude)",
+          "VALGUS CALCANÉEN : talon en dehors"
+        ]
+      },
+      {
+        "caption": "souple / rigide · uni / bilatéral",
+        "after": 4,
+        "context": [
+          "souple / rigide · uni / bilatéral",
+          "constitutionnel · traumatique · neurologique"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "PHYSIOLOGIQUE",
+        "after": 1,
+        "context": [
+          "PHYSIOLOGIQUE",
+          "enfant ≤ 7 – 8 ans",
+          "HYPERLAXITÉ ligamentaire",
+          "sans douleur",
+          "RÉGRESSE",
+          "PATHOLOGIQUE",
+          "NEUROMUSCULAIRE",
+          "paralysie cérébrale · myopathies",
+          "TRAUMATIQUE",
+          "rupture du TIBIAL POSTÉRIEUR",
+          "INFLAMMATOIRE",
+          "arthrite juvénile",
+          "CONGÉNITALE",
+          "synostoses tarsiennes (fusions)"
+        ]
+      },
+      {
+        "caption": "FACTEURS DE RISQUE",
+        "after": 3,
+        "context": [
+          "FACTEURS DE RISQUE",
+          "surpoids",
+          "antécédents familiaux",
+          "hyperlaxité",
+          "mauvais chaussage"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "arche interne EFFONDRÉE · calcanéum en dehors",
+        "after": 2,
+        "context": [
+          "arche interne EFFONDRÉE · calcanéum en dehors : + avant-pied en ABDUCTION",
+          "perte de l’EFFET RESSORT",
+          "statique DÉSÉQUILIBRÉE"
+        ]
+      },
+      {
+        "caption": "médio-tarsiennes SURCHARGÉES",
+        "after": 4,
+        "context": [
+          "médio-tarsiennes SURCHARGÉES",
+          "adulte : TIBIAL POSTÉRIEUR altéré"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "voûte AFFAISSÉE debout",
+        "after": 3,
+        "context": [
+          "voûte AFFAISSÉE debout",
+          "calcanéum en VALGUS (vu de derrière)",
+          "abduction : signe du « TOO MANY TOES »",
+          "souple : se corrige SUR POINTES"
+        ]
+      },
+      {
+        "caption": "douleurs médio-pied · cheville · genoux",
+        "after": 6,
+        "context": [
+          "douleurs médio-pied · cheville · genoux",
+          "fatigue à la marche prolongée",
+          "genu valgum · hyperlordose"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN",
+        "after": 2,
+        "context": [
+          "EXAMEN",
+          "statique + dynamique du pas",
+          "PODOGRAPHIE",
+          "empreinte plantaire",
+          "RADIO EN CHARGE",
+          "angles de l’arche · alignement calcanéen"
+        ]
+      },
+      {
+        "caption": "IRM / ÉCHO",
+        "after": 5,
+        "context": [
+          "IRM / ÉCHO",
+          "adulte : atteinte tendineuse ?",
+          "TEST DE JACK",
+          "extension du gros orteil → la voûte RÉAPPARAÎT",
+          "= pied SOUPLE",
+          "MISE SUR POINTES",
+          "le calcanéum se REDRESSE (réductible)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "soulager · rééquilibrer les appuis · prévenir",
+        "after": 2,
+        "context": [
+          "soulager · rééquilibrer les appuis · prévenir",
+          "ORTHÈSES SUR MESURE",
+          "soutien ARCHE MÉDIALE",
+          "corriger le valgus",
+          "répartir les charges",
+          "RÉÉDUCATION",
+          "renforcer le TIBIAL POST.",
+          "proprioception",
+          "étirer le postérieur"
+        ]
+      },
+      {
+        "caption": "CHAUSSURES",
+        "after": 4,
+        "context": [
+          "CHAUSSURES",
+          "bon CONTREFORT",
+          "semelle stable",
+          "CHIRURGIE",
+          "sévère ou douloureux",
+          "ostéotomies",
+          "allongement calcanéen",
+          "ARTHRORISE (implant sous-talien)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ENFANT · souple",
+        "after": 1,
+        "context": [
+          "ENFANT · souple",
+          "évolue BIEN",
+          "avec l’âge + la croissance",
+          "ADULTE · acquis",
+          "dégénératif (tibial post.)",
+          "peut s’AGGRAVER",
+          "traitement + intensif"
+        ]
+      },
+      {
+        "caption": "prise en charge PRÉCOCE → qualité de vie ↑",
+        "after": 2,
+        "context": [
+          "prise en charge PRÉCOCE → qualité de vie ↑"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SUIVI des enfants à risque",
+        "after": 1,
+        "context": [
+          "SUIVI des enfants à risque : obésité · hyperlaxité · antécédents familiaux",
+          "ÉDUCATION des parents : chaussage + posture"
+        ]
+      },
+      {
+        "caption": "DÉPISTAGE SCOLAIRE",
+        "after": 3,
+        "context": [
+          "DÉPISTAGE SCOLAIRE : douleur · démarche anormale",
+          "contrôle podologique : pied plat SYMPTOMATIQUE"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Le pied plat valgus. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"déformation FRÉQUENTE\",\"context\":\"déformation FRÉQUENTE : enfant + ado; voûte EFFONDRÉE (platitude); VALGUS CALCANÉEN : talon en dehors\"},{\"cell\":2,\"focus\":\"souple / rigide · uni / bilatéral\",\"context\":\"souple / rigide · uni / bilatéral; constitutionnel · traumatique · neurologique\"},{\"cell\":3,\"focus\":\"PHYSIOLOGIQUE\",\"context\":\"PHYSIOLOGIQUE; enfant ≤ 7 – 8 ans; HYPERLAXITÉ ligamentaire; sans douleur; RÉGRESSE; PATHOLOGIQUE; NEUROMUSCULAIRE; paralysie cérébrale · myopathies; TRAUMATIQUE; rupture du TIBIAL POSTÉRIEUR; INFLAMMATOIRE; arthrite juvénile; CONGÉNITALE; \"},{\"cell\":4,\"focus\":\"FACTEURS DE RISQUE\",\"context\":\"FACTEURS DE RISQUE; surpoids; antécédents familiaux; hyperlaxité; mauvais chaussage\"},{\"cell\":5,\"focus\":\"arche interne EFFONDRÉE · calcanéum en dehors\",\"context\":\"arche interne EFFONDRÉE · calcanéum en dehors : + avant-pied en ABDUCTION; perte de l’EFFET RESSORT; statique DÉSÉQUILIBRÉE\"},{\"cell\":6,\"focus\":\"médio-tarsiennes SURCHARGÉES\",\"context\":\"médio-tarsiennes SURCHARGÉES; adulte : TIBIAL POSTÉRIEUR altéré\"},{\"cell\":7,\"focus\":\"voûte AFFAISSÉE debout\",\"context\":\"voûte AFFAISSÉE debout; calcanéum en VALGUS (vu de derrière); abduction : signe du « TOO MANY TOES »; souple : se corrige SUR POINTES\"},{\"cell\":8,\"focus\":\"douleurs médio-pied · cheville · genoux\",\"context\":\"douleurs médio-pied · cheville · genoux; fatigue à la marche prolongée; genu valgum · hyperlordose\"},{\"cell\":9,\"focus\":\"EXAMEN\",\"context\":\"EXAMEN; statique + dynamique du pas; PODOGRAPHIE; empreinte plantaire; RADIO EN CHARGE; angles de l’arche · alignement calcanéen\"},{\"cell\":10,\"focus\":\"IRM / ÉCHO\",\"context\":\"IRM / ÉCHO; adulte : atteinte tendineuse ?; TEST DE JACK; extension du gros orteil → la voûte RÉAPPARAÎT; = pied SOUPLE; MISE SUR POINTES; le calcanéum se REDRESSE (réductible)\"},{\"cell\":11,\"focus\":\"soulager · rééquilibrer les appuis · prévenir\",\"context\":\"soulager · rééquilibrer les appuis · prévenir; ORTHÈSES SUR MESURE; soutien ARCHE MÉDIALE; corriger le valgus; répartir les charges; RÉÉDUCATION; renforcer le TIBIAL POST.; proprioception; étirer le postérieur\"},{\"cell\":12,\"focus\":\"CHAUSSURES\",\"context\":\"CHAUSSURES; bon CONTREFORT; semelle stable; CHIRURGIE; sévère ou douloureux; ostéotomies; allongement calcanéen; ARTHRORISE (implant sous-talien)\"},{\"cell\":13,\"focus\":\"ENFANT · souple\",\"context\":\"ENFANT · souple; évolue BIEN; avec l’âge + la croissance; ADULTE · acquis; dégénératif (tibial post.); peut s’AGGRAVER; traitement + intensif\"},{\"cell\":14,\"focus\":\"prise en charge PRÉCOCE → qualité de vie ↑\",\"context\":\"prise en charge PRÉCOCE → qualité de vie ↑\"},{\"cell\":15,\"focus\":\"SUIVI des enfants à risque\",\"context\":\"SUIVI des enfants à risque : obésité · hyperlaxité · antécédents familiaux; ÉDUCATION des parents : chaussage + posture\"},{\"cell\":16,\"focus\":\"DÉPISTAGE SCOLAIRE\",\"context\":\"DÉPISTAGE SCOLAIRE : douleur · démarche anormale; contrôle podologique : pied plat SYMPTOMATIQUE\"}]. Preserve exact 4-column grid and 4 rows."
+}

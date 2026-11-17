@@ -1,0 +1,101 @@
+{
+  "id": "sinus-tarse",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p1-1.webp",
+        "caption": "Entre talus et calcanéum",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p1-2.webp",
+        "caption": "Douleur latérale de l’arrière-pied",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p2-1.webp",
+        "caption": "Après une entorse",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p2-2.webp",
+        "caption": "Appuis répétés",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p3-1.webp",
+        "caption": "Tissus du sinus",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p3-2.webp",
+        "caption": "Compression et irritation",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p4-1.webp",
+        "caption": "Juste devant la malléole",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p4-2.webp",
+        "caption": "Raideur à l’appui",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p5-1.webp",
+        "caption": "Palpation précise",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p5-2.webp",
+        "caption": "Imagerie si nécessaire",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p6-1.webp",
+        "caption": "Diminuer les contraintes",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p6-2.webp",
+        "caption": "Travailler l’équilibre",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p7-1.webp",
+        "caption": "Récupération progressive",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p7-2.webp",
+        "caption": "Instabilité persistante",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p8-1.webp",
+        "caption": "Reprendre par étapes",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/sinus-tarse/p8-2.webp",
+        "caption": "Surveiller après une entorse",
+        "after": 8
+      }
+    ]
+  ]
+}

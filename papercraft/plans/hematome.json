@@ -1,0 +1,174 @@
+{
+  "id": "hematome",
+  "title": "L'hématome sous-unguéal",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Sang sous la plaque unguéale",
+        "after": 2,
+        "context": [
+          "Accumulation de sang : entre la plaque unguéale et le lit unguéal",
+          "Cause : un traumatisme : direct ou répété sur l’ongle",
+          "plaque unguéale"
+        ]
+      },
+      {
+        "caption": "Choc sur l’ongle",
+        "after": 4,
+        "context": [
+          "sang",
+          "lit unguéal"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Chocs répétés en descente",
+        "after": 2,
+        "context": [
+          "CHOCS DIRECTS",
+          "MICROTRAUMATISMES",
+          "Coureurs",
+          "en descente, chaussures mal adaptées"
+        ]
+      },
+      {
+        "caption": "Chaussure trop courte",
+        "after": 5,
+        "context": [
+          "Randonneurs, footballeurs",
+          "frictions répétées dans la chaussure",
+          "Station debout",
+          "chaussures rigides (de sécurité)",
+          "Chaussures trop petites",
+          "compression de l'extrémité des orteils"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Rupture des petits vaisseaux",
+        "after": 1,
+        "context": [
+          "rupture des capillaires",
+          "lit unguéal richement vascularisé"
+        ]
+      },
+      {
+        "caption": "Pression sous l’ongle",
+        "after": 3,
+        "context": [
+          "espace fermé, peu extensible",
+          "PRESSION ↑"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Tache sombre sous l’ongle",
+        "after": 1,
+        "context": [
+          "Douleur aiguë, pulsatile : importante les premières heures (pression)",
+          "Rouge foncé → noire : visible sous la plaque unguéale"
+        ]
+      },
+      {
+        "caption": "Douleur à la pression",
+        "after": 3,
+        "context": [
+          "Sensible à la pression",
+          "Parfois : décollement de l’ongle : ou chute secondaire"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Rechercher un traumatisme",
+        "after": 5,
+        "context": [
+          "L'INTERROGATOIRE",
+          "« Avez-vous reçu un choc",
+          "direct sur l’orteil ? »",
+          "« Avez-vous eu une activité",
+          "sportive prolongée ? »",
+          "DIAGNOSTICS DIFFÉRENTIELS"
+        ]
+      },
+      {
+        "caption": "Distinguer les autres taches unguéales",
+        "after": 10,
+        "context": [
+          "Mélanome sous-unguéal",
+          "Naevus",
+          "Onychomycose pigmentée",
+          "Hématome chronique",
+          "Paronychie"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Supprimer les chocs",
+        "after": 5,
+        "context": [
+          "PETIT",
+          "pas de traitement",
+          "élimination spontanée",
+          "supprimer la cause",
+          "prévention + conseils",
+          "IMPORTANT"
+        ]
+      },
+      {
+        "caption": "Soin et pansement protecteur",
+        "after": 10,
+        "context": [
+          "< 48 h",
+          "Désinfection ou trempage : ex : Hexomédine transcutanée",
+          "Perçage de 2 petits trous : → soulagement immédiat",
+          "Pansement compressif & protecteur : + antiseptique",
+          "Radio ? : si suspicion de fracture (lit de l’ongle, phalange)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "La tache avance avec la repousse",
+        "after": 1,
+        "context": [
+          "l'ongle repousse",
+          "il peut tomber"
+        ]
+      },
+      {
+        "caption": "Surveiller l’inflammation",
+        "after": 3,
+        "context": [
+          "inflammation ? → infection",
+          "SURVEILLANCE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Chaussant et laçage adaptés",
+        "after": 1,
+        "context": [
+          "Conseils sur le chaussant : longueur · largeur · laçage",
+          "Coupe d'ongle DROITE : et pas trop courte"
+        ]
+      },
+      {
+        "caption": "Coupe droite de l’ongle",
+        "after": 3,
+        "context": [
+          "Évaluer les troubles statiques : → orthèses plantaires, petits appareillages",
+          "coupe droite"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: L'hématome sous-unguéal. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Sang sous la plaque unguéale\",\"context\":\"Accumulation de sang : entre la plaque unguéale et le lit unguéal; Cause : un traumatisme : direct ou répété sur l’ongle; plaque unguéale\"},{\"cell\":2,\"focus\":\"Choc sur l’ongle\",\"context\":\"sang; lit unguéal\"},{\"cell\":3,\"focus\":\"Chocs répétés en descente\",\"context\":\"CHOCS DIRECTS; MICROTRAUMATISMES; Coureurs; en descente, chaussures mal adaptées\"},{\"cell\":4,\"focus\":\"Chaussure trop courte\",\"context\":\"Randonneurs, footballeurs; frictions répétées dans la chaussure; Station debout; chaussures rigides (de sécurité); Chaussures trop petites; compression de l'extrémité des orteils\"},{\"cell\":5,\"focus\":\"Rupture des petits vaisseaux\",\"context\":\"rupture des capillaires; lit unguéal richement vascularisé\"},{\"cell\":6,\"focus\":\"Pression sous l’ongle\",\"context\":\"espace fermé, peu extensible; PRESSION ↑\"},{\"cell\":7,\"focus\":\"Tache sombre sous l’ongle\",\"context\":\"Douleur aiguë, pulsatile : importante les premières heures (pression); Rouge foncé → noire : visible sous la plaque unguéale\"},{\"cell\":8,\"focus\":\"Douleur à la pression\",\"context\":\"Sensible à la pression; Parfois : décollement de l’ongle : ou chute secondaire\"},{\"cell\":9,\"focus\":\"Rechercher un traumatisme\",\"context\":\"L'INTERROGATOIRE; « Avez-vous reçu un choc; direct sur l’orteil ? »; « Avez-vous eu une activité; sportive prolongée ? »; DIAGNOSTICS DIFFÉRENTIELS\"},{\"cell\":10,\"focus\":\"Distinguer les autres taches unguéales\",\"context\":\"Mélanome sous-unguéal; Naevus; Onychomycose pigmentée; Hématome chronique; Paronychie\"},{\"cell\":11,\"focus\":\"Supprimer les chocs\",\"context\":\"PETIT; pas de traitement; élimination spontanée; supprimer la cause; prévention + conseils; IMPORTANT\"},{\"cell\":12,\"focus\":\"Soin et pansement protecteur\",\"context\":\"< 48 h; Désinfection ou trempage : ex : Hexomédine transcutanée; Perçage de 2 petits trous : → soulagement immédiat; Pansement compressif & protecteur : + antiseptique; Radio ? : si suspicion de fracture (lit de l’ongle, phalange)\"},{\"cell\":13,\"focus\":\"La tache avance avec la repousse\",\"context\":\"l'ongle repousse; il peut tomber\"},{\"cell\":14,\"focus\":\"Surveiller l’inflammation\",\"context\":\"inflammation ? → infection; SURVEILLANCE\"},{\"cell\":15,\"focus\":\"Chaussant et laçage adaptés\",\"context\":\"Conseils sur le chaussant : longueur · largeur · laçage; Coupe d'ongle DROITE : et pas trop courte\"},{\"cell\":16,\"focus\":\"Coupe droite de l’ongle\",\"context\":\"Évaluer les troubles statiques : → orthèses plantaires, petits appareillages; coupe droite\"}]. Preserve exact 4-column grid and 4 rows."
+}

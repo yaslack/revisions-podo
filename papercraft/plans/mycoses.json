@@ -1,0 +1,187 @@
+{
+  "id": "mycoses",
+  "title": "Les mycoses cutanées",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Infection superficielle",
+        "after": 1,
+        "context": [
+          "Infections superficielles : par des champignons microscopiques",
+          "Zones humides : favorisées par la macération"
+        ]
+      },
+      {
+        "caption": "Peau et ongles atteints",
+        "after": 3,
+        "context": [
+          "peau · ongles · muqueuses",
+          "fréquentes",
+          "généralement bénignes",
+          "chroniques ou récidivantes"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Champignons responsables",
+        "after": 5,
+        "context": [
+          "3 TYPES",
+          "Dermatophytes",
+          "peau, cheveux, ongles",
+          "Levures",
+          "muqueuses, plis, ongles",
+          "Moisissures",
+          "peau lésée, immunodéprimé",
+          "FACTEURS FAVORISANTS",
+          "Humidité, chaleur, macération"
+        ]
+      },
+      {
+        "caption": "Humidité et macération",
+        "after": 11,
+        "context": [
+          "Mauvaise hygiène, transpiration : … ou excès de lavage !",
+          "Chaussures fermées : surtout de sécurité",
+          "Microtraumatismes cutanés",
+          "Antibiothérapie prolongée",
+          "maladies",
+          "immunodépression",
+          "diabète",
+          "obésité",
+          "trisomie 21"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Colonisation de la couche cornée",
+        "after": 2,
+        "context": [
+          "colonisent la COUCHE CORNÉE",
+          "contact direct → adhésion aux kératinocytes",
+          "RÉPONSE IMMUNITAIRE LOCALE"
+        ]
+      },
+      {
+        "caption": "Inflammation et desquamation",
+        "after": 5,
+        "context": [
+          "INFLAMMATION",
+          "PRURIT",
+          "DESQUAMATION"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Plaques rouges et squames",
+        "after": 2,
+        "context": [
+          "DERMATOPHYTES",
+          "plaques rouges",
+          "prurit",
+          "squames",
+          "parfois vésicules",
+          "LEVURES"
+        ]
+      },
+      {
+        "caption": "Intertrigo entre les orteils",
+        "after": 5,
+        "context": [
+          "rouge",
+          "brillante",
+          "suintante",
+          "collerette blanchâtre",
+          "prurit",
+          "levures entre les orteils =",
+          "INTERTRIGO CANDIDOSIQUE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Distinguer l’eczéma",
+        "after": 1,
+        "context": [
+          "Savoir ÉLIMINER",
+          "Eczéma"
+        ]
+      },
+      {
+        "caption": "Distinguer le psoriasis",
+        "after": 3,
+        "context": [
+          "Psoriasis",
+          "Infection bactérienne"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Antifongique local",
+        "after": 4,
+        "context": [
+          "LOCAL",
+          "antifongiques topiques",
+          "éconazole",
+          "1 à 2 ×/jour",
+          "plusieurs semaines",
+          "ORAL",
+          "si atteinte étendue"
+        ]
+      },
+      {
+        "caption": "Traitement oral prescrit si nécessaire",
+        "after": 9,
+        "context": [
+          "seulement sur prescription",
+          "du médecin",
+          "MESURES HYGIÉNO-DIÉTÉTIQUES",
+          "Sécher plis & espaces interdigitaux",
+          "Changer chaussettes & vêtements"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Guérison sous traitement adapté",
+        "after": 1,
+        "context": [
+          "GÉNÉRALEMENT BON",
+          "avec un traitement adapté"
+        ]
+      },
+      {
+        "caption": "Risque de récidive",
+        "after": 3,
+        "context": [
+          "RÉCIDIVES",
+          "si les facteurs favorisants persistent (→ partie 2)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Sécher entre les orteils",
+        "after": 1,
+        "context": [
+          "Hygiène ++ : séchage rigoureux après la douche",
+          "Éviter les chaussures fermées"
+        ]
+      },
+      {
+        "caption": "Changer les chaussettes",
+        "after": 2,
+        "context": [
+          "Changer régulièrement de chaussettes"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les mycoses cutanées. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Infection superficielle\",\"context\":\"Infections superficielles : par des champignons microscopiques; Zones humides : favorisées par la macération\"},{\"cell\":2,\"focus\":\"Peau et ongles atteints\",\"context\":\"peau · ongles · muqueuses; fréquentes; généralement bénignes; chroniques ou récidivantes\"},{\"cell\":3,\"focus\":\"Champignons responsables\",\"context\":\"3 TYPES; Dermatophytes; peau, cheveux, ongles; Levures; muqueuses, plis, ongles; Moisissures; peau lésée, immunodéprimé; FACTEURS FAVORISANTS; Humidité, chaleur, macération\"},{\"cell\":4,\"focus\":\"Humidité et macération\",\"context\":\"Mauvaise hygiène, transpiration : … ou excès de lavage !; Chaussures fermées : surtout de sécurité; Microtraumatismes cutanés; Antibiothérapie prolongée; maladies; immunodépression; diabète; obésité; trisomie 21\"},{\"cell\":5,\"focus\":\"Colonisation de la couche cornée\",\"context\":\"colonisent la COUCHE CORNÉE; contact direct → adhésion aux kératinocytes; RÉPONSE IMMUNITAIRE LOCALE\"},{\"cell\":6,\"focus\":\"Inflammation et desquamation\",\"context\":\"INFLAMMATION; PRURIT; DESQUAMATION\"},{\"cell\":7,\"focus\":\"Plaques rouges et squames\",\"context\":\"DERMATOPHYTES; plaques rouges; prurit; squames; parfois vésicules; LEVURES\"},{\"cell\":8,\"focus\":\"Intertrigo entre les orteils\",\"context\":\"rouge; brillante; suintante; collerette blanchâtre; prurit; levures entre les orteils =; INTERTRIGO CANDIDOSIQUE\"},{\"cell\":9,\"focus\":\"Distinguer l’eczéma\",\"context\":\"Savoir ÉLIMINER; Eczéma\"},{\"cell\":10,\"focus\":\"Distinguer le psoriasis\",\"context\":\"Psoriasis; Infection bactérienne\"},{\"cell\":11,\"focus\":\"Antifongique local\",\"context\":\"LOCAL; antifongiques topiques; éconazole; 1 à 2 ×/jour; plusieurs semaines; ORAL; si atteinte étendue\"},{\"cell\":12,\"focus\":\"Traitement oral prescrit si nécessaire\",\"context\":\"seulement sur prescription; du médecin; MESURES HYGIÉNO-DIÉTÉTIQUES; Sécher plis & espaces interdigitaux; Changer chaussettes & vêtements\"},{\"cell\":13,\"focus\":\"Guérison sous traitement adapté\",\"context\":\"GÉNÉRALEMENT BON; avec un traitement adapté\"},{\"cell\":14,\"focus\":\"Risque de récidive\",\"context\":\"RÉCIDIVES; si les facteurs favorisants persistent (→ partie 2)\"},{\"cell\":15,\"focus\":\"Sécher entre les orteils\",\"context\":\"Hygiène ++ : séchage rigoureux après la douche; Éviter les chaussures fermées\"},{\"cell\":16,\"focus\":\"Changer les chaussettes\",\"context\":\"Changer régulièrement de chaussettes\"}]. Preserve exact 4-column grid and 4 rows."
+}

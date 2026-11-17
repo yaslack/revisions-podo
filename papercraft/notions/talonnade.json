@@ -1,0 +1,101 @@
+{
+  "id": "talonnade",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p1-1.webp",
+        "caption": "Sous ou derrière le talon",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p1-2.webp",
+        "caption": "Douleur à la charge",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p2-1.webp",
+        "caption": "Plusieurs structures possibles",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p2-2.webp",
+        "caption": "Facteurs de surcharge",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p3-1.webp",
+        "caption": "Fascia et tendon d’Achille",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p3-2.webp",
+        "caption": "Contraintes répétées",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p4-1.webp",
+        "caption": "Premiers pas après le repos",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p4-2.webp",
+        "caption": "Marche modifiée",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p5-1.webp",
+        "caption": "Localiser la douleur",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p5-2.webp",
+        "caption": "Examens selon la cause",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p6-1.webp",
+        "caption": "Répartir les appuis",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p6-2.webp",
+        "caption": "Adapter l’activité",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p7-1.webp",
+        "caption": "Livret incomplet",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p7-2.webp",
+        "caption": "Revoir les talalgies",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talonnade/p8-1.webp",
+        "caption": "Surveiller les contraintes",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/talonnade/p8-2.webp",
+        "caption": "Chaussures et entraînement",
+        "after": 2
+      }
+    ]
+  ]
+}

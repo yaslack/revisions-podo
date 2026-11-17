@@ -1,0 +1,200 @@
+{
+  "id": "pied-creux",
+  "title": "Le pied creux",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "voûte longitudinale TROP ACCENTUÉE",
+        "after": 3,
+        "context": [
+          "voûte longitudinale TROP ACCENTUÉE",
+          "l’INVERSE du pied plat",
+          "déséquilibre MUSCULAIRE ou NEUROLOGIQUE",
+          "rigide / flexible · uni / bilatéral"
+        ]
+      },
+      {
+        "caption": "troubles fonctionnels importants",
+        "after": 6,
+        "context": [
+          "troubles fonctionnels importants",
+          "creux",
+          "plat"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "NEUROLOGIQUE",
+        "after": 1,
+        "context": [
+          "NEUROLOGIQUE",
+          "70 – 80 %",
+          "Charcot-Marie-Tooth (CMT)",
+          "poliomyélite",
+          "séquelles d’AVC · paralysie cérébrale",
+          "syndrome de Friedreich",
+          "ORTHO / IDIOPATHIQUE",
+          "20 – 30 %",
+          "hérédité familiale",
+          "séquelles de traumatisme"
+        ]
+      },
+      {
+        "caption": "FACTEURS DE RISQUE",
+        "after": 3,
+        "context": [
+          "FACTEURS DE RISQUE",
+          "antécédents familiaux",
+          "troubles neuromusculaires",
+          "marche anormale chez l’enfant"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "déséquilibre FLÉCHISSEURS / EXTENSEURS",
+        "after": 2,
+        "context": [
+          "déséquilibre FLÉCHISSEURS / EXTENSEURS",
+          "intrinsèques RÉTRACTÉS (court fléchisseur)",
+          "TRICEPS SURAL suractif"
+        ]
+      },
+      {
+        "caption": "arrière-pied en VARUS",
+        "after": 5,
+        "context": [
+          "arrière-pied en VARUS",
+          "avant-pied : adduction + supination",
+          "surcharge têtes métatarsiennes latérales : instabilité · douleurs chroniques"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "voûte EXAGÉRÉMENT creusée",
+        "after": 3,
+        "context": [
+          "voûte EXAGÉRÉMENT creusée",
+          "talon en VARUS",
+          "orteils en GRIFFE",
+          "MÉTATARSALGIES (avant-pied)"
+        ]
+      },
+      {
+        "caption": "instabilité",
+        "after": 7,
+        "context": [
+          "instabilité : ENTORSES à répétition",
+          "moins d’amorti naturel",
+          "douleurs plantaires chroniques",
+          "troubles posturaux"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN PODOLOGIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN PODOLOGIQUE",
+          "statique + dynamique",
+          "appui · marche",
+          "BILAN NEURO",
+          "ESSENTIEL",
+          "cause centrale / périphérique ?"
+        ]
+      },
+      {
+        "caption": "RADIO EN CHARGE",
+        "after": 3,
+        "context": [
+          "RADIO EN CHARGE",
+          "angle de MÉARY ↑",
+          "talon varus",
+          "métatarsiens déformés",
+          "EMG",
+          "si neuropathie suspectée"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "douleur ↓ · fonction ↑ · évolution STABILISÉE",
+        "after": 2,
+        "context": [
+          "douleur ↓ · fonction ↑ · évolution STABILISÉE",
+          "ORTHÈSES SUR MESURE",
+          "soutien VOÛTE EXTERNE",
+          "répartition des appuis",
+          "correction partielle",
+          "RÉÉDUCATION",
+          "renforcement",
+          "étirer les chaînes postérieures",
+          "proprioception"
+        ]
+      },
+      {
+        "caption": "CHAUSSAGE",
+        "after": 4,
+        "context": [
+          "CHAUSSAGE",
+          "profondeur",
+          "largeur",
+          "soutien latéral",
+          "CHIRURGIE",
+          "rigide · douloureux · instable",
+          "ostéotomies",
+          "arthrodèses",
+          "libérations tendineuses"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend de la CAUSE",
+        "after": 1,
+        "context": [
+          "dépend de la CAUSE",
+          "IDIOPATHIQUE",
+          "évolution LENTE",
+          "STABILISABLE"
+        ]
+      },
+      {
+        "caption": "NEUROLOGIQUE",
+        "after": 3,
+        "context": [
+          "NEUROLOGIQUE",
+          "souvent ÉVOLUTIF",
+          "suivi PLURIDISCIPLINAIRE",
+          "podologie → bon CONFORT + moins de complications"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DÉPISTAGE ENFANT",
+        "after": 1,
+        "context": [
+          "DÉPISTAGE ENFANT",
+          "suivre la marche · bilan postural dès les 1ers signes",
+          "RISQUE NEURO",
+          "surveiller les patients à risque neurologique"
+        ]
+      },
+      {
+        "caption": "ÉDUCATION",
+        "after": 2,
+        "context": [
+          "ÉDUCATION",
+          "chaussage · renforcement · contrôle podologique régulier"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Le pied creux. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"voûte longitudinale TROP ACCENTUÉE\",\"context\":\"voûte longitudinale TROP ACCENTUÉE; l’INVERSE du pied plat; déséquilibre MUSCULAIRE ou NEUROLOGIQUE; rigide / flexible · uni / bilatéral\"},{\"cell\":2,\"focus\":\"troubles fonctionnels importants\",\"context\":\"troubles fonctionnels importants; creux; plat\"},{\"cell\":3,\"focus\":\"NEUROLOGIQUE\",\"context\":\"NEUROLOGIQUE; 70 – 80 %; Charcot-Marie-Tooth (CMT); poliomyélite; séquelles d’AVC · paralysie cérébrale; syndrome de Friedreich; ORTHO / IDIOPATHIQUE; 20 – 30 %; hérédité familiale; séquelles de traumatisme\"},{\"cell\":4,\"focus\":\"FACTEURS DE RISQUE\",\"context\":\"FACTEURS DE RISQUE; antécédents familiaux; troubles neuromusculaires; marche anormale chez l’enfant\"},{\"cell\":5,\"focus\":\"déséquilibre FLÉCHISSEURS / EXTENSEURS\",\"context\":\"déséquilibre FLÉCHISSEURS / EXTENSEURS; intrinsèques RÉTRACTÉS (court fléchisseur); TRICEPS SURAL suractif\"},{\"cell\":6,\"focus\":\"arrière-pied en VARUS\",\"context\":\"arrière-pied en VARUS; avant-pied : adduction + supination; surcharge têtes métatarsiennes latérales : instabilité · douleurs chroniques\"},{\"cell\":7,\"focus\":\"voûte EXAGÉRÉMENT creusée\",\"context\":\"voûte EXAGÉRÉMENT creusée; talon en VARUS; orteils en GRIFFE; MÉTATARSALGIES (avant-pied)\"},{\"cell\":8,\"focus\":\"instabilité\",\"context\":\"instabilité : ENTORSES à répétition; moins d’amorti naturel; douleurs plantaires chroniques; troubles posturaux\"},{\"cell\":9,\"focus\":\"EXAMEN PODOLOGIQUE\",\"context\":\"EXAMEN PODOLOGIQUE; statique + dynamique; appui · marche; BILAN NEURO; ESSENTIEL; cause centrale / périphérique ?\"},{\"cell\":10,\"focus\":\"RADIO EN CHARGE\",\"context\":\"RADIO EN CHARGE; angle de MÉARY ↑; talon varus; métatarsiens déformés; EMG; si neuropathie suspectée\"},{\"cell\":11,\"focus\":\"douleur ↓ · fonction ↑ · évolution STABILISÉE\",\"context\":\"douleur ↓ · fonction ↑ · évolution STABILISÉE; ORTHÈSES SUR MESURE; soutien VOÛTE EXTERNE; répartition des appuis; correction partielle; RÉÉDUCATION; renforcement; étirer les chaînes postérieures; proprioception\"},{\"cell\":12,\"focus\":\"CHAUSSAGE\",\"context\":\"CHAUSSAGE; profondeur; largeur; soutien latéral; CHIRURGIE; rigide · douloureux · instable; ostéotomies; arthrodèses; libérations tendineuses\"},{\"cell\":13,\"focus\":\"dépend de la CAUSE\",\"context\":\"dépend de la CAUSE; IDIOPATHIQUE; évolution LENTE; STABILISABLE\"},{\"cell\":14,\"focus\":\"NEUROLOGIQUE\",\"context\":\"NEUROLOGIQUE; souvent ÉVOLUTIF; suivi PLURIDISCIPLINAIRE; podologie → bon CONFORT + moins de complications\"},{\"cell\":15,\"focus\":\"DÉPISTAGE ENFANT\",\"context\":\"DÉPISTAGE ENFANT; suivre la marche · bilan postural dès les 1ers signes; RISQUE NEURO; surveiller les patients à risque neurologique\"},{\"cell\":16,\"focus\":\"ÉDUCATION\",\"context\":\"ÉDUCATION; chaussage · renforcement · contrôle podologique régulier\"}]. Preserve exact 4-column grid and 4 rows."
+}

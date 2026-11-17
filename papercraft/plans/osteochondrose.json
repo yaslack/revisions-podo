@@ -1,0 +1,197 @@
+{
+  "id": "osteochondrose",
+  "title": "Les ostéochondroses",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "DÉGÉNÉRATIVES",
+        "after": 2,
+        "context": [
+          "DÉGÉNÉRATIVES : cartilage + os sous-jacent",
+          "ENFANT + ADO en pleine croissance",
+          "ossification du cartilage de croissance PERTURBÉE : douleurs · parfois déformations"
+        ]
+      },
+      {
+        "caption": "plusieurs articulations, dont les membres inférieurs",
+        "after": 5,
+        "context": [
+          "plusieurs articulations, dont les membres inférieurs",
+          "tôt → pas de séquelles : arthrose précoce · perte de mobilité",
+          "cartilage de croissance"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ossification des cartilages de croissance PERTURBÉE",
+        "after": 3,
+        "context": [
+          "ossification des cartilages de croissance PERTURBÉE",
+          "MÉCANIQUES",
+          "traumatismes répétés · surcharge",
+          "VASCULAIRES",
+          "mauvaise irrigation → nécrose",
+          "HORMONAUX + GÉNÉTIQUES",
+          "déséquilibres · prédisposition"
+        ]
+      },
+      {
+        "caption": "ENVIRONNEMENTAUX",
+        "after": 6,
+        "context": [
+          "ENVIRONNEMENTAUX",
+          "posture · chaussures inadaptées",
+          "SPORTS À IMPACT",
+          "foot",
+          "gymnastique",
+          "danse",
+          "basket"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ossification PERTURBÉE",
+        "after": 3,
+        "context": [
+          "ossification PERTURBÉE",
+          "NÉCROSE AVASCULAIRE : cellules osseuses mortes · manque de sang",
+          "cartilage détérioré → douleur, mobilité ↓ : parfois fracture du cartilage, déformation",
+          "ZONES TOUCHÉES"
+        ]
+      },
+      {
+        "caption": "Osgood-Schlatter",
+        "after": 7,
+        "context": [
+          "GENOU",
+          "Osgood-Schlatter",
+          "HANCHE",
+          "Legg-Calvé-Perthes",
+          "TALON",
+          "Sever",
+          "PIED",
+          "naviculaire"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DOULEUR localisée, pire à l’activité",
+        "after": 3,
+        "context": [
+          "selon la localisation + la sévérité",
+          "DOULEUR localisée, pire à l’activité",
+          "ŒDÈME + sensibilité à la palpation : autour des sites d’ossification",
+          "parfois BOITERIE"
+        ]
+      },
+      {
+        "caption": "mouvement LIMITÉ",
+        "after": 6,
+        "context": [
+          "mouvement LIMITÉ",
+          "RAIDEUR articulaire",
+          "pire pendant les POUSSÉES DE CROISSANCE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "douleur à la pression",
+          "sensibilité locale",
+          "mobilité altérée",
+          "RADIOGRAPHIE",
+          "anomalies osseuses",
+          "zones de NÉCROSE",
+          "cartilage dégradé"
+        ]
+      },
+      {
+        "caption": "cartilage + tissus mous",
+        "after": 3,
+        "context": [
+          "IRM",
+          "cartilage + tissus mous",
+          "étendue de la lésion",
+          "ÉCHOGRAPHIE",
+          "parfois",
+          "tendons · ligaments"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "REPOS",
+        "after": 4,
+        "context": [
+          "CONSERVATEUR",
+          "REPOS (essentiel) : pas de sport à fort impact un temps",
+          "orthèses + chaussures adaptées (pied)",
+          "AINS + antalgiques",
+          "KINÉ : souplesse + force musculaire"
+        ]
+      },
+      {
+        "caption": "avancé ou persistant",
+        "after": 9,
+        "context": [
+          "CHIRURGIE",
+          "avancé ou persistant",
+          "DÉCOMPRESSION",
+          "de l’articulation",
+          "CURETAGE",
+          "de la zone nécrosée",
+          "RECONSTRUCTION",
+          "osseuse : cas extrêmes"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "BON si pris en charge TÔT",
+        "after": 1,
+        "context": [
+          "BON si pris en charge TÔT",
+          "LA MAJORITÉ",
+          "guérit sans séquelles",
+          "importantes"
+        ]
+      },
+      {
+        "caption": "NON TRAITÉE",
+        "after": 2,
+        "context": [
+          "NON TRAITÉE",
+          "déformations · cartilage abîmé",
+          "ARTHROSE PRÉMATURÉE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "éviter les TRAUMATISMES RÉPÉTÉS",
+        "after": 1,
+        "context": [
+          "éviter les TRAUMATISMES RÉPÉTÉS : moins d’activités à risque · échauffement · étirements",
+          "chaussures + ORTHÈSES adaptées : suivi podologique des jeunes sportifs"
+        ]
+      },
+      {
+        "caption": "SUIVI MÉDICAL régulier",
+        "after": 2,
+        "context": [
+          "SUIVI MÉDICAL régulier : enfant en croissance · antécédents familiaux"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les ostéochondroses. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"DÉGÉNÉRATIVES\",\"context\":\"DÉGÉNÉRATIVES : cartilage + os sous-jacent; ENFANT + ADO en pleine croissance; ossification du cartilage de croissance PERTURBÉE : douleurs · parfois déformations\"},{\"cell\":2,\"focus\":\"plusieurs articulations, dont les membres inférieurs\",\"context\":\"plusieurs articulations, dont les membres inférieurs; tôt → pas de séquelles : arthrose précoce · perte de mobilité; cartilage de croissance\"},{\"cell\":3,\"focus\":\"ossification des cartilages de croissance PERTURBÉE\",\"context\":\"ossification des cartilages de croissance PERTURBÉE; MÉCANIQUES; traumatismes répétés · surcharge; VASCULAIRES; mauvaise irrigation → nécrose; HORMONAUX + GÉNÉTIQUES; déséquilibres · prédisposition\"},{\"cell\":4,\"focus\":\"ENVIRONNEMENTAUX\",\"context\":\"ENVIRONNEMENTAUX; posture · chaussures inadaptées; SPORTS À IMPACT; foot; gymnastique; danse; basket\"},{\"cell\":5,\"focus\":\"ossification PERTURBÉE\",\"context\":\"ossification PERTURBÉE; NÉCROSE AVASCULAIRE : cellules osseuses mortes · manque de sang; cartilage détérioré → douleur, mobilité ↓ : parfois fracture du cartilage, déformation; ZONES TOUCHÉES\"},{\"cell\":6,\"focus\":\"Osgood-Schlatter\",\"context\":\"GENOU; Osgood-Schlatter; HANCHE; Legg-Calvé-Perthes; TALON; Sever; PIED; naviculaire\"},{\"cell\":7,\"focus\":\"DOULEUR localisée, pire à l’activité\",\"context\":\"selon la localisation + la sévérité; DOULEUR localisée, pire à l’activité; ŒDÈME + sensibilité à la palpation : autour des sites d’ossification; parfois BOITERIE\"},{\"cell\":8,\"focus\":\"mouvement LIMITÉ\",\"context\":\"mouvement LIMITÉ; RAIDEUR articulaire; pire pendant les POUSSÉES DE CROISSANCE\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; douleur à la pression; sensibilité locale; mobilité altérée; RADIOGRAPHIE; anomalies osseuses; zones de NÉCROSE; cartilage dégradé\"},{\"cell\":10,\"focus\":\"cartilage + tissus mous\",\"context\":\"IRM; cartilage + tissus mous; étendue de la lésion; ÉCHOGRAPHIE; parfois; tendons · ligaments\"},{\"cell\":11,\"focus\":\"REPOS\",\"context\":\"CONSERVATEUR; REPOS (essentiel) : pas de sport à fort impact un temps; orthèses + chaussures adaptées (pied); AINS + antalgiques; KINÉ : souplesse + force musculaire\"},{\"cell\":12,\"focus\":\"avancé ou persistant\",\"context\":\"CHIRURGIE; avancé ou persistant; DÉCOMPRESSION; de l’articulation; CURETAGE; de la zone nécrosée; RECONSTRUCTION; osseuse : cas extrêmes\"},{\"cell\":13,\"focus\":\"BON si pris en charge TÔT\",\"context\":\"BON si pris en charge TÔT; LA MAJORITÉ; guérit sans séquelles; importantes\"},{\"cell\":14,\"focus\":\"NON TRAITÉE\",\"context\":\"NON TRAITÉE; déformations · cartilage abîmé; ARTHROSE PRÉMATURÉE\"},{\"cell\":15,\"focus\":\"éviter les TRAUMATISMES RÉPÉTÉS\",\"context\":\"éviter les TRAUMATISMES RÉPÉTÉS : moins d’activités à risque · échauffement · étirements; chaussures + ORTHÈSES adaptées : suivi podologique des jeunes sportifs\"},{\"cell\":16,\"focus\":\"SUIVI MÉDICAL régulier\",\"context\":\"SUIVI MÉDICAL régulier : enfant en croissance · antécédents familiaux\"}]. Preserve exact 4-column grid and 4 rows."
+}

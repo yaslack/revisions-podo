@@ -1,0 +1,101 @@
+{
+  "id": "hyperkeratoses",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p1-1.webp",
+        "caption": "Durillon étendu",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p1-2.webp",
+        "caption": "Cor localisé",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p2-1.webp",
+        "caption": "Troubles d’appui",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p2-2.webp",
+        "caption": "Facteurs de surcharge",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p3-1.webp",
+        "caption": "Pression et frottement",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p3-2.webp",
+        "caption": "Réaction de l’épiderme",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p4-1.webp",
+        "caption": "Douleur à l’appui",
+        "after": 14
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p4-2.webp",
+        "caption": "Lésion localisée sensible",
+        "after": 28
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p5-1.webp",
+        "caption": "Observer la peau et les appuis",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p5-2.webp",
+        "caption": "Rechercher une complication",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p6-1.webp",
+        "caption": "Soin pédicural",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p6-2.webp",
+        "caption": "Décharge et prise en charge adaptée",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p7-1.webp",
+        "caption": "Corriger la cause mécanique",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p7-2.webp",
+        "caption": "Surveiller les complications",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p8-1.webp",
+        "caption": "Choisir les chaussures",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/hyperkeratoses/p8-2.webp",
+        "caption": "Surveillance podologique",
+        "after": 9
+      }
+    ]
+  ]
+}

@@ -32,6 +32,8 @@ Site de révision de l’oral UEM de pédicurie-podologie, dans le style des vid
 - Mise à jour : ajouter une entrée à `NOTES` dans `app.js` (fenêtre « Quoi de neuf ? »), changer `?v=` dans `index.html`, puis `node tools/build-sw.js N` et `version.json`.
 - `illus/` : dessins tirés des vidéos ; `anat/` : planches ; `photos/` : photos ; `fonts/` : Permanent Marker et Caveat (licence OFL).
 - `sw.js` : cache hors ligne, généré.
+- `papier.css`, `jeu/theatre/` : thème Théâtre de papier, avec éléments de papier découpé générés et textes HTML. Les scènes des cours servent de repères visuels par matière et par partie ; les schémas détaillés des vidéos restent accessibles dans chaque cours. `papercraft/*-prompts.txt` conserve les briefs des illustrations.
+- `jeu/theatre/notions/`, `papercraft/notions/*.json` : illustrations personnalisées par notion, avec légendes et emplacement dans les blocs du cours. `node tools/build-paper-notions.js` assemble leurs correspondances dans `data/paper-notions.js` ; `--watch` actualise cet index pendant la génération. `node tools/check-paper-notions.js` vérifie les fichiers, les ancrages et la conservation de tous les textes. Les détails se mettent en cache à leur première lecture ; les couvertures sont disponibles hors ligne dès l'installation.
 
 ## Régénérer le contenu
 

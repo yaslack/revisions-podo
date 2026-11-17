@@ -1,0 +1,191 @@
+{
+  "id": "raynaud",
+  "title": "Le phénomène de Raynaud",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Arrêt BRUTAL mais très TRANSITOIRE",
+        "after": 2,
+        "context": [
+          "Arrêt BRUTAL mais très TRANSITOIRE : de la circulation des artères des doigts",
+          "Souvent déclenché par le FROID",
+          "2 formes"
+        ]
+      },
+      {
+        "caption": "PRIMAIRE",
+        "after": 4,
+        "context": [
+          "PRIMAIRE",
+          "maladie bénigne",
+          "la plus fréquente",
+          "SECONDAIRE",
+          "plus grave"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "femmes",
+        "after": 3,
+        "context": [
+          "femmes",
+          "8–10 %",
+          "hommes",
+          "3–5 %"
+        ]
+      },
+      {
+        "caption": "primaire 75–80 %",
+        "after": 7,
+        "context": [
+          "> 60 ans : 0,1 à 1 %",
+          "primaire 75–80 %",
+          "15 – 30 ans",
+          "surtout jeunes femmes",
+          "TERRAIN FAMILIAL important"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "artère digitale",
+        "after": 1,
+        "context": [
+          "artère digitale",
+          "Arrêt BRUTAL, très TRANSITOIRE : circulation artérielle digitale"
+        ]
+      },
+      {
+        "caption": "VASOSPASME périphérique épisodique",
+        "after": 2,
+        "context": [
+          "VASOSPASME périphérique épisodique : des extrémités · souvent induit par le froid"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "changement de couleur TRIPHASIQUE",
+        "after": 10,
+        "context": [
+          "changement de couleur TRIPHASIQUE",
+          "1. BLANC",
+          "pâleur",
+          "phase ischémique",
+          "2. BLEU",
+          "cyanose",
+          "désoxygénation",
+          "3. ROUGE",
+          "érythème",
+          "reperfusion",
+          "PRIMAIRE"
+        ]
+      },
+      {
+        "caption": "symétriques",
+        "after": 20,
+        "context": [
+          "symétriques",
+          "épisodiques",
+          "pas de maladie vasculaire périphérique",
+          "marqueurs inflammatoires normaux",
+          "AUCUNE lésion tissulaire",
+          "SECONDAIRE",
+          "fréquentes",
+          "douloureuses",
+          "asymétriques",
+          "ULCÉRATIONS digitales"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "diagnostic SIMPLE · souvent idiopathique",
+        "after": 3,
+        "context": [
+          "diagnostic SIMPLE · souvent idiopathique",
+          "sensibles au froid ?",
+          "changent de couleur au froid ?",
+          "blancs, bleus, ou les deux ?"
+        ]
+      },
+      {
+        "caption": "Puis",
+        "after": 7,
+        "context": [
+          "1 réponse + = diagnostic CONFIRMÉ",
+          "Puis : primaire ou secondaire ?",
+          "mains",
+          "orteils",
+          "nez",
+          "lobes des oreilles",
+          "mamelons",
+          "début sur 1 doigt → extension symétrique aux autres ?"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ÉDUCATION",
+        "after": 0,
+        "context": [
+          "ÉDUCATION",
+          "THÉRAPEUTIQUE",
+          "= la principale thérapie"
+        ]
+      },
+      {
+        "caption": "le + courant, le + pratique",
+        "after": 1,
+        "context": [
+          "± inhibiteurs calciques",
+          "le + courant, le + pratique"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "tout dépend de la forme",
+        "after": 3,
+        "context": [
+          "tout dépend de la forme",
+          "PRIMAIRE",
+          "BÉNIN",
+          "pas de lésion tissulaire",
+          "SECONDAIRE",
+          "cicatrices, piqûres digitales"
+        ]
+      },
+      {
+        "caption": "nécrose digitale",
+        "after": 6,
+        "context": [
+          "nécrose digitale",
+          "gangrène",
+          "AUTO-AMPUTATION"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Éviter les froids soudains",
+        "after": 1,
+        "context": [
+          "Éviter les froids soudains : et les changements rapides de température",
+          "Pieds et mains au CHAUD"
+        ]
+      },
+      {
+        "caption": "Diminuer tabac et caféine",
+        "after": 2,
+        "context": [
+          "Diminuer tabac et caféine"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Le phénomène de Raynaud. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Arrêt BRUTAL mais très TRANSITOIRE\",\"context\":\"Arrêt BRUTAL mais très TRANSITOIRE : de la circulation des artères des doigts; Souvent déclenché par le FROID; 2 formes\"},{\"cell\":2,\"focus\":\"PRIMAIRE\",\"context\":\"PRIMAIRE; maladie bénigne; la plus fréquente; SECONDAIRE; plus grave\"},{\"cell\":3,\"focus\":\"femmes\",\"context\":\"femmes; 8–10 %; hommes; 3–5 %\"},{\"cell\":4,\"focus\":\"primaire 75–80 %\",\"context\":\"> 60 ans : 0,1 à 1 %; primaire 75–80 %; 15 – 30 ans; surtout jeunes femmes; TERRAIN FAMILIAL important\"},{\"cell\":5,\"focus\":\"artère digitale\",\"context\":\"artère digitale; Arrêt BRUTAL, très TRANSITOIRE : circulation artérielle digitale\"},{\"cell\":6,\"focus\":\"VASOSPASME périphérique épisodique\",\"context\":\"VASOSPASME périphérique épisodique : des extrémités · souvent induit par le froid\"},{\"cell\":7,\"focus\":\"changement de couleur TRIPHASIQUE\",\"context\":\"changement de couleur TRIPHASIQUE; 1. BLANC; pâleur; phase ischémique; 2. BLEU; cyanose; désoxygénation; 3. ROUGE; érythème; reperfusion; PRIMAIRE\"},{\"cell\":8,\"focus\":\"symétriques\",\"context\":\"symétriques; épisodiques; pas de maladie vasculaire périphérique; marqueurs inflammatoires normaux; AUCUNE lésion tissulaire; SECONDAIRE; fréquentes; douloureuses; asymétriques; ULCÉRATIONS digitales\"},{\"cell\":9,\"focus\":\"diagnostic SIMPLE · souvent idiopathique\",\"context\":\"diagnostic SIMPLE · souvent idiopathique; sensibles au froid ?; changent de couleur au froid ?; blancs, bleus, ou les deux ?\"},{\"cell\":10,\"focus\":\"Puis\",\"context\":\"1 réponse + = diagnostic CONFIRMÉ; Puis : primaire ou secondaire ?; mains; orteils; nez; lobes des oreilles; mamelons; début sur 1 doigt → extension symétrique aux autres ?\"},{\"cell\":11,\"focus\":\"ÉDUCATION\",\"context\":\"ÉDUCATION; THÉRAPEUTIQUE; = la principale thérapie\"},{\"cell\":12,\"focus\":\"le + courant, le + pratique\",\"context\":\"± inhibiteurs calciques; le + courant, le + pratique\"},{\"cell\":13,\"focus\":\"tout dépend de la forme\",\"context\":\"tout dépend de la forme; PRIMAIRE; BÉNIN; pas de lésion tissulaire; SECONDAIRE; cicatrices, piqûres digitales\"},{\"cell\":14,\"focus\":\"nécrose digitale\",\"context\":\"nécrose digitale; gangrène; AUTO-AMPUTATION\"},{\"cell\":15,\"focus\":\"Éviter les froids soudains\",\"context\":\"Éviter les froids soudains : et les changements rapides de température; Pieds et mains au CHAUD\"},{\"cell\":16,\"focus\":\"Diminuer tabac et caféine\",\"context\":\"Diminuer tabac et caféine\"}]. Preserve exact 4-column grid and 4 rows."
+}

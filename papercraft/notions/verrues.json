@@ -1,0 +1,117 @@
+{
+  "id": "verrues",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p1-1.webp",
+        "caption": "Verrue plantaire",
+        "description": "Une petite lésion sur la plante du pied",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p1-2.webp",
+        "caption": "Infection par le HPV",
+        "description": "Le virus à l’origine de la verrue",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p2-1.webp",
+        "caption": "Lieux humides",
+        "description": "Piscines et douches collectives",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p2-2.webp",
+        "caption": "Microtraumatismes",
+        "description": "Une porte d’entrée dans la peau",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p3-1.webp",
+        "caption": "Épaississement de l’épiderme",
+        "description": "Hyperacanthose et hyperkératose",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p3-2.webp",
+        "caption": "Sous la pression",
+        "description": "La verrue peut s’enfoncer dans la peau",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p4-1.webp",
+        "caption": "Myrmécie",
+        "description": "Une lésion profonde avec de petits points noirs",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p4-2.webp",
+        "caption": "Verrues en mosaïque",
+        "description": "Plusieurs lésions superficielles regroupées",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p5-1.webp",
+        "caption": "Observation clinique",
+        "description": "Repérer les signes de la verrue",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p5-2.webp",
+        "caption": "Diagnostic différentiel",
+        "description": "Distinguer la verrue d’un cor",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p6-1.webp",
+        "caption": "Soin local",
+        "description": "Débridement et traitement kératolytique",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p6-2.webp",
+        "caption": "Cryothérapie",
+        "description": "Une autre option de prise en charge",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p7-1.webp",
+        "caption": "Guérison possible",
+        "description": "Une évolution sur plusieurs mois",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p7-2.webp",
+        "caption": "Récidive",
+        "description": "Les facteurs favorisants peuvent persister",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/verrues/p8-1.webp",
+        "caption": "Bien sécher les pieds",
+        "description": "Limiter la macération",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/verrues/p8-2.webp",
+        "caption": "Sandales à la piscine",
+        "description": "Protéger les pieds dans les lieux humides",
+        "after": 1
+      }
+    ]
+  ]
+}

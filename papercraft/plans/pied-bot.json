@@ -1,0 +1,189 @@
+{
+  "id": "pied-bot",
+  "title": "Le pied bot varus équin",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "déformation CONGÉNITALE complexe",
+        "after": 2,
+        "context": [
+          "déformation CONGÉNITALE complexe : ≈ 1 naissance sur 1000",
+          "3 déformations",
+          "VARUS : incliné en dedans"
+        ]
+      },
+      {
+        "caption": "ÉQUIN",
+        "after": 5,
+        "context": [
+          "ÉQUIN : flexion plantaire forcée",
+          "ADDUCTION : tourné en dedans",
+          "tôt + vite → très bonne prise en charge"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "généralement CONGÉNITAL · cause souvent INCONNUE",
+        "after": 2,
+        "context": [
+          "généralement CONGÉNITAL · cause souvent INCONNUE",
+          "GÉNÉTIQUE",
+          "risque ↑ si un proche en a eu",
+          "INTRA-UTÉRIN",
+          "position fœtale · manque de place · compression"
+        ]
+      },
+      {
+        "caption": "ENVIRONNEMENT",
+        "after": 4,
+        "context": [
+          "ENVIRONNEMENT",
+          "malnutrition · infections · médicaments",
+          "SYNDROMES",
+          "Edwards · Patau"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "vie FŒTALE",
+        "after": 2,
+        "context": [
+          "vie FŒTALE : os + articulations déformés",
+          "TALUS malformé → pas de flexion dorsale",
+          "tendons + ligaments RÉTRACTÉS → ÉQUIN"
+        ]
+      },
+      {
+        "caption": "TRICEPS SURAL court + rigide",
+        "after": 4,
+        "context": [
+          "TRICEPS SURAL court + rigide",
+          "déformation RIGIDE · pied jamais à plat"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ÉQUIN + ADDUCTION + VARUS",
+        "after": 2,
+        "context": [
+          "ÉQUIN + ADDUCTION + VARUS",
+          "RIGIDE : non corrigeable à la main : → forme plus SÉVÈRE",
+          "sillons · peau épaisse et CORNÉE : dos du pied · face interne de la cheville"
+        ]
+      },
+      {
+        "caption": "marche retardée / difficile",
+        "after": 4,
+        "context": [
+          "marche retardée / difficile",
+          "muscles sous-développés ou contractés"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SURTOUT CLINIQUE · podologue ou pédiatre",
+        "after": 1,
+        "context": [
+          "SURTOUT CLINIQUE · podologue ou pédiatre",
+          "EXAMEN PHYSIQUE",
+          "équin",
+          "varus",
+          "adduction",
+          "TEST DE CORRECTION PASSIVE"
+        ]
+      },
+      {
+        "caption": "RADIOGRAPHIE",
+        "after": 3,
+        "context": [
+          "RADIOGRAPHIE",
+          "anatomie osseuse",
+          "malformations",
+          "PLANIFIER le traitement",
+          "ÉCHOGRAPHIE",
+          "tendons",
+          "ligaments",
+          "longueur + tonicité musculaire"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "MÉTHODE DE PONSETI",
+        "after": 3,
+        "context": [
+          "MÉTHODE DE PONSETI",
+          "LA PLUS UTILISÉE",
+          "1 · PLÂTRES",
+          "changés chaque semaine · plusieurs mois",
+          "2 · TÉNOTOMIE",
+          "du tendon d’Achille → dorsiflexion"
+        ]
+      },
+      {
+        "caption": "plusieurs années · contre la récidive",
+        "after": 6,
+        "context": [
+          "3 · ATTELLES",
+          "plusieurs années · contre la récidive",
+          "CHIRURGIE",
+          "sévère ou échec de Ponseti",
+          "allonger les tendons · réorienter les os · fusionner",
+          "ENSUITE",
+          "rééducation · kiné",
+          "chaussures orthopédiques + orthèses"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "FAVORABLE si pris TÔT",
+        "after": 1,
+        "context": [
+          "FAVORABLE si pris TÔT (Ponseti)",
+          "80 – 90 %",
+          "pied FONCTIONNEL",
+          "+ esthétiquement satisfaisant"
+        ]
+      },
+      {
+        "caption": "MAL CORRIGÉ",
+        "after": 2,
+        "context": [
+          "MAL CORRIGÉ",
+          "déformations résiduelles",
+          "mobilité ↓",
+          "ARTHROSE PRÉCOCE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout",
+        "after": 1,
+        "context": [
+          "congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout",
+          "DÉPISTAGE NÉONATAL",
+          "à la naissance · signes bien visibles · traiter dès les 1res semaines"
+        ]
+      },
+      {
+        "caption": "SURVEILLANCE",
+        "after": 3,
+        "context": [
+          "SURVEILLANCE",
+          "toute l’enfance · la déformation revient-elle ?",
+          "PARENTS",
+          "porter attelles + orthèses → pas de récidive"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Le pied bot varus équin. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"déformation CONGÉNITALE complexe\",\"context\":\"déformation CONGÉNITALE complexe : ≈ 1 naissance sur 1000; 3 déformations; VARUS : incliné en dedans\"},{\"cell\":2,\"focus\":\"ÉQUIN\",\"context\":\"ÉQUIN : flexion plantaire forcée; ADDUCTION : tourné en dedans; tôt + vite → très bonne prise en charge\"},{\"cell\":3,\"focus\":\"généralement CONGÉNITAL · cause souvent INCONNUE\",\"context\":\"généralement CONGÉNITAL · cause souvent INCONNUE; GÉNÉTIQUE; risque ↑ si un proche en a eu; INTRA-UTÉRIN; position fœtale · manque de place · compression\"},{\"cell\":4,\"focus\":\"ENVIRONNEMENT\",\"context\":\"ENVIRONNEMENT; malnutrition · infections · médicaments; SYNDROMES; Edwards · Patau\"},{\"cell\":5,\"focus\":\"vie FŒTALE\",\"context\":\"vie FŒTALE : os + articulations déformés; TALUS malformé → pas de flexion dorsale; tendons + ligaments RÉTRACTÉS → ÉQUIN\"},{\"cell\":6,\"focus\":\"TRICEPS SURAL court + rigide\",\"context\":\"TRICEPS SURAL court + rigide; déformation RIGIDE · pied jamais à plat\"},{\"cell\":7,\"focus\":\"ÉQUIN + ADDUCTION + VARUS\",\"context\":\"ÉQUIN + ADDUCTION + VARUS; RIGIDE : non corrigeable à la main : → forme plus SÉVÈRE; sillons · peau épaisse et CORNÉE : dos du pied · face interne de la cheville\"},{\"cell\":8,\"focus\":\"marche retardée / difficile\",\"context\":\"marche retardée / difficile; muscles sous-développés ou contractés\"},{\"cell\":9,\"focus\":\"SURTOUT CLINIQUE · podologue ou pédiatre\",\"context\":\"SURTOUT CLINIQUE · podologue ou pédiatre; EXAMEN PHYSIQUE; équin; varus; adduction; TEST DE CORRECTION PASSIVE\"},{\"cell\":10,\"focus\":\"RADIOGRAPHIE\",\"context\":\"RADIOGRAPHIE; anatomie osseuse; malformations; PLANIFIER le traitement; ÉCHOGRAPHIE; tendons; ligaments; longueur + tonicité musculaire\"},{\"cell\":11,\"focus\":\"MÉTHODE DE PONSETI\",\"context\":\"MÉTHODE DE PONSETI; LA PLUS UTILISÉE; 1 · PLÂTRES; changés chaque semaine · plusieurs mois; 2 · TÉNOTOMIE; du tendon d’Achille → dorsiflexion\"},{\"cell\":12,\"focus\":\"plusieurs années · contre la récidive\",\"context\":\"3 · ATTELLES; plusieurs années · contre la récidive; CHIRURGIE; sévère ou échec de Ponseti; allonger les tendons · réorienter les os · fusionner; ENSUITE; rééducation · kiné; chaussures orthopédiques + orthèses\"},{\"cell\":13,\"focus\":\"FAVORABLE si pris TÔT\",\"context\":\"FAVORABLE si pris TÔT (Ponseti); 80 – 90 %; pied FONCTIONNEL; + esthétiquement satisfaisant\"},{\"cell\":14,\"focus\":\"MAL CORRIGÉ\",\"context\":\"MAL CORRIGÉ; déformations résiduelles; mobilité ↓; ARTHROSE PRÉCOCE\"},{\"cell\":15,\"focus\":\"congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout\",\"context\":\"congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout; DÉPISTAGE NÉONATAL; à la naissance · signes bien visibles · traiter dès les 1res semaines\"},{\"cell\":16,\"focus\":\"SURVEILLANCE\",\"context\":\"SURVEILLANCE; toute l’enfance · la déformation revient-elle ?; PARENTS; porter attelles + orthèses → pas de récidive\"}]. Preserve exact 4-column grid and 4 rows."
+}

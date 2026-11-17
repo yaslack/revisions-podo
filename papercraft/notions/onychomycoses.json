@@ -1,0 +1,101 @@
+{
+  "id": "onychomycoses",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p1-1.webp",
+        "caption": "Une infection de l’ongle",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p1-2.webp",
+        "caption": "Des champignons parasites",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p2-1.webp",
+        "caption": "Trois groupes de champignons",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p2-2.webp",
+        "caption": "Humidité et chaussures fermées",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p3-1.webp",
+        "caption": "Entrée disto-latérale",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p3-2.webp",
+        "caption": "Entrée proximale",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p4-1.webp",
+        "caption": "Ongle épaissi et décollé",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p4-2.webp",
+        "caption": "Taches blanches superficielles",
+        "after": 17
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p5-1.webp",
+        "caption": "Observer l’ongle",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p5-2.webp",
+        "caption": "Le prélèvement mycologique",
+        "after": 14
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p6-1.webp",
+        "caption": "Un traitement local",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p6-2.webp",
+        "caption": "Un traitement oral prescrit",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p7-1.webp",
+        "caption": "Attendre la repousse",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p7-2.webp",
+        "caption": "Le risque de récidive",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p8-1.webp",
+        "caption": "Sécher entre les orteils",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/onychomycoses/p8-2.webp",
+        "caption": "Alterner les chaussures",
+        "after": 7
+      }
+    ]
+  ]
+}

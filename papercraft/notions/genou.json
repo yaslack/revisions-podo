@@ -1,0 +1,101 @@
+{
+  "id": "genou",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p1-1.webp",
+        "caption": "Les quatre ligaments du genou",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p1-2.webp",
+        "caption": "Choc ou mouvement brusque",
+        "after": 13
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p2-1.webp",
+        "caption": "Torsion et réception de saut",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p2-2.webp",
+        "caption": "Laxité et blessure antérieure",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p3-1.webp",
+        "caption": "LCA : limiter l’avancée du tibia",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p3-2.webp",
+        "caption": "Ligaments collatéraux : stabilité latérale",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p4-1.webp",
+        "caption": "Douleur et gonflement du genou",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p4-2.webp",
+        "caption": "Genou qui se dérobe",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p5-1.webp",
+        "caption": "Examen de stabilité du genou",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p5-2.webp",
+        "caption": "IRM : visualiser les ligaments",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p6-1.webp",
+        "caption": "Protection, froid et surélévation",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p6-2.webp",
+        "caption": "Renforcer et rééduquer le genou",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p7-1.webp",
+        "caption": "Retour progressif au sport",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p7-2.webp",
+        "caption": "Instabilité persistante",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genou/p8-1.webp",
+        "caption": "Équilibre et proprioception",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/genou/p8-2.webp",
+        "caption": "Contrôler la mobilité et la stabilité",
+        "after": 8
+      }
+    ]
+  ]
+}

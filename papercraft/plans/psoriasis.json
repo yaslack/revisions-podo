@@ -1,0 +1,219 @@
+{
+  "id": "psoriasis",
+  "title": "Le psoriasis",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Dermatose érythémato-squameuse",
+        "after": 2,
+        "context": [
+          "Dermatose érythémato-squameuse : CHRONIQUE",
+          "2 à 3 % de la population : surtout ado / jeune adulte",
+          "Poussées + rémissions"
+        ]
+      },
+      {
+        "caption": "Inflammatoire, NON contagieuse",
+        "after": 5,
+        "context": [
+          "Inflammatoire, NON contagieuse",
+          "Impact sur la qualité de vie",
+          "psychologique",
+          "socioprofessionnel"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GÉNÉTIQUE",
+        "after": 3,
+        "context": [
+          "GÉNÉTIQUE",
+          "~ 30 %",
+          "ATCD familial",
+          "FACTEURS DÉCLENCHANTS",
+          "Infections : streptocoques · VIH (formes sévères)",
+          "Stress, chocs psychoaffectifs"
+        ]
+      },
+      {
+        "caption": "Médicaments",
+        "after": 7,
+        "context": [
+          "Médicaments : bêtabloquants · lithium · IEC · interféron",
+          "Alcool, tabac",
+          "Traumatismes cutanés : = phénomène de KOEBNER",
+          "environnement + immunologie : rôle déterminant (déclenchement, entretien des poussées)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "lymphocytes T",
+        "after": 3,
+        "context": [
+          "1. Activation immunitaire anormale",
+          "lymphocytes T",
+          "IL-12 / 23",
+          "IL-17",
+          "2. Renouvellement de l'épiderme",
+          "normal",
+          "21–25 jours"
+        ]
+      },
+      {
+        "caption": "psoriasis",
+        "after": 7,
+        "context": [
+          "psoriasis",
+          "3 jours",
+          "3. Conséquences",
+          "inflammation chronique",
+          "kératinocytes immatures",
+          "plaques érythémato-squameuses"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "plaque érythémato-squameuse",
+        "after": 6,
+        "context": [
+          "plaque érythémato-squameuse",
+          "bien limitée · squames variables",
+          "coudes, genoux",
+          "région lombosacrée",
+          "cuir chevelu",
+          "ongles",
+          "+ formes diffuses : visage, plis, muqueuses"
+        ]
+      },
+      {
+        "caption": "Formes SÉVÈRES",
+        "after": 12,
+        "context": [
+          "Formes SÉVÈRES",
+          "GÉNÉRALISÉ",
+          "érythrodermie, parfois grave",
+          "PUSTULEUX",
+          "localisé ou généralisé",
+          "ARTHROPATHIQUE",
+          "douleurs articulaires invalidantes",
+          "ONGLES",
+          "80–90 %",
+          "au cours de la vie",
+          "RETENTISSEMENT PSY",
+          "anxiété",
+          "dépression",
+          "stigmatisation sociale"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "CLINIQUE avant tout",
+        "after": 3,
+        "context": [
+          "CLINIQUE avant tout",
+          "biopsie seulement si doute",
+          "Sévérité : 3 outils",
+          "PASI",
+          "étendue + intensité"
+        ]
+      },
+      {
+        "caption": "surface atteinte",
+        "after": 7,
+        "context": [
+          "BSA",
+          "surface atteinte",
+          "DLQI",
+          "qualité de vie",
+          "Différentiels",
+          "pityriasis rosé de Gibert",
+          "eczémas chroniques",
+          "dermites séborrhéiques",
+          "autres érythrodermies"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "contrôler les poussées, la QDV",
+        "after": 3,
+        "context": [
+          "pas de guérison définitive",
+          "contrôler les poussées, la QDV",
+          "personnalisée : gravité + attentes du patient",
+          "LOCAL",
+          "formes légères (< 10 %)",
+          "émollients · kératolytiques · dermocorticoïdes · analogues vit. D"
+        ]
+      },
+      {
+        "caption": "PHOTOTHÉRAPIE",
+        "after": 7,
+        "context": [
+          "PHOTOTHÉRAPIE",
+          "formes étendues",
+          "UVB ou PUVA",
+          "SYSTÉMIQUE",
+          "formes sévères",
+          "rétinoïdes oraux · méthotrexate · ciclosporine",
+          "BIOTHÉRAPIES",
+          "résistance / forme grave",
+          "anti-TNF · anti-IL12/23 · anti-IL17 · anti-IL23",
+          "suivi régulier : efficacité + effets secondaires"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "maladie CHRONIQUE",
+        "after": 2,
+        "context": [
+          "maladie CHRONIQUE : poussées / rémissions",
+          "VITAL : généralement BON",
+          "mais qualité de vie fortement altérée",
+          "FORMES GRAVES",
+          "érythrodermiques · pustuleuses généralisées",
+          "pronostic fonctionnel, voire vital"
+        ]
+      },
+      {
+        "caption": "COMORBIDITÉS MÉTABOLIQUES",
+        "after": 4,
+        "context": [
+          "COMORBIDITÉS MÉTABOLIQUES",
+          "syndrome métabolique",
+          "maladies cardiovasculaires",
+          "diabète",
+          "dyslipidémie"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "prévention primaire",
+        "after": 2,
+        "context": [
+          "prévention primaire",
+          "mais réduire fréquence / intensité des poussées",
+          "Limiter les déclencheurs : stress · tabac · alcool · traumatismes cutanés"
+        ]
+      },
+      {
+        "caption": "Surveiller les infections ORL",
+        "after": 5,
+        "context": [
+          "Surveiller les infections ORL : surtout chez l'enfant",
+          "Dépister les comorbidités : métaboliques et cardiovasculaires",
+          "Suivi dermatologique régulier : adhésion au traitement + hygiène de vie"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Le psoriasis. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Dermatose érythémato-squameuse\",\"context\":\"Dermatose érythémato-squameuse : CHRONIQUE; 2 à 3 % de la population : surtout ado / jeune adulte; Poussées + rémissions\"},{\"cell\":2,\"focus\":\"Inflammatoire, NON contagieuse\",\"context\":\"Inflammatoire, NON contagieuse; Impact sur la qualité de vie; psychologique; socioprofessionnel\"},{\"cell\":3,\"focus\":\"GÉNÉTIQUE\",\"context\":\"GÉNÉTIQUE; ~ 30 %; ATCD familial; FACTEURS DÉCLENCHANTS; Infections : streptocoques · VIH (formes sévères); Stress, chocs psychoaffectifs\"},{\"cell\":4,\"focus\":\"Médicaments\",\"context\":\"Médicaments : bêtabloquants · lithium · IEC · interféron; Alcool, tabac; Traumatismes cutanés : = phénomène de KOEBNER; environnement + immunologie : rôle déterminant (déclenchement, entretien des poussées)\"},{\"cell\":5,\"focus\":\"lymphocytes T\",\"context\":\"1. Activation immunitaire anormale; lymphocytes T; IL-12 / 23; IL-17; 2. Renouvellement de l'épiderme; normal; 21–25 jours\"},{\"cell\":6,\"focus\":\"psoriasis\",\"context\":\"psoriasis; 3 jours; 3. Conséquences; inflammation chronique; kératinocytes immatures; plaques érythémato-squameuses\"},{\"cell\":7,\"focus\":\"plaque érythémato-squameuse\",\"context\":\"plaque érythémato-squameuse; bien limitée · squames variables; coudes, genoux; région lombosacrée; cuir chevelu; ongles; + formes diffuses : visage, plis, muqueuses\"},{\"cell\":8,\"focus\":\"Formes SÉVÈRES\",\"context\":\"Formes SÉVÈRES; GÉNÉRALISÉ; érythrodermie, parfois grave; PUSTULEUX; localisé ou généralisé; ARTHROPATHIQUE; douleurs articulaires invalidantes; ONGLES; 80–90 %; au cours de la vie; RETENTISSEMENT PSY; anxiété; dépression; stigmatisation so\"},{\"cell\":9,\"focus\":\"CLINIQUE avant tout\",\"context\":\"CLINIQUE avant tout; biopsie seulement si doute; Sévérité : 3 outils; PASI; étendue + intensité\"},{\"cell\":10,\"focus\":\"surface atteinte\",\"context\":\"BSA; surface atteinte; DLQI; qualité de vie; Différentiels; pityriasis rosé de Gibert; eczémas chroniques; dermites séborrhéiques; autres érythrodermies\"},{\"cell\":11,\"focus\":\"contrôler les poussées, la QDV\",\"context\":\"pas de guérison définitive; contrôler les poussées, la QDV; personnalisée : gravité + attentes du patient; LOCAL; formes légères (< 10 %); émollients · kératolytiques · dermocorticoïdes · analogues vit. D\"},{\"cell\":12,\"focus\":\"PHOTOTHÉRAPIE\",\"context\":\"PHOTOTHÉRAPIE; formes étendues; UVB ou PUVA; SYSTÉMIQUE; formes sévères; rétinoïdes oraux · méthotrexate · ciclosporine; BIOTHÉRAPIES; résistance / forme grave; anti-TNF · anti-IL12/23 · anti-IL17 · anti-IL23; suivi régulier : efficacité + \"},{\"cell\":13,\"focus\":\"maladie CHRONIQUE\",\"context\":\"maladie CHRONIQUE : poussées / rémissions; VITAL : généralement BON; mais qualité de vie fortement altérée; FORMES GRAVES; érythrodermiques · pustuleuses généralisées; pronostic fonctionnel, voire vital\"},{\"cell\":14,\"focus\":\"COMORBIDITÉS MÉTABOLIQUES\",\"context\":\"COMORBIDITÉS MÉTABOLIQUES; syndrome métabolique; maladies cardiovasculaires; diabète; dyslipidémie\"},{\"cell\":15,\"focus\":\"prévention primaire\",\"context\":\"prévention primaire; mais réduire fréquence / intensité des poussées; Limiter les déclencheurs : stress · tabac · alcool · traumatismes cutanés\"},{\"cell\":16,\"focus\":\"Surveiller les infections ORL\",\"context\":\"Surveiller les infections ORL : surtout chez l'enfant; Dépister les comorbidités : métaboliques et cardiovasculaires; Suivi dermatologique régulier : adhésion au traitement + hygiène de vie\"}]. Preserve exact 4-column grid and 4 rows."
+}

@@ -8,6 +8,10 @@
   const REG_SHORT = { pied: 'Pied', jambe: 'Jambe', cuisse: 'Cuisse' };
   const $ = s => document.querySelector(s);
   const ico = (n, c) => window.ico ? window.ico(n, c) : '';   // icônes dessinées (icons.js)
+  const navIcons = { '': 'home', fiches: 'memo', anat: 'bone', clin: 'stetho', tirage: 'dice' };
+  document.querySelectorAll('nav.tabs > a, nav.tabs .tabf > a').forEach(a => {
+    a.insertAdjacentHTML('afterbegin', `<span class="paper-nav-icon" aria-hidden="true">${ico(navIcons[a.dataset.s])}</span>`);
+  });
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
 
@@ -143,6 +147,8 @@
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
   }
   const thumb = (src, alt) => `<span class="drawn th">${img(src, alt)}</span>`;
+  const paperNotions = (f, k) => (window.PAPER_NOTIONS || {})[f.id]?.[k - 1] || [];
+  const coursePreview = (f, name = 'cover', k = 1) => S.skin === 'paper' ? paperNotions(f, k)[0]?.src || (hasIll(f) ? ill(f.id, name) : `jeu/theatre/${paperArt(f, f.parts[k - 1], k)}.webp`) : ill(f.id, name);
 
   // Noé (Nono) devient Natasha de 21 h à 6 h ; le nom de l'appli mélange Yaya et Noé : Yanoé (Yanatasha la nuit, en touchant le titre)
   const night = () => { const h = new Date().getHours(); return h >= 21 || h < 6; };
@@ -164,16 +170,26 @@
     const nextF = PEDI.find(f => !doneP(f.id) && f !== last);
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
     return `<div class="wrap home">
-      <header class="brand"><h1 id="apptitle" class="${night() ? 'tap' : ''}">Ya<span>noé</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
+      <div class="paper-home-stage"><header class="brand"><h1 id="apptitle" class="${night() ? 'tap' : ''}">Ya<span>noé</span></h1><div class="kicker">L’oral UEM de podo, sans stress</div></header>
       <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> ${ico('cap')}<br><small>le dev</small></span></span>
         <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> ${ico('cone')}<br><small>le cerveau</small></span></span>
-        <span class="mate zoomable"><img src="photos/equipe/hugo.jpg" data-full="photos/equipe/hugo-full.jpg" alt="Hugo"><span><b>Hugo</b> ${ico('quad')}<br><small>la cuisse droite</small></span></span></div>
+        <span class="mate zoomable"><img src="photos/equipe/hugo.jpg" data-full="photos/equipe/hugo-full.jpg" alt="Hugo"><span><b>Hugo</b> ${ico('quad')}<br><small>la cuisse droite</small></span></span></div></div>
       ${todayCard()}
-      ${last ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(ill(last.id, S.last.k ? `p${S.last.k}b` : 'cover'), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
+      ${last && S.skin !== 'paper' ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(coursePreview(last, S.last.k ? `p${S.last.k}b` : 'cover', S.last.k || 1), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
         <span class="rt"><span class="kicker">${IC.play} REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
-      <div class="sec">JOUER</div>
+      <section class="paper-subjects" aria-labelledby="paper-subjects-title">
+        <h2 class="paper-ribbon" id="paper-subjects-title">Mes révisions</h2>
+        <div class="paper-subject-grid">${[
+          ['pedi', 'Pédicurie', `${nP}/24 fiches sues`, vP],
+          ['podo', 'Podologie', `${PODO_OK.filter(f => doneP(f.id)).length}/${PODO.length} fiches sues`, PODO_OK.reduce((s, f) => s + pctP(f), 0) / PODO.length],
+          ['anat', 'Anatomie', `${nA}/${AQ.length} repères sus`, nA / AQ.length],
+          ['clin', 'Clinique', `${nC(CL)}/${CL.length} tests · ${nB(BL)}/${BL.length} étapes`, (nC(CL) + nB(BL)) / (CL.length + BL.length)]
+        ].map(([id, label, meta, progress]) => `<a class="paper-subject" href="#/${id}"><img src="jeu/theatre/${id}.webp" alt="" width="600" height="400"><span class="paper-subject-label">${label}</span><span class="paper-subject-meta">${meta}</span><span class="paper-subject-track" aria-label="${pc(progress)} %"><i style="width:${pc(progress)}%"></i></span></a>`).join('')}</div>
+      </section>
+      <div class="sec paper-games-heading">JOUER</div><div class="home-learning">
       <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">Lire, cacher, réciter · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
       <a class="card resume" href="#/jeu/aventure"><span class="stamp sm" style="--c:var(--red)">${ico('flame')}</span><span class="rt"><span class="kicker">L'AVENTURE</span><span class="t">Podo Quest</span><span class="s">Bats les monstres en récitant leurs fiches · niveau ${(S.rpg || {}).lvl || 1} · ${Object.keys((S.rpg || {}).seen || {}).length} monstres battus</span></span><span class="chev">›</span></a>
+      </div>
       <div class="sec">POUR RÉVISER CE QUE TU CHOISIS</div>
       <div class="quick">
         <a class="qb" href="#/jeu/patient" style="--c:var(--p4)"><span class="em">${ico('stetho')}</span><span class="t">Le patient</span><span class="s">64 patients${(S.rec || {}).patient ? ' · record ' + S.rec.patient + '/30' : ''}</span></a>
@@ -181,14 +197,14 @@
         <a class="qb" href="#/jeu/survie" style="--c:var(--red)"><span class="em">${ico('flame')}</span><span class="t">Survie</span><span class="s">3 vies${(S.rec || {}).survie ? ' · record ' + S.rec.survie : ''}</span></a>
         <a class="qb" href="#/jeu/paires" style="--c:var(--p5)"><span class="em">${ico('stopwatch')}</span><span class="t">Les paires</span><span class="s">60 secondes${(S.rec || {}).paires ? ' · record ' + S.rec.paires : ''}</span></a>
       </div>
-      <div class="sec">OÙ J'EN SUIS</div>
+      <div class="sec subject-progress-title">OÙ J'EN SUIS</div>
       <a class="card prog" href="#/pedi">${ring(vP, 'var(--p6)')}<span class="rt"><span class="t">Pédicurie</span><span class="s">${nP}/24 fiches sues · ${PEDI.reduce((s, f) => s + nSeen(f), 0)} parties lues</span>${bar(nP / 24, 'var(--p6)')}</span><span class="chev">›</span></a>
       <a class="card prog" href="#/podo">${ring(PODO_OK.length ? PODO_OK.reduce((s, f) => s + pctP(f), 0) / PODO.length : 0, 'var(--p8)')}<span class="rt"><span class="t">Podologie</span><span class="s">${PODO_OK.filter(f => doneP(f.id)).length}/${PODO.length} fiches sues · ${PODO_OK.length} prête${PODO_OK.length > 1 ? 's' : ''}, les autres arrivent</span>${bar(PODO_OK.filter(f => doneP(f.id)).length / PODO.length, 'var(--p8)')}</span><span class="chev">›</span></a>
       <a class="card prog" href="#/anat">${ring(nA / AQ.length, 'var(--p1)')}<span class="rt"><span class="t">Anatomie palpatoire</span><span class="s">${nA}/${AQ.length} repères sus</span><span class="minis">${regs}</span></span><span class="chev">›</span></a>
       <a class="card prog" href="#/clin">${ring((nC(CL) + nB(BL)) / (CL.length + BL.length), 'var(--p4)')}<span class="rt"><span class="t">Examen clinique</span><span class="s">${nC(CL)}/${CL.length} tests · ${nB(BL)}/${BL.length} étapes du bilan</span>${bar((nC(CL) + nB(BL)) / (CL.length + BL.length), 'var(--p4)')}</span><span class="chev">›</span></a>
       <div class="sec">RÉVISER MAINTENANT</div>
       <div class="quick">
-        ${nextF ? `<a class="qb" href="${FB(nextF)}" style="--c:var(--p6)">${thumb(ill(nextF.id, 'cover'), nextF.title)}<span class="t">Fiche ${nextF.n}</span><span class="s">${esc(nextF.title)}</span></a>` : ''}
+        ${nextF ? `<a class="qb" href="${FB(nextF)}" style="--c:var(--p6)">${thumb(coursePreview(nextF), nextF.title)}<span class="t">Fiche ${nextF.n}</span><span class="s">${esc(nextF.title)}</span></a>` : ''}
         <a class="qb" href="#/anat/quiz" style="--c:var(--p1)"><span class="em">${ico('target')}</span><span class="t">Je m'interroge</span><span class="s">un repère d'anatomie au hasard</span></a>
         <a class="qb" href="#/tirage" style="--c:var(--red)"><span class="em">${ico('dice')}</span><span class="t">Tirage au sort</span><span class="s">comme le jour de l'oral</span></a>
         <a class="qb" href="#/plan" style="--c:var(--p3)">${thumb(ill('plan', 'board'), 'Le plan')}<span class="t">Le plan de l'oral</span><span class="s">les 8 questions</span></a>
@@ -337,8 +353,23 @@
     const fresh = ALLF.filter(f => !doneP(f.id) && !(S.rv || {})['f:' + f.id] && !(S.last && S.last.id === f.id));
     const perDay = left > 1 ? Math.ceil(fresh.length / Math.max(1, left - 2)) : 0, nf = fresh[0], st = streak(), n = doneToday();
     const item = (href, em, t, sub) => `<a class="todo" href="${href}"><span class="em">${em}</span><span class="rt"><span class="t">${t}</span>${sub ? `<span class="s">${sub}</span>` : ''}</span><span class="chev">›</span></a>`;
+    if (S.skin === 'paper') {
+      const last = S.last && ALLF.find(f => f.id === S.last.id);
+      const start = dueF.length ? `${FB(dueF[0])}/quiz` : dueA ? '#/anat/quiz' : nf ? `#/jeu/apprendre/${nf.id}` : '#/tirage';
+      return `<div class="card today paper-today">
+        <div class="trow"><div><div class="kicker">Ma séance du jour</div>${left != null ? `<div class="big3">${left > 0 ? `Oral dans ${left} jour${left > 1 ? 's' : ''}` : left === 0 ? 'C’est le jour J !' : 'Oral passé'}</div>` : ''}</div><div class="streak" title="${st} jour${st > 1 ? 's' : ''} d’affilée"><img src="jeu/papier/flamme.webp" alt="" width="25" height="30"><span>${st}</span></div></div>
+        <div class="goal"><span class="paper-goal-star" aria-hidden="true">★</span><span>Objectif du jour · ${Math.min(n, GOAL)}/${GOAL}</span>${bar(Math.min(1, n / GOAL), 'var(--p6)')}</div>
+        <a class="btn wide paper-session-start" href="${start}">Commencer ma séance <span aria-hidden="true">→</span></a>
+        <details class="paper-session-details"><summary>Ma séance et la date de mon oral</summary><div class="todos">
+          ${last ? item(`${FB(last)}${S.last.k ? '/p' + S.last.k : ''}`, ico('play'), 'Reprendre ma fiche', esc(last.title)) : ''}
+          ${dueF.map(f => item(`${FB(f)}/quiz`, ico('repeat'), `À revoir : ${esc(f.title)}`, 'le quiz de la fiche')).join('')}
+          ${dueA ? item('#/anat/quiz', ico('bone'), `${dueA} repère${dueA > 1 ? 's' : ''} d’anatomie à revoir`, 'Je m’interroge') : ''}
+          ${nf ? item(`#/jeu/apprendre/${nf.id}`, ico('sparkle'), `Nouvelle fiche : ${nf.n}. ${esc(nf.title)}`, perDay ? `${perDay} nouvelle${perDay > 1 ? 's' : ''} par jour avant l’oral` : 'apprends-la en jouant') : ''}
+        </div><div class="exam">${ico('calendar')} Mon oral : <input type="date" id="examdate" value="${S.exam || ''}" aria-label="Date de mon oral"></div></details>
+      </div>`;
+    }
     return `<div class="card today">
-      <div class="trow"><div><div class="kicker">MA SÉANCE DU JOUR</div>${left != null ? `<div class="big3">${left > 0 ? `Oral dans ${left} jour${left > 1 ? 's' : ''}` : left === 0 ? "C'est le jour J !" : 'Oral passé'}</div>` : ''}</div>
+      <div class="trow"><div><div class="kicker">Ma séance du jour</div>${left != null ? `<div class="big3">${left > 0 ? `Oral dans ${left} jour${left > 1 ? 's' : ''}` : left === 0 ? "C'est le jour J !" : 'Oral passé'}</div>` : ''}</div>
         <div class="streak" title="Jours d'affilée">${ico('flame')} ${st}<small>jour${st > 1 ? 's' : ''}</small></div></div>
       <div class="goal"><span>Objectif du jour : ${Math.min(n, GOAL)} / ${GOAL}</span>${bar(Math.min(1, n / GOAL), 'var(--p6)')}</div>
       <div class="todos">
@@ -608,6 +639,10 @@
     { v: 129, items: [
       ['sparkle', 'Essaie le thème Papier découpé dans les réglages de l’accueil. Les cartes prennent du relief et les personnages de Podo Quest s’animent dans des décors en papier.'],
     ] },
+    { v: 130, items: [
+      ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
+      ['book', '20/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -630,7 +665,7 @@
     const nP = PEDI.filter(f => doneP(f.id)).length;
     return `<div class="wrap">${top('#/', 'Pédicurie · 24 fiches', count(nP, 24))}
       <div class="row2" style="margin:0 0 12px"><a class="btn ghost grow" href="#/search">${ico('search')} Rechercher</a><a class="btn ghost grow" href="#/lexique">${ico('book')} Lexique (${(window.LEXIQUE || []).length})</a></div>
-      <div class="entries">${PEDI.map(f => `<a class="entry" href="${FB(f)}">${thumb(ill(f.id, 'cover'), f.title)}
+      <div class="entries">${PEDI.map(f => `<a class="entry" href="${FB(f)}">${thumb(coursePreview(f), f.title)}
         <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}${nStars(f.id) ? ' ' + stars(f.id) : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`).join('')}</div></div>`;
   }
 
@@ -639,7 +674,7 @@
     const nP = PODO_OK.filter(f => doneP(f.id)).length;
     return `<div class="wrap">${top('#/', `Podologie · ${PODO.length} fiches`, count(nP, PODO.length))}
       <div class="muted lead">${PODO_OK.length} fiche${PODO_OK.length > 1 ? 's' : ''} prête${PODO_OK.length > 1 ? 's' : ''} : les autres arrivent au fur et à mesure des vidéos.</div>
-      <div class="entries">${PODO.map(f => f.ready ? `<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(ill(f.id, 'cover'), f.title) : `<span class="stamp xs" style="--c:var(--p8)">${f.n}</span>`}
+      <div class="entries">${PODO.map(f => f.ready ? `<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(coursePreview(f), f.title) : `<span class="stamp xs" style="--c:var(--p8)">${f.n}</span>`}
         <span class="rt"><span class="n">${f.n} · ${esc(f.catName)}${S.qz && S.qz[f.id] ? ` · quiz ${S.qz[f.id].last} %` : ''}${nStars(f.id) ? ' ' + stars(f.id) : ''}</span><span class="t">${esc(f.title)}</span>${segs(f)}</span>${doneP(f.id) ? '<span class="ok">✓</span>' : '<span class="chev">›</span>'}</a>`
         : `<div class="entry soon"><span class="stamp xs">${f.n}</span><span class="rt"><span class="t">${esc(f.title)}</span><span class="n">${ico('hourglass')} Coming soon</span></span></div>`).join('')}</div></div>`;
   }
@@ -651,7 +686,7 @@
     const tool = (href, em, label) => `<a class="tool" href="${href}"><span class="em">${em}</span><span>${label}</span></a>`;
     const L = LISTOF(f), i = L.indexOf(f), a = L[i - 1], b = L[i + 1];
     return `<div class="wrap">${top('#/' + (f.sec || 'pedi'), `Fiche ${f.n}${f.sec === 'podo' ? '' : ' / ' + PEDI.length} · ${esc(f.catName)}`, count(k, n))}
-      <div class="fhead">${hasIll(f) ? `<span class="drawn th zoomable">${img(ill(f.id, 'cover'), f.title)}</span>` : `<span class="stamp" style="--c:var(--p8)">${f.n}</span>`}<div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
+      <div class="fhead">${hasIll(f) ? `<span class="drawn th zoomable">${img(coursePreview(f), f.title)}</span>` : `<span class="stamp" style="--c:var(--p8)">${f.n}</span>`}<div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
       <a class="btn wide" href="${FB(f)}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
       <a class="btn wide" href="#/jeu/apprendre/${f.id}" style="--c:var(--p4);margin-top:10px">${ico('sparkle')} Apprendre en jouant ${stars(f.id)}</a>
       <a class="btn wide quizbtn" href="${FB(f)}/quiz" style="--c:var(--p5)">${ico('target')} Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
@@ -664,12 +699,51 @@
       </div>
       <div class="sec">${esc(f.planTitle || 'LE PLAN EN ' + n + ' PARTIES').toUpperCase()}</div>
       <div class="entries">${f.parts.map((p, j) => `<a class="entry part-e" href="${FB(f)}/p${j + 1}" style="--c:${PCOL(j)}"><span class="stamp xs">${j + 1}</span>
-        <span class="rt"><span class="t">${esc(p.title)}</span><span class="q">${esc(p.q)}</span></span>${hasIll(f) ? thumb(ill(f.id, `p${j + 1}b`), p.title) : ''}${seenP(f, j + 1) ? '<span class="ok">✓</span>' : ''}</a>`).join('')}</div>
+        <span class="rt"><span class="t">${esc(p.title)}</span><span class="q">${esc(p.q)}</span></span>${hasIll(f) ? thumb(coursePreview(f, `p${j + 1}b`, j + 1), p.title) : ''}${seenP(f, j + 1) ? '<span class="ok">✓</span>' : ''}</a>`).join('')}</div>
       <button class="btn wide ${doneP(f.id) ? 'ghost' : ''}" id="done" style="--c:var(--p6);margin-top:18px">${doneP(f.id) ? 'Je dois encore la revoir' : '✓ Je la connais'}</button>
       <div class="pair">${a ? `<a href="${FB(a)}">← Fiche ${a.n}</a>` : '<span></span>'}${b ? `<a href="${FB(b)}">Fiche ${b.n} →</a>` : ''}</div></div>`;
   }
 
-  // une partie = un écran : le dessin de la vidéo, les points clés, ce que je dis
+  // Les illustrations du théâtre sont des repères visuels. Les schémas détaillés
+  // des vidéos restent accessibles, avec tous les points du cours en texte vivant.
+  function paperArt(f, p = f.parts[0], k = 1) {
+    const title = p.title.toLocaleLowerCase('fr');
+    return f.id === 'verrues' && k === 1 ? 'verrues' :
+      /[ée]tiologie|risque|cause/.test(title) ? (['verrues', 'onychomycoses', 'mycoses', 'erysipele'].includes(f.id) ? 'part-causes' : 'part-contexte') :
+      /physiopath|m[ée]canisme/.test(title) ? (f.cat === 'peau' ? 'part-mecanisme' : 'part-contexte') :
+      /signe|sympt[ôo]me/.test(title) ? 'part-signes' :
+      /diagnostic/.test(title) ? 'part-diagnostic' :
+      /traitement|prise en charge/.test(title) ? 'part-traitement' :
+      /conseil|pr[ée]vention/.test(title) ? 'part-conseils' :
+      /[ée]volution|pronostic|complication/.test(title) ? 'part-evolution' :
+      f.sec === 'podo' ? 'podo' : `cours-${f.cat === 'ongle' ? 'ongle' : f.cat === 'vasc' ? 'vasc' : f.cat === 'med' ? 'med' : 'peau'}`;
+  }
+  function paperScene(f, p, k) {
+    if (paperNotions(f, k).length) return '';
+    if (hasIll(f)) return `<figure class="drawn slide paper-source-scene">${img(ill(f.id, `p${k}b`), p.title + ' : schéma du cours', 'crop')}</figure>`;
+    const art = paperArt(f, p, k);
+    const first = (p.blocks || [])[0];
+    const rawHeading = first && (first.t === 'h' || (first.t === 'txt' && first.text === first.text.toUpperCase() && first.text.length <= 45)) ? first.text : p.q;
+    const heading = rawHeading === "CARTE D'IDENTITÉ" ? 'Carte d’identité' : rawHeading;
+    return `<figure class="paper-lesson-scene ${art === 'verrues' ? 'paper-wart-scene' : ''}"><figcaption class="paper-ribbon">${esc(heading)}</figcaption><img src="jeu/theatre/${art}.webp" width="900" height="600" alt="${art === 'verrues' ? 'Illustration en papier : une verrue repérée sur la plante du pied' : ''}">${art === 'verrues' ? '<span class="paper-lesion-label">Verrue<br>plantaire</span>' : ''}</figure>`;
+  }
+
+  function paperLessonBlocks(f, p, k) {
+    const notions = paperNotions(f, k);
+    if (!notions.length) return blocks(p.blocks);
+    const ordered = [...notions].sort((a, b) => a.after - b.after);
+    let cursor = 0;
+    const sections = ordered.map((notion, index) => {
+      // Le dernier dessin accompagne tout le texte restant ; aucun bloc n'est retiré.
+      const end = index === ordered.length - 1 ? p.blocks.length : Math.max(cursor, Math.min(p.blocks.length, notion.after + 1));
+      const copy = blocks(p.blocks.slice(cursor, end));
+      cursor = end;
+      return `<section class="paper-concept"><figure class="paper-concept-art"><img src="${esc(notion.src)}" alt="${esc(notion.caption)}" width="450" height="450" ${index ? 'loading="lazy"' : ''}><figcaption>${esc(notion.caption)}</figcaption></figure><div class="paper-concept-copy">${copy}</div></section>`;
+    }).join('');
+    return sections + blocks(p.blocks.slice(cursor));
+  }
+
+  // une partie = un écran : illustration, points clés et texte de l'oral
   function part(f, k) {
     const p = f.parts[k - 1], n = f.parts.length, c = PCOL(k - 1);
     if (!p) return fiche(f);
@@ -678,17 +752,19 @@
     if (!(S.last && S.last.id === f.id && S.last.k === k)) did(1);
     S.last = { id: f.id, k }; save();
     const prev = k > 1 ? `${FB(f)}/p${k - 1}` : `${FB(f)}`, next = k < n ? `${FB(f)}/p${k + 1}` : `${FB(f)}/memo`;
-    return `<div class="wrap ${S.revise ? 'revise' : ''}">${top(`${FB(f)}`, `${f.n}. ${esc(f.title)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? ico('eyeoff') : ico('eye')}</button>`)}
-      <nav class="segnav">${f.parts.map((_, i) => `<a href="${FB(f)}/p${i + 1}" class="${i + 1 === k ? 'on' : seenP(f, i + 1) ? 'seen' : ''}" style="--c:${PCOL(i)}">${i + 1}</a>`).join('')}</nav>
+    const paper = S.skin === 'paper';
+    return `<div class="wrap ${paper ? 'paper-course' : ''} ${S.revise ? 'revise' : ''}">${top(`${FB(f)}`, `${paper ? '' : f.n + '. '}${esc(f.title)}`, `<button class="eye" id="revise" aria-pressed="${!!S.revise}" title="Me tester : cacher les réponses">${S.revise ? ico('eyeoff') : ico('eye')}</button>`)}
+      <nav class="segnav" aria-label="Parties du cours">${f.parts.map((p, i) => `<a href="${FB(f)}/p${i + 1}" ${i + 1 === k ? 'aria-current="step"' : ''} aria-label="Partie ${i + 1} : ${esc(p.title)}" class="${i + 1 === k ? 'on' : seenP(f, i + 1) ? 'seen' : ''}" style="--c:${PCOL(i)}">${i + 1}</a>`).join('')}</nav>
       <section class="part solo" style="--c:${c}">
         <header><span class="stamp sm">${k}</span><div><h2>${esc(p.title)}</h2><span class="q">${esc(p.q)}</span></div></header>
-        ${hasIll(f) ? `<figure class="drawn slide">${img(ill(f.id, `p${k}b`), p.title + ' : dessin de la vidéo', 'crop')}</figure>` : ''}
+        ${paper ? paperScene(f, p, k) : hasIll(f) ? `<figure class="drawn slide">${img(ill(f.id, `p${k}b`), p.title + ' : dessin de la vidéo', 'crop')}</figure>` : ''}
         ${S.revise ? `<div class="hint">${ico('eyeoff')} Mode test : récite, puis touche une ligne pour la voir. (${ico('eye')} en haut pour tout afficher)</div>` : ''}
-        <div class="body">${blocks(p.blocks)}</div>
+        <div class="body ${paper && paperNotions(f, k).length ? 'paper-illustrated-body' : ''}">${paper ? paperLessonBlocks(f, p, k) : blocks(p.blocks)}</div>
         <details class="say"><summary>${ico('speak')} Ce que je dis à l'oral</summary><p>${md(p.say)}</p></details>
+        ${paper && hasIll(f) ? `<details class="paper-original"><summary>${ico('book')} Schéma détaillé du cours</summary><figure class="drawn slide">${img(ill(f.id, `p${k}b`), p.title + ' : dessin de la vidéo', 'crop')}</figure></details>` : ''}
         <a class="btn ghost wide" href="${FB(f)}/quiz/${k}" style="margin-top:14px">${ico('target')} Me tester sur cette partie</a>
       </section>
-      ${pager(prev, `<a class="btn grow" href="${next}" style="--c:${k < n ? PCOL(k) : 'var(--hl)'}">${k < n ? `Partie ${k + 1}` : 'Mots-clés'} →</a>`, next)}</div>`;
+      ${pager(prev, `<a class="btn grow" href="${next}" style="--c:${k < n ? PCOL(k) : 'var(--hl)'}">${k < n ? paper ? 'Partie suivante' : `Partie ${k + 1}` : 'Mots-clés'} →</a>`, next)}</div>`;
   }
 
   function memo(f) {
@@ -1009,7 +1085,7 @@
     const snip = (txt, k = 70) => { const t = String(txt).replace(/\*\*/g, ''), i = norm(t).indexOf(n); if (i < 0) return ''; const a = Math.max(0, i - k); return (a ? '…' : '') + esc(t.slice(a, i)) + '<mark>' + esc(t.slice(i, i + n.length)) + '</mark>' + esc(t.slice(i + n.length, i + n.length + k)) + '…'; };
     const out = [];
     for (const f of ALLF) {
-      if (norm(f.title).includes(n)) out.push(`<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(ill(f.id, 'cover'), f.title) : ''}<span class="rt"><span class="n">${SECN(f).toUpperCase()} · FICHE ${f.n}</span><span class="t">${esc(f.title)}</span></span><span class="chev">›</span></a>`);
+      if (norm(f.title).includes(n)) out.push(`<a class="entry" href="${FB(f)}">${hasIll(f) ? thumb(coursePreview(f), f.title) : ''}<span class="rt"><span class="n">${SECN(f).toUpperCase()} · FICHE ${f.n}</span><span class="t">${esc(f.title)}</span></span><span class="chev">›</span></a>`);
       f.parts.forEach((p, i) => { const sn = snip(p.say); if (sn) out.push(`<a class="entry part-e" href="${FB(f)}/p${i + 1}" style="--c:${PCOL(i)}"><span class="stamp xs">${i + 1}</span><span class="rt"><span class="n">${f.n}. ${esc(f.title)} · ${esc(p.title)}</span><span class="s">${sn}</span></span></a>`); });
     }
     for (const x of AQ) if (norm(x.name).includes(n) || norm(x.how || '').includes(n)) out.push(`<a class="entry" href="#/anat/${x.q}" style="--c:${RCOL[x.reg]}">${zoomThumb(x, 44)}<span class="rt"><span class="n">ANATOMIE · Q${x.q}</span><span class="t">${esc(x.name)}</span></span><span class="chev">›</span></a>`);
@@ -1797,5 +1873,9 @@
   // Après un champ (date de l'oral, recherche), l'iPhone peut laisser la page décalée pour faire place au clavier : on la remet en place.
   document.addEventListener('focusout', e => { if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) setTimeout(() => { const a = document.activeElement; if (!a || !/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) window.scrollTo(0, 0); }, 120); });
   window.addEventListener('hashchange', render);
+  window.addEventListener('paper-illustrations-update', e => {
+    const route = location.hash.split('/');
+    if (S.skin === 'paper' && ['pedi', 'podo'].includes(route[1]) && e.detail.includes(route[2]) && (!route[3] || /^p\d+$/.test(route[3]))) render(true);
+  });
   render();
 })();

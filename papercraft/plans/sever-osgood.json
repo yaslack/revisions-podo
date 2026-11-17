@@ -1,0 +1,196 @@
+{
+  "id": "sever-osgood",
+  "title": "Sever et Osgood-Schlatter",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "bénignes · enfant + ado SPORTIF",
+        "after": 1,
+        "context": [
+          "bénignes · enfant + ado SPORTIF (sauts, courses)",
+          "SEVER · talon",
+          "APOPHYSITE CALCANÉENNE",
+          "plaque de croissance du calcanéum",
+          "8 – 14 ans"
+        ]
+      },
+      {
+        "caption": "OSGOOD · genou",
+        "after": 3,
+        "context": [
+          "OSGOOD · genou",
+          "TUBÉROSITÉ TIBIALE ANTÉRIEURE",
+          "insertion du tendon sur le tibia",
+          "10 – 15 ans",
+          "TRANSITOIRES : finies avec la croissance"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SEVER · talon",
+        "after": 2,
+        "context": [
+          "SEVER · talon",
+          "traction répétée",
+          "tendon d’ACHILLE",
+          "plaque du calcanéum",
+          "OSGOOD · genou",
+          "tension répétée",
+          "tendon ROTULIEN",
+          "tubérosité tibiale",
+          "parfois cartilage séparé",
+          "croissance rapide : l’os grandit plus vite que les tendons"
+        ]
+      },
+      {
+        "caption": "FACTEURS DE RISQUE",
+        "after": 4,
+        "context": [
+          "FACTEURS DE RISQUE",
+          "sports à fort impact",
+          "croissance rapide",
+          "Sever : pied plat, posture",
+          "Osgood : antécédents familiaux"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "zones de croissance FRAGILES",
+        "after": 1,
+        "context": [
+          "zones de croissance FRAGILES",
+          "course, saut → le tendon TIRE : Achille → talon · rotulien → sous le genou"
+        ]
+      },
+      {
+        "caption": "INFLAMMATION + douleur à l’activité",
+        "after": 3,
+        "context": [
+          "INFLAMMATION + douleur à l’activité",
+          "Osgood : débris osseux / cartilagineux"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SEVER · talon",
+        "after": 0,
+        "context": [
+          "SEVER · talon",
+          "douleur ARRIÈRE du talon",
+          "pire : course, sauts",
+          "douleur à la pression",
+          "parfois léger gonflement",
+          "BOITERIE"
+        ]
+      },
+      {
+        "caption": "OSGOOD · genou",
+        "after": 1,
+        "context": [
+          "OSGOOD · genou",
+          "douleur SOUS la rotule",
+          "pire à l’effort",
+          "gonflement localisé, sensible",
+          "RAIDEUR du genou"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "douleur + sensibilité",
+          "talon / tubérosité",
+          "souplesse de l’Achille"
+        ]
+      },
+      {
+        "caption": "SEVER · talon",
+        "after": 3,
+        "context": [
+          "SEVER · talon",
+          "RADIO : exclut une fracture",
+          "ne montre PAS l’inflammation",
+          "ÉCHO parfois : tissus mous",
+          "OSGOOD · genou",
+          "RADIO : débris osseux / cartilagineux",
+          "IRM : tendon rotulien"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "CONSERVATEUR, pour les deux",
+        "after": 1,
+        "context": [
+          "CONSERVATEUR, pour les deux",
+          "repos",
+          "glace",
+          "AINS"
+        ]
+      },
+      {
+        "caption": "SEVER · talon",
+        "after": 3,
+        "context": [
+          "SEVER · talon",
+          "SEMELLES : moins de pression",
+          "renforcer pied + Achille",
+          "OSGOOD · genou",
+          "GENOUILLÈRES : protéger la tubérosité",
+          "étirer + renforcer le QUADRICEPS"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "FAVORABLE pour les deux",
+        "after": 1,
+        "context": [
+          "FAVORABLE pour les deux",
+          "SEVER · talon",
+          "guérit SPONTANÉMENT",
+          "à la fin de la croissance",
+          "traitement : soulage vite"
+        ]
+      },
+      {
+        "caption": "OSGOOD · genou",
+        "after": 2,
+        "context": [
+          "OSGOOD · genou",
+          "disparaît vers 16 – 18 ans",
+          "douleurs RÉSIDUELLES possibles",
+          "ajuster les activités"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "TENSIONS excessives sur les zones de croissance",
+        "after": 2,
+        "context": [
+          "pas de prévention détaillée → la CONCLUSION de la fiche",
+          "TENSIONS excessives sur les zones de croissance",
+          "bénignes, temporaires… mais DOULOUREUSES"
+        ]
+      },
+      {
+        "caption": "repos · glace · AINS · activités ADAPTÉES",
+        "after": 4,
+        "context": [
+          "repos · glace · AINS · activités ADAPTÉES : → guérison complète",
+          "SUIVI MÉDICAL recommandé : éviter les complications à long terme"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Sever et Osgood-Schlatter. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"bénignes · enfant + ado SPORTIF\",\"context\":\"bénignes · enfant + ado SPORTIF (sauts, courses); SEVER · talon; APOPHYSITE CALCANÉENNE; plaque de croissance du calcanéum; 8 – 14 ans\"},{\"cell\":2,\"focus\":\"OSGOOD · genou\",\"context\":\"OSGOOD · genou; TUBÉROSITÉ TIBIALE ANTÉRIEURE; insertion du tendon sur le tibia; 10 – 15 ans; TRANSITOIRES : finies avec la croissance\"},{\"cell\":3,\"focus\":\"SEVER · talon\",\"context\":\"SEVER · talon; traction répétée; tendon d’ACHILLE; plaque du calcanéum; OSGOOD · genou; tension répétée; tendon ROTULIEN; tubérosité tibiale; parfois cartilage séparé; croissance rapide : l’os grandit plus vite que les tendons\"},{\"cell\":4,\"focus\":\"FACTEURS DE RISQUE\",\"context\":\"FACTEURS DE RISQUE; sports à fort impact; croissance rapide; Sever : pied plat, posture; Osgood : antécédents familiaux\"},{\"cell\":5,\"focus\":\"zones de croissance FRAGILES\",\"context\":\"zones de croissance FRAGILES; course, saut → le tendon TIRE : Achille → talon · rotulien → sous le genou\"},{\"cell\":6,\"focus\":\"INFLAMMATION + douleur à l’activité\",\"context\":\"INFLAMMATION + douleur à l’activité; Osgood : débris osseux / cartilagineux\"},{\"cell\":7,\"focus\":\"SEVER · talon\",\"context\":\"SEVER · talon; douleur ARRIÈRE du talon; pire : course, sauts; douleur à la pression; parfois léger gonflement; BOITERIE\"},{\"cell\":8,\"focus\":\"OSGOOD · genou\",\"context\":\"OSGOOD · genou; douleur SOUS la rotule; pire à l’effort; gonflement localisé, sensible; RAIDEUR du genou\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; douleur + sensibilité; talon / tubérosité; souplesse de l’Achille\"},{\"cell\":10,\"focus\":\"SEVER · talon\",\"context\":\"SEVER · talon; RADIO : exclut une fracture; ne montre PAS l’inflammation; ÉCHO parfois : tissus mous; OSGOOD · genou; RADIO : débris osseux / cartilagineux; IRM : tendon rotulien\"},{\"cell\":11,\"focus\":\"CONSERVATEUR, pour les deux\",\"context\":\"CONSERVATEUR, pour les deux; repos; glace; AINS\"},{\"cell\":12,\"focus\":\"SEVER · talon\",\"context\":\"SEVER · talon; SEMELLES : moins de pression; renforcer pied + Achille; OSGOOD · genou; GENOUILLÈRES : protéger la tubérosité; étirer + renforcer le QUADRICEPS\"},{\"cell\":13,\"focus\":\"FAVORABLE pour les deux\",\"context\":\"FAVORABLE pour les deux; SEVER · talon; guérit SPONTANÉMENT; à la fin de la croissance; traitement : soulage vite\"},{\"cell\":14,\"focus\":\"OSGOOD · genou\",\"context\":\"OSGOOD · genou; disparaît vers 16 – 18 ans; douleurs RÉSIDUELLES possibles; ajuster les activités\"},{\"cell\":15,\"focus\":\"TENSIONS excessives sur les zones de croissance\",\"context\":\"pas de prévention détaillée → la CONCLUSION de la fiche; TENSIONS excessives sur les zones de croissance; bénignes, temporaires… mais DOULOUREUSES\"},{\"cell\":16,\"focus\":\"repos · glace · AINS · activités ADAPTÉES\",\"context\":\"repos · glace · AINS · activités ADAPTÉES : → guérison complète; SUIVI MÉDICAL recommandé : éviter les complications à long terme\"}]. Preserve exact 4-column grid and 4 rows."
+}

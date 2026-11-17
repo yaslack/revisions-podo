@@ -1,0 +1,101 @@
+{
+  "id": "attitudes-scoliotiques",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p1-1.webp",
+        "caption": "Déviation souple",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p1-2.webp",
+        "caption": "Enfant et adolescent",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p2-1.webp",
+        "caption": "Longueurs différentes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p2-2.webp",
+        "caption": "Bascule du bassin",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p3-1.webp",
+        "caption": "Le tronc s’adapte",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p3-2.webp",
+        "caption": "Une déviation réductible",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p4-1.webp",
+        "caption": "Asymétrie des épaules",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p4-2.webp",
+        "caption": "Correction en position allongée",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p5-1.webp",
+        "caption": "Examen postural",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p5-2.webp",
+        "caption": "Bilan des appuis",
+        "after": 0
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p6-1.webp",
+        "caption": "Compensation adaptée",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p6-2.webp",
+        "caption": "Rééducation du tronc",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p7-1.webp",
+        "caption": "Évolution favorable",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p7-2.webp",
+        "caption": "Surveillance pendant la croissance",
+        "after": 0
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p8-1.webp",
+        "caption": "Comparer les membres",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/attitudes-scoliotiques/p8-2.webp",
+        "caption": "Observer les appuis",
+        "after": 1
+      }
+    ]
+  ]
+}

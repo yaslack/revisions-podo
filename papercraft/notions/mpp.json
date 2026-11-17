@@ -1,0 +1,101 @@
+{
+  "id": "mpp",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p1-1.webp",
+        "caption": "Ulcère plantaire neuropathique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p1-2.webp",
+        "caption": "Perte de sensibilité",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p2-1.webp",
+        "caption": "Nerfs et circulation",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p2-2.webp",
+        "caption": "Déformations des orteils",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p3-1.webp",
+        "caption": "Hyperpression plantaire",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p3-2.webp",
+        "caption": "Épaississement de la peau",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p4-1.webp",
+        "caption": "Ulcération indolore",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p4-2.webp",
+        "caption": "Peau sèche et fissures",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p5-1.webp",
+        "caption": "Tester la sensibilité",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p5-2.webp",
+        "caption": "Examiner la circulation",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p6-1.webp",
+        "caption": "Mettre le pied en décharge",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p6-2.webp",
+        "caption": "Soins et pansements",
+        "after": 13
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p7-1.webp",
+        "caption": "Guérison avec une prise en charge précoce",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p7-2.webp",
+        "caption": "Risque de récidive",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mpp/p8-1.webp",
+        "caption": "Inspecter les pieds chaque jour",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/mpp/p8-2.webp",
+        "caption": "Choisir des chaussures adaptées",
+        "after": 9
+      }
+    ]
+  ]
+}

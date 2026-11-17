@@ -1,0 +1,222 @@
+{
+  "id": "phlebite",
+  "title": "La phlébite (TVP)",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Caillot dans une veine profonde",
+        "after": 2,
+        "context": [
+          "thrombus dans une veine profonde",
+          "TVP = thrombose veineuse profonde : caillot dans une veine profonde · MI ou bassin",
+          "EP = embolie pulmonaire : migration du thrombus → obstruction artérielle pulmonaire"
+        ]
+      },
+      {
+        "caption": "Risque d’embolie pulmonaire",
+        "after": 5,
+        "context": [
+          "fréquente",
+          "potentiellement grave",
+          "risque VITAL si EP massive",
+          "séquelles : syndrome post-thrombotique",
+          "+ récidives"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Immobilisation et stase veineuse",
+        "after": 7,
+        "context": [
+          "STASE VEINEUSE",
+          "Immobilisation prolongée : alités, longs voyages",
+          "Insuffisance veineuse",
+          "Plâtre",
+          "Chirurgie orthopédique",
+          "PAROI VEINEUSE",
+          "Traumatisme",
+          "Chirurgie"
+        ]
+      },
+      {
+        "caption": "Facteurs favorisant la coagulation",
+        "after": 14,
+        "context": [
+          "Cathéter veineux",
+          "HYPERCOAGULABILITÉ",
+          "Thrombophilies : facteur V Leiden · déficit antithrombine · protéine C/S",
+          "Cancers",
+          "Grossesse, post-partum",
+          "Contraceptifs œstroprogestatifs",
+          "Sd néphrotique, déshydratation"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Obstruction et pression veineuse",
+        "after": 3,
+        "context": [
+          "thrombus fibrino-plaquettaire · réseau veineux profond",
+          "Obstruction → PRESSION VEINEUSE ↑",
+          "douleur",
+          "œdème",
+          "inflammation locale",
+          "EMBOLIE PULMONAIRE"
+        ]
+      },
+      {
+        "caption": "Migration possible du caillot",
+        "after": 6,
+        "context": [
+          "détachement partiel ou total → migration",
+          "Sinon, il peut",
+          "se résorber",
+          "se recanaliser",
+          "s'organiser (fibrose)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Mollet douloureux et gonflé",
+        "after": 4,
+        "context": [
+          "TVP",
+          "Douleur mollet / cuisse : spontanée ou à la dorsiflexion",
+          "Œdème unilatéral : chaleur, rougeur",
+          "Perte du ballottement : du mollet",
+          "Parfois asymptomatique !"
+        ]
+      },
+      {
+        "caption": "Signes respiratoires d’embolie",
+        "after": 9,
+        "context": [
+          "signe de HOMANS",
+          "EMBOLIE PULMONAIRE",
+          "dyspnée brutale",
+          "douleur thoracique (pleurale)",
+          "tachycardie",
+          "polypnée",
+          "hypoxie",
+          "formes graves",
+          "hémoptysie",
+          "syncope",
+          "choc obstructif"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Écho-Doppler veineux",
+        "after": 4,
+        "context": [
+          "TVP",
+          "Score de Wells : probabilité clinique",
+          "D-dimères normaux : → excluent la TVP si probabilité faible",
+          "RÉFÉRENCE : écho-doppler veineux",
+          "EMBOLIE PULMONAIRE"
+        ]
+      },
+      {
+        "caption": "Exploration d’une embolie pulmonaire",
+        "after": 9,
+        "context": [
+          "Score : Wells ou Genève",
+          "Angioscanner thoracique : = examen de RÉFÉRENCE",
+          "Gaz du sang : hypoxémie, hypocapnie",
+          "ECG : tachycardie · parfois cœur pulmonaire aigu",
+          "Échocardiographie : surcharge droite (EP massive)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Traitement anticoagulant",
+        "after": 7,
+        "context": [
+          "ANTICOAGULATION",
+          "= la base du traitement",
+          "1. HÉPARINE",
+          "HBPM ou HNF",
+          "phase initiale",
+          "2. RELAIS",
+          "AVK (warfarine) ou AOD",
+          "rivaroxaban · apixaban · dabigatran",
+          "Durée",
+          "3 à 6 mois",
+          "si cause transitoire",
+          "au long cours"
+        ]
+      },
+      {
+        "caption": "Prise en charge et mobilisation adaptée",
+        "after": 14,
+        "context": [
+          "si permanente ou idiopathique",
+          "bas de contention élastique",
+          "mobilisation précoce",
+          "traitement de la cause (contraception, cancer…)",
+          "EMBOLIE GRAVE",
+          "instabilité hémodynamique",
+          "Thrombolyse : altéplase",
+          "Embolectomie : chirurgicale ou par cathéter · si thrombolyse contre-indiquée",
+          "Oxygène · remplissage · vasopresseur"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Évolution selon la prise en charge",
+        "after": 4,
+        "context": [
+          "Mortalité de l’EP",
+          "non traitée",
+          "jusqu’à 30 %",
+          "traitée",
+          "< 5 %"
+        ]
+      },
+      {
+        "caption": "Risque de récidive et séquelles veineuses",
+        "after": 8,
+        "context": [
+          "RÉCIDIVE",
+          "surtout si cause permanente",
+          "SYNDROME POST-THROMBOTIQUE",
+          "douleur",
+          "œdème chronique",
+          "ulcères"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Prévenir la stase veineuse",
+        "after": 4,
+        "context": [
+          "PRÉVENTION PRIMAIRE",
+          "Mobilisation précoce post-opératoire",
+          "Bas de contention",
+          "Anticoagulants préventifs : HBPM ou AOD · patients à risque",
+          "Éviter les facteurs favorisants : tabac · contraceptifs · sédentarité"
+        ]
+      },
+      {
+        "caption": "Suivi du traitement",
+        "after": 8,
+        "context": [
+          "SECONDAIRE",
+          "Suivi de l'anticoagulation",
+          "Recherche de thrombophilie : si récidive précoce",
+          "Surveillance échographique : si risque persistant"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: La phlébite (TVP). ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Caillot dans une veine profonde\",\"context\":\"thrombus dans une veine profonde; TVP = thrombose veineuse profonde : caillot dans une veine profonde · MI ou bassin; EP = embolie pulmonaire : migration du thrombus → obstruction artérielle pulmonaire\"},{\"cell\":2,\"focus\":\"Risque d’embolie pulmonaire\",\"context\":\"fréquente; potentiellement grave; risque VITAL si EP massive; séquelles : syndrome post-thrombotique; + récidives\"},{\"cell\":3,\"focus\":\"Immobilisation et stase veineuse\",\"context\":\"STASE VEINEUSE; Immobilisation prolongée : alités, longs voyages; Insuffisance veineuse; Plâtre; Chirurgie orthopédique; PAROI VEINEUSE; Traumatisme; Chirurgie\"},{\"cell\":4,\"focus\":\"Facteurs favorisant la coagulation\",\"context\":\"Cathéter veineux; HYPERCOAGULABILITÉ; Thrombophilies : facteur V Leiden · déficit antithrombine · protéine C/S; Cancers; Grossesse, post-partum; Contraceptifs œstroprogestatifs; Sd néphrotique, déshydratation\"},{\"cell\":5,\"focus\":\"Obstruction et pression veineuse\",\"context\":\"thrombus fibrino-plaquettaire · réseau veineux profond; Obstruction → PRESSION VEINEUSE ↑; douleur; œdème; inflammation locale; EMBOLIE PULMONAIRE\"},{\"cell\":6,\"focus\":\"Migration possible du caillot\",\"context\":\"détachement partiel ou total → migration; Sinon, il peut; se résorber; se recanaliser; s'organiser (fibrose)\"},{\"cell\":7,\"focus\":\"Mollet douloureux et gonflé\",\"context\":\"TVP; Douleur mollet / cuisse : spontanée ou à la dorsiflexion; Œdème unilatéral : chaleur, rougeur; Perte du ballottement : du mollet; Parfois asymptomatique !\"},{\"cell\":8,\"focus\":\"Signes respiratoires d’embolie\",\"context\":\"signe de HOMANS; EMBOLIE PULMONAIRE; dyspnée brutale; douleur thoracique (pleurale); tachycardie; polypnée; hypoxie; formes graves; hémoptysie; syncope; choc obstructif\"},{\"cell\":9,\"focus\":\"Écho-Doppler veineux\",\"context\":\"TVP; Score de Wells : probabilité clinique; D-dimères normaux : → excluent la TVP si probabilité faible; RÉFÉRENCE : écho-doppler veineux; EMBOLIE PULMONAIRE\"},{\"cell\":10,\"focus\":\"Exploration d’une embolie pulmonaire\",\"context\":\"Score : Wells ou Genève; Angioscanner thoracique : = examen de RÉFÉRENCE; Gaz du sang : hypoxémie, hypocapnie; ECG : tachycardie · parfois cœur pulmonaire aigu; Échocardiographie : surcharge droite (EP massive)\"},{\"cell\":11,\"focus\":\"Traitement anticoagulant\",\"context\":\"ANTICOAGULATION; = la base du traitement; 1. HÉPARINE; HBPM ou HNF; phase initiale; 2. RELAIS; AVK (warfarine) ou AOD; rivaroxaban · apixaban · dabigatran; Durée; 3 à 6 mois; si cause transitoire; au long cours\"},{\"cell\":12,\"focus\":\"Prise en charge et mobilisation adaptée\",\"context\":\"si permanente ou idiopathique; bas de contention élastique; mobilisation précoce; traitement de la cause (contraception, cancer…); EMBOLIE GRAVE; instabilité hémodynamique; Thrombolyse : altéplase; Embolectomie : chirurgicale ou par cathéte\"},{\"cell\":13,\"focus\":\"Évolution selon la prise en charge\",\"context\":\"Mortalité de l’EP; non traitée; jusqu’à 30 %; traitée; < 5 %\"},{\"cell\":14,\"focus\":\"Risque de récidive et séquelles veineuses\",\"context\":\"RÉCIDIVE; surtout si cause permanente; SYNDROME POST-THROMBOTIQUE; douleur; œdème chronique; ulcères\"},{\"cell\":15,\"focus\":\"Prévenir la stase veineuse\",\"context\":\"PRÉVENTION PRIMAIRE; Mobilisation précoce post-opératoire; Bas de contention; Anticoagulants préventifs : HBPM ou AOD · patients à risque; Éviter les facteurs favorisants : tabac · contraceptifs · sédentarité\"},{\"cell\":16,\"focus\":\"Suivi du traitement\",\"context\":\"SECONDAIRE; Suivi de l'anticoagulation; Recherche de thrombophilie : si récidive précoce; Surveillance échographique : si risque persistant\"}]. Preserve exact 4-column grid and 4 rows."
+}

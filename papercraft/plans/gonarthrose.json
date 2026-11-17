@@ -1,0 +1,202 @@
+{
+  "id": "gonarthrose",
+  "title": "La gonarthrose",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Pathologie DÉGÉNÉRATIVE du genou",
+        "after": 1,
+        "context": [
+          "Pathologie DÉGÉNÉRATIVE du genou : cartilage dégradé · os modifié · inflammation",
+          "une des arthroses les + FRÉQUENTES"
+        ]
+      },
+      {
+        "caption": "adulte âgé · jeunes à risque",
+        "after": 3,
+        "context": [
+          "adulte âgé · jeunes à risque : blessure · surpoids · biomécanique",
+          "évolution LENTE · déformation : douleurs · raideur · perte de mobilité"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "PRIMAIRE",
+        "after": 5,
+        "context": [
+          "PRIMAIRE (idiopathique)",
+          "VIEILLISSEMENT du cartilage : il ne se régénère plus",
+          "cause PRINCIPALE",
+          "↑ à partir de 60 ans",
+          "SECONDAIRES",
+          "TRAUMATISMES",
+          "fracture · croisés · ménisque",
+          "ANATOMIE",
+          "valgus / varus"
+        ]
+      },
+      {
+        "caption": "SURPOIDS",
+        "after": 11,
+        "context": [
+          "SURPOIDS",
+          "GÉNÉTIQUE",
+          "MÉTABOLIQUE",
+          "goutte · hémochromatose",
+          "INFECTIONS",
+          "articulaires antérieures"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "cartilage = glissement SANS friction",
+        "after": 2,
+        "context": [
+          "cartilage = glissement SANS friction",
+          "usé → les os FROTTENT : douleurs + raideurs",
+          "os sous-chondral DENSIFIÉ : = SCLÉROSE, visible à la radio"
+        ]
+      },
+      {
+        "caption": "OSTÉOPHYTES au bord de l’articulation",
+        "after": 4,
+        "context": [
+          "OSTÉOPHYTES au bord de l’articulation",
+          "SYNOVITE (frottements)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "douleur MÉCANIQUE",
+        "after": 2,
+        "context": [
+          "douleur MÉCANIQUE : ↑ effort, marche, escaliers, charges · ↓ au repos",
+          "RAIDEUR matinale / après assis",
+          "crépitements · blocages"
+        ]
+      },
+      {
+        "caption": "ÉPANCHEMENT",
+        "after": 5,
+        "context": [
+          "ÉPANCHEMENT : genou gonflé : surtout après l’effort",
+          "instabilité · faiblesse musculaire",
+          "formes avancées : déformation varus / valgus"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "mobilité",
+          "douleur",
+          "gonflement",
+          "déformations",
+          "McMURRAY",
+          "LACHMAN",
+          "ligaments",
+          "RADIOGRAPHIE",
+          "1re INTENTION",
+          "usure",
+          "ostéophytes",
+          "pincement",
+          "os sous-chondral"
+        ]
+      },
+      {
+        "caption": "si besoin",
+        "after": 3,
+        "context": [
+          "IRM",
+          "si besoin",
+          "ligaments · ménisques",
+          "gravité des lésions",
+          "SCINTIGRAPHIE",
+          "parfois"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "AINS + antalgiques",
+        "after": 4,
+        "context": [
+          "CONSERVATEUR",
+          "AINS + antalgiques",
+          "rééducation : renforcement + étirements",
+          "semelles / genouillère → alignement",
+          "PERTE DE POIDS (obésité)"
+        ]
+      },
+      {
+        "caption": "infiltrations de corticoïdes",
+        "after": 9,
+        "context": [
+          "infiltrations de corticoïdes",
+          "CHIRURGIE",
+          "OSTÉOTOMIE",
+          "arthrose UNILATÉRALE → réaligner",
+          "PROTHÈSE TOTALE",
+          "formes avancées",
+          "ARTHROSCOPIE",
+          "fragments · ménisque"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend du STADE au diagnostic",
+        "after": 1,
+        "context": [
+          "dépend du STADE au diagnostic",
+          "maladie PROGRESSIVE…",
+          "… mais un traitement adapté",
+          "soulage la douleur",
+          "améliore la fonction",
+          "ralentit l’évolution"
+        ]
+      },
+      {
+        "caption": "FORMES AVANCÉES",
+        "after": 2,
+        "context": [
+          "FORMES AVANCÉES",
+          "perte de mobilité IMPORTANTE",
+          "qualité de vie ↓"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "POIDS SANTÉ",
+        "after": 3,
+        "context": [
+          "PRÉVENTION",
+          "POIDS SANTÉ",
+          "activité qui ménage les genoux : natation · vélo",
+          "éviter les traumatismes répétés"
+        ]
+      },
+      {
+        "caption": "personnes à risque",
+        "after": 7,
+        "context": [
+          "DÉPISTAGE",
+          "personnes à risque",
+          "anciens sportifs",
+          "personnes obèses",
+          "BILANS réguliers : cliniques + radiologiques → signes précoces"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: La gonarthrose. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Pathologie DÉGÉNÉRATIVE du genou\",\"context\":\"Pathologie DÉGÉNÉRATIVE du genou : cartilage dégradé · os modifié · inflammation; une des arthroses les + FRÉQUENTES\"},{\"cell\":2,\"focus\":\"adulte âgé · jeunes à risque\",\"context\":\"adulte âgé · jeunes à risque : blessure · surpoids · biomécanique; évolution LENTE · déformation : douleurs · raideur · perte de mobilité\"},{\"cell\":3,\"focus\":\"PRIMAIRE\",\"context\":\"PRIMAIRE (idiopathique); VIEILLISSEMENT du cartilage : il ne se régénère plus; cause PRINCIPALE; ↑ à partir de 60 ans; SECONDAIRES; TRAUMATISMES; fracture · croisés · ménisque; ANATOMIE; valgus / varus\"},{\"cell\":4,\"focus\":\"SURPOIDS\",\"context\":\"SURPOIDS; GÉNÉTIQUE; MÉTABOLIQUE; goutte · hémochromatose; INFECTIONS; articulaires antérieures\"},{\"cell\":5,\"focus\":\"cartilage = glissement SANS friction\",\"context\":\"cartilage = glissement SANS friction; usé → les os FROTTENT : douleurs + raideurs; os sous-chondral DENSIFIÉ : = SCLÉROSE, visible à la radio\"},{\"cell\":6,\"focus\":\"OSTÉOPHYTES au bord de l’articulation\",\"context\":\"OSTÉOPHYTES au bord de l’articulation; SYNOVITE (frottements)\"},{\"cell\":7,\"focus\":\"douleur MÉCANIQUE\",\"context\":\"douleur MÉCANIQUE : ↑ effort, marche, escaliers, charges · ↓ au repos; RAIDEUR matinale / après assis; crépitements · blocages\"},{\"cell\":8,\"focus\":\"ÉPANCHEMENT\",\"context\":\"ÉPANCHEMENT : genou gonflé : surtout après l’effort; instabilité · faiblesse musculaire; formes avancées : déformation varus / valgus\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; mobilité; douleur; gonflement; déformations; McMURRAY; LACHMAN; ligaments; RADIOGRAPHIE; 1re INTENTION; usure; ostéophytes; pincement; os sous-chondral\"},{\"cell\":10,\"focus\":\"si besoin\",\"context\":\"IRM; si besoin; ligaments · ménisques; gravité des lésions; SCINTIGRAPHIE; parfois\"},{\"cell\":11,\"focus\":\"AINS + antalgiques\",\"context\":\"CONSERVATEUR; AINS + antalgiques; rééducation : renforcement + étirements; semelles / genouillère → alignement; PERTE DE POIDS (obésité)\"},{\"cell\":12,\"focus\":\"infiltrations de corticoïdes\",\"context\":\"infiltrations de corticoïdes; CHIRURGIE; OSTÉOTOMIE; arthrose UNILATÉRALE → réaligner; PROTHÈSE TOTALE; formes avancées; ARTHROSCOPIE; fragments · ménisque\"},{\"cell\":13,\"focus\":\"dépend du STADE au diagnostic\",\"context\":\"dépend du STADE au diagnostic; maladie PROGRESSIVE…; … mais un traitement adapté; soulage la douleur; améliore la fonction; ralentit l’évolution\"},{\"cell\":14,\"focus\":\"FORMES AVANCÉES\",\"context\":\"FORMES AVANCÉES; perte de mobilité IMPORTANTE; qualité de vie ↓\"},{\"cell\":15,\"focus\":\"POIDS SANTÉ\",\"context\":\"PRÉVENTION; POIDS SANTÉ; activité qui ménage les genoux : natation · vélo; éviter les traumatismes répétés\"},{\"cell\":16,\"focus\":\"personnes à risque\",\"context\":\"DÉPISTAGE; personnes à risque; anciens sportifs; personnes obèses; BILANS réguliers : cliniques + radiologiques → signes précoces\"}]. Preserve exact 4-column grid and 4 rows."
+}

@@ -1,0 +1,101 @@
+{
+  "id": "antifongiques",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p1-1.webp",
+        "caption": "Contre les champignons",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p1-2.webp",
+        "caption": "Peau et ongles atteints",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p2-1.webp",
+        "caption": "Fongistatique",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p2-2.webp",
+        "caption": "Fongicide",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p3-1.webp",
+        "caption": "Azolés et allylamines",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p3-2.webp",
+        "caption": "Amorolfine et ciclopirox",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p4-1.webp",
+        "caption": "Crèmes et poudres",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p4-2.webp",
+        "caption": "Vernis pour les ongles",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p5-1.webp",
+        "caption": "Préparer et sécher l’ongle",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p5-2.webp",
+        "caption": "Traitement oral sur avis médical",
+        "after": 15
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p6-1.webp",
+        "caption": "Résistance du champignon",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p6-2.webp",
+        "caption": "Irritation et réaction cutanée",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p7-1.webp",
+        "caption": "Allergie à un composant",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p7-2.webp",
+        "caption": "Vérifier la composition",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/antifongiques/p8-1.webp",
+        "caption": "Séchage et observance",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/antifongiques/p8-2.webp",
+        "caption": "Aérer les chaussures",
+        "after": 8
+      }
+    ]
+  ]
+}

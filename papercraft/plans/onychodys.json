@@ -1,0 +1,193 @@
+{
+  "id": "onychodys",
+  "title": "Les onychodystrophies",
+  "columns": 4,
+  "rows": 3,
+  "parts": [
+    [
+      {
+        "caption": "Trouble du DÉVELOPPEMENT de la croissance",
+        "after": 3,
+        "context": [
+          "Trouble du DÉVELOPPEMENT de la croissance : d'un ongle",
+          "CONGÉNITALES",
+          "dès la naissance",
+          "ACQUISES",
+          "dermatose",
+          "infection",
+          "iatrogène (traitement)",
+          "2 familles"
+        ]
+      },
+      {
+        "caption": "MODIFICATIONS DE FORME",
+        "after": 7,
+        "context": [
+          "MODIFICATIONS DE FORME",
+          "parties 2 · 3 · 4",
+          "MODIFICATIONS DE SURFACE",
+          "partie 5"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Ongle HIPPOCRATIQUE = ongles bombés",
+        "after": 7,
+        "context": [
+          "Ongle HIPPOCRATIQUE = ongles bombés",
+          "LONGITUDINALE",
+          "ongle crochu · BEC D’OISEAU",
+          "TRANSVERSALE",
+          "// matrice · TÊTE DE SERPENT",
+          "2 PLANS",
+          "VERRE DE MONTRE",
+          "causes",
+          "idiopathiques",
+          "héréditaires",
+          "congénitales",
+          "affections pulmonaires",
+          "cardiaques",
+          "rhumatismales",
+          "KOÏLONYCHIE = ongles concaves",
+          "concave dans les 2 sens = CUILLÈRE"
+        ]
+      },
+      {
+        "caption": "plaque mince et lisse",
+        "after": 15,
+        "context": [
+          "plaque mince et lisse",
+          "PHYSIOLOGIQUE chez l'enfant",
+          "héréditaire",
+          "cardiovasculaire",
+          "endocrinienne",
+          "syphilitique",
+          "carences vit. C, B, PP",
+          "traumatisme matrice",
+          "HYPERCOURBURES = ongles hyperconvexes",
+          "TUILE DE PROVENCE",
+          "sillons parallèles",
+          "VOLUTE",
+          "convergence vers le bord libre",
+          "ÉVENTAIL",
+          "sillons divergents",
+          "congénitale",
+          "âge",
+          "chaussures pointues et étroites",
+          "phalange distale trop convexe"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "HYPERONYCHIES = ongles épais",
+        "after": 2,
+        "context": [
+          "HYPERONYCHIES = ongles épais",
+          "la tablette augmente en épaisseur",
+          "ONYCHOSIS",
+          "= pachyonychie",
+          "hypertrophie unguéale +++",
+          "O1 et O2",
+          "idiopathique · vasculaire · rhumato"
+        ]
+      },
+      {
+        "caption": "ONYCHOGRYPHOSE",
+        "after": 5,
+        "context": [
+          "ONYCHOGRYPHOSE",
+          "hypertrophie de la tablette",
+          "+ INCURVATION de l’ongle",
+          "diagnostic différentiel : onychomycose · onychogryphose",
+          "tous les ongles épais ne sont PAS des mycoses !"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ONYCHOLYSE",
+        "after": 1,
+        "context": [
+          "ONYCHOLYSE",
+          "décollement DISTO-LATÉRAL",
+          "de l'ongle avec le lit",
+          "ONYCHOMADÈSE",
+          "détachement par le bord",
+          "PROXIMAL"
+        ]
+      },
+      {
+        "caption": "ANONYCHIE",
+        "after": 3,
+        "context": [
+          "ANONYCHIE",
+          "absence complète",
+          "(ou presque) de l’ongle",
+          "MACRO / MICRONYCHIE",
+          "ongles très grands / très petits",
+          "congénital · héréditaire · racial"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "LIGNES LONGITUDINALES",
+        "after": 1,
+        "context": [
+          "LIGNES LONGITUDINALES",
+          "= TRACHYONYCHIE",
+          "crêtes saillantes · ongles striés",
+          "LIGNES TRANSVERSALES",
+          "= atteinte MATRICIELLE",
+          "trauma unique → 1 seule ligne",
+          "microtraumas → dépressions peu marquées",
+          "maladies chroniques, dermatoses (eczéma)",
+          "maladies générales aiguës, iatrogènes : → SILLON DE BEAU",
+          "aggravation : ONYCHOMADÈSE"
+        ]
+      },
+      {
+        "caption": "ÉROSION PONCTUÉE",
+        "after": 3,
+        "context": [
+          "ÉROSION PONCTUÉE",
+          "ongle grêlé · DÉ À COUDRE",
+          "dépressions tête d’épingle",
+          "PSORIASIS unguéal",
+          "FRAGILITÉ UNGUÉALE",
+          "ongles cassants et mous",
+          "se dédouble",
+          "= ONYCHOSCHIZIE",
+          "gratté, rugueux",
+          "= ONYCHORRHEXIS"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "couper · dégager les sillons · fraiser la plaque",
+        "after": 4,
+        "context": [
+          "FORME",
+          "couper · dégager les sillons · fraiser la plaque",
+          "ORTHONYXIE → corrige les courbures",
+          "hygiène + chaussures adaptées",
+          "si besoin : prélèvement + ttt mycose : antiseptique + antifongique"
+        ]
+      },
+      {
+        "caption": "SURFACE",
+        "after": 8,
+        "context": [
+          "SURFACE",
+          "orientation DERMATO",
+          "soin : couper · dégager : fraiser les CRÊTES",
+          "VERNIS au silicium"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les onychodystrophies. ONE production atlas, EXACT 4 COLUMNS x 3 ROWS, 12 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Trouble du DÉVELOPPEMENT de la croissance\",\"context\":\"Trouble du DÉVELOPPEMENT de la croissance : d'un ongle; CONGÉNITALES; dès la naissance; ACQUISES; dermatose; infection; iatrogène (traitement); 2 familles\"},{\"cell\":2,\"focus\":\"MODIFICATIONS DE FORME\",\"context\":\"MODIFICATIONS DE FORME; parties 2 · 3 · 4; MODIFICATIONS DE SURFACE; partie 5\"},{\"cell\":3,\"focus\":\"Ongle HIPPOCRATIQUE = ongles bombés\",\"context\":\"Ongle HIPPOCRATIQUE = ongles bombés; LONGITUDINALE; ongle crochu · BEC D’OISEAU; TRANSVERSALE; // matrice · TÊTE DE SERPENT; 2 PLANS; VERRE DE MONTRE; causes; idiopathiques; héréditaires; congénitales; affections pulmonaires; cardiaques; rh\"},{\"cell\":4,\"focus\":\"plaque mince et lisse\",\"context\":\"plaque mince et lisse; PHYSIOLOGIQUE chez l'enfant; héréditaire; cardiovasculaire; endocrinienne; syphilitique; carences vit. C, B, PP; traumatisme matrice; HYPERCOURBURES = ongles hyperconvexes; TUILE DE PROVENCE; sillons parallèles; VOLUT\"},{\"cell\":5,\"focus\":\"HYPERONYCHIES = ongles épais\",\"context\":\"HYPERONYCHIES = ongles épais; la tablette augmente en épaisseur; ONYCHOSIS; = pachyonychie; hypertrophie unguéale +++; O1 et O2; idiopathique · vasculaire · rhumato\"},{\"cell\":6,\"focus\":\"ONYCHOGRYPHOSE\",\"context\":\"ONYCHOGRYPHOSE; hypertrophie de la tablette; + INCURVATION de l’ongle; diagnostic différentiel : onychomycose · onychogryphose; tous les ongles épais ne sont PAS des mycoses !\"},{\"cell\":7,\"focus\":\"ONYCHOLYSE\",\"context\":\"ONYCHOLYSE; décollement DISTO-LATÉRAL; de l'ongle avec le lit; ONYCHOMADÈSE; détachement par le bord; PROXIMAL\"},{\"cell\":8,\"focus\":\"ANONYCHIE\",\"context\":\"ANONYCHIE; absence complète; (ou presque) de l’ongle; MACRO / MICRONYCHIE; ongles très grands / très petits; congénital · héréditaire · racial\"},{\"cell\":9,\"focus\":\"LIGNES LONGITUDINALES\",\"context\":\"LIGNES LONGITUDINALES; = TRACHYONYCHIE; crêtes saillantes · ongles striés; LIGNES TRANSVERSALES; = atteinte MATRICIELLE; trauma unique → 1 seule ligne; microtraumas → dépressions peu marquées; maladies chroniques, dermatoses (eczéma); malad\"},{\"cell\":10,\"focus\":\"ÉROSION PONCTUÉE\",\"context\":\"ÉROSION PONCTUÉE; ongle grêlé · DÉ À COUDRE; dépressions tête d’épingle; PSORIASIS unguéal; FRAGILITÉ UNGUÉALE; ongles cassants et mous; se dédouble; = ONYCHOSCHIZIE; gratté, rugueux; = ONYCHORRHEXIS\"},{\"cell\":11,\"focus\":\"couper · dégager les sillons · fraiser la plaque\",\"context\":\"FORME; couper · dégager les sillons · fraiser la plaque; ORTHONYXIE → corrige les courbures; hygiène + chaussures adaptées; si besoin : prélèvement + ttt mycose : antiseptique + antifongique\"},{\"cell\":12,\"focus\":\"SURFACE\",\"context\":\"SURFACE; orientation DERMATO; soin : couper · dégager : fraiser les CRÊTES; VERNIS au silicium\"}]. Preserve exact 4-column grid and 3 rows."
+}

@@ -1,0 +1,185 @@
+{
+  "id": "naviculaire-accessoire",
+  "title": "L'os naviculaire accessoire",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "anomalie FRÉQUENTE… mais sous-diagnostiquée",
+        "after": 3,
+        "context": [
+          "anomalie FRÉQUENTE… mais sous-diagnostiquée",
+          "os EN PLUS : région médiale de l’arche",
+          "10 – 20 % des gens",
+          "souvent ASYMPTOMATIQUE : parfois douleurs + troubles fonctionnels"
+        ]
+      },
+      {
+        "caption": "bonne prise en charge → pas de complications",
+        "after": 6,
+        "context": [
+          "bonne prise en charge → pas de complications",
+          "naviculaire",
+          "os accessoire"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ANOMALIE D’OSSIFICATION du naviculaire",
+        "after": 2,
+        "context": [
+          "ANOMALIE D’OSSIFICATION du naviculaire",
+          "une partie NE FUSIONNE PAS (embryon) → fragment osseux en plus",
+          "GÉNÉTIQUE",
+          "prédisposition héréditaire"
+        ]
+      },
+      {
+        "caption": "MÉCANIQUE",
+        "after": 5,
+        "context": [
+          "MÉCANIQUE",
+          "surcharge · posture · pied plat",
+          "TRAUMATISMES",
+          "sports intenses : course, basket, foot",
+          "FACTEURS DE RISQUE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dynamique perturbée",
+        "after": 1,
+        "context": [
+          "dynamique perturbée : sous-talienne · médio-pied",
+          "arche perturbée → CONTRAINTES : ligaments + tendons"
+        ]
+      },
+      {
+        "caption": "surtout le TIBIAL POSTÉRIEUR",
+        "after": 3,
+        "context": [
+          "surtout le TIBIAL POSTÉRIEUR",
+          "INFLAMMATION + dégénérescence du cartilage"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "souvent",
+        "after": 2,
+        "context": [
+          "souvent : RIEN",
+          "DOULEUR MÉDIALE du pied : activité · station debout prolongée",
+          "sensible à la PALPATION de l’os"
+        ]
+      },
+      {
+        "caption": "raideur · mobilité limitée",
+        "after": 5,
+        "context": [
+          "raideur · mobilité limitée",
+          "parfois TUMÉFACTION de l’arche médiale",
+          "pire avec les mouvements répétés (sports à impact)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "douleur à la palpation",
+          "zone médiale",
+          "inflammation",
+          "RADIOGRAPHIE",
+          "profil + dorso-plantaire",
+          "⚠ confondu avec une FRACTURE",
+          "bien analyser les images"
+        ]
+      },
+      {
+        "caption": "en cas de doute",
+        "after": 2,
+        "context": [
+          "IRM",
+          "en cas de doute",
+          "tissus mous · inflammation",
+          "tendinopathie"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "REPOS + activités adaptées",
+        "after": 4,
+        "context": [
+          "selon l’INTENSITÉ des symptômes",
+          "CONSERVATEUR",
+          "REPOS + activités adaptées",
+          "ORTHÈSES PLANTAIRES : corriger la biomécanique · soulager l’os",
+          "AINS"
+        ]
+      },
+      {
+        "caption": "KINÉ",
+        "after": 8,
+        "context": [
+          "KINÉ : mobilité + fonction",
+          "CHIRURGIE",
+          "si douleur INVALIDANTE",
+          "ABLATION",
+          "de l’os accessoire",
+          "+ réparation des structures voisines"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GÉNÉRALEMENT BON · surtout si traité TÔT",
+        "after": 1,
+        "context": [
+          "GÉNÉRALEMENT BON · surtout si traité TÔT",
+          "LA MAJORITÉ",
+          "conservateur",
+          "nette AMÉLIORATION"
+        ]
+      },
+      {
+        "caption": "SI ÉVOLUTION",
+        "after": 2,
+        "context": [
+          "SI ÉVOLUTION",
+          "arthrose · tendinopathie sévère",
+          "pronostic DÉGRADÉ"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ÉDUCATION BIOMÉCANIQUE",
+        "after": 2,
+        "context": [
+          "PRÉVENTION",
+          "ÉDUCATION BIOMÉCANIQUE : postures · surcharges de l’arche",
+          "chaussures de SOUTIEN, adaptées au sport"
+        ]
+      },
+      {
+        "caption": "DÉPISTAGE PRÉCOCE",
+        "after": 5,
+        "context": [
+          "DÉPISTAGE PRÉCOCE",
+          "suivi RÉGULIER par un podologue",
+          "sportifs",
+          "antécédents familiaux",
+          "troubles biomécaniques"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: L'os naviculaire accessoire. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"anomalie FRÉQUENTE… mais sous-diagnostiquée\",\"context\":\"anomalie FRÉQUENTE… mais sous-diagnostiquée; os EN PLUS : région médiale de l’arche; 10 – 20 % des gens; souvent ASYMPTOMATIQUE : parfois douleurs + troubles fonctionnels\"},{\"cell\":2,\"focus\":\"bonne prise en charge → pas de complications\",\"context\":\"bonne prise en charge → pas de complications; naviculaire; os accessoire\"},{\"cell\":3,\"focus\":\"ANOMALIE D’OSSIFICATION du naviculaire\",\"context\":\"ANOMALIE D’OSSIFICATION du naviculaire; une partie NE FUSIONNE PAS (embryon) → fragment osseux en plus; GÉNÉTIQUE; prédisposition héréditaire\"},{\"cell\":4,\"focus\":\"MÉCANIQUE\",\"context\":\"MÉCANIQUE; surcharge · posture · pied plat; TRAUMATISMES; sports intenses : course, basket, foot; FACTEURS DE RISQUE\"},{\"cell\":5,\"focus\":\"dynamique perturbée\",\"context\":\"dynamique perturbée : sous-talienne · médio-pied; arche perturbée → CONTRAINTES : ligaments + tendons\"},{\"cell\":6,\"focus\":\"surtout le TIBIAL POSTÉRIEUR\",\"context\":\"surtout le TIBIAL POSTÉRIEUR; INFLAMMATION + dégénérescence du cartilage\"},{\"cell\":7,\"focus\":\"souvent\",\"context\":\"souvent : RIEN; DOULEUR MÉDIALE du pied : activité · station debout prolongée; sensible à la PALPATION de l’os\"},{\"cell\":8,\"focus\":\"raideur · mobilité limitée\",\"context\":\"raideur · mobilité limitée; parfois TUMÉFACTION de l’arche médiale; pire avec les mouvements répétés (sports à impact)\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; douleur à la palpation; zone médiale; inflammation; RADIOGRAPHIE; profil + dorso-plantaire; ⚠ confondu avec une FRACTURE; bien analyser les images\"},{\"cell\":10,\"focus\":\"en cas de doute\",\"context\":\"IRM; en cas de doute; tissus mous · inflammation; tendinopathie\"},{\"cell\":11,\"focus\":\"REPOS + activités adaptées\",\"context\":\"selon l’INTENSITÉ des symptômes; CONSERVATEUR; REPOS + activités adaptées; ORTHÈSES PLANTAIRES : corriger la biomécanique · soulager l’os; AINS\"},{\"cell\":12,\"focus\":\"KINÉ\",\"context\":\"KINÉ : mobilité + fonction; CHIRURGIE; si douleur INVALIDANTE; ABLATION; de l’os accessoire; + réparation des structures voisines\"},{\"cell\":13,\"focus\":\"GÉNÉRALEMENT BON · surtout si traité TÔT\",\"context\":\"GÉNÉRALEMENT BON · surtout si traité TÔT; LA MAJORITÉ; conservateur; nette AMÉLIORATION\"},{\"cell\":14,\"focus\":\"SI ÉVOLUTION\",\"context\":\"SI ÉVOLUTION; arthrose · tendinopathie sévère; pronostic DÉGRADÉ\"},{\"cell\":15,\"focus\":\"ÉDUCATION BIOMÉCANIQUE\",\"context\":\"PRÉVENTION; ÉDUCATION BIOMÉCANIQUE : postures · surcharges de l’arche; chaussures de SOUTIEN, adaptées au sport\"},{\"cell\":16,\"focus\":\"DÉPISTAGE PRÉCOCE\",\"context\":\"DÉPISTAGE PRÉCOCE; suivi RÉGULIER par un podologue; sportifs; antécédents familiaux; troubles biomécaniques\"}]. Preserve exact 4-column grid and 4 rows."
+}

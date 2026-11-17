@@ -1,0 +1,231 @@
+{
+  "id": "tumeurs",
+  "title": "Tumeurs cutanées & unguéales",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "lésions BÉNIGNES et MALIGNES",
+        "after": 1,
+        "context": [
+          "lésions BÉNIGNES et MALIGNES : de la peau et de l’ongle",
+          "classées selon l’organe d’origine + l’HISTOLOGIE : la cellule normale dont elles dérivent"
+        ]
+      },
+      {
+        "caption": "BÉNIGNE",
+        "after": 3,
+        "context": [
+          "BÉNIGNE",
+          "bien limitée · encapsulée",
+          "croissance LENTE",
+          "pas de récidive après exérèse",
+          "PAS de métastase",
+          "MALIGNE",
+          "mal limitée · NON encapsulée",
+          "croissance RAPIDE",
+          "envahit les tissus voisins · récidive",
+          "MÉTASTASES"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "beaucoup de NAEVUS",
+        "after": 2,
+        "context": [
+          "beaucoup de NAEVUS",
+          "morphotype clair",
+          "blond/roux · yeux clairs",
+          "éphélides · coups de soleil",
+          "exposition solaire",
+          "immunodépression",
+          "MÉLANOME",
+          "antécédent personnel",
+          "prédisposition familiale",
+          "soleil intense + brûlures",
+          "CANCERS ÉPITHÉLIAUX",
+          "> 50 ans · soleil",
+          "rayons X",
+          "agressions thermiques",
+          "produits chimiques",
+          "inflammation chronique"
+        ]
+      },
+      {
+        "caption": "plantes & paumes",
+        "after": 4,
+        "context": [
+          "plantes & paumes : PAS lié au soleil",
+          "botryomycome : petit trauma,",
+          "ongle incarné"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "une même cellule initiale",
+        "after": 6,
+        "context": [
+          "une même cellule initiale",
+          "MUTATIONS des gènes : prolifération + mort cellulaire",
+          "propres signaux de croissance",
+          "résistent aux freins · SANS limite",
+          "envahissent les tissus voisins : + nouveaux vaisseaux",
+          "ressemble au tissu = DIFFÉRENCIÉE",
+          "Mélanome : 2 phases"
+        ]
+      },
+      {
+        "caption": "épiderme",
+        "after": 13,
+        "context": [
+          "épiderme",
+          "derme",
+          "hypoderme",
+          "membrane basale",
+          "1 · HORIZONTALE (épiderme)",
+          "2 · VERTICALE (derme → hypoderme)",
+          "membrane basale",
+          "franchie →",
+          "MÉTASTASES"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Côté BÉNIN",
+        "after": 7,
+        "context": [
+          "Côté BÉNIN",
+          "BOTRYOMYCOME",
+          "boule rouge, charnue · SAIGNE au contact",
+          "PSEUDOKYSTE MUCOÏDE",
+          "lisse, translucide · dos de P2-P3",
+          "CHÉLOÏDE",
+          "masse dure, rouge · « pattes de crabe »",
+          "NAEVUS",
+          "rond / ovalaire · plan ou saillant",
+          "MÉLANOME : la règle ABCDE",
+          "Asymétrie",
+          "Bords irréguliers"
+        ]
+      },
+      {
+        "caption": "Couleur non homogène",
+        "after": 15,
+        "context": [
+          "Couleur non homogène",
+          "Diamètre > 6 mm",
+          "> 6 mm",
+          "Évolution",
+          "signe du « vilain petit canard »",
+          "Côté MALIN (suite)",
+          "CARCINOME ÉPIDERMOÏDE",
+          "bourgeonnant · centre ulcéré, croûteux",
+          "MALADIE DE BOWEN",
+          "plaque rouge, irrégulière, SQUAMEUSE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "suspicion CLINIQUE",
+        "after": 3,
+        "context": [
+          "suspicion CLINIQUE : ± dermatoscope",
+          "seule l’ANATOMOPATHOLOGIE affirme",
+          "nature mélanocytaire + malignité",
+          "niveau de Clark · indice de BRESLOW : Breslow = épaisseur de la tumeur"
+        ]
+      },
+      {
+        "caption": "radiologie → EXTENSION",
+        "after": 6,
+        "context": [
+          "radiologie → EXTENSION",
+          "Breslow",
+          "ongle : onychopathie d’UN SEUL doigt → penser TUMEUR"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "le plus souvent CHIRURGICAL · adapté à chaque tumeur",
+        "after": 3,
+        "context": [
+          "le plus souvent CHIRURGICAL · adapté à chaque tumeur",
+          "BOTRYOMYCOME",
+          "curetage + électrocoagulation · nitrate d'argent",
+          "PSEUDOKYSTE MUCOÏDE",
+          "cryothérapie · incision · exérèse",
+          "CHÉLOÏDE",
+          "cryo · corticoïdes · silicone · chirurgie + AUTRE technique"
+        ]
+      },
+      {
+        "caption": "NAEVUS",
+        "after": 6,
+        "context": [
+          "NAEVUS",
+          "exérèse si gêne/irritation/doute · complète + anapath",
+          "SUSPICION DE CANCER",
+          "exérèse COMPLÈTE · marges précises",
+          "PÉDICURIE : ON N’Y TOUCHE PAS"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "NAEVUS",
+        "after": 4,
+        "context": [
+          "NAEVUS",
+          "< 1 / 100 000 se transforme",
+          "NAEVUS CONGÉNITAL GÉANT",
+          "5 à 20 % de risque",
+          "BASOCELLULAIRE",
+          "lent · pronostic EXCELLENT",
+          "ÉPIDERMOÏDE",
+          "plus rapide · plus AGRESSIF",
+          "BOWEN",
+          "transformation : 3 à 5 %"
+        ]
+      },
+      {
+        "caption": "MÉLANOME",
+        "after": 8,
+        "context": [
+          "MÉLANOME",
+          "critère n°1 : indice de BRESLOW",
+          "DÉPISTER TÔT",
+          "= seul espoir",
+          "de GUÉRISON"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "AUTOSURVEILLANCE",
+        "after": 3,
+        "context": [
+          "AUTOSURVEILLANCE",
+          "enseignée à TOUS : consulter vite au moindre changement",
+          "sujets à risque : surveillance médicale ANNUELLE, à vie",
+          "RÔLE DU PÉDICURE-PODOLOGUE"
+        ]
+      },
+      {
+        "caption": "lésion pigmentée qui SAIGNE",
+        "after": 6,
+        "context": [
+          "lésion pigmentée qui SAIGNE : → très suspecte de mélanome",
+          "lésion traînante, verruqueuse : un seul orteil → BIOPSIE",
+          "bande pigmentée > 4 mm : + signe de Hutchinson → mélanome unguéal"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Tumeurs cutanées & unguéales. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"lésions BÉNIGNES et MALIGNES\",\"context\":\"lésions BÉNIGNES et MALIGNES : de la peau et de l’ongle; classées selon l’organe d’origine + l’HISTOLOGIE : la cellule normale dont elles dérivent\"},{\"cell\":2,\"focus\":\"BÉNIGNE\",\"context\":\"BÉNIGNE; bien limitée · encapsulée; croissance LENTE; pas de récidive après exérèse; PAS de métastase; MALIGNE; mal limitée · NON encapsulée; croissance RAPIDE; envahit les tissus voisins · récidive; MÉTASTASES\"},{\"cell\":3,\"focus\":\"beaucoup de NAEVUS\",\"context\":\"beaucoup de NAEVUS; morphotype clair; blond/roux · yeux clairs; éphélides · coups de soleil; exposition solaire; immunodépression; MÉLANOME; antécédent personnel; prédisposition familiale; soleil intense + brûlures; CANCERS ÉPITHÉLIAUX; > 5\"},{\"cell\":4,\"focus\":\"plantes & paumes\",\"context\":\"plantes & paumes : PAS lié au soleil; botryomycome : petit trauma,; ongle incarné\"},{\"cell\":5,\"focus\":\"une même cellule initiale\",\"context\":\"une même cellule initiale; MUTATIONS des gènes : prolifération + mort cellulaire; propres signaux de croissance; résistent aux freins · SANS limite; envahissent les tissus voisins : + nouveaux vaisseaux; ressemble au tissu = DIFFÉRENCIÉE; M\"},{\"cell\":6,\"focus\":\"épiderme\",\"context\":\"épiderme; derme; hypoderme; membrane basale; 1 · HORIZONTALE (épiderme); 2 · VERTICALE (derme → hypoderme); membrane basale; franchie →; MÉTASTASES\"},{\"cell\":7,\"focus\":\"Côté BÉNIN\",\"context\":\"Côté BÉNIN; BOTRYOMYCOME; boule rouge, charnue · SAIGNE au contact; PSEUDOKYSTE MUCOÏDE; lisse, translucide · dos de P2-P3; CHÉLOÏDE; masse dure, rouge · « pattes de crabe »; NAEVUS; rond / ovalaire · plan ou saillant; MÉLANOME : la règle A\"},{\"cell\":8,\"focus\":\"Couleur non homogène\",\"context\":\"Couleur non homogène; Diamètre > 6 mm; > 6 mm; Évolution; signe du « vilain petit canard »; Côté MALIN (suite); CARCINOME ÉPIDERMOÏDE; bourgeonnant · centre ulcéré, croûteux; MALADIE DE BOWEN; plaque rouge, irrégulière, SQUAMEUSE\"},{\"cell\":9,\"focus\":\"suspicion CLINIQUE\",\"context\":\"suspicion CLINIQUE : ± dermatoscope; seule l’ANATOMOPATHOLOGIE affirme; nature mélanocytaire + malignité; niveau de Clark · indice de BRESLOW : Breslow = épaisseur de la tumeur\"},{\"cell\":10,\"focus\":\"radiologie → EXTENSION\",\"context\":\"radiologie → EXTENSION; Breslow; ongle : onychopathie d’UN SEUL doigt → penser TUMEUR\"},{\"cell\":11,\"focus\":\"le plus souvent CHIRURGICAL · adapté à chaque tumeur\",\"context\":\"le plus souvent CHIRURGICAL · adapté à chaque tumeur; BOTRYOMYCOME; curetage + électrocoagulation · nitrate d'argent; PSEUDOKYSTE MUCOÏDE; cryothérapie · incision · exérèse; CHÉLOÏDE; cryo · corticoïdes · silicone · chirurgie + AUTRE techni\"},{\"cell\":12,\"focus\":\"NAEVUS\",\"context\":\"NAEVUS; exérèse si gêne/irritation/doute · complète + anapath; SUSPICION DE CANCER; exérèse COMPLÈTE · marges précises; PÉDICURIE : ON N’Y TOUCHE PAS\"},{\"cell\":13,\"focus\":\"NAEVUS\",\"context\":\"NAEVUS; < 1 / 100 000 se transforme; NAEVUS CONGÉNITAL GÉANT; 5 à 20 % de risque; BASOCELLULAIRE; lent · pronostic EXCELLENT; ÉPIDERMOÏDE; plus rapide · plus AGRESSIF; BOWEN; transformation : 3 à 5 %\"},{\"cell\":14,\"focus\":\"MÉLANOME\",\"context\":\"MÉLANOME; critère n°1 : indice de BRESLOW; DÉPISTER TÔT; = seul espoir; de GUÉRISON\"},{\"cell\":15,\"focus\":\"AUTOSURVEILLANCE\",\"context\":\"AUTOSURVEILLANCE; enseignée à TOUS : consulter vite au moindre changement; sujets à risque : surveillance médicale ANNUELLE, à vie; RÔLE DU PÉDICURE-PODOLOGUE\"},{\"cell\":16,\"focus\":\"lésion pigmentée qui SAIGNE\",\"context\":\"lésion pigmentée qui SAIGNE : → très suspecte de mélanome; lésion traînante, verruqueuse : un seul orteil → BIOPSIE; bande pigmentée > 4 mm : + signe de Hutchinson → mélanome unguéal\"}]. Preserve exact 4-column grid and 4 rows."
+}

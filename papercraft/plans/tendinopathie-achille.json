@@ -1,0 +1,195 @@
+{
+  "id": "tendinopathie-achille",
+  "title": "Les tendinopathies d'Achille",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "tendon le plus GROS + le plus PUISSANT",
+        "after": 3,
+        "context": [
+          "tendon le plus GROS + le plus PUISSANT",
+          "TRICEPS SURAL → CALCANÉUM : marche · course · saut",
+          "sport à fort impact : course, basket, foot, tennis",
+          "aussi : âgés · problèmes biomécaniques"
+        ]
+      },
+      {
+        "caption": "TENDINITE / TENDINOSE",
+        "after": 7,
+        "context": [
+          "TENDINITE (aiguë) / TENDINOSE (chronique, sans inflammation)",
+          "triceps sural",
+          "tendon d’Achille",
+          "calcanéum"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SURCHARGE",
+        "after": 3,
+        "context": [
+          "SURCHARGE",
+          "la plus fréquente · changement brutal",
+          "RÉPÉTITION",
+          "sauts · courses · accélérations",
+          "BIOMÉCANIQUE",
+          "pieds plats / creux · posture",
+          "MOLLET RAIDE",
+          "pas assez souple"
+        ]
+      },
+      {
+        "caption": "CHAUSSURES",
+        "after": 7,
+        "context": [
+          "CHAUSSURES",
+          "usées · sans soutien",
+          "RÉCUPÉRATION",
+          "insuffisante · + vieillissement",
+          "FACTEURS DE RISQUE",
+          "> 30 ans",
+          "endurance / fort impact",
+          "mauvais échauffement",
+          "surpoids",
+          "ANTÉCÉDENT d’Achille"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "triceps sural",
+        "after": 3,
+        "context": [
+          "triceps sural",
+          "tendon d’Achille",
+          "calcanéum",
+          "TENDINITE : hypervascularisation · œdème · leucocytes"
+        ]
+      },
+      {
+        "caption": "souvent temporaire",
+        "after": 7,
+        "context": [
+          "souvent temporaire : repos + AINS",
+          "TENDINOSE : collagène DÉSORIENTÉ, sans inflammation",
+          "tendon FRAGILE → risque de RUPTURE",
+          "cause : MICROTRAUMATISMES sans repos"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "douleur ARRIÈRE du talon · pire le MATIN",
+        "after": 2,
+        "context": [
+          "douleur ARRIÈRE du talon · pire le MATIN : effort · flexion plantaire · escaliers · course",
+          "RAIDEUR au réveil, ↓ en quelques minutes",
+          "léger gonflement (aigu)"
+        ]
+      },
+      {
+        "caption": "palpation",
+        "after": 5,
+        "context": [
+          "palpation : milieu du tendon ou près du calcanéum",
+          "CRÉPITEMENTS (avancé)",
+          "cheville moins mobile"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SURTOUT CLINIQUE",
+        "after": 2,
+        "context": [
+          "SURTOUT CLINIQUE",
+          "ANAMNÈSE",
+          "symptômes · sport · antécédents",
+          "EXAMEN",
+          "palpation · douleur · gonflement",
+          "mobilité de la cheville"
+        ]
+      },
+      {
+        "caption": "TEST DE THOMPSON",
+        "after": 4,
+        "context": [
+          "TEST DE THOMPSON",
+          "compression du MOLLET",
+          "RUPTURE ?",
+          "IMAGERIE",
+          "ÉCHO",
+          "épaississement · dégénérescence · épanchement",
+          "IRM",
+          "gravité · DÉCHIRURES",
+          "RADIO",
+          "exclure l’osseux"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "REPOS",
+        "after": 3,
+        "context": [
+          "REPOS (essentiel)",
+          "glace + AINS",
+          "compression + élévation",
+          "physio FONDAMENTALE : renforcement EXCENTRIQUE"
+        ]
+      },
+      {
+        "caption": "SEMELLES",
+        "after": 6,
+        "context": [
+          "SEMELLES : corriger le pied plat",
+          "cas résistants : infiltration…",
+          "⚠ fiche COUPÉE dans le livret"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "⚠ fiche COUPÉE dans le livret",
+        "after": 0,
+        "context": [
+          "⚠ fiche COUPÉE dans le livret"
+        ]
+      },
+      {
+        "caption": "révise avec la FICHE 41",
+        "after": 1,
+        "context": [
+          "révise avec la FICHE 41 : TENDINITES",
+          "la majorité guérit avec le conservateur",
+          "RÉCIDIVE si la cause n’est pas réglée"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "⚠ fiche COUPÉE dans le livret",
+        "after": 1,
+        "context": [
+          "⚠ fiche COUPÉE dans le livret",
+          "les facteurs à corriger, donnés par la fiche"
+        ]
+      },
+      {
+        "caption": "ÉCHAUFFEMENT",
+        "after": 2,
+        "context": [
+          "ÉCHAUFFEMENT",
+          "mollet SOUPLE",
+          "chaussures en bon état",
+          "RÉCUPÉRATION",
+          "progression sans à-coups"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les tendinopathies d'Achille. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"tendon le plus GROS + le plus PUISSANT\",\"context\":\"tendon le plus GROS + le plus PUISSANT; TRICEPS SURAL → CALCANÉUM : marche · course · saut; sport à fort impact : course, basket, foot, tennis; aussi : âgés · problèmes biomécaniques\"},{\"cell\":2,\"focus\":\"TENDINITE / TENDINOSE\",\"context\":\"TENDINITE (aiguë) / TENDINOSE (chronique, sans inflammation); triceps sural; tendon d’Achille; calcanéum\"},{\"cell\":3,\"focus\":\"SURCHARGE\",\"context\":\"SURCHARGE; la plus fréquente · changement brutal; RÉPÉTITION; sauts · courses · accélérations; BIOMÉCANIQUE; pieds plats / creux · posture; MOLLET RAIDE; pas assez souple\"},{\"cell\":4,\"focus\":\"CHAUSSURES\",\"context\":\"CHAUSSURES; usées · sans soutien; RÉCUPÉRATION; insuffisante · + vieillissement; FACTEURS DE RISQUE; > 30 ans; endurance / fort impact; mauvais échauffement; surpoids; ANTÉCÉDENT d’Achille\"},{\"cell\":5,\"focus\":\"triceps sural\",\"context\":\"triceps sural; tendon d’Achille; calcanéum; TENDINITE : hypervascularisation · œdème · leucocytes\"},{\"cell\":6,\"focus\":\"souvent temporaire\",\"context\":\"souvent temporaire : repos + AINS; TENDINOSE : collagène DÉSORIENTÉ, sans inflammation; tendon FRAGILE → risque de RUPTURE; cause : MICROTRAUMATISMES sans repos\"},{\"cell\":7,\"focus\":\"douleur ARRIÈRE du talon · pire le MATIN\",\"context\":\"douleur ARRIÈRE du talon · pire le MATIN : effort · flexion plantaire · escaliers · course; RAIDEUR au réveil, ↓ en quelques minutes; léger gonflement (aigu)\"},{\"cell\":8,\"focus\":\"palpation\",\"context\":\"palpation : milieu du tendon ou près du calcanéum; CRÉPITEMENTS (avancé); cheville moins mobile\"},{\"cell\":9,\"focus\":\"SURTOUT CLINIQUE\",\"context\":\"SURTOUT CLINIQUE; ANAMNÈSE; symptômes · sport · antécédents; EXAMEN; palpation · douleur · gonflement; mobilité de la cheville\"},{\"cell\":10,\"focus\":\"TEST DE THOMPSON\",\"context\":\"TEST DE THOMPSON; compression du MOLLET; RUPTURE ?; IMAGERIE; ÉCHO; épaississement · dégénérescence · épanchement; IRM; gravité · DÉCHIRURES; RADIO; exclure l’osseux\"},{\"cell\":11,\"focus\":\"REPOS\",\"context\":\"REPOS (essentiel); glace + AINS; compression + élévation; physio FONDAMENTALE : renforcement EXCENTRIQUE\"},{\"cell\":12,\"focus\":\"SEMELLES\",\"context\":\"SEMELLES : corriger le pied plat; cas résistants : infiltration…; ⚠ fiche COUPÉE dans le livret\"},{\"cell\":13,\"focus\":\"⚠ fiche COUPÉE dans le livret\",\"context\":\"⚠ fiche COUPÉE dans le livret\"},{\"cell\":14,\"focus\":\"révise avec la FICHE 41\",\"context\":\"révise avec la FICHE 41 : TENDINITES; la majorité guérit avec le conservateur; RÉCIDIVE si la cause n’est pas réglée\"},{\"cell\":15,\"focus\":\"⚠ fiche COUPÉE dans le livret\",\"context\":\"⚠ fiche COUPÉE dans le livret; les facteurs à corriger, donnés par la fiche\"},{\"cell\":16,\"focus\":\"ÉCHAUFFEMENT\",\"context\":\"ÉCHAUFFEMENT; mollet SOUPLE; chaussures en bon état; RÉCUPÉRATION; progression sans à-coups\"}]. Preserve exact 4-column grid and 4 rows."
+}

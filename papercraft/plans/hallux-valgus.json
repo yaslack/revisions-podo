@@ -1,0 +1,198 @@
+{
+  "id": "hallux-valgus",
+  "title": "L'hallux valgus",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Déformation FRÉQUENTE du pied",
+        "after": 1,
+        "context": [
+          "Déformation FRÉQUENTE du pied : gros orteil → DEHORS · 1er métatarsien → DEDANS",
+          "saillie à la base du gros orteil = OIGNON"
+        ]
+      },
+      {
+        "caption": "douleurs · gêne · troubles de la marche",
+        "after": 3,
+        "context": [
+          "douleurs · gêne · troubles de la marche",
+          "surtout la FEMME : talons · chaussures étroites · formes familiales"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "MÉCANIQUE",
+        "after": 3,
+        "context": [
+          "MÉCANIQUE",
+          "déséquilibre des forces · chaussures étroites + talons",
+          "GÉNÉTIQUE",
+          "antécédents familiaux",
+          "BIOMÉCANIQUE",
+          "mauvais alignement · pied plat · tendons",
+          "PATHOLOGIES",
+          "polyarthrite rhumatoïde"
+        ]
+      },
+      {
+        "caption": "VIEILLISSEMENT",
+        "after": 6,
+        "context": [
+          "VIEILLISSEMENT",
+          "ligaments + tendons moins souples",
+          "femme",
+          "familles à risque",
+          "chaussures inadaptées",
+          "personne âgée",
+          "CHEZ QUI ?"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DÉSÉQUILIBRE de la métatarso-phalangienne",
+        "after": 2,
+        "context": [
+          "DÉSÉQUILIBRE de la métatarso-phalangienne",
+          "M1 → DEDANS · gros orteil → DEHORS",
+          "saillie = OIGNON"
+        ]
+      },
+      {
+        "caption": "pression → douleur + inflammation",
+        "after": 4,
+        "context": [
+          "pression → douleur + inflammation",
+          "long terme : marche difficile : + risque d’ARTHROSE de la MTP"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "déformation VISIBLE + oignon",
+        "after": 3,
+        "context": [
+          "déformation VISIBLE + oignon",
+          "DOULEUR : frottement dans la chaussure : chaussures serrées · longue marche",
+          "rougeur · gonflement · chaleur",
+          "poussées inflammatoires"
+        ]
+      },
+      {
+        "caption": "marche difficile",
+        "after": 6,
+        "context": [
+          "marche difficile : + pression sur le bord EXTERNE",
+          "démarche modifiée → autres articulations",
+          "raideur : marche, station debout, course"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "ESSENTIEL",
+          "déformation",
+          "douleur",
+          "mobilité",
+          "souplesse",
+          "RADIOGRAPHIE",
+          "déformation osseuse",
+          "M1 / gros orteil",
+          "état de la MTP",
+          "DEGRÉ"
+        ]
+      },
+      {
+        "caption": "IRM / ÉCHO",
+        "after": 2,
+        "context": [
+          "IRM / ÉCHO",
+          "si besoin",
+          "ligaments · tendons"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "chaussures LARGES · sans talon haut",
+        "after": 5,
+        "context": [
+          "CONSERVATEUR",
+          "chaussures LARGES · sans talon haut",
+          "semelles sur mesure (alignement)",
+          "AINS",
+          "orthèses : SÉPARATEURS d’orteils",
+          "physio : souplesse + force du pied"
+        ]
+      },
+      {
+        "caption": "OSTÉOTOMIE",
+        "after": 10,
+        "context": [
+          "CHIRURGIE",
+          "OSTÉOTOMIE",
+          "du 1er métatarsien : réaligner",
+          "EXOSTECTOMIE",
+          "retire l’oignon",
+          "ARTHRODÈSE",
+          "cas graves",
+          "PROTHÈSE",
+          "articulation très abîmée"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend de la SÉVÉRITÉ + de la prise en charge",
+        "after": 2,
+        "context": [
+          "dépend de la SÉVÉRITÉ + de la prise en charge",
+          "FORMES LÉGÈRES",
+          "chaussures + semelles",
+          "peuvent SUFFIRE",
+          "FORMES AVANCÉES",
+          "CHIRURGIE",
+          "parfois nécessaire"
+        ]
+      },
+      {
+        "caption": "ne met PAS la vie en danger…",
+        "after": 4,
+        "context": [
+          "ne met PAS la vie en danger…",
+          "… mais gêne beaucoup la mobilité et le confort"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "chaussures LARGES, confortables, adaptées",
+        "after": 3,
+        "context": [
+          "PRÉVENTION",
+          "chaussures LARGES, confortables, adaptées : c’est essentiel",
+          "POIDS SANTÉ",
+          "éviter les contraintes sur l’avant-pied"
+        ]
+      },
+      {
+        "caption": "DÉPISTAGE PRÉCOCE",
+        "after": 7,
+        "context": [
+          "DÉPISTAGE PRÉCOCE",
+          "antécédents familiaux",
+          "premiers symptômes",
+          "PODOLOGUE + suivi régulier"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: L'hallux valgus. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Déformation FRÉQUENTE du pied\",\"context\":\"Déformation FRÉQUENTE du pied : gros orteil → DEHORS · 1er métatarsien → DEDANS; saillie à la base du gros orteil = OIGNON\"},{\"cell\":2,\"focus\":\"douleurs · gêne · troubles de la marche\",\"context\":\"douleurs · gêne · troubles de la marche; surtout la FEMME : talons · chaussures étroites · formes familiales\"},{\"cell\":3,\"focus\":\"MÉCANIQUE\",\"context\":\"MÉCANIQUE; déséquilibre des forces · chaussures étroites + talons; GÉNÉTIQUE; antécédents familiaux; BIOMÉCANIQUE; mauvais alignement · pied plat · tendons; PATHOLOGIES; polyarthrite rhumatoïde\"},{\"cell\":4,\"focus\":\"VIEILLISSEMENT\",\"context\":\"VIEILLISSEMENT; ligaments + tendons moins souples; femme; familles à risque; chaussures inadaptées; personne âgée; CHEZ QUI ?\"},{\"cell\":5,\"focus\":\"DÉSÉQUILIBRE de la métatarso-phalangienne\",\"context\":\"DÉSÉQUILIBRE de la métatarso-phalangienne; M1 → DEDANS · gros orteil → DEHORS; saillie = OIGNON\"},{\"cell\":6,\"focus\":\"pression → douleur + inflammation\",\"context\":\"pression → douleur + inflammation; long terme : marche difficile : + risque d’ARTHROSE de la MTP\"},{\"cell\":7,\"focus\":\"déformation VISIBLE + oignon\",\"context\":\"déformation VISIBLE + oignon; DOULEUR : frottement dans la chaussure : chaussures serrées · longue marche; rougeur · gonflement · chaleur; poussées inflammatoires\"},{\"cell\":8,\"focus\":\"marche difficile\",\"context\":\"marche difficile : + pression sur le bord EXTERNE; démarche modifiée → autres articulations; raideur : marche, station debout, course\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; ESSENTIEL; déformation; douleur; mobilité; souplesse; RADIOGRAPHIE; déformation osseuse; M1 / gros orteil; état de la MTP; DEGRÉ\"},{\"cell\":10,\"focus\":\"IRM / ÉCHO\",\"context\":\"IRM / ÉCHO; si besoin; ligaments · tendons\"},{\"cell\":11,\"focus\":\"chaussures LARGES · sans talon haut\",\"context\":\"CONSERVATEUR; chaussures LARGES · sans talon haut; semelles sur mesure (alignement); AINS; orthèses : SÉPARATEURS d’orteils; physio : souplesse + force du pied\"},{\"cell\":12,\"focus\":\"OSTÉOTOMIE\",\"context\":\"CHIRURGIE; OSTÉOTOMIE; du 1er métatarsien : réaligner; EXOSTECTOMIE; retire l’oignon; ARTHRODÈSE; cas graves; PROTHÈSE; articulation très abîmée\"},{\"cell\":13,\"focus\":\"dépend de la SÉVÉRITÉ + de la prise en charge\",\"context\":\"dépend de la SÉVÉRITÉ + de la prise en charge; FORMES LÉGÈRES; chaussures + semelles; peuvent SUFFIRE; FORMES AVANCÉES; CHIRURGIE; parfois nécessaire\"},{\"cell\":14,\"focus\":\"ne met PAS la vie en danger…\",\"context\":\"ne met PAS la vie en danger…; … mais gêne beaucoup la mobilité et le confort\"},{\"cell\":15,\"focus\":\"chaussures LARGES, confortables, adaptées\",\"context\":\"PRÉVENTION; chaussures LARGES, confortables, adaptées : c’est essentiel; POIDS SANTÉ; éviter les contraintes sur l’avant-pied\"},{\"cell\":16,\"focus\":\"DÉPISTAGE PRÉCOCE\",\"context\":\"DÉPISTAGE PRÉCOCE; antécédents familiaux; premiers symptômes; PODOLOGUE + suivi régulier\"}]. Preserve exact 4-column grid and 4 rows."
+}

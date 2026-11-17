@@ -1,0 +1,147 @@
+{
+  "id": "ains",
+  "title": "Les AINS",
+  "columns": 4,
+  "rows": 3,
+  "parts": [
+    [
+      {
+        "caption": "Douleur et inflammation",
+        "after": 2,
+        "context": [
+          "3 ACTIONS",
+          "ANTALGIQUE",
+          "contre la douleur"
+        ]
+      },
+      {
+        "caption": "Faire baisser la fièvre",
+        "after": 5,
+        "context": [
+          "ANTI-INFLAMMATOIRE",
+          "ANTIPYRÉTIQUE",
+          "contre la fièvre"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Connaître le traitement du patient",
+        "after": 3,
+        "context": [
+          "NE PRESCRIT PAS",
+          "… mais doit CONNAÎTRE",
+          "rôles · effets · indications",
+          "POUR…"
+        ]
+      },
+      {
+        "caption": "Adapter les soins locaux",
+        "after": 7,
+        "context": [
+          "Comprendre : les traitements déjà instaurés par le médecin",
+          "Orienter",
+          "Conseiller le patient",
+          "Adapter ses soins locaux : contre-indications cutanées"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Traumatismes et tendons douloureux",
+        "after": 4,
+        "context": [
+          "Traumatisme local",
+          "hématome sous-unguéal",
+          "entorse d'un orteil",
+          "tendinite du fléchisseur",
+          "périostite",
+          "bursite",
+          "aponévrosite plantaire débutante",
+          "soulage, limite l'inflammation les premiers jours",
+          "Musculo-tendineux, articulaire",
+          "arthrose",
+          "arthrite",
+          "capsulite",
+          "douleurs métatarsiennes inflammatoires"
+        ]
+      },
+      {
+        "caption": "Articulations et décharge",
+        "after": 8,
+        "context": [
+          "réduit l'inflammation, en complément des soins de décharge (orthèses, semelles, taping)",
+          "Péri-unguéal",
+          "paronychie aiguë non infectieuse",
+          "périonyxis traumatique",
+          "soulage, diminue le gonflement, avant ou après un soin local"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Comprimés prescrits",
+        "after": 4,
+        "context": [
+          "VOIE ORALE",
+          "prescrite par un médecin",
+          "ibuprofène",
+          "kétoprofène",
+          "naproxène",
+          "TOPIQUE",
+          "gels ou crèmes"
+        ]
+      },
+      {
+        "caption": "Gel sur peau intacte",
+        "after": 8,
+        "context": [
+          "kétoprofène gel",
+          "diclofénac gel",
+          "sur une zone douloureuse : cheville, tendon, articulation",
+          "JAMAIS sur une peau lésée ou irritée",
+          "risque de brûlure ou d’allergie"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Allergie et troubles digestifs",
+        "after": 2,
+        "context": [
+          "Allergie connue aux AINS : aspirine, ibuprofène…",
+          "Ulcère gastro-duodénal",
+          "Insuffisance rénale ou cardiaque sévère"
+        ]
+      },
+      {
+        "caption": "Grossesse et autres contre-indications",
+        "after": 4,
+        "context": [
+          "Grossesse : surtout 3ᵉ trimestre",
+          "Asthme déclenché par les AINS : (antécédents)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Irritation gastrique",
+        "after": 2,
+        "context": [
+          "Irritation gastrique : troubles digestifs",
+          "Réactions cutanées : surtout gels au kétoprofène + exposition au soleil",
+          "Retard de cicatrisation : si application sur une plaie"
+        ]
+      },
+      {
+        "caption": "Réaction cutanée au soleil",
+        "after": 4,
+        "context": [
+          "VIGILANCE ++",
+          "chez le diabétique"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les AINS. ONE production atlas, EXACT 4 COLUMNS x 3 ROWS, 12 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Douleur et inflammation\",\"context\":\"3 ACTIONS; ANTALGIQUE; contre la douleur\"},{\"cell\":2,\"focus\":\"Faire baisser la fièvre\",\"context\":\"ANTI-INFLAMMATOIRE; ANTIPYRÉTIQUE; contre la fièvre\"},{\"cell\":3,\"focus\":\"Connaître le traitement du patient\",\"context\":\"NE PRESCRIT PAS; … mais doit CONNAÎTRE; rôles · effets · indications; POUR…\"},{\"cell\":4,\"focus\":\"Adapter les soins locaux\",\"context\":\"Comprendre : les traitements déjà instaurés par le médecin; Orienter; Conseiller le patient; Adapter ses soins locaux : contre-indications cutanées\"},{\"cell\":5,\"focus\":\"Traumatismes et tendons douloureux\",\"context\":\"Traumatisme local; hématome sous-unguéal; entorse d'un orteil; tendinite du fléchisseur; périostite; bursite; aponévrosite plantaire débutante; soulage, limite l'inflammation les premiers jours; Musculo-tendineux, articulaire; arthrose; art\"},{\"cell\":6,\"focus\":\"Articulations et décharge\",\"context\":\"réduit l'inflammation, en complément des soins de décharge (orthèses, semelles, taping); Péri-unguéal; paronychie aiguë non infectieuse; périonyxis traumatique; soulage, diminue le gonflement, avant ou après un soin local\"},{\"cell\":7,\"focus\":\"Comprimés prescrits\",\"context\":\"VOIE ORALE; prescrite par un médecin; ibuprofène; kétoprofène; naproxène; TOPIQUE; gels ou crèmes\"},{\"cell\":8,\"focus\":\"Gel sur peau intacte\",\"context\":\"kétoprofène gel; diclofénac gel; sur une zone douloureuse : cheville, tendon, articulation; JAMAIS sur une peau lésée ou irritée; risque de brûlure ou d’allergie\"},{\"cell\":9,\"focus\":\"Allergie et troubles digestifs\",\"context\":\"Allergie connue aux AINS : aspirine, ibuprofène…; Ulcère gastro-duodénal; Insuffisance rénale ou cardiaque sévère\"},{\"cell\":10,\"focus\":\"Grossesse et autres contre-indications\",\"context\":\"Grossesse : surtout 3ᵉ trimestre; Asthme déclenché par les AINS : (antécédents)\"},{\"cell\":11,\"focus\":\"Irritation gastrique\",\"context\":\"Irritation gastrique : troubles digestifs; Réactions cutanées : surtout gels au kétoprofène + exposition au soleil; Retard de cicatrisation : si application sur une plaie\"},{\"cell\":12,\"focus\":\"Réaction cutanée au soleil\",\"context\":\"VIGILANCE ++; chez le diabétique\"}]. Preserve exact 4-column grid and 3 rows."
+}

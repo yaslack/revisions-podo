@@ -1,0 +1,101 @@
+{
+  "id": "mycoses",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p1-1.webp",
+        "caption": "Infection superficielle",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p1-2.webp",
+        "caption": "Peau et ongles atteints",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p2-1.webp",
+        "caption": "Champignons responsables",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p2-2.webp",
+        "caption": "Humidité et macération",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p3-1.webp",
+        "caption": "Colonisation de la couche cornée",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p3-2.webp",
+        "caption": "Inflammation et desquamation",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p4-1.webp",
+        "caption": "Plaques rouges et squames",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p4-2.webp",
+        "caption": "Intertrigo entre les orteils",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p5-1.webp",
+        "caption": "Distinguer l’eczéma",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p5-2.webp",
+        "caption": "Distinguer le psoriasis",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p6-1.webp",
+        "caption": "Antifongique local",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p6-2.webp",
+        "caption": "Traitement oral prescrit si nécessaire",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p7-1.webp",
+        "caption": "Guérison sous traitement adapté",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p7-2.webp",
+        "caption": "Risque de récidive",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/mycoses/p8-1.webp",
+        "caption": "Sécher entre les orteils",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/mycoses/p8-2.webp",
+        "caption": "Changer les chaussettes",
+        "after": 2
+      }
+    ]
+  ]
+}

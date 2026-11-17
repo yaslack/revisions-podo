@@ -1,0 +1,191 @@
+{
+  "id": "periostite-tibiale",
+  "title": "La périostite tibiale",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "= syndrome de la douleur tibiale MÉDIALE",
+        "after": 1,
+        "context": [
+          "= syndrome de la douleur tibiale MÉDIALE",
+          "INFLAMMATION du PÉRIOSTE : membrane qui recouvre l’os · face INTERNE du tibia"
+        ]
+      },
+      {
+        "caption": "athlètes · sports à impacts répétés",
+        "after": 3,
+        "context": [
+          "athlètes · sports à impacts répétés",
+          "blessure de SURUTILISATION : pas grave… mais chronique, invalidante"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SURUTILISATION des muscles et tendons du périoste",
+        "after": 3,
+        "context": [
+          "SURUTILISATION des muscles et tendons du périoste",
+          "FORT IMPACT",
+          "course · basket · foot · danse · mauvais amorti",
+          "BIOMÉCANIQUE",
+          "pied plat · hyperpronation",
+          "HAUSSE BRUTALE",
+          "distance · fréquence"
+        ]
+      },
+      {
+        "caption": "CHAUSSURES",
+        "after": 6,
+        "context": [
+          "CHAUSSURES",
+          "mal ajustées · peu amortissantes",
+          "TECHNIQUE",
+          "foulée trop longue · poids mal réparti",
+          "TERRAIN DUR",
+          "béton"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "périoste enflammé à l’insertion des tendons",
+        "after": 2,
+        "context": [
+          "périoste enflammé à l’insertion des tendons : ex. TIBIAL ANTÉRIEUR",
+          "impact → forces excessives → MICROTRAUMATISMES",
+          "douleur · gonflement · sensibilité (bord interne)"
+        ]
+      },
+      {
+        "caption": "répétition → CHRONIQUE, guérison lente",
+        "after": 4,
+        "context": [
+          "répétition → CHRONIQUE, guérison lente",
+          "graves : lésions osseuses, FRACTURE DE STRESS"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DOULEUR face interne du tibia",
+        "after": 4,
+        "context": [
+          "DOULEUR face interne du tibia : tiers SUPÉRIEUR / tiers MOYEN",
+          "pire après l’effort · ↓ au repos",
+          "sensible à la palpation · léger œdème",
+          "course · escaliers · impacts",
+          "raideur après l’inactivité"
+        ]
+      },
+      {
+        "caption": "début d’effort",
+        "after": 8,
+        "context": [
+          "début d’effort : DOULEUR",
+          "échauffé : ↓",
+          "après : REVIENT",
+          "persiste → CONSTANTE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "SURTOUT",
+          "douleur localisée",
+          "sensibilité du tibia",
+          "mobilité limitée",
+          "RADIOGRAPHIE",
+          "pas nécessaire…",
+          "exclut la FRACTURE DE STRESS"
+        ]
+      },
+      {
+        "caption": "tissus mous",
+        "after": 3,
+        "context": [
+          "IRM",
+          "tissus mous",
+          "tendons · muscles",
+          "SCINTIGRAPHIE",
+          "cas complexes",
+          "inflammation · microfractures"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "réduire l’inflammation · soulager · éviter la RÉCIDIVE",
+        "after": 4,
+        "context": [
+          "réduire l’inflammation · soulager · éviter la RÉCIDIVE",
+          "REPOS RELATIF : natation, vélo",
+          "CRYOTHÉRAPIE (glace)",
+          "AINS",
+          "ORTHÈSES : corriger la pronation"
+        ]
+      },
+      {
+        "caption": "kiné",
+        "after": 9,
+        "context": [
+          "kiné : renforcement + étirements",
+          "corriger la FOULÉE (podologue)",
+          "CAS SÉVÈRES",
+          "INFILTRATIONS",
+          "de corticoïdes",
+          "CHIRURGIE",
+          "RARE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GÉNÉRALEMENT FAVORABLE",
+        "after": 1,
+        "context": [
+          "GÉNÉRALEMENT FAVORABLE",
+          "LA MAJORITÉ",
+          "quelques SEMAINES",
+          "à quelques MOIS",
+          "reprise complète du sport"
+        ]
+      },
+      {
+        "caption": "NON TRAITÉE",
+        "after": 2,
+        "context": [
+          "NON TRAITÉE",
+          "CHRONIQUE",
+          "douleurs persistantes"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ÉCHAUFFEMENT avant · étirements après",
+        "after": 2,
+        "context": [
+          "ÉCHAUFFEMENT avant · étirements après",
+          "RENFORCER la jambe (tibiaux)",
+          "chaussures ajustées, AMORTIES, soutien de voûte"
+        ]
+      },
+      {
+        "caption": "augmenter PROGRESSIVEMENT",
+        "after": 4,
+        "context": [
+          "augmenter PROGRESSIVEMENT",
+          "suivi podologue / kiné : signes précoces"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: La périostite tibiale. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"= syndrome de la douleur tibiale MÉDIALE\",\"context\":\"= syndrome de la douleur tibiale MÉDIALE; INFLAMMATION du PÉRIOSTE : membrane qui recouvre l’os · face INTERNE du tibia\"},{\"cell\":2,\"focus\":\"athlètes · sports à impacts répétés\",\"context\":\"athlètes · sports à impacts répétés; blessure de SURUTILISATION : pas grave… mais chronique, invalidante\"},{\"cell\":3,\"focus\":\"SURUTILISATION des muscles et tendons du périoste\",\"context\":\"SURUTILISATION des muscles et tendons du périoste; FORT IMPACT; course · basket · foot · danse · mauvais amorti; BIOMÉCANIQUE; pied plat · hyperpronation; HAUSSE BRUTALE; distance · fréquence\"},{\"cell\":4,\"focus\":\"CHAUSSURES\",\"context\":\"CHAUSSURES; mal ajustées · peu amortissantes; TECHNIQUE; foulée trop longue · poids mal réparti; TERRAIN DUR; béton\"},{\"cell\":5,\"focus\":\"périoste enflammé à l’insertion des tendons\",\"context\":\"périoste enflammé à l’insertion des tendons : ex. TIBIAL ANTÉRIEUR; impact → forces excessives → MICROTRAUMATISMES; douleur · gonflement · sensibilité (bord interne)\"},{\"cell\":6,\"focus\":\"répétition → CHRONIQUE, guérison lente\",\"context\":\"répétition → CHRONIQUE, guérison lente; graves : lésions osseuses, FRACTURE DE STRESS\"},{\"cell\":7,\"focus\":\"DOULEUR face interne du tibia\",\"context\":\"DOULEUR face interne du tibia : tiers SUPÉRIEUR / tiers MOYEN; pire après l’effort · ↓ au repos; sensible à la palpation · léger œdème; course · escaliers · impacts; raideur après l’inactivité\"},{\"cell\":8,\"focus\":\"début d’effort\",\"context\":\"début d’effort : DOULEUR; échauffé : ↓; après : REVIENT; persiste → CONSTANTE\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; SURTOUT; douleur localisée; sensibilité du tibia; mobilité limitée; RADIOGRAPHIE; pas nécessaire…; exclut la FRACTURE DE STRESS\"},{\"cell\":10,\"focus\":\"tissus mous\",\"context\":\"IRM; tissus mous; tendons · muscles; SCINTIGRAPHIE; cas complexes; inflammation · microfractures\"},{\"cell\":11,\"focus\":\"réduire l’inflammation · soulager · éviter la RÉCIDIVE\",\"context\":\"réduire l’inflammation · soulager · éviter la RÉCIDIVE; REPOS RELATIF : natation, vélo; CRYOTHÉRAPIE (glace); AINS; ORTHÈSES : corriger la pronation\"},{\"cell\":12,\"focus\":\"kiné\",\"context\":\"kiné : renforcement + étirements; corriger la FOULÉE (podologue); CAS SÉVÈRES; INFILTRATIONS; de corticoïdes; CHIRURGIE; RARE\"},{\"cell\":13,\"focus\":\"GÉNÉRALEMENT FAVORABLE\",\"context\":\"GÉNÉRALEMENT FAVORABLE; LA MAJORITÉ; quelques SEMAINES; à quelques MOIS; reprise complète du sport\"},{\"cell\":14,\"focus\":\"NON TRAITÉE\",\"context\":\"NON TRAITÉE; CHRONIQUE; douleurs persistantes\"},{\"cell\":15,\"focus\":\"ÉCHAUFFEMENT avant · étirements après\",\"context\":\"ÉCHAUFFEMENT avant · étirements après; RENFORCER la jambe (tibiaux); chaussures ajustées, AMORTIES, soutien de voûte\"},{\"cell\":16,\"focus\":\"augmenter PROGRESSIVEMENT\",\"context\":\"augmenter PROGRESSIVEMENT; suivi podologue / kiné : signes précoces\"}]. Preserve exact 4-column grid and 4 rows."
+}

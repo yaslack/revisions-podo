@@ -1,0 +1,202 @@
+{
+  "id": "chaussures-securite",
+  "title": "Les chaussures de sécurité",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Équipements de Protection Individuelle",
+        "after": 2,
+        "context": [
+          "Équipements de Protection Individuelle : = EPI",
+          "construction · industrie · logistique",
+          "classées en CATÉGORIES : selon les risques"
+        ]
+      },
+      {
+        "caption": "éviter les blessures",
+        "after": 4,
+        "context": [
+          "éviter les blessures : santé podologique des travailleurs",
+          "EPI"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "le risque dépend de l’ENVIRONNEMENT et de la CATÉGORIE",
+        "after": 3,
+        "context": [
+          "le risque dépend de l’ENVIRONNEMENT et de la CATÉGORIE",
+          "S1",
+          "milieu SEC et propre",
+          "chocs + compression",
+          "S2",
+          "milieu HUMIDE",
+          "résiste à l’eau",
+          "S3",
+          "risques MÉCANIQUES + CHIMIQUES",
+          "protection accrue, + humidité"
+        ]
+      },
+      {
+        "caption": "caoutchouc / synthétique",
+        "after": 7,
+        "context": [
+          "S4",
+          "caoutchouc / synthétique",
+          "totalement ÉTANCHE · chimique",
+          "S5",
+          "= S3 + coque renforcée",
+          "semelle spécifique · très risqué",
+          "PORT PROLONGÉ",
+          "TMS",
+          "troubles circulatoires",
+          "irritations de la peau"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "PRESSION EXCESSIVE",
+        "after": 2,
+        "context": [
+          "PRESSION EXCESSIVE",
+          "trop serrée / trop large",
+          "déformations · douleurs · cors",
+          "CIRCULATION",
+          "mal ventilée ou serrée",
+          "œdèmes · douleurs · engourdissements",
+          "HUMIDITÉ (S2, S4)",
+          "chaleur + humidité",
+          "mycoses · ampoules · dermatites"
+        ]
+      },
+      {
+        "caption": "TRAUMATISMES",
+        "after": 4,
+        "context": [
+          "TRAUMATISMES",
+          "mauvaise qualité",
+          "écrasement · perforation · objets lourds",
+          "surtout debout ou marche prolongée"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "DOULEURS localisées",
+        "after": 2,
+        "context": [
+          "selon le TYPE de chaussure et la DURÉE du port",
+          "DOULEURS localisées : orteils · talon · plante (mauvais ajustement)",
+          "gonflements + rougeurs : inflammation : pression ou circulation"
+        ]
+      },
+      {
+        "caption": "callosités + ampoules",
+        "after": 4,
+        "context": [
+          "callosités + ampoules : friction + humidité, surtout S4",
+          "engourdissements · douleurs irradiantes : pression excessive · mauvais maintien"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "type de chaussure · durée du port · symptômes",
+        "after": 1,
+        "context": [
+          "1 · ANAMNÈSE",
+          "type de chaussure · durée du port · symptômes",
+          "2 · EXAMEN CLINIQUE",
+          "pression · irritation · infection · déformation"
+        ]
+      },
+      {
+        "caption": "démarche · posture · répartition des charges",
+        "after": 3,
+        "context": [
+          "3 · TESTS FONCTIONNELS",
+          "démarche · posture · répartition des charges",
+          "4 · IMAGERIE",
+          "radio · échographie : lésions internes, os"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "SOINS LOCAUX",
+        "after": 2,
+        "context": [
+          "SOINS LOCAUX",
+          "callosités · ampoules · infections · friction",
+          "ORTHÈSES / SEMELLES",
+          "alignement · moins de points de pression",
+          "CHANGER DE CHAUSSURES",
+          "morphologie + travail · ajustées · soutien"
+        ]
+      },
+      {
+        "caption": "REPOS + KINÉ",
+        "after": 4,
+        "context": [
+          "REPOS + KINÉ",
+          "TMS · douleurs chroniques",
+          "MÉDICAMENTS",
+          "anti-inflammatoires · crèmes"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "dépend de la RAPIDITÉ de prise en charge + de la PRÉVENTION",
+        "after": 2,
+        "context": [
+          "dépend de la RAPIDITÉ de prise en charge + de la PRÉVENTION",
+          "BÉNIGNES",
+          "guérison RAPIDE et COMPLÈTE",
+          "avec un traitement adapté",
+          "CHRONIQUES non traitées",
+          "déformations permanentes",
+          "douleurs chroniques",
+          "complications articulaires"
+        ]
+      },
+      {
+        "caption": "le plus souvent",
+        "after": 4,
+        "context": [
+          "le plus souvent : REPRISE d’une activité normale",
+          "après ajustement des chaussures + soins"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "la BONNE CATÉGORIE",
+        "after": 4,
+        "context": [
+          "la BONNE CATÉGORIE (S1 → S5) : selon les risques du poste",
+          "vérifier l’USURE régulièrement",
+          "ajustement : ni trop serrées, ni trop lâches : tester plusieurs modèles et tailles",
+          "soin des pieds : hygiène · hydratation · inspection · semelles si besoin",
+          "PAUSES régulières : contre la fatigue du port prolongé"
+        ]
+      },
+      {
+        "caption": "vérifier l’USURE régulièrement",
+        "after": 9,
+        "context": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les chaussures de sécurité. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Équipements de Protection Individuelle\",\"context\":\"Équipements de Protection Individuelle : = EPI; construction · industrie · logistique; classées en CATÉGORIES : selon les risques\"},{\"cell\":2,\"focus\":\"éviter les blessures\",\"context\":\"éviter les blessures : santé podologique des travailleurs; EPI\"},{\"cell\":3,\"focus\":\"le risque dépend de l’ENVIRONNEMENT et de la CATÉGORIE\",\"context\":\"le risque dépend de l’ENVIRONNEMENT et de la CATÉGORIE; S1; milieu SEC et propre; chocs + compression; S2; milieu HUMIDE; résiste à l’eau; S3; risques MÉCANIQUES + CHIMIQUES; protection accrue, + humidité\"},{\"cell\":4,\"focus\":\"caoutchouc / synthétique\",\"context\":\"S4; caoutchouc / synthétique; totalement ÉTANCHE · chimique; S5; = S3 + coque renforcée; semelle spécifique · très risqué; PORT PROLONGÉ; TMS; troubles circulatoires; irritations de la peau\"},{\"cell\":5,\"focus\":\"PRESSION EXCESSIVE\",\"context\":\"PRESSION EXCESSIVE; trop serrée / trop large; déformations · douleurs · cors; CIRCULATION; mal ventilée ou serrée; œdèmes · douleurs · engourdissements; HUMIDITÉ (S2, S4); chaleur + humidité; mycoses · ampoules · dermatites\"},{\"cell\":6,\"focus\":\"TRAUMATISMES\",\"context\":\"TRAUMATISMES; mauvaise qualité; écrasement · perforation · objets lourds; surtout debout ou marche prolongée\"},{\"cell\":7,\"focus\":\"DOULEURS localisées\",\"context\":\"selon le TYPE de chaussure et la DURÉE du port; DOULEURS localisées : orteils · talon · plante (mauvais ajustement); gonflements + rougeurs : inflammation : pression ou circulation\"},{\"cell\":8,\"focus\":\"callosités + ampoules\",\"context\":\"callosités + ampoules : friction + humidité, surtout S4; engourdissements · douleurs irradiantes : pression excessive · mauvais maintien\"},{\"cell\":9,\"focus\":\"type de chaussure · durée du port · symptômes\",\"context\":\"1 · ANAMNÈSE; type de chaussure · durée du port · symptômes; 2 · EXAMEN CLINIQUE; pression · irritation · infection · déformation\"},{\"cell\":10,\"focus\":\"démarche · posture · répartition des charges\",\"context\":\"3 · TESTS FONCTIONNELS; démarche · posture · répartition des charges; 4 · IMAGERIE; radio · échographie : lésions internes, os\"},{\"cell\":11,\"focus\":\"SOINS LOCAUX\",\"context\":\"SOINS LOCAUX; callosités · ampoules · infections · friction; ORTHÈSES / SEMELLES; alignement · moins de points de pression; CHANGER DE CHAUSSURES; morphologie + travail · ajustées · soutien\"},{\"cell\":12,\"focus\":\"REPOS + KINÉ\",\"context\":\"REPOS + KINÉ; TMS · douleurs chroniques; MÉDICAMENTS; anti-inflammatoires · crèmes\"},{\"cell\":13,\"focus\":\"dépend de la RAPIDITÉ de prise en charge + de la PRÉVENTION\",\"context\":\"dépend de la RAPIDITÉ de prise en charge + de la PRÉVENTION; BÉNIGNES; guérison RAPIDE et COMPLÈTE; avec un traitement adapté; CHRONIQUES non traitées; déformations permanentes; douleurs chroniques; complications articulaires\"},{\"cell\":14,\"focus\":\"le plus souvent\",\"context\":\"le plus souvent : REPRISE d’une activité normale; après ajustement des chaussures + soins\"},{\"cell\":15,\"focus\":\"la BONNE CATÉGORIE\",\"context\":\"la BONNE CATÉGORIE (S1 → S5) : selon les risques du poste; vérifier l’USURE régulièrement; ajustement : ni trop serrées, ni trop lâches : tester plusieurs modèles et tailles; soin des pieds : hygiène · hydratation · inspection · semelles si\"},{\"cell\":16,\"focus\":\"vérifier l’USURE régulièrement\",\"context\":\"S1; S2; S3; S4; S5\"}]. Preserve exact 4-column grid and 4 rows."
+}

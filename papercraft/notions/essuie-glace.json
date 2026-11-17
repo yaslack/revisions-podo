@@ -1,0 +1,101 @@
+{
+  "id": "essuie-glace",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p1-1.webp",
+        "caption": "Bandelette ilio-tibiale",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p1-2.webp",
+        "caption": "Course et vélo",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p2-1.webp",
+        "caption": "Hausse des contraintes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p2-2.webp",
+        "caption": "Chaussures usées",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p3-1.webp",
+        "caption": "Flexions répétées",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p3-2.webp",
+        "caption": "Irritation latérale",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p4-1.webp",
+        "caption": "Douleur dans les descentes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p4-2.webp",
+        "caption": "Sensibilité à la pression",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p5-1.webp",
+        "caption": "Test de Noble",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p5-2.webp",
+        "caption": "Histoire de l’entraînement",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p6-1.webp",
+        "caption": "Repos relatif",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p6-2.webp",
+        "caption": "Renforcer la hanche",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p7-1.webp",
+        "caption": "Reprise progressive",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p7-2.webp",
+        "caption": "Risque de récidive",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p8-1.webp",
+        "caption": "Renforcement régulier",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/essuie-glace/p8-2.webp",
+        "caption": "Chaussage adapté",
+        "after": 3
+      }
+    ]
+  ]
+}

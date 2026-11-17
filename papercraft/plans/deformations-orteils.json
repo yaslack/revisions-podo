@@ -1,0 +1,221 @@
+{
+  "id": "deformations-orteils",
+  "title": "Déformations des orteils",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Anomalies STRUCTURALES des orteils",
+        "after": 3,
+        "context": [
+          "Anomalies STRUCTURALES des orteils : gênent la fonction du pied · douleurs",
+          "de l’hérédité… aux mauvaises chaussures",
+          "prise en charge → qualité de vie : prévenir les complications",
+          "GRIFFES"
+        ]
+      },
+      {
+        "caption": "CLINODACTYLIE",
+        "after": 6,
+        "context": [
+          "CLINODACTYLIE",
+          "VRILLES",
+          "MÉTATARSALGIE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GRIFFES",
+        "after": 1,
+        "context": [
+          "GRIFFES",
+          "IPP ou IPD · réductible ou non",
+          "extenseurs ≠ fléchisseurs",
+          "chaussures · neuropathie diabétique",
+          "famille · âge · neuro",
+          "CLINODACTYLIE",
+          "CONGÉNITALES, dès la naissance",
+          "génétique : trisomie 21"
+        ]
+      },
+      {
+        "caption": "VRILLES",
+        "after": 3,
+        "context": [
+          "VRILLES",
+          "faiblesse musculaire",
+          "déséquilibre postural",
+          "MÉTATARSALGIE",
+          "surutilisation · surcharge",
+          "chaussures inadaptées · obésité"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GRIFFES",
+        "after": 1,
+        "context": [
+          "GRIFFES",
+          "HYPERFLEXION des IP",
+          "appui plantaire → callosités, douleurs",
+          "CLINODACTYLIE",
+          "DÉVIATION latérale",
+          "souvent le 5e orteil",
+          "perturbe l’alignement"
+        ]
+      },
+      {
+        "caption": "VRILLES",
+        "after": 3,
+        "context": [
+          "VRILLES",
+          "TORSION de l’orteil",
+          "douleur au mouvement",
+          "déséquilibres musculaires",
+          "MÉTATARSALGIE",
+          "pression sur les TÊTES métatarsiennes",
+          "biomécanique · chaussures"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GRIFFES",
+        "after": 1,
+        "context": [
+          "GRIFFES",
+          "quels orteils ?",
+          "réductible : totale / partielle / NON",
+          "hyperkératose dorsale ou plantaire",
+          "CLINODACTYLIE",
+          "déformation VISIBLE",
+          "gêne à la marche · douleur"
+        ]
+      },
+      {
+        "caption": "VRILLES",
+        "after": 3,
+        "context": [
+          "VRILLES",
+          "déviation",
+          "douleur flexion / extension",
+          "inconfort dans la chaussure",
+          "MÉTATARSALGIE",
+          "douleur BRÛLANTE sous les métas",
+          "pire marche / debout",
+          "+ engourdissement"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "EXAMEN CLINIQUE",
+        "after": 1,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "inspection pieds + orteils",
+          "mobilité",
+          "palpation des zones douloureuses",
+          "ANAMNÈSE",
+          "antécédents",
+          "habitudes de chaussage",
+          "symptômes"
+        ]
+      },
+      {
+        "caption": "EXAMENS COMPLÉMENTAIRES",
+        "after": 2,
+        "context": [
+          "EXAMENS COMPLÉMENTAIRES",
+          "RADIO : alignement os + articulations",
+          "écho si besoin : tissus mous"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GRIFFES",
+        "after": 1,
+        "context": [
+          "GRIFFES",
+          "orthèses · soins de la peau",
+          "éducation : coupe des ongles",
+          "± chirurgie si sévère",
+          "CLINODACTYLIE",
+          "suivi régulier",
+          "chirurgie si douleur / gêne"
+        ]
+      },
+      {
+        "caption": "VRILLES",
+        "after": 3,
+        "context": [
+          "VRILLES",
+          "rééducation : renforcement",
+          "orthèses de correction",
+          "MÉTATARSALGIE",
+          "semelles orthopédiques",
+          "activités adaptées · AINS",
+          "conseils de chaussage"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GRIFFES",
+        "after": 1,
+        "context": [
+          "GRIFFES",
+          "BON pronostic",
+          "mais RÉCIDIVE fréquente",
+          "si les habitudes ne changent pas",
+          "CLINODACTYLIE",
+          "selon la gravité",
+          "± chirurgie"
+        ]
+      },
+      {
+        "caption": "VRILLES",
+        "after": 3,
+        "context": [
+          "VRILLES",
+          "nette amélioration (rééducation)",
+          "récidives sans suivi",
+          "MÉTATARSALGIE",
+          "FAVORABLE si bien traitée",
+          "sinon douleurs CHRONIQUES"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "GRIFFES",
+        "after": 1,
+        "context": [
+          "GRIFFES",
+          "chaussures adaptées",
+          "pas de coupe d’ongles inadaptée",
+          "CLINODACTYLIE",
+          "dépistage NÉONATAL",
+          "suivi des enfants à risque"
+        ]
+      },
+      {
+        "caption": "VRILLES",
+        "after": 3,
+        "context": [
+          "VRILLES",
+          "posture",
+          "renforcement dès le plus jeune âge",
+          "MÉTATARSALGIE",
+          "bon chaussage · hygiène",
+          "poids santé"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Déformations des orteils. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Anomalies STRUCTURALES des orteils\",\"context\":\"Anomalies STRUCTURALES des orteils : gênent la fonction du pied · douleurs; de l’hérédité… aux mauvaises chaussures; prise en charge → qualité de vie : prévenir les complications; GRIFFES\"},{\"cell\":2,\"focus\":\"CLINODACTYLIE\",\"context\":\"CLINODACTYLIE; VRILLES; MÉTATARSALGIE\"},{\"cell\":3,\"focus\":\"GRIFFES\",\"context\":\"GRIFFES; IPP ou IPD · réductible ou non; extenseurs ≠ fléchisseurs; chaussures · neuropathie diabétique; famille · âge · neuro; CLINODACTYLIE; CONGÉNITALES, dès la naissance; génétique : trisomie 21\"},{\"cell\":4,\"focus\":\"VRILLES\",\"context\":\"VRILLES; faiblesse musculaire; déséquilibre postural; MÉTATARSALGIE; surutilisation · surcharge; chaussures inadaptées · obésité\"},{\"cell\":5,\"focus\":\"GRIFFES\",\"context\":\"GRIFFES; HYPERFLEXION des IP; appui plantaire → callosités, douleurs; CLINODACTYLIE; DÉVIATION latérale; souvent le 5e orteil; perturbe l’alignement\"},{\"cell\":6,\"focus\":\"VRILLES\",\"context\":\"VRILLES; TORSION de l’orteil; douleur au mouvement; déséquilibres musculaires; MÉTATARSALGIE; pression sur les TÊTES métatarsiennes; biomécanique · chaussures\"},{\"cell\":7,\"focus\":\"GRIFFES\",\"context\":\"GRIFFES; quels orteils ?; réductible : totale / partielle / NON; hyperkératose dorsale ou plantaire; CLINODACTYLIE; déformation VISIBLE; gêne à la marche · douleur\"},{\"cell\":8,\"focus\":\"VRILLES\",\"context\":\"VRILLES; déviation; douleur flexion / extension; inconfort dans la chaussure; MÉTATARSALGIE; douleur BRÛLANTE sous les métas; pire marche / debout; + engourdissement\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; inspection pieds + orteils; mobilité; palpation des zones douloureuses; ANAMNÈSE; antécédents; habitudes de chaussage; symptômes\"},{\"cell\":10,\"focus\":\"EXAMENS COMPLÉMENTAIRES\",\"context\":\"EXAMENS COMPLÉMENTAIRES; RADIO : alignement os + articulations; écho si besoin : tissus mous\"},{\"cell\":11,\"focus\":\"GRIFFES\",\"context\":\"GRIFFES; orthèses · soins de la peau; éducation : coupe des ongles; ± chirurgie si sévère; CLINODACTYLIE; suivi régulier; chirurgie si douleur / gêne\"},{\"cell\":12,\"focus\":\"VRILLES\",\"context\":\"VRILLES; rééducation : renforcement; orthèses de correction; MÉTATARSALGIE; semelles orthopédiques; activités adaptées · AINS; conseils de chaussage\"},{\"cell\":13,\"focus\":\"GRIFFES\",\"context\":\"GRIFFES; BON pronostic; mais RÉCIDIVE fréquente; si les habitudes ne changent pas; CLINODACTYLIE; selon la gravité; ± chirurgie\"},{\"cell\":14,\"focus\":\"VRILLES\",\"context\":\"VRILLES; nette amélioration (rééducation); récidives sans suivi; MÉTATARSALGIE; FAVORABLE si bien traitée; sinon douleurs CHRONIQUES\"},{\"cell\":15,\"focus\":\"GRIFFES\",\"context\":\"GRIFFES; chaussures adaptées; pas de coupe d’ongles inadaptée; CLINODACTYLIE; dépistage NÉONATAL; suivi des enfants à risque\"},{\"cell\":16,\"focus\":\"VRILLES\",\"context\":\"VRILLES; posture; renforcement dès le plus jeune âge; MÉTATARSALGIE; bon chaussage · hygiène; poids santé\"}]. Preserve exact 4-column grid and 4 rows."
+}

@@ -1,0 +1,223 @@
+{
+  "id": "varices",
+  "title": "Varices & œdèmes",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Veines dilatées et tortueuses",
+        "after": 2,
+        "context": [
+          "Varices : veines dilatées de façon permanente et tortueuse",
+          "Œdème : accumulation de liquide dans l'espace extracellulaire",
+          "2 grandes origines"
+        ]
+      },
+      {
+        "caption": "Œdème veineux ou lymphatique",
+        "after": 5,
+        "context": [
+          "LYMPHATIQUES",
+          "lymphœdème",
+          "VEINEUSES",
+          "varices + œdème de stase",
+          "(la partie veineuse est la plus détaillée)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Âge, hormones et grossesse",
+        "after": 2,
+        "context": [
+          "Côté veineux : 4 facteurs",
+          "SEXE FÉMININ",
+          "hormones + grossesse ↑ le risque",
+          "ÂGE",
+          "dégénérescence progressive des valvules"
+        ]
+      },
+      {
+        "caption": "Hérédité et station debout",
+        "after": 4,
+        "context": [
+          "HÉRÉDITÉ",
+          "prédisposition génétique familiale",
+          "STATION DEBOUT",
+          "professions à risque · piétinement prolongé"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Valvules veineuses défaillantes",
+        "after": 8,
+        "context": [
+          "Réseau PROFOND",
+          "= 90 % du retour veineux",
+          "accompagne les artères principales",
+          "Réseau SUPERFICIEL → varices",
+          "par incompétence valvulaire",
+          "saine",
+          "variqueuse",
+          "3 mécanismes",
+          "insuffisance valvulaire"
+        ]
+      },
+      {
+        "caption": "Reflux et œdème de stase",
+        "after": 16,
+        "context": [
+          "reflux veineux",
+          "HTA veineuse",
+          "CERCLE VICIEUX",
+          "valvules défaillantes → hyperpression → dilatation",
+          "L'ŒDÈME VEINEUX : 3 étapes",
+          "Hypertension hydrostatique : le reflux crée une surpression",
+          "Perméabilité capillaire altérée : passage accru de liquide vers l'espace extracellulaire",
+          "Accumulation du liquide : → formation de l'œdème"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Jambes lourdes et gonflées",
+        "after": 6,
+        "context": [
+          "Jambes lourdes : ++ en fin de journée",
+          "Crampes nocturnes",
+          "Prurit, gonflement",
+          "stades avancés",
+          "dermite ocre",
+          "eczéma de stase",
+          "hypodermite",
+          "atrophie blanche",
+          "ulcères variqueux",
+          "Toujours rechercher",
+          "traumatisme (fracture)",
+          "fièvre",
+          "piqûre d'insecte",
+          "allergie",
+          "médicament (inhibiteurs calciques)"
+        ]
+      },
+      {
+        "caption": "Altérations cutanées de stase",
+        "after": 12,
+        "context": [
+          "Classification CEAP",
+          "télangiectasies",
+          "varices visibles > 3 mm",
+          "œdème permanent cheville",
+          "altérations cutanées",
+          "ulcère cicatrisé"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Inspecter les veines et la peau",
+        "after": 0,
+        "context": [
+          "1. EXAMEN CLINIQUE",
+          "= le 1er moyen",
+          "inspection des veines dilatées",
+          "recherche des signes cutanés"
+        ]
+      },
+      {
+        "caption": "Doppler veineux",
+        "after": 1,
+        "context": [
+          "2. DOPPLER DUPLEX VEINEUX",
+          "= examen de RÉFÉRENCE",
+          "confirme l'incompétence valvulaire",
+          "visualise le reflux",
+          "évalue la gravité de l'insuffisance",
+          "planifie le traitement"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Marche et pompe musculaire",
+        "after": 7,
+        "context": [
+          "MESURES CONSERVATRICES",
+          "Élévation des membres inférieurs",
+          "Marche active",
+          "Renforcer la pompe musculaire",
+          "Soins locaux des ulcères : pansement compressif 1×/semaine · occlusifs interactifs · chlorure d’aluminium",
+          "Drainage lymphatique",
+          "COMPRESSION",
+          "classe II – III"
+        ]
+      },
+      {
+        "caption": "Compression et traitement adapté",
+        "after": 14,
+        "context": [
+          "soulagement efficace",
+          "INVASIFS",
+          "selon la gravité",
+          "sclérothérapie",
+          "ablation laser",
+          "radiofréquence",
+          "chirurgie"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Ulcère veineux chronique",
+        "after": 4,
+        "context": [
+          "ULCÈRE VARIQUEUX",
+          "= plaie chronique",
+          "douloureuse",
+          "difficile à cicatriser",
+          "récidivante"
+        ]
+      },
+      {
+        "caption": "Complications veineuses",
+        "after": 9,
+        "context": [
+          "fréquente",
+          "invalidante",
+          "+ 2 autres complications",
+          "thrombophlébite superficielle",
+          "hémorragie brutale"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Repérer tôt les zones à risque",
+        "after": 5,
+        "context": [
+          "le rôle du PÉDICURE-PODOLOGUE",
+          "IDENTIFICATION PRÉCOCE",
+          "signes d'œdème",
+          "anomalies cutanées",
+          "zones à risque",
+          "ÉDUCATION DU PATIENT"
+        ]
+      },
+      {
+        "caption": "Marche, suivi et orientation",
+        "after": 11,
+        "context": [
+          "conseils adaptés",
+          "encourager la marche",
+          "port des bas de contention",
+          "SI COMPLICATIONS",
+          "médecin / phlébologue",
+          "orientation doppler"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Varices & œdèmes. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Veines dilatées et tortueuses\",\"context\":\"Varices : veines dilatées de façon permanente et tortueuse; Œdème : accumulation de liquide dans l'espace extracellulaire; 2 grandes origines\"},{\"cell\":2,\"focus\":\"Œdème veineux ou lymphatique\",\"context\":\"LYMPHATIQUES; lymphœdème; VEINEUSES; varices + œdème de stase; (la partie veineuse est la plus détaillée)\"},{\"cell\":3,\"focus\":\"Âge, hormones et grossesse\",\"context\":\"Côté veineux : 4 facteurs; SEXE FÉMININ; hormones + grossesse ↑ le risque; ÂGE; dégénérescence progressive des valvules\"},{\"cell\":4,\"focus\":\"Hérédité et station debout\",\"context\":\"HÉRÉDITÉ; prédisposition génétique familiale; STATION DEBOUT; professions à risque · piétinement prolongé\"},{\"cell\":5,\"focus\":\"Valvules veineuses défaillantes\",\"context\":\"Réseau PROFOND; = 90 % du retour veineux; accompagne les artères principales; Réseau SUPERFICIEL → varices; par incompétence valvulaire; saine; variqueuse; 3 mécanismes; insuffisance valvulaire\"},{\"cell\":6,\"focus\":\"Reflux et œdème de stase\",\"context\":\"reflux veineux; HTA veineuse; CERCLE VICIEUX; valvules défaillantes → hyperpression → dilatation; L'ŒDÈME VEINEUX : 3 étapes; Hypertension hydrostatique : le reflux crée une surpression; Perméabilité capillaire altérée : passage accru de li\"},{\"cell\":7,\"focus\":\"Jambes lourdes et gonflées\",\"context\":\"Jambes lourdes : ++ en fin de journée; Crampes nocturnes; Prurit, gonflement; stades avancés; dermite ocre; eczéma de stase; hypodermite; atrophie blanche; ulcères variqueux; Toujours rechercher; traumatisme (fracture); fièvre; piqûre d'ins\"},{\"cell\":8,\"focus\":\"Altérations cutanées de stase\",\"context\":\"Classification CEAP; télangiectasies; varices visibles > 3 mm; œdème permanent cheville; altérations cutanées; ulcère cicatrisé\"},{\"cell\":9,\"focus\":\"Inspecter les veines et la peau\",\"context\":\"1. EXAMEN CLINIQUE; = le 1er moyen; inspection des veines dilatées; recherche des signes cutanés\"},{\"cell\":10,\"focus\":\"Doppler veineux\",\"context\":\"2. DOPPLER DUPLEX VEINEUX; = examen de RÉFÉRENCE; confirme l'incompétence valvulaire; visualise le reflux; évalue la gravité de l'insuffisance; planifie le traitement\"},{\"cell\":11,\"focus\":\"Marche et pompe musculaire\",\"context\":\"MESURES CONSERVATRICES; Élévation des membres inférieurs; Marche active; Renforcer la pompe musculaire; Soins locaux des ulcères : pansement compressif 1×/semaine · occlusifs interactifs · chlorure d’aluminium; Drainage lymphatique; COMPRES\"},{\"cell\":12,\"focus\":\"Compression et traitement adapté\",\"context\":\"soulagement efficace; INVASIFS; selon la gravité; sclérothérapie; ablation laser; radiofréquence; chirurgie\"},{\"cell\":13,\"focus\":\"Ulcère veineux chronique\",\"context\":\"ULCÈRE VARIQUEUX; = plaie chronique; douloureuse; difficile à cicatriser; récidivante\"},{\"cell\":14,\"focus\":\"Complications veineuses\",\"context\":\"fréquente; invalidante; + 2 autres complications; thrombophlébite superficielle; hémorragie brutale\"},{\"cell\":15,\"focus\":\"Repérer tôt les zones à risque\",\"context\":\"le rôle du PÉDICURE-PODOLOGUE; IDENTIFICATION PRÉCOCE; signes d'œdème; anomalies cutanées; zones à risque; ÉDUCATION DU PATIENT\"},{\"cell\":16,\"focus\":\"Marche, suivi et orientation\",\"context\":\"conseils adaptés; encourager la marche; port des bas de contention; SI COMPLICATIONS; médecin / phlébologue; orientation doppler\"}]. Preserve exact 4-column grid and 4 rows."
+}

@@ -1,0 +1,245 @@
+{
+  "id": "aomi",
+  "title": "L'AOMI (artérite)",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Artère rétrécie ou bouchée",
+        "after": 4,
+        "context": [
+          "sténose → occlusion",
+          "Maladie chronique : sténose ou occlusion des artères des membres inférieurs",
+          "Ischémie tissulaire : = manque d'oxygène",
+          "Manifestation périphérique : de l'athérosclérose (comme coronaropathie, AVC)",
+          "10 à 20 %"
+        ]
+      },
+      {
+        "caption": "Risque cardiovasculaire global",
+        "after": 8,
+        "context": [
+          "des plus de 55 ans",
+          "pathologie fréquente",
+          "MARQUEUR du risque CV global",
+          "cérébrales",
+          "coronaires",
+          "aortiques"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Plaque d’athérome",
+        "after": 4,
+        "context": [
+          "Cause : ATHÉROSCLÉROSE",
+          "lipides + glucides + dépôts calcaires dans la paroi → lumière rétrécie",
+          "NON MODIFIABLES",
+          "Âge : homme > 45 ans · femme > 55 ans",
+          "Sexe masculin"
+        ]
+      },
+      {
+        "caption": "Tabac et facteurs cardiovasculaires",
+        "after": 9,
+        "context": [
+          "ATCD familiaux cardiovasculaires",
+          "MODIFIABLES",
+          "80 % des causes",
+          "tabagisme (actif ou passé)",
+          "HTA",
+          "dyslipidémie",
+          "diabète",
+          "surpoids / obésité",
+          "sédentarité",
+          "stress chronique",
+          "plusieurs facteurs → risque fortement augmenté"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Sténose et baisse du débit",
+        "after": 4,
+        "context": [
+          "STÉNOSE",
+          "Altération de l'endothélium : couche interne · par les facteurs de risque",
+          "Plaque d'athérome : lipides + cellules inflammatoires + tissu fibreux → intima épaissie",
+          "Sténose → occlusion : flux ↓ : ischémie d'effort, puis permanente",
+          "fémorales"
+        ]
+      },
+      {
+        "caption": "Artères des membres inférieurs",
+        "after": 8,
+        "context": [
+          "poplitées",
+          "tibiales",
+          "+ bifurcations (flux turbulent)",
+          "membres sup. épargnés"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Douleur à la marche",
+        "after": 5,
+        "context": [
+          "Classification de LERICHE et FONTAINE",
+          "Asymptomatique",
+          "Claudication intermittente",
+          "douleur à l'effort, disparaît au repos",
+          "III",
+          "Douleurs de décubitus"
+        ]
+      },
+      {
+        "caption": "Douleur au repos et pied froid",
+        "after": 10,
+        "context": [
+          "au repos, surtout la nuit",
+          "Troubles trophiques",
+          "ulcérations, nécroses, gangrène",
+          "AUTRES SIGNES",
+          "membre froid et pâle",
+          "recoloration lente > 5 s",
+          "érythrocyanose de déclivité",
+          "pouls ↓ ou abolis"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Palper les pouls et mesurer l’IPS",
+        "after": 8,
+        "context": [
+          "EXAMEN CLINIQUE",
+          "palpation des pouls",
+          "fémoral",
+          "poplité",
+          "pédieux",
+          "tibial postérieur",
+          "+ auscultation des trajets artériels → souffles",
+          "IPS",
+          "indice de pression systolique",
+          "IPS =",
+          "PAS cheville",
+          "PAS bras"
+        ]
+      },
+      {
+        "caption": "Écho-Doppler artériel",
+        "after": 16,
+        "context": [
+          "Normal : 0,9 – 1,3",
+          "AOMI : < 0,9",
+          "EXAMENS COMPLÉMENTAIRES",
+          "Écho-doppler artériel des MI",
+          "Angio-scanner / angio-IRM : cartographier les lésions",
+          "TcPO₂ : évaluer l'ischémie tissulaire",
+          "Artériographie : uniquement à visée thérapeutique",
+          "Bilan polyvasculaire : ECG · épreuve d'effort · ± écho-doppler TSA et aorte abdominale"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Arrêt du tabac et marche adaptée",
+        "after": 7,
+        "context": [
+          "Objectifs",
+          "soulager les symptômes",
+          "prévenir amputation, infarctus, AVC",
+          "réduire la mortalité CV",
+          "TRAITEMENT MÉDICAL OPTIMAL",
+          "Sevrage tabagique",
+          "Contrôle des facteurs de risque",
+          "TA < 140 mmHg",
+          "HbA1c < 6,5 %",
+          "LDL < 0,55 g/L",
+          "Exercice : 30 min de marche / jour",
+          "MÉDICAMENTS"
+        ]
+      },
+      {
+        "caption": "Traitement et revascularisation",
+        "after": 15,
+        "context": [
+          "Antiagrégant plaquettaire : aspirine, clopidogrel",
+          "Statine",
+          "IEC ou ARA2",
+          "CLAUDICATION",
+          "entraînement à la marche",
+          "revascularisation si échec",
+          "du traitement médical à 6 mois",
+          "ISCHÉMIE PERMANENTE",
+          "hospitalisation",
+          "en service vasculaire",
+          "REVASCULARISATION",
+          "endovasculaire : angioplastie, stent",
+          "chirurgicale : pontage, endartériectomie",
+          "SI IMPOSSIBLE",
+          "traitement symptomatique",
+          "douleur",
+          "prévenir l’infection",
+          "Diabétique : surveillance renforcée + prise en charge pluridisciplinaire"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Surveiller le risque cardiovasculaire",
+        "after": 5,
+        "context": [
+          "SOMBRE",
+          "dès les premiers stades, même claudication isolée",
+          "30 %",
+          "de mortalité cardiovasculaire",
+          "à 5 ans",
+          "risque accru"
+        ]
+      },
+      {
+        "caption": "Risque d’AVC et d’atteinte du pied",
+        "after": 10,
+        "context": [
+          "infarctus",
+          "AVC",
+          "amputation",
+          "1 200 à 1 500 / an en France",
+          "marqueur de maladie vasculaire DIFFUSE et GRAVE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Agir sur les facteurs de risque",
+        "after": 6,
+        "context": [
+          "PRÉVENTION",
+          "Lutte contre les FDR cardiovasculaires",
+          "Activité physique régulière",
+          "Alimentation équilibrée",
+          "Surveiller TA, diabète, cholestérol",
+          "Suivi des patients à risque",
+          "DÉPISTAGE"
+        ]
+      },
+      {
+        "caption": "Dépistage vasculaire du pied",
+        "after": 12,
+        "context": [
+          "bilan vasculaire systématique",
+          "diabétique > 40 ans",
+          "ou après 20 ans de diabète",
+          "tous les 5 ans : (ou + si facteurs aggravants)",
+          "Plaie du pied chez un diabétique",
+          "centre spécialisé sous 48 h"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: L'AOMI (artérite). ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Artère rétrécie ou bouchée\",\"context\":\"sténose → occlusion; Maladie chronique : sténose ou occlusion des artères des membres inférieurs; Ischémie tissulaire : = manque d'oxygène; Manifestation périphérique : de l'athérosclérose (comme coronaropathie, AVC); 10 à 20 %\"},{\"cell\":2,\"focus\":\"Risque cardiovasculaire global\",\"context\":\"des plus de 55 ans; pathologie fréquente; MARQUEUR du risque CV global; cérébrales; coronaires; aortiques\"},{\"cell\":3,\"focus\":\"Plaque d’athérome\",\"context\":\"Cause : ATHÉROSCLÉROSE; lipides + glucides + dépôts calcaires dans la paroi → lumière rétrécie; NON MODIFIABLES; Âge : homme > 45 ans · femme > 55 ans; Sexe masculin\"},{\"cell\":4,\"focus\":\"Tabac et facteurs cardiovasculaires\",\"context\":\"ATCD familiaux cardiovasculaires; MODIFIABLES; 80 % des causes; tabagisme (actif ou passé); HTA; dyslipidémie; diabète; surpoids / obésité; sédentarité; stress chronique; plusieurs facteurs → risque fortement augmenté\"},{\"cell\":5,\"focus\":\"Sténose et baisse du débit\",\"context\":\"STÉNOSE; Altération de l'endothélium : couche interne · par les facteurs de risque; Plaque d'athérome : lipides + cellules inflammatoires + tissu fibreux → intima épaissie; Sténose → occlusion : flux ↓ : ischémie d'effort, puis permanente; \"},{\"cell\":6,\"focus\":\"Artères des membres inférieurs\",\"context\":\"poplitées; tibiales; + bifurcations (flux turbulent); membres sup. épargnés\"},{\"cell\":7,\"focus\":\"Douleur à la marche\",\"context\":\"Classification de LERICHE et FONTAINE; Asymptomatique; Claudication intermittente; douleur à l'effort, disparaît au repos; III; Douleurs de décubitus\"},{\"cell\":8,\"focus\":\"Douleur au repos et pied froid\",\"context\":\"au repos, surtout la nuit; Troubles trophiques; ulcérations, nécroses, gangrène; AUTRES SIGNES; membre froid et pâle; recoloration lente > 5 s; érythrocyanose de déclivité; pouls ↓ ou abolis\"},{\"cell\":9,\"focus\":\"Palper les pouls et mesurer l’IPS\",\"context\":\"EXAMEN CLINIQUE; palpation des pouls; fémoral; poplité; pédieux; tibial postérieur; + auscultation des trajets artériels → souffles; IPS; indice de pression systolique; IPS =; PAS cheville; PAS bras\"},{\"cell\":10,\"focus\":\"Écho-Doppler artériel\",\"context\":\"Normal : 0,9 – 1,3; AOMI : < 0,9; EXAMENS COMPLÉMENTAIRES; Écho-doppler artériel des MI; Angio-scanner / angio-IRM : cartographier les lésions; TcPO₂ : évaluer l'ischémie tissulaire; Artériographie : uniquement à visée thérapeutique; Bilan \"},{\"cell\":11,\"focus\":\"Arrêt du tabac et marche adaptée\",\"context\":\"Objectifs; soulager les symptômes; prévenir amputation, infarctus, AVC; réduire la mortalité CV; TRAITEMENT MÉDICAL OPTIMAL; Sevrage tabagique; Contrôle des facteurs de risque; TA < 140 mmHg; HbA1c < 6,5 %; LDL < 0,55 g/L; Exercice : 30 min\"},{\"cell\":12,\"focus\":\"Traitement et revascularisation\",\"context\":\"Antiagrégant plaquettaire : aspirine, clopidogrel; Statine; IEC ou ARA2; CLAUDICATION; entraînement à la marche; revascularisation si échec; du traitement médical à 6 mois; ISCHÉMIE PERMANENTE; hospitalisation; en service vasculaire; REVASC\"},{\"cell\":13,\"focus\":\"Surveiller le risque cardiovasculaire\",\"context\":\"SOMBRE; dès les premiers stades, même claudication isolée; 30 %; de mortalité cardiovasculaire; à 5 ans; risque accru\"},{\"cell\":14,\"focus\":\"Risque d’AVC et d’atteinte du pied\",\"context\":\"infarctus; AVC; amputation; 1 200 à 1 500 / an en France; marqueur de maladie vasculaire DIFFUSE et GRAVE\"},{\"cell\":15,\"focus\":\"Agir sur les facteurs de risque\",\"context\":\"PRÉVENTION; Lutte contre les FDR cardiovasculaires; Activité physique régulière; Alimentation équilibrée; Surveiller TA, diabète, cholestérol; Suivi des patients à risque; DÉPISTAGE\"},{\"cell\":16,\"focus\":\"Dépistage vasculaire du pied\",\"context\":\"bilan vasculaire systématique; diabétique > 40 ans; ou après 20 ans de diabète; tous les 5 ans : (ou + si facteurs aggravants); Plaie du pied chez un diabétique; centre spécialisé sous 48 h\"}]. Preserve exact 4-column grid and 4 rows."
+}

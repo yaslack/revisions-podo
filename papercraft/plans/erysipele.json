@@ -1,0 +1,212 @@
+{
+  "id": "erysipele",
+  "title": "L'érysipèle",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Infection bactérienne de la peau",
+        "after": 2,
+        "context": [
+          "Dermo-hypodermite bactérienne aiguë : NON nécrosante",
+          "Adultes > 40 ans",
+          "Streptocoque β : Streptococcus pyogenes"
+        ]
+      },
+      {
+        "caption": "Porte d’entrée au pied",
+        "after": 5,
+        "context": [
+          "Membres inférieurs +++ : plus rarement visage, membres supérieurs",
+          "Intérêt podologique : PORTE D'ENTRÉE",
+          "intertrigo",
+          "plaie",
+          "ulcère"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Streptocoque responsable",
+        "after": 3,
+        "context": [
+          "AGENT",
+          "Streptocoque β",
+          "Streptococcus pyogenes",
+          "FACTEURS FAVORISANTS",
+          "Surpoids, obésité",
+          "Diabète"
+        ]
+      },
+      {
+        "caption": "Œdème, plaies et facteurs favorisants",
+        "after": 7,
+        "context": [
+          "Insuffisance veineuse, lymphœdème chronique",
+          "Plaies cutanées, intertrigos inter-orteils",
+          "Ulcères de jambe",
+          "Immunodépression (plus rare)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Entrée de la bactérie",
+        "after": 5,
+        "context": [
+          "épiderme",
+          "derme",
+          "derme profond",
+          "hypoderme",
+          "porte d'entrée",
+          "Pénétration par une porte d'entrée"
+        ]
+      },
+      {
+        "caption": "Inflammation du derme",
+        "after": 10,
+        "context": [
+          "Infection du derme profond : + hypoderme superficiel",
+          "Réaction inflammatoire INTENSE",
+          "chaleur",
+          "rougeur",
+          "douleur",
+          "œdème",
+          "extension lymphatique →",
+          "lymphangites",
+          "adénopathies"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Fièvre et placard inflammatoire",
+        "after": 4,
+        "context": [
+          "début BRUTAL",
+          "fièvre 39–40 °C",
+          "frissons",
+          "AEG",
+          "porte d'entrée retrouvée : 50–70 %",
+          "PLACARD INFLAMMATOIRE",
+          "rouge",
+          "chaud",
+          "œdémateux",
+          "douloureux",
+          "bien circonscrit",
+          "extension rapide"
+        ]
+      },
+      {
+        "caption": "Jambe rouge, chaude et gonflée",
+        "after": 9,
+        "context": [
+          "GROSSE JAMBE ROUGE AIGUË FÉBRILE",
+          "adénopathies satellites",
+          "+ traînée de lymphangite",
+          "VISAGE : unilatéral · très œdémateux",
+          "bourrelet périphérique net"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Examen clinique",
+        "after": 3,
+        "context": [
+          "CLINIQUE avant tout !",
+          "pas d'examens complémentaires nécessaires",
+          "Biologie",
+          "hyperleucocytose à PNN",
+          "CRP ↑ (syndrome inflammatoire)"
+        ]
+      },
+      {
+        "caption": "Écarter une infection nécrosante",
+        "after": 7,
+        "context": [
+          "Hémocultures : rarement + → non systématiques",
+          "À ÉCARTER",
+          "Dermo-hypodermite NÉCROSANTE : rare mais très grave",
+          "Fasciite NÉCROSANTE : nécrose jusqu’au fascia (entre peau et muscle)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Repos et antibiothérapie prescrite",
+        "after": 7,
+        "context": [
+          "MESURES GÉNÉRALES",
+          "Repos strict",
+          "Jambes surélevées",
+          "PAS de compression : au début",
+          "ANTIBIOTHÉRAPIE",
+          "1re intention",
+          "AMOXICILLINE",
+          "ou pénicilline G"
+        ]
+      },
+      {
+        "caption": "Soigner la porte d’entrée",
+        "after": 15,
+        "context": [
+          "si allergie",
+          "pristinamycine",
+          "2 semaines",
+          "AUTRES",
+          "Antalgiques : selon la douleur",
+          "AINS, corticoïdes : selon les contre-indications",
+          "Porte d'entrée : antiseptiques, soins locaux",
+          "Corriger les facteurs : diabète · contention après phase aiguë"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Évolution sous traitement adapté",
+        "after": 4,
+        "context": [
+          "BON",
+          "si traitement rapide et adapté",
+          "COMPLICATIONS",
+          "Récidives : si facteurs favorisants non corrigés",
+          "Abcédation"
+        ]
+      },
+      {
+        "caption": "Surveiller l’extension",
+        "after": 8,
+        "context": [
+          "Extension nécrosante : → URGENCE VITALE",
+          "SURVEILLANCE",
+          "température",
+          "douleur",
+          "extension",
+          "contours au marqueur"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Traiter les lésions entre les orteils",
+        "after": 2,
+        "context": [
+          "Traiter les PORTES D'ENTRÉE : intertrigos inter-orteils · plaies · ulcères",
+          "Hygiène quotidienne + soins podologiques",
+          "Équilibre du diabète, prévention des œdèmes"
+        ]
+      },
+      {
+        "caption": "Consulter devant rougeur et fièvre",
+        "after": 4,
+        "context": [
+          "Contention si troubles veino-lymphatiques",
+          "Éducation : consulter vite : si rougeur ou fièvre"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: L'érysipèle. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Infection bactérienne de la peau\",\"context\":\"Dermo-hypodermite bactérienne aiguë : NON nécrosante; Adultes > 40 ans; Streptocoque β : Streptococcus pyogenes\"},{\"cell\":2,\"focus\":\"Porte d’entrée au pied\",\"context\":\"Membres inférieurs +++ : plus rarement visage, membres supérieurs; Intérêt podologique : PORTE D'ENTRÉE; intertrigo; plaie; ulcère\"},{\"cell\":3,\"focus\":\"Streptocoque responsable\",\"context\":\"AGENT; Streptocoque β; Streptococcus pyogenes; FACTEURS FAVORISANTS; Surpoids, obésité; Diabète\"},{\"cell\":4,\"focus\":\"Œdème, plaies et facteurs favorisants\",\"context\":\"Insuffisance veineuse, lymphœdème chronique; Plaies cutanées, intertrigos inter-orteils; Ulcères de jambe; Immunodépression (plus rare)\"},{\"cell\":5,\"focus\":\"Entrée de la bactérie\",\"context\":\"épiderme; derme; derme profond; hypoderme; porte d'entrée; Pénétration par une porte d'entrée\"},{\"cell\":6,\"focus\":\"Inflammation du derme\",\"context\":\"Infection du derme profond : + hypoderme superficiel; Réaction inflammatoire INTENSE; chaleur; rougeur; douleur; œdème; extension lymphatique →; lymphangites; adénopathies\"},{\"cell\":7,\"focus\":\"Fièvre et placard inflammatoire\",\"context\":\"début BRUTAL; fièvre 39–40 °C; frissons; AEG; porte d'entrée retrouvée : 50–70 %; PLACARD INFLAMMATOIRE; rouge; chaud; œdémateux; douloureux; bien circonscrit; extension rapide\"},{\"cell\":8,\"focus\":\"Jambe rouge, chaude et gonflée\",\"context\":\"GROSSE JAMBE ROUGE AIGUË FÉBRILE; adénopathies satellites; + traînée de lymphangite; VISAGE : unilatéral · très œdémateux; bourrelet périphérique net\"},{\"cell\":9,\"focus\":\"Examen clinique\",\"context\":\"CLINIQUE avant tout !; pas d'examens complémentaires nécessaires; Biologie; hyperleucocytose à PNN; CRP ↑ (syndrome inflammatoire)\"},{\"cell\":10,\"focus\":\"Écarter une infection nécrosante\",\"context\":\"Hémocultures : rarement + → non systématiques; À ÉCARTER; Dermo-hypodermite NÉCROSANTE : rare mais très grave; Fasciite NÉCROSANTE : nécrose jusqu’au fascia (entre peau et muscle)\"},{\"cell\":11,\"focus\":\"Repos et antibiothérapie prescrite\",\"context\":\"MESURES GÉNÉRALES; Repos strict; Jambes surélevées; PAS de compression : au début; ANTIBIOTHÉRAPIE; 1re intention; AMOXICILLINE; ou pénicilline G\"},{\"cell\":12,\"focus\":\"Soigner la porte d’entrée\",\"context\":\"si allergie; pristinamycine; 2 semaines; AUTRES; Antalgiques : selon la douleur; AINS, corticoïdes : selon les contre-indications; Porte d'entrée : antiseptiques, soins locaux; Corriger les facteurs : diabète · contention après phase aiguë\"},{\"cell\":13,\"focus\":\"Évolution sous traitement adapté\",\"context\":\"BON; si traitement rapide et adapté; COMPLICATIONS; Récidives : si facteurs favorisants non corrigés; Abcédation\"},{\"cell\":14,\"focus\":\"Surveiller l’extension\",\"context\":\"Extension nécrosante : → URGENCE VITALE; SURVEILLANCE; température; douleur; extension; contours au marqueur\"},{\"cell\":15,\"focus\":\"Traiter les lésions entre les orteils\",\"context\":\"Traiter les PORTES D'ENTRÉE : intertrigos inter-orteils · plaies · ulcères; Hygiène quotidienne + soins podologiques; Équilibre du diabète, prévention des œdèmes\"},{\"cell\":16,\"focus\":\"Consulter devant rougeur et fièvre\",\"context\":\"Contention si troubles veino-lymphatiques; Éducation : consulter vite : si rougeur ou fièvre\"}]. Preserve exact 4-column grid and 4 rows."
+}

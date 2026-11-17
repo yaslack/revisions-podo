@@ -1,0 +1,188 @@
+{
+  "id": "antifongiques",
+  "title": "Les antifongiques",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Contre les champignons",
+        "after": 3,
+        "context": [
+          "Médicaments",
+          "qui ÉLIMINENT les champignons…",
+          "… ou STOPPENT leur progression : champignons qui se développent sur la peau",
+          "dermatophytes"
+        ]
+      },
+      {
+        "caption": "Peau et ongles atteints",
+        "after": 6,
+        "context": [
+          "levures",
+          "moisissures",
+          "ils traitent les onychomycoses (fiche 2)"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Fongistatique",
+        "after": 2,
+        "context": [
+          "FONGISTATIQUE",
+          "inhibe la croissance",
+          "FONGICIDE"
+        ]
+      },
+      {
+        "caption": "Fongicide",
+        "after": 4,
+        "context": [
+          "action létale : il TUE",
+          "statique = ça BLOQUE · cide = ça TUE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Azolés et allylamines",
+        "after": 3,
+        "context": [
+          "Dérivés azolés",
+          "miconazole (Daktarin)",
+          "fluconazole",
+          "Allylamines",
+          "terbinafine (Lamisil)"
+        ]
+      },
+      {
+        "caption": "Amorolfine et ciclopirox",
+        "after": 7,
+        "context": [
+          "Morpholine",
+          "amorolfine (Curanail)",
+          "Hydroxypyridones",
+          "Mycoster",
+          "Onytec"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Crèmes et poudres",
+        "after": 2,
+        "context": [
+          "TOPIQUES",
+          "choisis selon la localisation",
+          "Intertrigo / paronychie"
+        ]
+      },
+      {
+        "caption": "Vernis pour les ongles",
+        "after": 5,
+        "context": [
+          "crèmes + poudre",
+          "Onychomycose",
+          "vernis"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Préparer et sécher l’ongle",
+        "after": 7,
+        "context": [
+          "1. couper l'ongle court",
+          "2. toilette",
+          "3. bien sécher",
+          "traitement LONG",
+          "LOCAL · 1 seul ongle",
+          "solution filmogène ou vernis",
+          "mains : 4 à 6 mois",
+          "pieds : 9 à 12 mois",
+          "ciclopirox (Mycoster, Onytec)",
+          "1×/jour",
+          "bifonazole (Amycor)",
+          "amorolfine (Loceryl, Curanail)"
+        ]
+      },
+      {
+        "caption": "Traitement oral sur avis médical",
+        "after": 15,
+        "context": [
+          "1×/SEMAINE",
+          "+ ORAL",
+          "plusieurs ongles",
+          "matrice",
+          "échec",
+          "sur avis médical",
+          "mains : 1 à 3 mois",
+          "pieds : 3 à 6 mois",
+          "terbinafine (Lamisil)",
+          "griséofulvine",
+          "1 à 2 prises/jour"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Résistance du champignon",
+        "after": 1,
+        "context": [
+          "Résistances",
+          "Irritation locale : légère brûlure transitoire → cède à l'arrêt du traitement"
+        ]
+      },
+      {
+        "caption": "Irritation et réaction cutanée",
+        "after": 3,
+        "context": [
+          "Terbinafine : érythème, démangeaisons ou eczéma",
+          "= ARRÊT du traitement"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Allergie à un composant",
+        "after": 1,
+        "context": [
+          "HYPERSENSIBILITÉ",
+          "connue à l'un des composants"
+        ]
+      },
+      {
+        "caption": "Vérifier la composition",
+        "after": 2,
+        "context": [
+          "= une ALLERGIE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Séchage et observance",
+        "after": 4,
+        "context": [
+          "DÉPISTAGE",
+          "dépister la famille",
+          "PRÉVENTION INDIVIDUELLE",
+          "Observance : vernis sur les 2 PIEDS",
+          "Hygiène : séchage, chaussage adéquat, éviter la macération"
+        ]
+      },
+      {
+        "caption": "Aérer les chaussures",
+        "after": 8,
+        "context": [
+          "Décontaminer chaussures & chaussons : y compris ceux du sport",
+          "Couper l'ongle court",
+          "Chaussures ouvertes dès que possible : puis chaussures neuves après guérison",
+          "Avis médical si nécessaire"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Les antifongiques. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Contre les champignons\",\"context\":\"Médicaments; qui ÉLIMINENT les champignons…; … ou STOPPENT leur progression : champignons qui se développent sur la peau; dermatophytes\"},{\"cell\":2,\"focus\":\"Peau et ongles atteints\",\"context\":\"levures; moisissures; ils traitent les onychomycoses (fiche 2)\"},{\"cell\":3,\"focus\":\"Fongistatique\",\"context\":\"FONGISTATIQUE; inhibe la croissance; FONGICIDE\"},{\"cell\":4,\"focus\":\"Fongicide\",\"context\":\"action létale : il TUE; statique = ça BLOQUE · cide = ça TUE\"},{\"cell\":5,\"focus\":\"Azolés et allylamines\",\"context\":\"Dérivés azolés; miconazole (Daktarin); fluconazole; Allylamines; terbinafine (Lamisil)\"},{\"cell\":6,\"focus\":\"Amorolfine et ciclopirox\",\"context\":\"Morpholine; amorolfine (Curanail); Hydroxypyridones; Mycoster; Onytec\"},{\"cell\":7,\"focus\":\"Crèmes et poudres\",\"context\":\"TOPIQUES; choisis selon la localisation; Intertrigo / paronychie\"},{\"cell\":8,\"focus\":\"Vernis pour les ongles\",\"context\":\"crèmes + poudre; Onychomycose; vernis\"},{\"cell\":9,\"focus\":\"Préparer et sécher l’ongle\",\"context\":\"1. couper l'ongle court; 2. toilette; 3. bien sécher; traitement LONG; LOCAL · 1 seul ongle; solution filmogène ou vernis; mains : 4 à 6 mois; pieds : 9 à 12 mois; ciclopirox (Mycoster, Onytec); 1×/jour; bifonazole (Amycor); amorolfine (Loc\"},{\"cell\":10,\"focus\":\"Traitement oral sur avis médical\",\"context\":\"1×/SEMAINE; + ORAL; plusieurs ongles; matrice; échec; sur avis médical; mains : 1 à 3 mois; pieds : 3 à 6 mois; terbinafine (Lamisil); griséofulvine; 1 à 2 prises/jour\"},{\"cell\":11,\"focus\":\"Résistance du champignon\",\"context\":\"Résistances; Irritation locale : légère brûlure transitoire → cède à l'arrêt du traitement\"},{\"cell\":12,\"focus\":\"Irritation et réaction cutanée\",\"context\":\"Terbinafine : érythème, démangeaisons ou eczéma; = ARRÊT du traitement\"},{\"cell\":13,\"focus\":\"Allergie à un composant\",\"context\":\"HYPERSENSIBILITÉ; connue à l'un des composants\"},{\"cell\":14,\"focus\":\"Vérifier la composition\",\"context\":\"= une ALLERGIE\"},{\"cell\":15,\"focus\":\"Séchage et observance\",\"context\":\"DÉPISTAGE; dépister la famille; PRÉVENTION INDIVIDUELLE; Observance : vernis sur les 2 PIEDS; Hygiène : séchage, chaussage adéquat, éviter la macération\"},{\"cell\":16,\"focus\":\"Aérer les chaussures\",\"context\":\"Décontaminer chaussures & chaussons : y compris ceux du sport; Couper l'ongle court; Chaussures ouvertes dès que possible : puis chaussures neuves après guérison; Avis médical si nécessaire\"}]. Preserve exact 4-column grid and 4 rows."
+}

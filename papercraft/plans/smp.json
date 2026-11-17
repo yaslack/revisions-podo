@@ -1,0 +1,238 @@
+{
+  "id": "smp",
+  "title": "Le syndrome mains-pieds",
+  "columns": 4,
+  "rows": 4,
+  "parts": [
+    [
+      {
+        "caption": "Réaction INFLAMMATOIRE",
+        "after": 1,
+        "context": [
+          "Réaction INFLAMMATOIRE : à certains traitements de CHIMIOTHÉRAPIE",
+          "fragilise les MICRO-VAISSEAUX : des mains et des pieds"
+        ]
+      },
+      {
+        "caption": "chimio",
+        "after": 2,
+        "context": [
+          "chimio"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Traitements en cause",
+        "after": 1,
+        "context": [
+          "Traitements en cause",
+          "5-FU",
+          "capécitabine (Xeloda)",
+          "méthotrexate",
+          "cisplatine",
+          "taxanes",
+          "sorafénib",
+          "sunitinib",
+          "vémurafénib"
+        ]
+      },
+      {
+        "caption": "FACTEURS DE RISQUE",
+        "after": 3,
+        "context": [
+          "FACTEURS DE RISQUE",
+          "doses élevées",
+          "durée du traitement",
+          "zones de pression / friction",
+          "+ AGGRAVANTS",
+          "chaleur",
+          "frottements",
+          "chaussage étroit",
+          "gestes répétés"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "même CLONE · croissance infinie",
+        "after": 5,
+        "context": [
+          "même CLONE · croissance infinie",
+          "perte de l’inhibition de contact",
+          "prolifération cellulaire ANORMALE",
+          "à distance : MÉTASTASES",
+          "traitement décidé en RCP : réunion de concertation pluridisciplinaire",
+          "CHIMIOTHÉRAPIE",
+          "CYTOTOXIQUE",
+          "chimio",
+          "agit sur l’ADN",
+          "NON spécifique"
+        ]
+      },
+      {
+        "caption": "THÉRAPIES CIBLÉES",
+        "after": 10,
+        "context": [
+          "THÉRAPIES CIBLÉES",
+          "spécifiques · voies de signalisation",
+          "anticorps monoclonaux",
+          "« -MAB » · perfusion à l’HÔPITAL",
+          "inhibiteurs de tyrosine kinase",
+          "« -NIB » · comprimés en VILLE",
+          "accumulation dans les EXTRÉMITÉS : riches en glandes sudoripares",
+          "inflammation locale + cytotoxicité",
+          "rougeur",
+          "œdème",
+          "douleur",
+          "hyperkératose",
+          "fissures",
+          "ciblées → réactions sur zones de contact DÉJÀ présentes"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "Sous CHIMIOTHÉRAPIE · bilatéral",
+        "after": 6,
+        "context": [
+          "Sous CHIMIOTHÉRAPIE · bilatéral : paumes + plantes",
+          "érythème acral CUISANT · œdème : tiraillement douloureux",
+          "desquamation · xérose : → fissures, crevasses",
+          "pigmentations diffuses : onycholyse · onychomadèse · hématomes sous-unguéaux",
+          "Grades de gravité (OMS)",
+          "GRADE 1",
+          "rougeur minime, SANS douleur",
+          "GRADE 2",
+          "érythème + desquamation · limite les activités"
+        ]
+      },
+      {
+        "caption": "GRADE 3",
+        "after": 13,
+        "context": [
+          "GRADE 3",
+          "douleur intense · vêtements/chaussures impossibles",
+          "ARRÊT du traitement",
+          "Sous THÉRAPIES CIBLÉES",
+          "HYPERKÉRATOSES aux points d’appui : + halo érythémateux",
+          "paumes · plantes · moignons d’amputation",
+          "atteinte unguéale → PARONYCHIES",
+          "gêne fonctionnelle importante"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "CLINIQUE avant tout",
+        "after": 2,
+        "context": [
+          "CLINIQUE avant tout : observation des lésions typiques",
+          "rechercher le TRAITEMENT en cause + la DOSE reçue",
+          "évaluer le GRADE de sévérité"
+        ]
+      },
+      {
+        "caption": "Diagnostic différentiel",
+        "after": 4,
+        "context": [
+          "Diagnostic différentiel",
+          "eczéma",
+          "mycose",
+          "psoriasis",
+          "syndrome main-pied-bouche"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "ÉDUCATION THÉRAPEUTIQUE",
+        "after": 9,
+        "context": [
+          "ÉDUCATION THÉRAPEUTIQUE",
+          "chaussures AMPLES · chaussettes naturelles : doubles gants (coton + ménage)",
+          "pas de bijoux ni pansements serrés",
+          "éviter station debout + marches prolongées",
+          "HYGIÈNE",
+          "sans savon · surgras · sans frotter",
+          "eau tiède ou FROIDE",
+          "lavages limités · pas de gel hydroalcoolique",
+          "outils propres · pas de ttt des cuticules",
+          "hydratation plusieurs fois/j · couche épaisse",
+          "Soin podologique · sous CHIMIOTHÉRAPIE",
+          "débrider onycholyses + hématomes",
+          "abrasion DOUCE des hyperkératoses",
+          "bains d’eau FROIDE 3–4×/j",
+          "glace 15 min"
+        ]
+      },
+      {
+        "caption": "ÉMOLLIENTES",
+        "after": 19,
+        "context": [
+          "ÉMOLLIENTES",
+          "Dexeryl · Pedimed",
+          "KÉRATOLYTIQUES",
+          "Akerat",
+          "CICATRISANTES",
+          "Cicalfate · Biafine",
+          "HÉMOSTATIQUES",
+          "Monsel",
+          "Soin podologique · sous THÉRAPIES CIBLÉES",
+          "PAS d’abrasion sur lésion inflammatoire",
+          "abrasion délicate APRÈS le dermocorticoïde",
+          "orthèses plantaires de DÉCHARGE",
+          "orthoplasties de protection : shore extra souple",
+          "paronychies → taping, orthonyxies"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "RÉVERSIBLE",
+        "after": 2,
+        "context": [
+          "RÉVERSIBLE",
+          "après adaptation ou arrêt du traitement",
+          "± concession de dose temporaire"
+        ]
+      },
+      {
+        "caption": "IMPACT important sur",
+        "after": 5,
+        "context": [
+          "IMPACT important sur",
+          "mobilité",
+          "fonction manuelle",
+          "qualité de vie",
+          "RISQUE DE RECHUTE",
+          "si reprise à dose IDENTIQUE"
+        ]
+      }
+    ],
+    [
+      {
+        "caption": "AVANT le traitement",
+        "after": 4,
+        "context": [
+          "AVANT le traitement",
+          "bilan cutané + podologique COMPLET",
+          "repérer hyperkératoses, déformations : hallux valgus · quintus varus · griffes · dysmorphies unguéales",
+          "appuis statique/dynamique · PODOSCOPE",
+          "examen des chaussures + troubles statiques"
+        ]
+      },
+      {
+        "caption": "PENDANT",
+        "after": 8,
+        "context": [
+          "PENDANT",
+          "suivi podologique RÉGULIER",
+          "chaussage souple, large · type CHUT",
+          "hydratation préventive : + protection des zones de pression"
+        ]
+      }
+    ]
+  ],
+  "prompt": "Use case: scientific-educational. Course: Le syndrome mains-pieds. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Réaction INFLAMMATOIRE\",\"context\":\"Réaction INFLAMMATOIRE : à certains traitements de CHIMIOTHÉRAPIE; fragilise les MICRO-VAISSEAUX : des mains et des pieds\"},{\"cell\":2,\"focus\":\"chimio\",\"context\":\"chimio\"},{\"cell\":3,\"focus\":\"Traitements en cause\",\"context\":\"Traitements en cause; 5-FU; capécitabine (Xeloda); méthotrexate; cisplatine; taxanes; sorafénib; sunitinib; vémurafénib\"},{\"cell\":4,\"focus\":\"FACTEURS DE RISQUE\",\"context\":\"FACTEURS DE RISQUE; doses élevées; durée du traitement; zones de pression / friction; + AGGRAVANTS; chaleur; frottements; chaussage étroit; gestes répétés\"},{\"cell\":5,\"focus\":\"même CLONE · croissance infinie\",\"context\":\"même CLONE · croissance infinie; perte de l’inhibition de contact; prolifération cellulaire ANORMALE; à distance : MÉTASTASES; traitement décidé en RCP : réunion de concertation pluridisciplinaire; CHIMIOTHÉRAPIE; CYTOTOXIQUE; chimio; agit \"},{\"cell\":6,\"focus\":\"THÉRAPIES CIBLÉES\",\"context\":\"THÉRAPIES CIBLÉES; spécifiques · voies de signalisation; anticorps monoclonaux; « -MAB » · perfusion à l’HÔPITAL; inhibiteurs de tyrosine kinase; « -NIB » · comprimés en VILLE; accumulation dans les EXTRÉMITÉS : riches en glandes sudoripare\"},{\"cell\":7,\"focus\":\"Sous CHIMIOTHÉRAPIE · bilatéral\",\"context\":\"Sous CHIMIOTHÉRAPIE · bilatéral : paumes + plantes; érythème acral CUISANT · œdème : tiraillement douloureux; desquamation · xérose : → fissures, crevasses; pigmentations diffuses : onycholyse · onychomadèse · hématomes sous-unguéaux; Grade\"},{\"cell\":8,\"focus\":\"GRADE 3\",\"context\":\"GRADE 3; douleur intense · vêtements/chaussures impossibles; ARRÊT du traitement; Sous THÉRAPIES CIBLÉES; HYPERKÉRATOSES aux points d’appui : + halo érythémateux; paumes · plantes · moignons d’amputation; atteinte unguéale → PARONYCHIES; gê\"},{\"cell\":9,\"focus\":\"CLINIQUE avant tout\",\"context\":\"CLINIQUE avant tout : observation des lésions typiques; rechercher le TRAITEMENT en cause + la DOSE reçue; évaluer le GRADE de sévérité\"},{\"cell\":10,\"focus\":\"Diagnostic différentiel\",\"context\":\"Diagnostic différentiel; eczéma; mycose; psoriasis; syndrome main-pied-bouche\"},{\"cell\":11,\"focus\":\"ÉDUCATION THÉRAPEUTIQUE\",\"context\":\"ÉDUCATION THÉRAPEUTIQUE; chaussures AMPLES · chaussettes naturelles : doubles gants (coton + ménage); pas de bijoux ni pansements serrés; éviter station debout + marches prolongées; HYGIÈNE; sans savon · surgras · sans frotter; eau tiède ou\"},{\"cell\":12,\"focus\":\"ÉMOLLIENTES\",\"context\":\"ÉMOLLIENTES; Dexeryl · Pedimed; KÉRATOLYTIQUES; Akerat; CICATRISANTES; Cicalfate · Biafine; HÉMOSTATIQUES; Monsel; Soin podologique · sous THÉRAPIES CIBLÉES; PAS d’abrasion sur lésion inflammatoire; abrasion délicate APRÈS le dermocorticoïd\"},{\"cell\":13,\"focus\":\"RÉVERSIBLE\",\"context\":\"RÉVERSIBLE; après adaptation ou arrêt du traitement; ± concession de dose temporaire\"},{\"cell\":14,\"focus\":\"IMPACT important sur\",\"context\":\"IMPACT important sur; mobilité; fonction manuelle; qualité de vie; RISQUE DE RECHUTE; si reprise à dose IDENTIQUE\"},{\"cell\":15,\"focus\":\"AVANT le traitement\",\"context\":\"AVANT le traitement; bilan cutané + podologique COMPLET; repérer hyperkératoses, déformations : hallux valgus · quintus varus · griffes · dysmorphies unguéales; appuis statique/dynamique · PODOSCOPE; examen des chaussures + troubles statiqu\"},{\"cell\":16,\"focus\":\"PENDANT\",\"context\":\"PENDANT; suivi podologique RÉGULIER; chaussage souple, large · type CHUT; hydratation préventive : + protection des zones de pression\"}]. Preserve exact 4-column grid and 4 rows."
+}
