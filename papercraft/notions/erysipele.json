@@ -1,0 +1,101 @@
+{
+  "id": "erysipele",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p1-1.webp",
+        "caption": "Infection bactérienne de la peau",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p1-2.webp",
+        "caption": "Porte d’entrée au pied",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p2-1.webp",
+        "caption": "Streptocoque responsable",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p2-2.webp",
+        "caption": "Œdème, plaies et facteurs favorisants",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p3-1.webp",
+        "caption": "Entrée de la bactérie",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p3-2.webp",
+        "caption": "Inflammation du derme",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p4-1.webp",
+        "caption": "Fièvre et placard inflammatoire",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p4-2.webp",
+        "caption": "Jambe rouge, chaude et gonflée",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p5-1.webp",
+        "caption": "Examen clinique",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p5-2.webp",
+        "caption": "Écarter une infection nécrosante",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p6-1.webp",
+        "caption": "Repos et antibiothérapie prescrite",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p6-2.webp",
+        "caption": "Soigner la porte d’entrée",
+        "after": 15
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p7-1.webp",
+        "caption": "Évolution sous traitement adapté",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p7-2.webp",
+        "caption": "Surveiller l’extension",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/erysipele/p8-1.webp",
+        "caption": "Traiter les lésions entre les orteils",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/erysipele/p8-2.webp",
+        "caption": "Consulter devant rougeur et fièvre",
+        "after": 4
+      }
+    ]
+  ]
+}
