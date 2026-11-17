@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "GELURE",
+        "caption": "Gelure liée au gel",
         "after": 3,
         "context": [
           "GELURE",
@@ -22,7 +22,7 @@
         ]
       },
       {
-        "caption": "sous 0 = GELURE",
+        "caption": "Engelure par froid humide",
         "after": 7,
         "context": [
           "10°",
@@ -34,7 +34,7 @@
     ],
     [
       {
-        "caption": "GELURE · froid < 0 °C",
+        "caption": "Exposition au froid et au vent",
         "after": 4,
         "context": [
           "GELURE · froid < 0 °C",
@@ -52,7 +52,7 @@
         ]
       },
       {
-        "caption": "randonneurs en montagne",
+        "caption": "Humidité et chaussage serré",
         "after": 8,
         "context": [
           "randonneurs en montagne",
@@ -69,7 +69,7 @@
     ],
     [
       {
-        "caption": "GELURE",
+        "caption": "Cristaux de glace et tissus",
         "after": 3,
         "context": [
           "GELURE",
@@ -79,7 +79,7 @@
         ]
       },
       {
-        "caption": "ENGELURE",
+        "caption": "Vasoconstriction prolongée",
         "after": 7,
         "context": [
           "ENGELURE",
@@ -91,7 +91,7 @@
     ],
     [
       {
-        "caption": "GELURE · aspect selon la profondeur",
+        "caption": "Peau pâle, rougeur et cloques",
         "after": 7,
         "context": [
           "GELURE · aspect selon la profondeur",
@@ -107,7 +107,7 @@
         ]
       },
       {
-        "caption": "phlyctènes CLAIRES en 6 à 12 h",
+        "caption": "Atteinte selon la profondeur",
         "after": 14,
         "context": [
           "2e superficiel",
@@ -128,7 +128,7 @@
     ],
     [
       {
-        "caption": "gelure ou engelure ?",
+        "caption": "Préciser les conditions d’exposition",
         "after": 3,
         "context": [
           "gelure ou engelure ?",
@@ -138,7 +138,7 @@
         ]
       },
       {
-        "caption": "GELURE",
+        "caption": "Évaluer la profondeur des lésions",
         "after": 7,
         "context": [
           "10°",
@@ -150,7 +150,7 @@
     ],
     [
       {
-        "caption": "GELURE",
+        "caption": "Prise en charge des gelures",
         "after": 6,
         "context": [
           "GELURE",
@@ -163,7 +163,7 @@
         ]
       },
       {
-        "caption": "ENGELURE",
+        "caption": "Protection contre le froid et l’humidité",
         "after": 13,
         "context": [
           "± mise à plat · amputation chirurgicale",
@@ -178,7 +178,7 @@
     ],
     [
       {
-        "caption": "GELURE · selon le stade",
+        "caption": "Évolution selon la profondeur",
         "after": 4,
         "context": [
           "GELURE · selon le stade",
@@ -189,7 +189,7 @@
         ]
       },
       {
-        "caption": "bon pronostic",
+        "caption": "Engelure généralement réversible",
         "after": 9,
         "context": [
           "bon pronostic",
@@ -202,7 +202,7 @@
     ],
     [
       {
-        "caption": "La fiche n’a pas de partie « prévention » à part",
+        "caption": "Chaussettes et protection du froid",
         "after": 2,
         "context": [
           "La fiche n’a pas de partie « prévention » à part",
@@ -214,7 +214,7 @@
         ]
       },
       {
-        "caption": "LES DEUX",
+        "caption": "Éviter les vêtements trop serrés",
         "after": 4,
         "context": [
           "LES DEUX",
@@ -226,5 +226,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Gelures et engelures. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"GELURE\",\"context\":\"GELURE; lésion localisée; exposition + ou – longue; T° < 0 °C; ENGELURE; exposition PROLONGÉE; T° entre 0 et 10 °C; aggravée par vent + humidité; -20°; -10°\"},{\"cell\":2,\"focus\":\"sous 0 = GELURE\",\"context\":\"10°; 20°; sous 0 = GELURE; 0 à 10 = ENGELURE\"},{\"cell\":3,\"focus\":\"GELURE · froid < 0 °C\",\"context\":\"GELURE · froid < 0 °C; vent; humidité; déshydratation; hypoxie; polyglobulie d'altitude; vêtements / chaussures serrés; intrinsèques; âge; maladies vasculaires; tabagisme; skieurs de fond\"},{\"cell\":4,\"focus\":\"randonneurs en montagne\",\"context\":\"randonneurs en montagne; ENGELURE · 0 à 10 °C; vent; humidité; vêtements / chaussures étroits; maladies vasculaires; ttt vasoconstricteurs; troubles endocriniens; carences en vitamines\"},{\"cell\":5,\"focus\":\"GELURE\",\"context\":\"GELURE; cristaux de glace DANS / ENTRE les cellules; tissus gelés · MORT cellulaire; zones voisines non gelées : lésions endothéliales et ischémiques (vasoconstriction locale + thrombose)\"},{\"cell\":6,\"focus\":\"ENGELURE\",\"context\":\"ENGELURE; vasoconstriction PROLONGÉE; hypoxie cutanée; lésions\"},{\"cell\":7,\"focus\":\"GELURE · aspect selon la profondeur\",\"context\":\"GELURE · aspect selon la profondeur; érythème + zones blanches; œdème; phlyctène; ulcérations; NÉCROSE; GELURE · 4 stades; 1er degré; pâleur / cyanose transitoire → érythème au réchauffement; guérison en quelques jours\"},{\"cell\":8,\"focus\":\"phlyctènes CLAIRES en 6 à 12 h\",\"context\":\"2e superficiel; phlyctènes CLAIRES en 6 à 12 h; troubles sensitifs; 2e profond; ANESTHÉSIE complète · phlyctènes séro-hématiques; œdème important; 3e degré; NÉCROSE; amputation; ENGELURE; lésions SYMÉTRIQUES : érythémato-papuleuses · sur le\"},{\"cell\":9,\"focus\":\"gelure ou engelure ?\",\"context\":\"gelure ou engelure ?; LE CONTEXTE TRANCHE; -20°; -10°\"},{\"cell\":10,\"focus\":\"GELURE\",\"context\":\"10°; 20°; GELURE : diagnostic précoce DIFFICILE; superficielle ou profonde ? pas visible tout de suite\"},{\"cell\":11,\"focus\":\"GELURE\",\"context\":\"GELURE; réchauffement PROGRESSIF à 22 °C; sédatifs + relaxants musculaires; lavage 2×/j antiseptique doux → à l’air, champ stérile; ablation des croûtes pendant les bains; antibiotiques (injection ou per os); vasodilatateurs · anti-inflamma\"},{\"cell\":12,\"focus\":\"ENGELURE\",\"context\":\"± mise à plat · amputation chirurgicale; ENGELURE; traitement PRÉVENTIF; chaussettes COTON; isolent du froid; topiques : Akilenjur; barrière froid/humidité\"},{\"cell\":13,\"focus\":\"GELURE · selon le stade\",\"context\":\"GELURE · selon le stade; 1er degré; 2e superficiel; 2e profond; 3e degré\"},{\"cell\":14,\"focus\":\"bon pronostic\",\"context\":\"bon pronostic; ENGELURE; BÉNIGNE; disparaît SANS séquelles; 1 à 3 semaines\"},{\"cell\":15,\"focus\":\"La fiche n’a pas de partie « prévention » à part\",\"context\":\"La fiche n’a pas de partie « prévention » à part; retiens 2 choses; ENGELURE; le traitement EST préventif; chaussettes coton; topiques barrières\"},{\"cell\":16,\"focus\":\"LES DEUX\",\"context\":\"LES DEUX; limiter les FDR de la partie 2; vent; humidité; vêtements / chaussures serrés\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Gelures et engelures. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Gelure liée au gel\",\"context\":\"GELURE; lésion localisée; exposition + ou – longue; T° < 0 °C; ENGELURE; exposition PROLONGÉE; T° entre 0 et 10 °C; aggravée par vent + humidité; -20°; -10°\"},{\"cell\":2,\"focus\":\"Engelure par froid humide\",\"context\":\"10°; 20°; sous 0 = GELURE; 0 à 10 = ENGELURE\"},{\"cell\":3,\"focus\":\"Exposition au froid et au vent\",\"context\":\"GELURE · froid < 0 °C; vent; humidité; déshydratation; hypoxie; polyglobulie d'altitude; vêtements / chaussures serrés; intrinsèques; âge; maladies vasculaires; tabagisme; skieurs de fond\"},{\"cell\":4,\"focus\":\"Humidité et chaussage serré\",\"context\":\"randonneurs en montagne; ENGELURE · 0 à 10 °C; vent; humidité; vêtements / chaussures étroits; maladies vasculaires; ttt vasoconstricteurs; troubles endocriniens; carences en vitamines\"},{\"cell\":5,\"focus\":\"Cristaux de glace et tissus\",\"context\":\"GELURE; cristaux de glace DANS / ENTRE les cellules; tissus gelés · MORT cellulaire; zones voisines non gelées : lésions endothéliales et ischémiques (vasoconstriction locale + thrombose)\"},{\"cell\":6,\"focus\":\"Vasoconstriction prolongée\",\"context\":\"ENGELURE; vasoconstriction PROLONGÉE; hypoxie cutanée; lésions\"},{\"cell\":7,\"focus\":\"Peau pâle, rougeur et cloques\",\"context\":\"GELURE · aspect selon la profondeur; érythème + zones blanches; œdème; phlyctène; ulcérations; NÉCROSE; GELURE · 4 stades; 1er degré; pâleur / cyanose transitoire → érythème au réchauffement; guérison en quelques jours\"},{\"cell\":8,\"focus\":\"Atteinte selon la profondeur\",\"context\":\"2e superficiel; phlyctènes CLAIRES en 6 à 12 h; troubles sensitifs; 2e profond; ANESTHÉSIE complète · phlyctènes séro-hématiques; œdème important; 3e degré; NÉCROSE; amputation; ENGELURE; lésions SYMÉTRIQUES : érythémato-papuleuses · sur le\"},{\"cell\":9,\"focus\":\"Préciser les conditions d’exposition\",\"context\":\"gelure ou engelure ?; LE CONTEXTE TRANCHE; -20°; -10°\"},{\"cell\":10,\"focus\":\"Évaluer la profondeur des lésions\",\"context\":\"10°; 20°; GELURE : diagnostic précoce DIFFICILE; superficielle ou profonde ? pas visible tout de suite\"},{\"cell\":11,\"focus\":\"Prise en charge des gelures\",\"context\":\"GELURE; réchauffement PROGRESSIF à 22 °C; sédatifs + relaxants musculaires; lavage 2×/j antiseptique doux → à l’air, champ stérile; ablation des croûtes pendant les bains; antibiotiques (injection ou per os); vasodilatateurs · anti-inflamma\"},{\"cell\":12,\"focus\":\"Protection contre le froid et l’humidité\",\"context\":\"± mise à plat · amputation chirurgicale; ENGELURE; traitement PRÉVENTIF; chaussettes COTON; isolent du froid; topiques : Akilenjur; barrière froid/humidité\"},{\"cell\":13,\"focus\":\"Évolution selon la profondeur\",\"context\":\"GELURE · selon le stade; 1er degré; 2e superficiel; 2e profond; 3e degré\"},{\"cell\":14,\"focus\":\"Engelure généralement réversible\",\"context\":\"bon pronostic; ENGELURE; BÉNIGNE; disparaît SANS séquelles; 1 à 3 semaines\"},{\"cell\":15,\"focus\":\"Chaussettes et protection du froid\",\"context\":\"La fiche n’a pas de partie « prévention » à part; retiens 2 choses; ENGELURE; le traitement EST préventif; chaussettes coton; topiques barrières\"},{\"cell\":16,\"focus\":\"Éviter les vêtements trop serrés\",\"context\":\"LES DEUX; limiter les FDR de la partie 2; vent; humidité; vêtements / chaussures serrés\"}]. Preserve exact 4-column grid and 4 rows."
 }

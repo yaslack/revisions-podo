@@ -1,0 +1,101 @@
+{
+  "id": "gelures",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p1-1.webp",
+        "caption": "Gelure liée au gel",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p1-2.webp",
+        "caption": "Engelure par froid humide",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p2-1.webp",
+        "caption": "Exposition au froid et au vent",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p2-2.webp",
+        "caption": "Humidité et chaussage serré",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p3-1.webp",
+        "caption": "Cristaux de glace et tissus",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p3-2.webp",
+        "caption": "Vasoconstriction prolongée",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p4-1.webp",
+        "caption": "Peau pâle, rougeur et cloques",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p4-2.webp",
+        "caption": "Atteinte selon la profondeur",
+        "after": 14
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p5-1.webp",
+        "caption": "Préciser les conditions d’exposition",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p5-2.webp",
+        "caption": "Évaluer la profondeur des lésions",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p6-1.webp",
+        "caption": "Prise en charge des gelures",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p6-2.webp",
+        "caption": "Protection contre le froid et l’humidité",
+        "after": 13
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p7-1.webp",
+        "caption": "Évolution selon la profondeur",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p7-2.webp",
+        "caption": "Engelure généralement réversible",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gelures/p8-1.webp",
+        "caption": "Chaussettes et protection du froid",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/gelures/p8-2.webp",
+        "caption": "Éviter les vêtements trop serrés",
+        "after": 4
+      }
+    ]
+  ]
+}
