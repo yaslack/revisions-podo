@@ -1,0 +1,101 @@
+{
+  "id": "raynaud",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p1-1.webp",
+        "caption": "Crise circulatoire déclenchée par le froid",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p1-2.webp",
+        "caption": "Forme primaire ou secondaire",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p2-1.webp",
+        "caption": "Sujet jeune et prédisposition",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p2-2.webp",
+        "caption": "Terrain familial",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p3-1.webp",
+        "caption": "Artères digitales",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p3-2.webp",
+        "caption": "Vasospasme transitoire",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p4-1.webp",
+        "caption": "Blanc, bleu puis rouge",
+        "after": 10
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p4-2.webp",
+        "caption": "Lésions possibles dans la forme secondaire",
+        "after": 20
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p5-1.webp",
+        "caption": "Questionner le lien avec le froid",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p5-2.webp",
+        "caption": "Observer la répartition des crises",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p6-1.webp",
+        "caption": "Éducation et protection contre le froid",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p6-2.webp",
+        "caption": "Traitement médical selon la forme",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p7-1.webp",
+        "caption": "Forme primaire habituellement bénigne",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p7-2.webp",
+        "caption": "Complications de la forme secondaire",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/raynaud/p8-1.webp",
+        "caption": "Garder mains et pieds au chaud",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/raynaud/p8-2.webp",
+        "caption": "Limiter tabac et caféine",
+        "after": 2
+      }
+    ]
+  ]
+}
