@@ -163,7 +163,7 @@
     if (last && !(last.parts || [])[S.last.k - 1]) S.last.k = 0;   // la fiche a perdu cette partie : on reprend au plan
     const nextF = PEDI.find(f => !doneP(f.id) && f !== last);
     const regs = REG_ORDER.map(r => { const it = AQ.filter(x => x.reg === r), k = it.filter(x => doneA(x.q)).length; return `<span class="mini"><span>${REG_SHORT[r]} ${k}/${it.length}</span>${bar(k / it.length, RCOL[r])}</span>`; }).join('');
-    return `<div class="wrap">
+    return `<div class="wrap home">
       <header class="brand"><h1 id="apptitle" class="${night() ? 'tap' : ''}">Ya<span>noé</span></h1><div class="kicker">L'ORAL UEM DE PODO, SANS STRESS</div></header>
       <div class="team"><span class="mate zoomable"><img src="photos/equipe/yaya.jpg" data-full="photos/equipe/yaya-full.jpg" alt="Yaya"><span><b>Yaya</b> ${ico('cap')}<br><small>le dev</small></span></span>
         <span class="mate zoomable"><img src="photos/equipe/nono.jpg" data-full="photos/equipe/nono-full.jpg" alt="${NONO()}"><span><b>${NONO()}</b> ${ico('cone')}<br><small>le cerveau</small></span></span>
@@ -201,7 +201,7 @@
   function settings() {
     const b = (attr, v, cur, t) => `<button class="btn ghost" data-${attr}="${v}" aria-pressed="${cur === v}">${t}</button>`;
     return `<div class="card sets">
-      <div class="lbl">Thème</div><div class="skin">${b('skin', 'drawn', S.skin || 'drawn', ico('pencil') + ' Dessiné')}${b('skin', 'classic', S.skin || 'drawn', 'Classique')}</div>
+      <div class="lbl">Thème</div><div class="skin">${b('skin', 'drawn', S.skin || 'drawn', ico('pencil') + ' Dessiné')}${b('skin', 'classic', S.skin || 'drawn', 'Classique')}${b('skin', 'paper', S.skin || 'drawn', 'Papier découpé')}</div>
       <div class="lbl">Couleurs</div><div class="skin">${b('theme', '', S.theme || '', 'Auto')}${b('theme', 'light', S.theme || '', 'Clair')}${b('theme', 'dark', S.theme || '', 'Sombre')}</div>
       <div class="lbl">Texte</div><div class="skin">${b('size', '', S.size || '', 'Normal')}${b('size', 'big', S.size || '', 'Grand')}</div>
       <div class="lbl">Sauvegarde</div><div class="muted small">${fbUser ? `Connecté(e) : ${esc(fbUser.email)}. Ta progression est sauvegardée en ligne et revient sur tous tes appareils où tu te connectes.` : "Connecte-toi avec Google pour retrouver ta progression sur tous tes appareils (et entre Safari et l'icône de l'écran d'accueil)."}</div>
@@ -604,6 +604,9 @@
     { v: 128, items: [
       ['speak', 'Les 514 textes de l’oral ont été réécrits pour être plus faciles à dire et à mémoriser. Retrouve-les dans les 64 fiches et le plan général.'],
       ['check', 'Quelques réponses de quiz ont aussi été corrigées.'],
+    ] },
+    { v: 129, items: [
+      ['sparkle', 'Essaie le thème Papier découpé dans les réglages de l’accueil. Les cartes prennent du relief et les personnages de Podo Quest s’animent dans des décors en papier.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;

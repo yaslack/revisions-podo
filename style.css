@@ -425,17 +425,17 @@ html[data-skin="classic"] .hl { background: linear-gradient(180deg, transparent 
 html[data-skin="classic"] .note li { font-size: 16px; }
 
 /* ---------- thème dessiné en sombre : tableau noir ---------- */
-@media (prefers-color-scheme: dark) { html[data-skin="drawn"]:not([data-theme="light"]) { --ink: #EFE6D6; --paper: #1E1C23; --card: #2A2730; --muted: #B5A88E; --good: #6CC98A;
+@media (prefers-color-scheme: dark) { html:is([data-skin="drawn"], [data-skin="paper"]):not([data-theme="light"]) { --ink: #EFE6D6; --paper: var(--dark-paper, #1E1C23); --card: var(--dark-card, #2A2730); --red: var(--dark-red, #c8372d); --muted: #B5A88E; --good: #6CC98A;
   --p1: #6E9BE0; --p2: #E8716A; --p3: #A983DA; --p4: #EDA64F; --p5: #3DB8A8; --p6: #5DBB7A; --p7: #E68AAE; --p8: #4A9BBA; color-scheme: dark; } }
-html[data-skin="drawn"][data-theme="dark"] { --ink: #EFE6D6; --paper: #1E1C23; --card: #2A2730; --muted: #B5A88E; --good: #6CC98A;
+html:is([data-skin="drawn"], [data-skin="paper"])[data-theme="dark"] { --ink: #EFE6D6; --paper: var(--dark-paper, #1E1C23); --card: var(--dark-card, #2A2730); --red: var(--dark-red, #c8372d); --muted: #B5A88E; --good: #6CC98A;
   --p1: #6E9BE0; --p2: #E8716A; --p3: #A983DA; --p4: #EDA64F; --p5: #3DB8A8; --p6: #5DBB7A; --p7: #E68AAE; --p8: #4A9BBA; color-scheme: dark; }
-@media (prefers-color-scheme: dark) { html[data-skin="drawn"]:not([data-theme="light"]) body { background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 28px 28px; } }
-html[data-skin="drawn"][data-theme="dark"] body { background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 28px 28px; }
+@media (prefers-color-scheme: dark) { html:is([data-skin="drawn"], [data-skin="paper"]):not([data-theme="light"]) body { background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 28px 28px; } }
+html:is([data-skin="drawn"], [data-skin="paper"])[data-theme="dark"] body { background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 28px 28px; }
 /* en sombre, les traits restent clairs mais le texte sur les boutons et pastilles colorés reste foncé */
-html[data-skin="drawn"] :is(.btn:not(.ghost), .chip, .count, nav.tabs a.on, .hl) { color: #25232d; }
-html[data-skin="drawn"] b, html[data-skin="drawn"] strong { color: inherit; }
-@media (prefers-color-scheme: dark) { html[data-skin="drawn"]:not([data-theme="light"]) :is(.resume, .answer, .ck.on, .opt.good, .opt.bad, .livret, .photo) { background: var(--card); color: var(--ink); } }
-html[data-skin="drawn"][data-theme="dark"] :is(.resume, .answer, .ck.on, .opt.good, .opt.bad, .livret, .photo) { background: var(--card); color: var(--ink); }
+html:is([data-skin="drawn"], [data-skin="paper"]) :is(.btn:not(.ghost), .chip, .count, nav.tabs a.on, .hl) { color: #25232d; }
+html:is([data-skin="drawn"], [data-skin="paper"]) b, html:is([data-skin="drawn"], [data-skin="paper"]) strong { color: inherit; }
+@media (prefers-color-scheme: dark) { html:is([data-skin="drawn"], [data-skin="paper"]):not([data-theme="light"]) :is(.resume, .answer, .ck.on, .opt.good, .opt.bad, .livret, .photo) { background: var(--card); color: var(--ink); } }
+html:is([data-skin="drawn"], [data-skin="paper"])[data-theme="dark"] :is(.resume, .answer, .ck.on, .opt.good, .opt.bad, .livret, .photo) { background: var(--card); color: var(--ink); }
 
 /* texte plus grand */
 html[data-size="big"] body { zoom: 1.13; }

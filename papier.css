@@ -1,0 +1,389 @@
+/* Papier découpé · carnet d’étude et petits théâtres de Podo Quest. */
+html[data-skin="paper"] {
+  --paper: #f5e5cb;
+  --card: #fff2dc;
+  --red: #ad3a28;
+  --hl: #f4c463;
+  --dark-paper: #211d25;
+  --dark-card: #352b3a;
+  --dark-red: #f19483;
+  --grain: url(jeu/papier/grain.webp);
+  --paper-edge: color-mix(in srgb, var(--ink) 78%, var(--paper));
+  --paper-guide: color-mix(in srgb, var(--p1) 10%, transparent);
+  --paper-shadow: inset 0 1px 0 #fff9, 1px 3px 0 #f2dfbb, 2px 5px 0 #8b6b5040, 2px 8px 8px #3c261c26;
+  --paper-cut: 16px 12px 17px 11px / 12px 17px 13px 16px;
+}
+html[data-skin="paper"] body:not(:has(.av)) {
+  background-image:
+    linear-gradient(var(--paper-guide) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-guide) 1px, transparent 1px),
+    var(--grain);
+  background-size: 24px 24px, 24px 24px, 256px 256px;
+}
+html[data-skin="paper"] :is(.card, .entry, .tag, .qb, .part .body, .btn, .opt, .ck, .plate, .sheet, .top, .pager.fixed, nav.tabs, .tabmenu):not(:where(.av *)) {
+  border-width: 2px;
+  background-image: var(--grain);
+  background-size: 256px 256px;
+}
+html[data-skin="paper"] :is(.card, .entry, .tag, .qb, .part .body, .btn, .plate, .sheet):not(:where(.av *)) {
+  border-radius: var(--paper-cut);
+  box-shadow: var(--paper-shadow);
+}
+html[data-skin="paper"] :is(.card, .entry, .btn.ghost, .top, nav.tabs, nav.tabs .tabmenu):not(:where(.av *)) {
+  border-color: var(--paper-edge);
+}
+html[data-skin="paper"] nav.tabs {
+  gap: 2px;
+  max-width: calc(100% - 12px);
+  padding: 4px;
+  box-shadow: var(--paper-shadow);
+}
+html[data-skin="paper"] nav.tabs a.on {
+  background: var(--grain) var(--hl);
+  border: 1px solid #75501e;
+  padding-block: 7px;
+  padding-inline: 8px;
+}
+html[data-skin="paper"] :is(a, button):focus-visible:not(:where(.av *)) {
+  outline: 2px solid var(--p1);
+  outline-offset: 3px;
+}
+
+html[data-skin="paper"] .home .brand h1 {
+  font-size: clamp(42px, 12.5vw, 56px);
+  text-shadow: 0 2px 0 color-mix(in srgb, currentColor 24%, transparent), 0 3px 4px #3b201b35;
+}
+html[data-skin="paper"] .home .brand .kicker {
+  font-size: clamp(10px, 3.2vw, 14px);
+  letter-spacing: .5px;
+}
+html[data-skin="paper"] .home .team {
+  margin: 15px 0 20px;
+}
+html[data-skin="paper"] .home .mate img {
+  width: clamp(62px, 18vw, 78px);
+  height: clamp(62px, 18vw, 78px);
+  border: 2px solid var(--paper-edge);
+  padding: 3px;
+  background: var(--card);
+  box-shadow: var(--paper-shadow);
+}
+html[data-skin="paper"] .home .today {
+  padding: 13px;
+  border-radius: 15px 10px 17px 11px / 9px 15px 10px 16px;
+}
+html[data-skin="paper"] .home .today .kicker {
+  color: var(--muted);
+  font-size: 18px;
+}
+html[data-skin="paper"] .home .goal {
+  margin-top: 8px;
+}
+html[data-skin="paper"] .home .goal .bar {
+  height: 10px;
+}
+html[data-skin="paper"] .home .streak {
+  display: grid;
+  grid-template-columns: 23px auto;
+  gap: 2px;
+  font-size: 22px;
+}
+html[data-skin="paper"] .home .streak small {
+  grid-column: 2;
+}
+html[data-skin="paper"] .home .todo {
+  background: var(--grain) color-mix(in srgb, var(--hl) 22%, var(--card));
+  border: 1.5px dashed color-mix(in srgb, var(--muted) 70%, var(--card));
+  background-size: 256px 256px;
+  box-shadow: inset 0 1px 2px #33201820;
+}
+html[data-skin="paper"] .home .exam input {
+  font-family: var(--hand);
+  font-size: 18px;
+  border: 1.5px solid var(--paper-edge);
+  min-height: 38px;
+}
+html[data-skin="paper"] .home a.resume {
+  padding: 11px 12px;
+  border-color: var(--red);
+  background-color: var(--card);
+}
+html[data-skin="paper"] .home a.resume[href="#/jeu/aventure"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+html[data-skin="paper"] .home a.resume[href="#/jeu/aventure"]::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: -6px;
+  bottom: -8px;
+  width: 94px;
+  height: 94px;
+  background: url(jeu/papier/cristaux.webp) bottom right / contain no-repeat;
+  pointer-events: none;
+}
+html[data-skin="paper"] .home a.resume[href="#/jeu/aventure"] .rt {
+  padding-right: 38px;
+}
+html[data-skin="paper"] .home a.resume[href="#/jeu/aventure"] .chev {
+  align-self: flex-start;
+}
+html[data-skin="paper"] .home .resume .kicker {
+  font-size: 12px;
+}
+html[data-skin="paper"] .home .resume .s {
+  font-size: 16px;
+}
+html[data-skin="paper"] .home .sec {
+  margin-top: 18px;
+}
+html[data-skin="paper"] .home a.resume:is([href="#/jeu/apprendre"], [href="#/jeu/aventure"]) .stamp {
+  width: 47px;
+  height: 47px;
+  border: 0;
+  box-shadow: none;
+  background: var(--sticker) center / contain no-repeat;
+  filter: drop-shadow(1px 3px 2px #31201866);
+}
+html[data-skin="paper"] .home a.resume[href="#/jeu/apprendre"] {
+  --sticker: url(jeu/papier/livre.webp);
+}
+html[data-skin="paper"] .home a.resume[href="#/jeu/aventure"] {
+  --sticker: url(jeu/papier/flamme.webp);
+}
+html[data-skin="paper"] .home a.resume:is([href="#/jeu/apprendre"], [href="#/jeu/aventure"]) .stamp .ic {
+  visibility: hidden;
+}
+html[data-skin="paper"] .home .resume .t {
+  line-height: 1.22;
+}
+@media (max-width: 380px) {
+  html[data-skin="paper"] nav.tabs > a,
+  html[data-skin="paper"] nav.tabs .tabf > a {
+    font-size: 12px;
+    padding-inline: 5px;
+  }
+  html[data-skin="paper"] nav.tabs > a.on {
+    padding-inline: 4px;
+  }
+}
+
+/* Fiches, cours, planches et révision. */
+html[data-skin="paper"] :is(.fhead, .part.solo > header, .chead) {
+  padding: 12px;
+  border: 1.5px solid var(--paper-edge);
+  border-radius: var(--paper-cut);
+  background: var(--grain) var(--card);
+  background-size: 256px 256px;
+  box-shadow: var(--paper-shadow);
+}
+html[data-skin="paper"] :is(.part.solo > header, .chead, .part .body, .entry.part-e, .entry:has(.cthumb, .zthumb), .tag) {
+  border-inline-start: 5px solid var(--c);
+}
+html[data-skin="paper"] :is(.fhead .drawn, .part .drawn, .chero) {
+  padding: 4px;
+  border: 1.5px solid var(--paper-edge);
+  border-radius: var(--paper-cut);
+  background: var(--grain) var(--card);
+  background-size: 256px 256px;
+  box-shadow: var(--paper-shadow);
+}
+html[data-skin="paper"] :is(.fhead h1, .chead h1, .part-e .rt) {
+  overflow-wrap: anywhere;
+}
+html[data-skin="paper"] :is(.part > header .q, .part .h, .part-e .rt .q, .tag > .tt, .regtabs .t, .qpart):not(:where(.av *)) {
+  color: color-mix(in srgb, var(--c, var(--ink)) 58%, var(--ink));
+}
+html[data-skin="paper"] :is(.tool, .segnav a, .regtabs a, .stamp, .chip, .badge):not(:where(.av *)) {
+  background-image: var(--grain);
+  border-width: 1.5px;
+}
+html[data-skin="paper"] :is(.tool, .segnav a, .regtabs a) {
+  border-radius: var(--paper-cut);
+  box-shadow: var(--paper-shadow);
+}
+html[data-skin="paper"] :is(.segnav a.on, .regtabs a.on) {
+  border-color: color-mix(in srgb, var(--c) 72%, var(--ink));
+  background: var(--grain) color-mix(in srgb, var(--c) 34%, var(--card));
+  color: var(--ink);
+}
+html[data-skin="paper"] .segnav a {
+  min-width: 0;
+  min-height: 38px;
+  color: color-mix(in srgb, var(--c) 55%, var(--ink));
+}
+html[data-skin="paper"] .segnav a.on {
+  color: var(--ink);
+}
+html[data-skin="paper"] :is(.say p, .livret, .sheet):not(:where(.av *)) {
+  background: var(--grain) var(--card);
+}
+html[data-skin="paper"] .sheet {
+  transform: none;
+}
+html[data-skin="paper"] .sheet .row + .row {
+  padding-block: 7px;
+  border-top: 1px dashed var(--paper-edge);
+}
+html[data-skin="paper"] :is(.answer, .opt.good, .ck.on):not(:where(.av *)) {
+  background: var(--grain) color-mix(in srgb, var(--good) 22%, var(--card));
+}
+html[data-skin="paper"] .opt.bad:not(:where(.av *)) {
+  background: var(--grain) color-mix(in srgb, var(--red) 18%, var(--card));
+}
+@media (max-width: 380px) {
+  html[data-skin="paper"] .fhead .drawn.th {
+    width: 88px;
+  }
+}
+
+html[data-skin="paper"] body:has(.av) {
+  background: var(--grain) #22162f;
+}
+html[data-skin="paper"] .av {
+  --ink: #fff4df;
+  --card: #412b52;
+  --line: #86669d;
+  --muted: #ded0e7;
+  --hl: #f6ce7c;
+  --paper-plum: var(--grain), linear-gradient(145deg, #523864, #332143);
+  --paper-lift: inset 0 1px #e9c4ff46, 0 3px 0 #1e122d, 0 6px 11px #130b1b63;
+  background: var(--grain), linear-gradient(#241934, #21152e 30%);
+  background-size: 256px 256px, 100% 100%;
+}
+html[data-skin="paper"] .av .top {
+  gap: 8px;
+}
+html[data-skin="paper"] .av .top .tt {
+  overflow: visible;
+}
+html[data-skin="paper"] .avpaper-logo {
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 4px 10px;
+  white-space: nowrap;
+  font: 800 clamp(13px, 4vw, 21px)/1.15 var(--marker);
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: var(--paper-cut);
+  background: var(--paper-plum);
+  background-size: 256px 256px, 100% 100%;
+  box-shadow: var(--paper-lift);
+}
+html[data-skin="paper"] .avpaper-logo img {
+  width: 26px;
+  height: 30px;
+  object-fit: contain;
+  transform: rotate(-12deg);
+  filter: drop-shadow(0 2px 1px #23132c);
+}
+html[data-skin="paper"] .av :is(.top .back, .count, .avmusb, .avbox, .avact, .card, .avscene .avplate) {
+  clip-path: none;
+  border: 1.5px solid var(--line);
+  border-radius: var(--paper-cut);
+  background: var(--paper-plum);
+  background-size: 256px 256px, 100% 100%;
+  box-shadow: var(--paper-lift);
+}
+html[data-skin="paper"] .av .count {
+  padding-inline: 7px;
+}
+html[data-skin="paper"] .av .avscene {
+  background-position: center 62%;
+  border-bottom: 2px solid #856598;
+  box-shadow: 0 4px 0 #160e24;
+}
+html[data-skin="paper"] .av .avscene::after {
+  background: linear-gradient(#20133255, transparent 22%);
+  animation: none;
+}
+html[data-skin="paper"] .av .avportrait {
+  background: var(--grain) #674d7d;
+  border-color: #c6a569;
+}
+html[data-skin="paper"] .av :is(img.avspr, .avportrait img) {
+  image-rendering: auto;
+}
+html[data-skin="paper"] .av .avportrait img {
+  transform: scale(1.46);
+  transform-origin: 50% 9%;
+}
+html[data-skin="paper"] .av .avscene .avspr:not(.sil) {
+  filter: hue-rotate(var(--hr, 0deg)) drop-shadow(2px 3px 2px #1b10256e);
+}
+html[data-skin="paper"] .av .avscene .avpos.ouch .avspr {
+  filter: drop-shadow(0 0 4px #ff616c);
+}
+html[data-skin="paper"] .av .avscene.boss .avpos.foe img.art:not(.sil) {
+  filter: hue-rotate(var(--hr, 0deg)) drop-shadow(0 0 8px #ff688a88);
+}
+html[data-skin="paper"] .av :is(.avscene, .avcamp) .avspr.idle {
+  animation-timing-function: steps(12, end);
+}
+html[data-skin="paper"] .av .avhp i {
+  background: var(--grain) #da6e6e;
+}
+html[data-skin="paper"] .av .avhp.me i {
+  background: var(--grain) #83c581;
+}
+html[data-skin="paper"] .av .avbox {
+  color: #fff0c7;
+}
+html[data-skin="paper"] .av .avbox::before {
+  text-shadow: 0 2px 1px #331c37;
+}
+html[data-skin="paper"] .av .avact {
+  grid-template-columns: clamp(30px, 10vw, 42px) minmax(0, 1fr);
+  border-inline-start-color: var(--c);
+}
+html[data-skin="paper"] .av .avact:disabled {
+  opacity: .62;
+}
+html[data-skin="paper"] .av .avact > :is(img, .avpaper-target) {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  max-width: 42px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  image-rendering: auto;
+  filter: drop-shadow(1px 3px 1px #22152caa);
+}
+html[data-skin="paper"] .av .avact:disabled > :is(img, .avpaper-target) {
+  filter: grayscale(1);
+}
+html[data-skin="paper"] .av .avpaper-target .ic {
+  width: 70%;
+  height: 70%;
+}
+html[data-skin="paper"] .av .card.qc {
+  background: var(--paper-plum);
+  border-color: #b694c2;
+  box-shadow: var(--paper-lift);
+}
+html[data-skin="paper"] .av .btn {
+  clip-path: none;
+  border-radius: var(--paper-cut);
+}
+html[data-skin="paper"] .av .pager.fixed {
+  background: linear-gradient(transparent, #21152e 56%);
+}
+@media (max-width: 360px) {
+  html[data-skin="paper"] .av .top {
+    gap: 5px;
+  }
+  html[data-skin="paper"] .avpaper-logo {
+    gap: 4px;
+    padding-inline: 6px;
+  }
+  html[data-skin="paper"] .avpaper-logo img {
+    width: 21px;
+  }
+}

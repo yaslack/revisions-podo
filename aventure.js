@@ -31,14 +31,17 @@ window.AVENTURE = A => {
   const FAMS = ['peau', 'ongle', 'vasc', 'med'];
   const fam = it => it.kind === 'f' ? (it.f.sec === 'podo' ? 'podo' : FAMS.includes(it.f.cat) ? it.f.cat : 'peau') : it.kind === 'a' ? (it.x.nerf ? 'mus' : 'os') : 'test';
   const hue = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
+  const paper = () => document.documentElement.dataset.skin === 'paper';
+  const art = (name, suffix = '-v2.png') => paper() ? `jeu/papier/${name}.webp` : `jeu/${name}${suffix}`;
+  const monster = it => art(`monstre-${fam(it)}`);
   // Un sprite par famille, animé par les classes de combat ; chaque adversaire reçoit une légère variation de teinte.
-  const sprite = (it, cls = '') => `<img class="avspr art ${cls}" alt="" style="--hr:${hue(it.id) % 5 * 14 - 28}deg" src="jeu/monstre-${fam(it)}-v2.png">`;
+  const sprite = (it, cls = '') => `<img class="avspr art ${cls}" alt="" style="--hr:${hue(it.id) % 5 * 14 - 28}deg" src="${monster(it)}">`;
   const HERO = (cls = '') => /\blunge\b/.test(cls)
-    ? `<img class="avspr art avhero avhero-base" alt="" src="jeu/heros-v2.png"><img class="avspr art avhero avhero-strike" alt="" src="jeu/heros-attaque-v2.png">`
-    : `<img class="avspr art avhero ${cls}" alt="" src="jeu/heros-v2.png">`;
+    ? `<img class="avspr art avhero avhero-base" alt="" src="${art('heros')}"><img class="avspr art avhero avhero-strike" alt="" src="${art('heros-attaque')}">`
+    : `<img class="avspr art avhero ${cls}" alt="" src="${art('heros')}">`;
   const CHEST = (open, cls = '') => `<img class="avspr art avhero ${cls}" alt="" src="jeu/coffre${open ? '-ouvert' : ''}.png">`, OBJ = k => `<img class="avobj" alt="" src="jeu/obj-${k}.png">`;
 
-  const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, scene = kind => `jeu/decor-${kind}-v2.webp`;
+  const BIOME = { peau: 'foret', ongle: 'foret', vasc: 'marais', med: 'marais', podo: 'canyon', os: 'grotte', mus: 'grotte', test: 'grotte' }, scene = kind => art(`decor-${kind}`, '-v2.webp');
 
   // ---------- les défis : ils se corrigent tout seuls (plus rien à cocher « sur l'honneur »). Quatre genres, du plus simple au plus fort : ----------
   //   Question (un choix), Tri (toucher seulement ce qui est juste), Ordre (remettre les étapes), Trous (remettre les mots cachés).
@@ -333,7 +336,15 @@ window.AVENTURE = A => {
   // ---------- l'affichage ----------
   const bar = (now, was, max, cls = '') => `<div class="avhp ${cls}" role="progressbar" aria-label="${cls === 'xp' ? 'Expérience' : 'Points de vie'}" aria-valuemin="0" aria-valuemax="${max}" aria-valuenow="${now}"><i style="--f:${100 * was / max}%;--t:${100 * now / max}%"></i></div>`;
   const btn = (g, txt, c = 'var(--hl)', more = '') => `<button class="btn grow" data-g="${g}" style="--c:${c}" ${more}>${txt}</button>`;
-  const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', '<img class="avlogo" src="jeu/ui-logo.png" alt="Podo Quest">', (right || '') + `<button class="avmusb ${R().mus === false ? 'off' : ''}" data-g="avmus" aria-label="Musique" aria-pressed="${R().mus !== false}">♪</button>`)}`;
+  const logo = () => paper()
+    ? '<span class="avpaper-logo"><img src="jeu/papier/empreinte.webp" alt="">Podo Quest</span>'
+    : '<img class="avlogo" src="jeu/ui-logo.png" alt="Podo Quest">';
+  const actionIcon = action => {
+    if (paper() && action === 'avfin') return `<span class="avpaper-target">${ico('target')}</span>`;
+    const key = { avcard: 'atk', avspe: 'spe', avfin: 'fin', avobj: 'soin', avboss: 'spe' }[action];
+    return `<img alt="" src="${art(`ui-act-${key}`, '.png')}">`;
+  };
+  const head = (right, bg) => `<div class="wrap qz av" style="--bg:url(${scene(bg || 'grotte')})">${top('#/', logo(), (right || '') + `<button class="avmusb ${R().mus === false ? 'off' : ''}" data-g="avmus" aria-label="Musique" aria-pressed="${R().mus !== false}">♪</button>`)}`;
   const stats = r => `<span class="avstat">${ico('flame')} Attaque ${atk(r)}</span><span class="avstat">Défense ${def(r)}</span>`;
   function qcard(t) {   // le défi en cours, selon son genre : choix, tri, ordre, trous. Après la réponse : la correction, et la leçon du livret si c'est raté.
     const st = t.st, k = t.ticks || [], c = t.card, q = `<div class="question">${md(st.q)}</div>`, hit = (off, n) => btn('avval', 'Frapper' + (n ? ` · ${n}` : ''), 'var(--p6)', off ? 'disabled' : '');
@@ -369,8 +380,8 @@ window.AVENTURE = A => {
     const g = G(), r = R(), f = g.foe, t = g.t, an = g.anim || {}, idp = t && t.mode === 'id' && !t.done, p = f.hp / f.max, max = hpMax(r);
     const kind = f.boss ? 'boss' : BIOME[fam(f.it)];
     const arena = `<div class="avscene ${kind} ${an.crit ? 'flash' : ''}" style="background-image:url(${scene(kind)})">
-      <div class="avplate"><span class="avportrait"><img src="jeu/heros-v2.png" alt=""></span><div class="avplate-info"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.was == null ? g.hp : g.was, max, 'me')}<span><i class="avheart" aria-hidden="true">♥</i> ${g.hp}/${max} PV ${[0, 1, 2].map(i => `<i class="avpip ${i < g.focus ? 'on' : ''}"></i>`).join('')}${g.combo > 1 ? ` ×${g.combo}` : ''}</span></div></div>
-      <div class="avplate foe"><span class="avportrait ${idp ? 'unknown' : ''}"><img src="jeu/monstre-${fam(f.it)}-v2.png" alt=""></span><div class="avplate-info"><b>${idp ? '???' : esc(f.it.title)}</b>${bar(f.hp, f.was, f.max)}<span>${f.boss ? 'BOSS · ' : f.style ? STYLE[f.style][0].toUpperCase() + ' · ' : ''}${esc(f.it.lab)}</span></div></div>
+      <div class="avplate"><span class="avportrait"><img src="${art('heros')}" alt=""></span><div class="avplate-info"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.was == null ? g.hp : g.was, max, 'me')}<span><i class="avheart" aria-hidden="true">♥</i> ${g.hp}/${max} PV ${[0, 1, 2].map(i => `<i class="avpip ${i < g.focus ? 'on' : ''}"></i>`).join('')}${g.combo > 1 ? ` ×${g.combo}` : ''}</span></div></div>
+      <div class="avplate foe"><span class="avportrait ${idp ? 'unknown' : ''}"><img src="${monster(f.it)}" alt=""></span><div class="avplate-info"><b>${idp ? '???' : esc(f.it.title)}</b>${bar(f.hp, f.was, f.max)}<span>${f.boss ? 'BOSS · ' : f.style ? STYLE[f.style][0].toUpperCase() + ' · ' : ''}${esc(f.it.lab)}</span></div></div>
       <div class="avpos me ${an.me ? 'ouch' : an.heal ? 'heal' : ''}">${HERO(an.foe ? 'lunge' : an.me ? 'hurt' : 'idle')}${an.dM ? `<span class="avdmg me">-${an.dM}</span>` : an.heal ? `<span class="avdmg heal">+${an.heal}</span>` : ''}</div>
       <div class="avpos foe ${an.foe ? 'slash' : ''} ${an.crit ? 'rays' : ''}">${sprite(f.it, (idp ? 'sil ' : '') + (an.foe ? 'hit' : 'idle'), f.boss)}${an.dF ? `<span class="avdmg ${an.crit ? 'crit' : ''}">-${an.dF}</span>` : ''}</div></div>
       <div class="avbox">${esc(g.msg || '')}</div>`;
@@ -390,7 +401,7 @@ window.AVENTURE = A => {
         m.push(['avfin', 'Coup de grâce', p <= .35 ? (f.kit.fin && f.kit.fin.k === 'oral' ? 'Dis tout le traitement : il tombe d\'un coup' : f.it.kind === 'f' ? 'Le bon traitement le termine d\'un coup' : 'Sans une faute, il tombe d\'un coup') : 'Quand il est sous 35 % de PV', 'var(--red)', p > .35]); }
       m.push(['avobj', 'Soins', soins(r).length ? `${soins(r).reduce((s, k) => s + r.items[k], 0)} dans le sac` : 'Sac vide', 'var(--p6)', !soins(r).length]);
       const said = f.oral ? f.scope.filter(i => (f.pv[i] || 0) >= .6).length : 0, newN = f.oral ? f.scope.filter(i => !sue(f.it, f.kit.plan[i].pi)).length : 0;
-      body = `${f.oral ? `<div class="muted small" style="margin-bottom:8px">${f.final ? `L'oral complet, sans aide : les ${f.scope.length} parties, dans l'ordre du plan.` : `Le boss, c'est l'oral : ${f.scope.length} parties aujourd'hui (${f.scope.length - newN} que tu sais, ${newN} nouvelle${newN > 1 ? 's' : ''}). À chaque victoire, la fiche grandit.`} ${said}/${f.scope.length} réussies. ${dots(f.it)}</div>` : f.boss && !f.rvNow && p > .66 ? '<div class="muted small" style="margin-bottom:8px">Phase 1 : brise sa garde avec tes défis.</div>' : ''}<div class="avmenu">${m.map(([a, n, d, c, off, j]) => `<button class="avact" data-g="${a}" ${j != null ? `data-j="${j}"` : ''} style="--c:${c}" ${off ? 'disabled' : ''}><img alt="" src="jeu/ui-act-${{ avcard: 'atk', avspe: 'spe', avfin: 'fin', avobj: 'soin', avboss: 'spe' }[a]}.png"><b>${n}</b><span>${esc(d)}</span></button>`).join('')}</div>`;
+      body = `${f.oral ? `<div class="muted small" style="margin-bottom:8px">${f.final ? `L'oral complet, sans aide : les ${f.scope.length} parties, dans l'ordre du plan.` : `Le boss, c'est l'oral : ${f.scope.length} parties aujourd'hui (${f.scope.length - newN} que tu sais, ${newN} nouvelle${newN > 1 ? 's' : ''}). À chaque victoire, la fiche grandit.`} ${said}/${f.scope.length} réussies. ${dots(f.it)}</div>` : f.boss && !f.rvNow && p > .66 ? '<div class="muted small" style="margin-bottom:8px">Phase 1 : brise sa garde avec tes défis.</div>' : ''}<div class="avmenu">${m.map(([a, n, d, c, off, j]) => `<button class="avact" data-g="${a}" ${j != null ? `data-j="${j}"` : ''} style="--c:${c}" ${off ? 'disabled' : ''}>${actionIcon(a)}<b>${n}</b><span>${esc(d)}</span></button>`).join('')}</div>`;
     }
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length), kind)}${arena}${body}</div>`;
   }
@@ -399,7 +410,7 @@ window.AVENTURE = A => {
   function map() {
     const g = G(), r = R(), n = g.nodes[g.i], max = hpMax(r), back = n.it && (r.miss || {})[n.it.id];
     return `${head(count(`Étape ${g.i + 1}`, g.nodes.length))}
-      <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%" aria-label="Étape ${i + 1}${i < g.i ? ', terminée' : i === g.i ? ', en cours' : ''}">${i < g.i ? '✓' : `<svg viewBox="-12 -12 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${NODE[x.t]}</svg>`}</span>`).join('')}<img class="avspr art avwho" alt="" src="jeu/heros-v2.png" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
+      <div class="avworld">${g.nodes.map((x, i) => `<span class="avpin ${i < g.i ? 'done' : i === g.i ? 'now' : ''} ${x.t}" style="left:${POS[i][0]}%;top:${POS[i][1]}%" aria-label="Étape ${i + 1}${i < g.i ? ', terminée' : i === g.i ? ', en cours' : ''}">${i < g.i ? '✓' : `<svg viewBox="-12 -12 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${NODE[x.t]}</svg>`}</span>`).join('')}<img class="avspr art avwho" alt="" src="${art('heros')}" style="left:${POS[g.i][0]}%;top:${POS[g.i][1]}%"></div><div class="card avmap"><div class="avhud"><b>Toi · Nv ${r.lvl}</b>${bar(g.hp, g.hp, max, 'me')}<span class="muted">${g.hp}/${max} PV</span></div></div>
       <div class="card qc"><div class="kicker">${n.t === 'chest' ? 'UN COFFRE' : n.t === 'boss' ? 'LE BOSS' : back ? 'UN REVENANT' : 'UN MONSTRE'}</div>
         <div class="question">${n.t === 'chest' ? 'Un coffre au bord du chemin.' : n.t === 'boss' ? 'Une ombre énorme garde la sortie.' : 'Quelque chose bouge devant toi…'}</div>
         <div class="muted small">${n.t === 'chest' ? 'Pour garder l\'objet, il faut savoir à quoi il sert.' : n.t === 'boss' ? (oralBoss(n.it) ? `Le boss, c'est l'oral : tu récites sa fiche à voix haute, comme devant le jury. Les parties que tu sais, plus 2 nouvelles (tu en sais ${nSue(n.it)}/${pisOf(n.it).length}).` : 'Trois phases : tes défis, la récitation, puis le coup de grâce.') : back ? 'Tu as fait des fautes contre lui : il revient tant que tu ne l\'as pas battu sans faute.' : 'Reconnais-le à ses signes pour frapper le premier.'}</div></div>
