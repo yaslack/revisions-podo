@@ -1,0 +1,101 @@
+{
+  "id": "varices",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p1-1.webp",
+        "caption": "Veines dilatées et tortueuses",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p1-2.webp",
+        "caption": "Œdème veineux ou lymphatique",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p2-1.webp",
+        "caption": "Âge, hormones et grossesse",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p2-2.webp",
+        "caption": "Hérédité et station debout",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p3-1.webp",
+        "caption": "Valvules veineuses défaillantes",
+        "after": 8
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p3-2.webp",
+        "caption": "Reflux et œdème de stase",
+        "after": 16
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p4-1.webp",
+        "caption": "Jambes lourdes et gonflées",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p4-2.webp",
+        "caption": "Altérations cutanées de stase",
+        "after": 12
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p5-1.webp",
+        "caption": "Inspecter les veines et la peau",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p5-2.webp",
+        "caption": "Doppler veineux",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p6-1.webp",
+        "caption": "Marche et pompe musculaire",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p6-2.webp",
+        "caption": "Compression et traitement adapté",
+        "after": 14
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p7-1.webp",
+        "caption": "Ulcère veineux chronique",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p7-2.webp",
+        "caption": "Complications veineuses",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/varices/p8-1.webp",
+        "caption": "Repérer tôt les zones à risque",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/varices/p8-2.webp",
+        "caption": "Marche, suivi et orientation",
+        "after": 11
+      }
+    ]
+  ]
+}

@@ -639,9 +639,9 @@
     { v: 129, items: [
       ['sparkle', 'Essaie le thème Papier découpé dans les réglages de l’accueil. Les cartes prennent du relief et les personnages de Podo Quest s’animent dans des décors en papier.'],
     ] },
-    { v: 132, items: [
+    { v: 133, items: [
       ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
-      ['book', '22/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
+      ['book', '23/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
