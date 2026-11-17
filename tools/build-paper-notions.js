@@ -32,7 +32,7 @@ function build() {
     'Fiches prêtes : ' + completed.map(f => f.id).join(', '), '',
     'Fiches restantes : ' + remaining.map(f => f.id).join(', '), '',
     'Les correspondances sont dans papercraft/notions/*.json ; les images dans jeu/theatre/notions/<fiche>/ ; les prompts dans papercraft/*-notions-prompts.txt.', '',
-    'Après récupération d’images générées : enregistrer les découpes et le manifeste de la fiche, puis exécuter node tools/build-paper-notions.js et node tools/check-paper-notions.js. Régénérer sw.js avec node tools/build-sw.js 130 avant livraison.', '',
+    'Après chaque planche : tools/publish-paper.sh <fiche> <atlas.png> découpe les dessins, vérifie les textes, incrémente la version et publie sur GitHub Pages. ImageGen intégré reste utilisé pour les générations.', '',
     'Aperçu : http://127.0.0.1:51862/ . Le script tools/preview-live.js actualise les textures et les nouveaux dessins uniquement en local, sans relancer les quiz.', '',
     'Correction déjà faite : le bandeau corail de « Ce que je dis à l’oral » utilisait une découpe de 90 px sur une image haute de 167 px, ce qui laissait une ligne vide. Il utilise désormais des découpes verticales de 45 px.', ''
   ].join('\n'));

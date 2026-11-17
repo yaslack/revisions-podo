@@ -1,0 +1,101 @@
+{
+  "id": "phlebite",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p1-1.webp",
+        "caption": "Caillot dans une veine profonde",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p1-2.webp",
+        "caption": "Risque d’embolie pulmonaire",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p2-1.webp",
+        "caption": "Immobilisation et stase veineuse",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p2-2.webp",
+        "caption": "Facteurs favorisant la coagulation",
+        "after": 14
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p3-1.webp",
+        "caption": "Obstruction et pression veineuse",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p3-2.webp",
+        "caption": "Migration possible du caillot",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p4-1.webp",
+        "caption": "Mollet douloureux et gonflé",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p4-2.webp",
+        "caption": "Signes respiratoires d’embolie",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p5-1.webp",
+        "caption": "Écho-Doppler veineux",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p5-2.webp",
+        "caption": "Exploration d’une embolie pulmonaire",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p6-1.webp",
+        "caption": "Traitement anticoagulant",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p6-2.webp",
+        "caption": "Prise en charge et mobilisation adaptée",
+        "after": 14
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p7-1.webp",
+        "caption": "Évolution selon la prise en charge",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p7-2.webp",
+        "caption": "Risque de récidive et séquelles veineuses",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/phlebite/p8-1.webp",
+        "caption": "Prévenir la stase veineuse",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/phlebite/p8-2.webp",
+        "caption": "Suivi du traitement",
+        "after": 8
+      }
+    ]
+  ]
+}
