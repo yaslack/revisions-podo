@@ -1,0 +1,101 @@
+{
+  "id": "psoriasis",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p1-1.webp",
+        "caption": "Plaques rouges et squameuses",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p1-2.webp",
+        "caption": "Maladie inflammatoire non contagieuse",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p2-1.webp",
+        "caption": "Prédisposition familiale",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p2-2.webp",
+        "caption": "Stress et traumatismes cutanés",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p3-1.webp",
+        "caption": "Activation immunitaire",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p3-2.webp",
+        "caption": "Renouvellement accéléré de l’épiderme",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p4-1.webp",
+        "caption": "Plaques bien délimitées",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p4-2.webp",
+        "caption": "Atteinte des ongles et des articulations",
+        "after": 12
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p5-1.webp",
+        "caption": "Examen de la peau",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p5-2.webp",
+        "caption": "Évaluer la sévérité et le retentissement",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p6-1.webp",
+        "caption": "Traitements locaux adaptés",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p6-2.webp",
+        "caption": "Photothérapie et traitements spécialisés",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p7-1.webp",
+        "caption": "Poussées et rémissions",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p7-2.webp",
+        "caption": "Surveillance des comorbidités",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/psoriasis/p8-1.webp",
+        "caption": "Limiter les facteurs déclenchants",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/psoriasis/p8-2.webp",
+        "caption": "Suivi dermatologique",
+        "after": 5
+      }
+    ]
+  ]
+}
