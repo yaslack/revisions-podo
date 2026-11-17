@@ -1,0 +1,101 @@
+{
+  "id": "eczema",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p1-1.webp",
+        "caption": "Dermatose inflammatoire non contagieuse",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p1-2.webp",
+        "caption": "Formes de contact et dyshidrose",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p2-1.webp",
+        "caption": "Terrain atopique",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p2-2.webp",
+        "caption": "Irritants et allergènes de contact",
+        "after": 15
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p3-1.webp",
+        "caption": "Spongiose de l’épiderme",
+        "after": 10
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p3-2.webp",
+        "caption": "Barrière cutanée altérée",
+        "after": 21
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p4-1.webp",
+        "caption": "Rougeur, vésicules et démangeaisons",
+        "after": 10
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p4-2.webp",
+        "caption": "Lésions selon la zone exposée",
+        "after": 20
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p5-1.webp",
+        "caption": "Examen et recherche des expositions",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p5-2.webp",
+        "caption": "Tests cutanés de contact",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p6-1.webp",
+        "caption": "Éviter l’allergène identifié",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p6-2.webp",
+        "caption": "Soins locaux et émollients",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p7-1.webp",
+        "caption": "Amélioration avec une prise en charge adaptée",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p7-2.webp",
+        "caption": "Poussées et surinfection possibles",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/eczema/p8-1.webp",
+        "caption": "Hygiène douce et protection",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/eczema/p8-2.webp",
+        "caption": "Reconnaître les poussées et assurer le suivi",
+        "after": 8
+      }
+    ]
+  ]
+}
