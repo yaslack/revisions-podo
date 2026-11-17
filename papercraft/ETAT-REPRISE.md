@@ -2,15 +2,15 @@
 
 Objectif demandé : plusieurs illustrations personnalisées par partie, selon les notions du cours, dans le style de la référence en papier découpé. Les scènes génériques ne suffisent pas.
 
-Avancement sauvegardé : 21/64 fiches, 332 illustrations intégrées.
+Avancement sauvegardé : 22/64 fiches, 348 illustrations intégrées.
 
-Fiches prêtes : verrues, onychomycoses, antifongiques, hematome, ains, antiseptiques, mycoses, hyperkeratoses, phlyctenes, mpp, phlebite, genou, attitudes-scoliotiques, carrefour-posterieur, bursite-icm, morton, essuie-glace, syndrome-loges, sinus-tarse, synostoses, talonnade
+Fiches prêtes : verrues, onychomycoses, antifongiques, hematome, ains, antiseptiques, mycoses, hyperkeratoses, phlyctenes, mpp, aomi, phlebite, genou, attitudes-scoliotiques, carrefour-posterieur, bursite-icm, morton, essuie-glace, syndrome-loges, sinus-tarse, synostoses, talonnade
 
-Fiches restantes : aomi, varices, erysipele, eczema, psoriasis, dyshidrose, sudoraux, raynaud, gelures, onychodys, dyschromies, smp, tumeurs, chaussures-enfant, chaussures-securite, coxarthrose, cycle-marche, deformations-orteils, entorses-cheville, fractures-fatigue, genu-valgum-varum, gonarthrose, hallux-rigidus, hallux-valgus, ilm, insuffisance-1er-rayon, kyste-poplite, haglund, sever-osgood, map, naviculaire-accessoire, osteochondrose, periostite-tibiale, pied-bot, pied-creux, pied-plat, scoliose, canal-tarsien, patte-oie, syndrome-2e-rayon, talalgies, tendinites, tendinopathie-achille
+Fiches restantes : varices, erysipele, eczema, psoriasis, dyshidrose, sudoraux, raynaud, gelures, onychodys, dyschromies, smp, tumeurs, chaussures-enfant, chaussures-securite, coxarthrose, cycle-marche, deformations-orteils, entorses-cheville, fractures-fatigue, genu-valgum-varum, gonarthrose, hallux-rigidus, hallux-valgus, ilm, insuffisance-1er-rayon, kyste-poplite, haglund, sever-osgood, map, naviculaire-accessoire, osteochondrose, periostite-tibiale, pied-bot, pied-creux, pied-plat, scoliose, canal-tarsien, patte-oie, syndrome-2e-rayon, talalgies, tendinites, tendinopathie-achille
 
 Les correspondances sont dans papercraft/notions/*.json ; les images dans jeu/theatre/notions/<fiche>/ ; les prompts dans papercraft/*-notions-prompts.txt.
 
-Après chaque planche : tools/publish-paper.sh <fiche> <atlas.png> découpe les dessins, vérifie les textes, incrémente la version et publie sur GitHub Pages. ImageGen intégré reste utilisé pour les générations.
+Après récupération d’images générées : enregistrer les découpes et le manifeste de la fiche, puis exécuter node tools/build-paper-notions.js et node tools/check-paper-notions.js. Régénérer sw.js avec node tools/build-sw.js 130 avant livraison.
 
 Aperçu : http://127.0.0.1:51862/ . Le script tools/preview-live.js actualise les textures et les nouveaux dessins uniquement en local, sans relancer les quiz.
 

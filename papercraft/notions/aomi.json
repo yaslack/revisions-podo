@@ -1,0 +1,101 @@
+{
+  "id": "aomi",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p1-1.webp",
+        "caption": "Artère rétrécie ou bouchée",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p1-2.webp",
+        "caption": "Risque cardiovasculaire global",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p2-1.webp",
+        "caption": "Plaque d’athérome",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p2-2.webp",
+        "caption": "Tabac et facteurs cardiovasculaires",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p3-1.webp",
+        "caption": "Sténose et baisse du débit",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p3-2.webp",
+        "caption": "Artères des membres inférieurs",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p4-1.webp",
+        "caption": "Douleur à la marche",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p4-2.webp",
+        "caption": "Douleur au repos et pied froid",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p5-1.webp",
+        "caption": "Palper les pouls et mesurer l’IPS",
+        "after": 8
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p5-2.webp",
+        "caption": "Écho-Doppler artériel",
+        "after": 16
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p6-1.webp",
+        "caption": "Arrêt du tabac et marche adaptée",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p6-2.webp",
+        "caption": "Traitement et revascularisation",
+        "after": 15
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p7-1.webp",
+        "caption": "Surveiller le risque cardiovasculaire",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p7-2.webp",
+        "caption": "Risque d’AVC et d’atteinte du pied",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/aomi/p8-1.webp",
+        "caption": "Agir sur les facteurs de risque",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/aomi/p8-2.webp",
+        "caption": "Dépistage vasculaire du pied",
+        "after": 12
+      }
+    ]
+  ]
+}
