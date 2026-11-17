@@ -1,0 +1,101 @@
+{
+  "id": "sudoraux",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p1-1.webp",
+        "caption": "Transpiration excessive",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p1-2.webp",
+        "caption": "Décomposition et odeurs",
+        "after": 14
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p2-1.webp",
+        "caption": "Sudation généralisée ou localisée",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p2-2.webp",
+        "caption": "Rechercher une cause secondaire",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p3-1.webp",
+        "caption": "Glandes eccrines",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p3-2.webp",
+        "caption": "Glandes apocrines",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p4-1.webp",
+        "caption": "Sudation primitive symétrique",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p4-2.webp",
+        "caption": "Forme secondaire asymétrique",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p5-1.webp",
+        "caption": "Observer la transpiration",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p5-2.webp",
+        "caption": "Rechercher les circonstances d’apparition",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p6-1.webp",
+        "caption": "Hygiène et séchage des pieds",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p6-2.webp",
+        "caption": "Antitranspirants et ionophorèse",
+        "after": 12
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p7-1.webp",
+        "caption": "Fissures entre les orteils",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p7-2.webp",
+        "caption": "Macération et mycoses",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sudoraux/p8-1.webp",
+        "caption": "Éducation et suivi des soins",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sudoraux/p8-2.webp",
+        "caption": "Conseils d’hygiène quotidiens",
+        "after": 2
+      }
+    ]
+  ]
+}

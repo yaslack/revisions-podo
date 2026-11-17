@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "HYPERHIDROSE",
+        "caption": "Transpiration excessive",
         "after": 7,
         "context": [
           "HYPERHIDROSE",
@@ -23,7 +23,7 @@
         ]
       },
       {
-        "caption": "BROMHIDROSE",
+        "caption": "Décomposition et odeurs",
         "after": 14,
         "context": [
           "3. plantaire",
@@ -38,7 +38,7 @@
     ],
     [
       {
-        "caption": "de la population · début à l’adolescence",
+        "caption": "Sudation généralisée ou localisée",
         "after": 4,
         "context": [
           "1 à 3 %",
@@ -49,7 +49,7 @@
         ]
       },
       {
-        "caption": "lymphome, cancer profond, tuberculose",
+        "caption": "Rechercher une cause secondaire",
         "after": 9,
         "context": [
           "lymphome, cancer profond, tuberculose : → sueurs nocturnes",
@@ -64,7 +64,7 @@
     ],
     [
       {
-        "caption": "processus physiologique ESSENTIEL",
+        "caption": "Glandes eccrines",
         "after": 2,
         "context": [
           "processus physiologique ESSENTIEL",
@@ -73,7 +73,7 @@
         ]
       },
       {
-        "caption": "fluide · odeur neutre",
+        "caption": "Glandes apocrines",
         "after": 5,
         "context": [
           "fluide · odeur neutre",
@@ -84,7 +84,7 @@
     ],
     [
       {
-        "caption": "LOCALISÉE PRIMITIVE",
+        "caption": "Sudation primitive symétrique",
         "after": 5,
         "context": [
           "LOCALISÉE PRIMITIVE",
@@ -96,7 +96,7 @@
         ]
       },
       {
-        "caption": "arrêt la nuit",
+        "caption": "Forme secondaire asymétrique",
         "after": 11,
         "context": [
           "arrêt la nuit",
@@ -110,7 +110,7 @@
     ],
     [
       {
-        "caption": "CLINIQUE ++++",
+        "caption": "Observer la transpiration",
         "after": 2,
         "context": [
           "CLINIQUE ++++",
@@ -119,7 +119,7 @@
         ]
       },
       {
-        "caption": "âge d'apparition",
+        "caption": "Rechercher les circonstances d’apparition",
         "after": 5,
         "context": [
           "âge d'apparition",
@@ -134,7 +134,7 @@
     ],
     [
       {
-        "caption": "ÉDUCATION · HYGIÈNE",
+        "caption": "Hygiène et séchage des pieds",
         "after": 6,
         "context": [
           "ÉDUCATION · HYGIÈNE",
@@ -148,7 +148,7 @@
         ]
       },
       {
-        "caption": "poudre",
+        "caption": "Antitranspirants et ionophorèse",
         "after": 12,
         "context": [
           "poudre",
@@ -185,7 +185,7 @@
         ]
       },
       {
-        "caption": "mycoses",
+        "caption": "Macération et mycoses",
         "after": 5,
         "context": [
           "mycoses",
@@ -196,7 +196,7 @@
     ],
     [
       {
-        "caption": "Éducation du patient",
+        "caption": "Éducation et suivi des soins",
         "after": 1,
         "context": [
           "Éducation du patient",
@@ -204,7 +204,7 @@
         ]
       },
       {
-        "caption": "Conseils d'HYGIÈNE ++",
+        "caption": "Conseils d’hygiène quotidiens",
         "after": 2,
         "context": [
           "Conseils d'HYGIÈNE ++"
@@ -212,5 +212,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Les troubles sudoraux. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"HYPERHIDROSE\",\"context\":\"HYPERHIDROSE; sécrétion de sueur EXCESSIVE; qualité de vie : psychologique; sociale; 3 formes; généralisée; localisée primitive; localisée secondaire; primitive, par fréquence; 1. axillaire; 2. palmaire\"},{\"cell\":2,\"focus\":\"BROMHIDROSE\",\"context\":\"3. plantaire; 4. inguinale / cranio-faciale; BROMHIDROSE; décomposition des sécrétions; + débris cellulaires par; bactéries + levures; odeur FÉTIDE\"},{\"cell\":3,\"focus\":\"de la population · début à l’adolescence\",\"context\":\"1 à 3 %; de la population · début à l’adolescence; GÉNÉRALISÉE; grossesse, ménopause, éthylisme chronique; diabète, hyperthyroïdie\"},{\"cell\":4,\"focus\":\"lymphome, cancer profond, tuberculose\",\"context\":\"lymphome, cancer profond, tuberculose : → sueurs nocturnes; Parkinson, sclérose en plaques; certains médicaments; LOCALISÉE PRIMITIVE; GÉNÉTIQUE; LOCALISÉE SECONDAIRE; NEUROLOGIQUE\"},{\"cell\":5,\"focus\":\"processus physiologique ESSENTIEL\",\"context\":\"processus physiologique ESSENTIEL; régule la température du corps; ECCRINE\"},{\"cell\":6,\"focus\":\"fluide · odeur neutre\",\"context\":\"fluide · odeur neutre; APOCRINE; odeur FORTE\"},{\"cell\":7,\"focus\":\"LOCALISÉE PRIMITIVE\",\"context\":\"LOCALISÉE PRIMITIVE; > 6 mois; + au moins 2 critères; bilatérale et symétrique; ≥ 1 fois / semaine; début avant 25 ans\"},{\"cell\":8,\"focus\":\"arrêt la nuit\",\"context\":\"arrêt la nuit; antécédents familiaux; SECONDAIRE; ASYMÉTRIQUE; toujours PATHOLOGIQUE; topographie évocatrice\"},{\"cell\":9,\"focus\":\"CLINIQUE ++++\",\"context\":\"CLINIQUE ++++; observer la sudation localisée; + interrogatoire\"},{\"cell\":10,\"focus\":\"âge d'apparition\",\"context\":\"âge d'apparition; durée; facteurs déclenchants; si suspicion de forme SECONDAIRE → réorienter; bilan thyroïdien; glycémie; dosages hormonaux\"},{\"cell\":11,\"focus\":\"ÉDUCATION · HYGIÈNE\",\"context\":\"ÉDUCATION · HYGIÈNE; Laver les pieds chaque jour; Bien sécher; Chaussettes coton, chaque jour; Alterner les chaussures : pour qu’elles sèchent; ANTITRANSPIRANTS LOCAUX; chlorure / hydroxychlorure d'aluminium; bicarbonate de soude\"},{\"cell\":12,\"focus\":\"poudre\",\"context\":\"poudre; lotion; trempage; ex. : Sudine (poudre) · Etiaxyl (lotion); IONOPHORÈSE; courant électrique + immersion dans l’eau; bloque les glandes sudoripares; CI ++; grossesse; pacemaker; prothèses; plaies; ANTI-; CHOLINERGIQUES; oraux ou topi\"},{\"cell\":13,\"focus\":\"Fissures entre les orteils\",\"context\":\"Fissures entre les orteils : plus ou moins profondes et douloureuses; Infection bactérienne ou fongique : = pied d’athlète; 30 %\"},{\"cell\":14,\"focus\":\"mycoses\",\"context\":\"mycoses; + phlyctènes, engelures; (sports d’hiver)\"},{\"cell\":15,\"focus\":\"Éducation du patient\",\"context\":\"Éducation du patient; Suivi de soins régulier\"},{\"cell\":16,\"focus\":\"Conseils d'HYGIÈNE ++\",\"context\":\"Conseils d'HYGIÈNE ++\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Les troubles sudoraux. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Transpiration excessive\",\"context\":\"HYPERHIDROSE; sécrétion de sueur EXCESSIVE; qualité de vie : psychologique; sociale; 3 formes; généralisée; localisée primitive; localisée secondaire; primitive, par fréquence; 1. axillaire; 2. palmaire\"},{\"cell\":2,\"focus\":\"Décomposition et odeurs\",\"context\":\"3. plantaire; 4. inguinale / cranio-faciale; BROMHIDROSE; décomposition des sécrétions; + débris cellulaires par; bactéries + levures; odeur FÉTIDE\"},{\"cell\":3,\"focus\":\"Sudation généralisée ou localisée\",\"context\":\"1 à 3 %; de la population · début à l’adolescence; GÉNÉRALISÉE; grossesse, ménopause, éthylisme chronique; diabète, hyperthyroïdie\"},{\"cell\":4,\"focus\":\"Rechercher une cause secondaire\",\"context\":\"lymphome, cancer profond, tuberculose : → sueurs nocturnes; Parkinson, sclérose en plaques; certains médicaments; LOCALISÉE PRIMITIVE; GÉNÉTIQUE; LOCALISÉE SECONDAIRE; NEUROLOGIQUE\"},{\"cell\":5,\"focus\":\"Glandes eccrines\",\"context\":\"processus physiologique ESSENTIEL; régule la température du corps; ECCRINE\"},{\"cell\":6,\"focus\":\"Glandes apocrines\",\"context\":\"fluide · odeur neutre; APOCRINE; odeur FORTE\"},{\"cell\":7,\"focus\":\"Sudation primitive symétrique\",\"context\":\"LOCALISÉE PRIMITIVE; > 6 mois; + au moins 2 critères; bilatérale et symétrique; ≥ 1 fois / semaine; début avant 25 ans\"},{\"cell\":8,\"focus\":\"Forme secondaire asymétrique\",\"context\":\"arrêt la nuit; antécédents familiaux; SECONDAIRE; ASYMÉTRIQUE; toujours PATHOLOGIQUE; topographie évocatrice\"},{\"cell\":9,\"focus\":\"Observer la transpiration\",\"context\":\"CLINIQUE ++++; observer la sudation localisée; + interrogatoire\"},{\"cell\":10,\"focus\":\"Rechercher les circonstances d’apparition\",\"context\":\"âge d'apparition; durée; facteurs déclenchants; si suspicion de forme SECONDAIRE → réorienter; bilan thyroïdien; glycémie; dosages hormonaux\"},{\"cell\":11,\"focus\":\"Hygiène et séchage des pieds\",\"context\":\"ÉDUCATION · HYGIÈNE; Laver les pieds chaque jour; Bien sécher; Chaussettes coton, chaque jour; Alterner les chaussures : pour qu’elles sèchent; ANTITRANSPIRANTS LOCAUX; chlorure / hydroxychlorure d'aluminium; bicarbonate de soude\"},{\"cell\":12,\"focus\":\"Antitranspirants et ionophorèse\",\"context\":\"poudre; lotion; trempage; ex. : Sudine (poudre) · Etiaxyl (lotion); IONOPHORÈSE; courant électrique + immersion dans l’eau; bloque les glandes sudoripares; CI ++; grossesse; pacemaker; prothèses; plaies; ANTI-; CHOLINERGIQUES; oraux ou topi\"},{\"cell\":13,\"focus\":\"Fissures entre les orteils\",\"context\":\"Fissures entre les orteils : plus ou moins profondes et douloureuses; Infection bactérienne ou fongique : = pied d’athlète; 30 %\"},{\"cell\":14,\"focus\":\"Macération et mycoses\",\"context\":\"mycoses; + phlyctènes, engelures; (sports d’hiver)\"},{\"cell\":15,\"focus\":\"Éducation et suivi des soins\",\"context\":\"Éducation du patient; Suivi de soins régulier\"},{\"cell\":16,\"focus\":\"Conseils d’hygiène quotidiens\",\"context\":\"Conseils d'HYGIÈNE ++\"}]. Preserve exact 4-column grid and 4 rows."
 }
