@@ -1,0 +1,101 @@
+{
+  "id": "sever-osgood",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p1-1.webp",
+        "caption": "Sever : apophyse du talon",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p1-2.webp",
+        "caption": "Osgood : tubérosité tibiale",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p2-1.webp",
+        "caption": "Traction tendineuse répétée",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p2-2.webp",
+        "caption": "Sport et croissance rapide",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p3-1.webp",
+        "caption": "Tension sur les zones de croissance",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p3-2.webp",
+        "caption": "Inflammation liée aux contraintes",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p4-1.webp",
+        "caption": "Sever : douleur du talon",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p4-2.webp",
+        "caption": "Osgood : douleur sous la rotule",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p5-1.webp",
+        "caption": "Palpation et examen clinique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p5-2.webp",
+        "caption": "Imagerie selon la localisation",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p6-1.webp",
+        "caption": "Repos et adaptation de l’activité",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p6-2.webp",
+        "caption": "Appareillage et rééducation adaptés",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p7-1.webp",
+        "caption": "Évolution avec la croissance",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p7-2.webp",
+        "caption": "Douleur résiduelle possible",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p8-1.webp",
+        "caption": "Modérer les contraintes de croissance",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/sever-osgood/p8-2.webp",
+        "caption": "Activités adaptées et suivi médical",
+        "after": 4
+      }
+    ]
+  ]
+}
