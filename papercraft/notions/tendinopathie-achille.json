@@ -1,0 +1,101 @@
+{
+  "id": "tendinopathie-achille",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p1-1.webp",
+        "caption": "Triceps sural et tendon d’Achille",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p1-2.webp",
+        "caption": "Atteinte aiguë ou chronique",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p2-1.webp",
+        "caption": "Surcharge et répétition",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p2-2.webp",
+        "caption": "Chaussage et récupération insuffisante",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p3-1.webp",
+        "caption": "Inflammation du tendon",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p3-2.webp",
+        "caption": "Collagène désorganisé et fragilité",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p4-1.webp",
+        "caption": "Douleur postérieure et raideur matinale",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p4-2.webp",
+        "caption": "Sensibilité et mobilité de la cheville",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p5-1.webp",
+        "caption": "Interrogatoire et examen clinique",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p5-2.webp",
+        "caption": "Test de Thompson et imagerie",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p6-1.webp",
+        "caption": "Repos et rééducation progressive",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p6-2.webp",
+        "caption": "Appareillage selon le bilan",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p7-1.webp",
+        "caption": "Section incomplète du livret",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p7-2.webp",
+        "caption": "Évolution à revoir avec les tendinites",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p8-1.webp",
+        "caption": "Facteurs favorisants à corriger",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/tendinopathie-achille/p8-2.webp",
+        "caption": "Progression et récupération",
+        "after": 2
+      }
+    ]
+  ]
+}
