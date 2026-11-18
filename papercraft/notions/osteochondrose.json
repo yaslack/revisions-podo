@@ -1,0 +1,101 @@
+{
+  "id": "osteochondrose",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p1-1.webp",
+        "caption": "Cartilage et os en croissance",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p1-2.webp",
+        "caption": "Atteinte de plusieurs articulations",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p2-1.webp",
+        "caption": "Ossification et contraintes mécaniques",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p2-2.webp",
+        "caption": "Sports et facteurs favorisants",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p3-1.webp",
+        "caption": "Ossification perturbée",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p3-2.webp",
+        "caption": "Localisations du membre inférieur",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p4-1.webp",
+        "caption": "Douleur à l’activité et sensibilité",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p4-2.webp",
+        "caption": "Raideur et poussées de croissance",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p5-1.webp",
+        "caption": "Examen clinique et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p5-2.webp",
+        "caption": "IRM ou échographie selon le bilan",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p6-1.webp",
+        "caption": "Repos et protection des zones atteintes",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p6-2.webp",
+        "caption": "Chirurgie selon les lésions",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p7-1.webp",
+        "caption": "Évolution favorable si prise en charge tôt",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p7-2.webp",
+        "caption": "Déformation et usure possibles",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p8-1.webp",
+        "caption": "Limiter les traumatismes répétés",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/osteochondrose/p8-2.webp",
+        "caption": "Suivre l’enfant en croissance",
+        "after": 2
+      }
+    ]
+  ]
+}
