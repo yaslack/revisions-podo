@@ -1,0 +1,101 @@
+{
+  "id": "ilm",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p1-1.webp",
+        "caption": "Différence de longueur des jambes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p1-2.webp",
+        "caption": "Longueur actuelle et croissance",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p2-1.webp",
+        "caption": "Formes congénitales ou idiopathiques",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p2-2.webp",
+        "caption": "Formes développementales ou acquises",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p3-1.webp",
+        "caption": "Bascule du bassin et compensations",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p3-2.webp",
+        "caption": "Douleurs liées aux compensations",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p4-1.webp",
+        "caption": "Observer le bassin et la marche",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p4-2.webp",
+        "caption": "Mesurer et tester la compensation",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p5-1.webp",
+        "caption": "Mesure radiographique des longueurs",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p5-2.webp",
+        "caption": "Mesure en charge avec EOS",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p6-1.webp",
+        "caption": "Compensation par orthèses",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p6-2.webp",
+        "caption": "Chaussures et correction spécialisée",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p7-1.webp",
+        "caption": "Petite inégalité parfois bien tolérée",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p7-2.webp",
+        "caption": "Inégalité marquée et compensations",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/ilm/p8-1.webp",
+        "caption": "Bilan podologique et dépistage",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/ilm/p8-2.webp",
+        "caption": "Suivre la croissance",
+        "after": 2
+      }
+    ]
+  ]
+}
