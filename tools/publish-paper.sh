@@ -15,15 +15,17 @@ while ! mkdir "$paper_lock" 2>/dev/null; do
 done
 echo "$$" > "$paper_lock/pid"
 trap 'rm -f "$paper_lock/pid"; rmdir "$paper_lock" 2>/dev/null || true' EXIT
-test "$(git branch --show-current)" = main
+case "$(git branch --show-current)" in main|codex/paper-notions-finish) ;; *) echo 'Branche de publication inattendue' >&2; exit 1;; esac
+git fetch --quiet origin main
+git merge --quiet --ff-only origin/main
 if [[ ! -f "papercraft/notions/$paper_id.json" ]]; then
   node tools/import-paper-atlas.cjs "papercraft/plans/$paper_id.json" "$paper_source"
 fi
 node tools/release-paper.cjs
 paper_version="$(node -p "JSON.parse(require('fs').readFileSync('version.json')).v")"
-git add -- app.js index.html sw.js version.json data/paper-notions.js papercraft/ETAT-REPRISE.md papercraft/notions-index.json "papercraft/notions/$paper_id.json" "papercraft/plans/$paper_id.json" "papercraft/$paper_id-notions-prompts.txt" "jeu/theatre/notions/$paper_id" tools/build-paper-notions.js tools/publish-paper.sh
+git add -- app.js index.html sw.js version.json data/paper-notions.js papercraft/ETAT-REPRISE.md papercraft/notions-index.json "papercraft/notions/$paper_id.json" "papercraft/plans/$paper_id.json" "papercraft/$paper_id-notions-prompts.txt" "jeu/theatre/notions/$paper_id" tools/build-paper-notions.js tools/release-paper.cjs tools/publish-paper.sh
 git commit --quiet -m "Illustre $paper_id en papier découpé (v$paper_version)"
-git push --quiet origin main
+git push --quiet origin HEAD:main
 paper_commit="$(git rev-parse HEAD)"
 echo "Publication envoyée : $paper_id, v$paper_version, $paper_commit"
 for paper_attempt in {1..30}; do

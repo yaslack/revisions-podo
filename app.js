@@ -643,10 +643,6 @@
     { v: 129, items: [
       ['sparkle', 'Essaie le thème Papier découpé dans les réglages de l’accueil. Les cartes prennent du relief et les personnages de Podo Quest s’animent dans des décors en papier.'],
     ] },
-    { v: 143, items: [
-      ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
-      ['book', '33/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
-    ] },
     { v: 144, items: [
       ['book', 'Le conte des savoirs : les 64 fiches deviennent des histoires en papier découpé. Récite chaque partie, vérifie tes idées, puis ouvre le passage sans aide. Termine par le grand récit de toute la fiche.'],
       ['sparkle', 'Huit décors illustrés en papier découpé. Des couches de nuages traversent l’écran à chaque changement de zone. Ta progression est gardée entre deux visites.'],
@@ -662,6 +658,10 @@
     ] },
     { v: 149, items: [
       ['sparkle', 'Une courte transition en papier découpé accompagne les changements de page dans l’app.'],
+    ] },
+    { v: 150, paperNotions: true, items: [
+      ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
+      ['book', '34/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;

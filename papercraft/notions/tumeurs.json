@@ -1,0 +1,101 @@
+{
+  "id": "tumeurs",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p1-1.webp",
+        "caption": "Lésions cutanées et unguéales",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p1-2.webp",
+        "caption": "Forme bénigne ou maligne",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p2-1.webp",
+        "caption": "Terrain et facteurs de risque",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p2-2.webp",
+        "caption": "Lésions des paumes et des plantes",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p3-1.webp",
+        "caption": "Prolifération cellulaire anormale",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p3-2.webp",
+        "caption": "Extension dans les couches cutanées",
+        "after": 13
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p4-1.webp",
+        "caption": "Exemples de lésions bénignes",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p4-2.webp",
+        "caption": "Lésion pigmentée irrégulière",
+        "after": 15
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p5-1.webp",
+        "caption": "Observation et anatomopathologie",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p5-2.webp",
+        "caption": "Bilan d’extension si nécessaire",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p6-1.webp",
+        "caption": "Traitement spécialisé selon la tumeur",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p6-2.webp",
+        "caption": "Orienter une lésion suspecte",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p7-1.webp",
+        "caption": "Pronostic selon la nature",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p7-2.webp",
+        "caption": "Importance du dépistage précoce",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tumeurs/p8-1.webp",
+        "caption": "Autosurveillance et suivi",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tumeurs/p8-2.webp",
+        "caption": "Changement d’une lésion pigmentée",
+        "after": 6
+      }
+    ]
+  ]
+}
