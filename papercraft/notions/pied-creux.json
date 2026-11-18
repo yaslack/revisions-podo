@@ -1,0 +1,101 @@
+{
+  "id": "pied-creux",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p1-1.webp",
+        "caption": "Voûte plantaire trop accentuée",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p1-2.webp",
+        "caption": "Répartition des appuis modifiée",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p2-1.webp",
+        "caption": "Causes neurologiques et musculaires",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p2-2.webp",
+        "caption": "Prédisposition et troubles de la marche",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p3-1.webp",
+        "caption": "Déséquilibre musculaire",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p3-2.webp",
+        "caption": "Varus du talon et surcharge",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p4-1.webp",
+        "caption": "Voûte haute et orteils en griffe",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p4-2.webp",
+        "caption": "Instabilité et entorses répétées",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p5-1.webp",
+        "caption": "Bilan podologique et neurologique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p5-2.webp",
+        "caption": "Radiographie en charge et EMG si nécessaire",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p6-1.webp",
+        "caption": "Orthèses et répartition des appuis",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p6-2.webp",
+        "caption": "Chaussage et options spécialisées",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p7-1.webp",
+        "caption": "Forme idiopathique stabilisable",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p7-2.webp",
+        "caption": "Suivi des formes neurologiques",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-creux/p8-1.webp",
+        "caption": "Dépister les anomalies de marche",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-creux/p8-2.webp",
+        "caption": "Chaussage et contrôle régulier",
+        "after": 2
+      }
+    ]
+  ]
+}
