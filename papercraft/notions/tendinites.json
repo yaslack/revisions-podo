@@ -1,0 +1,101 @@
+{
+  "id": "tendinites",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p1-1.webp",
+        "caption": "Tendon entre le muscle et l’os",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p1-2.webp",
+        "caption": "Différentes localisations tendineuses",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p2-1.webp",
+        "caption": "Surcharge et gestes répétés",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p2-2.webp",
+        "caption": "Technique et facteurs favorisants",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p3-1.webp",
+        "caption": "Fibres lésées par les microtraumatismes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p3-2.webp",
+        "caption": "Inflammation et désorganisation du collagène",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p4-1.webp",
+        "caption": "Douleur et sensibilité du tendon",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p4-2.webp",
+        "caption": "Raideur et gêne après effort",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p5-1.webp",
+        "caption": "Interrogatoire et examen clinique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p5-2.webp",
+        "caption": "Tests et imagerie adaptés",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p6-1.webp",
+        "caption": "Repos et rééducation",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p6-2.webp",
+        "caption": "Appareillage et recours spécialisé",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p7-1.webp",
+        "caption": "Évolution selon la prise en charge",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p7-2.webp",
+        "caption": "Risque de récidive",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/tendinites/p8-1.webp",
+        "caption": "Améliorer les gestes et renforcer",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/tendinites/p8-2.webp",
+        "caption": "Récupération et matériel adapté",
+        "after": 4
+      }
+    ]
+  ]
+}

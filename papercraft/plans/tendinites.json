@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "INFLAMMATION / irritation d’un TENDON",
+        "caption": "Tendon entre le muscle et l’os",
         "after": 5,
         "context": [
           "INFLAMMATION / irritation d’un TENDON : structure fibreuse muscle → os",
@@ -18,7 +18,7 @@
         ]
       },
       {
-        "caption": "poignet",
+        "caption": "Différentes localisations tendineuses",
         "after": 10,
         "context": [
           "coude",
@@ -31,7 +31,7 @@
     ],
     [
       {
-        "caption": "SURCHARGE",
+        "caption": "Surcharge et gestes répétés",
         "after": 3,
         "context": [
           "SURCHARGE",
@@ -45,7 +45,7 @@
         ]
       },
       {
-        "caption": "TECHNIQUE",
+        "caption": "Technique et facteurs favorisants",
         "after": 7,
         "context": [
           "TECHNIQUE",
@@ -63,7 +63,7 @@
     ],
     [
       {
-        "caption": "muscle",
+        "caption": "Fibres lésées par les microtraumatismes",
         "after": 2,
         "context": [
           "muscle",
@@ -72,7 +72,7 @@
         ]
       },
       {
-        "caption": "AIGUË",
+        "caption": "Inflammation et désorganisation du collagène",
         "after": 5,
         "context": [
           "AIGUË : hypervascularisation · œdème · LEUCOCYTES",
@@ -83,7 +83,7 @@
     ],
     [
       {
-        "caption": "DOULEUR sur le tendon",
+        "caption": "Douleur et sensibilité du tendon",
         "after": 2,
         "context": [
           "DOULEUR sur le tendon : effort, mise en charge",
@@ -92,7 +92,7 @@
         ]
       },
       {
-        "caption": "RAIDEUR de l’articulation voisine",
+        "caption": "Raideur et gêne après effort",
         "after": 5,
         "context": [
           "RAIDEUR de l’articulation voisine",
@@ -103,7 +103,7 @@
     ],
     [
       {
-        "caption": "ANAMNÈSE",
+        "caption": "Interrogatoire et examen clinique",
         "after": 1,
         "context": [
           "ANAMNÈSE",
@@ -114,7 +114,7 @@
         ]
       },
       {
-        "caption": "TESTS FONCTIONNELS",
+        "caption": "Tests et imagerie adaptés",
         "after": 3,
         "context": [
           "TESTS FONCTIONNELS",
@@ -133,7 +133,7 @@
     ],
     [
       {
-        "caption": "surtout CONSERVATEUR",
+        "caption": "Repos et rééducation",
         "after": 4,
         "context": [
           "surtout CONSERVATEUR",
@@ -144,7 +144,7 @@
         ]
       },
       {
-        "caption": "SEMELLES si cause biomécanique",
+        "caption": "Appareillage et recours spécialisé",
         "after": 9,
         "context": [
           "SEMELLES si cause biomécanique (pied)",
@@ -159,7 +159,7 @@
     ],
     [
       {
-        "caption": "dépend",
+        "caption": "Évolution selon la prise en charge",
         "after": 1,
         "context": [
           "dépend : GRAVITÉ · prise en charge PRÉCOCE · PRÉVENTION",
@@ -168,7 +168,7 @@
         ]
       },
       {
-        "caption": "si la cause n’est pas réglée",
+        "caption": "Risque de récidive",
         "after": 2,
         "context": [
           "RÉCIDIVE",
@@ -178,7 +178,7 @@
     ],
     [
       {
-        "caption": "MOINS de gestes répétitifs · meilleure technique",
+        "caption": "Améliorer les gestes et renforcer",
         "after": 2,
         "context": [
           "MOINS de gestes répétitifs · meilleure technique",
@@ -187,7 +187,7 @@
         ]
       },
       {
-        "caption": "REPOS + récupération",
+        "caption": "Récupération et matériel adapté",
         "after": 4,
         "context": [
           "REPOS + récupération",
@@ -196,5 +196,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Les tendinites. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"INFLAMMATION / irritation d’un TENDON\",\"context\":\"INFLAMMATION / irritation d’un TENDON : structure fibreuse muscle → os; gestes RÉPÉTÉS · microtraumatismes; sportifs… et gestes du quotidien / du travail; surcharge · mauvaise technique · biologie; douleur + limitation fonctionnelle; épaule\"},{\"cell\":2,\"focus\":\"poignet\",\"context\":\"coude; poignet; hanche; genou; cheville\"},{\"cell\":3,\"focus\":\"SURCHARGE\",\"context\":\"SURCHARGE; dépasse la capacité de régénération; GESTES RÉPÉTÉS; raquette · lancer · course · métiers; TRAUMATISME; choc · chute · tension brutale; VIEILLISSEMENT; tendon moins élastique\"},{\"cell\":4,\"focus\":\"TECHNIQUE\",\"context\":\"TECHNIQUE; mauvaise technique / posture; BIOLOGIE; collagène moins résistant; FACTEURS DE RISQUE; âge; biomécanique (pied plat); mauvais équipement; hausse brutale; pas de préparation\"},{\"cell\":5,\"focus\":\"muscle\",\"context\":\"muscle; TENDON; microtraumatismes → fibres abîmées : dégâts accumulés · réparation insuffisante\"},{\"cell\":6,\"focus\":\"AIGUË\",\"context\":\"AIGUË : hypervascularisation · œdème · LEUCOCYTES; DÉGÉNÉRESCENCE : collagène désorganisé, fragile; collagène de MAUVAISE qualité → re-blessures\"},{\"cell\":7,\"focus\":\"DOULEUR sur le tendon\",\"context\":\"DOULEUR sur le tendon : effort, mise en charge; pire au RÉVEIL, mieux en bougeant; sensible à la palpation · gonflement\"},{\"cell\":8,\"focus\":\"RAIDEUR de l’articulation voisine\",\"context\":\"RAIDEUR de l’articulation voisine; CHALEUR après l’effort; CRÉPITATION (microdéchirures)\"},{\"cell\":9,\"focus\":\"ANAMNÈSE\",\"context\":\"ANAMNÈSE; activités déclenchantes · intensité · durée; EXAMEN CLINIQUE; douleur · raideur · gonflement · mobilité; + tests de COMPRESSION / d’ÉTIREMENT\"},{\"cell\":10,\"focus\":\"TESTS FONCTIONNELS\",\"context\":\"TESTS FONCTIONNELS; NEER (épaule) · PHALEN (poignet); IMAGERIE; RADIO; exclure l’osseux (pas toujours utile); ÉCHOGRAPHIE; lésions · épanchements · inflammation; IRM; gravité · DÉGÉNÉRESCENCE; SCINTIGRAPHIE; rare : cas complexes\"},{\"cell\":11,\"focus\":\"surtout CONSERVATEUR\",\"context\":\"surtout CONSERVATEUR; REPOS : moins solliciter le tendon; glace + AINS; COMPRESSION (bandage) + surélévation; physio : renforcement · mobilité · étirements\"},{\"cell\":12,\"focus\":\"SEMELLES si cause biomécanique\",\"context\":\"SEMELLES si cause biomécanique (pied); infiltrations : cas RÉSISTANTS; CHIRURGIE; persistance; RUPTURE; dégénérescence sévère; réparer / enlever le tissu abîmé\"},{\"cell\":13,\"focus\":\"dépend\",\"context\":\"dépend : GRAVITÉ · prise en charge PRÉCOCE · PRÉVENTION; LA MAJORITÉ; répond bien au conservateur\"},{\"cell\":14,\"focus\":\"si la cause n’est pas réglée\",\"context\":\"RÉCIDIVE; si la cause n’est pas réglée\"},{\"cell\":15,\"focus\":\"MOINS de gestes répétitifs · meilleure technique\",\"context\":\"MOINS de gestes répétitifs · meilleure technique; ÉCHAUFFEMENT + étirements avant; RENFORCEMENT : pas de déséquilibres\"},{\"cell\":16,\"focus\":\"REPOS + récupération\",\"context\":\"REPOS + récupération; matériel ADAPTÉ : chaussures, équipement\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Les tendinites. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Tendon entre le muscle et l’os\",\"context\":\"INFLAMMATION / irritation d’un TENDON : structure fibreuse muscle → os; gestes RÉPÉTÉS · microtraumatismes; sportifs… et gestes du quotidien / du travail; surcharge · mauvaise technique · biologie; douleur + limitation fonctionnelle; épaule\"},{\"cell\":2,\"focus\":\"Différentes localisations tendineuses\",\"context\":\"coude; poignet; hanche; genou; cheville\"},{\"cell\":3,\"focus\":\"Surcharge et gestes répétés\",\"context\":\"SURCHARGE; dépasse la capacité de régénération; GESTES RÉPÉTÉS; raquette · lancer · course · métiers; TRAUMATISME; choc · chute · tension brutale; VIEILLISSEMENT; tendon moins élastique\"},{\"cell\":4,\"focus\":\"Technique et facteurs favorisants\",\"context\":\"TECHNIQUE; mauvaise technique / posture; BIOLOGIE; collagène moins résistant; FACTEURS DE RISQUE; âge; biomécanique (pied plat); mauvais équipement; hausse brutale; pas de préparation\"},{\"cell\":5,\"focus\":\"Fibres lésées par les microtraumatismes\",\"context\":\"muscle; TENDON; microtraumatismes → fibres abîmées : dégâts accumulés · réparation insuffisante\"},{\"cell\":6,\"focus\":\"Inflammation et désorganisation du collagène\",\"context\":\"AIGUË : hypervascularisation · œdème · LEUCOCYTES; DÉGÉNÉRESCENCE : collagène désorganisé, fragile; collagène de MAUVAISE qualité → re-blessures\"},{\"cell\":7,\"focus\":\"Douleur et sensibilité du tendon\",\"context\":\"DOULEUR sur le tendon : effort, mise en charge; pire au RÉVEIL, mieux en bougeant; sensible à la palpation · gonflement\"},{\"cell\":8,\"focus\":\"Raideur et gêne après effort\",\"context\":\"RAIDEUR de l’articulation voisine; CHALEUR après l’effort; CRÉPITATION (microdéchirures)\"},{\"cell\":9,\"focus\":\"Interrogatoire et examen clinique\",\"context\":\"ANAMNÈSE; activités déclenchantes · intensité · durée; EXAMEN CLINIQUE; douleur · raideur · gonflement · mobilité; + tests de COMPRESSION / d’ÉTIREMENT\"},{\"cell\":10,\"focus\":\"Tests et imagerie adaptés\",\"context\":\"TESTS FONCTIONNELS; NEER (épaule) · PHALEN (poignet); IMAGERIE; RADIO; exclure l’osseux (pas toujours utile); ÉCHOGRAPHIE; lésions · épanchements · inflammation; IRM; gravité · DÉGÉNÉRESCENCE; SCINTIGRAPHIE; rare : cas complexes\"},{\"cell\":11,\"focus\":\"Repos et rééducation\",\"context\":\"surtout CONSERVATEUR; REPOS : moins solliciter le tendon; glace + AINS; COMPRESSION (bandage) + surélévation; physio : renforcement · mobilité · étirements\"},{\"cell\":12,\"focus\":\"Appareillage et recours spécialisé\",\"context\":\"SEMELLES si cause biomécanique (pied); infiltrations : cas RÉSISTANTS; CHIRURGIE; persistance; RUPTURE; dégénérescence sévère; réparer / enlever le tissu abîmé\"},{\"cell\":13,\"focus\":\"Évolution selon la prise en charge\",\"context\":\"dépend : GRAVITÉ · prise en charge PRÉCOCE · PRÉVENTION; LA MAJORITÉ; répond bien au conservateur\"},{\"cell\":14,\"focus\":\"Risque de récidive\",\"context\":\"RÉCIDIVE; si la cause n’est pas réglée\"},{\"cell\":15,\"focus\":\"Améliorer les gestes et renforcer\",\"context\":\"MOINS de gestes répétitifs · meilleure technique; ÉCHAUFFEMENT + étirements avant; RENFORCEMENT : pas de déséquilibres\"},{\"cell\":16,\"focus\":\"Récupération et matériel adapté\",\"context\":\"REPOS + récupération; matériel ADAPTÉ : chaussures, équipement\"}]. Preserve exact 4-column grid and 4 rows."
 }
