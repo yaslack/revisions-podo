@@ -1,0 +1,101 @@
+{
+  "id": "genu-valgum-varum",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p1-1.webp",
+        "caption": "Alignement des membres inférieurs",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p1-2.webp",
+        "caption": "Valgum en X et varum en O",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p2-1.webp",
+        "caption": "Valgum et croissance",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p2-2.webp",
+        "caption": "Varum et croissance",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p3-1.webp",
+        "caption": "Axe du membre en valgum",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p3-2.webp",
+        "caption": "Axe du membre en varum",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p4-1.webp",
+        "caption": "Position des genoux et des chevilles",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p4-2.webp",
+        "caption": "Douleur et fatigue à la marche",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p5-1.webp",
+        "caption": "Examen de l’alignement et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p5-2.webp",
+        "caption": "Bilan des cas complexes",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p6-1.webp",
+        "caption": "Renforcement et appareillage",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p6-2.webp",
+        "caption": "Correction chirurgicale si nécessaire",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p7-1.webp",
+        "caption": "Correction avec la croissance selon le cas",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p7-2.webp",
+        "caption": "Persistance et usure articulaire",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p8-1.webp",
+        "caption": "Suivi de la croissance",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/genu-valgum-varum/p8-2.webp",
+        "caption": "Équilibre musculaire du genou",
+        "after": 3
+      }
+    ]
+  ]
+}

@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "Anomalies d’ALIGNEMENT des jambes",
+        "caption": "Alignement des membres inférieurs",
         "after": 2,
         "context": [
           "Anomalies d’ALIGNEMENT des jambes : modifient la biomécanique",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "VALGUM = X",
+        "caption": "Valgum en X et varum en O",
         "after": 4,
         "context": [
           "VALGUM = X",
@@ -25,7 +25,7 @@
     ],
     [
       {
-        "caption": "GENU VALGUM",
+        "caption": "Valgum et croissance",
         "after": 0,
         "context": [
           "GENU VALGUM",
@@ -37,7 +37,7 @@
         ]
       },
       {
-        "caption": "GENU VARUM",
+        "caption": "Varum et croissance",
         "after": 1,
         "context": [
           "GENU VARUM",
@@ -50,34 +50,23 @@
     ],
     [
       {
-        "caption": "d’après le livret",
+        "caption": "Axe du membre en valgum",
         "after": 1,
         "context": [
-          "d’après le livret",
-          "GENU VALGUM",
-          "X",
-          "angle fémur / tibia TROP PETIT",
-          "jambes inclinées vers l’intérieur",
-          "surcharge de la partie INTERNE",
-          "usure du cartilage, arthrose"
+          "Front view: genu valgum, knees close together and ankles apart, X-shaped alignment. No medial/lateral load map."
         ]
       },
       {
-        "caption": "GENU VARUM",
+        "caption": "Axe du membre en varum",
         "after": 2,
         "context": [
-          "GENU VARUM",
-          "O",
-          "angle TROP GRAND",
-          "jambes vers l’extérieur",
-          "surcharge de la face EXTERNE",
-          "arthrose externe, douleurs"
+          "Front view: genu varum, knees apart and ankles closer, bowed O-shaped alignment. No medial/lateral load map."
         ]
       }
     ],
     [
       {
-        "caption": "GENU VALGUM",
+        "caption": "Position des genoux et des chevilles",
         "after": 1,
         "context": [
           "GENU VALGUM",
@@ -95,7 +84,7 @@
         ]
       },
       {
-        "caption": "douleurs",
+        "caption": "Douleur et fatigue à la marche",
         "after": 3,
         "context": [
           "POUR LES DEUX",
@@ -107,7 +96,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Examen de l’alignement et radiographie",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -122,7 +111,7 @@
         ]
       },
       {
-        "caption": "IRM / SCANNER",
+        "caption": "Bilan des cas complexes",
         "after": 2,
         "context": [
           "IRM / SCANNER",
@@ -133,7 +122,7 @@
     ],
     [
       {
-        "caption": "RÉÉDUCATION",
+        "caption": "Renforcement et appareillage",
         "after": 3,
         "context": [
           "CONSERVATEUR",
@@ -143,7 +132,7 @@
         ]
       },
       {
-        "caption": "anti-inflammatoires + antalgiques",
+        "caption": "Correction chirurgicale si nécessaire",
         "after": 7,
         "context": [
           "anti-inflammatoires + antalgiques",
@@ -159,7 +148,7 @@
     ],
     [
       {
-        "caption": "dépend de",
+        "caption": "Correction avec la croissance selon le cas",
         "after": 1,
         "context": [
           "dépend de : gravité · âge · rapidité de prise en charge",
@@ -168,7 +157,7 @@
         ]
       },
       {
-        "caption": "SÉVÈRES / PERSISTANTES",
+        "caption": "Persistance et usure articulaire",
         "after": 2,
         "context": [
           "SÉVÈRES / PERSISTANTES",
@@ -181,7 +170,7 @@
     ],
     [
       {
-        "caption": "SUIVI PÉDIATRIQUE régulier",
+        "caption": "Suivi de la croissance",
         "after": 1,
         "context": [
           "SUIVI PÉDIATRIQUE régulier : évolution naturelle chez l’enfant",
@@ -189,7 +178,7 @@
         ]
       },
       {
-        "caption": "RENFORCEMENT",
+        "caption": "Équilibre musculaire du genou",
         "after": 3,
         "context": [
           "RENFORCEMENT : équilibre musculaire autour du genou",
@@ -198,5 +187,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Genu valgum et genu varum. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Anomalies d’ALIGNEMENT des jambes\",\"context\":\"Anomalies d’ALIGNEMENT des jambes : modifient la biomécanique; fréquents chez l’enfant : persistent ou apparaissent chez l’adulte : génétique, trauma, dégénératif; douleurs · posture · instabilité · USURE articulaire\"},{\"cell\":2,\"focus\":\"VALGUM = X\",\"context\":\"VALGUM = X; VARUM = O\"},{\"cell\":3,\"focus\":\"GENU VALGUM\",\"context\":\"GENU VALGUM; X; PHYSIOLOGIQUE : 2 – 4 ans; se corrige avec la croissance; PATHOLOGIQUE si > 7 – 8 ans; os, ligaments, métabolique, infection, rachitisme, muscles\"},{\"cell\":4,\"focus\":\"GENU VARUM\",\"context\":\"GENU VARUM; O; PHYSIOLOGIQUE jusqu’à 2 ans; PATHOLOGIQUE : adulte / après croissance; fracture mal consolidée · arthrose · rachitisme · muscles\"},{\"cell\":5,\"focus\":\"d’après le livret\",\"context\":\"d’après le livret; GENU VALGUM; X; angle fémur / tibia TROP PETIT; jambes inclinées vers l’intérieur; surcharge de la partie INTERNE; usure du cartilage, arthrose\"},{\"cell\":6,\"focus\":\"GENU VARUM\",\"context\":\"GENU VARUM; O; angle TROP GRAND; jambes vers l’extérieur; surcharge de la face EXTERNE; arthrose externe, douleurs\"},{\"cell\":7,\"focus\":\"GENU VALGUM\",\"context\":\"GENU VALGUM; X; genoux rapprochés; espace entre les chevilles; douleur MÉDIALE (interne); instabilité au sport; GENU VARUM; O; courbure vers l’extérieur; marquée debout; douleur LATÉRALE (externe); instabilité\"},{\"cell\":8,\"focus\":\"douleurs\",\"context\":\"POUR LES DEUX; douleurs : marche, course, escaliers; fatigue musculaire; marche moins fluide\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; alignement; posture; mouvements; test de la marche; RADIOGRAPHIE; ESSENTIELLE; alignement · ampleur; + AXE MÉCANIQUE du membre\"},{\"cell\":10,\"focus\":\"IRM / SCANNER\",\"context\":\"IRM / SCANNER; cas COMPLEXES; lésions cartilage / ligaments\"},{\"cell\":11,\"focus\":\"RÉÉDUCATION\",\"context\":\"CONSERVATEUR; RÉÉDUCATION : quadriceps + ischio-jambiers · correction posturale; ORTHÈSES : semelles · genouillère de correction; contrôle du POIDS\"},{\"cell\":12,\"focus\":\"anti-inflammatoires + antalgiques\",\"context\":\"anti-inflammatoires + antalgiques; CHIRURGIE; OSTÉOTOMIE; cas sévères; réaligner fémur / tibia; PROTHÈSE; du genou; si arthrose = cartilage usé\"},{\"cell\":13,\"focus\":\"dépend de\",\"context\":\"dépend de : gravité · âge · rapidité de prise en charge; FORMES LÉGÈRES (enfant); se corrigent SEULES avec la croissance\"},{\"cell\":14,\"focus\":\"SÉVÈRES / PERSISTANTES\",\"context\":\"SÉVÈRES / PERSISTANTES; douleurs chroniques; instabilité; usure du cartilage; ARTHROSE à long terme\"},{\"cell\":15,\"focus\":\"SUIVI PÉDIATRIQUE régulier\",\"context\":\"SUIVI PÉDIATRIQUE régulier : évolution naturelle chez l’enfant; persiste après 7 – 8 ans → intervenir TÔT\"},{\"cell\":16,\"focus\":\"RENFORCEMENT\",\"context\":\"RENFORCEMENT : équilibre musculaire autour du genou; prudence : sports à fort impact : chez les prédisposés\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Genu valgum et genu varum. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Alignement des membres inférieurs\",\"context\":\"Anomalies d’ALIGNEMENT des jambes : modifient la biomécanique; fréquents chez l’enfant : persistent ou apparaissent chez l’adulte : génétique, trauma, dégénératif; douleurs · posture · instabilité · USURE articulaire\"},{\"cell\":2,\"focus\":\"Valgum en X et varum en O\",\"context\":\"VALGUM = X; VARUM = O\"},{\"cell\":3,\"focus\":\"Valgum et croissance\",\"context\":\"GENU VALGUM; X; PHYSIOLOGIQUE : 2 – 4 ans; se corrige avec la croissance; PATHOLOGIQUE si > 7 – 8 ans; os, ligaments, métabolique, infection, rachitisme, muscles\"},{\"cell\":4,\"focus\":\"Varum et croissance\",\"context\":\"GENU VARUM; O; PHYSIOLOGIQUE jusqu’à 2 ans; PATHOLOGIQUE : adulte / après croissance; fracture mal consolidée · arthrose · rachitisme · muscles\"},{\"cell\":5,\"focus\":\"Axe du membre en valgum\",\"context\":\"Front view: genu valgum, knees close together and ankles apart, X-shaped alignment. No medial/lateral load map.\"},{\"cell\":6,\"focus\":\"Axe du membre en varum\",\"context\":\"Front view: genu varum, knees apart and ankles closer, bowed O-shaped alignment. No medial/lateral load map.\"},{\"cell\":7,\"focus\":\"Position des genoux et des chevilles\",\"context\":\"GENU VALGUM; X; genoux rapprochés; espace entre les chevilles; douleur MÉDIALE (interne); instabilité au sport; GENU VARUM; O; courbure vers l’extérieur; marquée debout; douleur LATÉRALE (externe); instabilité\"},{\"cell\":8,\"focus\":\"Douleur et fatigue à la marche\",\"context\":\"POUR LES DEUX; douleurs : marche, course, escaliers; fatigue musculaire; marche moins fluide\"},{\"cell\":9,\"focus\":\"Examen de l’alignement et radiographie\",\"context\":\"EXAMEN CLINIQUE; alignement; posture; mouvements; test de la marche; RADIOGRAPHIE; ESSENTIELLE; alignement · ampleur; + AXE MÉCANIQUE du membre\"},{\"cell\":10,\"focus\":\"Bilan des cas complexes\",\"context\":\"IRM / SCANNER; cas COMPLEXES; lésions cartilage / ligaments\"},{\"cell\":11,\"focus\":\"Renforcement et appareillage\",\"context\":\"CONSERVATEUR; RÉÉDUCATION : quadriceps + ischio-jambiers · correction posturale; ORTHÈSES : semelles · genouillère de correction; contrôle du POIDS\"},{\"cell\":12,\"focus\":\"Correction chirurgicale si nécessaire\",\"context\":\"anti-inflammatoires + antalgiques; CHIRURGIE; OSTÉOTOMIE; cas sévères; réaligner fémur / tibia; PROTHÈSE; du genou; si arthrose = cartilage usé\"},{\"cell\":13,\"focus\":\"Correction avec la croissance selon le cas\",\"context\":\"dépend de : gravité · âge · rapidité de prise en charge; FORMES LÉGÈRES (enfant); se corrigent SEULES avec la croissance\"},{\"cell\":14,\"focus\":\"Persistance et usure articulaire\",\"context\":\"SÉVÈRES / PERSISTANTES; douleurs chroniques; instabilité; usure du cartilage; ARTHROSE à long terme\"},{\"cell\":15,\"focus\":\"Suivi de la croissance\",\"context\":\"SUIVI PÉDIATRIQUE régulier : évolution naturelle chez l’enfant; persiste après 7 – 8 ans → intervenir TÔT\"},{\"cell\":16,\"focus\":\"Équilibre musculaire du genou\",\"context\":\"RENFORCEMENT : équilibre musculaire autour du genou; prudence : sports à fort impact : chez les prédisposés\"}]. Preserve exact 4-column grid and 4 rows."
 }
