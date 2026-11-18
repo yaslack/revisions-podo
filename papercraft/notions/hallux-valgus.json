@@ -1,0 +1,101 @@
+{
+  "id": "hallux-valgus",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p1-1.webp",
+        "caption": "Déviation du gros orteil",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p1-2.webp",
+        "caption": "Oignon et gêne dans la chaussure",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p2-1.webp",
+        "caption": "Chaussage, forces et prédisposition",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p2-2.webp",
+        "caption": "Âge et facteurs favorisants",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p3-1.webp",
+        "caption": "Déséquilibre de la première articulation",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p3-2.webp",
+        "caption": "Pression et inflammation",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p4-1.webp",
+        "caption": "Oignon visible et douloureux",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p4-2.webp",
+        "caption": "Gêne à la marche et raideur",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p5-1.webp",
+        "caption": "Examen et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p5-2.webp",
+        "caption": "Bilan des tendons et ligaments si nécessaire",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p6-1.webp",
+        "caption": "Chaussage large et orthèses",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p6-2.webp",
+        "caption": "Correction chirurgicale selon le cas",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p7-1.webp",
+        "caption": "Évolution selon la sévérité",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p7-2.webp",
+        "caption": "Confort et mobilité",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p8-1.webp",
+        "caption": "Limiter les contraintes de l’avant-pied",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-valgus/p8-2.webp",
+        "caption": "Repérer les premiers symptômes",
+        "after": 7
+      }
+    ]
+  ]
+}
