@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "NEUROPATHIE périphérique",
+        "caption": "Nerf tibial comprimé derrière la malléole médiale",
         "after": 3,
         "context": [
           "NEUROPATHIE périphérique",
@@ -16,7 +16,7 @@
         ]
       },
       {
-        "caption": "sportif comme sédentaire",
+        "caption": "Tunnel à la face interne de la cheville",
         "after": 6,
         "context": [
           "sportif comme sédentaire",
@@ -27,7 +27,7 @@
     ],
     [
       {
-        "caption": "COMPRESSION LOCALE",
+        "caption": "Compression locale",
         "after": 0,
         "context": [
           "COMPRESSION LOCALE",
@@ -40,7 +40,7 @@
         ]
       },
       {
-        "caption": "CE QUI FAVORISE",
+        "caption": "Types de pied et facteurs favorisants",
         "after": 1,
         "context": [
           "CE QUI FAVORISE",
@@ -54,7 +54,7 @@
     ],
     [
       {
-        "caption": "malléole médiale",
+        "caption": "Tunnel ostéo-fibreux et nerf tibial",
         "after": 3,
         "context": [
           "malléole médiale",
@@ -64,7 +64,7 @@
         ]
       },
       {
-        "caption": "profondeur",
+        "caption": "Compression et souffrance du nerf",
         "after": 6,
         "context": [
           "profondeur : TALUS + CALCANÉUM",
@@ -75,7 +75,7 @@
     ],
     [
       {
-        "caption": "douleur face MÉDIALE + plante, souvent la NUIT",
+        "caption": "Douleurs et fourmillements plantaires",
         "after": 3,
         "context": [
           "douleur face MÉDIALE + plante, souvent la NUIT",
@@ -85,7 +85,7 @@
         ]
       },
       {
-        "caption": "TINEL +",
+        "caption": "Signe de Tinel et sensibilité",
         "after": 6,
         "context": [
           "TINEL + : décharge à la percussion",
@@ -96,7 +96,7 @@
     ],
     [
       {
-        "caption": "CLINIQUE",
+        "caption": "Examen clinique et EMG",
         "after": 2,
         "context": [
           "CLINIQUE",
@@ -110,7 +110,7 @@
         ]
       },
       {
-        "caption": "masse · conflit osseux ?",
+        "caption": "Imagerie et analyse des appuis",
         "after": 5,
         "context": [
           "IRM",
@@ -123,7 +123,7 @@
     ],
     [
       {
-        "caption": "CONSERVATEUR",
+        "caption": "Orthèses et prise en charge conservatrice",
         "after": 3,
         "context": [
           "CONSERVATEUR (souvent efficace au début)",
@@ -133,7 +133,7 @@
         ]
       },
       {
-        "caption": "infiltration de corticoïdes",
+        "caption": "Décompression chirurgicale si nécessaire",
         "after": 7,
         "context": [
           "infiltration de corticoïdes (sous ÉCHO)",
@@ -146,7 +146,7 @@
     ],
     [
       {
-        "caption": "cause corrigée TÔT",
+        "caption": "Évolution selon la précocité",
         "after": 1,
         "context": [
           "BON",
@@ -158,7 +158,7 @@
         ]
       },
       {
-        "caption": "récupération selon l’ANCIENNETÉ + la GRAVITÉ",
+        "caption": "Récupération selon l’atteinte",
         "after": 2,
         "context": [
           "récupération selon l’ANCIENNETÉ + la GRAVITÉ"
@@ -167,7 +167,7 @@
     ],
     [
       {
-        "caption": "dépister PIED PLAT valgus + troubles d’appui",
+        "caption": "Surveiller les troubles d’appui",
         "after": 2,
         "context": [
           "dépister PIED PLAT valgus + troubles d’appui",
@@ -176,7 +176,7 @@
         ]
       },
       {
-        "caption": "rééducation préventive",
+        "caption": "Suivi après traumatisme ou chez le diabétique",
         "after": 4,
         "context": [
           "rééducation préventive : sportifs à risque",
@@ -185,5 +185,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Le canal tarsien. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"NEUROPATHIE périphérique\",\"context\":\"NEUROPATHIE périphérique; nerf TIBIAL POSTÉRIEUR comprimé : derrière + sous la malléole médiale; = le CANAL CARPIEN de la cheville; uni / bilatéral · aigu / chronique\"},{\"cell\":2,\"focus\":\"sportif comme sédentaire\",\"context\":\"sportif comme sédentaire; malléole médiale; nerf tibial post.\"},{\"cell\":3,\"focus\":\"COMPRESSION LOCALE\",\"context\":\"COMPRESSION LOCALE; traumatisme : entorse, fracture; ténosynovite des fléchisseurs; varices · kyste synovial; rétinaculum ÉPAISSI; masse : lipome, tumeur nerveuse; excroissance osseuse\"},{\"cell\":4,\"focus\":\"CE QUI FAVORISE\",\"context\":\"CE QUI FAVORISE; PIED PLAT valgus : nerf ÉTIRÉ; PIED CREUX : nerf COMPRIMÉ; diabète · arthrose · inflammatoire; surpoids · circulation; chaussures serrées / rigides\"},{\"cell\":5,\"focus\":\"malléole médiale\",\"context\":\"malléole médiale; nerf tibial post.; TUNNEL ostéo-fibreux derrière la malléole interne; dedans : RÉTINACULUM des fléchisseurs\"},{\"cell\":6,\"focus\":\"profondeur\",\"context\":\"profondeur : TALUS + CALCANÉUM; nerf comprimé / étiré → ISCHÉMIE, souffrance; douleur NEUROPATHIQUE insidieuse → plante\"},{\"cell\":7,\"focus\":\"douleur face MÉDIALE + plante, souvent la NUIT\",\"context\":\"douleur face MÉDIALE + plante, souvent la NUIT; FOURMILLEMENTS · engourdissements : arche · talon · orteils (1er – 3e rayons); BRÛLURE · étau plantaire; pire : debout, marche, course\"},{\"cell\":8,\"focus\":\"TINEL +\",\"context\":\"TINEL + : décharge à la percussion; sensibilité plantaire ↓; sévère : faiblesse · amyotrophie\"},{\"cell\":9,\"focus\":\"CLINIQUE\",\"context\":\"CLINIQUE; douleur NEUROPATHIQUE; palpation + percussion du nerf; pied plat / instabilité ?; EMG; CONFIRME l’atteinte du nerf tibial post.; ÉCHOGRAPHIE; kyste · épaississement\"},{\"cell\":10,\"focus\":\"masse · conflit osseux ?\",\"context\":\"IRM; masse · conflit osseux ?; ANALYSE PODO; type de pied · instabilités · appuis; EXAMENS\"},{\"cell\":11,\"focus\":\"CONSERVATEUR\",\"context\":\"CONSERVATEUR (souvent efficace au début); SEMELLES : soutien de voûte, contrôle du valgus : amorti talonnier · décharger le nerf; chaussage adapté · repos relatif; kiné : étirer le TRICEPS SURAL : mobilisation NEURODYNAMIQUE · stabilisateur\"},{\"cell\":12,\"focus\":\"infiltration de corticoïdes\",\"context\":\"infiltration de corticoïdes (sous ÉCHO); CHIRURGIE; échec ≥ 3 – 6 mois; NEUROLYSE; libère le canal tarsien\"},{\"cell\":13,\"focus\":\"cause corrigée TÔT\",\"context\":\"BON; cause corrigée TÔT; compression MODÉRÉE; TARDIF; douleurs résiduelles; neuropathie CHRONIQUE\"},{\"cell\":14,\"focus\":\"récupération selon l’ANCIENNETÉ + la GRAVITÉ\",\"context\":\"récupération selon l’ANCIENNETÉ + la GRAVITÉ\"},{\"cell\":15,\"focus\":\"dépister PIED PLAT valgus + troubles d’appui\",\"context\":\"dépister PIED PLAT valgus + troubles d’appui; posture / marche : prise en charge TÔT; éviter surcharges + chaussures qui SERRENT\"},{\"cell\":16,\"focus\":\"rééducation préventive\",\"context\":\"rééducation préventive : sportifs à risque; surveiller : post-traumatique · DIABÉTIQUE\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Le canal tarsien. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Nerf tibial comprimé derrière la malléole médiale\",\"context\":\"NEUROPATHIE périphérique; nerf TIBIAL POSTÉRIEUR comprimé : derrière + sous la malléole médiale; = le CANAL CARPIEN de la cheville; uni / bilatéral · aigu / chronique\"},{\"cell\":2,\"focus\":\"Tunnel à la face interne de la cheville\",\"context\":\"sportif comme sédentaire; malléole médiale; nerf tibial post.\"},{\"cell\":3,\"focus\":\"Compression locale\",\"context\":\"COMPRESSION LOCALE; traumatisme : entorse, fracture; ténosynovite des fléchisseurs; varices · kyste synovial; rétinaculum ÉPAISSI; masse : lipome, tumeur nerveuse; excroissance osseuse\"},{\"cell\":4,\"focus\":\"Types de pied et facteurs favorisants\",\"context\":\"CE QUI FAVORISE; PIED PLAT valgus : nerf ÉTIRÉ; PIED CREUX : nerf COMPRIMÉ; diabète · arthrose · inflammatoire; surpoids · circulation; chaussures serrées / rigides\"},{\"cell\":5,\"focus\":\"Tunnel ostéo-fibreux et nerf tibial\",\"context\":\"malléole médiale; nerf tibial post.; TUNNEL ostéo-fibreux derrière la malléole interne; dedans : RÉTINACULUM des fléchisseurs\"},{\"cell\":6,\"focus\":\"Compression et souffrance du nerf\",\"context\":\"profondeur : TALUS + CALCANÉUM; nerf comprimé / étiré → ISCHÉMIE, souffrance; douleur NEUROPATHIQUE insidieuse → plante\"},{\"cell\":7,\"focus\":\"Douleurs et fourmillements plantaires\",\"context\":\"douleur face MÉDIALE + plante, souvent la NUIT; FOURMILLEMENTS · engourdissements : arche · talon · orteils (1er – 3e rayons); BRÛLURE · étau plantaire; pire : debout, marche, course\"},{\"cell\":8,\"focus\":\"Signe de Tinel et sensibilité\",\"context\":\"TINEL + : décharge à la percussion; sensibilité plantaire ↓; sévère : faiblesse · amyotrophie\"},{\"cell\":9,\"focus\":\"Examen clinique et EMG\",\"context\":\"CLINIQUE; douleur NEUROPATHIQUE; palpation + percussion du nerf; pied plat / instabilité ?; EMG; CONFIRME l’atteinte du nerf tibial post.; ÉCHOGRAPHIE; kyste · épaississement\"},{\"cell\":10,\"focus\":\"Imagerie et analyse des appuis\",\"context\":\"IRM; masse · conflit osseux ?; ANALYSE PODO; type de pied · instabilités · appuis; EXAMENS\"},{\"cell\":11,\"focus\":\"Orthèses et prise en charge conservatrice\",\"context\":\"CONSERVATEUR (souvent efficace au début); SEMELLES : soutien de voûte, contrôle du valgus : amorti talonnier · décharger le nerf; chaussage adapté · repos relatif; kiné : étirer le TRICEPS SURAL : mobilisation NEURODYNAMIQUE · stabilisateur\"},{\"cell\":12,\"focus\":\"Décompression chirurgicale si nécessaire\",\"context\":\"infiltration de corticoïdes (sous ÉCHO); CHIRURGIE; échec ≥ 3 – 6 mois; NEUROLYSE; libère le canal tarsien\"},{\"cell\":13,\"focus\":\"Évolution selon la précocité\",\"context\":\"BON; cause corrigée TÔT; compression MODÉRÉE; TARDIF; douleurs résiduelles; neuropathie CHRONIQUE\"},{\"cell\":14,\"focus\":\"Récupération selon l’atteinte\",\"context\":\"récupération selon l’ANCIENNETÉ + la GRAVITÉ\"},{\"cell\":15,\"focus\":\"Surveiller les troubles d’appui\",\"context\":\"dépister PIED PLAT valgus + troubles d’appui; posture / marche : prise en charge TÔT; éviter surcharges + chaussures qui SERRENT\"},{\"cell\":16,\"focus\":\"Suivi après traumatisme ou chez le diabétique\",\"context\":\"rééducation préventive : sportifs à risque; surveiller : post-traumatique · DIABÉTIQUE\"}]. Preserve exact 4-column grid and 4 rows."
 }

@@ -662,9 +662,9 @@
     { v: 153, items: [
       ['sparkle', 'Des nuages de papier glissent d’un bord à l’autre au changement de page.'],
     ] },
-    { v: 171, paperNotions: true, items: [
+    { v: 172, paperNotions: true, items: [
       ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
-      ['book', '54/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
+      ['book', '55/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;

@@ -1,0 +1,101 @@
+{
+  "id": "canal-tarsien",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p1-1.webp",
+        "caption": "Nerf tibial comprimé derrière la malléole médiale",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p1-2.webp",
+        "caption": "Tunnel à la face interne de la cheville",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p2-1.webp",
+        "caption": "Compression locale",
+        "after": 0
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p2-2.webp",
+        "caption": "Types de pied et facteurs favorisants",
+        "after": 1
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p3-1.webp",
+        "caption": "Tunnel ostéo-fibreux et nerf tibial",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p3-2.webp",
+        "caption": "Compression et souffrance du nerf",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p4-1.webp",
+        "caption": "Douleurs et fourmillements plantaires",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p4-2.webp",
+        "caption": "Signe de Tinel et sensibilité",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p5-1.webp",
+        "caption": "Examen clinique et EMG",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p5-2.webp",
+        "caption": "Imagerie et analyse des appuis",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p6-1.webp",
+        "caption": "Orthèses et prise en charge conservatrice",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p6-2.webp",
+        "caption": "Décompression chirurgicale si nécessaire",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p7-1.webp",
+        "caption": "Évolution selon la précocité",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p7-2.webp",
+        "caption": "Récupération selon l’atteinte",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p8-1.webp",
+        "caption": "Surveiller les troubles d’appui",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/canal-tarsien/p8-2.webp",
+        "caption": "Suivi après traumatisme ou chez le diabétique",
+        "after": 4
+      }
+    ]
+  ]
+}
