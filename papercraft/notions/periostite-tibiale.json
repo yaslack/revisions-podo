@@ -1,0 +1,101 @@
+{
+  "id": "periostite-tibiale",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p1-1.webp",
+        "caption": "Douleur médiale du tibia",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p1-2.webp",
+        "caption": "Surutilisation chez le sportif",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p2-1.webp",
+        "caption": "Impacts et surcharge répétée",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p2-2.webp",
+        "caption": "Chaussures, foulée et terrain",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p3-1.webp",
+        "caption": "Contraintes sur le périoste",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p3-2.webp",
+        "caption": "Persistance et risque de lésion osseuse",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p4-1.webp",
+        "caption": "Douleur sur le bord interne du tibia",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p4-2.webp",
+        "caption": "Douleur liée à l’effort",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p5-1.webp",
+        "caption": "Examen et exclusion d’une fracture",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p5-2.webp",
+        "caption": "Imagerie complémentaire si nécessaire",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p6-1.webp",
+        "caption": "Repos relatif et prise en charge adaptée",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p6-2.webp",
+        "caption": "Rééducation et correction de la foulée",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p7-1.webp",
+        "caption": "Reprise après récupération",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p7-2.webp",
+        "caption": "Douleur persistante si chronique",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p8-1.webp",
+        "caption": "Préparation et chaussage amorti",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/periostite-tibiale/p8-2.webp",
+        "caption": "Progression de l’entraînement",
+        "after": 4
+      }
+    ]
+  ]
+}
