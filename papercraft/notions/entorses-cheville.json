@@ -1,0 +1,101 @@
+{
+  "id": "entorses-cheville",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p1-1.webp",
+        "caption": "Lésion des ligaments de la cheville",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p1-2.webp",
+        "caption": "Douleur et incapacité à l’appui",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p2-1.webp",
+        "caption": "Torsion et inversion brutales",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p2-2.webp",
+        "caption": "Faiblesse musculaire et récidive",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p3-1.webp",
+        "caption": "Ligaments latéraux étirés",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p3-2.webp",
+        "caption": "Déchirure partielle ou complète",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p4-1.webp",
+        "caption": "Douleur, gonflement et ecchymose",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p4-2.webp",
+        "caption": "Mobilité et appui limités",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p5-1.webp",
+        "caption": "Examen et recherche de fracture",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p5-2.webp",
+        "caption": "Échographie ou IRM selon le bilan",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p6-1.webp",
+        "caption": "Repos et protection de la cheville",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p6-2.webp",
+        "caption": "Renforcement et proprioception",
+        "after": 12
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p7-1.webp",
+        "caption": "Évolution selon la gravité",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p7-2.webp",
+        "caption": "Risque d’instabilité et récidive",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p8-1.webp",
+        "caption": "Chaussures stables et préparation",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/entorses-cheville/p8-2.webp",
+        "caption": "Surveiller après une entorse",
+        "after": 8
+      }
+    ]
+  ]
+}
