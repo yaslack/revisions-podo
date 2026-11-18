@@ -42,17 +42,63 @@ window.CONTE = A => {
       <button class="ct-audio-btn" data-g="ctfx" aria-label="Bruitages du conte" title="Bruitages du conte" aria-pressed="${sounds.fxOn()}">${ico('spkhigh')}</button>
     </div>`;
   }
+  let libraryFilter = 'all', libraryQuery = '';
+  const subjects = [['pedi', 'Pédicurie'], ['podo', 'Podologie']];
   function library() {
-    const list = (title, fs) => `<h2 class="ct-section">${title}</h2><div class="ct-books">${fs.map(f => {
-      const p = progress(f.id), n = plan(f).filter(x => p.parts[x.p]).length;
-      const finished = plan(f).every(x => p.finalParts[x.p]);
+    const list = ([id, title]) => `<section data-ct-subject="${id}"><h2 class="ct-section">${title}</h2><div class="ct-books">${A.files.filter(f => (f.sec || 'pedi') === id).map(f => {
+      const p = progress(f.id), n = f.parts.filter((_, i) => p.parts[i]).length;
+      const finished = f.parts.every((_, i) => p.finalParts[i]);
       const status = finished ? '★ Conte et grand récit terminés' : n ? `${n}/${f.parts.length} passages ouverts · Reprendre` : `${f.parts.length} rencontres · ${p.done ? 'Rejouer' : 'Ouvrir le conte'}`;
-      return `<a class="ct-book" href="${link(f)}"><span class="ct-book-number">${f.n}</span><span><b>${esc(f.title)}</b><small>${status}</small><span class="ct-book-progress" style="--progress:${n / f.parts.length * 100}%"></span></span><span aria-hidden="true">↗</span></a>`;
-    }).join('')}</div>`;
+      return `<a class="ct-book" href="${link(f)}" data-ct-title="${esc(f.title)}"><span class="ct-book-cover">${A.cover(f)}</span><span><b>${esc(f.title)}</b><small>${status}</small><span class="ct-book-progress" style="--progress:${n / f.parts.length * 100}%"></span></span><span class="ct-chevron" aria-hidden="true"></span></a>`;
+    }).join('')}</div></section>`;
+    const last = A.files.find(f => f.id === state().conteLast);
+    const active = last && !last.parts.every((_, i) => progress(last.id).finalParts[i]);
     return `<div class="wrap ct ct-library">${top('#/', 'Le conte des savoirs')}
-      <div class="ct-intro"><span class="ct-eyebrow">UN COURS, UNE HISTOIRE</span><h1>Il était une fois…<br>ce que tu sais.</h1><p>Une tortue, des passages enchantés et ta voix pour réveiller le monde.</p></div>
-      <div class="ct-instructions"><b>Raconte. Retrouve. Avance.</b><p>Choisis une fiche. Récite chaque partie à voix haute, puis vérifie toi-même les idées dites. Retrouve-les toutes sans indice pour ouvrir le passage.</p><small>Autoévaluation : le jeu n’écoute pas ta voix. Ta progression est sauvegardée sur cet appareil.</small></div>
-      ${list('Les contes de pédicurie', A.files.filter(f => f.sec !== 'podo'))}${list('Les contes de podologie', A.files.filter(f => f.sec === 'podo'))}</div>`;
+      <div class="ct-intro"><h1>Choisis ta fiche</h1><p>Récite à voix haute, puis coche les idées que tu as dites.</p></div>
+      ${active ? `<a class="ct-resume" href="${link(last)}"><span>Reprendre <b>${esc(last.title)}</b></span><span class="ct-chevron" aria-hidden="true"></span></a>` : ''}
+      <div class="ct-library-anchor"></div><div class="ct-library-tools">
+        <div role="search" class="ct-search"><input type="search" aria-label="Rechercher une fiche" placeholder="Chercher une fiche…" value="${esc(libraryQuery)}" data-ct-search autocomplete="off"></div>
+        <div class="ct-filters" role="group" aria-label="Matière">${[['all', 'Toutes'], ...subjects].map(([id, label]) => `<button type="button" data-ct-filter="${id}" aria-pressed="${id === libraryFilter}">${label}</button>`).join('')}</div>
+      </div>
+      <p class="ct-no-results" hidden aria-live="polite">Aucune fiche trouvée. Essaie un autre mot ou choisis « Toutes ».</p>
+      ${subjects.map(list).join('')}</div>`;
+  }
+  function mountLibrary(page) {
+    const search = page.querySelector('[data-ct-search]');
+    const filters = [...page.querySelectorAll('[data-ct-filter]')];
+    const fold = text => text.toLocaleLowerCase('fr').normalize('NFD').replace(/\p{M}/gu, '');
+    const groups = [...page.querySelectorAll('[data-ct-subject]')].map(section => ({
+      section, books: [...section.querySelectorAll('[data-ct-title]')].map(link => ({ link, title: fold(link.dataset.ctTitle) })),
+    }));
+    function filter() {
+      const words = fold(libraryQuery).trim().split(/\s+/).filter(Boolean);
+      let found = 0;
+      for (const { section, books } of groups) {
+        const enabled = libraryFilter === 'all' || section.dataset.ctSubject === libraryFilter;
+        let count = 0;
+        for (const { link, title } of books) {
+          link.hidden = !enabled || !words.every(word => title.includes(word));
+          if (!link.hidden) count++;
+        }
+        section.hidden = count === 0;
+        found += count;
+      }
+      page.querySelector('.ct-no-results').hidden = found > 0;
+      for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.ctFilter === libraryFilter));
+    }
+    const startOfList = () => {
+      const app = document.getElementById('app'), anchor = page.querySelector('.ct-library-anchor');
+      if (app.scrollTop > anchor.offsetTop) anchor.scrollIntoView({ block: 'start' });
+    };
+    const onInput = () => { libraryQuery = search.value; startOfList(); filter(); };
+    const onChoice = event => {
+      const button = event.target.closest('[data-ct-filter]');
+      if (button) { libraryFilter = button.dataset.ctFilter; startOfList(); filter(); }
+    };
+    search.addEventListener('input', onInput);
+    page.addEventListener('click', onChoice);
+    filter();
+    return () => { search.removeEventListener('input', onInput); page.removeEventListener('click', onChoice); };
   }
   function view(id) {
     const f = A.files.find(f => f.id === id);
@@ -60,6 +106,7 @@ window.CONTE = A => {
     if (!A.g() || A.g().game !== 'conte' || A.g().f?.id !== id) {
       const saved = progress(id);
       load(f, !!(saved.finalStarted || Object.keys(saved.finalParts).length));
+      if (state().conteLast !== id) { state().conteLast = id; A.save(); }
     }
     const g = A.g(), saved = progress(f.id), steps = plan(f), st = steps[g.p];
     const scene = scenes[g.p % scenes.length], won = ['pass', 'chapter', 'end'].includes(g.phase);
@@ -71,11 +118,11 @@ window.CONTE = A => {
       body = `<section class="ct-card ct-ending"><span class="ct-eyebrow">${end ? 'TON HISTOIRE EST EN MÉMOIRE' : 'TOUS LES PASSAGES SONT OUVERTS'}</span><h2>${end ? 'Une étoile pour ton récit.' : 'Le village attend ton grand récit.'}</h2><p>${end ? 'Tu as récité chaque partie de la fiche sans aide. Elle reviendra dans ta séance du jour pour entretenir ta mémoire.' : 'Relie maintenant toute la fiche : récite ses parties dans l’ordre, sans lire et sans indice. Tes oublis devront être redits pour terminer l’histoire.'}</p>${end ? `<a class="ct-btn" href="#/jeu/conte">Choisir un autre conte →</a>${btn('restartfinal', 'Refaire le grand récit', 'ct-secondary')}` : btn('final', 'Raconter toute la fiche →')}<a class="ct-text-link" href="${A.fileLink(f)}">Retrouver la fiche</a>${restart}</section>`;
     } else {
       const show = ['check', 'result'].includes(g.phase), missed = st.items.filter((_, j) => !g.ticks.includes(j));
-      body = `<section class="ct-card"><div class="ct-ribbon">${g.final ? `Le grand récit · ${g.p + 1}/${steps.length}` : 'À toi de raconter'}</div><span class="ct-subject">${esc(f.title)}</span><h2 class="ct-part-title">${g.p + 1}. ${esc(st.part.title)}</h2>
-        <p class="ct-question">${esc(st.part.q || 'Raconte cette partie avec tes mots.')}</p>
+      body = `<section class="ct-card"><div class="ct-ribbon">${show ? 'Idées à vérifier' : g.final ? `Le grand récit · ${g.p + 1}/${steps.length}` : 'À toi de raconter'}</div><span class="ct-subject">${esc(f.title)}</span><h2 class="ct-part-title">${g.p + 1}. ${esc(st.part.title)}</h2>
+        ${show ? '' : `<p class="ct-question">${esc(st.part.q || 'Raconte cette partie avec tes mots.')}</p>`}
         ${g.phase === 'read' ? `<div class="ct-lesson"><b>Lis, puis cache avant de raconter.</b><ul>${st.items.map(x => `<li>${md(x)}</li>`).join('')}</ul>${st.part.say ? `<details><summary>Le texte pour l’oral</summary><p>${md(st.part.say)}</p></details>` : ''}</div>${btn('hide', 'Je cache et je raconte →')}` : ''}
         ${g.phase === 'tell' ? `<div class="ct-speaking">${ico('speak')} Sans ta fiche, récite à voix haute.<small>${st.items.length} idées à retrouver · Autoévaluation après le récit</small></div>${g.aided ? `<ul class="ct-hints">${st.items.map(x => `<li>${esc(initials(x))}</li>`).join('')}</ul><p class="ct-small">Avec cet indice, tu t’entraînes. Il faudra redire cette partie sans aide.</p>` : ''}${btn('show', 'J’ai terminé →')}${!g.final ? `<div class="ct-help">${btn('hint', 'Un petit indice ?', 'ct-secondary', g.aided ? 'disabled' : '')}${btn('read', 'Lire avant de raconter', 'ct-secondary')}</div>` : '<p class="ct-small">Le grand récit se fait sans aide.</p>'}` : ''}
-        ${show ? `<p class="ct-small">Coche uniquement les idées que tu as dites <b>avant de voir cette liste</b>. Les mêmes idées avec tes mots comptent.</p><div class="ct-checks">${st.items.map((x,j) => `<button class="ct-check ${g.ticks.includes(j) ? 'on' : ''} ${g.phase === 'result' && !g.ticks.includes(j) ? 'ct-missed' : ''}" data-g="cttick" data-j="${j}" aria-pressed="${g.ticks.includes(j)}" ${g.phase === 'result' ? 'disabled' : ''}><span aria-hidden="true">${g.ticks.includes(j) ? '✓' : '○'}</span><span>${md(x)}</span></button>`).join('')}</div>${g.phase === 'check' ? btn('validate', `Vérifier mon récit · ${g.ticks.length}/${st.items.length}`) : `<div class="ct-feedback" role="status"><b>${missed.length ? `${missed.length} idée${missed.length > 1 ? 's' : ''} à retrouver.` : 'Tu as retrouvé toutes les idées avec un indice.'}</b><p>${g.final ? 'Retiens les idées oubliées, cache cette correction, puis recommence cette partie de mémoire.' : 'Le passage attend encore : retiens les idées, cache la correction, puis raconte de nouveau sans aide.'}</p></div>${btn('retry', 'Je cache et je réessaie →')}`}` : ''}
+        ${show ? `<p class="ct-small">Coche les idées que tu as dites à voix haute.</p><div class="ct-checks">${st.items.map((x,j) => `<button class="ct-check ${g.ticks.includes(j) ? 'on' : ''} ${g.phase === 'result' && !g.ticks.includes(j) ? 'ct-missed' : ''}" data-g="cttick" data-j="${j}" aria-pressed="${g.ticks.includes(j)}" ${g.phase === 'result' ? 'disabled' : ''}><span aria-hidden="true">${g.ticks.includes(j) ? '✓' : '○'}</span><span>${md(x)}</span></button>`).join('')}</div>${g.phase === 'check' ? btn('validate', `Vérifier · ${g.ticks.length}/${st.items.length}`, 'ct-sticky-action') : `<div class="ct-feedback" role="status"><b>${missed.length ? `${missed.length} idée${missed.length > 1 ? 's' : ''} à retrouver.` : 'Tu as retrouvé toutes les idées avec un indice.'}</b><p>${g.final ? 'Retiens les idées oubliées, cache cette correction, puis recommence cette partie de mémoire.' : 'Le passage attend encore : retiens les idées, cache la correction, puis raconte de nouveau sans aide.'}</p></div>${btn('retry', 'Je cache et je réessaie →')}`}` : ''}
         ${g.phase === 'pass' ? `<div class="ct-feedback ct-success" role="status"><b>Toutes les idées, sans aide. Le passage s’ouvre !</b><p>${g.final ? 'Une partie de plus dans ton grand récit.' : 'La tortue te rejoint. La suite de l’histoire t’attend.'}</p></div>${btn('next', g.p === steps.length - 1 ? (g.final ? 'Découvrir mon étoile →' : 'Arriver au village →') : 'Continuer l’histoire →')}` : ''}
         ${restart}
       </section>`;
@@ -220,6 +267,11 @@ window.CONTE = A => {
       else { g.phase = 'end'; sounds?.fx('star'); }
     } else return;
     A.render(keep);
+    if (typeof document !== 'undefined' && matchMedia('(max-width: 800px)').matches) {
+      if (['ctshow', 'ctread', 'cthint', 'cthide', 'ctretry'].includes(a)) {
+        document.querySelector('.ct-card')?.scrollIntoView({ block: 'start' });
+      } else if (a === 'ctvalidate') document.querySelector('.ct-feedback')?.scrollIntoView({ block: 'center' });
+    }
   }
   // Le théâtre reste monté quand le formulaire change, y compris à la correction.
   function update(app, html) {
@@ -239,16 +291,17 @@ window.CONTE = A => {
     if (oldFocus) page.querySelector(`[data-g="cttick"][data-j="${Number(oldFocus.dataset.j)}"]`)?.focus({ preventScroll: true });
     return true;
   }
-  let dispose = () => {}, mountedStage = null, cloudArt;
+  let dispose = () => {}, mountedSurface = null, cloudArt;
   function mount() {
     const page = document.querySelector('.ct-story'), stage = page?.firstElementChild || null;
-    if (stage === mountedStage) return;
+    const catalog = document.querySelector('.ct-library'), surface = stage || catalog;
+    if (surface === mountedSurface) return;
     dispose();
-    mountedStage = stage;
+    mountedSurface = surface;
     const g = A.g();
     const next = stage && g.p < g.f.parts.length - 1 ? scenes[(g.p + 1) % scenes.length][0] : scenes[0][0];
     sounds?.scene(stage?.dataset.scene, next);
-    if (!stage) { dispose = () => {}; return; }
+    if (!stage) { dispose = catalog ? mountLibrary(catalog) : () => {}; return; }
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     if (!media.matches && !cloudArt) {
       cloudArt = new Image();

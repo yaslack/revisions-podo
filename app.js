@@ -177,6 +177,10 @@
       ${todayCard()}
       ${last && S.skin !== 'paper' ? `<a class="card resume" href="${FB(last)}${S.last.k ? '/p' + S.last.k : ''}">${hasIll(last) ? thumb(coursePreview(last, S.last.k ? `p${S.last.k}b` : 'cover', S.last.k || 1), last.title) : `<span class="stamp sm" style="--c:var(--p8)">${last.n}</span>`}
         <span class="rt"><span class="kicker">${IC.play} REPRENDRE</span><span class="t">${last.n}. ${esc(last.title)}</span><span class="s">${S.last.k ? `Partie ${S.last.k} · ${esc(last.parts[S.last.k - 1].title)}` : 'Le plan de la fiche'}</span>${segs(last)}</span></a>` : ''}
+      <a class="ct-home-entry" href="#/jeu/conte">
+        <span class="ct-home-copy"><span class="ct-home-kicker">Le conte des savoirs</span><span class="ct-home-title">Il était une fois…<br>ton cours</span><span class="ct-home-progress">${ALLF.filter(f => (S.conte || {})[f.id]?.done).length}/${ALLF.length} contes terminés</span></span>
+        <span class="ct-home-picture" aria-hidden="true"><img src="jeu/conte/accueil-paysage.jpg" alt="" width="384" height="256" loading="lazy"><img class="ct-home-hero" src="jeu/conte/accueil-personnages.png" alt="" width="192" height="192" loading="lazy"><span class="ct-chevron"></span></span>
+      </a>
       <section class="paper-subjects" aria-labelledby="paper-subjects-title">
         <h2 class="paper-ribbon" id="paper-subjects-title">Mes révisions</h2>
         <div class="paper-subject-grid">${[
@@ -188,7 +192,6 @@
       </section>
       <div class="sec paper-games-heading">JOUER</div><div class="home-learning">
       <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">Lire, cacher, réciter · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
-      <a class="card resume" href="#/jeu/conte"><span class="stamp sm" style="--c:var(--p6)">${ico('book')}</span><span class="rt"><span class="kicker">LE CONTE DES SAVOIRS</span><span class="t">Il était une fois… ton cours</span><span class="s">Récite pour réveiller un monde de papier · ${ALLF.filter(f => (S.conte || {})[f.id]?.done).length}/${ALLF.length} contes terminés</span></span><span class="chev">›</span></a>
       <a class="card resume" href="#/jeu/aventure"><span class="stamp sm" style="--c:var(--red)">${ico('flame')}</span><span class="rt"><span class="kicker">L'AVENTURE</span><span class="t">Podo Quest</span><span class="s">Bats les monstres en récitant leurs fiches · niveau ${(S.rpg || {}).lvl || 1} · ${Object.keys((S.rpg || {}).seen || {}).length} monstres battus</span></span><span class="chev">›</span></a>
       </div>
       <div class="sec">POUR RÉVISER CE QUE TU CHOISIS</div>
@@ -653,6 +656,9 @@
     ] },
     { v: 147, items: [
       ['repeat', 'Dans un conte en cours, « Recommencer cette fiche » te fait repartir du premier chapitre.'],
+    ] },
+    { v: 148, items: [
+      ['book', 'L’accueil du conte est illustré et tu peux retrouver une fiche par son nom ou par matière. « J’ai terminé » affiche directement les idées à cocher.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
@@ -1610,6 +1616,7 @@
   const AV = window.AVENTURE && window.AVENTURE({ S, save, logeOf, logeTxt, esc, md, ico, shuffle, rnd, fx, did, review, top, count, QZ, CAS, mkStep, anatQ, clinQ, qsjClues, qsjOpts,
     g: () => G, setG: x => { G = x; }, render: k => render(k), pool: () => poolQsj(), all: () => poolQsj(true) });
   const CT = window.CONTE?.({ state: () => S, save, esc, md, top, ico, QZ, files: ALLF, fileLink: FB, sounds: window.SONS?.conte, did, review,
+    cover: f => img(hasIll(f) ? coursePreview(f) : `jeu/theatre/${f.sec === 'podo' ? 'podo' : 'pedi'}.webp`, ''),
     g: () => G, setG: x => { gStop(); G = x; }, render: k => render(k) });
   function gStart(a) {
     const pool = poolOf(a); gStop();
