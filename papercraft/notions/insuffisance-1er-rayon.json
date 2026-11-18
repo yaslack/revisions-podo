@@ -1,0 +1,101 @@
+{
+  "id": "insuffisance-1er-rayon",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p1-1.webp",
+        "caption": "Premier rayon et propulsion",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p1-2.webp",
+        "caption": "Gêne à la propulsion",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p2-1.webp",
+        "caption": "Tendons, déformations et traumatismes",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p2-2.webp",
+        "caption": "Inflammation et chaussage",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p3-1.webp",
+        "caption": "Rôle du gros orteil à la propulsion",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p3-2.webp",
+        "caption": "Répartition des forces perturbée",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p4-1.webp",
+        "caption": "Douleur de la première articulation",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p4-2.webp",
+        "caption": "Raideur et marche modifiée",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p5-1.webp",
+        "caption": "Mobilité et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p5-2.webp",
+        "caption": "Analyse des tissus mous et de la marche",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p6-1.webp",
+        "caption": "Chaussures, orthèses et rééducation",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p6-2.webp",
+        "caption": "Correction chirurgicale selon le cas",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p7-1.webp",
+        "caption": "Amélioration sous prise en charge",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p7-2.webp",
+        "caption": "Résultat fonctionnel selon la gravité",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p8-1.webp",
+        "caption": "Chaussage adapté et suivi précoce",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/insuffisance-1er-rayon/p8-2.webp",
+        "caption": "Surveiller l’avant-pied douloureux",
+        "after": 6
+      }
+    ]
+  ]
+}

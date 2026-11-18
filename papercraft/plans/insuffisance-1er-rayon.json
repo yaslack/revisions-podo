@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "MOBILITÉ ↓ de M1 et de la MTP",
+        "caption": "Premier rayon et propulsion",
         "after": 2,
         "context": [
           "1er RAYON = gros orteil + 1er métatarsien",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "âgés · prédisposés · talons hauts",
+        "caption": "Gêne à la propulsion",
         "after": 4,
         "context": [
           "âgés · prédisposés · talons hauts : souvent + hallux valgus ou fasciite plantaire",
@@ -25,7 +25,7 @@
     ],
     [
       {
-        "caption": "TENDONS",
+        "caption": "Tendons, déformations et traumatismes",
         "after": 3,
         "context": [
           "TENDONS",
@@ -39,7 +39,7 @@
         ]
       },
       {
-        "caption": "INFLAMMATION",
+        "caption": "Inflammation et chaussage",
         "after": 7,
         "context": [
           "INFLAMMATION",
@@ -59,7 +59,7 @@
     ],
     [
       {
-        "caption": "normal",
+        "caption": "Rôle du gros orteil à la propulsion",
         "after": 2,
         "context": [
           "normal : propulsion",
@@ -68,7 +68,7 @@
         ]
       },
       {
-        "caption": "forces MAL réparties",
+        "caption": "Répartition des forces perturbée",
         "after": 5,
         "context": [
           "forces MAL réparties",
@@ -79,7 +79,7 @@
     ],
     [
       {
-        "caption": "DOULEUR MTP du gros orteil",
+        "caption": "Douleur de la première articulation",
         "after": 3,
         "context": [
           "DOULEUR MTP du gros orteil : marche · station debout prolongée",
@@ -89,7 +89,7 @@
         ]
       },
       {
-        "caption": "RAIDEUR, surtout après le repos",
+        "caption": "Raideur et marche modifiée",
         "after": 7,
         "context": [
           "RAIDEUR, surtout après le repos",
@@ -101,7 +101,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Mobilité et radiographie",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -115,7 +115,7 @@
         ]
       },
       {
-        "caption": "ÉCHO / IRM",
+        "caption": "Analyse des tissus mous et de la marche",
         "after": 3,
         "context": [
           "ÉCHO / IRM",
@@ -129,7 +129,7 @@
     ],
     [
       {
-        "caption": "chaussures LARGES, souples, sans talon haut",
+        "caption": "Chaussures, orthèses et rééducation",
         "after": 4,
         "context": [
           "CONSERVATEUR",
@@ -140,7 +140,7 @@
         ]
       },
       {
-        "caption": "AINS",
+        "caption": "Correction chirurgicale selon le cas",
         "after": 9,
         "context": [
           "AINS (arthrose, tendinite)",
@@ -156,7 +156,7 @@
     ],
     [
       {
-        "caption": "dépend de la GRAVITÉ + du traitement",
+        "caption": "Amélioration sous prise en charge",
         "after": 2,
         "context": [
           "dépend de la GRAVITÉ + du traitement",
@@ -169,7 +169,7 @@
         ]
       },
       {
-        "caption": "bien pris en charge →",
+        "caption": "Résultat fonctionnel selon la gravité",
         "after": 4,
         "context": [
           "bien pris en charge →",
@@ -179,7 +179,7 @@
     ],
     [
       {
-        "caption": "chaussures ADAPTÉES",
+        "caption": "Chaussage adapté et suivi précoce",
         "after": 3,
         "context": [
           "PRÉVENTION",
@@ -189,7 +189,7 @@
         ]
       },
       {
-        "caption": "douleur chronique gros orteil / avant-pied",
+        "caption": "Surveiller l’avant-pied douloureux",
         "after": 6,
         "context": [
           "douleur chronique gros orteil / avant-pied",
@@ -199,5 +199,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: L'insuffisance du premier rayon. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"MOBILITÉ ↓ de M1 et de la MTP\",\"context\":\"1er RAYON = gros orteil + 1er métatarsien; MOBILITÉ ↓ de M1 et de la MTP : → mécanique du pied altérée; douleur gros orteil · avant-pied · marche/posture\"},{\"cell\":2,\"focus\":\"âgés · prédisposés · talons hauts\",\"context\":\"âgés · prédisposés · talons hauts : souvent + hallux valgus ou fasciite plantaire; phase de PROPULSION\"},{\"cell\":3,\"focus\":\"TENDONS\",\"context\":\"TENDONS; fléchisseurs / extenseurs du gros orteil; DÉFORMATIONS; hallux valgus · pied plat · pied creux; TRAUMATISMES; fracture non consolidée de M1; ARTHROSE; de la métatarso-phalangienne\"},{\"cell\":4,\"focus\":\"INFLAMMATION\",\"context\":\"INFLAMMATION; polyarthrite rhumatoïde; CHAUSSURES; étroites · rigides · à talons; FACTEURS DE RISQUE; déformations; instabilité articulaire; âge; maladies inflammatoires + arthrose; traumatismes anciens; talons hauts; bouts étroits\"},{\"cell\":5,\"focus\":\"normal\",\"context\":\"normal : propulsion; normal : M1 + gros orteil = PROPULSION; MTP fléchit / s’étend MAL\"},{\"cell\":6,\"focus\":\"forces MAL réparties\",\"context\":\"forces MAL réparties; propulsion RETARDÉE · avant-pied déséquilibré; long terme : douleurs chroniques, déformations : genoux · hanches · bas du dos (compensations)\"},{\"cell\":7,\"focus\":\"DOULEUR MTP du gros orteil\",\"context\":\"DOULEUR MTP du gros orteil : marche · station debout prolongée; mobilité RÉDUITE : flexion + extension; déformation associée : hallux valgus; douleurs plantaires (forces mal réparties)\"},{\"cell\":8,\"focus\":\"RAIDEUR, surtout après le repos\",\"context\":\"RAIDEUR, surtout après le repos; gêne à la propulsion; démarche modifiée · hanches, genoux; tensions musculaires pied + jambe\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; mobilité MTP; douleur; déformations; RADIOGRAPHIE; anatomie du 1er rayon; articulation; arthrose ?\"},{\"cell\":10,\"focus\":\"ÉCHO / IRM\",\"context\":\"ÉCHO / IRM; tendons · ligaments; tendinite · bursite; lésion ligamentaire; ANALYSE DE LA MARCHE; repérer les compensations\"},{\"cell\":11,\"focus\":\"chaussures LARGES, souples, sans talon haut\",\"context\":\"CONSERVATEUR; chaussures LARGES, souples, sans talon haut; semelles : soulager le 1er rayon; orthèses : maintenir l’alignement; physio : renforcer + assouplir le gros orteil\"},{\"cell\":12,\"focus\":\"AINS\",\"context\":\"AINS (arthrose, tendinite); CHIRURGIE; OSTÉOTOMIE; de M1 : RÉALIGNER; PROTHÈSE; arthrose grave; ARTHRODÈSE; fusion : soulage, mais plus de mobilité\"},{\"cell\":13,\"focus\":\"dépend de la GRAVITÉ + du traitement\",\"context\":\"dépend de la GRAVITÉ + du traitement; CAS BÉNINS; semelles + rééducation; nette AMÉLIORATION; CAS GRAVES; CHIRURGIE; peut être nécessaire\"},{\"cell\":14,\"focus\":\"bien pris en charge →\",\"context\":\"bien pris en charge →; pronostic fonctionnel FAVORABLE\"},{\"cell\":15,\"focus\":\"chaussures ADAPTÉES\",\"context\":\"PRÉVENTION; chaussures ADAPTÉES : pas de talons · pas trop étroites; suivi PRÉCOCE : troubles posturaux · déformations; DÉPISTAGE\"},{\"cell\":16,\"focus\":\"douleur chronique gros orteil / avant-pied\",\"context\":\"douleur chronique gros orteil / avant-pied; PODOLOGUE; suivi régulier des déformations : (hallux valgus)\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: L'insuffisance du premier rayon. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Premier rayon et propulsion\",\"context\":\"1er RAYON = gros orteil + 1er métatarsien; MOBILITÉ ↓ de M1 et de la MTP : → mécanique du pied altérée; douleur gros orteil · avant-pied · marche/posture\"},{\"cell\":2,\"focus\":\"Gêne à la propulsion\",\"context\":\"âgés · prédisposés · talons hauts : souvent + hallux valgus ou fasciite plantaire; phase de PROPULSION\"},{\"cell\":3,\"focus\":\"Tendons, déformations et traumatismes\",\"context\":\"TENDONS; fléchisseurs / extenseurs du gros orteil; DÉFORMATIONS; hallux valgus · pied plat · pied creux; TRAUMATISMES; fracture non consolidée de M1; ARTHROSE; de la métatarso-phalangienne\"},{\"cell\":4,\"focus\":\"Inflammation et chaussage\",\"context\":\"INFLAMMATION; polyarthrite rhumatoïde; CHAUSSURES; étroites · rigides · à talons; FACTEURS DE RISQUE; déformations; instabilité articulaire; âge; maladies inflammatoires + arthrose; traumatismes anciens; talons hauts; bouts étroits\"},{\"cell\":5,\"focus\":\"Rôle du gros orteil à la propulsion\",\"context\":\"normal : propulsion; normal : M1 + gros orteil = PROPULSION; MTP fléchit / s’étend MAL\"},{\"cell\":6,\"focus\":\"Répartition des forces perturbée\",\"context\":\"forces MAL réparties; propulsion RETARDÉE · avant-pied déséquilibré; long terme : douleurs chroniques, déformations : genoux · hanches · bas du dos (compensations)\"},{\"cell\":7,\"focus\":\"Douleur de la première articulation\",\"context\":\"DOULEUR MTP du gros orteil : marche · station debout prolongée; mobilité RÉDUITE : flexion + extension; déformation associée : hallux valgus; douleurs plantaires (forces mal réparties)\"},{\"cell\":8,\"focus\":\"Raideur et marche modifiée\",\"context\":\"RAIDEUR, surtout après le repos; gêne à la propulsion; démarche modifiée · hanches, genoux; tensions musculaires pied + jambe\"},{\"cell\":9,\"focus\":\"Mobilité et radiographie\",\"context\":\"EXAMEN CLINIQUE; mobilité MTP; douleur; déformations; RADIOGRAPHIE; anatomie du 1er rayon; articulation; arthrose ?\"},{\"cell\":10,\"focus\":\"Analyse des tissus mous et de la marche\",\"context\":\"ÉCHO / IRM; tendons · ligaments; tendinite · bursite; lésion ligamentaire; ANALYSE DE LA MARCHE; repérer les compensations\"},{\"cell\":11,\"focus\":\"Chaussures, orthèses et rééducation\",\"context\":\"CONSERVATEUR; chaussures LARGES, souples, sans talon haut; semelles : soulager le 1er rayon; orthèses : maintenir l’alignement; physio : renforcer + assouplir le gros orteil\"},{\"cell\":12,\"focus\":\"Correction chirurgicale selon le cas\",\"context\":\"AINS (arthrose, tendinite); CHIRURGIE; OSTÉOTOMIE; de M1 : RÉALIGNER; PROTHÈSE; arthrose grave; ARTHRODÈSE; fusion : soulage, mais plus de mobilité\"},{\"cell\":13,\"focus\":\"Amélioration sous prise en charge\",\"context\":\"dépend de la GRAVITÉ + du traitement; CAS BÉNINS; semelles + rééducation; nette AMÉLIORATION; CAS GRAVES; CHIRURGIE; peut être nécessaire\"},{\"cell\":14,\"focus\":\"Résultat fonctionnel selon la gravité\",\"context\":\"bien pris en charge →; pronostic fonctionnel FAVORABLE\"},{\"cell\":15,\"focus\":\"Chaussage adapté et suivi précoce\",\"context\":\"PRÉVENTION; chaussures ADAPTÉES : pas de talons · pas trop étroites; suivi PRÉCOCE : troubles posturaux · déformations; DÉPISTAGE\"},{\"cell\":16,\"focus\":\"Surveiller l’avant-pied douloureux\",\"context\":\"douleur chronique gros orteil / avant-pied; PODOLOGUE; suivi régulier des déformations : (hallux valgus)\"}]. Preserve exact 4-column grid and 4 rows."
 }
