@@ -660,6 +660,9 @@
     { v: 148, items: [
       ['book', 'L’accueil du conte est illustré et tu peux retrouver une fiche par son nom ou par matière. « J’ai terminé » affiche directement les idées à cocher.'],
     ] },
+    { v: 149, items: [
+      ['sparkle', 'Une courte transition en papier découpé accompagne les changements de page dans l’app.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -886,7 +889,8 @@
       case 'again': startQuiz(f, Q.key, Q.key === 'all' ? f.parts.map((_, i) => i + 1) : [+Q.key]); break;
     }
     if (!wasEnd && Q.i >= Q.steps.length) setTimeout(() => fx('win'), 350);   // quiz terminé
-    render(['show', 'pick', 'ck', 'frev', 'fok', 'fko'].includes(qa));
+    if (['show', 'pick', 'ck', 'frev', 'fok', 'fko'].includes(qa)) render(true);
+    else renderStep();
   }
 
   function video(f) {
@@ -1508,7 +1512,7 @@
   function qsNext() {
     if (G.n >= G.tot) { G.over = true; G.isRec = best('quisuisje', G.score); fx(G.isRec ? 'record' : G.score >= G.tot * 2.5 ? 'win' : 'over'); }
     else qsDraw();
-    render();
+    renderStep();
   }
 
   // --- le patient : une consultation en 5 étapes (le dossier qu'on dévoile, diagnostic + pourquoi pas les autres, orientation, traitement, question du patient) puis la fiche en mots-clés
@@ -1603,11 +1607,11 @@
     else if (a === 'ptstep') {
       fx('tap'); G.step++;
       if (G.step === 5) { review('f:' + G.f.id, G.pScore >= 8); setTimeout(() => fx(G.pScore >= 8 ? 'star' : G.pScore >= 6 ? 'win' : 'tap'), 180); }
-      return render();
+      return renderStep();
     } else if (a === 'ptnext') {
       if (G.n >= G.tot) { G.over = true; G.isRec = best('patient', G.score); fx(G.isRec ? 'record' : G.score >= G.tot * 7 ? 'win' : 'over'); }
       else { fx('tap'); ptDraw(); }
-      return render();
+      return renderStep();
     }
     render(true);
   }
@@ -1712,9 +1716,9 @@
   function gameAct(t) {
     const j = +t.dataset.j, a = t.dataset.g;
     if (a === 'tog' || a === 'grp') { fx('tick'); return setupAct(t); }
-    if (a === 'go') { fx('start'); gStart(G.game); return render(); }
-    if (a === 'setup') { fx('tap'); G = { game: G.game, setup: true }; return render(); }
-    if (a === 'again') { fx('start'); if (G.game === 'apprendre') G.key = ''; else gStart(G.game); return render(); }
+    if (a === 'go') { fx('start'); gStart(G.game); return renderStep(); }
+    if (a === 'setup') { fx('tap'); G = { game: G.game, setup: true }; return renderStep(); }
+    if (a === 'again') { fx('start'); if (G.game === 'apprendre') G.key = ''; else gStart(G.game); return renderStep(); }
     if (a === 'pick') return G.game === 'survie' ? svAnswer(j) : G.game === 'quisuisje' ? qsAnswer(j) : apAnswer(j);
     if (a === 'qshint') { if (G.rev < 4 && G.pick == null) { fx('reveal'); G.rev++; render(true); } return; }
     if (a === 'qsopts') { fx('tap'); G.showOpts = true; return render(true); }
@@ -1726,9 +1730,9 @@
     const st = G.st;   // apprendre : lire, dévoiler, cocher ce qu'on a dit, valider
     if (a === 'apgo') { fx('tap'); apNext(); return render(); }
     if (a === 'apshow') { fx('reveal'); st.shown = true; return render(); }
-    if (a === 'apyes' || a === 'apno') { fx(a === 'apyes' ? 'good' : 'bad'); apNext(a === 'apyes' ? 1 : 0); return render(); }
+    if (a === 'apyes' || a === 'apno') { fx(a === 'apyes' ? 'good' : 'bad'); apNext(a === 'apyes' ? 1 : 0); return renderStep(); }
     if (a === 'mk') { fx('tick'); const k = st.ticks || []; st.ticks = k.includes(j) ? k.filter(x => x !== j) : k.concat(j); return render(true); }
-    if (a === 'mval') { const v = (st.ticks || []).length / st.items.length; fx(v >= 0.8 ? 'good' : 'bad'); apNext(v); render(); }
+    if (a === 'mval') { const v = (st.ticks || []).length / st.items.length; fx(v >= 0.8 ? 'good' : 'bad'); apNext(v); renderStep(); }
   }
   function jeu(a, b, c) {
     if (!GAMES[a]) return notFound();
@@ -1776,9 +1780,105 @@
   }
 
   // ---------- routeur ----------
+  const pageMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const currentRoute = () => location.hash || '#/';
+  let openedRoute = '', pageTurn = null;
+
+  // Un retour vers le parent, ou vers la partie précédente d’une fiche, tourne dans l'autre sens.
+  function turnDirection(from, to) {
+    if (to === '#/' || from.startsWith(to + '/')) return -1;
+    const before = from.match(/^(.*\/p?)(\d+)$/), after = to.match(/^(.*\/p?)(\d+)$/);
+    return before && after && before[1] === after[1] && +after[2] < +before[2] ? -1 : 1;
+  }
+
+  async function turnPage(direction) {
+    const app = $('#app'), overlay = document.createElement('div'), wasInert = app.inert;
+    overlay.className = 'page-turn';
+    overlay.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 3; i++) overlay.append(document.createElement('i'));
+    let layers = [];
+    const turn = { covering: true, stop };
+    function reveal() {
+      if (!turn.covering) return;
+      turn.covering = false;
+      app.inert = wasInert;
+    }
+    function stop() {
+      if (pageTurn !== turn) return;
+      reveal();
+      pageTurn = null;
+      layers.forEach(layer => layer.cancel());
+      overlay.remove();
+    }
+    pageTurn = turn;
+    app.inert = true;
+    document.body.append(overlay);
+
+    const across = 126 * direction;
+    const offsets = [-9, -3, 5].map(offset => offset * direction);
+    function slide(start, end, durations, ease) {
+      return [...overlay.children].map((sheet, i) => sheet.animate([
+        { transform: `translate3d(${start[i]}vw,0,0)` },
+        { transform: `translate3d(${end[i]}vw,0,0)` },
+      ], { duration: durations[i], fill: 'both', easing: ease }));
+    }
+    try {
+      layers = slide([across, across, across], offsets, [118, 132, 150], 'cubic-bezier(.3,.62,.43,1)');
+      await Promise.all(layers.map(layer => layer.finished));
+      if (pageTurn !== turn) return;
+      reveal();
+      // Le dernier lien touché gagne si plusieurs destinations sont choisies sous le papier.
+      render();
+      const covering = layers;
+      layers = slide(offsets, [-across, -across, -across], [158, 173, 192], 'cubic-bezier(.45,.08,.52,1)');
+      covering.forEach(layer => layer.cancel());
+      await Promise.all(layers.map(layer => layer.finished));
+    } catch (error) {
+      if (error.name !== 'AbortError') throw error;
+    } finally {
+      if (pageTurn === turn) {
+        stop();
+        if (openedRoute !== currentRoute()) render();
+      }
+    }
+  }
+
+  function navigatePage() {
+    const route = currentRoute();
+    if (route === openedRoute) {
+      if (pageTurn?.covering) pageTurn.stop();
+      return;
+    }
+    if (pageMotion.matches || !Element.prototype.animate || document.hidden || $('.ct-cloud-wipe')) {
+      pageTurn?.stop();
+      render();
+      return;
+    }
+    if (pageTurn?.covering) return;
+    pageTurn?.stop();
+    void turnPage(turnDirection(openedRoute, route));
+  }
+
+  function finishTurnImmediately() {
+    if (!pageTurn) return;
+    pageTurn.stop();
+    if (openedRoute !== currentRoute()) render();
+  }
+  pageMotion.addEventListener('change', () => { if (pageMotion.matches) finishTurnImmediately(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) finishTurnImmediately(); });
+
+  function renderStep() {
+    render();
+    if (pageTurn?.covering || pageMotion.matches) return;
+    const card = $('#app .qc, #app .qend, #app .gover') || $('#app .qz .qpart');
+    card?.classList.add('page-step-in');
+  }
+
   function render(keepScroll) {
+    if (pageTurn?.covering) return;
+    const route = currentRoute();
     const SC = $('#app'), sy = SC.scrollTop || 0, dosOpen = !!(document.querySelector('.ptdos') && document.querySelector('.ptdos').open);
-    const [, sec, a, b, c] = (location.hash || '#/').split('/');
+    const [, sec, a, b, c] = route.split('/');
     let html;
     if (!sec) html = home();
     else if (sec === 'pedi') html = a ? pedi(a, b, c) : pediList();
@@ -1809,6 +1909,7 @@
     document.title = (sec === 'pedi' || sec === 'podo') && f ? `${f.n}. ${f.title} · Révisions podo` : sec === 'clin' && a === 'b' && BL[+b - 1] ? `${BL[+b - 1].n} · Bilan du pied · Révisions podo` : sec === 'clin' && CL[+a - 1] ? `${CL[+a - 1].n} · Examen clinique · Révisions podo` : sec === 'anat' && a && a !== 'quiz' && a !== '3d' && !REG_ORDER.includes(a) ? `Q${a} · Anatomie · Révisions podo` : 'Révisions podo';
     document.body.classList.toggle('ingame', sec === 'jeu');   // pendant un jeu, pas de barre d'onglets : elle cachait les derniers choix (on revient par la flèche)
     SC.scrollTo(0, keepScroll === true ? sy : 0);
+    openedRoute = route;
     // une réponse fait apparaître la barre du bas (« Suivant ») : on fait défiler pour que la réponse et sa correction restent au-dessus, pas cachées dessous
     const pg = $('#app .pager.fixed');
     if (keepScroll === true && pg && !hadPager) requestAnimationFrame(() => {
@@ -1897,7 +1998,7 @@
   // c'est #app qui défile, pas la page : la page reste immobile et les barres fixées en bas ne bougent plus (effet élastique, sélecteur de date).
   // Après un champ (date de l'oral, recherche), l'iPhone peut laisser la page décalée pour faire place au clavier : on la remet en place.
   document.addEventListener('focusout', e => { if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) setTimeout(() => { const a = document.activeElement; if (!a || !/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) window.scrollTo(0, 0); }, 120); });
-  window.addEventListener('hashchange', render);
+  window.addEventListener('hashchange', navigatePage);
   window.addEventListener('paper-illustrations-update', e => {
     const route = location.hash.split('/');
     if (S.skin === 'paper' && ['pedi', 'podo'].includes(route[1]) && e.detail.includes(route[2]) && (!route[3] || /^p\d+$/.test(route[3]))) render(true);
