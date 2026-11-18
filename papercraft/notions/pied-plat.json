@@ -1,0 +1,101 @@
+{
+  "id": "pied-plat",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p1-1.webp",
+        "caption": "Voûte plantaire affaissée",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p1-2.webp",
+        "caption": "Talon en valgus",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p2-1.webp",
+        "caption": "Pied souple de l’enfant",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p2-2.webp",
+        "caption": "Facteurs de risque et formes pathologiques",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p3-1.webp",
+        "caption": "Arche médiale affaissée",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p3-2.webp",
+        "caption": "Contraintes sur le médio-pied",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p4-1.webp",
+        "caption": "Aspect en charge et talon",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p4-2.webp",
+        "caption": "Douleur et fatigue à la marche",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p5-1.webp",
+        "caption": "Empreinte et radiographie en charge",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p5-2.webp",
+        "caption": "Test de Jack et tissus mous",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p6-1.webp",
+        "caption": "Orthèses et répartition des appuis",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p6-2.webp",
+        "caption": "Chaussage et prise en charge spécialisée",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p7-1.webp",
+        "caption": "Évolution selon l’âge et la cause",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p7-2.webp",
+        "caption": "Intérêt d’une prise en charge adaptée",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-plat/p8-1.webp",
+        "caption": "Surveiller les enfants à risque",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-plat/p8-2.webp",
+        "caption": "Examiner un pied plat douloureux",
+        "after": 3
+      }
+    ]
+  ]
+}

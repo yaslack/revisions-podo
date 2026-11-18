@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "déformation FRÉQUENTE",
+        "caption": "Voûte plantaire affaissée",
         "after": 2,
         "context": [
           "déformation FRÉQUENTE : enfant + ado",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "souple / rigide · uni / bilatéral",
+        "caption": "Talon en valgus",
         "after": 4,
         "context": [
           "souple / rigide · uni / bilatéral",
@@ -25,7 +25,7 @@
     ],
     [
       {
-        "caption": "PHYSIOLOGIQUE",
+        "caption": "Pied souple de l’enfant",
         "after": 1,
         "context": [
           "PHYSIOLOGIQUE",
@@ -45,7 +45,7 @@
         ]
       },
       {
-        "caption": "FACTEURS DE RISQUE",
+        "caption": "Facteurs de risque et formes pathologiques",
         "after": 3,
         "context": [
           "FACTEURS DE RISQUE",
@@ -58,7 +58,7 @@
     ],
     [
       {
-        "caption": "arche interne EFFONDRÉE · calcanéum en dehors",
+        "caption": "Arche médiale affaissée",
         "after": 2,
         "context": [
           "arche interne EFFONDRÉE · calcanéum en dehors : + avant-pied en ABDUCTION",
@@ -67,7 +67,7 @@
         ]
       },
       {
-        "caption": "médio-tarsiennes SURCHARGÉES",
+        "caption": "Contraintes sur le médio-pied",
         "after": 4,
         "context": [
           "médio-tarsiennes SURCHARGÉES",
@@ -77,7 +77,7 @@
     ],
     [
       {
-        "caption": "voûte AFFAISSÉE debout",
+        "caption": "Aspect en charge et talon",
         "after": 3,
         "context": [
           "voûte AFFAISSÉE debout",
@@ -87,7 +87,7 @@
         ]
       },
       {
-        "caption": "douleurs médio-pied · cheville · genoux",
+        "caption": "Douleur et fatigue à la marche",
         "after": 6,
         "context": [
           "douleurs médio-pied · cheville · genoux",
@@ -98,7 +98,7 @@
     ],
     [
       {
-        "caption": "EXAMEN",
+        "caption": "Empreinte et radiographie en charge",
         "after": 2,
         "context": [
           "EXAMEN",
@@ -110,7 +110,7 @@
         ]
       },
       {
-        "caption": "IRM / ÉCHO",
+        "caption": "Test de Jack et tissus mous",
         "after": 5,
         "context": [
           "IRM / ÉCHO",
@@ -125,7 +125,7 @@
     ],
     [
       {
-        "caption": "soulager · rééquilibrer les appuis · prévenir",
+        "caption": "Orthèses et répartition des appuis",
         "after": 2,
         "context": [
           "soulager · rééquilibrer les appuis · prévenir",
@@ -140,7 +140,7 @@
         ]
       },
       {
-        "caption": "CHAUSSURES",
+        "caption": "Chaussage et prise en charge spécialisée",
         "after": 4,
         "context": [
           "CHAUSSURES",
@@ -156,7 +156,7 @@
     ],
     [
       {
-        "caption": "ENFANT · souple",
+        "caption": "Évolution selon l’âge et la cause",
         "after": 1,
         "context": [
           "ENFANT · souple",
@@ -169,7 +169,7 @@
         ]
       },
       {
-        "caption": "prise en charge PRÉCOCE → qualité de vie ↑",
+        "caption": "Intérêt d’une prise en charge adaptée",
         "after": 2,
         "context": [
           "prise en charge PRÉCOCE → qualité de vie ↑"
@@ -178,7 +178,7 @@
     ],
     [
       {
-        "caption": "SUIVI des enfants à risque",
+        "caption": "Surveiller les enfants à risque",
         "after": 1,
         "context": [
           "SUIVI des enfants à risque : obésité · hyperlaxité · antécédents familiaux",
@@ -186,7 +186,7 @@
         ]
       },
       {
-        "caption": "DÉPISTAGE SCOLAIRE",
+        "caption": "Examiner un pied plat douloureux",
         "after": 3,
         "context": [
           "DÉPISTAGE SCOLAIRE : douleur · démarche anormale",
@@ -195,5 +195,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Le pied plat valgus. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"déformation FRÉQUENTE\",\"context\":\"déformation FRÉQUENTE : enfant + ado; voûte EFFONDRÉE (platitude); VALGUS CALCANÉEN : talon en dehors\"},{\"cell\":2,\"focus\":\"souple / rigide · uni / bilatéral\",\"context\":\"souple / rigide · uni / bilatéral; constitutionnel · traumatique · neurologique\"},{\"cell\":3,\"focus\":\"PHYSIOLOGIQUE\",\"context\":\"PHYSIOLOGIQUE; enfant ≤ 7 – 8 ans; HYPERLAXITÉ ligamentaire; sans douleur; RÉGRESSE; PATHOLOGIQUE; NEUROMUSCULAIRE; paralysie cérébrale · myopathies; TRAUMATIQUE; rupture du TIBIAL POSTÉRIEUR; INFLAMMATOIRE; arthrite juvénile; CONGÉNITALE; \"},{\"cell\":4,\"focus\":\"FACTEURS DE RISQUE\",\"context\":\"FACTEURS DE RISQUE; surpoids; antécédents familiaux; hyperlaxité; mauvais chaussage\"},{\"cell\":5,\"focus\":\"arche interne EFFONDRÉE · calcanéum en dehors\",\"context\":\"arche interne EFFONDRÉE · calcanéum en dehors : + avant-pied en ABDUCTION; perte de l’EFFET RESSORT; statique DÉSÉQUILIBRÉE\"},{\"cell\":6,\"focus\":\"médio-tarsiennes SURCHARGÉES\",\"context\":\"médio-tarsiennes SURCHARGÉES; adulte : TIBIAL POSTÉRIEUR altéré\"},{\"cell\":7,\"focus\":\"voûte AFFAISSÉE debout\",\"context\":\"voûte AFFAISSÉE debout; calcanéum en VALGUS (vu de derrière); abduction : signe du « TOO MANY TOES »; souple : se corrige SUR POINTES\"},{\"cell\":8,\"focus\":\"douleurs médio-pied · cheville · genoux\",\"context\":\"douleurs médio-pied · cheville · genoux; fatigue à la marche prolongée; genu valgum · hyperlordose\"},{\"cell\":9,\"focus\":\"EXAMEN\",\"context\":\"EXAMEN; statique + dynamique du pas; PODOGRAPHIE; empreinte plantaire; RADIO EN CHARGE; angles de l’arche · alignement calcanéen\"},{\"cell\":10,\"focus\":\"IRM / ÉCHO\",\"context\":\"IRM / ÉCHO; adulte : atteinte tendineuse ?; TEST DE JACK; extension du gros orteil → la voûte RÉAPPARAÎT; = pied SOUPLE; MISE SUR POINTES; le calcanéum se REDRESSE (réductible)\"},{\"cell\":11,\"focus\":\"soulager · rééquilibrer les appuis · prévenir\",\"context\":\"soulager · rééquilibrer les appuis · prévenir; ORTHÈSES SUR MESURE; soutien ARCHE MÉDIALE; corriger le valgus; répartir les charges; RÉÉDUCATION; renforcer le TIBIAL POST.; proprioception; étirer le postérieur\"},{\"cell\":12,\"focus\":\"CHAUSSURES\",\"context\":\"CHAUSSURES; bon CONTREFORT; semelle stable; CHIRURGIE; sévère ou douloureux; ostéotomies; allongement calcanéen; ARTHRORISE (implant sous-talien)\"},{\"cell\":13,\"focus\":\"ENFANT · souple\",\"context\":\"ENFANT · souple; évolue BIEN; avec l’âge + la croissance; ADULTE · acquis; dégénératif (tibial post.); peut s’AGGRAVER; traitement + intensif\"},{\"cell\":14,\"focus\":\"prise en charge PRÉCOCE → qualité de vie ↑\",\"context\":\"prise en charge PRÉCOCE → qualité de vie ↑\"},{\"cell\":15,\"focus\":\"SUIVI des enfants à risque\",\"context\":\"SUIVI des enfants à risque : obésité · hyperlaxité · antécédents familiaux; ÉDUCATION des parents : chaussage + posture\"},{\"cell\":16,\"focus\":\"DÉPISTAGE SCOLAIRE\",\"context\":\"DÉPISTAGE SCOLAIRE : douleur · démarche anormale; contrôle podologique : pied plat SYMPTOMATIQUE\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Le pied plat valgus. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Voûte plantaire affaissée\",\"context\":\"déformation FRÉQUENTE : enfant + ado; voûte EFFONDRÉE (platitude); VALGUS CALCANÉEN : talon en dehors\"},{\"cell\":2,\"focus\":\"Talon en valgus\",\"context\":\"souple / rigide · uni / bilatéral; constitutionnel · traumatique · neurologique\"},{\"cell\":3,\"focus\":\"Pied souple de l’enfant\",\"context\":\"PHYSIOLOGIQUE; enfant ≤ 7 – 8 ans; HYPERLAXITÉ ligamentaire; sans douleur; RÉGRESSE; PATHOLOGIQUE; NEUROMUSCULAIRE; paralysie cérébrale · myopathies; TRAUMATIQUE; rupture du TIBIAL POSTÉRIEUR; INFLAMMATOIRE; arthrite juvénile; CONGÉNITALE; \"},{\"cell\":4,\"focus\":\"Facteurs de risque et formes pathologiques\",\"context\":\"FACTEURS DE RISQUE; surpoids; antécédents familiaux; hyperlaxité; mauvais chaussage\"},{\"cell\":5,\"focus\":\"Arche médiale affaissée\",\"context\":\"arche interne EFFONDRÉE · calcanéum en dehors : + avant-pied en ABDUCTION; perte de l’EFFET RESSORT; statique DÉSÉQUILIBRÉE\"},{\"cell\":6,\"focus\":\"Contraintes sur le médio-pied\",\"context\":\"médio-tarsiennes SURCHARGÉES; adulte : TIBIAL POSTÉRIEUR altéré\"},{\"cell\":7,\"focus\":\"Aspect en charge et talon\",\"context\":\"voûte AFFAISSÉE debout; calcanéum en VALGUS (vu de derrière); abduction : signe du « TOO MANY TOES »; souple : se corrige SUR POINTES\"},{\"cell\":8,\"focus\":\"Douleur et fatigue à la marche\",\"context\":\"douleurs médio-pied · cheville · genoux; fatigue à la marche prolongée; genu valgum · hyperlordose\"},{\"cell\":9,\"focus\":\"Empreinte et radiographie en charge\",\"context\":\"EXAMEN; statique + dynamique du pas; PODOGRAPHIE; empreinte plantaire; RADIO EN CHARGE; angles de l’arche · alignement calcanéen\"},{\"cell\":10,\"focus\":\"Test de Jack et tissus mous\",\"context\":\"IRM / ÉCHO; adulte : atteinte tendineuse ?; TEST DE JACK; extension du gros orteil → la voûte RÉAPPARAÎT; = pied SOUPLE; MISE SUR POINTES; le calcanéum se REDRESSE (réductible)\"},{\"cell\":11,\"focus\":\"Orthèses et répartition des appuis\",\"context\":\"soulager · rééquilibrer les appuis · prévenir; ORTHÈSES SUR MESURE; soutien ARCHE MÉDIALE; corriger le valgus; répartir les charges; RÉÉDUCATION; renforcer le TIBIAL POST.; proprioception; étirer le postérieur\"},{\"cell\":12,\"focus\":\"Chaussage et prise en charge spécialisée\",\"context\":\"CHAUSSURES; bon CONTREFORT; semelle stable; CHIRURGIE; sévère ou douloureux; ostéotomies; allongement calcanéen; ARTHRORISE (implant sous-talien)\"},{\"cell\":13,\"focus\":\"Évolution selon l’âge et la cause\",\"context\":\"ENFANT · souple; évolue BIEN; avec l’âge + la croissance; ADULTE · acquis; dégénératif (tibial post.); peut s’AGGRAVER; traitement + intensif\"},{\"cell\":14,\"focus\":\"Intérêt d’une prise en charge adaptée\",\"context\":\"prise en charge PRÉCOCE → qualité de vie ↑\"},{\"cell\":15,\"focus\":\"Surveiller les enfants à risque\",\"context\":\"SUIVI des enfants à risque : obésité · hyperlaxité · antécédents familiaux; ÉDUCATION des parents : chaussage + posture\"},{\"cell\":16,\"focus\":\"Examiner un pied plat douloureux\",\"context\":\"DÉPISTAGE SCOLAIRE : douleur · démarche anormale; contrôle podologique : pied plat SYMPTOMATIQUE\"}]. Preserve exact 4-column grid and 4 rows."
 }
