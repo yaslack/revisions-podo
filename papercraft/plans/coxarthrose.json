@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "Pathologie DÉGÉNÉRATIVE de la hanche",
+        "caption": "Usure du cartilage de la hanche",
         "after": 1,
         "context": [
           "Pathologie DÉGÉNÉRATIVE de la hanche : usure du cartilage articulaire",
@@ -14,7 +14,7 @@
         ]
       },
       {
-        "caption": "surtout la personne ÂGÉE",
+        "caption": "Douleur et limitation de la hanche",
         "after": 3,
         "context": [
           "surtout la personne ÂGÉE : aussi des jeunes : traumatisme, anomalie anatomique",
@@ -24,7 +24,7 @@
     ],
     [
       {
-        "caption": "MULTIFACTORIELLE",
+        "caption": "Arthrose primaire ou secondaire",
         "after": 4,
         "context": [
           "MULTIFACTORIELLE",
@@ -40,7 +40,7 @@
         ]
       },
       {
-        "caption": "antécédents FAMILIAUX",
+        "caption": "Surpoids et facteurs favorisants",
         "after": 8,
         "context": [
           "antécédents FAMILIAUX",
@@ -52,7 +52,7 @@
     ],
     [
       {
-        "caption": "← cartilage",
+        "caption": "Dégradation du cartilage",
         "after": 2,
         "context": [
           "← cartilage",
@@ -61,7 +61,7 @@
         ]
       },
       {
-        "caption": "OSTÉOPHYTES = éperons osseux",
+        "caption": "Ostéophytes et raideur",
         "after": 4,
         "context": [
           "OSTÉOPHYTES = éperons osseux : → mobilité encore plus limitée",
@@ -71,7 +71,7 @@
     ],
     [
       {
-        "caption": "DOULEUR de hanche",
+        "caption": "Douleur de l’aine et boiterie",
         "after": 2,
         "context": [
           "DOULEUR de hanche : → aine · fesse · cuisse · à l’effort, après assis",
@@ -80,7 +80,7 @@
         ]
       },
       {
-        "caption": "perte de mobilité",
+        "caption": "Perte de mobilité",
         "after": 5,
         "context": [
           "perte de mobilité : flexion + rotation",
@@ -91,7 +91,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Examen de la hanche et radiographie",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -106,7 +106,7 @@
         ]
       },
       {
-        "caption": "moins courante",
+        "caption": "Bilan des antécédents",
         "after": 3,
         "context": [
           "IRM",
@@ -121,7 +121,7 @@
     ],
     [
       {
-        "caption": "TRAITEMENT MÉDICAL",
+        "caption": "Traitement et rééducation",
         "after": 3,
         "context": [
           "TRAITEMENT MÉDICAL",
@@ -131,7 +131,7 @@
         ]
       },
       {
-        "caption": "SEMELLES orthopédiques",
+        "caption": "Appareillage et chirurgie selon le stade",
         "after": 7,
         "context": [
           "SEMELLES orthopédiques : corrigent les déséquilibres qui surchargent la hanche",
@@ -143,7 +143,7 @@
     ],
     [
       {
-        "caption": "dépend du STADE",
+        "caption": "Évolution selon le stade",
         "after": 2,
         "context": [
           "dépend du STADE",
@@ -158,7 +158,7 @@
         ]
       },
       {
-        "caption": "OBJECTIF",
+        "caption": "Soulager et retrouver la mobilité",
         "after": 4,
         "context": [
           "OBJECTIF",
@@ -170,7 +170,7 @@
     ],
     [
       {
-        "caption": "PRÉVENTION PRIMAIRE",
+        "caption": "Activité régulière et poids adapté",
         "after": 4,
         "context": [
           "PRÉVENTION PRIMAIRE",
@@ -181,7 +181,7 @@
         ]
       },
       {
-        "caption": "patients à risque",
+        "caption": "Suivi des personnes à risque",
         "after": 9,
         "context": [
           "DÉPISTAGE",
@@ -195,5 +195,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: La coxarthrose. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Pathologie DÉGÉNÉRATIVE de la hanche\",\"context\":\"Pathologie DÉGÉNÉRATIVE de la hanche : usure du cartilage articulaire; douleurs · raideurs · limitations\"},{\"cell\":2,\"focus\":\"surtout la personne ÂGÉE\",\"context\":\"surtout la personne ÂGÉE : aussi des jeunes : traumatisme, anomalie anatomique; grande cause de douleur et d’incapacité : → prise en charge PRÉCOCE\"},{\"cell\":3,\"focus\":\"MULTIFACTORIELLE\",\"context\":\"MULTIFACTORIELLE; PRIMAIRE; sans cause précise; SECONDAIRE; traumatisme; dysplasie de hanche; fracture du col du fémur; maladie inflammatoire; Facteurs de risque; ÂGE > 50 ans\"},{\"cell\":4,\"focus\":\"antécédents FAMILIAUX\",\"context\":\"antécédents FAMILIAUX; SURPOIDS / obésité; traumatismes antérieurs; anomalies posturales / biomécaniques\"},{\"cell\":5,\"focus\":\"← cartilage\",\"context\":\"← cartilage; cartilage DÉGRADÉ progressivement : + modifications de l’os sous-jacent; perte de fonction · synoviale épaissie\"},{\"cell\":6,\"focus\":\"OSTÉOPHYTES = éperons osseux\",\"context\":\"OSTÉOPHYTES = éperons osseux : → mobilité encore plus limitée; hanche DOULOUREUSE et RAIDE\"},{\"cell\":7,\"focus\":\"DOULEUR de hanche\",\"context\":\"DOULEUR de hanche : → aine · fesse · cuisse · à l’effort, après assis; RAIDEUR matinale / après immobilité : se lever, monter les escaliers; BOITERIE antalgique\"},{\"cell\":8,\"focus\":\"perte de mobilité\",\"context\":\"perte de mobilité : flexion + rotation; force musculaire ↓ : douleur + atrophie; quotidien difficile : se pencher · s’accroupir · marcher longtemps\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; posture; amplitude; douleur; RADIOGRAPHIE; EXAMEN DE RÉFÉRENCE; usure cartilage; ostéophytes; pincement\"},{\"cell\":10,\"focus\":\"moins courante\",\"context\":\"IRM; moins courante; structures non osseuses; ANAMNÈSE; antécédents médicaux; + familiaux; + facteurs de risque\"},{\"cell\":11,\"focus\":\"TRAITEMENT MÉDICAL\",\"context\":\"TRAITEMENT MÉDICAL; antalgiques · AINS; ± infiltrations : corticoïdes ou acide hyaluronique; PHYSIOTHÉRAPIE : renforcer les muscles · mobilité\"},{\"cell\":12,\"focus\":\"SEMELLES orthopédiques\",\"context\":\"SEMELLES orthopédiques : corrigent les déséquilibres qui surchargent la hanche; CHIRURGIE; arthrose SÉVÈRE; PTH\"},{\"cell\":13,\"focus\":\"dépend du STADE\",\"context\":\"dépend du STADE; STADE PRÉCOCE; conservateur; qualité de vie ↑; évolution ralentie; STADE AVANCÉ; remplacement; chirurgical souvent; nécessaire\"},{\"cell\":14,\"focus\":\"OBJECTIF\",\"context\":\"OBJECTIF; soulager la douleur; améliorer la fonction; restaurer la mobilité\"},{\"cell\":15,\"focus\":\"PRÉVENTION PRIMAIRE\",\"context\":\"PRÉVENTION PRIMAIRE; gérer son POIDS; activité physique RÉGULIÈRE; éviter les traumatismes articulaires; suivi après traumatisme : → contre l’arthrose secondaire\"},{\"cell\":16,\"focus\":\"patients à risque\",\"context\":\"DÉPISTAGE; patients à risque; génétique; obésité; traumatismes; RADIOS régulières; suivi clinique : sportifs · antécédents familiaux\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: La coxarthrose. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Usure du cartilage de la hanche\",\"context\":\"Pathologie DÉGÉNÉRATIVE de la hanche : usure du cartilage articulaire; douleurs · raideurs · limitations\"},{\"cell\":2,\"focus\":\"Douleur et limitation de la hanche\",\"context\":\"surtout la personne ÂGÉE : aussi des jeunes : traumatisme, anomalie anatomique; grande cause de douleur et d’incapacité : → prise en charge PRÉCOCE\"},{\"cell\":3,\"focus\":\"Arthrose primaire ou secondaire\",\"context\":\"MULTIFACTORIELLE; PRIMAIRE; sans cause précise; SECONDAIRE; traumatisme; dysplasie de hanche; fracture du col du fémur; maladie inflammatoire; Facteurs de risque; ÂGE > 50 ans\"},{\"cell\":4,\"focus\":\"Surpoids et facteurs favorisants\",\"context\":\"antécédents FAMILIAUX; SURPOIDS / obésité; traumatismes antérieurs; anomalies posturales / biomécaniques\"},{\"cell\":5,\"focus\":\"Dégradation du cartilage\",\"context\":\"← cartilage; cartilage DÉGRADÉ progressivement : + modifications de l’os sous-jacent; perte de fonction · synoviale épaissie\"},{\"cell\":6,\"focus\":\"Ostéophytes et raideur\",\"context\":\"OSTÉOPHYTES = éperons osseux : → mobilité encore plus limitée; hanche DOULOUREUSE et RAIDE\"},{\"cell\":7,\"focus\":\"Douleur de l’aine et boiterie\",\"context\":\"DOULEUR de hanche : → aine · fesse · cuisse · à l’effort, après assis; RAIDEUR matinale / après immobilité : se lever, monter les escaliers; BOITERIE antalgique\"},{\"cell\":8,\"focus\":\"Perte de mobilité\",\"context\":\"perte de mobilité : flexion + rotation; force musculaire ↓ : douleur + atrophie; quotidien difficile : se pencher · s’accroupir · marcher longtemps\"},{\"cell\":9,\"focus\":\"Examen de la hanche et radiographie\",\"context\":\"EXAMEN CLINIQUE; posture; amplitude; douleur; RADIOGRAPHIE; EXAMEN DE RÉFÉRENCE; usure cartilage; ostéophytes; pincement\"},{\"cell\":10,\"focus\":\"Bilan des antécédents\",\"context\":\"IRM; moins courante; structures non osseuses; ANAMNÈSE; antécédents médicaux; + familiaux; + facteurs de risque\"},{\"cell\":11,\"focus\":\"Traitement et rééducation\",\"context\":\"TRAITEMENT MÉDICAL; antalgiques · AINS; ± infiltrations : corticoïdes ou acide hyaluronique; PHYSIOTHÉRAPIE : renforcer les muscles · mobilité\"},{\"cell\":12,\"focus\":\"Appareillage et chirurgie selon le stade\",\"context\":\"SEMELLES orthopédiques : corrigent les déséquilibres qui surchargent la hanche; CHIRURGIE; arthrose SÉVÈRE; PTH\"},{\"cell\":13,\"focus\":\"Évolution selon le stade\",\"context\":\"dépend du STADE; STADE PRÉCOCE; conservateur; qualité de vie ↑; évolution ralentie; STADE AVANCÉ; remplacement; chirurgical souvent; nécessaire\"},{\"cell\":14,\"focus\":\"Soulager et retrouver la mobilité\",\"context\":\"OBJECTIF; soulager la douleur; améliorer la fonction; restaurer la mobilité\"},{\"cell\":15,\"focus\":\"Activité régulière et poids adapté\",\"context\":\"PRÉVENTION PRIMAIRE; gérer son POIDS; activité physique RÉGULIÈRE; éviter les traumatismes articulaires; suivi après traumatisme : → contre l’arthrose secondaire\"},{\"cell\":16,\"focus\":\"Suivi des personnes à risque\",\"context\":\"DÉPISTAGE; patients à risque; génétique; obésité; traumatismes; RADIOS régulières; suivi clinique : sportifs · antécédents familiaux\"}]. Preserve exact 4-column grid and 4 rows."
 }

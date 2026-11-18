@@ -1,0 +1,101 @@
+{
+  "id": "coxarthrose",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p1-1.webp",
+        "caption": "Usure du cartilage de la hanche",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p1-2.webp",
+        "caption": "Douleur et limitation de la hanche",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p2-1.webp",
+        "caption": "Arthrose primaire ou secondaire",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p2-2.webp",
+        "caption": "Surpoids et facteurs favorisants",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p3-1.webp",
+        "caption": "Dégradation du cartilage",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p3-2.webp",
+        "caption": "Ostéophytes et raideur",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p4-1.webp",
+        "caption": "Douleur de l’aine et boiterie",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p4-2.webp",
+        "caption": "Perte de mobilité",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p5-1.webp",
+        "caption": "Examen de la hanche et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p5-2.webp",
+        "caption": "Bilan des antécédents",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p6-1.webp",
+        "caption": "Traitement et rééducation",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p6-2.webp",
+        "caption": "Appareillage et chirurgie selon le stade",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p7-1.webp",
+        "caption": "Évolution selon le stade",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p7-2.webp",
+        "caption": "Soulager et retrouver la mobilité",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p8-1.webp",
+        "caption": "Activité régulière et poids adapté",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/coxarthrose/p8-2.webp",
+        "caption": "Suivi des personnes à risque",
+        "after": 9
+      }
+    ]
+  ]
+}
