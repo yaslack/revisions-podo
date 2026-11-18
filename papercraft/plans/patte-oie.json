@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "IRRITATION / inflammation des tendons",
+        "caption": "Insertion tendineuse interne du genou",
         "after": 3,
         "context": [
           "IRRITATION / inflammation des tendons",
@@ -16,7 +16,7 @@
         ]
       },
       {
-        "caption": "sartorius",
+        "caption": "Sartorius, gracilis et semi-tendineux",
         "after": 6,
         "context": [
           "sartorius",
@@ -27,7 +27,7 @@
     ],
     [
       {
-        "caption": "SURCHARGE / FRICTION répétée sur l’insertion",
+        "caption": "Friction et surcharge répétées",
         "after": 2,
         "context": [
           "SURCHARGE / FRICTION répétée sur l’insertion",
@@ -38,7 +38,7 @@
         ]
       },
       {
-        "caption": "SPORTS",
+        "caption": "Sport et facteurs biomécaniques",
         "after": 5,
         "context": [
           "SPORTS",
@@ -52,7 +52,7 @@
     ],
     [
       {
-        "caption": "inflammation / DÉGÉNÉRESCENCE tendineuse",
+        "caption": "Microtraumatismes des tendons",
         "after": 1,
         "context": [
           "inflammation / DÉGÉNÉRESCENCE tendineuse",
@@ -60,7 +60,7 @@
         ]
       },
       {
-        "caption": "TENDINOPATHIE CHRONIQUE",
+        "caption": "Tendinopathie persistante",
         "after": 3,
         "context": [
           "TENDINOPATHIE CHRONIQUE (dégénérative)",
@@ -70,7 +70,7 @@
     ],
     [
       {
-        "caption": "douleur INTÉRIEUR du genou, juste SOUS l’articulation",
+        "caption": "Douleur sous la face interne du genou",
         "after": 2,
         "context": [
           "douleur INTÉRIEUR du genou, juste SOUS l’articulation",
@@ -79,7 +79,7 @@
         ]
       },
       {
-        "caption": "léger œdème",
+        "caption": "Gêne au mouvement et à l’effort",
         "after": 5,
         "context": [
           "léger œdème (aigu)",
@@ -90,7 +90,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Palpation et bilan fonctionnel",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -102,7 +102,7 @@
         ]
       },
       {
-        "caption": "ÉCHO / IRM",
+        "caption": "Échographie ou IRM selon le cas",
         "after": 2,
         "context": [
           "ÉCHO / IRM",
@@ -115,7 +115,7 @@
     ],
     [
       {
-        "caption": "inflammation ↓ · douleur ↓ · genou fonctionnel",
+        "caption": "Repos et prise en charge adaptée",
         "after": 3,
         "context": [
           "inflammation ↓ · douleur ↓ · genou fonctionnel",
@@ -125,7 +125,7 @@
         ]
       },
       {
-        "caption": "KINÉ",
+        "caption": "Renforcement, souplesse et biomécanique",
         "after": 7,
         "context": [
           "KINÉ : renforcer · assouplir · biomécanique",
@@ -141,7 +141,7 @@
     ],
     [
       {
-        "caption": "LA PLUPART",
+        "caption": "Récupération du genou",
         "after": 1,
         "context": [
           "GÉNÉRALEMENT BON",
@@ -151,7 +151,7 @@
         ]
       },
       {
-        "caption": "CHRONIQUE",
+        "caption": "Douleurs persistantes si chronique",
         "after": 2,
         "context": [
           "CHRONIQUE",
@@ -162,7 +162,7 @@
     ],
     [
       {
-        "caption": "RENFORCER",
+        "caption": "Préparation et renforcement musculaire",
         "after": 4,
         "context": [
           "PRÉVENTION",
@@ -173,7 +173,7 @@
         ]
       },
       {
-        "caption": "DOSER l’entraînement + récupération",
+        "caption": "Doser effort et récupération",
         "after": 8,
         "context": [
           "DOSER l’entraînement + récupération",
@@ -184,5 +184,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Le syndrome de la patte d'oie. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"IRRITATION / inflammation des tendons\",\"context\":\"IRRITATION / inflammation des tendons; INTÉRIEUR du genou : 3 muscles : SARTORIUS · GRACILIS · SEMI-TENDINEUX; = tendinite de la patte d’oie; sportifs : flexion-extension : course · vélo · foot\"},{\"cell\":2,\"focus\":\"sartorius\",\"context\":\"sartorius; gracilis; semi-tendineux\"},{\"cell\":3,\"focus\":\"SURCHARGE / FRICTION répétée sur l’insertion\",\"context\":\"SURCHARGE / FRICTION répétée sur l’insertion; MUSCLES; quadriceps + ischio-jambiers faibles; BIOMÉCANIQUE; pronation · pied plat · alignement du genou\"},{\"cell\":4,\"focus\":\"SPORTS\",\"context\":\"SPORTS; pivot · course · foot · tennis · basket; ANATOMIE; taille du bassin · angle du fémur; ÂGE + SEXE; femmes · personnes plus âgées\"},{\"cell\":5,\"focus\":\"inflammation / DÉGÉNÉRESCENCE tendineuse\",\"context\":\"inflammation / DÉGÉNÉRESCENCE tendineuse; trop sollicités → MICRO-DÉCHIRURES : → réaction inflammatoire\"},{\"cell\":6,\"focus\":\"TENDINOPATHIE CHRONIQUE\",\"context\":\"TENDINOPATHIE CHRONIQUE (dégénérative); aggravé : posture · démarche asymétrique · muscles\"},{\"cell\":7,\"focus\":\"douleur INTÉRIEUR du genou, juste SOUS l’articulation\",\"context\":\"douleur INTÉRIEUR du genou, juste SOUS l’articulation; pire : flexion · ESCALIERS · course; sensible sur l’insertion\"},{\"cell\":8,\"focus\":\"léger œdème\",\"context\":\"léger œdème (aigu); difficile de plier / tendre; chronique : douleur PERSISTANTE\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; PALPATION directe; mouvements douloureux; TESTS FONCTIONNELS; mobilité; force musculaire\"},{\"cell\":10,\"focus\":\"ÉCHO / IRM\",\"context\":\"ÉCHO / IRM; si besoin; état des tendons; exclure : rupture partielle; lésion du cartilage\"},{\"cell\":11,\"focus\":\"inflammation ↓ · douleur ↓ · genou fonctionnel\",\"context\":\"inflammation ↓ · douleur ↓ · genou fonctionnel; REPOS · moins d’activités; GLACE; AINS\"},{\"cell\":12,\"focus\":\"KINÉ\",\"context\":\"KINÉ : renforcer · assouplir · biomécanique; orthèses + semelles : corriger la PRONATION; INFILTRATIONS; si ça persiste; ⚠ prudence : ATROPHIE du tendon; CHIRURGIE; graves / chroniques; retirer les tissus abîmés · réparer\"},{\"cell\":13,\"focus\":\"LA PLUPART\",\"context\":\"GÉNÉRALEMENT BON; LA PLUPART; genou NORMAL; repos · kiné · biomécanique\"},{\"cell\":14,\"focus\":\"CHRONIQUE\",\"context\":\"CHRONIQUE; douleurs persistantes; limitation à long terme\"},{\"cell\":15,\"focus\":\"RENFORCER\",\"context\":\"PRÉVENTION; RENFORCER : quadriceps · ischios · mollets; ÉTIREMENTS réguliers; ÉCHAUFFEMENT avant l’effort; orthèses : corriger la pronation\"},{\"cell\":16,\"focus\":\"DOSER l’entraînement + récupération\",\"context\":\"DOSER l’entraînement + récupération; DÉPISTAGE; signes TÔT chez les sportifs à risque; consulter VITE si ça persiste\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Le syndrome de la patte d'oie. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Insertion tendineuse interne du genou\",\"context\":\"IRRITATION / inflammation des tendons; INTÉRIEUR du genou : 3 muscles : SARTORIUS · GRACILIS · SEMI-TENDINEUX; = tendinite de la patte d’oie; sportifs : flexion-extension : course · vélo · foot\"},{\"cell\":2,\"focus\":\"Sartorius, gracilis et semi-tendineux\",\"context\":\"sartorius; gracilis; semi-tendineux\"},{\"cell\":3,\"focus\":\"Friction et surcharge répétées\",\"context\":\"SURCHARGE / FRICTION répétée sur l’insertion; MUSCLES; quadriceps + ischio-jambiers faibles; BIOMÉCANIQUE; pronation · pied plat · alignement du genou\"},{\"cell\":4,\"focus\":\"Sport et facteurs biomécaniques\",\"context\":\"SPORTS; pivot · course · foot · tennis · basket; ANATOMIE; taille du bassin · angle du fémur; ÂGE + SEXE; femmes · personnes plus âgées\"},{\"cell\":5,\"focus\":\"Microtraumatismes des tendons\",\"context\":\"inflammation / DÉGÉNÉRESCENCE tendineuse; trop sollicités → MICRO-DÉCHIRURES : → réaction inflammatoire\"},{\"cell\":6,\"focus\":\"Tendinopathie persistante\",\"context\":\"TENDINOPATHIE CHRONIQUE (dégénérative); aggravé : posture · démarche asymétrique · muscles\"},{\"cell\":7,\"focus\":\"Douleur sous la face interne du genou\",\"context\":\"douleur INTÉRIEUR du genou, juste SOUS l’articulation; pire : flexion · ESCALIERS · course; sensible sur l’insertion\"},{\"cell\":8,\"focus\":\"Gêne au mouvement et à l’effort\",\"context\":\"léger œdème (aigu); difficile de plier / tendre; chronique : douleur PERSISTANTE\"},{\"cell\":9,\"focus\":\"Palpation et bilan fonctionnel\",\"context\":\"EXAMEN CLINIQUE; PALPATION directe; mouvements douloureux; TESTS FONCTIONNELS; mobilité; force musculaire\"},{\"cell\":10,\"focus\":\"Échographie ou IRM selon le cas\",\"context\":\"ÉCHO / IRM; si besoin; état des tendons; exclure : rupture partielle; lésion du cartilage\"},{\"cell\":11,\"focus\":\"Repos et prise en charge adaptée\",\"context\":\"inflammation ↓ · douleur ↓ · genou fonctionnel; REPOS · moins d’activités; GLACE; AINS\"},{\"cell\":12,\"focus\":\"Renforcement, souplesse et biomécanique\",\"context\":\"KINÉ : renforcer · assouplir · biomécanique; orthèses + semelles : corriger la PRONATION; INFILTRATIONS; si ça persiste; ⚠ prudence : ATROPHIE du tendon; CHIRURGIE; graves / chroniques; retirer les tissus abîmés · réparer\"},{\"cell\":13,\"focus\":\"Récupération du genou\",\"context\":\"GÉNÉRALEMENT BON; LA PLUPART; genou NORMAL; repos · kiné · biomécanique\"},{\"cell\":14,\"focus\":\"Douleurs persistantes si chronique\",\"context\":\"CHRONIQUE; douleurs persistantes; limitation à long terme\"},{\"cell\":15,\"focus\":\"Préparation et renforcement musculaire\",\"context\":\"PRÉVENTION; RENFORCER : quadriceps · ischios · mollets; ÉTIREMENTS réguliers; ÉCHAUFFEMENT avant l’effort; orthèses : corriger la pronation\"},{\"cell\":16,\"focus\":\"Doser effort et récupération\",\"context\":\"DOSER l’entraînement + récupération; DÉPISTAGE; signes TÔT chez les sportifs à risque; consulter VITE si ça persiste\"}]. Preserve exact 4-column grid and 4 rows."
 }

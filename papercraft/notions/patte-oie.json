@@ -1,0 +1,101 @@
+{
+  "id": "patte-oie",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p1-1.webp",
+        "caption": "Insertion tendineuse interne du genou",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p1-2.webp",
+        "caption": "Sartorius, gracilis et semi-tendineux",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p2-1.webp",
+        "caption": "Friction et surcharge répétées",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p2-2.webp",
+        "caption": "Sport et facteurs biomécaniques",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p3-1.webp",
+        "caption": "Microtraumatismes des tendons",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p3-2.webp",
+        "caption": "Tendinopathie persistante",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p4-1.webp",
+        "caption": "Douleur sous la face interne du genou",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p4-2.webp",
+        "caption": "Gêne au mouvement et à l’effort",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p5-1.webp",
+        "caption": "Palpation et bilan fonctionnel",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p5-2.webp",
+        "caption": "Échographie ou IRM selon le cas",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p6-1.webp",
+        "caption": "Repos et prise en charge adaptée",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p6-2.webp",
+        "caption": "Renforcement, souplesse et biomécanique",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p7-1.webp",
+        "caption": "Récupération du genou",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p7-2.webp",
+        "caption": "Douleurs persistantes si chronique",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/patte-oie/p8-1.webp",
+        "caption": "Préparation et renforcement musculaire",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/patte-oie/p8-2.webp",
+        "caption": "Doser effort et récupération",
+        "after": 8
+      }
+    ]
+  ]
+}
