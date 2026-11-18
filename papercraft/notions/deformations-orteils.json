@@ -1,0 +1,101 @@
+{
+  "id": "deformations-orteils",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p1-1.webp",
+        "caption": "Déformations structurales des orteils",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p1-2.webp",
+        "caption": "Déviation et torsion",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p2-1.webp",
+        "caption": "Griffes et déséquilibres musculaires",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p2-2.webp",
+        "caption": "Surcharge et chaussage",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p3-1.webp",
+        "caption": "Orteils en griffe et déviation latérale",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p3-2.webp",
+        "caption": "Orteil en vrille et métatarsalgie",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p4-1.webp",
+        "caption": "Déformation visible et callosités",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p4-2.webp",
+        "caption": "Douleur dans la chaussure et à l’appui",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p5-1.webp",
+        "caption": "Inspection et mobilité des orteils",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p5-2.webp",
+        "caption": "Radiographie de l’alignement",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p6-1.webp",
+        "caption": "Orthèses et soins de la peau",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p6-2.webp",
+        "caption": "Rééducation et répartition des appuis",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p7-1.webp",
+        "caption": "Évolution selon la déformation",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p7-2.webp",
+        "caption": "Amélioration et récidive possible",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p8-1.webp",
+        "caption": "Chaussures et dépistage précoce",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/deformations-orteils/p8-2.webp",
+        "caption": "Posture, renforcement et chaussage",
+        "after": 3
+      }
+    ]
+  ]
+}
