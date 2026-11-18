@@ -1,0 +1,101 @@
+{
+  "id": "chaussures-enfant",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p1-1.webp",
+        "caption": "Confort et développement du pied",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p1-2.webp",
+        "caption": "Suivre la croissance de l’enfant",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p2-1.webp",
+        "caption": "Croissance et ajustement",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p2-2.webp",
+        "caption": "Chaussure adaptée à l’activité",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p3-1.webp",
+        "caption": "Pied souple en développement",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p3-2.webp",
+        "caption": "Effets sur la marche et la posture",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p4-1.webp",
+        "caption": "Douleur et difficulté à marcher",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p4-2.webp",
+        "caption": "Déformations et macération",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p5-1.webp",
+        "caption": "Examen du pied et de la démarche",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p5-2.webp",
+        "caption": "Mesurer longueur, largeur et profondeur",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p6-1.webp",
+        "caption": "Adapter le chaussage",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p6-2.webp",
+        "caption": "Conseiller les parents",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p7-1.webp",
+        "caption": "Marche confortable après adaptation",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p7-2.webp",
+        "caption": "Troubles persistants si négligés",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p8-1.webp",
+        "caption": "Forme naturelle et semelle souple",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-enfant/p8-2.webp",
+        "caption": "Renouveler avec la croissance",
+        "after": 9
+      }
+    ]
+  ]
+}
