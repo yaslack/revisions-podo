@@ -1,0 +1,101 @@
+{
+  "id": "smp",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p1-1.webp",
+        "caption": "Réaction aux traitements anticancéreux",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p1-2.webp",
+        "caption": "Atteinte des mains et des pieds",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p2-1.webp",
+        "caption": "Traitements en cause",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p2-2.webp",
+        "caption": "Pression, chaleur et frottements",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p3-1.webp",
+        "caption": "Prolifération cellulaire et traitement",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p3-2.webp",
+        "caption": "Thérapies ciblées",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p4-1.webp",
+        "caption": "Rougeur, douleur et fissures",
+        "after": 6
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p4-2.webp",
+        "caption": "Hyperkératoses aux points d’appui",
+        "after": 13
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p5-1.webp",
+        "caption": "Observer les lésions et le traitement",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p5-2.webp",
+        "caption": "Distinguer les autres dermatoses",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p6-1.webp",
+        "caption": "Éviter les contraintes et protéger",
+        "after": 9
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p6-2.webp",
+        "caption": "Soins émollients et podologiques adaptés",
+        "after": 19
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p7-1.webp",
+        "caption": "Amélioration après adaptation médicale",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p7-2.webp",
+        "caption": "Retentissement et rechute possible",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/smp/p8-1.webp",
+        "caption": "Bilan avant le traitement",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/smp/p8-2.webp",
+        "caption": "Suivi et protection pendant le traitement",
+        "after": 8
+      }
+    ]
+  ]
+}
