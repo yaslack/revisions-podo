@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "douleur du 2e ORTEIL",
+        "caption": "Surcharge du deuxième rayon",
         "after": 1,
         "context": [
           "douleur du 2e ORTEIL : tension mécanique · SURCHARGE du rayon",
@@ -14,7 +14,7 @@
         ]
       },
       {
-        "caption": "sportif · pied plat · hallux valgus",
+        "caption": "Gêne du deuxième orteil à la propulsion",
         "after": 3,
         "context": [
           "sportif · pied plat · hallux valgus",
@@ -24,7 +24,7 @@
     ],
     [
       {
-        "caption": "SURCHARGE",
+        "caption": "Surcharge et déséquilibre des rayons",
         "after": 2,
         "context": [
           "SURCHARGE",
@@ -36,7 +36,7 @@
         ]
       },
       {
-        "caption": "PATHOLOGIES",
+        "caption": "Chaussage et facteurs favorisants",
         "after": 5,
         "context": [
           "PATHOLOGIES",
@@ -54,7 +54,7 @@
     ],
     [
       {
-        "caption": "PRESSION sur l’orteil / la MTP2",
+        "caption": "Pression sur la deuxième articulation",
         "after": 2,
         "context": [
           "PRESSION sur l’orteil / la MTP2",
@@ -63,7 +63,7 @@
         ]
       },
       {
-        "caption": "rayon LONG / trop sollicité → se déforme",
+        "caption": "Déformation et lésions voisines",
         "after": 5,
         "context": [
           "rayon LONG / trop sollicité → se déforme",
@@ -74,7 +74,7 @@
     ],
     [
       {
-        "caption": "douleur BASE du 2e orteil",
+        "caption": "Douleur à la base du deuxième orteil",
         "after": 2,
         "context": [
           "douleur BASE du 2e orteil (MTP) : marche · course · pression",
@@ -83,7 +83,7 @@
         ]
       },
       {
-        "caption": "callosités + cors",
+        "caption": "Callosités et raideur",
         "after": 5,
         "context": [
           "callosités + cors : dessous, plante, dessus",
@@ -94,7 +94,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Examen clinique et biomécanique",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -107,7 +107,7 @@
         ]
       },
       {
-        "caption": "RADIOGRAPHIE",
+        "caption": "Radiographie et bilan des tissus mous",
         "after": 3,
         "context": [
           "RADIOGRAPHIE",
@@ -122,7 +122,7 @@
     ],
     [
       {
-        "caption": "surtout CONSERVATEUR",
+        "caption": "Décharge et orthèses",
         "after": 3,
         "context": [
           "surtout CONSERVATEUR",
@@ -132,7 +132,7 @@
         ]
       },
       {
-        "caption": "étirer + renforcer pied et orteils",
+        "caption": "Chaussage et rééducation",
         "after": 7,
         "context": [
           "étirer + renforcer pied et orteils",
@@ -144,7 +144,7 @@
     ],
     [
       {
-        "caption": "FAVORABLE si pris TÔT",
+        "caption": "Reprise après prise en charge précoce",
         "after": 1,
         "context": [
           "FAVORABLE si pris TÔT",
@@ -154,7 +154,7 @@
         ]
       },
       {
-        "caption": "NÉGLIGÉ",
+        "caption": "Déformation persistante si négligée",
         "after": 2,
         "context": [
           "NÉGLIGÉ",
@@ -165,7 +165,7 @@
     ],
     [
       {
-        "caption": "chaussures AJUSTÉES",
+        "caption": "Chaussures et contrôle des appuis",
         "after": 3,
         "context": [
           "PRÉVENTION",
@@ -175,7 +175,7 @@
         ]
       },
       {
-        "caption": "entraînement VARIÉ, sans surcharge",
+        "caption": "Varier l’entraînement et consulter tôt",
         "after": 6,
         "context": [
           "entraînement VARIÉ, sans surcharge",
@@ -186,5 +186,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Le syndrome du 2e rayon. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"douleur du 2e ORTEIL\",\"context\":\"douleur du 2e ORTEIL : tension mécanique · SURCHARGE du rayon; douleur · inflammation · parfois DÉFORMATION\"},{\"cell\":2,\"focus\":\"sportif · pied plat · hallux valgus\",\"context\":\"sportif · pied plat · hallux valgus; marche + posture : 2e orteil = PROPULSION + ÉQUILIBRE\"},{\"cell\":3,\"focus\":\"SURCHARGE\",\"context\":\"SURCHARGE; compense les autres orteils → callosités, cors; BIOMÉCANIQUE; orteils en marteau · 1er rayon HYPERMOBILE; CHAUSSURES; étroites · talons\"},{\"cell\":4,\"focus\":\"PATHOLOGIES\",\"context\":\"PATHOLOGIES; hallux valgus; FACTEURS DE RISQUE; pied plat / pronateur; 2e orteil LONG; chaussures étroites; course; danse; ballon; déformations de l’avant-pied\"},{\"cell\":5,\"focus\":\"PRESSION sur l’orteil / la MTP2\",\"context\":\"PRESSION sur l’orteil / la MTP2; inflammation · peau irritée · contraction · déformation; 2e rayon = grande part de la PROPULSION\"},{\"cell\":6,\"focus\":\"rayon LONG / trop sollicité → se déforme\",\"context\":\"rayon LONG / trop sollicité → se déforme; BURSITE + TENDINITE voisines; ORTEIL EN MARTEAU · callosités · cors\"},{\"cell\":7,\"focus\":\"douleur BASE du 2e orteil\",\"context\":\"douleur BASE du 2e orteil (MTP) : marche · course · pression; gonflement · sensible au toucher; avancé : ORTEIL EN MARTEAU (rétractions)\"},{\"cell\":8,\"focus\":\"callosités + cors\",\"context\":\"callosités + cors : dessous, plante, dessus; mécanique : ↓ repos, revient à l’effort; RAIDEUR en flexion de la MTP\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; palper la MTP2; douleur · œdème; orteil en marteau ?; BIOMÉCANIQUE; analyse de la marche; SURCHARGE du 2e rayon\"},{\"cell\":10,\"focus\":\"RADIOGRAPHIE\",\"context\":\"RADIOGRAPHIE; fracture; malformation; déformation osseuse; IRM; tendinite ?; tissus mous\"},{\"cell\":11,\"focus\":\"surtout CONSERVATEUR\",\"context\":\"surtout CONSERVATEUR; REPOS : natation, vélo plutôt que course; CHALEUR + massages : détente, circulation; ORTHÈSES sur mesure : pressions redistribuées : orteils alignés · pas de récidive\"},{\"cell\":12,\"focus\":\"étirer + renforcer pied et orteils\",\"context\":\"étirer + renforcer pied et orteils; chaussures LARGES, amorties; infiltrations si inflammation sévère; chirurgie : marteau, lésions irréversibles\"},{\"cell\":13,\"focus\":\"FAVORABLE si pris TÔT\",\"context\":\"FAVORABLE si pris TÔT; LA PLUPART; reprennent le SPORT; après rééducation\"},{\"cell\":14,\"focus\":\"NÉGLIGÉ\",\"context\":\"NÉGLIGÉ; déformations PERMANENTES; pied moins fonctionnel\"},{\"cell\":15,\"focus\":\"chaussures AJUSTÉES\",\"context\":\"PRÉVENTION; chaussures AJUSTÉES : voûte + amorti; contrôle BIOMÉCANIQUE (sportifs); renforcer pied + orteils\"},{\"cell\":16,\"focus\":\"entraînement VARIÉ, sans surcharge\",\"context\":\"entraînement VARIÉ, sans surcharge; DÉPISTAGE PRÉCOCE; douleurs chroniques du pied; troubles de la posture\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Le syndrome du 2e rayon. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Surcharge du deuxième rayon\",\"context\":\"douleur du 2e ORTEIL : tension mécanique · SURCHARGE du rayon; douleur · inflammation · parfois DÉFORMATION\"},{\"cell\":2,\"focus\":\"Gêne du deuxième orteil à la propulsion\",\"context\":\"sportif · pied plat · hallux valgus; marche + posture : 2e orteil = PROPULSION + ÉQUILIBRE\"},{\"cell\":3,\"focus\":\"Surcharge et déséquilibre des rayons\",\"context\":\"SURCHARGE; compense les autres orteils → callosités, cors; BIOMÉCANIQUE; orteils en marteau · 1er rayon HYPERMOBILE; CHAUSSURES; étroites · talons\"},{\"cell\":4,\"focus\":\"Chaussage et facteurs favorisants\",\"context\":\"PATHOLOGIES; hallux valgus; FACTEURS DE RISQUE; pied plat / pronateur; 2e orteil LONG; chaussures étroites; course; danse; ballon; déformations de l’avant-pied\"},{\"cell\":5,\"focus\":\"Pression sur la deuxième articulation\",\"context\":\"PRESSION sur l’orteil / la MTP2; inflammation · peau irritée · contraction · déformation; 2e rayon = grande part de la PROPULSION\"},{\"cell\":6,\"focus\":\"Déformation et lésions voisines\",\"context\":\"rayon LONG / trop sollicité → se déforme; BURSITE + TENDINITE voisines; ORTEIL EN MARTEAU · callosités · cors\"},{\"cell\":7,\"focus\":\"Douleur à la base du deuxième orteil\",\"context\":\"douleur BASE du 2e orteil (MTP) : marche · course · pression; gonflement · sensible au toucher; avancé : ORTEIL EN MARTEAU (rétractions)\"},{\"cell\":8,\"focus\":\"Callosités et raideur\",\"context\":\"callosités + cors : dessous, plante, dessus; mécanique : ↓ repos, revient à l’effort; RAIDEUR en flexion de la MTP\"},{\"cell\":9,\"focus\":\"Examen clinique et biomécanique\",\"context\":\"EXAMEN CLINIQUE; palper la MTP2; douleur · œdème; orteil en marteau ?; BIOMÉCANIQUE; analyse de la marche; SURCHARGE du 2e rayon\"},{\"cell\":10,\"focus\":\"Radiographie et bilan des tissus mous\",\"context\":\"RADIOGRAPHIE; fracture; malformation; déformation osseuse; IRM; tendinite ?; tissus mous\"},{\"cell\":11,\"focus\":\"Décharge et orthèses\",\"context\":\"surtout CONSERVATEUR; REPOS : natation, vélo plutôt que course; CHALEUR + massages : détente, circulation; ORTHÈSES sur mesure : pressions redistribuées : orteils alignés · pas de récidive\"},{\"cell\":12,\"focus\":\"Chaussage et rééducation\",\"context\":\"étirer + renforcer pied et orteils; chaussures LARGES, amorties; infiltrations si inflammation sévère; chirurgie : marteau, lésions irréversibles\"},{\"cell\":13,\"focus\":\"Reprise après prise en charge précoce\",\"context\":\"FAVORABLE si pris TÔT; LA PLUPART; reprennent le SPORT; après rééducation\"},{\"cell\":14,\"focus\":\"Déformation persistante si négligée\",\"context\":\"NÉGLIGÉ; déformations PERMANENTES; pied moins fonctionnel\"},{\"cell\":15,\"focus\":\"Chaussures et contrôle des appuis\",\"context\":\"PRÉVENTION; chaussures AJUSTÉES : voûte + amorti; contrôle BIOMÉCANIQUE (sportifs); renforcer pied + orteils\"},{\"cell\":16,\"focus\":\"Varier l’entraînement et consulter tôt\",\"context\":\"entraînement VARIÉ, sans surcharge; DÉPISTAGE PRÉCOCE; douleurs chroniques du pied; troubles de la posture\"}]. Preserve exact 4-column grid and 4 rows."
 }

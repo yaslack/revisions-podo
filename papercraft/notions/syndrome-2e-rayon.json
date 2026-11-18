@@ -1,0 +1,101 @@
+{
+  "id": "syndrome-2e-rayon",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p1-1.webp",
+        "caption": "Surcharge du deuxième rayon",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p1-2.webp",
+        "caption": "Gêne du deuxième orteil à la propulsion",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p2-1.webp",
+        "caption": "Surcharge et déséquilibre des rayons",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p2-2.webp",
+        "caption": "Chaussage et facteurs favorisants",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p3-1.webp",
+        "caption": "Pression sur la deuxième articulation",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p3-2.webp",
+        "caption": "Déformation et lésions voisines",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p4-1.webp",
+        "caption": "Douleur à la base du deuxième orteil",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p4-2.webp",
+        "caption": "Callosités et raideur",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p5-1.webp",
+        "caption": "Examen clinique et biomécanique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p5-2.webp",
+        "caption": "Radiographie et bilan des tissus mous",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p6-1.webp",
+        "caption": "Décharge et orthèses",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p6-2.webp",
+        "caption": "Chaussage et rééducation",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p7-1.webp",
+        "caption": "Reprise après prise en charge précoce",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p7-2.webp",
+        "caption": "Déformation persistante si négligée",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p8-1.webp",
+        "caption": "Chaussures et contrôle des appuis",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/syndrome-2e-rayon/p8-2.webp",
+        "caption": "Varier l’entraînement et consulter tôt",
+        "after": 6
+      }
+    ]
+  ]
+}
