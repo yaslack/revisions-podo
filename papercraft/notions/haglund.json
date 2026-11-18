@@ -1,0 +1,101 @@
+{
+  "id": "haglund",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p1-1.webp",
+        "caption": "Bosse osseuse derrière le talon",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p1-2.webp",
+        "caption": "Douleur dans la chaussure",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p2-1.webp",
+        "caption": "Frottements et contraintes répétées",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p2-2.webp",
+        "caption": "Forme du pied et prédisposition",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p3-1.webp",
+        "caption": "Excroissance du calcanéum",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p3-2.webp",
+        "caption": "Irritation de la bourse et de l’Achille",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p4-1.webp",
+        "caption": "Douleur et gonflement postérieurs",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p4-2.webp",
+        "caption": "Bosse palpable et chaussage difficile",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p5-1.webp",
+        "caption": "Examen et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p5-2.webp",
+        "caption": "Échographie de la bourse et du tendon",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p6-1.webp",
+        "caption": "Décharge et protection du talon",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p6-2.webp",
+        "caption": "Rééducation et chirurgie selon le cas",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p7-1.webp",
+        "caption": "Reprise après traitement adapté",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p7-2.webp",
+        "caption": "Évolution selon la prise en charge",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/haglund/p8-1.webp",
+        "caption": "Chaussure confortable et travail de l’Achille",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/haglund/p8-2.webp",
+        "caption": "Consulter pour douleur persistante",
+        "after": 6
+      }
+    ]
+  ]
+}

@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "déformation de HAGLUND",
+        "caption": "Bosse osseuse derrière le talon",
         "after": 2,
         "context": [
           "déformation de HAGLUND : le talon",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "douleur chronique · gonflement · gêne",
+        "caption": "Douleur dans la chaussure",
         "after": 4,
         "context": [
           "douleur chronique · gonflement · gêne : marche · certaines chaussures",
@@ -25,7 +25,7 @@
     ],
     [
       {
-        "caption": "TRAUMATISMES RÉPÉTÉS",
+        "caption": "Frottements et contraintes répétées",
         "after": 2,
         "context": [
           "TRAUMATISMES RÉPÉTÉS",
@@ -37,7 +37,7 @@
         ]
       },
       {
-        "caption": "GÉNÉTIQUE",
+        "caption": "Forme du pied et prédisposition",
         "after": 5,
         "context": [
           "GÉNÉTIQUE",
@@ -54,7 +54,7 @@
     ],
     [
       {
-        "caption": "HYPERTROPHIE osseuse du calcanéum",
+        "caption": "Excroissance du calcanéum",
         "after": 1,
         "context": [
           "HYPERTROPHIE osseuse du calcanéum : en haut + en dehors",
@@ -62,7 +62,7 @@
         ]
       },
       {
-        "caption": "frottement + tendon d’Achille",
+        "caption": "Irritation de la bourse et de l’Achille",
         "after": 3,
         "context": [
           "frottement + tendon d’Achille : aggrave · gêne le tendon",
@@ -72,7 +72,7 @@
     ],
     [
       {
-        "caption": "DOULEUR arrière du talon",
+        "caption": "Douleur et gonflement postérieurs",
         "after": 2,
         "context": [
           "DOULEUR arrière du talon : aiguë ou lancinante · marche, course, effort",
@@ -81,7 +81,7 @@
         ]
       },
       {
-        "caption": "tendon d’Achille moins mobile",
+        "caption": "Bosse palpable et chaussage difficile",
         "after": 5,
         "context": [
           "tendon d’Achille moins mobile",
@@ -92,7 +92,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Examen et radiographie",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -106,7 +106,7 @@
         ]
       },
       {
-        "caption": "ÉCHOGRAPHIE",
+        "caption": "Échographie de la bourse et du tendon",
         "after": 3,
         "context": [
           "ÉCHOGRAPHIE",
@@ -120,7 +120,7 @@
     ],
     [
       {
-        "caption": "REPOS",
+        "caption": "Décharge et protection du talon",
         "after": 4,
         "context": [
           "CONSERVATEUR",
@@ -131,7 +131,7 @@
         ]
       },
       {
-        "caption": "physio",
+        "caption": "Rééducation et chirurgie selon le cas",
         "after": 9,
         "context": [
           "physio : renforcer + assouplir l’Achille",
@@ -147,7 +147,7 @@
     ],
     [
       {
-        "caption": "GÉNÉRALEMENT FAVORABLE",
+        "caption": "Reprise après traitement adapté",
         "after": 2,
         "context": [
           "GÉNÉRALEMENT FAVORABLE",
@@ -160,7 +160,7 @@
         ]
       },
       {
-        "caption": "long terme",
+        "caption": "Évolution selon la prise en charge",
         "after": 4,
         "context": [
           "long terme : efficacité du traitement",
@@ -170,7 +170,7 @@
     ],
     [
       {
-        "caption": "chaussures CONFORTABLES",
+        "caption": "Chaussure confortable et travail de l’Achille",
         "after": 3,
         "context": [
           "PRÉVENTION",
@@ -180,7 +180,7 @@
         ]
       },
       {
-        "caption": "douleur CHRONIQUE du talon",
+        "caption": "Consulter pour douleur persistante",
         "after": 6,
         "context": [
           "douleur CHRONIQUE du talon",
@@ -190,5 +190,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: La maladie de Haglund. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"déformation de HAGLUND\",\"context\":\"déformation de HAGLUND : le talon; EXCROISSANCE du calcanéum : partie supérieure + latérale; + inflammation de la BOURSE séreuse\"},{\"cell\":2,\"focus\":\"douleur chronique · gonflement · gêne\",\"context\":\"douleur chronique · gonflement · gêne : marche · certaines chaussures; JEUNES ACTIFS : course, saut : basket · foot · tennis · danse\"},{\"cell\":3,\"focus\":\"TRAUMATISMES RÉPÉTÉS\",\"context\":\"TRAUMATISMES RÉPÉTÉS; impacts → bourse irritée → excroissance; BIOMÉCANIQUE; pronation excessive · voûte trop haute / basse; CHAUSSURES; talon rigide · arrière-pied serré\"},{\"cell\":4,\"focus\":\"GÉNÉTIQUE\",\"context\":\"GÉNÉTIQUE; forme du pied; FACTEURS DE RISQUE; sport intense; pied creux; hyperpronation; chaussures rigides; âge : jeune actif ou plus âgé; traumatisme du talon\"},{\"cell\":5,\"focus\":\"HYPERTROPHIE osseuse du calcanéum\",\"context\":\"HYPERTROPHIE osseuse du calcanéum : en haut + en dehors; irrite la BOURSE → inflammation\"},{\"cell\":6,\"focus\":\"frottement + tendon d’Achille\",\"context\":\"frottement + tendon d’Achille : aggrave · gêne le tendon; long terme : bourse ÉPAISSIE, tendon abîmé\"},{\"cell\":7,\"focus\":\"DOULEUR arrière du talon\",\"context\":\"DOULEUR arrière du talon : aiguë ou lancinante · marche, course, effort; gonflement · rougeur · chaleur (bourse); FROTTEMENT contre la chaussure\"},{\"cell\":8,\"focus\":\"tendon d’Achille moins mobile\",\"context\":\"tendon d’Achille moins mobile; BOSSE palpable, parfois visible; chaussures fermées difficiles (talon rigide)\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; douleur · gonflement; la bosse; mobilité de l’Achille; RADIOGRAPHIE; MONTRE LA BOSSE; excroissance + ampleur; exclut fracture, infection\"},{\"cell\":10,\"focus\":\"ÉCHOGRAPHIE\",\"context\":\"ÉCHOGRAPHIE; bourse enflammée; tendons; IRM; tendinite ?; lésion de l’Achille ?\"},{\"cell\":11,\"focus\":\"REPOS\",\"context\":\"CONSERVATEUR; REPOS : moins d’activités sur le talon; glace + élévation du pied; AINS; semelles · coussinets : moins de pression\"},{\"cell\":12,\"focus\":\"physio\",\"context\":\"physio : renforcer + assouplir l’Achille; CHIRURGIE; si ça persiste; RÉSECTION; de l’excroissance osseuse; ciel ouvert ou arthroscopie; BOURSE; très enflammée → excisée ou drainée\"},{\"cell\":13,\"focus\":\"GÉNÉRALEMENT FAVORABLE\",\"context\":\"GÉNÉRALEMENT FAVORABLE; LA PLUPART; traitement conservateur; reprise après repos + rééduc; GRAVES / RÉFRACTAIRES; CHIRURGIE; soulage durablement\"},{\"cell\":14,\"focus\":\"long terme\",\"context\":\"long terme : efficacité du traitement; + RAPIDITÉ de l’intervention\"},{\"cell\":15,\"focus\":\"chaussures CONFORTABLES\",\"context\":\"PRÉVENTION; chaussures CONFORTABLES : bon soutien + bon amorti; étirements + renforcement réguliers : surtout du tendon d’Achille; DÉPISTAGE\"},{\"cell\":16,\"focus\":\"douleur CHRONIQUE du talon\",\"context\":\"douleur CHRONIQUE du talon; consulter TÔT; éviter les complications\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: La maladie de Haglund. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Bosse osseuse derrière le talon\",\"context\":\"déformation de HAGLUND : le talon; EXCROISSANCE du calcanéum : partie supérieure + latérale; + inflammation de la BOURSE séreuse\"},{\"cell\":2,\"focus\":\"Douleur dans la chaussure\",\"context\":\"douleur chronique · gonflement · gêne : marche · certaines chaussures; JEUNES ACTIFS : course, saut : basket · foot · tennis · danse\"},{\"cell\":3,\"focus\":\"Frottements et contraintes répétées\",\"context\":\"TRAUMATISMES RÉPÉTÉS; impacts → bourse irritée → excroissance; BIOMÉCANIQUE; pronation excessive · voûte trop haute / basse; CHAUSSURES; talon rigide · arrière-pied serré\"},{\"cell\":4,\"focus\":\"Forme du pied et prédisposition\",\"context\":\"GÉNÉTIQUE; forme du pied; FACTEURS DE RISQUE; sport intense; pied creux; hyperpronation; chaussures rigides; âge : jeune actif ou plus âgé; traumatisme du talon\"},{\"cell\":5,\"focus\":\"Excroissance du calcanéum\",\"context\":\"HYPERTROPHIE osseuse du calcanéum : en haut + en dehors; irrite la BOURSE → inflammation\"},{\"cell\":6,\"focus\":\"Irritation de la bourse et de l’Achille\",\"context\":\"frottement + tendon d’Achille : aggrave · gêne le tendon; long terme : bourse ÉPAISSIE, tendon abîmé\"},{\"cell\":7,\"focus\":\"Douleur et gonflement postérieurs\",\"context\":\"DOULEUR arrière du talon : aiguë ou lancinante · marche, course, effort; gonflement · rougeur · chaleur (bourse); FROTTEMENT contre la chaussure\"},{\"cell\":8,\"focus\":\"Bosse palpable et chaussage difficile\",\"context\":\"tendon d’Achille moins mobile; BOSSE palpable, parfois visible; chaussures fermées difficiles (talon rigide)\"},{\"cell\":9,\"focus\":\"Examen et radiographie\",\"context\":\"EXAMEN CLINIQUE; douleur · gonflement; la bosse; mobilité de l’Achille; RADIOGRAPHIE; MONTRE LA BOSSE; excroissance + ampleur; exclut fracture, infection\"},{\"cell\":10,\"focus\":\"Échographie de la bourse et du tendon\",\"context\":\"ÉCHOGRAPHIE; bourse enflammée; tendons; IRM; tendinite ?; lésion de l’Achille ?\"},{\"cell\":11,\"focus\":\"Décharge et protection du talon\",\"context\":\"CONSERVATEUR; REPOS : moins d’activités sur le talon; glace + élévation du pied; AINS; semelles · coussinets : moins de pression\"},{\"cell\":12,\"focus\":\"Rééducation et chirurgie selon le cas\",\"context\":\"physio : renforcer + assouplir l’Achille; CHIRURGIE; si ça persiste; RÉSECTION; de l’excroissance osseuse; ciel ouvert ou arthroscopie; BOURSE; très enflammée → excisée ou drainée\"},{\"cell\":13,\"focus\":\"Reprise après traitement adapté\",\"context\":\"GÉNÉRALEMENT FAVORABLE; LA PLUPART; traitement conservateur; reprise après repos + rééduc; GRAVES / RÉFRACTAIRES; CHIRURGIE; soulage durablement\"},{\"cell\":14,\"focus\":\"Évolution selon la prise en charge\",\"context\":\"long terme : efficacité du traitement; + RAPIDITÉ de l’intervention\"},{\"cell\":15,\"focus\":\"Chaussure confortable et travail de l’Achille\",\"context\":\"PRÉVENTION; chaussures CONFORTABLES : bon soutien + bon amorti; étirements + renforcement réguliers : surtout du tendon d’Achille; DÉPISTAGE\"},{\"cell\":16,\"focus\":\"Consulter pour douleur persistante\",\"context\":\"douleur CHRONIQUE du talon; consulter TÔT; éviter les complications\"}]. Preserve exact 4-column grid and 4 rows."
 }
