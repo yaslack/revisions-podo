@@ -1,0 +1,77 @@
+{
+  "id": "onychodys",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/onychodys/p1-1.webp",
+        "caption": "Croissance anormale de l’ongle",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/onychodys/p1-2.webp",
+        "caption": "Forme et surface de la tablette",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychodys/p2-1.webp",
+        "caption": "Ongle bombé et courbures",
+        "after": 7
+      },
+      {
+        "src": "jeu/theatre/notions/onychodys/p2-2.webp",
+        "caption": "Ongle concave ou hypercourbé",
+        "after": 15
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychodys/p3-1.webp",
+        "caption": "Épaississement de l’ongle",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/onychodys/p3-2.webp",
+        "caption": "Ongle épaissi et incurvé",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychodys/p4-1.webp",
+        "caption": "Décollement distal ou proximal",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/onychodys/p4-2.webp",
+        "caption": "Absence ou taille anormale de l’ongle",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychodys/p5-1.webp",
+        "caption": "Stries longitudinales et transversales",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/onychodys/p5-2.webp",
+        "caption": "Dépressions et dédoublement",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/onychodys/p6-1.webp",
+        "caption": "Soin et correction de la courbure",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/onychodys/p6-2.webp",
+        "caption": "Prise en charge des anomalies de surface",
+        "after": 8
+      }
+    ]
+  ]
+}

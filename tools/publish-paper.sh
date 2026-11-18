@@ -4,8 +4,21 @@ cd "$(dirname "$0")/.."
 paper_id="$1"
 paper_source="$2"
 case "$paper_id" in *[!a-z0-9-]*|'') echo 'Identifiant de fiche invalide' >&2; exit 1;; esac
+paper_lock="/tmp/podo-paper-publish-$UID.lock"
+while ! mkdir "$paper_lock" 2>/dev/null; do
+  paper_owner="$(cat "$paper_lock/pid" 2>/dev/null || true)"
+  if [[ -n "$paper_owner" ]] && ! kill -0 "$paper_owner" 2>/dev/null; then
+    rm -f "$paper_lock/pid"
+    rmdir "$paper_lock" 2>/dev/null || true
+  fi
+  sleep 2
+done
+echo "$$" > "$paper_lock/pid"
+trap 'rm -f "$paper_lock/pid"; rmdir "$paper_lock" 2>/dev/null || true' EXIT
 test "$(git branch --show-current)" = main
-node tools/import-paper-atlas.cjs "papercraft/plans/$paper_id.json" "$paper_source"
+if [[ ! -f "papercraft/notions/$paper_id.json" ]]; then
+  node tools/import-paper-atlas.cjs "papercraft/plans/$paper_id.json" "$paper_source"
+fi
 node tools/release-paper.cjs
 paper_version="$(node -p "JSON.parse(require('fs').readFileSync('version.json')).v")"
 git add -- app.js index.html sw.js version.json data/paper-notions.js papercraft/ETAT-REPRISE.md papercraft/notions-index.json "papercraft/notions/$paper_id.json" "papercraft/plans/$paper_id.json" "papercraft/$paper_id-notions-prompts.txt" "jeu/theatre/notions/$paper_id" tools/build-paper-notions.js tools/publish-paper.sh
