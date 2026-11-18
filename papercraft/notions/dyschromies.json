@@ -1,0 +1,77 @@
+{
+  "id": "dyschromies",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/dyschromies/p1-1.webp",
+        "caption": "Couleurs anormales de l’ongle",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/dyschromies/p1-2.webp",
+        "caption": "Blanc, jaune ou vert",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyschromies/p2-1.webp",
+        "caption": "Hématome et pigmentation sombre",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/dyschromies/p2-2.webp",
+        "caption": "Pigmentations physiologiques multiples",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyschromies/p3-1.webp",
+        "caption": "Ongle blanc opaque",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/dyschromies/p3-2.webp",
+        "caption": "Taches et bandes blanches",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyschromies/p4-1.webp",
+        "caption": "Leuconychies apparentes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/dyschromies/p4-2.webp",
+        "caption": "Ongle jaune ou vert",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyschromies/p5-1.webp",
+        "caption": "Prise en charge selon la cause",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/dyschromies/p5-2.webp",
+        "caption": "Orientation et recherche d’une mycose",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/dyschromies/p6-1.webp",
+        "caption": "Évolution selon la cause et urgence si suspicion",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/dyschromies/p6-2.webp",
+        "caption": "Hygiène et suivi podologique",
+        "after": 3
+      }
+    ]
+  ]
+}

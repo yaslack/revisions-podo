@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "Modifications de COULEUR de l’ongle",
+        "caption": "Couleurs anormales de l’ongle",
         "after": 4,
         "context": [
           "Modifications de COULEUR de l’ongle : induites par des traumatismes ou des pathologies",
@@ -17,7 +17,7 @@
         ]
       },
       {
-        "caption": "leuconychies",
+        "caption": "Blanc, jaune ou vert",
         "after": 9,
         "context": [
           "leuconychies",
@@ -30,7 +30,7 @@
     ],
     [
       {
-        "caption": "HÉMATOME",
+        "caption": "Hématome et pigmentation sombre",
         "after": 3,
         "context": [
           "HÉMATOME",
@@ -46,7 +46,7 @@
         ]
       },
       {
-        "caption": "mélanonychies PHYSIOLOGIQUES",
+        "caption": "Pigmentations physiologiques multiples",
         "after": 6,
         "context": [
           "mélanonychies PHYSIOLOGIQUES (peaux sombres)",
@@ -57,7 +57,7 @@
     ],
     [
       {
-        "caption": "LEUCONYCHIES VRAIES = ongle blanc OPAQUE",
+        "caption": "Ongle blanc opaque",
         "after": 2,
         "context": [
           "LEUCONYCHIES VRAIES = ongle blanc OPAQUE",
@@ -70,7 +70,7 @@
         ]
       },
       {
-        "caption": "PONCTUÉE",
+        "caption": "Taches et bandes blanches",
         "after": 4,
         "context": [
           "PONCTUÉE",
@@ -86,7 +86,7 @@
     ],
     [
       {
-        "caption": "ONGLE DE TERRY",
+        "caption": "Leuconychies apparentes",
         "after": 2,
         "context": [
           "ONGLE DE TERRY",
@@ -102,7 +102,7 @@
         ]
       },
       {
-        "caption": "JAUNE = XANTHONYCHIE",
+        "caption": "Ongle jaune ou vert",
         "after": 4,
         "context": [
           "JAUNE = XANTHONYCHIE",
@@ -114,7 +114,7 @@
     ],
     [
       {
-        "caption": "ça dépend de la CAUSE",
+        "caption": "Prise en charge selon la cause",
         "after": 2,
         "context": [
           "ça dépend de la CAUSE",
@@ -126,7 +126,7 @@
         ]
       },
       {
-        "caption": "DERMATOLOGIQUE",
+        "caption": "Orientation et recherche d’une mycose",
         "after": 4,
         "context": [
           "DERMATOLOGIQUE",
@@ -139,7 +139,7 @@
     ],
     [
       {
-        "caption": "MYCOSE",
+        "caption": "Évolution selon la cause et urgence si suspicion",
         "after": 1,
         "context": [
           "MYCOSE",
@@ -152,7 +152,7 @@
         ]
       },
       {
-        "caption": "Dans TOUS les cas",
+        "caption": "Hygiène et suivi podologique",
         "after": 3,
         "context": [
           "Dans TOUS les cas",
@@ -163,5 +163,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Les dyschromies. ONE production atlas, EXACT 4 COLUMNS x 3 ROWS, 12 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Modifications de COULEUR de l’ongle\",\"context\":\"Modifications de COULEUR de l’ongle : induites par des traumatismes ou des pathologies; 4 couleurs à retenir; BRUN; mélanonychies; BLANC\"},{\"cell\":2,\"focus\":\"leuconychies\",\"context\":\"leuconychies; JAUNE; xanthonychie; VERT; chloronychie\"},{\"cell\":3,\"focus\":\"HÉMATOME\",\"context\":\"HÉMATOME; sous-unguéal; collection de sang sous l’ongle; bleu / brun → puis NOIR; MÉLANOME; sous-unguéal; tumeur MALIGNE · départ matrice; URGENCE DERMATO !; Diagnostic différentiel; ≠ MÉLANOME\"},{\"cell\":4,\"focus\":\"mélanonychies PHYSIOLOGIQUES\",\"context\":\"mélanonychies PHYSIOLOGIQUES (peaux sombres); MULTIPLES · hyper-expression de la mélanine; diagnostic à l’INTERROGATOIRE\"},{\"cell\":5,\"focus\":\"LEUCONYCHIES VRAIES = ongle blanc OPAQUE\",\"context\":\"LEUCONYCHIES VRAIES = ongle blanc OPAQUE; TOTALE; tout l’ongle; laiteux, crayeux; SUBTOTALE; arc rosé distal; de 2 à 4 mm\"},{\"cell\":6,\"focus\":\"PONCTUÉE\",\"context\":\"PONCTUÉE; taches blanches; microtraumas de la matrice; lunule → suit la pousse; STRIÉE; lignes de Beau; physiologique; iatrogène (anticancéreux)\"},{\"cell\":7,\"focus\":\"ONGLE DE TERRY\",\"context\":\"ONGLE DE TERRY; bilatéral · lunule indiscernable; insuffisance rénale; cirrhose · maladies hépatiques; BANDES DE MUEHRCKE; 2 bandes blanches //; bilatéral, symétrique; hypoalbuminémie; LEUCONYCHOMYCOSE; superficielle\"},{\"cell\":8,\"focus\":\"JAUNE = XANTHONYCHIE\",\"context\":\"JAUNE = XANTHONYCHIE; cosmétique · tabac (main) · onychomycose; VERT = CHLORONYCHIE; infectieuse : PSEUDOMONAS\"},{\"cell\":9,\"focus\":\"ça dépend de la CAUSE\",\"context\":\"ça dépend de la CAUSE; TRAUMA UNIQUE; hématome < 48 h; FORAGE + désinfection · pansement compressif & protecteur; TRAUMAS MULTIPLES; chaussage + laçage adaptés · vernis pour ongles hématiés\"},{\"cell\":10,\"focus\":\"DERMATOLOGIQUE\",\"context\":\"DERMATOLOGIQUE; psoriasis, eczéma; orienter vers le DERMATOLOGUE; MYCOSE ?; prélèvement · ttt selon résultat · soin de pédicurie adapté\"},{\"cell\":11,\"focus\":\"MYCOSE\",\"context\":\"MYCOSE; BON pronostic; si le traitement est suivi; MÉLANOME; URGENCE → dermatologue; évolution RAPIDE; MAUVAIS pronostic\"},{\"cell\":12,\"focus\":\"Dans TOUS les cas\",\"context\":\"Dans TOUS les cas; hygiène stricte; chaussage adapté; soins de pédicurie réguliers\"}]. Preserve exact 4-column grid and 3 rows."
+  "prompt": "Use case: scientific-educational. Course: Les dyschromies. ONE production atlas, EXACT 4 COLUMNS x 3 ROWS, 12 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Couleurs anormales de l’ongle\",\"context\":\"Modifications de COULEUR de l’ongle : induites par des traumatismes ou des pathologies; 4 couleurs à retenir; BRUN; mélanonychies; BLANC\"},{\"cell\":2,\"focus\":\"Blanc, jaune ou vert\",\"context\":\"leuconychies; JAUNE; xanthonychie; VERT; chloronychie\"},{\"cell\":3,\"focus\":\"Hématome et pigmentation sombre\",\"context\":\"HÉMATOME; sous-unguéal; collection de sang sous l’ongle; bleu / brun → puis NOIR; MÉLANOME; sous-unguéal; tumeur MALIGNE · départ matrice; URGENCE DERMATO !; Diagnostic différentiel; ≠ MÉLANOME\"},{\"cell\":4,\"focus\":\"Pigmentations physiologiques multiples\",\"context\":\"mélanonychies PHYSIOLOGIQUES (peaux sombres); MULTIPLES · hyper-expression de la mélanine; diagnostic à l’INTERROGATOIRE\"},{\"cell\":5,\"focus\":\"Ongle blanc opaque\",\"context\":\"LEUCONYCHIES VRAIES = ongle blanc OPAQUE; TOTALE; tout l’ongle; laiteux, crayeux; SUBTOTALE; arc rosé distal; de 2 à 4 mm\"},{\"cell\":6,\"focus\":\"Taches et bandes blanches\",\"context\":\"PONCTUÉE; taches blanches; microtraumas de la matrice; lunule → suit la pousse; STRIÉE; lignes de Beau; physiologique; iatrogène (anticancéreux)\"},{\"cell\":7,\"focus\":\"Leuconychies apparentes\",\"context\":\"ONGLE DE TERRY; bilatéral · lunule indiscernable; insuffisance rénale; cirrhose · maladies hépatiques; BANDES DE MUEHRCKE; 2 bandes blanches //; bilatéral, symétrique; hypoalbuminémie; LEUCONYCHOMYCOSE; superficielle\"},{\"cell\":8,\"focus\":\"Ongle jaune ou vert\",\"context\":\"JAUNE = XANTHONYCHIE; cosmétique · tabac (main) · onychomycose; VERT = CHLORONYCHIE; infectieuse : PSEUDOMONAS\"},{\"cell\":9,\"focus\":\"Prise en charge selon la cause\",\"context\":\"ça dépend de la CAUSE; TRAUMA UNIQUE; hématome < 48 h; FORAGE + désinfection · pansement compressif & protecteur; TRAUMAS MULTIPLES; chaussage + laçage adaptés · vernis pour ongles hématiés\"},{\"cell\":10,\"focus\":\"Orientation et recherche d’une mycose\",\"context\":\"DERMATOLOGIQUE; psoriasis, eczéma; orienter vers le DERMATOLOGUE; MYCOSE ?; prélèvement · ttt selon résultat · soin de pédicurie adapté\"},{\"cell\":11,\"focus\":\"Évolution selon la cause et urgence si suspicion\",\"context\":\"MYCOSE; BON pronostic; si le traitement est suivi; MÉLANOME; URGENCE → dermatologue; évolution RAPIDE; MAUVAIS pronostic\"},{\"cell\":12,\"focus\":\"Hygiène et suivi podologique\",\"context\":\"Dans TOUS les cas; hygiène stricte; chaussage adapté; soins de pédicurie réguliers\"}]. Preserve exact 4-column grid and 3 rows."
 }
