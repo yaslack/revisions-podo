@@ -1,0 +1,101 @@
+{
+  "id": "gonarthrose",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p1-1.webp",
+        "caption": "Usure du cartilage du genou",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p1-2.webp",
+        "caption": "Douleur et raideur progressives",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p2-1.webp",
+        "caption": "Vieillissement et traumatismes",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p2-2.webp",
+        "caption": "Surpoids et facteurs favorisants",
+        "after": 11
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p3-1.webp",
+        "caption": "Cartilage aminci et frottement",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p3-2.webp",
+        "caption": "Ostéophytes et synovite",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p4-1.webp",
+        "caption": "Douleur mécanique et raideur",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p4-2.webp",
+        "caption": "Gonflement et instabilité",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p5-1.webp",
+        "caption": "Examen clinique et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p5-2.webp",
+        "caption": "Imagerie complémentaire selon le bilan",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p6-1.webp",
+        "caption": "Rééducation et prise en charge conservatrice",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p6-2.webp",
+        "caption": "Chirurgie selon le stade",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p7-1.webp",
+        "caption": "Soulager et améliorer la fonction",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p7-2.webp",
+        "caption": "Limitation des formes avancées",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p8-1.webp",
+        "caption": "Poids adapté et activité douce",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/gonarthrose/p8-2.webp",
+        "caption": "Suivi des personnes à risque",
+        "after": 7
+      }
+    ]
+  ]
+}
