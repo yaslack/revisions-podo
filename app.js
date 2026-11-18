@@ -188,6 +188,7 @@
       </section>
       <div class="sec paper-games-heading">JOUER</div><div class="home-learning">
       <a class="card resume" href="#/jeu/apprendre"><span class="stamp sm" style="--c:var(--p6)">${ico('sparkle')}</span><span class="rt"><span class="kicker">POUR APPRENDRE</span><span class="t">Apprendre une fiche</span><span class="s">Lire, cacher, réciter · ${ALLF.filter(f => nStars(f.id) === 3).length}/${ALLF.length} fiches à 3 étoiles</span></span><span class="chev">›</span></a>
+      <a class="card resume" href="#/jeu/conte"><span class="stamp sm" style="--c:var(--p6)">${ico('book')}</span><span class="rt"><span class="kicker">LE CONTE DES SAVOIRS</span><span class="t">Il était une fois… ton cours</span><span class="s">Récite pour réveiller un monde de papier · ${ALLF.filter(f => (S.conte || {})[f.id]?.done).length}/${ALLF.length} contes terminés</span></span><span class="chev">›</span></a>
       <a class="card resume" href="#/jeu/aventure"><span class="stamp sm" style="--c:var(--red)">${ico('flame')}</span><span class="rt"><span class="kicker">L'AVENTURE</span><span class="t">Podo Quest</span><span class="s">Bats les monstres en récitant leurs fiches · niveau ${(S.rpg || {}).lvl || 1} · ${Object.keys((S.rpg || {}).seen || {}).length} monstres battus</span></span><span class="chev">›</span></a>
       </div>
       <div class="sec">POUR RÉVISER CE QUE TU CHOISIS</div>
@@ -643,6 +644,13 @@
       ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
       ['book', '33/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
     ] },
+    { v: 144, items: [
+      ['book', 'Le conte des savoirs : les 64 fiches deviennent des histoires en papier découpé. Récite chaque partie, vérifie tes idées, puis ouvre le passage sans aide. Termine par le grand récit de toute la fiche.'],
+      ['sparkle', 'Huit décors illustrés en papier découpé. Des couches de nuages traversent l’écran à chaque changement de zone. Ta progression est gardée entre deux visites.'],
+    ] },
+    { v: 146, items: [
+      ['phones', 'Le conte a sa bande-son : huit morceaux en boucle, des boutons qui bruissent et des nuages qui passent en stéréo. Les deux boutons en haut permettent de régler la musique et les bruitages séparément.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -689,6 +697,7 @@
       <div class="fhead">${hasIll(f) ? `<span class="drawn th zoomable">${img(coursePreview(f), f.title)}</span>` : `<span class="stamp" style="--c:var(--p8)">${f.n}</span>`}<div class="rt"><h1>${esc(f.title)}</h1>${segs(f)}<span class="s">${doneP(f.id) ? '✓ fiche sue' : `${k} partie${k > 1 ? 's' : ''} lue${k > 1 ? 's' : ''} sur ${n}`}</span></div></div>
       <a class="btn wide" href="${FB(f)}/p${nextK}">${k === 0 ? 'Commencer la fiche' : k === n ? 'Revoir depuis le début' : `Continuer : partie ${nextK}`} →</a>
       <a class="btn wide" href="#/jeu/apprendre/${f.id}" style="--c:var(--p4);margin-top:10px">${ico('sparkle')} Apprendre en jouant ${stars(f.id)}</a>
+      <a class="btn wide" href="#/jeu/conte/${f.id}" style="--c:var(--p6);margin-top:10px">${ico('book')} Raconter cette fiche · Le conte des savoirs</a>
       <a class="btn wide quizbtn" href="${FB(f)}/quiz" style="--c:var(--p5)">${ico('target')} Apprendre la fiche : quiz${S.qz && S.qz[f.id] ? ` · dernier ${S.qz[f.id].last} %` : ''}</a>
       ${dueIn('f:' + f.id) != null ? `<div class="muted small center-t">${dueIn('f:' + f.id) <= 0 ? ico('repeat') + ' À revoir aujourd\'hui' : `${ico('repeat')} Prochaine révision dans ${dueIn('f:' + f.id)} jour${dueIn('f:' + f.id) > 1 ? 's' : ''}`}</div>` : ''}
       <div class="tools">
@@ -1310,7 +1319,7 @@
 
   // ---------- jeux : apprendre une fiche, survie, les paires, qui suis-je, le patient ----------
   let G = null, gTimer = 0;
-  const GAMES = { apprendre: 'Apprendre une fiche', survie: 'Survie', paires: 'Les paires', quisuisje: 'Qui suis-je ?', patient: 'Le patient', aventure: 'Podo Quest' };
+  const GAMES = { apprendre: 'Apprendre une fiche', conte: 'Le conte des savoirs', survie: 'Survie', paires: 'Les paires', quisuisje: 'Qui suis-je ?', patient: 'Le patient', aventure: 'Podo Quest' };
   const QZ = window.QUIZ || {}, CAS = window.CAS || {};
   const STD = ALLF.filter(f => f.parts.length === 8 && f.memo && f.memo.length === 8 && /^Signes cliniques/.test(f.parts[3].title) && /^Traitement/.test(f.parts[5].title)
     && f.memo[3].q === 'On voit quoi ?' && f.memo[4].q === 'Sûr comment ?' && f.memo[5].q === 'On fait quoi ?');   // les fiches au plan classique
@@ -1597,6 +1606,8 @@
   // --- Podo Quest : le jeu d'aventure (aventure.js), branché sur les mêmes données et le même choix de matières
   const AV = window.AVENTURE && window.AVENTURE({ S, save, logeOf, logeTxt, esc, md, ico, shuffle, rnd, fx, did, review, top, count, QZ, CAS, mkStep, anatQ, clinQ, qsjClues, qsjOpts,
     g: () => G, setG: x => { G = x; }, render: k => render(k), pool: () => poolQsj(), all: () => poolQsj(true) });
+  const CT = window.CONTE?.({ state: () => S, save, esc, md, top, ico, QZ, files: ALLF, fileLink: FB, sounds: window.SONS?.conte, did, review,
+    g: () => G, setG: x => { gStop(); G = x; }, render: k => render(k) });
   function gStart(a) {
     const pool = poolOf(a); gStop();
     if (!pool.length) { G = { game: a, setup: true }; return; }
@@ -1699,6 +1710,7 @@
     if (a === 'qsopts') { fx('tap'); G.showOpts = true; return render(true); }
     if (a === 'qsnext') { fx('tap'); return qsNext(); }
     if (a.startsWith('av')) return AV.act(a, j, t);
+    if (a.startsWith('ct')) return CT?.act(a, j);
     if (a.startsWith('pt')) return ptAct(a, j, t);
     if (a === 'L' || a === 'R') return prTap(a, j);
     const st = G.st;   // apprendre : lire, dévoiler, cocher ce qu'on a dit, valider
@@ -1710,6 +1722,7 @@
   }
   function jeu(a, b, c) {
     if (!GAMES[a]) return notFound();
+    if (a === 'conte') return CT?.view(b) || notFound();
     if (a === 'apprendre') return apprendre(b, c);
     if (!G || G.game !== a) { gStop(); G = a === 'aventure' ? { game: a, scr: 'hub' } : { game: a, setup: true }; }
     if (G.setup) return setup(a);
@@ -1772,7 +1785,9 @@
     if (V3) { V3.dispose(); V3 = null; }
     closeVideo();
     const hadPager = !!$('#app .pager.fixed');
-    $('#app').innerHTML = html;
+    if (!CT?.update(SC, html)) SC.innerHTML = html;
+    document.body.classList.toggle('conte-on', sec === 'jeu' && a === 'conte');
+    CT?.mount();
     if (dosOpen && $('.ptdos')) $('.ptdos').open = true;
     document.body.classList.toggle('v3on', !!$('#v3c'));
     if ($('#v3c')) start3d();

@@ -1,0 +1,278 @@
+/* Un livre de papier, avec trois plans de profondeur indépendants du contenu lisible. */
+.ct { --ct-ink:#4d382a; --ct-cream:#fff1d7; --ct-green:#667849; --ct-gold:#edba52; --ct-grain:url(jeu/papier/grain.webp); color:var(--ct-ink); max-width:760px; padding-bottom:44px; }
+.ct .top { color:var(--ct-ink); background:#f8ecd6; }
+.ct .top .tt { font-family:Caveat,cursive; font-size:26px; }
+.ct .top .count { color:#5d513d; font-size:13px; white-space:nowrap; }
+.ct h1,.ct h2,.ct p { margin:0; }
+.ct h1,.ct h2 { font-family:Caveat,cursive; font-weight:700; line-height:1.07; text-wrap:balance; }
+.ct h1 { font-size:clamp(36px,7vw,56px); }
+.ct h2 { font-size:clamp(29px,5vw,38px); }
+.ct-eyebrow { display:block; font:700 10px/1.6 system-ui,sans-serif; letter-spacing:1.7px; text-transform:uppercase; color:#756548; }
+.ct-intro { padding:30px 10px 22px; text-align:center; }
+.ct-intro h1 { margin:9px 0 14px; }
+.ct-intro p { max-width:380px; margin:auto; font-size:15px; line-height:1.6; }
+.ct-chapter { text-align:center; padding:21px 4px 17px; }
+.ct-chapter h1 { margin-top:4px; }
+.ct-stage { --px:0px; --py:0px; position:relative; overflow:hidden; isolation:isolate; height:clamp(225px,61vw,365px); border-radius:48% 47% 7% 5% / 8% 7% 5% 6%; background:#dec9a3; box-shadow:0 4px 0 #d0b18a,0 9px 16px #3d2e2424; contain:paint; }
+.ct-layer { position:absolute; pointer-events:none; will-change:transform; }
+.ct-distant { inset:-18px; background:linear-gradient(#f6d5a211,#a3b7a511),url(jeu/conte/paysage-pont.jpg) center 55%/cover; transform:translate(calc(var(--px)*-.25),calc(var(--py)*-.25)) scale(1.05); }
+.ct-characters { bottom:13%; left:9%; width:31%; height:59%; transform:translate(calc(var(--px)*.65),calc(var(--py)*.4)); filter:drop-shadow(2px 4px 2px #33221550); }
+.ct-hero { position:absolute; left:0; bottom:0; width:72%; height:100%; object-fit:contain; object-position:bottom; transform-origin:50% 95%; animation:ct-breathe 4s ease-in-out infinite; }
+.ct-front { inset:0; background:url(jeu/theatre/scene-bottom.webp) center bottom/100% auto no-repeat; transform:translate(calc(var(--px)*1.25),calc(var(--py)*.9)) scale(1.04); }
+.ct-sparkles { position:absolute; top:25%; left:47%; color:#ffe6a2; font-size:36px; letter-spacing:10px; opacity:0; pointer-events:none; }
+.ct-sparkles span { display:inline-block; transform:translateY(-30px); }
+.ct-awake .ct-sparkles { animation:ct-sparkle 1.8s ease-out both; }
+.ct-trail { display:flex; justify-content:center; align-items:center; gap:clamp(6px,2vw,14px); padding:20px 0 22px; }
+.ct-trail span { display:grid; place-items:center; width:28px; height:26px; flex-shrink:0; border-radius:45% 54% 40% 48%; background:var(--ct-grain) #e3d5b8; color:#796d55; font:700 12px system-ui,sans-serif; box-shadow:0 3px 0 #b9a886; }
+.ct-trail .done { background:var(--ct-grain) #7d925c; color:#fff7de; }
+.ct-trail .current { outline:2px solid #bb8c35; outline-offset:4px; }
+.ct-card { position:relative; background:var(--ct-grain) var(--ct-cream); padding:29px clamp(17px,4vw,30px) 23px; border-radius:14px 7px 19px 8px/8px 19px 9px 14px; border:1px solid #fef3d8; box-shadow:0 3px 0 #e7d1ab,0 6px 0 #be9b7333,0 9px 16px #3e2a1814; }
+.ct-ribbon { margin:-35px auto 20px; width:max-content; max-width:100%; padding:8px 26px; background:var(--ct-grain) #71824f; color:#fff3d6; font:700 27px/.95 Caveat,cursive; text-align:center; clip-path:polygon(3% 0,100% 3%,97% 49%,100% 95%,0 100%,3% 52%,0 4%); }
+.ct-card .ct-eyebrow { margin-bottom:9px; font-size:9px; letter-spacing:1.1px; }
+.ct-question { font-size:clamp(19px,4.6vw,25px); line-height:1.35; font-weight:700; margin:18px 0!important; text-wrap:pretty; }
+.ct-speaking { padding:15px 12px; margin:18px 0; border-block:1px dashed #b3a17c; font:700 21px/1.25 Caveat,cursive; text-align:center; }
+.ct-speaking svg { width:23px; height:23px; vertical-align:middle; margin-right:3px; }
+.ct-speaking small { display:block; font:12px/1.5 system-ui,sans-serif; color:#78684f; margin-top:8px; }
+.ct-btn { display:block; width:100%; min-height:50px; padding:12px 15px; margin-top:15px; border:1px solid #bb8c35; border-radius:24px 18px 22px 16px / 15px 24px 17px 25px; box-shadow:0 3px 0 #c0933d,0 5px 7px #67431920; background:var(--ct-grain) var(--ct-gold); color:#4b351f; font:700 26px/1.1 Caveat,cursive; text-align:center; text-decoration:none; cursor:pointer; touch-action:manipulation; }
+.ct-btn:hover { filter:brightness(1.035); }
+.ct-btn:active { transform:translateY(2px); box-shadow:0 1px 0 #c0933d; }
+.ct-btn:focus-visible,.ct-check:focus-visible,.ct-book:focus-visible { outline:3px solid #526f70; outline-offset:4px; }
+.ct-btn.ct-secondary { background:var(--ct-grain) #f3e6cc; color:#6d5942; border-color:#ceb994; box-shadow:0 2px 0 #d7c29e; font-size:21px; min-height:44px; }
+.ct-btn:disabled { opacity:.55; cursor:default; }
+.ct-help { display:flex; gap:10px; }
+.ct-help .ct-btn { flex:1; }
+.ct-small { font:13px/1.6 system-ui,sans-serif; color:#766247; margin:14px 0!important; }
+.ct-lesson { font:15px/1.6 system-ui,sans-serif; }
+.ct-lesson ul,.ct-hints { padding-left:21px; }
+.ct-lesson li,.ct-hints li { margin-bottom:12px; }
+.ct-lesson details { border-top:1px dashed #b7a47f; padding-top:10px; }
+.ct-lesson details p { margin-top:10px; }
+.ct-checks { display:grid; gap:9px; margin:17px 0; }
+.ct-check { display:flex; align-items:flex-start; gap:12px; padding:13px 11px; min-height:48px; border:1px solid #d7c7a7; border-radius:8px 12px 9px 7px; background:var(--ct-grain) #fffae9; color:var(--ct-ink); font:14px/1.55 system-ui,sans-serif; text-align:left; cursor:pointer; }
+.ct-check>span:first-child { flex:none; color:#827352; font-size:20px; line-height:1.1; }
+.ct-check.on { border-color:#8a9b6a; background:var(--ct-grain) #e5e8c9; }
+.ct-check.on>span:first-child { color:#546c3c; }
+.ct-check:disabled { cursor:default; opacity:1; }
+.ct-check.ct-missed { border:2px solid #bc7958; background:var(--ct-grain) #f7dec1; }
+.ct-feedback { padding:16px; background:var(--ct-grain) #edddbd; border-radius:12px 7px; font:14px/1.5 system-ui,sans-serif; }
+.ct-feedback p { margin-top:7px; }
+.ct-success { background:var(--ct-grain) #e1e5c7; border-left:4px solid #85965a; }
+.ct-ending { text-align:center; margin-top:8px; }
+.ct-ending p { font-size:15px; line-height:1.6; margin:18px 0; }
+.ct-text-link { display:block; margin:20px auto 0; color:#65563f; text-underline-offset:4px; }
+.ct-instructions { padding:25px 12px 5px; }
+.ct-instructions>b { font:700 29px Caveat,cursive; }
+.ct-instructions p { margin:8px 0 12px; font-size:15px; line-height:1.6; }
+.ct-instructions small { font:12px/1.6 system-ui,sans-serif; color:#7e6b4f; }
+.ct-section { margin:26px 6px 14px!important; }
+.ct-books { display:grid; gap:12px; }
+.ct-book { display:grid; grid-template-columns:36px 1fr 18px; gap:11px; align-items:center; color:var(--ct-ink); text-decoration:none; background:var(--ct-grain) #f9ebd0; padding:15px 14px; border:1px solid #ddc6a2; border-radius:8px 13px 6px 10px; box-shadow:0 3px 0 #dbc4a0; }
+.ct-book b { display:block; font:700 23px/1.1 Caveat,cursive; }
+.ct-book small { display:block; margin:6px 0 9px; font:11px/1.4 system-ui,sans-serif; color:#7e6b4f; }
+.ct-book-number { display:grid; place-items:center; height:38px; border-radius:50% 40% 50% 45%; background:var(--ct-grain) #d9dfbc; font:700 23px Caveat,cursive; }
+.ct-book-progress { display:block; height:4px; border-radius:4px; background:linear-gradient(to right,#87975c var(--progress),#e6d6b8 var(--progress)); }
+@keyframes ct-sparkle { 15%,60% { opacity:1; } to { opacity:0; translate:0 -30px; } }
+@media(min-width:650px) { .ct-story { padding-inline:30px; } .ct-card { padding-inline:38px; } .ct-library .ct-books { grid-template-columns:1fr 1fr; } }
+@media(max-width:360px) { .ct-help { display:block; } .ct-trail { gap:8px; } .ct-trail span { width:24px; height:24px; } }
+@media(prefers-reduced-motion:reduce) { .ct *, .ct *:before, .ct *:after { animation:none!important; transition:none!important; } .ct-layer { transform:none!important; will-change:auto; } }
+
+/* Le conte occupe la fenêtre entière. Les commandes sont des découpes photographiées,
+   et restent du vrai texte et de vrais boutons par-dessus le monde illustré. */
+body.conte-on #app { padding:0!important; background:#8b925d; }
+body.conte-on .sndbar { display:none; }
+.ct.ct-story { position:relative; isolation:isolate; display:flex; flex-direction:column; width:100%; max-width:none; min-height:100dvh; margin:0; padding:12px 3vw calc(18px + env(safe-area-inset-bottom)); }
+.ct-story>.ct-stage { --land:url(jeu/conte/paysage-pont.jpg); --foot-x:33%; --foot-y:76%; position:fixed; z-index:-1; inset:0; width:100%; height:100dvh; border:0; border-radius:0; box-shadow:none; pointer-events:none; }
+.ct-story>.ct-bridge { --foot-x:31%; --foot-y:73%; }
+.ct-story>.ct-mill { --land:url(jeu/conte/paysage-moulin.jpg); }
+.ct-story>.ct-lantern { --land:url(jeu/conte/paysage-lanterne.jpg); }
+.ct-story>.ct-garden { --land:url(jeu/conte/paysage-jardin.jpg); }
+.ct-story>.ct-boat { --land:url(jeu/conte/paysage-barque.jpg); }
+.ct-story>.ct-gate { --land:url(jeu/conte/paysage-village.jpg); --foot-y:79%; }
+.ct-story>.ct-tree { --land:url(jeu/conte/paysage-arbre.jpg); }
+.ct-story>.ct-chest { --land:url(jeu/conte/paysage-coffre.jpg); }
+.ct-story .ct-distant { inset:-20px; background:linear-gradient(transparent 38%,#38271433),var(--land) center bottom / cover no-repeat #646938; }
+.ct-story .ct-landscape { top:min(0px,calc((100dvh - (100vw + 36px) / 1.5) * .46)); left:50%; width:max(calc(100% + 36px),150dvh); aspect-ratio:3/2; background:var(--land) center/100% 100%; transform:translate(calc(-50% + var(--px)*.22),calc(var(--py)*.22)); }
+.ct-story .ct-front { inset:auto -10px -12px; height:min(34dvh,420px); z-index:3; background:url(jeu/theatre/feuillages.webp) center bottom / 100% auto no-repeat; mask-image:linear-gradient(transparent,#000 34%); transform:translate(calc(var(--px)*.9),calc(var(--py)*.55)); }
+.ct-story .ct-characters { position:absolute; left:var(--foot-x); top:var(--foot-y); bottom:auto; width:clamp(150px,24dvw,365px); height:auto; aspect-ratio:1; transform:translate(-50%,-96%); filter:none; }
+.ct-story .ct-characters::before { content:''; position:absolute; inset:auto 16% 3% 18%; height:7%; border-radius:50%; background:#46361572; filter:blur(4px); }
+.ct-story .ct-hero.ct-duo { width:100%; height:100%; object-fit:contain; object-position:center bottom; transform-origin:50% 96%; animation:ct-grounded 4s ease-in-out infinite; }
+.ct-story .ct-sparkles { top:38dvh; left:35%; z-index:2; }
+.ct-light { inset:0; z-index:2; transform:translate(calc(var(--px)*.65),calc(var(--py)*.4)); }
+.ct-light i { display:none; position:absolute; top:38%; left:54%; width:5px; height:5px; border-radius:50%; background:#fff1b8; box-shadow:0 0 9px 2px #f5c663; opacity:0; }
+.ct-lantern .ct-light i,.ct-awake .ct-light i { display:block; animation:ct-firefly 3.8s ease-in-out infinite; }
+.ct-light i:nth-child(2) { top:35%; left:65%; animation-delay:.55s; }
+.ct-light i:nth-child(3) { top:28%; left:59%; animation-delay:1.05s; }
+.ct-light i:nth-child(4) { top:43%; left:69%; animation-delay:1.45s; }
+.ct-light i:nth-child(5) { top:44%; left:51%; animation-delay:2s; }
+@keyframes ct-firefly { 40% { opacity:.85; } to { opacity:0; translate:12px -33px; } }
+.ct-top { position:relative; display:flex; align-items:flex-start; justify-content:center; gap:16px; max-width:58%; margin:0; padding:env(safe-area-inset-top) 0 0; }
+.ct-brand,.ct-top-side { display:flex; flex-direction:column; align-items:center; gap:5px; min-width:0; }
+.ct-back,.ct-logo,.ct-book-title,.ct-page-number,.ct-chapter-label,.ct-chapter h1,.ct-narration,.ct-subject { border:1px solid transparent; border-image:url(jeu/theatre/ui-title.webp) 80 fill / 20px / 2px stretch; background:none; box-shadow:none; border-radius:0; color:#52331d; filter:drop-shadow(0 3px 2px #35221135); }
+.ct-back { position:absolute; left:0; top:calc(6px + env(safe-area-inset-top)); width:49px; height:46px; display:grid; place-items:center; font:700 35px/1 Caveat,cursive; border-image-source:url(jeu/theatre/ui-note.webp); }
+.ct-logo { font:700 clamp(33px,4vw,49px)/1 Caveat,cursive; padding:5px 27px 9px; }
+.ct-book-title { font:700 18px/1.2 Caveat,cursive; padding:3px 24px 5px; }
+.ct-top-side { position:absolute; right:0; top:calc(6px + env(safe-area-inset-top)); align-items:flex-end; gap:5px; }
+.ct-page-number { font:700 18px/1 Caveat,cursive; padding:8px 12px; }
+.ct-audio { display:flex; gap:5px; }
+.ct-audio-btn {
+  position:relative;
+  width:40px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border:1px solid transparent;
+  border-image:url(jeu/theatre/ui-title.webp) 80 fill / 17px / 1px stretch;
+  background:none;
+  color:#52331d;
+  font:700 23px/1 system-ui,sans-serif;
+  filter:drop-shadow(0 3px 2px #35221135);
+  touch-action:manipulation;
+}
+.ct-audio-btn svg { width:22px; height:22px; }
+.ct-audio-btn[aria-pressed="false"] { color:#7d5e4c; }
+.ct-audio-btn[aria-pressed="false"]::after { content:''; position:absolute; width:20px; height:2px; background:currentColor; transform:rotate(-40deg); border-radius:1px; }
+.ct-audio-btn:focus-visible { outline:2px solid #52331d; outline-offset:2px; }
+.ct-audio-btn:active { transform:translateY(2px); }
+.ct-layout { display:grid; grid-template-columns:55% 41%; gap:4%; align-items:start; flex:1; }
+.ct-picture { display:flex; flex-direction:column; align-self:stretch; min-width:0; padding-bottom:2dvh; }
+.ct-chapter { padding:16px 0 0; text-align:center; }
+.ct-chapter-label { display:inline-block; padding:5px 25px; font:700 20px/1.2 Caveat,cursive; }
+.ct-chapter h1 { width:max-content; max-width:100%; margin:12px auto 0; padding:9px 36px 17px; font-size:clamp(40px,5.3vw,68px); }
+.ct-picture-foot { margin-top:auto; padding-top:42dvh; }
+.ct-narration { padding:9px 25px 13px; text-align:center; font:700 clamp(21px,2.2vw,29px)/1.15 Caveat,cursive; }
+.ct-trail { padding:16px 0 0; }
+.ct-trail span { background:var(--ct-grain) #f8e6bc; }
+.ct-card { z-index:3; min-width:0; margin:48px 0 0; padding:26px clamp(22px,3vw,40px) 30px; background:none; border:1px solid transparent; border-image:url(jeu/theatre/ui-note.webp) 80 fill / 35px / 5px stretch; border-radius:0; box-shadow:none; filter:drop-shadow(0 7px 5px #39291640); text-align:center; }
+.ct-card .ct-ribbon { position:relative; max-width:100%; margin:-36px auto 10px; padding:10px 30px 13px; border:1px solid transparent; border-image:url(jeu/theatre/ui-ribbon.webp) 75 fill / 24px / 3px stretch; background:none; clip-path:none; font:700 clamp(29px,3.2vw,42px)/1 Caveat,cursive; filter:drop-shadow(0 3px 2px #39291645); }
+.ct-subject { display:block; width:fit-content; max-width:100%; margin:6px auto 11px; padding:8px 26px; font:700 clamp(23px,2.5vw,32px)/1.05 Caveat,cursive; }
+.ct-card h2.ct-part-title { font:700 17px/1.3 Caveat,cursive; color:#7c6042; margin:5px 0 8px; }
+.ct-card .ct-question { font:700 clamp(27px,3.1vw,40px)/1.06 Caveat,cursive; margin:12px 0 17px!important; }
+.ct-speaking { border:1px solid transparent; border-image:url(jeu/theatre/ui-title.webp) 80 fill / 17px / 2px stretch; padding:10px 15px 12px; margin:12px 0; font-size:23px; }
+.ct-speaking small { font-size:10px; line-height:1.4; margin-top:3px; }
+.ct .ct-btn { border:1px solid transparent; border-image:url(jeu/theatre/ui-gold.webp) 70 fill / 24px / 3px stretch; background:none; border-radius:0; box-shadow:none; filter:drop-shadow(0 4px 2px #61411340); font:700 clamp(30px,3.3vw,44px)/1.05 Caveat,cursive; padding:12px 20px 16px; min-height:58px; }
+.ct .ct-btn:active { box-shadow:none; }
+.ct .ct-btn.ct-secondary { border-image:url(jeu/theatre/ui-title.webp) 80 fill / 18px / 2px stretch; background:none; box-shadow:none; font:700 23px/1.15 Caveat,cursive; min-height:43px; padding:10px 14px; }
+.ct-help { display:flex; flex-direction:column; align-items:center; gap:0; }
+.ct-help .ct-btn { width:max-content; max-width:100%; flex:auto; margin-top:13px; }
+.ct-help .ct-btn+ .ct-btn { border-image:none; filter:none; font-size:17px; padding:3px; min-height:24px; margin-top:6px; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:4px; }
+.ct-checks,.ct-lesson,.ct-hints,.ct-feedback { text-align:left; }
+.ct-check { border:1px solid transparent; border-image:url(jeu/theatre/ui-title.webp) 80 fill / 16px / 2px stretch; background:none; box-shadow:none; padding:13px; }
+.ct-check.on { background:#dee5bd99; border-color:#91a168; border-image:none; }
+.ct-check.ct-missed { border-image:none; }
+.ct-story b,.ct-story strong { color:inherit; }
+.ct-library { position:relative; max-width:none; min-height:100dvh; padding:16px max(20px,calc((100vw - 940px)/2)) 50px; background:linear-gradient(#f8e9cded,#f8e9cded),url(jeu/conte/paysage-pont.jpg) center / cover fixed; }
+.ct-library .top { position:relative; background:none; border:1px solid transparent; border-image:url(jeu/theatre/ui-title.webp) 80 fill / 20px / 2px stretch; box-shadow:none; }
+.ct-library .ct-book { border:1px solid transparent; border-image:url(jeu/theatre/ui-note.webp) 80 fill / 20px / 2px stretch; background:none; box-shadow:none; }
+@media(max-width:800px) {
+  .ct.ct-story { padding:9px 3vw calc(13px + env(safe-area-inset-bottom)); }
+  .ct-top { max-width:none; gap:7px; }
+  .ct-back { left:1px; width:38px; height:40px; font-size:30px; }
+  .ct-logo { font-size:36px; padding:4px 23px 8px; }
+  .ct-book-title { display:none; }
+  .ct-page-number { font-size:16px; padding:5px 8px; }
+  .ct-audio-btn { width:36px; height:39px; }
+  .ct-layout { display:flex; flex-direction:column; gap:0; min-height:0; }
+  .ct-picture { min-height:39dvh; width:100%; padding:0; }
+  .ct-chapter { padding:9px 0 0; }
+  .ct-chapter-label { padding:4px 18px 6px; font-size:19px; }
+  .ct-chapter h1 { font-size:clamp(34px,8.5vw,57px); padding:7px 24px 11px; margin-top:8px; }
+  .ct-picture-foot { padding-top:18dvh; margin-top:auto; }
+  .ct-narration { font-size:19px; padding:7px 17px 9px; }
+  .ct-trail { padding:10px 0 13px; gap:10px; }
+  .ct-trail span { width:22px; height:21px; font-size:10px; }
+  .ct-story .ct-distant { top:34dvh; background-size:auto,auto 164dvh; background-position:center,center bottom; }
+  .ct-story .ct-landscape { top:0; width:max(calc(100% + 20px),73.5dvh); transform:translate(calc(-54% + var(--px)*.22),calc(var(--py)*.22)); mask-image:linear-gradient(#000 83%,transparent); }
+  .ct-story>.ct-stage { --foot-x:37%; }
+  .ct-story>.ct-bridge { --foot-y:71%; }
+  .ct-story .ct-characters { width:clamp(124px,18dvh,218px); }
+  .ct-story .ct-front { height:22dvh; background-size:max(100%,50dvh) auto; }
+  .ct-story .ct-sparkles { top:27dvh; left:46%; }
+  .ct-card { width:100%; margin:0; padding:22px 6vw 20px; border-image-width:27px; border-image-outset:3px; }
+  .ct-story[data-phase="tell"] .ct-card { flex:1; }
+  .ct-card .ct-ribbon { font-size:32px; margin:-35px auto 7px; padding:8px 28px 12px; }
+  .ct-subject { font-size:24px; padding:7px 20px; margin-bottom:5px; }
+  .ct-card h2.ct-part-title { font-size:16px; margin:5px 0; }
+  .ct-card .ct-question { font-size:32px; line-height:1.02; margin:9px 0 12px!important; }
+  .ct-speaking { padding:8px 9px; margin:12px 0; font-size:21px; }
+  .ct-speaking small { display:none; }
+  .ct .ct-btn { margin-top:12px; min-height:55px; font-size:34px; padding:9px 14px 13px; }
+  .ct .ct-btn.ct-secondary { font-size:23px; margin-top:13px; min-height:40px; padding:9px 18px; }
+  .ct-help .ct-btn+.ct-btn { margin-top:5px; font-size:16px; padding:2px; min-height:23px; }
+  .ct .ct-small { font-size:12px; }
+}
+@media(max-width:375px) { .ct-logo { font-size:31px; padding-inline:17px; } }
+@media(max-width:800px) and (max-height:740px) {
+  .ct-picture-foot { padding-top:17dvh; }
+  .ct-picture { min-height:37dvh; }
+  .ct-chapter h1 { font-size:35px; }
+  .ct-narration { font-size:18px; }
+  .ct-card .ct-question { font-size:28px; }
+  .ct-card { padding-bottom:15px; }
+}
+@keyframes ct-grounded { 50% { transform:rotate(.8deg); } }
+@media(prefers-reduced-motion:reduce) { .ct-story .ct-layer { transform:none!important; } }
+@media(prefers-reduced-motion:reduce) { .ct-story .ct-landscape { transform:translateX(-50%)!important; } }
+@media(max-width:800px) and (prefers-reduced-motion:reduce) { .ct-story .ct-landscape { transform:translateX(-54%)!important; } }
+
+/* Trois nappes de papier parcourent des distances différentes avant de quitter la vue. */
+.ct-cloud-wipe {
+  position:fixed;
+  inset:0;
+  z-index:80;
+  overflow:hidden;
+  isolation:isolate;
+  touch-action:none;
+}
+.ct-cloud-bank {
+  --bank-width:194vw;
+  --bank-height:192dvh;
+  position:absolute;
+  top:calc((100% - var(--bank-height)) / 2);
+  left:calc((100% - var(--bank-width)) / 2);
+  width:var(--bank-width);
+  height:var(--bank-height);
+  transform:translate3d(155vw,0,0);
+}
+.ct-cloud-bank::before,.ct-cloud-bank::after {
+  content:'';
+  position:absolute;
+}
+.ct-cloud-bank::before {
+  inset:9% 12%;
+  border-radius:38% 43% 34% 45%;
+  background:#f6e4c8 url(jeu/papier/grain.webp) 0 0 / 200px repeat;
+}
+.ct-cloud-bank::after {
+  top:50%;
+  left:50%;
+  width:var(--bank-width);
+  height:var(--bank-height);
+  background:url(jeu/conte/nuages-papier.png) center / 100% 100% no-repeat;
+  transform:translate(-50%,-50%);
+}
+.ct-cloud-far {
+  --bank-height:165dvh;
+  top:-47dvh;
+  opacity:.86;
+  filter:sepia(.22) hue-rotate(305deg) saturate(.9) brightness(.95);
+}
+.ct-cloud-middle {
+  filter:drop-shadow(-12px 1px 14px #5b393129);
+}
+.ct-cloud-near {
+  --bank-width:173vw;
+  --bank-height:100dvh;
+  top:49dvh;
+  filter:brightness(1.055) drop-shadow(1px -9px 14px #6c4d3a29);
+}
+.ct-cloud-near::after { transform:translate(-50%,-50%) scaleX(-1); }
+@media (orientation:portrait) {
+  .ct-cloud-bank::after {
+    width:var(--bank-height);
+    height:var(--bank-width);
+    transform:translate(-50%,-50%) rotate(90deg);
+  }
+  .ct-cloud-near::after { transform:translate(-50%,-50%) rotate(-90deg); }
+}
+@media (prefers-reduced-motion:reduce) { .ct-cloud-wipe { display:none; } }

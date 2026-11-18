@@ -27,7 +27,7 @@
     min: svg('<path d="M6 12h12" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/>'),
     grip: svg('<g fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></g>'),
     close: svg('<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/>') };
-  let ctx = null, master = null, src = [], playing = false, busy = '';
+  let ctx = null, master = null, src = [], playing = false, busy = '', storySource = null;
   const cache = {}, LOOP = 14, FADE = 1.5;
   const gainOf = v => v * v;   // le volume perçu suit mieux le carré du curseur
 
@@ -84,7 +84,7 @@
     } else {
       const s = ctx.createBufferSource(); s.buffer = cache[id] || (cache[id] = gen(id)); s.loop = true; s.connect(master); s.start(at); src = [s];
     }
-    const g = master.gain; g.setValueAtTime(0, at); g.linearRampToValueAtTime(gainOf(st.vol), at + 1);
+    const g = master.gain; g.setValueAtTime(0, at); g.linearRampToValueAtTime(storySource ? 0 : gainOf(st.vol), at + 1);
     playing = true; ui();
   }
   function pause(now) {
@@ -93,20 +93,107 @@
     if (now) {
       master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setValueAtTime(0, ctx.currentTime);
       src.forEach(x => { try { x.stop(); x.disconnect(); } catch (e) {} }); src = [];
-      ctx.suspend(); session('ambient');
-    } else { ramp(0, .25); setTimeout(() => { if (!playing) { ctx.suspend(); session('ambient'); } }, 300); }
+      if (!storySource) { ctx.suspend(); session('ambient'); }
+    } else { ramp(0, .25); setTimeout(() => { if (!playing && !storySource) { ctx.suspend(); session('ambient'); } }, 300); }
     ui();
   }
   const onLeave = () => { if (playing) pause(true); };
   document.addEventListener('visibilitychange', () => { if (document.hidden) onLeave(); });
   addEventListener('pagehide', onLeave);
   addEventListener('blur', () => { if (document.activeElement?.tagName !== 'IFRAME') onLeave(); });
-  function resume() { if (!st.id) return; if (!ctx || !src.length) return start(st.id); session('playback'); ctx.resume(); ramp(gainOf(st.vol), .5); playing = true; ui(); }
+  function resume() { if (!st.id) return; if (!ctx || !src.length) return start(st.id); session('playback'); ctx.resume(); ramp(storySource ? 0 : gainOf(st.vol), .5); playing = true; ui(); }
   function stop() {
     if (ctx && src.length) { ramp(0, .3); const n = ctx.currentTime + .35; src.forEach(x => { try { x.stop(n); } catch (e) {} }); src = []; }
-    playing = false; st.on = false; save(); ui(); session('ambient');
+    playing = false; st.on = false; save(); ui(); if (!storySource) session('ambient');
   }
-  function setVol(v) { st.vol = v; save(); if (ctx && playing) master.gain.setTargetAtTime(gainOf(v), ctx.currentTime, .05); document.querySelectorAll('[data-sndvol]').forEach(r => { if (+r.value !== v) r.value = v; }); }
+  function setVol(v) { st.vol = v; save(); if (ctx && playing && !storySource) master.gain.setTargetAtTime(gainOf(v), ctx.currentTime, .05); document.querySelectorAll('[data-sndvol]').forEach(r => { if (+r.value !== v) r.value = v; }); }
+
+  // Une piste par décor. Le PCM est bouclé directement par le moteur audio.
+  const STORY = {
+    bridge: '01-le-pont-endormi', mill: '02-le-moulin-sans-vent', lantern: '03-la-lanterne-des-lucioles',
+    garden: '04-le-jardin-silencieux', boat: '05-la-barque-des-souvenirs', gate: '06-la-porte-du-village',
+    tree: '07-l-arbre-aux-histoires', chest: '08-le-coffre-etoile',
+  };
+  const storyBuffers = new Map();
+  let storyArmed = false, storyScene = '', storyNext = '', storyTarget = '', request = 0;
+  const musicOn = () => storyArmed && st.conteMusic !== false;
+  const storyFXOn = () => (st.conteFX ?? st.fx) !== false;
+
+  function loadStory(key) {
+    let ready = storyBuffers.get(key);
+    if (!ready) {
+      ready = fetch(`jeu/conte/audio/${STORY[key]}.wav`).then(response => {
+        if (!response.ok) throw new Error('Piste du conte indisponible');
+        return response.arrayBuffer();
+      }).then(data => ctx.decodeAudioData(data));
+      ready.catch(() => { if (storyBuffers.get(key) === ready) storyBuffers.delete(key); });
+    }
+    storyBuffers.delete(key);
+    storyBuffers.set(key, ready);
+    if (storyBuffers.size > 3) storyBuffers.delete(storyBuffers.keys().next().value);
+    return ready;
+  }
+
+  function fadeStory(track, duration) {
+    if (!track) return;
+    const now = ctx.currentTime, level = track.gain.gain;
+    if (level.cancelAndHoldAtTime) level.cancelAndHoldAtTime(now);
+    else { level.cancelScheduledValues(now); level.setValueAtTime(level.value, now); }
+    level.linearRampToValueAtTime(0, now + duration);
+    track.source.stop(now + duration);
+  }
+
+  function syncStory() {
+    const key = musicOn() && !document.hidden ? storyScene : '';
+    if (key === storyTarget) return;
+    storyTarget = key;
+    const token = ++request;
+    if (!key) {
+      fadeStory(storySource, document.hidden ? 0 : .28);
+      storySource = null;
+      if (playing) ramp(gainOf(st.vol), .32);
+      else session('ambient');
+      return;
+    }
+    if (storySource?.key !== key) loadStory(key).then(buffer => {
+      if (token !== request || document.hidden) return;
+      const now = ctx.currentTime, source = ctx.createBufferSource(), gain = ctx.createGain();
+      source.buffer = buffer;
+      source.loop = true;
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(.32, now + .55);
+      source.connect(gain).connect(ctx.destination);
+      source.onended = () => { source.disconnect(); gain.disconnect(); };
+      source.start();
+      fadeStory(storySource, .55);
+      storySource = { key, source, gain };
+      if (playing) ramp(0, .32);
+    }).catch(() => { if (token === request) storyTarget = ''; });
+    if (STORY[storyNext] && storyNext !== key) loadStory(storyNext).catch(() => {});
+  }
+
+  function armStory() {
+    try {
+      storyArmed = true;
+      if (!musicOn()) return;
+      ensure();
+      session('playback');
+      if (ctx.state !== 'running') ctx.resume().catch(() => {});
+      syncStory();
+    } catch (_) { storyArmed = false; }
+  }
+
+  function selectStory(key, next) {
+    storyScene = STORY[key] ? key : '';
+    storyNext = next;
+    if (storyScene && musicOn()) armStory();
+    else syncStory();
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && storyScene && musicOn()) armStory();
+    else if (document.hidden) syncStory();
+  });
+  addEventListener('pagehide', () => { storyArmed = false; syncStory(); });
 
   // ---------- sons d'interface : de petites notes jouées à la volée (forme d'onde, puis [fréquence, départ, durée, volume, glisse vers]) ----------
   const FX = {
@@ -124,10 +211,10 @@
     record: ['sine', [[523, 0, .12, .15], [659, .12, .12, .15], [784, .24, .12, .15], [1047, .36, .2, .16], [784, .52, .1, .13], [1047, .62, .6, .17], [1319, .62, .6, .09]]],
   };
   let fxg = null;
-  function fx(name, up = 0) {   // up : demi-tons en plus (les bonnes réponses d'affilée montent)
-    const def = FX[name]; if (st.fx === false || !def) return;
+  function playFX(def, up = 0) {   // up : demi-tons en plus (les bonnes réponses d'affilée montent)
+    if (!def) return;
     try {
-      ensure(); if (ctx.state !== 'running') ctx.resume();
+      ensure(); if (ctx.state !== 'running') ctx.resume().catch(() => {});
       if (!fxg) { fxg = ctx.createGain(); fxg.gain.value = .55; fxg.connect(ctx.destination); }
       const n = ctx.currentTime + .005, tr = Math.pow(2, up / 12);
       for (const [f, t0, d, v, f2] of def[1]) {
@@ -138,10 +225,69 @@
       }
     } catch (e) {}
   }
+  const fx = (name, up) => { if (st.fx !== false) playFX(FX[name], up); };
+  const STORY_FX = {
+    tap: ['sine', [[392, 0, .065, .07, 330]]],
+    tick: ['sine', [[784, 0, .095, .075]]],
+    undo: ['triangle', [[440, 0, .07, .045, 392]]],
+    page: ['sine', [[523, .04, .12, .065, 587]]],
+    pass: ['sine', [[392, 0, .20, .09], [494, .08, .21, .09], [587, .16, .27, .10], [784, .24, .47, .07]]],
+    retry: ['sine', [[392, 0, .15, .075], [330, .11, .26, .07]]],
+    star: ['sine', [[587, 0, .19, .08], [784, .13, .22, .10], [988, .23, .31, .11], [1175, .34, .64, .08]]],
+    clouds: ['sine', [[392, .26, .33, .025], [587, .54, .40, .045], [784, .68, .35, .038]]],
+  };
+  let paperNoise;
+  function rustle(delay, duration, volume, sharpness, panFrom, panTo) {
+    if (!paperNoise) {
+      paperNoise = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * 1.2), ctx.sampleRate);
+      const samples = paperNoise.getChannelData(0);
+      for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+    }
+    const when = ctx.currentTime + delay, noise = ctx.createBufferSource(), filter = ctx.createBiquadFilter(), gain = ctx.createGain();
+    const pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+    noise.buffer = paperNoise;
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(sharpness, when);
+    filter.frequency.exponentialRampToValueAtTime(sharpness * .55, when + duration);
+    gain.gain.setValueAtTime(0, when);
+    gain.gain.linearRampToValueAtTime(volume, when + duration * .35);
+    gain.gain.exponentialRampToValueAtTime(.0001, when + duration);
+    noise.connect(filter).connect(gain);
+    if (pan) {
+      pan.pan.setValueAtTime(panFrom, when);
+      pan.pan.linearRampToValueAtTime(panTo, when + duration);
+      gain.connect(pan).connect(fxg);
+    } else gain.connect(fxg);
+    noise.start(when, Math.random() * .35);
+    noise.stop(when + duration);
+    noise.onended = () => { noise.disconnect(); filter.disconnect(); gain.disconnect(); pan?.disconnect(); };
+  }
+  function storyFX(name) {
+    if (!storyFXOn() || !STORY_FX[name]) return;
+    playFX(STORY_FX[name]);
+    if (!fxg) return;
+    if (name === 'clouds') {
+      rustle(.01, .43, .145, 840, .8, -.55);
+      rustle(.20, .61, .155, 1550, .65, -.7);
+      rustle(.49, .57, .17, 2100, .7, -.9);
+    } else if (name === 'page') rustle(0, .24, .12, 1820, .35, -.27);
+    else if (name === 'tap' || name === 'tick' || name === 'undo') rustle(0, .075, .10, 2400, 0, .1);
+  }
+  const conte = {
+    arm: armStory, scene: selectStory, fx: storyFX, musicOn, fxOn: storyFXOn,
+    toggleMusic() { st.conteMusic = !musicOn(); save(); if (st.conteMusic) armStory(); else syncStory(); },
+    toggleFX() { st.conteFX = !storyFXOn(); save(); if (st.conteFX) storyFX('tap'); },
+  };
   // tout ce qui se touche fait un petit bruit ; les jeux et les quiz jouent leurs propres sons (data-g, data-qa, data-q3) depuis app.js
   const BYID = { qok: 'good', qko: 'bad', done: 'pair', bknow: 'pair', cknow: 'pair', aknow: 'pair' };
   document.addEventListener('click', e => {
     const t = e.target.closest('a[href], button, summary, .reveal'); if (!t || t.disabled) return;
+    const enterStory = t.getAttribute('href')?.startsWith('#/jeu/conte/');
+    if (enterStory) armStory();
+    if (enterStory || t.closest('.ct')) {
+      if (!t.dataset.g) storyFX(t.matches('summary') ? 'page' : 'tap');
+      return;
+    }
     if (t.dataset.g || t.dataset.qa || t.dataset.q3 || t.dataset.snd || t.hasAttribute('data-sndpp')) return;
     fx(BYID[t.id] || (t.classList.contains('reveal') ? 'reveal' : t.matches('a[href]') ? 'nav' : 'tap'));
   }, true);
@@ -216,5 +362,5 @@
   document.addEventListener('input', e => { if (e.target.hasAttribute && e.target.hasAttribute('data-sndvol')) setVol(+e.target.value); });
   // un son choisi avant de fermer l'appli revient en pause : un toucher sur ▶ le relance (le navigateur interdit de jouer tout seul)
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ui); else ui();
-  window.SONS = { card, LIST, fx, play: start, stop, playing: () => playing ? st.id : '' };
+  window.SONS = { card, LIST, fx, conte, play: start, stop, playing: () => playing ? st.id : '' };
 })();
