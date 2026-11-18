@@ -1,0 +1,101 @@
+{
+  "id": "hallux-rigidus",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p1-1.webp",
+        "caption": "Arthrose de la base du gros orteil",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p1-2.webp",
+        "caption": "Raideur du gros orteil",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p2-1.webp",
+        "caption": "Arthrose, traumatismes et surcharge",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p2-2.webp",
+        "caption": "Biomécanique et prédisposition",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p3-1.webp",
+        "caption": "Usure du cartilage",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p3-2.webp",
+        "caption": "Ostéophytes limitant la mobilité",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p4-1.webp",
+        "caption": "Douleur et raideur de l’hallux",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p4-2.webp",
+        "caption": "Bosse osseuse et gêne à la marche",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p5-1.webp",
+        "caption": "Test de mobilité et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p5-2.webp",
+        "caption": "Bilan complémentaire selon le projet",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p6-1.webp",
+        "caption": "Chaussage et semelles adaptés",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p6-2.webp",
+        "caption": "Options chirurgicales spécialisées",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p7-1.webp",
+        "caption": "Évolution selon le stade",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p7-2.webp",
+        "caption": "Douleur et mobilité dans les formes sévères",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p8-1.webp",
+        "caption": "Protéger le gros orteil",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/hallux-rigidus/p8-2.webp",
+        "caption": "Consulter devant une douleur persistante",
+        "after": 8
+      }
+    ]
+  ]
+}
