@@ -1,0 +1,101 @@
+{
+  "id": "fractures-fatigue",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p1-1.webp",
+        "caption": "Microfissures osseuses répétées",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p1-2.webp",
+        "caption": "Effort répété sans récupération",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p2-1.webp",
+        "caption": "Surcharge et récupération insuffisante",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p2-2.webp",
+        "caption": "Contraintes et biomécanique",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p3-1.webp",
+        "caption": "Accumulation de microtraumatismes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p3-2.webp",
+        "caption": "Tibia et métatarsiens",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p4-1.webp",
+        "caption": "Douleur localisée progressive",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p4-2.webp",
+        "caption": "Douleur provoquée par l’effort",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p5-1.webp",
+        "caption": "Examen et radiographie parfois normale",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p5-2.webp",
+        "caption": "Imagerie complémentaire",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p6-1.webp",
+        "caption": "Repos et décharge adaptée",
+        "after": 5
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p6-2.webp",
+        "caption": "Rééducation et stabilisation si nécessaire",
+        "after": 10
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p7-1.webp",
+        "caption": "Consolidation avec prise en charge adaptée",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p7-2.webp",
+        "caption": "Risque de fracture complète",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p8-1.webp",
+        "caption": "Équilibrer effort et repos",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/fractures-fatigue/p8-2.webp",
+        "caption": "Repérer la surcharge osseuse",
+        "after": 8
+      }
+    ]
+  ]
+}

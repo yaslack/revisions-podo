@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "fractures de STRESS · NON traumatiques",
+        "caption": "Microfissures osseuses répétées",
         "after": 1,
         "context": [
           "fractures de STRESS · NON traumatiques : sollicitation répétée et excessive d’un os",
@@ -14,7 +14,7 @@
         ]
       },
       {
-        "caption": "coureurs · danseurs · militaires",
+        "caption": "Effort répété sans récupération",
         "after": 3,
         "context": [
           "coureurs · danseurs · militaires : activité intense répétée, sans récupération",
@@ -24,7 +24,7 @@
     ],
     [
       {
-        "caption": "Étiologie",
+        "caption": "Surcharge et récupération insuffisante",
         "after": 4,
         "context": [
           "Étiologie",
@@ -41,7 +41,7 @@
         ]
       },
       {
-        "caption": "SURPOIDS",
+        "caption": "Contraintes et biomécanique",
         "after": 8,
         "context": [
           "SURPOIDS",
@@ -53,7 +53,7 @@
     ],
     [
       {
-        "caption": "MICROTRAUMATISMES accumulés",
+        "caption": "Accumulation de microtraumatismes",
         "after": 2,
         "context": [
           "MICROTRAUMATISMES accumulés : petites fissures progressives",
@@ -62,7 +62,7 @@
         ]
       },
       {
-        "caption": "LA + FRÉQUENTE",
+        "caption": "Tibia et métatarsiens",
         "after": 5,
         "context": [
           "TIBIA",
@@ -76,7 +76,7 @@
     ],
     [
       {
-        "caption": "DOULEUR localisée, progressive",
+        "caption": "Douleur localisée progressive",
         "after": 2,
         "context": [
           "DOULEUR localisée, progressive : après l’effort → puis même au repos",
@@ -85,7 +85,7 @@
         ]
       },
       {
-        "caption": "↑ à l’effort",
+        "caption": "Douleur provoquée par l’effort",
         "after": 5,
         "context": [
           "↑ à l’effort : course, marche prolongée",
@@ -96,7 +96,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Examen et radiographie parfois normale",
         "after": 2,
         "context": [
           "EXAMEN CLINIQUE",
@@ -112,7 +112,7 @@
         ]
       },
       {
-        "caption": "SCINTIGRAPHIE osseuse",
+        "caption": "Imagerie complémentaire",
         "after": 4,
         "context": [
           "SCINTIGRAPHIE osseuse",
@@ -124,7 +124,7 @@
     ],
     [
       {
-        "caption": "REPOS = PRIMORDIAL",
+        "caption": "Repos et décharge adaptée",
         "after": 5,
         "context": [
           "CONSERVATEUR",
@@ -136,7 +136,7 @@
         ]
       },
       {
-        "caption": "RÉÉDUCATION",
+        "caption": "Rééducation et stabilisation si nécessaire",
         "after": 10,
         "context": [
           "RÉÉDUCATION : force + mobilité",
@@ -149,7 +149,7 @@
     ],
     [
       {
-        "caption": "si prise en charge adaptée + repos RESPECTÉ",
+        "caption": "Consolidation avec prise en charge adaptée",
         "after": 3,
         "context": [
           "GÉNÉRALEMENT BON",
@@ -159,7 +159,7 @@
         ]
       },
       {
-        "caption": "SANS bonne prise en charge",
+        "caption": "Risque de fracture complète",
         "after": 7,
         "context": [
           "SANS bonne prise en charge",
@@ -171,7 +171,7 @@
     ],
     [
       {
-        "caption": "PRÉVENTION PRIMAIRE",
+        "caption": "Équilibrer effort et repos",
         "after": 4,
         "context": [
           "PRÉVENTION PRIMAIRE",
@@ -182,7 +182,7 @@
         ]
       },
       {
-        "caption": "athlètes · antécédents",
+        "caption": "Repérer la surcharge osseuse",
         "after": 8,
         "context": [
           "DÉPISTAGE",
@@ -193,5 +193,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Les fractures de fatigue. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"fractures de STRESS · NON traumatiques\",\"context\":\"fractures de STRESS · NON traumatiques : sollicitation répétée et excessive d’un os; microfissures → vraie fracture\"},{\"cell\":2,\"focus\":\"coureurs · danseurs · militaires\",\"context\":\"coureurs · danseurs · militaires : activité intense répétée, sans récupération; diagnostic RAPIDE : → évite fracture complète, déformation\"},{\"cell\":3,\"focus\":\"Étiologie\",\"context\":\"Étiologie; surutilisation sans repos; charge excessive brutale; anomalies biomécaniques; chaussures; terrain; condition physique; ostéoporose; Facteurs de risque; SPORTS À IMPACT; CHANGEMENT BRUSQUE\"},{\"cell\":4,\"focus\":\"SURPOIDS\",\"context\":\"SURPOIDS; MUSCULATURE ↓; BIOMÉCANIQUE; course · football · basket\"},{\"cell\":5,\"focus\":\"MICROTRAUMATISMES accumulés\",\"context\":\"MICROTRAUMATISMES accumulés : petites fissures progressives; l’os modifie sa structure : résistance ↓ peu à peu; FRACTURE partielle ou complète\"},{\"cell\":6,\"focus\":\"LA + FRÉQUENTE\",\"context\":\"TIBIA; LA + FRÉQUENTE; MÉTATARSIENS; surtout 2e et 3e; FÉMUR; plus rare\"},{\"cell\":7,\"focus\":\"DOULEUR localisée, progressive\",\"context\":\"DOULEUR localisée, progressive : après l’effort → puis même au repos; douleur PRÉCISE à la palpation; léger gonflement : moins que traumatique · sans grosse ecchymose\"},{\"cell\":8,\"focus\":\"↑ à l’effort\",\"context\":\"↑ à l’effort : course, marche prolongée; PAS de déformation visible; gêne fonctionnelle · ± boiterie\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; localise la douleur · confirmation = examens complémentaires; RADIO; souvent NORMALE; au début; fracture pas encore; visible; PIÈGE !; IRM · plus SENSIBLE; lésions osseuses subtiles\"},{\"cell\":10,\"focus\":\"SCINTIGRAPHIE osseuse\",\"context\":\"SCINTIGRAPHIE osseuse; ↑ activité métabolique de l’os; ÉCHOGRAPHIE (parfois); tendons · ligaments autour\"},{\"cell\":11,\"focus\":\"REPOS = PRIMORDIAL\",\"context\":\"CONSERVATEUR; REPOS = PRIMORDIAL; durée selon la gravité; glace + compression; antalgiques + anti-inflammatoires; ± orthèses / attelles : limiter les mouvements\"},{\"cell\":12,\"focus\":\"RÉÉDUCATION\",\"context\":\"RÉÉDUCATION : force + mobilité; CHIRURGIE; fracture GRAVE; ou mauvaise guérison; stabiliser · corriger\"},{\"cell\":13,\"focus\":\"si prise en charge adaptée + repos RESPECTÉ\",\"context\":\"GÉNÉRALEMENT BON; si prise en charge adaptée + repos RESPECTÉ; quelques SEMAINES → plusieurs MOIS; selon gravité + localisation\"},{\"cell\":14,\"focus\":\"SANS bonne prise en charge\",\"context\":\"SANS bonne prise en charge; fracture COMPLÈTE; instabilité osseuse; RÉCIDIVES\"},{\"cell\":15,\"focus\":\"PRÉVENTION PRIMAIRE\",\"context\":\"PRÉVENTION PRIMAIRE; ÉQUILIBRER : effort ↔ repos; renforcer les jambes; chaussures qui SOUTIENNENT : surtout pour la course; surveiller condition + programme\"},{\"cell\":16,\"focus\":\"athlètes · antécédents\",\"context\":\"DÉPISTAGE; athlètes · antécédents; suivi podologique / médical régulier; repérer tôt la SURCHARGE osseuse\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Les fractures de fatigue. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Microfissures osseuses répétées\",\"context\":\"fractures de STRESS · NON traumatiques : sollicitation répétée et excessive d’un os; microfissures → vraie fracture\"},{\"cell\":2,\"focus\":\"Effort répété sans récupération\",\"context\":\"coureurs · danseurs · militaires : activité intense répétée, sans récupération; diagnostic RAPIDE : → évite fracture complète, déformation\"},{\"cell\":3,\"focus\":\"Surcharge et récupération insuffisante\",\"context\":\"Étiologie; surutilisation sans repos; charge excessive brutale; anomalies biomécaniques; chaussures; terrain; condition physique; ostéoporose; Facteurs de risque; SPORTS À IMPACT; CHANGEMENT BRUSQUE\"},{\"cell\":4,\"focus\":\"Contraintes et biomécanique\",\"context\":\"SURPOIDS; MUSCULATURE ↓; BIOMÉCANIQUE; course · football · basket\"},{\"cell\":5,\"focus\":\"Accumulation de microtraumatismes\",\"context\":\"MICROTRAUMATISMES accumulés : petites fissures progressives; l’os modifie sa structure : résistance ↓ peu à peu; FRACTURE partielle ou complète\"},{\"cell\":6,\"focus\":\"Tibia et métatarsiens\",\"context\":\"TIBIA; LA + FRÉQUENTE; MÉTATARSIENS; surtout 2e et 3e; FÉMUR; plus rare\"},{\"cell\":7,\"focus\":\"Douleur localisée progressive\",\"context\":\"DOULEUR localisée, progressive : après l’effort → puis même au repos; douleur PRÉCISE à la palpation; léger gonflement : moins que traumatique · sans grosse ecchymose\"},{\"cell\":8,\"focus\":\"Douleur provoquée par l’effort\",\"context\":\"↑ à l’effort : course, marche prolongée; PAS de déformation visible; gêne fonctionnelle · ± boiterie\"},{\"cell\":9,\"focus\":\"Examen et radiographie parfois normale\",\"context\":\"EXAMEN CLINIQUE; localise la douleur · confirmation = examens complémentaires; RADIO; souvent NORMALE; au début; fracture pas encore; visible; PIÈGE !; IRM · plus SENSIBLE; lésions osseuses subtiles\"},{\"cell\":10,\"focus\":\"Imagerie complémentaire\",\"context\":\"SCINTIGRAPHIE osseuse; ↑ activité métabolique de l’os; ÉCHOGRAPHIE (parfois); tendons · ligaments autour\"},{\"cell\":11,\"focus\":\"Repos et décharge adaptée\",\"context\":\"CONSERVATEUR; REPOS = PRIMORDIAL; durée selon la gravité; glace + compression; antalgiques + anti-inflammatoires; ± orthèses / attelles : limiter les mouvements\"},{\"cell\":12,\"focus\":\"Rééducation et stabilisation si nécessaire\",\"context\":\"RÉÉDUCATION : force + mobilité; CHIRURGIE; fracture GRAVE; ou mauvaise guérison; stabiliser · corriger\"},{\"cell\":13,\"focus\":\"Consolidation avec prise en charge adaptée\",\"context\":\"GÉNÉRALEMENT BON; si prise en charge adaptée + repos RESPECTÉ; quelques SEMAINES → plusieurs MOIS; selon gravité + localisation\"},{\"cell\":14,\"focus\":\"Risque de fracture complète\",\"context\":\"SANS bonne prise en charge; fracture COMPLÈTE; instabilité osseuse; RÉCIDIVES\"},{\"cell\":15,\"focus\":\"Équilibrer effort et repos\",\"context\":\"PRÉVENTION PRIMAIRE; ÉQUILIBRER : effort ↔ repos; renforcer les jambes; chaussures qui SOUTIENNENT : surtout pour la course; surveiller condition + programme\"},{\"cell\":16,\"focus\":\"Repérer la surcharge osseuse\",\"context\":\"DÉPISTAGE; athlètes · antécédents; suivi podologique / médical régulier; repérer tôt la SURCHARGE osseuse\"}]. Preserve exact 4-column grid and 4 rows."
 }
