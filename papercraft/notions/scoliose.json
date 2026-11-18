@@ -1,0 +1,101 @@
+{
+  "id": "scoliose",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p1-1.webp",
+        "caption": "Déformation tridimensionnelle de la colonne",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p1-2.webp",
+        "caption": "Courbure fixée ou réductible",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p2-1.webp",
+        "caption": "Forme idiopathique ou secondaire",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p2-2.webp",
+        "caption": "Croissance et antécédents familiaux",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p3-1.webp",
+        "caption": "Inclinaison et rotation vertébrales",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p3-2.webp",
+        "caption": "Courbure structurelle et fonctionnelle",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p4-1.webp",
+        "caption": "Asymétrie et gibbosité",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p4-2.webp",
+        "caption": "Douleur, fatigue ou absence de symptôme",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p5-1.webp",
+        "caption": "Test d’Adams et mesure radiographique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p5-2.webp",
+        "caption": "Bilan postural et podologique",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p6-1.webp",
+        "caption": "Surveillance, kinésithérapie et corset",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p6-2.webp",
+        "caption": "Prise en charge des formes sévères",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p7-1.webp",
+        "caption": "Évolution selon la cause",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p7-2.webp",
+        "caption": "Surveillance pendant la croissance",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/scoliose/p8-1.webp",
+        "caption": "Dépistage du dos debout et penché",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/scoliose/p8-2.webp",
+        "caption": "Suivi pluridisciplinaire",
+        "after": 4
+      }
+    ]
+  ]
+}

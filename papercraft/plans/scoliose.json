@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "déformation en 3 D de la colonne",
+        "caption": "Déformation tridimensionnelle de la colonne",
         "after": 2,
         "context": [
           "déformation en 3 D de la colonne : inclinaison · rotation · cyphose/lordose",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "NON structurelle",
+        "caption": "Courbure fixée ou réductible",
         "after": 4,
         "context": [
           "NON structurelle : posturale, réductible",
@@ -25,7 +25,7 @@
     ],
     [
       {
-        "caption": "IDIOPATHIQUE",
+        "caption": "Forme idiopathique ou secondaire",
         "after": 1,
         "context": [
           "IDIOPATHIQUE",
@@ -43,7 +43,7 @@
         ]
       },
       {
-        "caption": "CE QUI AGGRAVE",
+        "caption": "Croissance et antécédents familiaux",
         "after": 3,
         "context": [
           "CE QUI AGGRAVE",
@@ -55,7 +55,7 @@
     ],
     [
       {
-        "caption": "compensations",
+        "caption": "Inclinaison et rotation vertébrales",
         "after": 1,
         "context": [
           "3 plans : inclinaison · rotation (dorsale) : + cyphose / lordose modifiées",
@@ -63,7 +63,7 @@
         ]
       },
       {
-        "caption": "STRUCTURELLE",
+        "caption": "Courbure structurelle et fonctionnelle",
         "after": 3,
         "context": [
           "STRUCTURELLE : fixée, toutes positions",
@@ -73,7 +73,7 @@
     ],
     [
       {
-        "caption": "tronc ASYMÉTRIQUE",
+        "caption": "Asymétrie et gibbosité",
         "after": 2,
         "context": [
           "tronc ASYMÉTRIQUE : omoplate saillante · épaule / hanche haute",
@@ -82,7 +82,7 @@
         ]
       },
       {
-        "caption": "parfois douleurs dorsales / lombaires",
+        "caption": "Douleur, fatigue ou absence de symptôme",
         "after": 5,
         "context": [
           "parfois douleurs dorsales / lombaires (adulte)",
@@ -93,7 +93,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Test d’Adams et mesure radiographique",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -110,7 +110,7 @@
         ]
       },
       {
-        "caption": "atypique · neurologique",
+        "caption": "Bilan postural et podologique",
         "after": 3,
         "context": [
           "IRM",
@@ -122,7 +122,7 @@
     ],
     [
       {
-        "caption": "LÉGÈRE",
+        "caption": "Surveillance, kinésithérapie et corset",
         "after": 2,
         "context": [
           "selon l’ANGLE DE COBB",
@@ -139,7 +139,7 @@
         ]
       },
       {
-        "caption": "SÉVÈRE",
+        "caption": "Prise en charge des formes sévères",
         "after": 5,
         "context": [
           "> 40°",
@@ -155,7 +155,7 @@
     ],
     [
       {
-        "caption": "dépend du TYPE · de la CAUSE · du DEGRÉ",
+        "caption": "Évolution selon la cause",
         "after": 1,
         "context": [
           "dépend du TYPE · de la CAUSE · du DEGRÉ",
@@ -165,7 +165,7 @@
         ]
       },
       {
-        "caption": "IDIOPATHIQUE",
+        "caption": "Surveillance pendant la croissance",
         "after": 3,
         "context": [
           "IDIOPATHIQUE",
@@ -177,7 +177,7 @@
     ],
     [
       {
-        "caption": "DÉPISTAGE systématique",
+        "caption": "Dépistage du dos debout et penché",
         "after": 2,
         "context": [
           "DÉPISTAGE systématique : entrée au COLLÈGE : dos debout + penché",
@@ -186,7 +186,7 @@
         ]
       },
       {
-        "caption": "corriger VITE ILMI + troubles du pied",
+        "caption": "Suivi pluridisciplinaire",
         "after": 4,
         "context": [
           "corriger VITE ILMI + troubles du pied",
@@ -195,5 +195,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: La scoliose. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"déformation en 3 D de la colonne\",\"context\":\"déformation en 3 D de la colonne : inclinaison · rotation · cyphose/lordose; 2 – 4 % · surtout en CROISSANCE; STRUCTURELLE : rotation FIXÉE\"},{\"cell\":2,\"focus\":\"NON structurelle\",\"context\":\"NON structurelle : posturale, réductible; dépistage précoce → moins d’aggravation\"},{\"cell\":3,\"focus\":\"IDIOPATHIQUE\",\"context\":\"IDIOPATHIQUE; 80 – 90 %; cause INCONNUE; surtout l’ADOLESCENTE; hormones · génétique · croissance; SECONDAIRE; CONGÉNITALE; hémivertèbre · vertèbres soudées; NEUROMUSCULAIRE; paralysie cérébrale · myopathies; FONCTIONNELLE; ILMI · attitude \"},{\"cell\":4,\"focus\":\"CE QUI AGGRAVE\",\"context\":\"CE QUI AGGRAVE; croissance rapide; antécédents familiaux; mauvaise statique\"},{\"cell\":5,\"focus\":\"compensations\",\"context\":\"3 plans : inclinaison · rotation (dorsale) : + cyphose / lordose modifiées; compensations : ÉPAULE haute, bassin\"},{\"cell\":6,\"focus\":\"STRUCTURELLE\",\"context\":\"STRUCTURELLE : fixée, toutes positions; FONCTIONNELLE : disparaît allongé / redressé\"},{\"cell\":7,\"focus\":\"tronc ASYMÉTRIQUE\",\"context\":\"tronc ASYMÉTRIQUE : omoplate saillante · épaule / hanche haute; GIBBOSITÉ penché en avant = test d’ADAMS; bascule du bassin · compensation des MI\"},{\"cell\":8,\"focus\":\"parfois douleurs dorsales / lombaires\",\"context\":\"parfois douleurs dorsales / lombaires (adulte); déséquilibres posturaux · fatigue; ENFANT : souvent RIEN → dépister !\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; test d’ADAMS; scoliomètre; posture; égalité des MI; RÉDUCTIBILITÉ; RADIO EN CHARGE; face + profil; ANGLE DE COBB; thoracique / lombaire / mixte; axe du bassin\"},{\"cell\":10,\"focus\":\"atypique · neurologique\",\"context\":\"IRM; atypique · neurologique; BILAN PODOLOGIQUE; appuis · ILMI · troubles statiques\"},{\"cell\":11,\"focus\":\"LÉGÈRE\",\"context\":\"selon l’ANGLE DE COBB; < 20°; LÉGÈRE; surveillance; Schroth · RPG · kiné; corriger les troubles associés; 20 – 40°; MODÉRÉE; CORSET (âge, croissance); rééducation; semelles si besoin\"},{\"cell\":12,\"focus\":\"SÉVÈRE\",\"context\":\"> 40°; SÉVÈRE; centre spécialisé; arthrodèse · tiges de croissance; PODOLOGUE; corriger l’ILMI par semelles; recentrage postural; travail en équipe\"},{\"cell\":13,\"focus\":\"dépend du TYPE · de la CAUSE · du DEGRÉ\",\"context\":\"dépend du TYPE · de la CAUSE · du DEGRÉ; POSTURALE; BON pronostic; si cause trouvée + traitée tôt\"},{\"cell\":14,\"focus\":\"IDIOPATHIQUE\",\"context\":\"IDIOPATHIQUE; peut s’aggraver FORTEMENT; en croissance → SUIVI essentiel; évolutive non traitée → douleurs chroniques + RESPIRATOIRE\"},{\"cell\":15,\"focus\":\"DÉPISTAGE systématique\",\"context\":\"DÉPISTAGE systématique : entrée au COLLÈGE : dos debout + penché; bilan podo + postural si appuis anormaux; hygiène posturale : SAC À DOS, position assise\"},{\"cell\":16,\"focus\":\"corriger VITE ILMI + troubles du pied\",\"context\":\"corriger VITE ILMI + troubles du pied; suivi : médecin · podo · kiné · orthoprothésiste\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: La scoliose. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Déformation tridimensionnelle de la colonne\",\"context\":\"déformation en 3 D de la colonne : inclinaison · rotation · cyphose/lordose; 2 – 4 % · surtout en CROISSANCE; STRUCTURELLE : rotation FIXÉE\"},{\"cell\":2,\"focus\":\"Courbure fixée ou réductible\",\"context\":\"NON structurelle : posturale, réductible; dépistage précoce → moins d’aggravation\"},{\"cell\":3,\"focus\":\"Forme idiopathique ou secondaire\",\"context\":\"IDIOPATHIQUE; 80 – 90 %; cause INCONNUE; surtout l’ADOLESCENTE; hormones · génétique · croissance; SECONDAIRE; CONGÉNITALE; hémivertèbre · vertèbres soudées; NEUROMUSCULAIRE; paralysie cérébrale · myopathies; FONCTIONNELLE; ILMI · attitude \"},{\"cell\":4,\"focus\":\"Croissance et antécédents familiaux\",\"context\":\"CE QUI AGGRAVE; croissance rapide; antécédents familiaux; mauvaise statique\"},{\"cell\":5,\"focus\":\"Inclinaison et rotation vertébrales\",\"context\":\"3 plans : inclinaison · rotation (dorsale) : + cyphose / lordose modifiées; compensations : ÉPAULE haute, bassin\"},{\"cell\":6,\"focus\":\"Courbure structurelle et fonctionnelle\",\"context\":\"STRUCTURELLE : fixée, toutes positions; FONCTIONNELLE : disparaît allongé / redressé\"},{\"cell\":7,\"focus\":\"Asymétrie et gibbosité\",\"context\":\"tronc ASYMÉTRIQUE : omoplate saillante · épaule / hanche haute; GIBBOSITÉ penché en avant = test d’ADAMS; bascule du bassin · compensation des MI\"},{\"cell\":8,\"focus\":\"Douleur, fatigue ou absence de symptôme\",\"context\":\"parfois douleurs dorsales / lombaires (adulte); déséquilibres posturaux · fatigue; ENFANT : souvent RIEN → dépister !\"},{\"cell\":9,\"focus\":\"Test d’Adams et mesure radiographique\",\"context\":\"EXAMEN CLINIQUE; test d’ADAMS; scoliomètre; posture; égalité des MI; RÉDUCTIBILITÉ; RADIO EN CHARGE; face + profil; ANGLE DE COBB; thoracique / lombaire / mixte; axe du bassin\"},{\"cell\":10,\"focus\":\"Bilan postural et podologique\",\"context\":\"IRM; atypique · neurologique; BILAN PODOLOGIQUE; appuis · ILMI · troubles statiques\"},{\"cell\":11,\"focus\":\"Surveillance, kinésithérapie et corset\",\"context\":\"selon l’ANGLE DE COBB; < 20°; LÉGÈRE; surveillance; Schroth · RPG · kiné; corriger les troubles associés; 20 – 40°; MODÉRÉE; CORSET (âge, croissance); rééducation; semelles si besoin\"},{\"cell\":12,\"focus\":\"Prise en charge des formes sévères\",\"context\":\"> 40°; SÉVÈRE; centre spécialisé; arthrodèse · tiges de croissance; PODOLOGUE; corriger l’ILMI par semelles; recentrage postural; travail en équipe\"},{\"cell\":13,\"focus\":\"Évolution selon la cause\",\"context\":\"dépend du TYPE · de la CAUSE · du DEGRÉ; POSTURALE; BON pronostic; si cause trouvée + traitée tôt\"},{\"cell\":14,\"focus\":\"Surveillance pendant la croissance\",\"context\":\"IDIOPATHIQUE; peut s’aggraver FORTEMENT; en croissance → SUIVI essentiel; évolutive non traitée → douleurs chroniques + RESPIRATOIRE\"},{\"cell\":15,\"focus\":\"Dépistage du dos debout et penché\",\"context\":\"DÉPISTAGE systématique : entrée au COLLÈGE : dos debout + penché; bilan podo + postural si appuis anormaux; hygiène posturale : SAC À DOS, position assise\"},{\"cell\":16,\"focus\":\"Suivi pluridisciplinaire\",\"context\":\"corriger VITE ILMI + troubles du pied; suivi : médecin · podo · kiné · orthoprothésiste\"}]. Preserve exact 4-column grid and 4 rows."
 }
