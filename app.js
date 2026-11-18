@@ -663,6 +663,9 @@
       ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
       ['book', '36/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
     ] },
+    { v: 153, items: [
+      ['sparkle', 'Des nuages de papier glissent d’un bord à l’autre au changement de page.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
@@ -1791,22 +1794,26 @@
     return before && after && before[1] === after[1] && +after[2] < +before[2] ? -1 : 1;
   }
 
-  async function turnPage(direction) {
+  function turnPage(direction) {
     const app = $('#app'), overlay = document.createElement('div'), wasInert = app.inert;
-    overlay.className = 'page-turn';
+    const edge = 155 * direction, center = 320;
+    overlay.className = 'ct-cloud-wipe page-turn';
     overlay.setAttribute('aria-hidden', 'true');
-    for (let i = 0; i < 3; i++) overlay.append(document.createElement('i'));
-    let layers = [];
-    const turn = { covering: true, stop };
-    function reveal() {
-      if (!turn.covering) return;
-      turn.covering = false;
-      app.inert = wasInert;
-    }
+    const banks = ['far', 'middle', 'near'].map(name => {
+      const bank = document.createElement('div');
+      bank.className = 'ct-cloud-bank ct-cloud-' + name;
+      bank.style.transform = `translate3d(${edge}vw,0,0)`;
+      overlay.append(bank);
+      return bank;
+    });
+    const layers = [];
+    let frame = 0;
+    const turn = { covering: true, swapping: false, stop };
     function stop() {
       if (pageTurn !== turn) return;
-      reveal();
       pageTurn = null;
+      app.inert = wasInert;
+      cancelAnimationFrame(frame);
       layers.forEach(layer => layer.cancel());
       overlay.remove();
     }
@@ -1814,49 +1821,50 @@
     app.inert = true;
     document.body.append(overlay);
 
-    const across = 126 * direction;
-    const offsets = [-9, -3, 5].map(offset => offset * direction);
-    function slide(start, end, durations, ease) {
-      return [...overlay.children].map((sheet, i) => sheet.animate([
-        { transform: `translate3d(${start[i]}vw,0,0)` },
-        { transform: `translate3d(${end[i]}vw,0,0)` },
-      ], { duration: durations[i], fill: 'both', easing: ease }));
+    function trackCrossing() {
+      if (pageTurn !== turn) return;
+      const time = layers[1].currentTime || 0;
+      if (turn.covering && time >= center) {
+        // Si le téléphone a sauté plusieurs images, recouvre la page avant de la remplacer.
+        if (time > center + 32) layers.forEach(layer => { layer.currentTime = center; });
+        turn.covering = false;
+        turn.swapping = true;
+        const samePage = openedRoute === currentRoute();
+        try { render(samePage); }
+        catch (error) { stop(); throw error; }
+        finally { turn.swapping = false; }
+      }
+      if (layers.every(layer => layer.playState === 'finished')) {
+        stop();
+        navigatePage();
+      } else frame = requestAnimationFrame(trackCrossing);
     }
     try {
-      layers = slide([across, across, across], offsets, [118, 132, 150], 'cubic-bezier(.3,.62,.43,1)');
-      await Promise.all(layers.map(layer => layer.finished));
-      if (pageTurn !== turn) return;
-      reveal();
-      // Le dernier lien touché gagne si plusieurs destinations sont choisies sous le papier.
+      const timings = [[560, 0], [640, 0], [652, 20]];
+      banks.forEach((bank, i) => {
+        const [duration, delay] = timings[i];
+        layers.push(bank.animate([
+          { transform: `translate3d(${edge}vw,0,0)` },
+          { transform: `translate3d(${-edge}vw,0,0)` },
+        ], { duration, delay, fill: 'both', easing: 'cubic-bezier(.31,.15,.69,.85)' }));
+      });
+      frame = requestAnimationFrame(trackCrossing);
+    } catch (_) {
+      stop();
       render();
-      const covering = layers;
-      layers = slide(offsets, [-across, -across, -across], [158, 173, 192], 'cubic-bezier(.45,.08,.52,1)');
-      covering.forEach(layer => layer.cancel());
-      await Promise.all(layers.map(layer => layer.finished));
-    } catch (error) {
-      if (error.name !== 'AbortError') throw error;
-    } finally {
-      if (pageTurn === turn) {
-        stop();
-        if (openedRoute !== currentRoute()) render();
-      }
     }
   }
 
   function navigatePage() {
     const route = currentRoute();
-    if (route === openedRoute) {
-      if (pageTurn?.covering) pageTurn.stop();
-      return;
-    }
-    if (pageMotion.matches || !Element.prototype.animate || document.hidden || $('.ct-cloud-wipe')) {
+    if (route === openedRoute) return;
+    if (pageMotion.matches || !Element.prototype.animate || document.hidden || $('.ct-cloud-wipe:not(.page-turn)')) {
       pageTurn?.stop();
       render();
       return;
     }
-    if (pageTurn?.covering) return;
-    pageTurn?.stop();
-    void turnPage(turnDirection(openedRoute, route));
+    // Un clic rapide choisit la destination suivante, sans couper les nuages en plein écran.
+    if (!pageTurn) turnPage(turnDirection(openedRoute, route));
   }
 
   function finishTurnImmediately() {
@@ -1875,8 +1883,8 @@
   }
 
   function render(keepScroll) {
-    if (pageTurn?.covering) return;
     const route = currentRoute();
+    if (pageTurn && !pageTurn.swapping && (pageTurn.covering || openedRoute !== route)) return;
     const SC = $('#app'), sy = SC.scrollTop || 0, dosOpen = !!(document.querySelector('.ptdos') && document.querySelector('.ptdos').open);
     const [, sec, a, b, c] = route.split('/');
     let html;

@@ -1111,28 +1111,8 @@ html[data-skin] .av .ck.on { background: #215c4a; color: #fff; }
 html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
 body, body.reading, body.v3on, body:has(.av) { padding: 0; min-height: 0; }
 #app { position: fixed; inset: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
-.page-turn {
-  position:fixed;
-  inset:0;
-  z-index:72;
-  overflow:hidden;
-  contain:paint;
-  pointer-events:none;
-}
-.page-turn i {
-  position:absolute;
-  inset:-5% -14vw;
-  background-color:#8b995f;
-  background-image:url(jeu/papier/grain.webp);
-  background-size:220px;
-  background-blend-mode:multiply;
-  clip-path:polygon(.7% 0,99.3% 0,99.7% 10%,99.3% 19%,100% 30%,99.4% 46%,99.8% 61%,99.3% 72%,100% 87%,99.6% 100%,.5% 100%,.8% 89%,.2% 78%,.6% 67%,0 53%,.6% 41%,.2% 25%,.8% 12%);
-}
-.page-turn i:nth-child(2) { background-color:#cb974f; }
-.page-turn i:nth-child(3) { background-color:#f9e8c9; }
 .page-step-in { animation:page-step-in .2s cubic-bezier(.2,.7,.25,1) both; }
 @keyframes page-step-in { from { opacity:.82; translate:0 7px; } to { opacity:1; translate:0 0; } }
-@media (prefers-reduced-motion: reduce) { .page-turn { display:none; } }
 @media (display-mode:standalone), (display-mode:fullscreen) {
   body::before {
     content:'';

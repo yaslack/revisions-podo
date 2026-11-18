@@ -305,7 +305,7 @@ window.CONTE = A => {
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     if (!media.matches && !cloudArt) {
       cloudArt = new Image();
-      cloudArt.src = 'jeu/conte/nuages-papier.png';
+      cloudArt.src = 'jeu/conte/nuages-papier.webp';
     }
     let frame = 0, x = 0, y = 0, scroll = 0;
     const draw = () => { frame = 0; stage.style.setProperty('--px', x.toFixed(2) + 'px'); stage.style.setProperty('--py', (y + scroll).toFixed(2) + 'px'); };
