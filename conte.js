@@ -45,7 +45,9 @@ window.CONTE = A => {
   function library() {
     const list = (title, fs) => `<h2 class="ct-section">${title}</h2><div class="ct-books">${fs.map(f => {
       const p = progress(f.id), n = plan(f).filter(x => p.parts[x.p]).length;
-      return `<a class="ct-book" href="${link(f)}"><span class="ct-book-number">${f.n}</span><span><b>${esc(f.title)}</b><small>${p.done ? '★ Conte et grand récit terminés' : n ? `${n}/${f.parts.length} passages ouverts · Reprendre` : `${f.parts.length} rencontres · Ouvrir le conte`}</small><span class="ct-book-progress" style="--progress:${n / f.parts.length * 100}%"></span></span><span aria-hidden="true">↗</span></a>`;
+      const finished = plan(f).every(x => p.finalParts[x.p]);
+      const status = finished ? '★ Conte et grand récit terminés' : n ? `${n}/${f.parts.length} passages ouverts · Reprendre` : `${f.parts.length} rencontres · ${p.done ? 'Rejouer' : 'Ouvrir le conte'}`;
+      return `<a class="ct-book" href="${link(f)}"><span class="ct-book-number">${f.n}</span><span><b>${esc(f.title)}</b><small>${status}</small><span class="ct-book-progress" style="--progress:${n / f.parts.length * 100}%"></span></span><span aria-hidden="true">↗</span></a>`;
     }).join('')}</div>`;
     return `<div class="wrap ct ct-library">${top('#/', 'Le conte des savoirs')}
       <div class="ct-intro"><span class="ct-eyebrow">UN COURS, UNE HISTOIRE</span><h1>Il était une fois…<br>ce que tu sais.</h1><p>Une tortue, des passages enchantés et ta voix pour réveiller le monde.</p></div>
@@ -57,15 +59,16 @@ window.CONTE = A => {
     if (!f) { if (!A.g() || A.g().game !== 'conte' || A.g().f) A.setG({ game: 'conte' }); return library(); }
     if (!A.g() || A.g().game !== 'conte' || A.g().f?.id !== id) {
       const saved = progress(id);
-      load(f, !!(saved.finalStarted || saved.done || Object.keys(saved.finalParts).length));
+      load(f, !!(saved.finalStarted || Object.keys(saved.finalParts).length));
     }
     const g = A.g(), saved = progress(f.id), steps = plan(f), st = steps[g.p];
     const scene = scenes[g.p % scenes.length], won = ['pass', 'chapter', 'end'].includes(g.phase);
+    const restart = g.p || g.final || g.aided || g.phase !== 'tell' ? btn('restart', '↺ Recommencer cette fiche', 'ct-restart') : '';
     const header = `<header class="ct-top"><a class="ct-back" href="#/jeu/conte" aria-label="Retour aux contes">←</a><div class="ct-brand"><span class="ct-logo">Podo Quest</span><span class="ct-book-title">Le conte des savoirs</span></div><div class="ct-top-side">${soundControls()}<span class="ct-page-number">${g.final ? 'Grand récit' : `${Math.min(steps.filter(x => saved.parts[x.p]).length + 1, steps.length)} / ${steps.length}`}</span></div></header>`;
     let body;
     if (g.phase === 'chapter' || g.phase === 'end') {
       const end = g.phase === 'end';
-      body = `<section class="ct-card ct-ending"><span class="ct-eyebrow">${end ? 'TON HISTOIRE EST EN MÉMOIRE' : 'TOUS LES PASSAGES SONT OUVERTS'}</span><h2>${end ? 'Une étoile pour ton récit.' : 'Le village attend ton grand récit.'}</h2><p>${end ? 'Tu as récité chaque partie de la fiche sans aide. Elle reviendra dans ta séance du jour pour entretenir ta mémoire.' : 'Relie maintenant toute la fiche : récite ses parties dans l’ordre, sans lire et sans indice. Tes oublis devront être redits pour terminer l’histoire.'}</p>${end ? `<a class="ct-btn" href="#/jeu/conte">Choisir un autre conte →</a>${btn('restartfinal', 'Refaire le grand récit', 'ct-secondary')}` : btn('final', 'Raconter toute la fiche →')}<a class="ct-text-link" href="${A.fileLink(f)}">Retrouver la fiche</a></section>`;
+      body = `<section class="ct-card ct-ending"><span class="ct-eyebrow">${end ? 'TON HISTOIRE EST EN MÉMOIRE' : 'TOUS LES PASSAGES SONT OUVERTS'}</span><h2>${end ? 'Une étoile pour ton récit.' : 'Le village attend ton grand récit.'}</h2><p>${end ? 'Tu as récité chaque partie de la fiche sans aide. Elle reviendra dans ta séance du jour pour entretenir ta mémoire.' : 'Relie maintenant toute la fiche : récite ses parties dans l’ordre, sans lire et sans indice. Tes oublis devront être redits pour terminer l’histoire.'}</p>${end ? `<a class="ct-btn" href="#/jeu/conte">Choisir un autre conte →</a>${btn('restartfinal', 'Refaire le grand récit', 'ct-secondary')}` : btn('final', 'Raconter toute la fiche →')}<a class="ct-text-link" href="${A.fileLink(f)}">Retrouver la fiche</a>${restart}</section>`;
     } else {
       const show = ['check', 'result'].includes(g.phase), missed = st.items.filter((_, j) => !g.ticks.includes(j));
       body = `<section class="ct-card"><div class="ct-ribbon">${g.final ? `Le grand récit · ${g.p + 1}/${steps.length}` : 'À toi de raconter'}</div><span class="ct-subject">${esc(f.title)}</span><h2 class="ct-part-title">${g.p + 1}. ${esc(st.part.title)}</h2>
@@ -74,6 +77,7 @@ window.CONTE = A => {
         ${g.phase === 'tell' ? `<div class="ct-speaking">${ico('speak')} Sans ta fiche, récite à voix haute.<small>${st.items.length} idées à retrouver · Autoévaluation après le récit</small></div>${g.aided ? `<ul class="ct-hints">${st.items.map(x => `<li>${esc(initials(x))}</li>`).join('')}</ul><p class="ct-small">Avec cet indice, tu t’entraînes. Il faudra redire cette partie sans aide.</p>` : ''}${btn('show', 'J’ai terminé →')}${!g.final ? `<div class="ct-help">${btn('hint', 'Un petit indice ?', 'ct-secondary', g.aided ? 'disabled' : '')}${btn('read', 'Lire avant de raconter', 'ct-secondary')}</div>` : '<p class="ct-small">Le grand récit se fait sans aide.</p>'}` : ''}
         ${show ? `<p class="ct-small">Coche uniquement les idées que tu as dites <b>avant de voir cette liste</b>. Les mêmes idées avec tes mots comptent.</p><div class="ct-checks">${st.items.map((x,j) => `<button class="ct-check ${g.ticks.includes(j) ? 'on' : ''} ${g.phase === 'result' && !g.ticks.includes(j) ? 'ct-missed' : ''}" data-g="cttick" data-j="${j}" aria-pressed="${g.ticks.includes(j)}" ${g.phase === 'result' ? 'disabled' : ''}><span aria-hidden="true">${g.ticks.includes(j) ? '✓' : '○'}</span><span>${md(x)}</span></button>`).join('')}</div>${g.phase === 'check' ? btn('validate', `Vérifier mon récit · ${g.ticks.length}/${st.items.length}`) : `<div class="ct-feedback" role="status"><b>${missed.length ? `${missed.length} idée${missed.length > 1 ? 's' : ''} à retrouver.` : 'Tu as retrouvé toutes les idées avec un indice.'}</b><p>${g.final ? 'Retiens les idées oubliées, cache cette correction, puis recommence cette partie de mémoire.' : 'Le passage attend encore : retiens les idées, cache la correction, puis raconte de nouveau sans aide.'}</p></div>${btn('retry', 'Je cache et je réessaie →')}`}` : ''}
         ${g.phase === 'pass' ? `<div class="ct-feedback ct-success" role="status"><b>Toutes les idées, sans aide. Le passage s’ouvre !</b><p>${g.final ? 'Une partie de plus dans ton grand récit.' : 'La tortue te rejoint. La suite de l’histoire t’attend.'}</p></div>${btn('next', g.p === steps.length - 1 ? (g.final ? 'Découvrir mon étoile →' : 'Arriver au village →') : 'Continuer l’histoire →')}` : ''}
+        ${restart}
       </section>`;
     }
     const zone = `${esc(f.id)}:${g.final ? 'final' : 'conte'}:${g.p}`;
@@ -154,6 +158,19 @@ window.CONTE = A => {
     }
     sounds?.arm();
     const saved = progress(g.f.id), st = plan(g.f)[g.p];
+    if (a === 'ctrestart') {
+      const restart = () => {
+        saved.parts = {};
+        saved.finalParts = {};
+        delete saved.finalStarted;
+        A.save();
+        load(g.f);
+        A.render(false);
+      };
+      if (g.p) return crossClouds(restart);
+      sounds?.fx('page');
+      return restart();
+    }
     let keep = true;
     if ((a === 'ctfinal' && g.phase === 'chapter' || a === 'ctrestartfinal' && g.phase === 'end') && complete(g.f)) {
       return crossClouds(() => {

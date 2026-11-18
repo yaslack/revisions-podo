@@ -651,6 +651,9 @@
     { v: 146, items: [
       ['phones', 'Le conte a sa bande-son : huit morceaux en boucle, des boutons qui bruissent et des nuages qui passent en stéréo. Les deux boutons en haut permettent de régler la musique et les bruitages séparément.'],
     ] },
+    { v: 147, items: [
+      ['repeat', 'Dans un conte en cours, « Recommencer cette fiche » te fait repartir du premier chapitre.'],
+    ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
   if (!usedBefore && !S.noteV) { S.noteV = NOTE_V; save(); }   // première visite : rien à annoncer
