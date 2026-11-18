@@ -1,0 +1,101 @@
+{
+  "id": "map",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/map/p1-1.webp",
+        "caption": "Aponévrose plantaire et talon",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/map/p1-2.webp",
+        "caption": "Douleur aux premiers pas",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/map/p2-1.webp",
+        "caption": "Surcharge et biomécanique",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/map/p2-2.webp",
+        "caption": "Chaussage et facteurs favorisants",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/map/p3-1.webp",
+        "caption": "Traction à l’insertion calcanéenne",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/map/p3-2.webp",
+        "caption": "Épaississement et douleur persistante",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/map/p4-1.webp",
+        "caption": "Douleur à la reprise d’appui",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/map/p4-2.webp",
+        "caption": "Gêne après marche ou course",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/map/p5-1.webp",
+        "caption": "Examen et exclusion d’autres causes",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/map/p5-2.webp",
+        "caption": "Échographie de l’aponévrose",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/map/p6-1.webp",
+        "caption": "Repos et prise en charge adaptée",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/map/p6-2.webp",
+        "caption": "Semelles et étirements",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/map/p7-1.webp",
+        "caption": "Amélioration avec traitement conservateur",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/map/p7-2.webp",
+        "caption": "Évolution prolongée et récidive",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/map/p8-1.webp",
+        "caption": "Chaussures et étirements réguliers",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/map/p8-2.webp",
+        "caption": "Alterner les activités et consulter tôt",
+        "after": 7
+      }
+    ]
+  ]
+}
