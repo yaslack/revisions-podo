@@ -1,0 +1,101 @@
+{
+  "id": "chaussures-securite",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p1-1.webp",
+        "caption": "Protection au travail",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p1-2.webp",
+        "caption": "Prévenir les blessures du pied",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p2-1.webp",
+        "caption": "Catégorie selon le risque du poste",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p2-2.webp",
+        "caption": "Étanchéité et port prolongé",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p3-1.webp",
+        "caption": "Pression et macération",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p3-2.webp",
+        "caption": "Écrasement et perforation",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p4-1.webp",
+        "caption": "Douleur et rougeur localisées",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p4-2.webp",
+        "caption": "Frottements et engourdissements",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p5-1.webp",
+        "caption": "Chaussage, symptômes et examen",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p5-2.webp",
+        "caption": "Analyser la marche et les charges",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p6-1.webp",
+        "caption": "Soins locaux et ajustement",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p6-2.webp",
+        "caption": "Repos et prise en charge adaptée",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p7-1.webp",
+        "caption": "Évolution selon la prise en charge",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p7-2.webp",
+        "caption": "Reprise après ajustement",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p8-1.webp",
+        "caption": "Choisir selon les risques du poste",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/chaussures-securite/p8-2.webp",
+        "caption": "Contrôler l’usure et l’ajustement",
+        "after": 9
+      }
+    ]
+  ]
+}

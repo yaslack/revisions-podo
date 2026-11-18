@@ -659,9 +659,9 @@
     { v: 149, items: [
       ['sparkle', 'Une courte transition en papier découpé accompagne les changements de page dans l’app.'],
     ] },
-    { v: 151, paperNotions: true, items: [
+    { v: 152, paperNotions: true, items: [
       ['sparkle', 'Le thème Papier découpé devient un théâtre de papier : feuillages, matières illustrées et scènes en relief dans les cours.'],
-      ['book', '35/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
+      ['book', '36/64 fiches proposent maintenant plusieurs dessins personnalisés par partie. Les textes de révision et les schémas détaillés restent accessibles.'],
     ] },
   ];
   const NOTE_V = NOTES[NOTES.length - 1].v;
