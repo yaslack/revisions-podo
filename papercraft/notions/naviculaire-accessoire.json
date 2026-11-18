@@ -1,0 +1,101 @@
+{
+  "id": "naviculaire-accessoire",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p1-1.webp",
+        "caption": "Os supplémentaire au bord médial du pied",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p1-2.webp",
+        "caption": "Os naviculaire et fragment accessoire",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p2-1.webp",
+        "caption": "Ossification et prédisposition",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p2-2.webp",
+        "caption": "Surcharge et traumatismes",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p3-1.webp",
+        "caption": "Contraintes sur l’arche médiale",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p3-2.webp",
+        "caption": "Tibial postérieur sollicité",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p4-1.webp",
+        "caption": "Douleur médiale du pied",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p4-2.webp",
+        "caption": "Tuméfaction et gêne au mouvement",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p5-1.webp",
+        "caption": "Palpation et radiographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p5-2.webp",
+        "caption": "Imagerie complémentaire si nécessaire",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p6-1.webp",
+        "caption": "Repos et orthèses",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p6-2.webp",
+        "caption": "Rééducation ou chirurgie selon la gêne",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p7-1.webp",
+        "caption": "Amélioration sous prise en charge",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p7-2.webp",
+        "caption": "Évolution avec atteinte tendineuse",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p8-1.webp",
+        "caption": "Chaussage et maîtrise des contraintes",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/naviculaire-accessoire/p8-2.webp",
+        "caption": "Surveillance des personnes à risque",
+        "after": 5
+      }
+    ]
+  ]
+}
