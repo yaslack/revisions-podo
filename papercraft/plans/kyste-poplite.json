@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "LIQUIDE SYNOVIAL dans la fosse poplitée",
+        "caption": "Liquide derrière le genou",
         "after": 2,
         "context": [
           "LIQUIDE SYNOVIAL dans la fosse poplitée : à l’arrière du genou",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "RUPTURE → douleur + œdème du bas de jambe",
+        "caption": "Kyste bénin et rupture possible",
         "after": 4,
         "context": [
           "RUPTURE → douleur + œdème du bas de jambe",
@@ -25,7 +25,7 @@
     ],
     [
       {
-        "caption": "ARTHROSE",
+        "caption": "Arthrose, ménisque et synovite",
         "after": 3,
         "context": [
           "ARTHROSE",
@@ -39,7 +39,7 @@
         ]
       },
       {
-        "caption": "PLUS RAREMENT",
+        "caption": "Excès de liquide synovial",
         "after": 7,
         "context": [
           "PLUS RAREMENT",
@@ -56,7 +56,7 @@
     ],
     [
       {
-        "caption": "membrane synoviale → liquide qui LUBRIFIE",
+        "caption": "Production excessive de liquide",
         "after": 2,
         "context": [
           "membrane synoviale → liquide qui LUBRIFIE",
@@ -65,7 +65,7 @@
         ]
       },
       {
-        "caption": "fosse poplitée = KYSTE",
+        "caption": "Poche dans la fosse poplitée",
         "after": 5,
         "context": [
           "fosse poplitée = KYSTE",
@@ -76,7 +76,7 @@
     ],
     [
       {
-        "caption": "BOSSE palpable derrière le genou",
+        "caption": "Bosse et tension derrière le genou",
         "after": 2,
         "context": [
           "BOSSE palpable derrière le genou : taille variable",
@@ -85,7 +85,7 @@
         ]
       },
       {
-        "caption": "mobilité LIMITÉE",
+        "caption": "Flexion et extension limitées",
         "after": 4,
         "context": [
           "mobilité LIMITÉE : flexion + extension complètes",
@@ -95,7 +95,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Palpation et échographie",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -109,7 +109,7 @@
         ]
       },
       {
-        "caption": "kyste précis",
+        "caption": "Bilan du genou associé",
         "after": 3,
         "context": [
           "IRM",
@@ -123,7 +123,7 @@
     ],
     [
       {
-        "caption": "REPOS",
+        "caption": "Repos et traitement conservateur",
         "after": 4,
         "context": [
           "CONSERVATEUR",
@@ -134,7 +134,7 @@
         ]
       },
       {
-        "caption": "PONCTION",
+        "caption": "Drainage ou chirurgie si nécessaire",
         "after": 8,
         "context": [
           "PONCTION : draine… : … mais N’EMPÊCHE PAS la récidive",
@@ -151,7 +151,7 @@
     ],
     [
       {
-        "caption": "CAUSE TRAITÉE",
+        "caption": "Traiter la cause du genou",
         "after": 2,
         "context": [
           "GÉNÉRALEMENT BON",
@@ -164,7 +164,7 @@
         ]
       },
       {
-        "caption": "dépend de la pathologie associée",
+        "caption": "Récidive possible",
         "after": 4,
         "context": [
           "dépend de la pathologie associée",
@@ -174,7 +174,7 @@
     ],
     [
       {
-        "caption": "pas toujours évitable…",
+        "caption": "Renforcer et ménager le genou",
         "after": 4,
         "context": [
           "PRÉVENTION",
@@ -185,7 +185,7 @@
         ]
       },
       {
-        "caption": "éviter les traumatismes répétés",
+        "caption": "Surveiller les lésions du genou",
         "after": 9,
         "context": [
           "éviter les traumatismes répétés",
@@ -199,5 +199,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Le kyste poplité. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"LIQUIDE SYNOVIAL dans la fosse poplitée\",\"context\":\"LIQUIDE SYNOVIAL dans la fosse poplitée : à l’arrière du genou; BÉNIN · cause = problème du genou : arthrose · ménisque · synovite; souvent asymptomatique : sinon : douleur · gonflement · tension\"},{\"cell\":2,\"focus\":\"RUPTURE → douleur + œdème du bas de jambe\",\"context\":\"RUPTURE → douleur + œdème du bas de jambe; adulte, surtout âgé · jeune après traumatisme\"},{\"cell\":3,\"focus\":\"ARTHROSE\",\"context\":\"ARTHROSE; cartilage dégradé; MÉNISQUE; lésion · déchirure; SYNOVITE; ex. polyarthrite rhumatoïde; TRAUMATISME; contusion · entorse\"},{\"cell\":4,\"focus\":\"PLUS RAREMENT\",\"context\":\"PLUS RAREMENT; infection · goutte; trop de liquide synovial; FACTEURS DE RISQUE; arthrose; blessure / chirurgie du genou; maladies inflammatoires; âge avancé; sédentarité\"},{\"cell\":5,\"focus\":\"membrane synoviale → liquide qui LUBRIFIE\",\"context\":\"membrane synoviale → liquide qui LUBRIFIE; arthrose / ménisque → membrane IRRITÉE; TROP de liquide\"},{\"cell\":6,\"focus\":\"fosse poplitée = KYSTE\",\"context\":\"fosse poplitée = KYSTE; taille variable; RUPTURE : pression ↑ ou traumatisme\"},{\"cell\":7,\"focus\":\"BOSSE palpable derrière le genou\",\"context\":\"BOSSE palpable derrière le genou : taille variable; douleur légère à modérée : flexion / extension · pression sur le kyste; TENSION, raideur : marche · accroupissement\"},{\"cell\":8,\"focus\":\"mobilité LIMITÉE\",\"context\":\"mobilité LIMITÉE : flexion + extension complètes; parfois : chaleur + rougeur\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; masse palpable; mobilité du genou; ÉCHOGRAPHIE; LE PLUS SIMPLE; non invasive; taille; contenu liquide\"},{\"cell\":10,\"focus\":\"kyste précis\",\"context\":\"IRM; kyste précis; ménisque · arthrose; RADIOGRAPHIE; PAS le kyste; arthrose · lésions\"},{\"cell\":11,\"focus\":\"REPOS\",\"context\":\"CONSERVATEUR; REPOS : limiter les activités; glace + élévation; AINS; compression : bandages\"},{\"cell\":12,\"focus\":\"PONCTION\",\"context\":\"PONCTION : draine… : … mais N’EMPÊCHE PAS la récidive; CHIRURGIE; DRAINAGE / EXCISION; symptômes graves ou persistants; anesthésie locale ou générale; TRAITER LA CAUSE; ménisque · arthrose; arthroscopie; infiltrations de corticoïdes\"},{\"cell\":13,\"focus\":\"CAUSE TRAITÉE\",\"context\":\"GÉNÉRALEMENT BON; CAUSE TRAITÉE; arthrose · ménisque; le kyste peut se RÉSORBER; RÉCIDIVE; après une ponction; CHIRURGIE\"},{\"cell\":14,\"focus\":\"dépend de la pathologie associée\",\"context\":\"dépend de la pathologie associée; + de la réponse au traitement\"},{\"cell\":15,\"focus\":\"pas toujours évitable…\",\"context\":\"PRÉVENTION; pas toujours évitable…; POIDS SANTÉ; renforcement musculaire du genou; gérer l’arthrose\"},{\"cell\":16,\"focus\":\"éviter les traumatismes répétés\",\"context\":\"éviter les traumatismes répétés; traiter VITE blessures + inflammations; DÉPISTAGE; suivi RÉGULIER si; arthrose; lésion du ménisque; maladie inflammatoire\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Le kyste poplité. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Liquide derrière le genou\",\"context\":\"LIQUIDE SYNOVIAL dans la fosse poplitée : à l’arrière du genou; BÉNIN · cause = problème du genou : arthrose · ménisque · synovite; souvent asymptomatique : sinon : douleur · gonflement · tension\"},{\"cell\":2,\"focus\":\"Kyste bénin et rupture possible\",\"context\":\"RUPTURE → douleur + œdème du bas de jambe; adulte, surtout âgé · jeune après traumatisme\"},{\"cell\":3,\"focus\":\"Arthrose, ménisque et synovite\",\"context\":\"ARTHROSE; cartilage dégradé; MÉNISQUE; lésion · déchirure; SYNOVITE; ex. polyarthrite rhumatoïde; TRAUMATISME; contusion · entorse\"},{\"cell\":4,\"focus\":\"Excès de liquide synovial\",\"context\":\"PLUS RAREMENT; infection · goutte; trop de liquide synovial; FACTEURS DE RISQUE; arthrose; blessure / chirurgie du genou; maladies inflammatoires; âge avancé; sédentarité\"},{\"cell\":5,\"focus\":\"Production excessive de liquide\",\"context\":\"membrane synoviale → liquide qui LUBRIFIE; arthrose / ménisque → membrane IRRITÉE; TROP de liquide\"},{\"cell\":6,\"focus\":\"Poche dans la fosse poplitée\",\"context\":\"fosse poplitée = KYSTE; taille variable; RUPTURE : pression ↑ ou traumatisme\"},{\"cell\":7,\"focus\":\"Bosse et tension derrière le genou\",\"context\":\"BOSSE palpable derrière le genou : taille variable; douleur légère à modérée : flexion / extension · pression sur le kyste; TENSION, raideur : marche · accroupissement\"},{\"cell\":8,\"focus\":\"Flexion et extension limitées\",\"context\":\"mobilité LIMITÉE : flexion + extension complètes; parfois : chaleur + rougeur\"},{\"cell\":9,\"focus\":\"Palpation et échographie\",\"context\":\"EXAMEN CLINIQUE; masse palpable; mobilité du genou; ÉCHOGRAPHIE; LE PLUS SIMPLE; non invasive; taille; contenu liquide\"},{\"cell\":10,\"focus\":\"Bilan du genou associé\",\"context\":\"IRM; kyste précis; ménisque · arthrose; RADIOGRAPHIE; PAS le kyste; arthrose · lésions\"},{\"cell\":11,\"focus\":\"Repos et traitement conservateur\",\"context\":\"CONSERVATEUR; REPOS : limiter les activités; glace + élévation; AINS; compression : bandages\"},{\"cell\":12,\"focus\":\"Drainage ou chirurgie si nécessaire\",\"context\":\"PONCTION : draine… : … mais N’EMPÊCHE PAS la récidive; CHIRURGIE; DRAINAGE / EXCISION; symptômes graves ou persistants; anesthésie locale ou générale; TRAITER LA CAUSE; ménisque · arthrose; arthroscopie; infiltrations de corticoïdes\"},{\"cell\":13,\"focus\":\"Traiter la cause du genou\",\"context\":\"GÉNÉRALEMENT BON; CAUSE TRAITÉE; arthrose · ménisque; le kyste peut se RÉSORBER; RÉCIDIVE; après une ponction; CHIRURGIE\"},{\"cell\":14,\"focus\":\"Récidive possible\",\"context\":\"dépend de la pathologie associée; + de la réponse au traitement\"},{\"cell\":15,\"focus\":\"Renforcer et ménager le genou\",\"context\":\"PRÉVENTION; pas toujours évitable…; POIDS SANTÉ; renforcement musculaire du genou; gérer l’arthrose\"},{\"cell\":16,\"focus\":\"Surveiller les lésions du genou\",\"context\":\"éviter les traumatismes répétés; traiter VITE blessures + inflammations; DÉPISTAGE; suivi RÉGULIER si; arthrose; lésion du ménisque; maladie inflammatoire\"}]. Preserve exact 4-column grid and 4 rows."
 }

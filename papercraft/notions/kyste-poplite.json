@@ -1,0 +1,101 @@
+{
+  "id": "kyste-poplite",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p1-1.webp",
+        "caption": "Liquide derrière le genou",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p1-2.webp",
+        "caption": "Kyste bénin et rupture possible",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p2-1.webp",
+        "caption": "Arthrose, ménisque et synovite",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p2-2.webp",
+        "caption": "Excès de liquide synovial",
+        "after": 7
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p3-1.webp",
+        "caption": "Production excessive de liquide",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p3-2.webp",
+        "caption": "Poche dans la fosse poplitée",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p4-1.webp",
+        "caption": "Bosse et tension derrière le genou",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p4-2.webp",
+        "caption": "Flexion et extension limitées",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p5-1.webp",
+        "caption": "Palpation et échographie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p5-2.webp",
+        "caption": "Bilan du genou associé",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p6-1.webp",
+        "caption": "Repos et traitement conservateur",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p6-2.webp",
+        "caption": "Drainage ou chirurgie si nécessaire",
+        "after": 8
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p7-1.webp",
+        "caption": "Traiter la cause du genou",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p7-2.webp",
+        "caption": "Récidive possible",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p8-1.webp",
+        "caption": "Renforcer et ménager le genou",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/kyste-poplite/p8-2.webp",
+        "caption": "Surveiller les lésions du genou",
+        "after": 9
+      }
+    ]
+  ]
+}
