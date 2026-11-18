@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "processus COMPLEXE et essentiel",
+        "caption": "Succession des phases de marche",
         "after": 1,
         "context": [
           "processus COMPLEXE et essentiel : pour se déplacer efficacement",
@@ -14,7 +14,7 @@
         ]
       },
       {
-        "caption": "FONDAMENTAL pour le podologue",
+        "caption": "Observer la démarche",
         "after": 2,
         "context": [
           "FONDAMENTAL pour le podologue : → évaluer et traiter les troubles de la marche"
@@ -23,7 +23,7 @@
     ],
     [
       {
-        "caption": "ANATOMIQUES",
+        "caption": "Anatomie et biomécanique",
         "after": 1,
         "context": [
           "ANATOMIQUES",
@@ -35,7 +35,7 @@
         ]
       },
       {
-        "caption": "ENVIRONNEMENTAUX",
+        "caption": "Chaussage, terrain et pathologies",
         "after": 3,
         "context": [
           "ENVIRONNEMENTAUX",
@@ -50,7 +50,7 @@
     ],
     [
       {
-        "caption": "APPUI 60 %",
+        "caption": "Phase d’appui",
         "after": 8,
         "context": [
           "2 GRANDES PHASES",
@@ -65,7 +65,7 @@
         ]
       },
       {
-        "caption": "décollage",
+        "caption": "Phase de balancement",
         "after": 17,
         "context": [
           "décollage",
@@ -82,7 +82,7 @@
     ],
     [
       {
-        "caption": "ANOMALIES DE LA DÉMARCHE",
+        "caption": "Boiterie et douleurs",
         "after": 1,
         "context": [
           "ANOMALIES DE LA DÉMARCHE : boiterie · claudication · instabilité",
@@ -90,7 +90,7 @@
         ]
       },
       {
-        "caption": "FATIGUE musculaire excessive",
+        "caption": "Fatigue et déséquilibre musculaire",
         "after": 2,
         "context": [
           "FATIGUE musculaire excessive : pendant / après la marche → déséquilibre musculaire"
@@ -99,7 +99,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Examen clinique et fonctionnel",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -112,7 +112,7 @@
         ]
       },
       {
-        "caption": "INSTRUMENTAL",
+        "caption": "Vidéo et pressions plantaires",
         "after": 2,
         "context": [
           "INSTRUMENTAL",
@@ -125,7 +125,7 @@
     ],
     [
       {
-        "caption": "ORTHÈSES PLANTAIRES",
+        "caption": "Orthèses et rééducation",
         "after": 1,
         "context": [
           "CONSERVATEUR",
@@ -139,7 +139,7 @@
         ]
       },
       {
-        "caption": "cas SÉVÈRES",
+        "caption": "Prise en charge des déformations sévères",
         "after": 2,
         "context": [
           "CHIRURGIE",
@@ -150,7 +150,7 @@
     ],
     [
       {
-        "caption": "dépend de 3 choses",
+        "caption": "Évolution selon le trouble",
         "after": 1,
         "context": [
           "dépend de 3 choses",
@@ -160,7 +160,7 @@
         ]
       },
       {
-        "caption": "RÉPONSE AU TRAITEMENT",
+        "caption": "Réévaluation de la marche",
         "after": 3,
         "context": [
           "RÉPONSE AU TRAITEMENT",
@@ -174,7 +174,7 @@
     ],
     [
       {
-        "caption": "SENSIBILISER à l’évaluation podologique",
+        "caption": "Chaussage et bilan podologique",
         "after": 2,
         "context": [
           "SENSIBILISER à l’évaluation podologique : consulter régulièrement, en prévention",
@@ -183,7 +183,7 @@
         ]
       },
       {
-        "caption": "DIABÉTIQUES",
+        "caption": "Surveillance des personnes à risque",
         "after": 4,
         "context": [
           "DIABÉTIQUES",
@@ -192,5 +192,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Le cycle de marche. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"processus COMPLEXE et essentiel\",\"context\":\"processus COMPLEXE et essentiel : pour se déplacer efficacement; phases RYTHMIQUES qui se succèdent\"},{\"cell\":2,\"focus\":\"FONDAMENTAL pour le podologue\",\"context\":\"FONDAMENTAL pour le podologue : → évaluer et traiter les troubles de la marche\"},{\"cell\":3,\"focus\":\"ANATOMIQUES\",\"context\":\"ANATOMIQUES; pieds plats / creux; inégalité de longueur des membres; BIOMÉCANIQUES; surpoids → pression; mauvaises postures de marche\"},{\"cell\":4,\"focus\":\"ENVIRONNEMENTAUX\",\"context\":\"ENVIRONNEMENTAUX; chaussures : talons, semelles dures; terrains irréguliers; PATHOLOGIES; diabète · arthrose; neuro : AVC, sclérose en plaques; coordination, force\"},{\"cell\":5,\"focus\":\"APPUI 60 %\",\"context\":\"2 GRANDES PHASES; APPUI 60 %; BALANCEMENT 40 %; contact initial; talon au sol; charge; poids → pied; soutien; pied au sol, porte le poids\"},{\"cell\":6,\"focus\":\"décollage\",\"context\":\"décollage; prêt à quitter le sol; précoce; pied vers l’avant; intermédiaire; pied en l’air; terminal; prêt à toucher; déséquilibre d’une phase → douleurs + troubles de la marche\"},{\"cell\":7,\"focus\":\"ANOMALIES DE LA DÉMARCHE\",\"context\":\"ANOMALIES DE LA DÉMARCHE : boiterie · claudication · instabilité; DOULEURS : pieds · chevilles · genoux · hanches (pressions excessives)\"},{\"cell\":8,\"focus\":\"FATIGUE musculaire excessive\",\"context\":\"FATIGUE musculaire excessive : pendant / après la marche → déséquilibre musculaire\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; observer la démarche; palper pieds + articulations; TESTS FONCTIONNELS; force musculaire; souplesse; réflexes\"},{\"cell\":10,\"focus\":\"INSTRUMENTAL\",\"context\":\"INSTRUMENTAL; analyse VIDÉO; mouvements précis; PODOMÉTRIE; pressions sous le pied\"},{\"cell\":11,\"focus\":\"ORTHÈSES PLANTAIRES\",\"context\":\"CONSERVATEUR; ORTHÈSES PLANTAIRES; corriger les déformations · posture; PHYSIOTHÉRAPIE; renforcer · souplesse; CHAUSSURES ADAPTÉES; morphologie du pied; + activité\"},{\"cell\":12,\"focus\":\"cas SÉVÈRES\",\"context\":\"CHIRURGIE; cas SÉVÈRES; déformation · déséquilibre\"},{\"cell\":13,\"focus\":\"dépend de 3 choses\",\"context\":\"dépend de 3 choses; NATURE DE LA PATHOLOGIE; réversible avec traitement; ou prise en charge au long cours\"},{\"cell\":14,\"focus\":\"RÉPONSE AU TRAITEMENT\",\"context\":\"RÉPONSE AU TRAITEMENT; plus elle est rapide,; meilleure est l’évolution; ÉVALUATION RÉGULIÈRE; évite la progression; qualité de vie ↑\"},{\"cell\":15,\"focus\":\"SENSIBILISER à l’évaluation podologique\",\"context\":\"SENSIBILISER à l’évaluation podologique : consulter régulièrement, en prévention; CONSEILS chaussures : éviter les déformations; programmes de DÉPISTAGE : populations à risque → prévenir les complications\"},{\"cell\":16,\"focus\":\"DIABÉTIQUES\",\"context\":\"DIABÉTIQUES; PERSONNES ÂGÉES\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Le cycle de marche. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Succession des phases de marche\",\"context\":\"processus COMPLEXE et essentiel : pour se déplacer efficacement; phases RYTHMIQUES qui se succèdent\"},{\"cell\":2,\"focus\":\"Observer la démarche\",\"context\":\"FONDAMENTAL pour le podologue : → évaluer et traiter les troubles de la marche\"},{\"cell\":3,\"focus\":\"Anatomie et biomécanique\",\"context\":\"ANATOMIQUES; pieds plats / creux; inégalité de longueur des membres; BIOMÉCANIQUES; surpoids → pression; mauvaises postures de marche\"},{\"cell\":4,\"focus\":\"Chaussage, terrain et pathologies\",\"context\":\"ENVIRONNEMENTAUX; chaussures : talons, semelles dures; terrains irréguliers; PATHOLOGIES; diabète · arthrose; neuro : AVC, sclérose en plaques; coordination, force\"},{\"cell\":5,\"focus\":\"Phase d’appui\",\"context\":\"2 GRANDES PHASES; APPUI 60 %; BALANCEMENT 40 %; contact initial; talon au sol; charge; poids → pied; soutien; pied au sol, porte le poids\"},{\"cell\":6,\"focus\":\"Phase de balancement\",\"context\":\"décollage; prêt à quitter le sol; précoce; pied vers l’avant; intermédiaire; pied en l’air; terminal; prêt à toucher; déséquilibre d’une phase → douleurs + troubles de la marche\"},{\"cell\":7,\"focus\":\"Boiterie et douleurs\",\"context\":\"ANOMALIES DE LA DÉMARCHE : boiterie · claudication · instabilité; DOULEURS : pieds · chevilles · genoux · hanches (pressions excessives)\"},{\"cell\":8,\"focus\":\"Fatigue et déséquilibre musculaire\",\"context\":\"FATIGUE musculaire excessive : pendant / après la marche → déséquilibre musculaire\"},{\"cell\":9,\"focus\":\"Examen clinique et fonctionnel\",\"context\":\"EXAMEN CLINIQUE; observer la démarche; palper pieds + articulations; TESTS FONCTIONNELS; force musculaire; souplesse; réflexes\"},{\"cell\":10,\"focus\":\"Vidéo et pressions plantaires\",\"context\":\"INSTRUMENTAL; analyse VIDÉO; mouvements précis; PODOMÉTRIE; pressions sous le pied\"},{\"cell\":11,\"focus\":\"Orthèses et rééducation\",\"context\":\"CONSERVATEUR; ORTHÈSES PLANTAIRES; corriger les déformations · posture; PHYSIOTHÉRAPIE; renforcer · souplesse; CHAUSSURES ADAPTÉES; morphologie du pied; + activité\"},{\"cell\":12,\"focus\":\"Prise en charge des déformations sévères\",\"context\":\"CHIRURGIE; cas SÉVÈRES; déformation · déséquilibre\"},{\"cell\":13,\"focus\":\"Évolution selon le trouble\",\"context\":\"dépend de 3 choses; NATURE DE LA PATHOLOGIE; réversible avec traitement; ou prise en charge au long cours\"},{\"cell\":14,\"focus\":\"Réévaluation de la marche\",\"context\":\"RÉPONSE AU TRAITEMENT; plus elle est rapide,; meilleure est l’évolution; ÉVALUATION RÉGULIÈRE; évite la progression; qualité de vie ↑\"},{\"cell\":15,\"focus\":\"Chaussage et bilan podologique\",\"context\":\"SENSIBILISER à l’évaluation podologique : consulter régulièrement, en prévention; CONSEILS chaussures : éviter les déformations; programmes de DÉPISTAGE : populations à risque → prévenir les complications\"},{\"cell\":16,\"focus\":\"Surveillance des personnes à risque\",\"context\":\"DIABÉTIQUES; PERSONNES ÂGÉES\"}]. Preserve exact 4-column grid and 4 rows."
 }

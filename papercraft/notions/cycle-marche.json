@@ -1,0 +1,101 @@
+{
+  "id": "cycle-marche",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p1-1.webp",
+        "caption": "Succession des phases de marche",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p1-2.webp",
+        "caption": "Observer la démarche",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p2-1.webp",
+        "caption": "Anatomie et biomécanique",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p2-2.webp",
+        "caption": "Chaussage, terrain et pathologies",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p3-1.webp",
+        "caption": "Phase d’appui",
+        "after": 8
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p3-2.webp",
+        "caption": "Phase de balancement",
+        "after": 17
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p4-1.webp",
+        "caption": "Boiterie et douleurs",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p4-2.webp",
+        "caption": "Fatigue et déséquilibre musculaire",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p5-1.webp",
+        "caption": "Examen clinique et fonctionnel",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p5-2.webp",
+        "caption": "Vidéo et pressions plantaires",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p6-1.webp",
+        "caption": "Orthèses et rééducation",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p6-2.webp",
+        "caption": "Prise en charge des déformations sévères",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p7-1.webp",
+        "caption": "Évolution selon le trouble",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p7-2.webp",
+        "caption": "Réévaluation de la marche",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p8-1.webp",
+        "caption": "Chaussage et bilan podologique",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/cycle-marche/p8-2.webp",
+        "caption": "Surveillance des personnes à risque",
+        "after": 4
+      }
+    ]
+  ]
+}
