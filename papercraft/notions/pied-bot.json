@@ -1,0 +1,101 @@
+{
+  "id": "pied-bot",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p1-1.webp",
+        "caption": "Déformation congénitale du pied",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p1-2.webp",
+        "caption": "Varus, équin et adduction",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p2-1.webp",
+        "caption": "Prédisposition familiale",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p2-2.webp",
+        "caption": "Développement et formes associées",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p3-1.webp",
+        "caption": "Déformation osseuse et rétraction",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p3-2.webp",
+        "caption": "Tendons courts et pied rigide",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p4-1.webp",
+        "caption": "Position anormale du pied",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p4-2.webp",
+        "caption": "Gêne fonctionnelle et muscles",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p5-1.webp",
+        "caption": "Examen et correction passive",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p5-2.webp",
+        "caption": "Bilan anatomique et imagerie",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p6-1.webp",
+        "caption": "Plâtres correcteurs de Ponseti",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p6-2.webp",
+        "caption": "Attelles et traitement spécialisé",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p7-1.webp",
+        "caption": "Pied fonctionnel après prise en charge précoce",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p7-2.webp",
+        "caption": "Déformations résiduelles possibles",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/pied-bot/p8-1.webp",
+        "caption": "Dépistage à la naissance",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/pied-bot/p8-2.webp",
+        "caption": "Surveillance et observance des attelles",
+        "after": 3
+      }
+    ]
+  ]
+}

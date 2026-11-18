@@ -2,11 +2,11 @@
 
 Objectif demandé : plusieurs illustrations personnalisées par partie, selon les notions du cours, dans le style de la référence en papier découpé. Les scènes génériques ne suffisent pas.
 
-Avancement sauvegardé : 63/64 fiches, 996 illustrations intégrées.
+Avancement sauvegardé : 64/64 fiches, 1012 illustrations intégrées.
 
-Fiches prêtes : verrues, onychomycoses, antifongiques, hematome, ains, antiseptiques, mycoses, hyperkeratoses, phlyctenes, mpp, aomi, phlebite, varices, erysipele, eczema, psoriasis, dyshidrose, sudoraux, raynaud, gelures, onychodys, dyschromies, smp, tumeurs, genou, chaussures-enfant, chaussures-securite, coxarthrose, cycle-marche, deformations-orteils, entorses-cheville, fractures-fatigue, genu-valgum-varum, gonarthrose, hallux-rigidus, hallux-valgus, ilm, insuffisance-1er-rayon, kyste-poplite, haglund, sever-osgood, map, naviculaire-accessoire, osteochondrose, periostite-tibiale, pied-creux, pied-plat, scoliose, attitudes-scoliotiques, carrefour-posterieur, canal-tarsien, bursite-icm, morton, patte-oie, essuie-glace, syndrome-loges, syndrome-2e-rayon, sinus-tarse, synostoses, talalgies, talonnade, tendinites, tendinopathie-achille
+Fiches prêtes : verrues, onychomycoses, antifongiques, hematome, ains, antiseptiques, mycoses, hyperkeratoses, phlyctenes, mpp, aomi, phlebite, varices, erysipele, eczema, psoriasis, dyshidrose, sudoraux, raynaud, gelures, onychodys, dyschromies, smp, tumeurs, genou, chaussures-enfant, chaussures-securite, coxarthrose, cycle-marche, deformations-orteils, entorses-cheville, fractures-fatigue, genu-valgum-varum, gonarthrose, hallux-rigidus, hallux-valgus, ilm, insuffisance-1er-rayon, kyste-poplite, haglund, sever-osgood, map, naviculaire-accessoire, osteochondrose, periostite-tibiale, pied-bot, pied-creux, pied-plat, scoliose, attitudes-scoliotiques, carrefour-posterieur, canal-tarsien, bursite-icm, morton, patte-oie, essuie-glace, syndrome-loges, syndrome-2e-rayon, sinus-tarse, synostoses, talalgies, talonnade, tendinites, tendinopathie-achille
 
-Fiches restantes : pied-bot
+Fiches restantes : aucune
 
 Les correspondances sont dans papercraft/notions/*.json ; les images dans jeu/theatre/notions/<fiche>/ ; les prompts dans papercraft/*-notions-prompts.txt.
 

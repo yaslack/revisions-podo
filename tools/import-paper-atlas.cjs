@@ -18,7 +18,7 @@ for (const [k, pair] of plan.parts.entries()) {
   for (const n of pair) if (!n.caption?.trim() || !Number.isInteger(n.after) || n.after < 0 || n.after >= f.parts[k].blocks.length) throw new Error('Ancrage invalide');
 }
 const target = path.join(root, 'papercraft/notions', plan.id + '.json');
-if (fs.existsSync(target)) throw new Error('Fiche déjà intégrée : ' + plan.id);
+if (fs.existsSync(target) && !process.argv.includes('--replace')) throw new Error('Fiche déjà intégrée : ' + plan.id);
 (async () => {
   const im = await loadImage(source);
   const folder = path.join(root, 'jeu/theatre/notions', plan.id);

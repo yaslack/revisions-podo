@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "déformation CONGÉNITALE complexe",
+        "caption": "Déformation congénitale du pied",
         "after": 2,
         "context": [
           "déformation CONGÉNITALE complexe : ≈ 1 naissance sur 1000",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "ÉQUIN",
+        "caption": "Varus, équin et adduction",
         "after": 5,
         "context": [
           "ÉQUIN : flexion plantaire forcée",
@@ -26,7 +26,7 @@
     ],
     [
       {
-        "caption": "généralement CONGÉNITAL · cause souvent INCONNUE",
+        "caption": "Prédisposition familiale",
         "after": 2,
         "context": [
           "généralement CONGÉNITAL · cause souvent INCONNUE",
@@ -37,7 +37,7 @@
         ]
       },
       {
-        "caption": "ENVIRONNEMENT",
+        "caption": "Développement et formes associées",
         "after": 4,
         "context": [
           "ENVIRONNEMENT",
@@ -49,7 +49,7 @@
     ],
     [
       {
-        "caption": "vie FŒTALE",
+        "caption": "Déformation osseuse et rétraction",
         "after": 2,
         "context": [
           "vie FŒTALE : os + articulations déformés",
@@ -58,7 +58,7 @@
         ]
       },
       {
-        "caption": "TRICEPS SURAL court + rigide",
+        "caption": "Tendons courts et pied rigide",
         "after": 4,
         "context": [
           "TRICEPS SURAL court + rigide",
@@ -68,7 +68,7 @@
     ],
     [
       {
-        "caption": "ÉQUIN + ADDUCTION + VARUS",
+        "caption": "Position anormale du pied",
         "after": 2,
         "context": [
           "ÉQUIN + ADDUCTION + VARUS",
@@ -77,7 +77,7 @@
         ]
       },
       {
-        "caption": "marche retardée / difficile",
+        "caption": "Gêne fonctionnelle et muscles",
         "after": 4,
         "context": [
           "marche retardée / difficile",
@@ -87,7 +87,7 @@
     ],
     [
       {
-        "caption": "SURTOUT CLINIQUE · podologue ou pédiatre",
+        "caption": "Examen et correction passive",
         "after": 1,
         "context": [
           "SURTOUT CLINIQUE · podologue ou pédiatre",
@@ -99,7 +99,7 @@
         ]
       },
       {
-        "caption": "RADIOGRAPHIE",
+        "caption": "Bilan anatomique et imagerie",
         "after": 3,
         "context": [
           "RADIOGRAPHIE",
@@ -115,7 +115,7 @@
     ],
     [
       {
-        "caption": "MÉTHODE DE PONSETI",
+        "caption": "Plâtres correcteurs de Ponseti",
         "after": 3,
         "context": [
           "MÉTHODE DE PONSETI",
@@ -127,7 +127,7 @@
         ]
       },
       {
-        "caption": "plusieurs années · contre la récidive",
+        "caption": "Attelles et traitement spécialisé",
         "after": 6,
         "context": [
           "3 · ATTELLES",
@@ -143,7 +143,7 @@
     ],
     [
       {
-        "caption": "FAVORABLE si pris TÔT",
+        "caption": "Pied fonctionnel après prise en charge précoce",
         "after": 1,
         "context": [
           "FAVORABLE si pris TÔT (Ponseti)",
@@ -153,7 +153,7 @@
         ]
       },
       {
-        "caption": "MAL CORRIGÉ",
+        "caption": "Déformations résiduelles possibles",
         "after": 2,
         "context": [
           "MAL CORRIGÉ",
@@ -165,7 +165,7 @@
     ],
     [
       {
-        "caption": "congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout",
+        "caption": "Dépistage à la naissance",
         "after": 1,
         "context": [
           "congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout",
@@ -174,7 +174,7 @@
         ]
       },
       {
-        "caption": "SURVEILLANCE",
+        "caption": "Surveillance et observance des attelles",
         "after": 3,
         "context": [
           "SURVEILLANCE",
@@ -185,5 +185,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Le pied bot varus équin. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"déformation CONGÉNITALE complexe\",\"context\":\"déformation CONGÉNITALE complexe : ≈ 1 naissance sur 1000; 3 déformations; VARUS : incliné en dedans\"},{\"cell\":2,\"focus\":\"ÉQUIN\",\"context\":\"ÉQUIN : flexion plantaire forcée; ADDUCTION : tourné en dedans; tôt + vite → très bonne prise en charge\"},{\"cell\":3,\"focus\":\"généralement CONGÉNITAL · cause souvent INCONNUE\",\"context\":\"généralement CONGÉNITAL · cause souvent INCONNUE; GÉNÉTIQUE; risque ↑ si un proche en a eu; INTRA-UTÉRIN; position fœtale · manque de place · compression\"},{\"cell\":4,\"focus\":\"ENVIRONNEMENT\",\"context\":\"ENVIRONNEMENT; malnutrition · infections · médicaments; SYNDROMES; Edwards · Patau\"},{\"cell\":5,\"focus\":\"vie FŒTALE\",\"context\":\"vie FŒTALE : os + articulations déformés; TALUS malformé → pas de flexion dorsale; tendons + ligaments RÉTRACTÉS → ÉQUIN\"},{\"cell\":6,\"focus\":\"TRICEPS SURAL court + rigide\",\"context\":\"TRICEPS SURAL court + rigide; déformation RIGIDE · pied jamais à plat\"},{\"cell\":7,\"focus\":\"ÉQUIN + ADDUCTION + VARUS\",\"context\":\"ÉQUIN + ADDUCTION + VARUS; RIGIDE : non corrigeable à la main : → forme plus SÉVÈRE; sillons · peau épaisse et CORNÉE : dos du pied · face interne de la cheville\"},{\"cell\":8,\"focus\":\"marche retardée / difficile\",\"context\":\"marche retardée / difficile; muscles sous-développés ou contractés\"},{\"cell\":9,\"focus\":\"SURTOUT CLINIQUE · podologue ou pédiatre\",\"context\":\"SURTOUT CLINIQUE · podologue ou pédiatre; EXAMEN PHYSIQUE; équin; varus; adduction; TEST DE CORRECTION PASSIVE\"},{\"cell\":10,\"focus\":\"RADIOGRAPHIE\",\"context\":\"RADIOGRAPHIE; anatomie osseuse; malformations; PLANIFIER le traitement; ÉCHOGRAPHIE; tendons; ligaments; longueur + tonicité musculaire\"},{\"cell\":11,\"focus\":\"MÉTHODE DE PONSETI\",\"context\":\"MÉTHODE DE PONSETI; LA PLUS UTILISÉE; 1 · PLÂTRES; changés chaque semaine · plusieurs mois; 2 · TÉNOTOMIE; du tendon d’Achille → dorsiflexion\"},{\"cell\":12,\"focus\":\"plusieurs années · contre la récidive\",\"context\":\"3 · ATTELLES; plusieurs années · contre la récidive; CHIRURGIE; sévère ou échec de Ponseti; allonger les tendons · réorienter les os · fusionner; ENSUITE; rééducation · kiné; chaussures orthopédiques + orthèses\"},{\"cell\":13,\"focus\":\"FAVORABLE si pris TÔT\",\"context\":\"FAVORABLE si pris TÔT (Ponseti); 80 – 90 %; pied FONCTIONNEL; + esthétiquement satisfaisant\"},{\"cell\":14,\"focus\":\"MAL CORRIGÉ\",\"context\":\"MAL CORRIGÉ; déformations résiduelles; mobilité ↓; ARTHROSE PRÉCOCE\"},{\"cell\":15,\"focus\":\"congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout\",\"context\":\"congénital → difficile à PRÉVENIR… mais le DÉPISTAGE change tout; DÉPISTAGE NÉONATAL; à la naissance · signes bien visibles · traiter dès les 1res semaines\"},{\"cell\":16,\"focus\":\"SURVEILLANCE\",\"context\":\"SURVEILLANCE; toute l’enfance · la déformation revient-elle ?; PARENTS; porter attelles + orthèses → pas de récidive\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Create ONE square production atlas EXACTLY 4 COLUMNS x4 ROWS of SIXTEEN distinct educational papercraft vignettes about CLUBFOOT (pied bot varus equin) and its orthopaedic care. Show artificial anatomical TEACHING MODELS of feet, lower legs and orthotic devices only. No full human bodies, no babies, no fetuses, no real clinical photographs, no blood, no wounds, no surgery. Rich physically handmade thick layered fibrous cardstock, warm light and tiny contact shadows, moss/sage, ivory, peach, dusty blue, ochre, coral and lavender. Each illustration completely inside its equal cell with broad genuinely transparent gutters; no overlap. Exact row-major scenes: 1. schematic orthopaedic model of a foot turned inward, isolated below-knee segment, thick peach and ivory paper; 2. three small views of the same foot showing inward heel tilt, plantar-flexed ankle and inward forefoot, simple arrows, no text; 3. two small foot silhouettes linked by a simple family-tree pattern, representing familial predisposition without people; 4. two simplified ivory foot skeleton alignment models, normal and congenital inward alignment, no biological specimens; 5. ivory talus and hindfoot model with changed alignment, clear non-graphic teaching diagram; 6. side-view lower-leg and foot mannequin model with shortened Achilles tendon ribbon pulling heel upward; 7. front and rear views of inward-turned foot model, no injury or wound; 8. foot model resting on outer edge instead of sole, beside its curved footprint; 9. blue-gloved hands holding a foot mannequin to assess passive correction, only hands and foot; 10. simple foot X-ray plate beside foot-bone model, no writing; 11. sequence of three removable plaster casts around artificial foot-and-lower-leg models, no procedure, no people; 12. empty orthopaedic abduction brace with two small boots and connecting bar, beside a blank calendar; 13. corrected plantigrade foot model resting flat on ground beside a normal footprint; 14. residual inward alignment of foot model compared with neutral foot, neutral educational depiction; 15. magnifying glass examining alignment of a foot model and footprint, no writing; 16. empty boot-and-bar foot orthosis beside repeated blank calendar squares, representing long-term follow-up. All images non-graphic, calm and schematic. No letters, labels, words, numbers, logos or screenshots. Preserve strict4x4 equal-cell grid and true transparent alpha outside all16 independent vignettes.\n"
 }

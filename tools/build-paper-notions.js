@@ -30,7 +30,7 @@ function build() {
     'Objectif demandé : plusieurs illustrations personnalisées par partie, selon les notions du cours, dans le style de la référence en papier découpé. Les scènes génériques ne suffisent pas.', '',
     `Avancement sauvegardé : ${completed.length}/${expected.length} fiches, ${completed.reduce((n, f) => n + courses[f.id].flat().length, 0)} illustrations intégrées.`, '',
     'Fiches prêtes : ' + completed.map(f => f.id).join(', '), '',
-    'Fiches restantes : ' + remaining.map(f => f.id).join(', '), '',
+    'Fiches restantes : ' + (remaining.map(f => f.id).join(', ') || 'aucune'), '',
     'Les correspondances sont dans papercraft/notions/*.json ; les images dans jeu/theatre/notions/<fiche>/ ; les prompts dans papercraft/*-notions-prompts.txt.', '',
     'Après chaque planche : tools/publish-paper.sh <fiche> <atlas.png> découpe les dessins, vérifie les textes, incrémente la version et publie sur GitHub Pages. ImageGen intégré reste utilisé pour les générations.', '',
     'Aperçu : http://127.0.0.1:51862/ . Le script tools/preview-live.js actualise les textures et les nouveaux dessins uniquement en local, sans relancer les quiz.', '',
