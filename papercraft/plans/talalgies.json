@@ -6,7 +6,7 @@
   "parts": [
     [
       {
-        "caption": "TOUTE douleur du talon",
+        "caption": "Douleur du talon",
         "after": 2,
         "context": [
           "TOUTE douleur du talon : aiguë / chronique",
@@ -15,7 +15,7 @@
         ]
       },
       {
-        "caption": "os · tendons · ligaments",
+        "caption": "Os, tendons, ligaments et nerfs",
         "after": 4,
         "context": [
           "os · tendons · ligaments",
@@ -25,7 +25,7 @@
     ],
     [
       {
-        "caption": "CAUSES",
+        "caption": "Différentes causes de talalgie",
         "after": 1,
         "context": [
           "CAUSES",
@@ -41,7 +41,7 @@
         ]
       },
       {
-        "caption": "surpoids",
+        "caption": "Facteurs de surcharge",
         "after": 2,
         "context": [
           "surpoids",
@@ -55,7 +55,7 @@
     ],
     [
       {
-        "caption": "FASCIITE",
+        "caption": "Fascia, tendon d’Achille et bourse",
         "after": 2,
         "context": [
           "FASCIITE : sous le talon · 1ers pas du matin",
@@ -64,7 +64,7 @@
         ]
       },
       {
-        "caption": "CANAL TARSIEN",
+        "caption": "Nerf comprimé, os et conflit",
         "after": 5,
         "context": [
           "CANAL TARSIEN : nerf comprimé · brûlures",
@@ -75,7 +75,7 @@
     ],
     [
       {
-        "caption": "douleur aiguë / sourde",
+        "caption": "Douleur à l’appui et raideur",
         "after": 3,
         "context": [
           "douleur aiguë / sourde : CHARGE, marche, course",
@@ -85,7 +85,7 @@
         ]
       },
       {
-        "caption": "BOITERIE",
+        "caption": "Boiterie et irradiation plantaire",
         "after": 6,
         "context": [
           "BOITERIE",
@@ -96,7 +96,7 @@
     ],
     [
       {
-        "caption": "EXAMEN CLINIQUE",
+        "caption": "Interrogatoire et palpation",
         "after": 1,
         "context": [
           "EXAMEN CLINIQUE",
@@ -109,7 +109,7 @@
         ]
       },
       {
-        "caption": "TEST DE THOMPSON",
+        "caption": "Tests et imagerie selon la cause",
         "after": 3,
         "context": [
           "TEST DE THOMPSON",
@@ -126,7 +126,7 @@
     ],
     [
       {
-        "caption": "glace + AINS",
+        "caption": "Décharge et traitement conservateur",
         "after": 4,
         "context": [
           "CONSERVATEUR",
@@ -137,7 +137,7 @@
         ]
       },
       {
-        "caption": "bandages · attelles",
+        "caption": "Prise en charge spécialisée si nécessaire",
         "after": 9,
         "context": [
           "bandages · attelles",
@@ -152,7 +152,7 @@
     ],
     [
       {
-        "caption": "GÉNÉRALEMENT FAVORABLE",
+        "caption": "Évolution souvent favorable",
         "after": 1,
         "context": [
           "GÉNÉRALEMENT FAVORABLE",
@@ -162,7 +162,7 @@
         ]
       },
       {
-        "caption": "CHRONIQUE",
+        "caption": "Récupération selon la cause",
         "after": 3,
         "context": [
           "CHRONIQUE",
@@ -173,7 +173,7 @@
     ],
     [
       {
-        "caption": "⚠ section COUPÉE dans le livret",
+        "caption": "Chaussures ajustées et soutien",
         "after": 1,
         "context": [
           "⚠ section COUPÉE dans le livret",
@@ -181,7 +181,7 @@
         ]
       },
       {
-        "caption": "ÉCHAUFFEMENT…",
+        "caption": "Gérer les facteurs de risque",
         "after": 3,
         "context": [
           "ÉCHAUFFEMENT… (la suite manque)",
@@ -190,5 +190,5 @@
       }
     ]
   ],
-  "prompt": "Use case: scientific-educational. Course: Les talalgies. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"TOUTE douleur du talon\",\"context\":\"TOUTE douleur du talon : aiguë / chronique; du mécanique BÉNIN… au complexe; plainte COURANTE : impact sur la marche + la qualité de vie\"},{\"cell\":2,\"focus\":\"os · tendons · ligaments\",\"context\":\"os · tendons · ligaments; traitement = selon la CAUSE (examen + imagerie)\"},{\"cell\":3,\"focus\":\"CAUSES\",\"context\":\"CAUSES; FASCIITE PLANTAIRE; tendinopathie d’Achille; bursite rétro-calcanéenne; canal tarsien; fracture de stress; arthrite sous-talienne; maladie de Haglund; origine NERVEUSE (rachis); FACTEURS DE RISQUE\"},{\"cell\":4,\"focus\":\"surpoids\",\"context\":\"surpoids; pied plat / hyperpronation; chaussures mal amorties; sport à fort impact; âge; travail debout\"},{\"cell\":5,\"focus\":\"FASCIITE\",\"context\":\"FASCIITE : sous le talon · 1ers pas du matin; ACHILLE : microdéchirures · arrière, à l’effort; BURSITE : bourse Achille/calcanéum · friction\"},{\"cell\":6,\"focus\":\"CANAL TARSIEN\",\"context\":\"CANAL TARSIEN : nerf comprimé · brûlures; FRACTURE DE STRESS : ↑ avec l’exercice; HAGLUND : la bosse comprime les tissus\"},{\"cell\":7,\"focus\":\"douleur aiguë / sourde\",\"context\":\"douleur aiguë / sourde : CHARGE, marche, course; palpation : fascia · Achille · bourse; RAIDEUR · pire au matin (1ers pas); chaleur + gonflement (inflammatoire)\"},{\"cell\":8,\"focus\":\"BOITERIE\",\"context\":\"BOITERIE; plus forte APRÈS l’effort; irradiation plantaire (canal tarsien)\"},{\"cell\":9,\"focus\":\"EXAMEN CLINIQUE\",\"context\":\"EXAMEN CLINIQUE; interrogatoire; marche; palpation du talon; EXTENSION DORSALE; tend le fascia → douleur; = FASCIITE\"},{\"cell\":10,\"focus\":\"TEST DE THOMPSON\",\"context\":\"TEST DE THOMPSON; rupture de l’ACHILLE ?; IMAGERIE; RADIO; fracture · déformation; IRM; tendinites · bursites · fractures de stress; ÉCHO; Achille · structures du talon\"},{\"cell\":11,\"focus\":\"glace + AINS\",\"context\":\"CONSERVATEUR; REPOS; glace + AINS; ORTHÈSES : pronation · soulager le talon; STRETCHING + physio : Achille, fascia\"},{\"cell\":12,\"focus\":\"bandages · attelles\",\"context\":\"bandages · attelles; infiltrations si ça persiste; CHIRURGIE; ACHILLE; tendinopathie rebelle · RUPTURE; FASCIA PLANTAIRE; LIBÉRATION : formes graves / chroniques\"},{\"cell\":13,\"focus\":\"GÉNÉRALEMENT FAVORABLE\",\"context\":\"GÉNÉRALEMENT FAVORABLE; FASCIITE + ACHILLE; guérissent souvent; avec le conservateur\"},{\"cell\":14,\"focus\":\"CHRONIQUE\",\"context\":\"CHRONIQUE; jusqu’à la CHIRURGIE; récupération COMPLÈTE possible… en semaines ou mois\"},{\"cell\":15,\"focus\":\"⚠ section COUPÉE dans le livret\",\"context\":\"⚠ section COUPÉE dans le livret; chaussures bien AJUSTÉES · bon soutien\"},{\"cell\":16,\"focus\":\"ÉCHAUFFEMENT…\",\"context\":\"ÉCHAUFFEMENT… (la suite manque); prévention = gérer les FACTEURS DE RISQUE\"}]. Preserve exact 4-column grid and 4 rows."
+  "prompt": "Use case: scientific-educational. Course: Les talalgies. ONE production atlas, EXACT 4 COLUMNS x 4 ROWS, 16 separate equal cells in strict row-major order. Reference ONLY supplies beautiful physical handmade paper style, not its subjects. Rich thick hand-cut fibrous layered cardstock, subtle warm contact shadows, moss/sage, ochre, ivory, peach, dusty blue, coral, lavender. Each cell a distinct concrete illustration of its FOCUS using its French context. Anatomical concepts are schematic, non-graphic; preserve correct body region. For mechanisms show the mechanism, for signs show the sign, for care show the action. No generic chapter icons. No words, labels, letters, numbers, logos, brands, screenshots or dosing instructions. Do not invent medical claims. No text from the context may appear in the artwork. Every subject complete inside its own cell, generous transparent gutters, no overlap; true transparent alpha outside separate vignettes. Cell specifications: [{\"cell\":1,\"focus\":\"Douleur du talon\",\"context\":\"TOUTE douleur du talon : aiguë / chronique; du mécanique BÉNIN… au complexe; plainte COURANTE : impact sur la marche + la qualité de vie\"},{\"cell\":2,\"focus\":\"Os, tendons, ligaments et nerfs\",\"context\":\"os · tendons · ligaments; traitement = selon la CAUSE (examen + imagerie)\"},{\"cell\":3,\"focus\":\"Différentes causes de talalgie\",\"context\":\"CAUSES; FASCIITE PLANTAIRE; tendinopathie d’Achille; bursite rétro-calcanéenne; canal tarsien; fracture de stress; arthrite sous-talienne; maladie de Haglund; origine NERVEUSE (rachis); FACTEURS DE RISQUE\"},{\"cell\":4,\"focus\":\"Facteurs de surcharge\",\"context\":\"surpoids; pied plat / hyperpronation; chaussures mal amorties; sport à fort impact; âge; travail debout\"},{\"cell\":5,\"focus\":\"Fascia, tendon d’Achille et bourse\",\"context\":\"FASCIITE : sous le talon · 1ers pas du matin; ACHILLE : microdéchirures · arrière, à l’effort; BURSITE : bourse Achille/calcanéum · friction\"},{\"cell\":6,\"focus\":\"Nerf comprimé, os et conflit\",\"context\":\"CANAL TARSIEN : nerf comprimé · brûlures; FRACTURE DE STRESS : ↑ avec l’exercice; HAGLUND : la bosse comprime les tissus\"},{\"cell\":7,\"focus\":\"Douleur à l’appui et raideur\",\"context\":\"douleur aiguë / sourde : CHARGE, marche, course; palpation : fascia · Achille · bourse; RAIDEUR · pire au matin (1ers pas); chaleur + gonflement (inflammatoire)\"},{\"cell\":8,\"focus\":\"Boiterie et irradiation plantaire\",\"context\":\"BOITERIE; plus forte APRÈS l’effort; irradiation plantaire (canal tarsien)\"},{\"cell\":9,\"focus\":\"Interrogatoire et palpation\",\"context\":\"EXAMEN CLINIQUE; interrogatoire; marche; palpation du talon; EXTENSION DORSALE; tend le fascia → douleur; = FASCIITE\"},{\"cell\":10,\"focus\":\"Tests et imagerie selon la cause\",\"context\":\"TEST DE THOMPSON; rupture de l’ACHILLE ?; IMAGERIE; RADIO; fracture · déformation; IRM; tendinites · bursites · fractures de stress; ÉCHO; Achille · structures du talon\"},{\"cell\":11,\"focus\":\"Décharge et traitement conservateur\",\"context\":\"CONSERVATEUR; REPOS; glace + AINS; ORTHÈSES : pronation · soulager le talon; STRETCHING + physio : Achille, fascia\"},{\"cell\":12,\"focus\":\"Prise en charge spécialisée si nécessaire\",\"context\":\"bandages · attelles; infiltrations si ça persiste; CHIRURGIE; ACHILLE; tendinopathie rebelle · RUPTURE; FASCIA PLANTAIRE; LIBÉRATION : formes graves / chroniques\"},{\"cell\":13,\"focus\":\"Évolution souvent favorable\",\"context\":\"GÉNÉRALEMENT FAVORABLE; FASCIITE + ACHILLE; guérissent souvent; avec le conservateur\"},{\"cell\":14,\"focus\":\"Récupération selon la cause\",\"context\":\"CHRONIQUE; jusqu’à la CHIRURGIE; récupération COMPLÈTE possible… en semaines ou mois\"},{\"cell\":15,\"focus\":\"Chaussures ajustées et soutien\",\"context\":\"⚠ section COUPÉE dans le livret; chaussures bien AJUSTÉES · bon soutien\"},{\"cell\":16,\"focus\":\"Gérer les facteurs de risque\",\"context\":\"ÉCHAUFFEMENT… (la suite manque); prévention = gérer les FACTEURS DE RISQUE\"}]. Preserve exact 4-column grid and 4 rows."
 }

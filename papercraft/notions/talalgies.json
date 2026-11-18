@@ -1,0 +1,101 @@
+{
+  "id": "talalgies",
+  "parts": [
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p1-1.webp",
+        "caption": "Douleur du talon",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p1-2.webp",
+        "caption": "Os, tendons, ligaments et nerfs",
+        "after": 4
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p2-1.webp",
+        "caption": "Différentes causes de talalgie",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p2-2.webp",
+        "caption": "Facteurs de surcharge",
+        "after": 2
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p3-1.webp",
+        "caption": "Fascia, tendon d’Achille et bourse",
+        "after": 2
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p3-2.webp",
+        "caption": "Nerf comprimé, os et conflit",
+        "after": 5
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p4-1.webp",
+        "caption": "Douleur à l’appui et raideur",
+        "after": 3
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p4-2.webp",
+        "caption": "Boiterie et irradiation plantaire",
+        "after": 6
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p5-1.webp",
+        "caption": "Interrogatoire et palpation",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p5-2.webp",
+        "caption": "Tests et imagerie selon la cause",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p6-1.webp",
+        "caption": "Décharge et traitement conservateur",
+        "after": 4
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p6-2.webp",
+        "caption": "Prise en charge spécialisée si nécessaire",
+        "after": 9
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p7-1.webp",
+        "caption": "Évolution souvent favorable",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p7-2.webp",
+        "caption": "Récupération selon la cause",
+        "after": 3
+      }
+    ],
+    [
+      {
+        "src": "jeu/theatre/notions/talalgies/p8-1.webp",
+        "caption": "Chaussures ajustées et soutien",
+        "after": 1
+      },
+      {
+        "src": "jeu/theatre/notions/talalgies/p8-2.webp",
+        "caption": "Gérer les facteurs de risque",
+        "after": 3
+      }
+    ]
+  ]
+}
