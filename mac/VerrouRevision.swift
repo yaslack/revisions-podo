@@ -60,6 +60,7 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
 
     func webView(_ page: String) -> WKWebView {
         let c = WKWebViewConfiguration()
+        c.mediaTypesRequiringUserActionForPlayback = []   // la musique du début joue sans clic
         c.userContentController.add(self, name: "verrou")
         c.userContentController.addUserScript(WKUserScript(source: "window.CFG = \(D.string(forKey: "cfg") ?? "{}"); window.MEM = \(D.string(forKey: "mem") ?? "{}");", injectionTime: .atDocumentStart, forMainFrameOnly: true))
         let w = WKWebView(frame: .zero, configuration: c)

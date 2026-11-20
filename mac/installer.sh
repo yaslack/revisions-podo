@@ -6,7 +6,7 @@ APP=~/Applications/VerrouRevision.app
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 swiftc -O VerrouRevision.swift -o "$APP/Contents/MacOS/VerrouRevision"
 R="$APP/Contents/Resources/site"; rm -rf "$APP/Contents/Resources"; mkdir -p "$R/mac" "$R/data"
-cp -R ../fonts ../style.css "$R/"; cp verrou.html "$R/mac/"
+cp -R ../fonts ../style.css ../musique.js "$R/"; cp verrou.html "$R/mac/"
 cp ../data/quiz.js ../data/pedi.js ../data/podo.js ../data/anat.js ../data/loges.js "$R/data/"
 cat > "$APP/Contents/Info.plist" <<P
 <?xml version="1.0" encoding="UTF-8"?>

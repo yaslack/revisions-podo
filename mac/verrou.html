@@ -9,6 +9,7 @@
 <script src="../data/anat.js"></script>
 <script src="../data/quiz.js"></script>
 <script src="../data/loges.js"></script>
+<script src="../musique.js"></script>
 <style>
   body { padding: 0; user-select: none; -webkit-user-select: none; cursor: default; }
   .wrap { max-width: 820px; padding-top: 40px; }
@@ -161,6 +162,7 @@ function choix() {
       <details ${g.k === 'types' ? 'open' : ''}><summary>Choisir dans la liste</summary><div class="checks">${g.it.map(([k, t]) => `<button class="ck" data-tog="${k}"><span class="box"></span><span>${esc(t)}</span></button>`).join('')}</div></details></div>`).join('')}
     <h2>Questions par série</h2>${seg('count', [5, 10, 15, 20], 'questions')}
     <h2>Une série toutes les</h2>${seg('interval', [30, 45, 60, 90, 120], 'min')}
+    <div class="checks one"><button class="ck" data-tog="son:debut"><span class="box"></span><span>Une petite musique quand la série commence</span></button></div>
     <div class="sum"><button class="btn wide" id="ok">C'est bon</button></div></div>`;
   sync();
 }
@@ -171,6 +173,7 @@ function sync() {
     const h = el.querySelector('.gh'); h.classList.toggle('on', n > 0); h.classList.toggle('part', n > 0 && n < bs.length);
     el.querySelector('.gn').textContent = `${n}/${bs.length}`;
   });
+  document.querySelectorAll('.wrap > .checks [data-tog]').forEach(b => b.classList.toggle('on', on(b.dataset.tog)));
   document.querySelectorAll('[data-set]').forEach(b => b.classList.toggle('on', CFG[b.dataset.set] === +b.dataset.v));
   const P = pool(), n = P.length, ok = $('#ok'), c = { su: 0, cours: 0, new: 0 };
   P.forEach(it => c[state(it)]++);
@@ -199,8 +202,20 @@ app.addEventListener('click', e => {
 
 // --- la série : on ne sort qu'en ayant tout juste ; une ratée revient à la fin ---
 let L;
+// le début du thème « Podo Quest » (musique.js, le synthé du site), 9 s puis fondu
+function jingle() {
+  if (!on('son:debut') || !window.MUSIQUE) return;
+  try {
+    const ctx = new AudioContext(), [l, r] = MUSIQUE.render('combat', 22050), b = ctx.createBuffer(2, l.length, 22050);
+    b.getChannelData(0).set(l); b.getChannelData(1).set(r);
+    const src = ctx.createBufferSource(), g = ctx.createGain(), t = ctx.currentTime;
+    g.gain.setValueAtTime(.5, t); g.gain.setValueAtTime(.5, t + 7); g.gain.linearRampToValueAtTime(0, t + 9);
+    src.buffer = b; src.connect(g).connect(ctx.destination); src.start(); src.stop(t + 9.1);
+  } catch (e) {}
+}
 function lock() {
   const p = pool(); if (!p.length) return send({ done: 1 });
+  setTimeout(jingle, 300);   // l'écran d'abord, la musique ensuite (1 s de calcul)
   L = { queue: pickSeries(p, CFG.count), ok: 0, seen: {} }; L.total = L.queue.length;
   draw();
 }
