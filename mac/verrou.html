@@ -34,6 +34,12 @@
   .typed { display: grid; gap: 10px; margin-top: 14px; }
   .typed input { font: 600 24px var(--hand); padding: 12px 16px; border: 2.5px solid var(--ink); border-radius: 12px 10px 13px 11px; background: #fff; color: var(--ink); }
   .typed .btn { justify-self: start; }
+  .ac { display: grid; gap: 6px; }
+  .ac input { width: 100%; }
+  #sug { max-height: 34vh; overflow-y: auto; display: grid; gap: 4px; padding: 4px; border: 2px dashed rgba(37,35,45,.3); border-radius: 12px; background: var(--card); }
+  #sug:empty { display: none; }
+  #sug button { text-align: left; font-size: 20px; line-height: 1.2; padding: 6px 12px; border: 0; border-radius: 8px; background: none; }
+  #sug button.on, #sug button:hover { background: var(--hl); }
 </style>
 </head>
 <body>
@@ -74,7 +80,7 @@ const LISTS = { name: uniq(AQ.map(x => x.name)), o: uniq(MUS.map(x => x.o)), t: 
 const anatQ = x => {
   const ask = {
     how: [`On palpe quoi ? ${x.how}`, 'name', x.name],
-    ins: x.ins && [`Quel os ? Ce qui s'y insère : ${x.ins}`, 'name', x.name],
+    ins: x.ins && !norm(x.ins).includes(norm(x.name).split(' ').pop()) && [`Quel os ? Ce qui s'y insère : ${x.ins}`, 'name', x.name],
     ot: x.o && [`Quel muscle ? Origine : ${x.o} · Terminaison : ${x.t}`, 'name', x.name],
     o: x.o && [`Origine de : **${x.name}** ?`, 'o', x.o],
     t: x.t && [`Terminaison de : **${x.name}** ?`, 't', x.t],
@@ -124,6 +130,7 @@ app.addEventListener('click', e => {
   else if (d.j != null) pick(+d.j);
   else if (t.id === 'next') draw();
   else if (t.id === 'val') answerTyped();
+  else if (d.sug) { $('#ans').value = d.sug; answerTyped(); }
   else if (t.id === 'urg') urgence(t);
 });
 
@@ -139,7 +146,7 @@ function draw() {
     app.innerHTML = `<div class="wrap lock done"><h1>Série finie !</h1><p class="question">${L.total} sur ${L.total}. Bon retour sur ton Mac.</p></div>`;
     return setTimeout(() => send({ done: 1 }), 1400);
   }
-  const c = L.queue[0]; L.cur = Object.assign({ c }, c.mk()); L.pick = null; L.typed = ''; render(); const i = $('#ans'); if (i) i.focus();
+  const c = L.queue[0]; L.cur = Object.assign({ c }, c.mk()); L.pick = null; L.typed = ''; sugI = 0; render(); const i = $('#ans'); if (i) { i.focus(); suggest(); }
 }
 function render() {
   const s = L.cur, picked = L.pick != null;
@@ -147,8 +154,7 @@ function render() {
     <div class="top2"><span class="qpart" style="--c:${s.c.c}">${esc(s.c.lab)}</span><span class="marker">${L.ok} / ${L.total}</span></div>
     <div class="prog"><i style="width:${100 * L.ok / L.total}%"></i></div>
     <div class="card"><div class="question">${md(s.q)}</div>
-    ${s.list ? `<div class="typed">${picked ? '' : '<input id="ans" list="dl" placeholder="Écris ta réponse…" autocomplete="off">'}
-      <datalist id="dl">${LISTS[s.list].map(v => `<option value="${esc(v)}">`).join('')}</datalist>
+    ${s.list ? `<div class="typed">${picked ? '' : '<div class="ac"><input id="ans" placeholder="Écris ta réponse…" autocomplete="off" spellcheck="false"><div id="sug"></div></div>'}
       ${picked ? `<div class="opt ${L.good ? 'good' : 'bad'}">${esc(L.typed)}</div>${L.good ? '' : `<div class="opt good">${md(s.ok)}</div>`}` : '<button class="btn" id="val">Valider (Entrée)</button>'}</div>` : ''}
     ${s.list ? '' : `<div class="opts">${s.opts.map((o, j) => `<button class="opt ${picked ? (o === s.ok ? 'good' : j === L.pick ? 'bad' : 'dim') : ''}" data-j="${j}" ${picked ? 'disabled' : ''}>${picked ? '' : `<kbd>${j + 1}</kbd>`}<span>${md(o)}</span></button>`).join('')}</div>`}</div>
     ${picked && !L.good ? `<div class="btns"><button class="btn wide" id="next">Compris, elle reviendra (Entrée)</button></div>` : ''}
@@ -161,10 +167,26 @@ function pick(j) {
   if (L.good) { L.ok++; render(); setTimeout(draw, 700); }
   else { L.queue.push(c); render(); }
 }
+// autocomplétion maison : toute la liste du type de réponse, filtrée par les mots tapés
+let sugI = 0;
+function suggest() {
+  const i = $('#ans'), box = $('#sug'); if (!i) return;
+  const w = norm(i.value).split(' ').filter(Boolean);
+  const t = norm(i.value), hits = LISTS[L.cur.list].filter(v => w.every(x => norm(v).includes(x))).sort((x, y) => (norm(y) === t) - (norm(x) === t));
+  sugI = Math.min(sugI, Math.max(0, hits.length - 1));
+  box.innerHTML = hits.map((v, k) => `<button class="${k === sugI ? 'on' : ''}" data-sug="${esc(v)}">${esc(v)}</button>`).join('');
+  const on = box.children[sugI]; if (on) on.scrollIntoView({ block: 'nearest' });
+}
+document.addEventListener('input', e => { if (e.target.id === 'ans') { sugI = 0; suggest(); } });
 function answerTyped() { const i = $('#ans'); if (!i || !i.value.trim()) return; L.typed = i.value.trim(); pick(0); }
 document.addEventListener('keydown', e => {
   if (!L) return;
-  if (e.target.id === 'ans') { if (e.key === 'Enter') { e.preventDefault(); answerTyped(); } return; }
+  if (e.target.id === 'ans') {
+    const n = $('#sug').children.length;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); sugI = (sugI + (e.key === 'ArrowDown' ? 1 : n - 1)) % Math.max(n, 1); suggest(); }
+    else if (e.key === 'Enter') { e.preventDefault(); const b = $('#sug').children[sugI]; if (b && e.target.value.trim()) e.target.value = b.dataset.sug; answerTyped(); }
+    return;
+  }
   if (L.cur && L.cur.list) { if (e.key === 'Enter' && $('#next')) draw(); return; }
   if (/^[1-9]$/.test(e.key) && L.cur && +e.key <= L.cur.opts.length) pick(+e.key - 1);
   else if (e.key === 'Enter' && $('#next')) draw();
