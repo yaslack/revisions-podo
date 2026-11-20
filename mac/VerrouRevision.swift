@@ -37,8 +37,14 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
         if CommandLine.arguments.contains("--choix") { openChoix() }
     }
 
+    // Le compte à rebours ne tourne que quand on est devant le Mac : en veille, ou sans clavier ni souris
+    // depuis 5 min (la nuit, PC allumé), le temps passé ne compte pas.
+    var lastTick = Date()
     func tick() {
+        let gap = Date().timeIntervalSince(lastTick); lastTick = Date()
         guard !locked else { return }
+        let idle = CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: CGEventType(rawValue: ~0)!)
+        if gap > 60 || idle > 300 { due = due.addingTimeInterval(gap) }   // veille ou absent : on décale
         let left = due.timeIntervalSinceNow
         item.button?.title = " \(max(0, Int(left / 60))) min"
         if left <= 0 { lock() }
