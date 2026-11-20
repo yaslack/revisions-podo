@@ -12,6 +12,7 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
     var item: NSStatusItem!
     var lockWindows: [NSWindow] = []
     var choixWindow: NSWindow?
+    var sound: NSSound?   // gardé tant qu'il joue
     var locked: Bool { !lockWindows.isEmpty }
 
     var cfg: [String: Any] { (try? JSONSerialization.jsonObject(with: Data((D.string(forKey: "cfg") ?? "{}").utf8))) as? [String: Any] ?? [:] }
@@ -111,6 +112,8 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
             lockWindows.append(w)
         }
         lockWindows.first?.makeKey()
+        // le son du début (son-debut.js), sauf si on l'a décoché dans « Mes révisions »
+        if (cfg["off"] as? [String: Any])?["son:debut"] == nil { sound = NSSound(contentsOf: Bundle.main.resourceURL!.appendingPathComponent("debut.wav"), byReference: true); sound?.play() }
         // si on arrive quand même à changer d'app, on revient
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(refocus), name: NSWorkspace.didActivateApplicationNotification, object: nil)
     }
