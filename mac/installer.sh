@@ -5,7 +5,9 @@ cd "$(dirname "$0")"
 APP=~/Applications/VerrouRevision.app
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 swiftc -O VerrouRevision.swift -o "$APP/Contents/MacOS/VerrouRevision"
-cp ../data/quiz.js ../data/pedi.js ../data/podo.js "$APP/Contents/Resources/"
+R="$APP/Contents/Resources/site"; rm -rf "$APP/Contents/Resources"; mkdir -p "$R/mac" "$R/data"
+cp -R ../fonts ../style.css "$R/"; cp verrou.html "$R/mac/"
+cp ../data/quiz.js ../data/pedi.js ../data/podo.js ../data/anat.js ../data/loges.js "$R/data/"
 cat > "$APP/Contents/Info.plist" <<P
 <?xml version="1.0" encoding="UTF-8"?>
 <plist version="1.0"><dict>
@@ -15,7 +17,6 @@ cat > "$APP/Contents/Info.plist" <<P
 <key>LSUIElement</key><true/>
 </dict></plist>
 P
-"$APP/Contents/MacOS/VerrouRevision" --check
 PL=~/Library/LaunchAgents/fr.revisions-podo.verrou.plist
 cat > "$PL" <<P
 <?xml version="1.0" encoding="UTF-8"?>

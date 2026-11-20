@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="fr" data-skin="drawn" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../style.css">
+<script src="../data/pedi.js"></script>
+<script src="../data/podo.js"></script>
+<script src="../data/anat.js"></script>
+<script src="../data/quiz.js"></script>
+<script src="../data/loges.js"></script>
+<style>
+  body { padding: 0; user-select: none; -webkit-user-select: none; cursor: default; }
+  .wrap { max-width: 820px; padding-top: 40px; }
+  .lock { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  .lock .question { font-size: 32px; line-height: 1.2; margin: 6px 0 4px; }
+  .lock .opt { font-size: 24px; padding: 14px 18px; display: flex; gap: 12px; }
+  .lock .opt kbd { font: 400 18px var(--marker); opacity: .5; }
+  .prog { height: 12px; border: 2.5px solid var(--ink); border-radius: 8px; background: var(--card); overflow: hidden; margin-bottom: 26px; }
+  .prog i { display: block; height: 100%; background: var(--p6); transition: width .3s; }
+  .top2 { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .urg { position: fixed; right: 18px; bottom: 14px; background: none; border: 0; font-size: 17px; color: var(--muted); opacity: .6; text-decoration: underline; }
+  .seg { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 18px; }
+  .seg .btn { --c: var(--card); font-size: 17px; padding: 6px 14px; }
+  .seg .btn.on { --c: var(--hl); }
+  h2 { margin: 18px 0 8px; }
+  .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 4px 0 8px; }
+  .gsel .gh .box { border-color: var(--c); }
+  .gsel .gh.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--card)); }
+  .gsel .gh.on .box { background: var(--c); }
+  .gsel .gh.part .box::after { content: '–'; }
+  .sum { padding: 14px 0 30px; }
+  .done { text-align: center; }
+  .typed { display: grid; gap: 10px; margin-top: 14px; }
+  .typed input { font: 600 24px var(--hand); padding: 12px 16px; border: 2.5px solid var(--ink); border-radius: 12px 10px 13px 11px; background: #fff; color: var(--ink); }
+  .typed .btn { justify-self: start; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// Verrou Révision. Deux écrans : #choix (ce qu'on révise) et #lock (la série qui bloque l'écran).
+// Le choix suit la logique du site : off = ce qui est décoché (rien = tout).
+const $ = s => document.querySelector(s), app = $('#app');
+const send = m => window.webkit && webkit.messageHandlers.verrou.postMessage(m);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const rnd = a => a[Math.floor(Math.random() * a.length)];
+
+const CFG = Object.assign({ off: {}, count: 10, interval: 60 }, window.CFG || {});
+const on = k => !CFG.off[k];
+const QZ = window.QUIZ || {}, AQ = window.ANAT_Q || [], MUS = AQ.filter(x => x.nerf);
+const REG = { pied: 'Pied', jambe: 'Jambe', cuisse: 'Cuisse' };
+const RCOL = { pied: 'var(--p5)', jambe: 'var(--p4)', cuisse: 'var(--p1)' };
+const akey = x => `a:${x.reg}:${x.kind === 'os' ? 'os' : 'mus'}`;
+const withQ = fs => (fs || []).filter(f => (QZ[f.id] || []).some(z => (z.q || []).some(s => s.includes(' || '))));
+const PEDI = withQ(window.PEDI), PODO = withQ(window.PODO);
+const GROUPS = [
+  { k: 'pedi', n: 'Pédicurie', c: 'var(--p6)', it: PEDI.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
+  { k: 'podo', n: 'Podologie', c: 'var(--p8)', it: PODO.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
+  { k: 'anat', n: 'Anatomie', c: 'var(--p1)', it: ['pied', 'jambe', 'cuisse'].flatMap(r => [[`a:${r}:os`, `${REG[r]} · les os`], [`a:${r}:mus`, `${REG[r]} · les muscles`]]) },
+];
+
+// --- les questions (comme Survie sur le site) ---
+const ficheQ = (f, s) => { const [q, a] = s.split(' | '), [ok, bad] = a.split(' || '); return { q, ok, opts: shuffle([ok, ...bad.split(' ; ')]) }; };
+// anatomie : on écrit la réponse ; l'autocomplétion propose TOUTES les réponses possibles de ce type (pas d'indice)
+const plain = s => String(s || '').replace(/\*\*/g, '').trim();
+const norm = s => plain(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+const LG = window.LOGES || {}, LGOF = window.LOGE_OF || {};
+const logeOf = x => LGOF[x.q] && LG[LGOF[x.q][0]] ? LG[LGOF[x.q][0]].n : '';
+const uniq = a => [...new Set(a.map(plain).filter(Boolean))].sort((x, y) => x.localeCompare(y, 'fr'));
+const LISTS = { name: uniq(AQ.map(x => x.name)), o: uniq(MUS.map(x => x.o)), t: uniq(MUS.map(x => x.t)), nerf: uniq(MUS.map(x => x.nerf)), loge: uniq(MUS.map(logeOf)), act: uniq(MUS.map(x => x.act)) };
+const anatQ = x => {
+  const ask = {
+    how: [`On palpe quoi ? ${x.how}`, 'name', x.name],
+    ins: x.ins && [`Quel os ? Ce qui s'y insère : ${x.ins}`, 'name', x.name],
+    ot: x.o && [`Quel muscle ? Origine : ${x.o} · Terminaison : ${x.t}`, 'name', x.name],
+    o: x.o && [`Origine de : **${x.name}** ?`, 'o', x.o],
+    t: x.t && [`Terminaison de : **${x.name}** ?`, 't', x.t],
+    nerf: x.nerf && [`Quel nerf innerve : **${x.name}** ?`, 'nerf', x.nerf],
+    loge: logeOf(x) && [`Dans quelle loge est : **${x.name}** ?`, 'loge', logeOf(x)],
+    act: x.act && [`Action de : **${x.name}** ?`, 'act', x.act],
+  };
+  const [q, list, ok] = rnd(Object.values(ask).filter(Boolean));
+  return { q, ok: plain(ok), list };
+};
+const pool = () => [
+  ...[...PEDI, ...PODO].filter(f => on('f:' + f.id)).flatMap(f => QZ[f.id].flatMap(z => (z.q || []).filter(s => s.includes(' || '))
+    .map(s => ({ lab: f.title, c: PODO.includes(f) ? 'var(--p8)' : 'var(--p6)', mk: () => ficheQ(f, s) })))),
+  ...AQ.filter(x => on(akey(x))).map(x => ({ lab: `Anatomie · ${REG[x.reg]}`, c: RCOL[x.reg], mk: () => anatQ(x) })),
+];
+
+// --- écran de choix ---
+function choix() {
+  const seg = (k, vals, unit) => `<div class="seg">${vals.map(v => `<button class="btn ${CFG[k] === v ? 'on' : ''}" data-set="${k}" data-v="${v}">${v} ${unit}</button>`).join('')}</div>`;
+  app.innerHTML = `<div class="wrap"><h1>Tu révises quoi ?</h1>
+    ${GROUPS.map(g => `<div class="gsel" style="--c:${g.c}"><button class="ck gh" data-grp="${g.k}"><span class="box"></span><b>${g.n}</b><span class="muted gn"></span></button>
+      <details><summary>Choisir dans la liste</summary><div class="checks">${g.it.map(([k, t]) => `<button class="ck" data-tog="${k}"><span class="box"></span><span>${esc(t)}</span></button>`).join('')}</div></details></div>`).join('')}
+    <h2>Questions par série</h2>${seg('count', [5, 10, 15, 20], 'questions')}
+    <h2>Une série toutes les</h2>${seg('interval', [30, 45, 60, 90, 120], 'min')}
+    <div class="sum"><button class="btn wide" id="ok">C'est bon</button></div></div>`;
+  sync();
+}
+function sync() {
+  document.querySelectorAll('.gsel').forEach(el => {
+    const bs = [...el.querySelectorAll('[data-tog]')], n = bs.filter(b => on(b.dataset.tog)).length;
+    bs.forEach(b => b.classList.toggle('on', on(b.dataset.tog)));
+    const h = el.querySelector('.gh'); h.classList.toggle('on', n > 0); h.classList.toggle('part', n > 0 && n < bs.length);
+    el.querySelector('.gn').textContent = `${n}/${bs.length}`;
+  });
+  document.querySelectorAll('[data-set]').forEach(b => b.classList.toggle('on', CFG[b.dataset.set] === +b.dataset.v));
+  const n = pool().length, ok = $('#ok');
+  ok.disabled = !n; ok.textContent = n ? `C'est bon · ${n} questions possibles` : 'Coche au moins une chose';
+  send({ save: CFG });
+}
+app.addEventListener('click', e => {
+  const t = e.target.closest('button'); if (!t) return;
+  const d = t.dataset;
+  if (d.tog) { if (CFG.off[d.tog]) delete CFG.off[d.tog]; else CFG.off[d.tog] = 1; sync(); }
+  else if (d.grp) { const it = GROUPS.find(g => g.k === d.grp).it, all = it.every(x => on(x[0])); it.forEach(x => { if (all) CFG.off[x[0]] = 1; else delete CFG.off[x[0]]; }); sync(); }
+  else if (d.set) { CFG[d.set] = +d.v; sync(); }
+  else if (t.id === 'ok') send({ close: 1 });
+  else if (d.j != null) pick(+d.j);
+  else if (t.id === 'next') draw();
+  else if (t.id === 'val') answerTyped();
+  else if (t.id === 'urg') urgence(t);
+});
+
+// --- la série : on ne sort qu'en ayant tout juste ; une ratée revient à la fin ---
+let L;
+function lock() {
+  const p = pool(); if (!p.length) return send({ done: 1 });
+  L = { queue: shuffle(p).slice(0, CFG.count), ok: 0 }; L.total = L.queue.length;
+  draw();
+}
+function draw() {
+  if (!L.queue.length) {
+    app.innerHTML = `<div class="wrap lock done"><h1>Série finie !</h1><p class="question">${L.total} sur ${L.total}. Bon retour sur ton Mac.</p></div>`;
+    return setTimeout(() => send({ done: 1 }), 1400);
+  }
+  const c = L.queue[0]; L.cur = Object.assign({ c }, c.mk()); L.pick = null; L.typed = ''; render(); const i = $('#ans'); if (i) i.focus();
+}
+function render() {
+  const s = L.cur, picked = L.pick != null;
+  app.innerHTML = `<div class="wrap lock">
+    <div class="top2"><span class="qpart" style="--c:${s.c.c}">${esc(s.c.lab)}</span><span class="marker">${L.ok} / ${L.total}</span></div>
+    <div class="prog"><i style="width:${100 * L.ok / L.total}%"></i></div>
+    <div class="card"><div class="question">${md(s.q)}</div>
+    ${s.list ? `<div class="typed">${picked ? '' : '<input id="ans" list="dl" placeholder="Écris ta réponse…" autocomplete="off">'}
+      <datalist id="dl">${LISTS[s.list].map(v => `<option value="${esc(v)}">`).join('')}</datalist>
+      ${picked ? `<div class="opt ${L.good ? 'good' : 'bad'}">${esc(L.typed)}</div>${L.good ? '' : `<div class="opt good">${md(s.ok)}</div>`}` : '<button class="btn" id="val">Valider (Entrée)</button>'}</div>` : ''}
+    ${s.list ? '' : `<div class="opts">${s.opts.map((o, j) => `<button class="opt ${picked ? (o === s.ok ? 'good' : j === L.pick ? 'bad' : 'dim') : ''}" data-j="${j}" ${picked ? 'disabled' : ''}>${picked ? '' : `<kbd>${j + 1}</kbd>`}<span>${md(o)}</span></button>`).join('')}</div>`}</div>
+    ${picked && !L.good ? `<div class="btns"><button class="btn wide" id="next">Compris, elle reviendra (Entrée)</button></div>` : ''}
+    <button class="urg" id="urg">Urgence</button></div>`;
+}
+function pick(j) {
+  if (L.pick != null) return;
+  const s = L.cur; L.pick = j; const c = L.queue.shift();
+  L.good = s.list ? norm(L.typed) === norm(s.ok) || norm(L.typed) === norm(s.ok.replace(/\(.*?\)/g, '')) : s.opts[j] === s.ok;
+  if (L.good) { L.ok++; render(); setTimeout(draw, 700); }
+  else { L.queue.push(c); render(); }
+}
+function answerTyped() { const i = $('#ans'); if (!i || !i.value.trim()) return; L.typed = i.value.trim(); pick(0); }
+document.addEventListener('keydown', e => {
+  if (!L) return;
+  if (e.target.id === 'ans') { if (e.key === 'Enter') { e.preventDefault(); answerTyped(); } return; }
+  if (L.cur && L.cur.list) { if (e.key === 'Enter' && $('#next')) draw(); return; }
+  if (/^[1-9]$/.test(e.key) && L.cur && +e.key <= L.cur.opts.length) pick(+e.key - 1);
+  else if (e.key === 'Enter' && $('#next')) draw();
+});
+function urgence(b) {   // soupape : 2 minutes d'attente, et la série revient 10 minutes plus tard
+  if (L.urg) return; L.urg = 1;
+  let s = 120; b.disabled = true;
+  const t = setInterval(() => { s--; const u = $('#urg'); if (u) { u.disabled = true; u.textContent = `Déblocage dans ${s} s`; } if (s <= 0) { clearInterval(t); send({ urgence: 1 }); } }, 1000);
+}
+
+location.hash === '#lock' ? lock() : choix();
+</script>
+</body>
+</html>
