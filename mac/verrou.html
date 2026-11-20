@@ -44,10 +44,6 @@
   .checks.one { grid-template-columns: 1fr; }
   .card .checks .ck { font-size: 20px; }
   .card .btn { margin-top: 10px; }
-  .plan { display: grid; gap: 6px; margin-top: 12px; }
-  .plan .typed { grid-template-columns: auto 1fr; align-items: start; }
-  .plan .typed > b { font: 400 22px var(--marker); padding-top: 12px; }
-  .plan .typed .btn { grid-column: 2; }
   .mem { margin: 10px 0 18px; }
   .mem .bar { display: flex; height: 16px; border: 2.5px solid var(--ink); border-radius: 9px; background: var(--card); overflow: hidden; }
   .mem i.su { background: var(--p6); } .mem i.cours { background: var(--hl); }
@@ -82,7 +78,7 @@ const REG = { pied: 'Pied', jambe: 'Jambe', cuisse: 'Cuisse' };
 const RCOL = { pied: 'var(--p5)', jambe: 'var(--p4)', cuisse: 'var(--p1)' };
 const akey = x => `a:${x.reg}:${x.kind === 'os' ? 'os' : 'mus'}`;
 const PEDI = (window.PEDI || []).filter(f => QZ[f.id]), PODO = (window.PODO || []).filter(f => QZ[f.id]);
-const TYPES = [['t:recite', 'Récite une partie (à voix haute)'], ['t:plan', 'Le plan de la fiche'], ['t:liste', 'Listes à trouver'], ['t:qcm', 'QCM']];
+const TYPES = [['t:recite', 'Récite une partie (à voix haute)'], ['t:liste', 'Listes à trouver'], ['t:qcm', 'QCM']];
 const GROUPS = [
   { k: 'pedi', n: 'Pédicurie', c: 'var(--p6)', it: PEDI.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
   { k: 'podo', n: 'Podologie', c: 'var(--p8)', it: PODO.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
@@ -95,7 +91,7 @@ const LG = window.LOGES || {}, LGOF = window.LOGE_OF || {};
 const logeOf = x => LGOF[x.q] && LG[LGOF[x.q][0]] ? LG[LGOF[x.q][0]].n : '';
 const ALLF = [...PEDI, ...PODO];
 const LISTS = { name: uniq(AQ.map(x => x.name)), o: uniq(MUS.map(x => x.o)), t: uniq(MUS.map(x => x.t)), nerf: uniq(MUS.map(x => x.nerf)),
-  loge: uniq(MUS.map(logeOf)), act: uniq(MUS.map(x => x.act)), part: uniq(ALLF.flatMap(f => f.parts.map(p => p.title))) };
+  loge: uniq(MUS.map(logeOf)), act: uniq(MUS.map(x => x.act)) };
 const anatAsks = x => Object.entries({
   how: [`On palpe quoi ? ${x.how}`, 'name', x.name],
   ins: x.ins && !norm(x.ins).includes(norm(x.name).split(' ').pop()) && [`Quel os ? Ce qui s'y insère : ${x.ins}`, 'name', x.name],
@@ -108,26 +104,19 @@ const anatAsks = x => Object.entries({
 }).filter(e => e[1]);
 
 // --- toutes les questions possibles, chacune avec sa clé de mémorisation ---
-const STD = norm(PEDI[0] ? PEDI[0].parts.map(p => p.title).join('|') : '');
-const isStd = f => norm(f.parts.map(p => p.title).join('|')) === STD;
 function pool() {
   const P = [], fs = ALLF.filter(f => on('f:' + f.id));
   for (const f of fs) {
     const lab = f.title, c = PODO.includes(f) ? 'var(--p8)' : 'var(--p6)';
     QZ[f.id].forEach((z, p) => {
       const part = f.parts[p] ? f.parts[p].title : `Partie ${p + 1}`;
-      if (on('t:recite') && (z.k || []).length) P.push({ key: `r:${f.id}:${p}`, lab, c, long: 1, mk: () => ({ kind: 'recite', q: `Récite à voix haute : **${part}**`, items: z.k }) });
+      if (on('t:recite') && (z.k || []).length) P.push({ key: `r:${f.id}:${p}`, lab, c, long: 1, mk: () => ({ kind: 'recite', q: `${f.title} · récite à voix haute la partie **${p + 1}. ${part}**`, items: z.k }) });
       (z.q || []).forEach((s, i) => {
         const [q, a] = s.split(' | '); if (!a) return;
         if (a.includes(' || ')) { if (on('t:qcm')) { const [ok, bad] = a.split(' || '); P.push({ key: `q:${f.id}:${p}:${i}`, lab, c, mk: () => ({ kind: 'qcm', q, ok, opts: shuffle([ok, ...bad.split(' ; ')]) }) }); } }
         else if (a.includes(' ; ') && on('t:liste')) P.push({ key: `l:${f.id}:${p}:${i}`, lab, c, mk: () => ({ kind: 'liste', q, items: a.split(' ; ') }) });
       });
     });
-  }
-  if (on('t:plan')) {   // le plan classique ne compte qu'une fois ; les plans à part, une fois chacun
-    const std = fs.filter(isStd);
-    if (std.length) P.push({ key: 'p:std', lab: 'Le plan classique', c: 'var(--p3)', long: 1, mk: () => ({ kind: 'plan', q: `Le plan de : **${rnd(std).title}**`, parts: std[0].parts.map(p => p.title) }) });
-    fs.filter(f => !isStd(f)).forEach(f => P.push({ key: `p:${f.id}`, lab: f.title, c: 'var(--p3)', long: 1, mk: () => ({ kind: 'plan', q: `Le plan de : **${f.title}**`, parts: f.parts.map(p => p.title) }) }));
   }
   AQ.filter(x => on(akey(x))).forEach(x => anatAsks(x).forEach(([k, [q, list, ok]]) =>
     P.push({ key: `a:${x.q}:${k}`, lab: `Anatomie · ${REG[x.reg]}`, c: RCOL[x.reg], mk: () => ({ kind: 'typed', q, ok: plain(ok), list }) })));
@@ -142,7 +131,7 @@ function pickSeries(P, n) {   // d'abord ce qui est à revoir (les moins sus d'a
   const out = []; let long = 0;
   for (const it of [...due, ...shuffle(fresh), ...later]) {
     if (out.length >= n) break;
-    if (it.long && long >= 2) continue;   // au plus 2 longues (réciter, plan) par série
+    if (it.long && long >= 2) continue;   // au plus 2 « récite » par série
     long += it.long ? 1 : 0; out.push(it);
   }
   return shuffle(out);
@@ -211,7 +200,7 @@ function draw() {
     app.innerHTML = `<div class="wrap lock done"><h1>Série finie !</h1><p class="question">${L.total} sur ${L.total}. Bon retour sur ton Mac.</p></div>`;
     return setTimeout(() => send({ done: 1 }), 1400);
   }
-  const c = L.queue[0]; L.cur = Object.assign({ c, phase: 0, marks: [], typed: [], step: 0 }, c.mk()); L.done = null; sugI = 0;
+  const c = L.queue[0]; L.cur = Object.assign({ c, phase: 0, marks: [], typed: [] }, c.mk()); L.done = null; sugI = 0;
   render();
 }
 const optsHTML = s => `<div class="opts">${s.opts.map((o, j) => `<button class="opt ${L.done ? (o === s.ok ? 'good' : j === L.pick ? 'bad' : 'dim') : ''}" data-j="${j}" ${L.done ? 'disabled' : ''}>${L.done ? '' : `<kbd>${j + 1}</kbd>`}<span>${md(o)}</span></button>`).join('')}</div>`;
@@ -225,8 +214,6 @@ function body(s) {
     : marksHTML(s.items, 'Coche ce que tu as dit (il en faut 80 %) :');
   if (s.kind === 'liste') return s.phase === 0 ? `<div class="typed"><textarea id="ta" rows="4" placeholder="Une idée par ligne…"></textarea><button class="btn" id="check">Valider (Cmd+Entrée)</button></div>`
     : `<div class="opt">${esc(s.text).replace(/\n/g, '<br>')}</div>` + marksHTML(s.items, 'Ce que tu as trouvé est coché ; corrige si besoin (il en faut 60 %) :');
-  if (s.kind === 'plan') return `<div class="plan">${s.parts.map((p, j) => j < s.step ? `<div class="opt ${norm(s.typed[j]) === norm(p) ? 'good' : 'bad'}">${j + 1}. ${esc(s.typed[j])}${norm(s.typed[j]) === norm(p) ? '' : ` → <b>${esc(p)}</b>`}</div>`
-    : j === s.step && !L.done ? `<div class="typed"><b>${j + 1}.</b>${inputHTML()}</div>` : '').join('')}</div>`;
 }
 function render() {
   const s = L.cur;
@@ -255,17 +242,14 @@ function checkMarks() {
 function answerTyped() {
   const i = $('#ans'); if (!i || !i.value.trim()) return;
   const s = L.cur, v = i.value.trim(), same = (a, b) => norm(a) === norm(b) || norm(a) === norm(b.replace(/\(.*?\)/g, ''));
-  if (s.kind === 'typed') { s.typed = [v]; return finish(same(v, s.ok)); }
-  s.typed[s.step++] = v; sugI = 0;   // plan : partie suivante ; à la fin, il en faut 80 %
-  if (s.step < s.parts.length) return render();
-  finish(s.parts.filter((p, j) => same(s.typed[j], p)).length >= Math.ceil(s.parts.length * 0.8));
+  s.typed = [v]; finish(same(v, s.ok));
 }
 // autocomplétion maison : toute la liste du type de réponse, filtrée par les mots tapés
 let sugI = 0;
 function suggest() {
   const i = $('#ans'), box = $('#sug'); if (!i) return;
   const t = norm(i.value), w = t.split(' ').filter(Boolean);
-  const hits = LISTS[L.cur.kind === 'plan' ? 'part' : L.cur.list].filter(v => w.every(x => norm(v).includes(x))).sort((x, y) => (norm(y) === t) - (norm(x) === t));
+  const hits = LISTS[L.cur.list].filter(v => w.every(x => norm(v).includes(x))).sort((x, y) => (norm(y) === t) - (norm(x) === t));
   sugI = Math.min(sugI, Math.max(0, hits.length - 1));
   box.innerHTML = hits.map((v, k) => `<button class="${k === sugI ? 'on' : ''}" data-sug="${esc(v)}">${esc(v)}</button>`).join('');
   const b = box.children[sugI]; if (b) b.scrollIntoView({ block: 'nearest' });
