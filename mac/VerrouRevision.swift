@@ -47,13 +47,13 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
     func webView(_ page: String) -> WKWebView {
         let c = WKWebViewConfiguration()
         c.userContentController.add(self, name: "verrou")
-        c.userContentController.addUserScript(WKUserScript(source: "window.CFG = \(D.string(forKey: "cfg") ?? "{}");", injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        c.userContentController.addUserScript(WKUserScript(source: "window.CFG = \(D.string(forKey: "cfg") ?? "{}"); window.MEM = \(D.string(forKey: "mem") ?? "{}");", injectionTime: .atDocumentStart, forMainFrameOnly: true))
         let w = WKWebView(frame: .zero, configuration: c)
         w.loadFileURL(URL(string: "mac/verrou.html#\(page)", relativeTo: site)!, allowingReadAccessTo: site)
         return w
     }
 
-    // messages de la page : save (le choix), close, done (série finie), urgence
+    // messages de la page : save (le choix), mem, close, done (série finie), urgence
     func userContentController(_ u: WKUserContentController, didReceive msg: WKScriptMessage) {
         guard let b = msg.body as? [String: Any] else { return }
         if let s = b["save"], let d = try? JSONSerialization.data(withJSONObject: s) {
@@ -61,6 +61,7 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
             D.set(String(data: d, encoding: .utf8), forKey: "cfg")
             if interval != old { due = Date().addingTimeInterval(interval); tick() }
         }
+        if let m = b["mem"], let d = try? JSONSerialization.data(withJSONObject: m) { D.set(String(data: d, encoding: .utf8), forKey: "mem") }   // la mémorisation
         if b["close"] != nil { choixWindow?.close() }
         if b["done"] != nil { unlock(retryIn: interval) }
         if b["urgence"] != nil { unlock(retryIn: 10 * 60) }
