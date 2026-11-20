@@ -35,6 +35,14 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
         Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in self?.tick() }
         tick()
         if CommandLine.arguments.contains("--choix") { openChoix() }
+        // Allumage : une série obligatoire dès l'ouverture de session (Mac démarré il y a moins de 15 min),
+        // et au réveil après au moins 1 h de veille.
+        if ProcessInfo.processInfo.systemUptime < 15 * 60 { DispatchQueue.main.asyncAfter(deadline: .now() + 5) { self.lock() } }
+        let ws = NSWorkspace.shared.notificationCenter
+        ws.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { _ in D.set(Date(), forKey: "sleptAt") }
+        ws.addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { [weak self] _ in
+            if let t = D.object(forKey: "sleptAt") as? Date, Date().timeIntervalSince(t) > 3600 { DispatchQueue.main.asyncAfter(deadline: .now() + 3) { self?.lock() } }
+        }
     }
 
     // Le compte à rebours ne tourne que quand on est devant le Mac : en veille, ou sans clavier ni souris
@@ -113,7 +121,7 @@ final class App: NSObject, NSApplicationDelegate, WKScriptMessageHandler {
 
     func unlock(retryIn: Double) {
         guard locked else { return }
-        NSWorkspace.shared.notificationCenter.removeObserver(self)
+        NSWorkspace.shared.notificationCenter.removeObserver(self, name: NSWorkspace.didActivateApplicationNotification, object: nil)
         lockWindows.forEach { $0.orderOut(nil) }; lockWindows = []
         NSApp.presentationOptions = []
         NSApp.setActivationPolicy(.accessory)
