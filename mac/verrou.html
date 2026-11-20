@@ -80,7 +80,7 @@ const REG = { pied: 'Pied', jambe: 'Jambe', cuisse: 'Cuisse' };
 const RCOL = { pied: 'var(--p5)', jambe: 'var(--p4)', cuisse: 'var(--p1)' };
 const akey = x => `a:${x.reg}:${x.kind === 'os' ? 'os' : 'mus'}`;
 const PEDI = (window.PEDI || []).filter(f => QZ[f.id]), PODO = (window.PODO || []).filter(f => QZ[f.id]);
-const TYPES = [['t:recite', 'Récite une partie (à voix haute)'], ['t:liste', 'Listes à trouver'], ['t:qcm', 'QCM']];
+const TYPES = [['t:recite', 'Récite une partie (à voix haute)'], ['t:plan', 'Le plan des fiches à part'], ['t:liste', 'Listes à trouver'], ['t:qcm', 'QCM']];
 const GROUPS = [
   { k: 'pedi', n: 'Pédicurie', c: 'var(--p6)', it: PEDI.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
   { k: 'podo', n: 'Podologie', c: 'var(--p8)', it: PODO.map(f => ['f:' + f.id, `${f.n}. ${f.title}`]) },
@@ -106,10 +106,15 @@ const anatAsks = x => Object.entries({
 }).filter(e => e[1]);
 
 // --- toutes les questions possibles, chacune avec sa clé de mémorisation ---
+const STDPLAN = PEDI[0] ? PEDI[0].parts.map(x => x.title).join('|') : '';
 function pool() {
   const P = [], fs = ALLF.filter(f => on('f:' + f.id));
   for (const f of fs) {
     const lab = f.title, c = PODO.includes(f) ? 'var(--p8)' : 'var(--p6)';
+    // le plan, seulement pour les fiches qui n'ont pas le plan classique : on cite les parties, dans n'importe quel ordre
+    const parts = f.parts.map(x => x.title).filter(t => !/^introduction/i.test(t));
+    if (on('t:plan') && f.parts.map(x => x.title).join('|') !== STDPLAN)
+      P.push({ key: `p:${f.id}`, lab, c, mk: () => ({ kind: 'liste', q: `${f.title} · quelles sont les grandes parties de la fiche ? (sans l'intro, dans n'importe quel ordre)`, items: parts }) });
     QZ[f.id].forEach((z, p) => {
       const part = f.parts[p] ? f.parts[p].title : `Partie ${p + 1}`, say = f.parts[p] && f.parts[p].say && { part: `${p + 1}. ${part}`, text: f.parts[p].say };
       if (on('t:recite') && (z.k || []).length) P.push({ key: `r:${f.id}:${p}`, lab, c, long: 1, say, mk: () => ({ kind: 'recite', q: `${f.title} · récite à voix haute la partie **${p + 1}. ${part}**`, items: z.k }) });
